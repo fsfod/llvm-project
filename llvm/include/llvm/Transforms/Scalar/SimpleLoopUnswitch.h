@@ -12,6 +12,7 @@
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Scalar/LoopPassManager.h"
 
 namespace llvm {

@@ -16,6 +16,7 @@
 
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 

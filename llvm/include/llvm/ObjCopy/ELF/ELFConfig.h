@@ -11,6 +11,7 @@
 
 #include "llvm/ObjCopy/CommonConfig.h"
 #include "llvm/Object/ELFTypes.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace objcopy {

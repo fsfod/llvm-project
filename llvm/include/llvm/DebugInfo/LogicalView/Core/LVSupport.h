@@ -16,6 +16,7 @@
 #include "llvm/ADT/SmallBitVector.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/DebugInfo/LogicalView/Core/LVStringPool.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Format.h"
 #include "llvm/Support/Path.h"

@@ -17,6 +17,7 @@
 
 #include "llvm/Object/OffloadBinary.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/YAMLTraits.h"
 #include <optional>
 

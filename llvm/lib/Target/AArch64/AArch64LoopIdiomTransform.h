@@ -10,6 +10,7 @@
 #define LLVM_LIB_TARGET_AARCH64_AARCH64LOOPIDIOMTRANSFORM_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Scalar/LoopPassManager.h"
 
 namespace llvm {

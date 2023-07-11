@@ -15,6 +15,7 @@
 #define LLVM_EXECUTIONENGINE_MCJIT_H
 
 #include "llvm/ExecutionEngine/ExecutionEngine.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdlib>
 
 extern "C" LLVM_C_ABI void LLVMLinkInMCJIT();

@@ -19,6 +19,7 @@
 #ifndef LLVM_EXECUTIONENGINE_OPROFILEWRAPPER_H
 #define LLVM_EXECUTIONENGINE_OPROFILEWRAPPER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataTypes.h"
 #include <opagent.h>
 

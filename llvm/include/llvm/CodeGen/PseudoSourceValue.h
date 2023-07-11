@@ -13,6 +13,8 @@
 #ifndef LLVM_CODEGEN_PSEUDOSOURCEVALUE_H
 #define LLVM_CODEGEN_PSEUDOSOURCEVALUE_H
 
+#include "llvm/Support/Compiler.h"
+
 namespace llvm {
 
 class GlobalValue;

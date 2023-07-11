@@ -13,6 +13,7 @@
 #include "llvm/BinaryFormat/XCOFF.h"
 #include "llvm/MC/MCDisassembler/MCSymbolizer.h"
 #include "llvm/Support/Error.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <memory>
 #include <vector>

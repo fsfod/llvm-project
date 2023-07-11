@@ -26,6 +26,7 @@
 #include "llvm/CodeGen/MachineFunction.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/PassManagerInternal.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {

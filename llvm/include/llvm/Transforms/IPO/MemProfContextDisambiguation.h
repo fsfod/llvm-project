@@ -18,6 +18,7 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 
 namespace llvm {

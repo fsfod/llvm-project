@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/IR/TrackingMDRef.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SMLoc.h"
 #include <map>
 #include <utility>

@@ -18,6 +18,7 @@
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/ProfileData/SampleProf.h"
+#include "llvm/Support/Compiler.h"
 #include <unordered_map>
 
 namespace llvm {

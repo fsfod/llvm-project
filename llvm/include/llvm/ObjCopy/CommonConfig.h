@@ -17,6 +17,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Object/ELFTypes.h"
 #include "llvm/Support/Compression.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GlobPattern.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Support/Regex.h"

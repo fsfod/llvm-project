@@ -15,6 +15,7 @@
 #define LLVM_CODEGEN_MACROFUSION_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {

@@ -23,6 +23,7 @@
 #include "llvm/Analysis/DomTreeUpdater.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 #include <utility>
 

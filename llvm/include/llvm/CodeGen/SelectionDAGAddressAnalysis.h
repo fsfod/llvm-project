@@ -11,6 +11,7 @@
 
 #include "llvm/Analysis/MemoryLocation.h"
 #include "llvm/CodeGen/SelectionDAGNodes.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {

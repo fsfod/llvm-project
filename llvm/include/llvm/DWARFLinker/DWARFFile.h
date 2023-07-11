@@ -12,6 +12,7 @@
 #include "AddressesMap.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/DebugInfo/DWARF/DWARFContext.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 #include <memory>
 

@@ -13,6 +13,8 @@
 #ifndef LLVM_TABLEGEN_PARSER_H
 #define LLVM_TABLEGEN_PARSER_H
 
+#include "llvm/Support/Compiler.h"
+
 namespace llvm {
 class RecordKeeper;
 class SourceMgr;

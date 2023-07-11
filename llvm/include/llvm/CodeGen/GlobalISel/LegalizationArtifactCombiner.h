@@ -27,6 +27,7 @@
 #include "llvm/CodeGen/TargetOpcodes.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DebugInfoMetadata.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 
 #define DEBUG_TYPE "legalizer"

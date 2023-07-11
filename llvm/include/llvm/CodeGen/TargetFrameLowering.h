@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/BitVector.h"
 #include "llvm/CodeGen/MachineBasicBlock.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/TypeSize.h"
 #include <vector>
 

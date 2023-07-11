@@ -15,6 +15,7 @@
 
 #include "llvm/BinaryFormat/COFF.h"
 #include "llvm/TargetParser/Triple.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
