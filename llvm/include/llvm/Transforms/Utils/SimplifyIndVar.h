@@ -16,6 +16,7 @@
 #define LLVM_TRANSFORMS_UTILS_SIMPLIFYINDVAR_H
 
 #include <utility>
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 

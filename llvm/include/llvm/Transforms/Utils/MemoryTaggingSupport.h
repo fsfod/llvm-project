@@ -19,6 +19,7 @@
 #include "llvm/Analysis/StackSafetyAnalysis.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class DominatorTree;

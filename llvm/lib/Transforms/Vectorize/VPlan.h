@@ -41,6 +41,7 @@
 #include "llvm/IR/DebugLoc.h"
 #include "llvm/IR/FMF.h"
 #include "llvm/IR/Operator.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <cstddef>

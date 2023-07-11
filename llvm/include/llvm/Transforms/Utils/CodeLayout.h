@@ -15,6 +15,7 @@
 #define LLVM_TRANSFORMS_UTILS_CODELAYOUT_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/Support/Compiler.h"
 
 #include <utility>
 #include <vector>

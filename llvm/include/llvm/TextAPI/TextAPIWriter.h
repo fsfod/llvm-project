@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/StringSwitch.h"
 #include "llvm/TextAPI/InterfaceFile.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 

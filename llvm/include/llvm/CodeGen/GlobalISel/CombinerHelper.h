@@ -23,6 +23,7 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/CodeGenTypes/LowLevelType.h"
 #include "llvm/IR/InstrTypes.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 
 namespace llvm {

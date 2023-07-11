@@ -25,6 +25,7 @@
 
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include <queue>
 
