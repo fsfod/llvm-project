@@ -43,12 +43,12 @@
 #endif
 namespace llvm {
 #if LLVM_ENABLE_ABI_BREAKING_CHECKS
-extern int EnableABIBreakingChecks;
+LLVM_ABI extern int EnableABIBreakingChecks;
 LLVM_HIDDEN_VISIBILITY
 __attribute__((weak)) int *VerifyEnableABIBreakingChecks =
     &EnableABIBreakingChecks;
 #else
-extern int DisableABIBreakingChecks;
+LLVM_ABI extern int DisableABIBreakingChecks;
 LLVM_HIDDEN_VISIBILITY
 __attribute__((weak)) int *VerifyDisableABIBreakingChecks =
     &DisableABIBreakingChecks;
