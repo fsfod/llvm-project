@@ -88,23 +88,23 @@ public:
   /// \returns a wildcard regular expression string that matches any value in
   /// the format represented by this instance and no other value, or an error
   /// if the format is NoFormat.
-  Expected<std::string> getWildcardRegex() const;
+  LLVM_FUNC_ABI Expected<std::string> getWildcardRegex() const;
 
   /// \returns the string representation of \p Value in the format represented
   /// by this instance, or an error if conversion to this format failed or the
   /// format is NoFormat.
-  Expected<std::string> getMatchingString(APInt Value) const;
+  LLVM_FUNC_ABI Expected<std::string> getMatchingString(APInt Value) const;
 
   /// \returns the value corresponding to string representation \p StrVal
   /// according to the matching format represented by this instance.
-  APInt valueFromStringRepr(StringRef StrVal, const SourceMgr &SM) const;
+  LLVM_FUNC_ABI APInt valueFromStringRepr(StringRef StrVal, const SourceMgr &SM) const;
 };
 
 /// Class to represent an overflow error that might result when manipulating a
 /// value.
 class OverflowError : public ErrorInfo<OverflowError> {
 public:
-  static char ID;
+  LLVM_FUNC_ABI static char ID;
 
   std::error_code convertToErrorCode() const override {
     return std::make_error_code(std::errc::value_too_large);
@@ -115,12 +115,12 @@ public:
 
 /// Performs operation and \returns its result or an error in case of failure,
 /// such as if an overflow occurs.
-Expected<APInt> exprAdd(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprSub(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprMul(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprDiv(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprMax(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprMin(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_FUNC_ABI Expected<APInt> exprAdd(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_FUNC_ABI Expected<APInt> exprSub(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_FUNC_ABI Expected<APInt> exprMul(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_FUNC_ABI Expected<APInt> exprDiv(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_FUNC_ABI Expected<APInt> exprMax(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_FUNC_ABI Expected<APInt> exprMin(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
 
 /// Base class representing the AST of a given expression.
 class ExpressionAST {
@@ -164,7 +164,7 @@ public:
 
 /// Class to represent an undefined variable error, which quotes that
 /// variable's name when printed.
-class UndefVarError : public ErrorInfo<UndefVarError> {
+class LLVM_CLASS_ABI UndefVarError : public ErrorInfo<UndefVarError> {
 private:
   StringRef VarName;
 
@@ -277,7 +277,7 @@ public:
 
 /// Class representing the use of a numeric variable in the AST of an
 /// expression.
-class NumericVariableUse : public ExpressionAST {
+class LLVM_CLASS_ABI NumericVariableUse : public ExpressionAST {
 private:
   /// Pointer to the class instance for the variable this use is about.
   NumericVariable *Variable;
@@ -299,7 +299,7 @@ public:
 using binop_eval_t = Expected<APInt> (*)(const APInt &, const APInt &, bool &);
 
 /// Class representing a single binary operation in the AST of an expression.
-class BinaryOperation : public ExpressionAST {
+class LLVM_CLASS_ABI BinaryOperation : public ExpressionAST {
 private:
   /// Left operand.
   std::unique_ptr<ExpressionAST> LeftOperand;
@@ -371,7 +371,7 @@ public:
   virtual Expected<std::string> getResult() const = 0;
 };
 
-LLVM_CLASS_ABI class StringSubstitution : public Substitution {
+class LLVM_CLASS_ABI StringSubstitution : public Substitution {
 public:
   StringSubstitution(FileCheckPatternContext *Context, StringRef VarName,
                      size_t InsertIdx)
@@ -382,7 +382,7 @@ public:
   LLVM_FUNC_ABI Expected<std::string> getResult() const override;
 };
 
-LLVM_CLASS_ABI class NumericSubstitution : public Substitution {
+class LLVM_CLASS_ABI NumericSubstitution : public Substitution {
 private:
   /// Pointer to the class representing the expression whose value is to be
   /// substituted.
@@ -490,7 +490,7 @@ private:
   SMRange Range;
 
 public:
-  static char ID;
+  LLVM_FUNC_ABI static char ID;
 
   ErrorDiagnostic(SMDiagnostic &&Diag, SMRange Range)
       : Diagnostic(Diag), Range(Range) {}
@@ -520,7 +520,7 @@ public:
 
 class NotFoundError : public ErrorInfo<NotFoundError> {
 public:
-  static char ID;
+  LLVM_FUNC_ABI static char ID;
 
   std::error_code convertToErrorCode() const override {
     return inconvertibleErrorCode();
@@ -644,7 +644,7 @@ public:
   FileCheckPatternContext *getContext() const { return Context; }
 
   /// \returns whether \p C is a valid first character for a variable name.
-  static bool isValidVarNameStart(char C);
+  LLVM_FUNC_ABI static bool isValidVarNameStart(char C);
 
   /// Parsing information about a variable.
   struct VariableProperties {
@@ -657,7 +657,7 @@ public:
   /// is the name of a pseudo variable, or an error holding a diagnostic
   /// against \p SM if parsing fail. If parsing was successful, also strips
   /// \p Str from the variable name.
-  static Expected<VariableProperties> parseVariable(StringRef &Str,
+  LLVM_FUNC_ABI static Expected<VariableProperties> parseVariable(StringRef &Str,
                                                     const SourceMgr &SM);
   /// Parses \p Expr for a numeric substitution block at line \p LineNumber,
   /// or before input is parsed if \p LineNumber is None. Parameter
