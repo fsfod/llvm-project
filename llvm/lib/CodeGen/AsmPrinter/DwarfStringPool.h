@@ -23,7 +23,7 @@ class MCSymbol;
 // Collection of strings for this unit and assorted symbols.
 // A String->Symbol mapping of strings used by indirect
 // references.
-class DwarfStringPool {
+class LLVM_CLASS_ABI DwarfStringPool {
   using EntryTy = DwarfStringPoolEntry;
 
   StringMap<EntryTy, BumpPtrAllocator &> Pool;
