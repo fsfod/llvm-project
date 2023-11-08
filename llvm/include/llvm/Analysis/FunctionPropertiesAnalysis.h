@@ -20,6 +20,7 @@
 #include "llvm/Support/Compiler.h"
 
 namespace llvm {
+
 class DominatorTree;
 class Function;
 class LoopInfo;
