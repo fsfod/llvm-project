@@ -77,6 +77,7 @@ class Interpreter {
   std::unique_ptr<llvm::orc::ThreadSafeContext> TSCtx;
   std::unique_ptr<IncrementalParser> IncrParser;
   std::unique_ptr<IncrementalExecutor> IncrExecutor;
+  std::string OrcRuntimePath;
 
   // An optional parser for CUDA offloading
   std::unique_ptr<IncrementalParser> DeviceParser;
@@ -94,7 +95,8 @@ class Interpreter {
 public:
   ~Interpreter();
   static llvm::Expected<std::unique_ptr<Interpreter>>
-  create(std::unique_ptr<CompilerInstance> CI);
+  create(std::unique_ptr<CompilerInstance> CI,
+         const std::string &OrcRuntimePath = "");
   static llvm::Expected<std::unique_ptr<Interpreter>>
   createWithCUDA(std::unique_ptr<CompilerInstance> CI,
                  std::unique_ptr<CompilerInstance> DCI);

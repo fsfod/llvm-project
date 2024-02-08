@@ -25,6 +25,7 @@ class Error;
 namespace orc {
 class LLJIT;
 class ThreadSafeContext;
+class LLJITBuilder;
 } // namespace orc
 } // namespace llvm
 
@@ -44,10 +45,13 @@ class IncrementalExecutor {
 public:
   enum SymbolNameKind { IRName, LinkerName };
 
-  IncrementalExecutor(llvm::orc::ThreadSafeContext &TSC, llvm::Error &Err,
-                      const clang::TargetInfo &TI);
+  IncrementalExecutor(llvm::orc::LLJITBuilder &Builder,
+                      llvm::orc::ThreadSafeContext &TSC, llvm::Error &Err);
   ~IncrementalExecutor();
 
+  static void SetupJITBuilder(llvm::orc::LLJITBuilder& Builder, 
+                              const clang::TargetInfo &TI, 
+                              const std::string &OrcRuntimePath = std::string());
   llvm::Error addModule(PartialTranslationUnit &PTU);
   llvm::Error removeModule(PartialTranslationUnit &PTU);
   llvm::Error runCtors() const;

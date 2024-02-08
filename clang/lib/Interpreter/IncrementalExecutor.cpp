@@ -36,24 +36,11 @@ LLVM_ATTRIBUTE_USED void linkComponents() {
 
 namespace clang {
 
-IncrementalExecutor::IncrementalExecutor(llvm::orc::ThreadSafeContext &TSC,
-                                         llvm::Error &Err,
-                                         const clang::TargetInfo &TI)
-    : TSCtx(TSC) {
-  using namespace llvm::orc;
+IncrementalExecutor::IncrementalExecutor(
+  llvm::orc::LLJITBuilder &Builder, 
+  llvm::orc::ThreadSafeContext &TSC, llvm::Error &Err)
+  : TSCtx(TSC) {
   llvm::ErrorAsOutParameter EAO(&Err);
-
-  auto JTMB = JITTargetMachineBuilder(TI.getTriple());
-  JTMB.addFeatures(TI.getTargetOpts().Features);
-  LLJITBuilder Builder;
-  Builder.setJITTargetMachineBuilder(JTMB);
-  Builder.setPrePlatformSetup(
-      [](LLJIT &J) {
-        // Try to enable debugging of JIT'd code (only works with JITLink for
-        // ELF and MachO).
-        consumeError(enableDebuggerSupport(J));
-        return llvm::Error::success();
-      });
 
   if (auto JitOrErr = Builder.create())
     Jit = std::move(*JitOrErr);
@@ -64,6 +51,30 @@ IncrementalExecutor::IncrementalExecutor(llvm::orc::ThreadSafeContext &TSC,
 }
 
 IncrementalExecutor::~IncrementalExecutor() {}
+
+void IncrementalExecutor::SetupJITBuilder(llvm::orc::LLJITBuilder& Builder,
+  const clang::TargetInfo &TI, const std::string &OrcRuntimePath) {
+  using namespace llvm::orc;
+
+  auto JTMB = JITTargetMachineBuilder(TI.getTriple());
+  JTMB.addFeatures(TI.getTargetOpts().Features);
+  Builder.setJITTargetMachineBuilder(JTMB);
+  Builder.setPrePlatformSetup([](LLJIT &J) {
+    // Try to enable debugging of JIT'd code (only works with JITLink for
+    // ELF and MachO).
+    consumeError(enableDebuggerSupport(J));
+    return llvm::Error::success();
+  });
+  Builder.setObjectLinkingLayerCreator(
+    [](ExecutionSession &ES, const llvm::Triple &TT)
+    -> llvm::Expected<std::unique_ptr<ObjectLayer>> {
+    return std::make_unique<ObjectLinkingLayer>(
+      ES, ES.getExecutorProcessControl().getMemMgr());
+  });
+  if (!OrcRuntimePath.empty()) {
+    Builder.setPlatformSetUp(ExecutorNativePlatform(OrcRuntimePath));
+  }
+}
 
 llvm::Error IncrementalExecutor::addModule(PartialTranslationUnit &PTU) {
   llvm::orc::ResourceTrackerSP RT =

@@ -226,7 +226,7 @@ IncrementalCompilerBuilder::CreateCudaHost() {
   return IncrementalCompilerBuilder::createCuda(false);
 }
 
-Interpreter::Interpreter(std::unique_ptr<CompilerInstance> CI,
+Interpreter::Interpreter(std::unique_ptr<CompilerInstance> CI, 
                          llvm::Error &Err) {
   llvm::ErrorAsOutParameter EAO(&Err);
   auto LLVMCtx = std::make_unique<llvm::LLVMContext>();
@@ -271,12 +271,14 @@ const char *const Runtimes = R"(
 )";
 
 llvm::Expected<std::unique_ptr<Interpreter>>
-Interpreter::create(std::unique_ptr<CompilerInstance> CI) {
+Interpreter::create(std::unique_ptr<CompilerInstance> CI,
+                    const std::string &OrcRuntimePath) {
   llvm::Error Err = llvm::Error::success();
   auto Interp =
       std::unique_ptr<Interpreter>(new Interpreter(std::move(CI), Err));
   if (Err)
     return std::move(Err);
+  Interp->OrcRuntimePath = OrcRuntimePath;
 
   auto PTU = Interp->Parse(Runtimes);
   if (!PTU)
@@ -370,7 +372,9 @@ llvm::Error Interpreter::CreateExecutor() {
   const clang::TargetInfo &TI =
       getCompilerInstance()->getASTContext().getTargetInfo();
   llvm::Error Err = llvm::Error::success();
-  auto Executor = std::make_unique<IncrementalExecutor>(*TSCtx, Err, TI);
+  llvm::orc::LLJITBuilder Builder;
+  IncrementalExecutor::SetupJITBuilder(Builder, TI, OrcRuntimePath);
+  auto Executor = std::make_unique<IncrementalExecutor>(Builder, *TSCtx, Err);
   if (!Err)
     IncrExecutor = std::move(Executor);
 
