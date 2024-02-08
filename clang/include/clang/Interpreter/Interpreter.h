@@ -102,6 +102,8 @@ public:
                  std::unique_ptr<CompilerInstance> DCI);
   const ASTContext &getASTContext() const;
   ASTContext &getASTContext();
+  static std::string
+   findOrcRuntimePath(const std::vector<const char *> &ClangArgv);
   const CompilerInstance *getCompilerInstance() const;
   CompilerInstance *getCompilerInstance();
   llvm::Expected<llvm::orc::LLJIT &> getExecutionEngine();

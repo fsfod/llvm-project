@@ -235,6 +235,57 @@ Interpreter::Interpreter(std::unique_ptr<CompilerInstance> CI,
                                                    *TSCtx->getContext(), Err);
 }
 
+static std::string buildOrcRTBasename(const llvm::Triple &TT, bool AddArch) {
+  bool IsITANMSVCWindows =
+      TT.isWindowsMSVCEnvironment() || TT.isWindowsItaniumEnvironment();
+  const char *Prefix = IsITANMSVCWindows ? "" : "lib";
+  const char *Suffix = IsITANMSVCWindows ? ".lib" : ".a";
+  std::string ArchAndEnv;
+  if (AddArch)
+    ArchAndEnv = ("-" + llvm::Triple::getArchTypeName(TT.getArch())).str();
+  return (Prefix + Twine("orc_rt") + ArchAndEnv + Suffix).str();
+}
+
+std::string
+Interpreter::findOrcRuntimePath(const std::vector<const char *> &ClangArgv) {
+  IntrusiveRefCntPtr<DiagnosticIDs> DiagID(new DiagnosticIDs());
+  IntrusiveRefCntPtr<DiagnosticOptions> DiagOpts =
+      CreateAndPopulateDiagOpts(ClangArgv);
+  TextDiagnosticBuffer *DiagsBuffer = new TextDiagnosticBuffer;
+  DiagnosticsEngine Diags(DiagID, &*DiagOpts, DiagsBuffer);
+
+  driver::Driver Driver(/*MainBinaryName=*/ClangArgv[0],
+                        llvm::sys::getProcessTriple(), Diags);
+  Driver.setCheckInputsExist(false);
+  llvm::ArrayRef<const char *> RF = llvm::ArrayRef(ClangArgv);
+  std::unique_ptr<driver::Compilation> Compilation(Driver.BuildCompilation(RF));
+  auto &TC = Compilation->getDefaultToolChain();
+  auto TT = TC.getTriple();
+
+  SmallString<256> Path;
+  for (const auto &LibPath : TC.getLibraryPaths()) {
+    Path = LibPath;
+    llvm::sys::path::append(Path, buildOrcRTBasename(TT, false));
+    if (Driver.getVFS().exists(Path))
+      return std::string(Path.str());
+  }
+
+  auto RuntimePaths = TC.getArchSpecificLibPaths();
+  if (!RuntimePaths.empty()) {
+    Path = RuntimePaths.front();
+    llvm::sys::path::append(Path, buildOrcRTBasename(TT, true));
+    if (Driver.getVFS().exists(Path))
+      return std::string(Path.str());
+  }
+  // Windows lib folder name is not a triple name by default like Linux
+  Path = TC.getCompilerRTPath();
+  llvm::sys::path::append(Path, buildOrcRTBasename(TT, true));
+  if (Driver.getVFS().exists(Path))
+    return Path.str().str();
+
+  return "";
+}
+
 Interpreter::~Interpreter() {
   if (IncrExecutor) {
     if (llvm::Error Err = IncrExecutor->cleanUp())
