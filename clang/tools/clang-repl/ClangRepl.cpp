@@ -37,6 +37,7 @@ LLVM_ATTRIBUTE_USED int __lsan_is_turned_off() { return 1; }
 static llvm::cl::opt<bool> CudaEnabled("cuda", llvm::cl::Hidden);
 static llvm::cl::opt<std::string> CudaPath("cuda-path", llvm::cl::Hidden);
 static llvm::cl::opt<std::string> OffloadArch("offload-arch", llvm::cl::Hidden);
+static llvm::cl::opt<bool> UseOrcRuntime("useorc-rt", llvm::cl::NotHidden);
 
 static llvm::cl::list<std::string>
     ClangArgs("Xcc",
@@ -211,8 +212,29 @@ int main(int argc, const char **argv) {
       auto CudaRuntimeLibPath = CudaPath + "/lib/libcudart.so";
       ExitOnErr(Interp->LoadDynamicLibrary(CudaRuntimeLibPath.c_str()));
     }
-  } else
-    Interp = ExitOnErr(clang::Interpreter::create(std::move(CI)));
+  } else {
+    std::string orcruntime;
+#if _WIN32
+    bool TargetNeedsOrcRT = true;
+#else
+    bool TargetNeedsOrcRT = false;
+#endif
+    if (UseOrcRuntime || (!CudaEnabled && TargetNeedsOrcRT)) {
+      std::vector<const char *> ArgVec;
+      ArgVec.push_back(argv[0]);
+
+      // Append options from command line.
+      for (int I = 1; I < argc; ++I)
+        ArgVec.push_back(argv[I]);
+
+      orcruntime = clang::Interpreter::findOrcRuntimePath(ArgVec);
+      if (orcruntime.empty()) {
+        llvm::errs() << "Failed to find Orc runtime\n";
+        return 0;
+      }
+    }
+    Interp = ExitOnErr(clang::Interpreter::create(std::move(CI), orcruntime));
+  }
 
   for (const std::string &input : OptInputs) {
     if (auto Err = Interp->ParseAndExecute(input))
