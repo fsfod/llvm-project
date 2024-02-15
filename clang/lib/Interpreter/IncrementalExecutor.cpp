@@ -58,6 +58,9 @@ void IncrementalExecutor::SetupJITBuilder(llvm::orc::LLJITBuilder& Builder,
 
   auto JTMB = JITTargetMachineBuilder(TI.getTriple());
   JTMB.addFeatures(TI.getTargetOpts().Features);
+  if (TI.getTriple().isOSWindows()) {
+    JTMB.getOptions().EmulatedTLS = false;
+  }
   Builder.setJITTargetMachineBuilder(JTMB);
   Builder.setPrePlatformSetup([](LLJIT &J) {
     // Try to enable debugging of JIT'd code (only works with JITLink for
