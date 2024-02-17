@@ -29,6 +29,7 @@ namespace {
 enum EdgeKind_coff_x86_64 : Edge::Kind {
   PCRel32 = x86_64::FirstPlatformRelocation,
   Pointer32NB,
+  Pointer32,
   Pointer64,
   SectionIdx16,
   SecRel32,
@@ -135,6 +136,10 @@ private:
       Addend -= 5;
       break;
     }
+    case COFF::RelocationTypeAMD64::IMAGE_REL_AMD64_ADDR32:
+      Kind = EdgeKind_coff_x86_64::Pointer32;
+      Addend = *reinterpret_cast<const support::little32_t *>(FixupPtr);
+      break;
     case COFF::RelocationTypeAMD64::IMAGE_REL_AMD64_ADDR64: {
       Kind = EdgeKind_coff_x86_64::Pointer64;
       Addend = *reinterpret_cast<const support::little64_t *>(FixupPtr);
@@ -204,6 +209,10 @@ public:
         }
         case EdgeKind_coff_x86_64::PCRel32: {
           E.setKind(x86_64::PCRel32);
+          break;
+        }
+        case EdgeKind_coff_x86_64::Pointer32: {
+          E.setKind(x86_64::Pointer32);
           break;
         }
         case EdgeKind_coff_x86_64::Pointer64: {
