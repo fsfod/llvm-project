@@ -609,11 +609,14 @@ Error ORCPlatformSupport::initialize(orc::JITDylib &JD) {
   };
 
   auto &ES = J.getExecutionSession();
-  auto MainSearchOrder = J.getMainJITDylib().withLinkOrderDo(
-      [](const JITDylibSearchOrder &SO) { return SO; });
+  auto Platform = J.getPlatformJITDylib();
+  if (!Platform) {
+    return Error::success();
+  }
+  auto SearchOrder = Platform->withLinkOrderDo([](const JITDylibSearchOrder &SO) { return SO; });
 
   if (auto WrapperAddr = ES.lookup(
-          MainSearchOrder, J.mangleAndIntern("__orc_rt_jit_dlopen_wrapper"))) {
+          SearchOrder, J.mangleAndIntern("__orc_rt_jit_dlopen_wrapper"))) {
     return ES.callSPSWrapper<SPSDLOpenSig>(WrapperAddr->getAddress(),
                                            DSOHandles[&JD], JD.getName(),
                                            int32_t(ORC_RT_RTLD_LAZY));
