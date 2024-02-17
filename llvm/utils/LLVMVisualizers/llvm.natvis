@@ -216,7 +216,7 @@ For later versions of Visual Studio, no setup is required.
        a wildcard for the second template argument (the endianness), but we will use a
        specific value of 0 later on for the big endian to give it priority for being a
        better match.  -->
-  <Type Name="llvm::support::detail::packed_endian_specific_integral&lt;*,*,1&gt;">
+  <Type Name="llvm::support::detail::packed_endian_specific_integral&lt;*,*,*,1&gt;">
     <DisplayString>{{little endian value = {*(($T1*)(unsigned char *)Value.buffer)} }}</DisplayString>
     <Expand>
       <Item Name="[Raw Bytes]" Condition="sizeof($T1)==1">(unsigned char *)Value.buffer,1</Item>
