@@ -21,6 +21,7 @@
 #include "llvm/ExecutionEngine/Orc/ExecutionUtils.h"
 #include "llvm/ExecutionEngine/Orc/IRCompileLayer.h"
 #include "llvm/ExecutionEngine/Orc/LLJIT.h"
+#include "llvm/ExecutionEngine/Orc/MapperJITLinkMemoryManager.h"
 #include "llvm/ExecutionEngine/Orc/RTDyldObjectLinkingLayer.h"
 #include "llvm/ExecutionEngine/Orc/TargetProcess/JITLoaderGDB.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
@@ -74,6 +75,15 @@ void IncrementalExecutor::SetupJITBuilder(llvm::orc::LLJITBuilder& Builder,
     return std::make_unique<ObjectLinkingLayer>(
       ES, ES.getExecutorProcessControl().getMemMgr());
   });
+  auto memmgr = MapperJITLinkMemoryManager::CreateWithMapper<InProcessMemoryMapper>(0x10000000);
+  if (!memmgr) {
+    return;
+  }
+  auto EPC = SelfExecutorProcessControl::Create(std::make_shared<SymbolStringPool>(), nullptr, std::move(*memmgr));
+  if (EPC) {
+    Builder.setExecutorProcessControl(std::move(*EPC));
+  }
+
   if (!OrcRuntimePath.empty()) {
     Builder.setPlatformSetUp(ExecutorNativePlatform(OrcRuntimePath));
   }
