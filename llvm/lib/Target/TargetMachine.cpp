@@ -71,7 +71,7 @@ bool TargetMachine::isLargeGlobalValue(const GlobalValue *GVal) const {
   // large sections of .lbss, .ldata, .lrodata. This reduces the risk of linking
   // together small and large sections, resulting in small references to large
   // data sections. The code model attribute overrides this above.
-  if (GV->hasSection()) {
+  if (GV->hasSection() && getTargetTriple().isOSBinFormatELF()) {
     StringRef Name = GV->getSection();
     auto IsPrefix = [&](StringRef Prefix) {
       StringRef S = Name;
