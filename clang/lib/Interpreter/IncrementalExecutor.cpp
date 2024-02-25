@@ -64,6 +64,7 @@ void IncrementalExecutor::SetupJITBuilder(llvm::orc::LLJITBuilder& Builder,
   }
   JTMB.setCodeModel(llvm::CodeModel::Small);
   JTMB.setRelocationModel(llvm::Reloc::PIC_);
+
   Builder.setJITTargetMachineBuilder(JTMB);
   Builder.setPrePlatformSetup([](LLJIT &J) {
     // Try to enable debugging of JIT'd code (only works with JITLink for
