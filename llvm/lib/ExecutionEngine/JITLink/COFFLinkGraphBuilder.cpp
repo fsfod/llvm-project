@@ -533,6 +533,17 @@ Expected<Symbol *> COFFLinkGraphBuilder::createDefinedSymbol(
           formatv("{0:d}", SymIndex));
     return createCOMDATExportRequest(SymIndex, Symbol, Definition);
   }
+
+  // FIXME: If the GlobalValue for a exception vtable class is unused by code it doesn't get a StorageClass set
+  if (Symbol.getStorageClass() == 0) {
+    dbgs() << "    " << SymIndex
+      << ": Skipping graph symbol with null storage type "
+      "COFF symbol \""
+      << SymbolName << "\" in section " << Symbol.getSectionNumber()
+      << "\n";
+    return nullptr;
+  }
+
   return make_error<JITLinkError>("Unsupported storage class " +
                                   formatv("{0:d}", Symbol.getStorageClass()) +
                                   " in symbol " + formatv("{0:d}", SymIndex));
