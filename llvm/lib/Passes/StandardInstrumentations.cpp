@@ -28,6 +28,7 @@
 #include "llvm/IR/PrintPasses.h"
 #include "llvm/IR/StructuralHash.h"
 #include "llvm/IR/Verifier.h"
+#include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/CrashRecoveryContext.h"
 #include "llvm/Support/Debug.h"
@@ -367,7 +368,7 @@ void ChangeReporter<T>::saveIRBeforePass(Any IR, StringRef PassID,
   // something that was filtered out.
   BeforeStack.emplace_back();
 
-  if (!isInteresting(IR, PassID, PassName))
+  if (!NoFiltering && !isInteresting(IR, PassID, PassName))
     return;
 
   // Save the IR representation on the stack.
@@ -376,16 +377,16 @@ void ChangeReporter<T>::saveIRBeforePass(Any IR, StringRef PassID,
 }
 
 template <typename T>
-void ChangeReporter<T>::handleIRAfterPass(Any IR, StringRef PassID,
+bool ChangeReporter<T>::handleIRAfterPass(Any IR, StringRef PassID,
                                           StringRef PassName) {
   assert(!BeforeStack.empty() && "Unexpected empty stack encountered.");
 
   std::string Name = getIRName(IR);
-
+  bool changed = false;
   if (isIgnored(PassID)) {
     if (VerboseMode)
       handleIgnored(PassID, Name);
-  } else if (!isInteresting(IR, PassID, PassName)) {
+  } else if (!NoFiltering && !isInteresting(IR, PassID, PassName)) {
     if (VerboseMode)
       handleFiltered(PassID, Name);
   } else {
@@ -396,13 +397,16 @@ void ChangeReporter<T>::handleIRAfterPass(Any IR, StringRef PassID,
     generateIRRepresentation(IR, PassID, After);
 
     // Was there a change in IR?
-    if (Before == After) {
+    changed = !(Before == After);
+    if (changed) {
+      handleAfter(PassID, Name, Before, After, IR);
+    } else {
       if (VerboseMode)
         omitAfter(PassID, Name);
-    } else
-      handleAfter(PassID, Name, Before, After, IR);
+    }
   }
   BeforeStack.pop_back();
+  return changed;
 }
 
 template <typename T>
@@ -2079,6 +2083,80 @@ struct DOTGraphTraits<DotCfgDiffDisplayGraph *> : public DefaultDOTGraphTraits {
     return DiffData->getEdgeColorAttr(*From, **To);
   }
 };
+
+void PassDebugger::RegisterCallbacks(llvm::PassBuilder *PB) {
+  auto PIC = PB->getPassInstrumentationCallbacks();
+  PIC->registerBeforeNonSkippedPassCallback(
+      [&PIC, this](StringRef P, Any IR) { HandlePass(PIC, P, IR, false); });
+
+  PIC->registerAfterPassCallback(
+      [&PIC, this](StringRef P, Any IR, const llvm::PreservedAnalyses &) {
+        HandlePass(PIC, P, IR, true);
+      });
+}
+
+void PassDebugger::HandlePass(llvm::PassInstrumentationCallbacks *PIC,
+                                  StringRef P, Any IR, bool isafter) {
+  if (true) {
+    *DebugOutput << "Pass " << P << (isafter ? " Completed\n" : " Starting\n");
+  }
+  uint64_t actions = 0;
+
+  const llvm::Function *F = unwrapIR<llvm::Function>(IR);
+  const auto *MF = unwrapIR<llvm::MachineFunction>(IR);
+  const auto *M = unwrapIR<Module>(IR);
+
+  auto WatchedIt = WatchedPasses.find(P);
+  if (WatchedIt != WatchedPasses.end()) {
+    auto &Watched = WatchedIt->second;
+    actions |= Watched.actions;
+
+    if (F && !Watched.FunctionWatches.empty()) {
+      actions |= Watched.FunctionWatches.lookup(F->getName());
+    }
+  }
+
+  if (F) {
+    auto name = F->getName();
+    if (true) {
+      *DebugOutput << "Pass " << P << "processing " << name
+                   << (isafter ? " Completed" : " Starting") << "\n";
+    }
+    actions |= FunctionWatches.lookup(F->getName());
+    for (const auto &matcher : FunctionMatchers) {
+      actions |= matcher(*F, P, isafter);
+    }
+
+    if ((actions & Print_Before) && !isafter) {
+      F->print(*DebugOutput);
+    }
+    // OutputDebugStringA();
+  } else if (MF) {
+    auto flags = FunctionWatches.lookup(MF->getName());
+    actions |= flags;
+    if ((actions & Print_Before)) {
+      MF->print(*DebugOutput);
+    }
+  } else if (M) {
+    auto flags = FunctionWatches.lookup(M->getName());
+    actions |= flags;
+  }
+
+  if (actions & Print_IRChanged) {
+    if (isafter) {
+      if (ChangedPrinter.handleIRAfterPass(IR, P, "") && (actions & Break_IRChanged)) {
+        __debugbreak();
+      }
+    } else {
+      ChangedPrinter.saveIRBeforePass(IR, P, "");
+    }
+  }
+
+  if (((actions & Break_Before) && !isafter) ||
+    ((actions & Break_After) && isafter)) {
+    __debugbreak();
+  }
+}
 
 } // namespace llvm
 

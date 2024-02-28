@@ -34,6 +34,7 @@ namespace llvm {
 class Module;
 class Function;
 class PassInstrumentationCallbacks;
+class PassBuilder;
 
 /// Instrumentation to print IR before/after passes.
 ///
@@ -190,7 +191,9 @@ public:
 // 8.  To compare two IR representations (of type \p T).
 template <typename IRUnitT> class ChangeReporter {
 protected:
-  ChangeReporter(bool RunInVerboseMode) : VerboseMode(RunInVerboseMode) {}
+  ChangeReporter(bool RunInVerboseMode) : VerboseMode(RunInVerboseMode), 
+    NoFiltering(false) {
+  }
 
 public:
   virtual ~ChangeReporter();
@@ -199,9 +202,11 @@ public:
   // otherwise it is left on the stack without data.
   void saveIRBeforePass(Any IR, StringRef PassID, StringRef PassName);
   // Compare the IR from before the pass after the pass.
-  void handleIRAfterPass(Any IR, StringRef PassID, StringRef PassName);
+  bool handleIRAfterPass(Any IR, StringRef PassID, StringRef PassName);
   // Handle the situation where a pass is invalidated.
   void handleInvalidatedPass(StringRef PassID);
+  // Disable filtering to command line set name filter
+  void SetFilteringDisabled(bool isDisabled = true) { NoFiltering = isDisabled; }
 
 protected:
   // Register required callbacks.
@@ -232,6 +237,8 @@ protected:
 
   // Run in verbose mode, printing everything?
   const bool VerboseMode;
+  // Report changes for all IR values 
+  bool NoFiltering;
 };
 
 // An abstract template base class that handles printing banners and
@@ -594,6 +601,73 @@ public:
                          ModuleAnalysisManager *MAM = nullptr);
 
   TimePassesHandler &getTimePasses() { return TimePasses; }
+};
+
+enum DbgEvent {
+  Dbg_AssembleStart,
+  Dbg_AssembleEnd,
+};
+
+enum DbgActions : int {
+  Break_Before = 1,
+  Print_Before = 2,
+  Break_After = 0x10,
+  Print_After = 0x20,
+  Break_IRChanged = 0x40,
+  Print_IRChanged = 0x80,
+};
+
+class PassDebugger {
+public:
+  PassDebugger() 
+    : ChangedPrinter(true), DebugOutput(&llvm::outs()) {
+  }
+
+  void SetDebugOut(raw_ostream &output) {
+    DebugOutput = &output;
+  }
+
+  void RegisterCallbacks(llvm::PassBuilder* PB);
+
+  void WatchFunction(StringRef MangledName, uint64_t actions) {
+    FunctionWatches[MangledName] = actions;
+  }
+
+  void WatchFunctionInPass(StringRef Pass, StringRef MangledName, DbgActions actions) {
+    WatchedPasses[Pass].FunctionWatches[MangledName] = actions;
+  }
+
+  void WatchPass(StringRef Pass, DbgActions actions) {
+    WatchedPasses[Pass].actions |= actions;
+  }
+
+  using PassCallbackFunc = void(StringRef, Any);
+  using IRFuncCallback = DbgActions(const llvm::Function&, StringRef, bool);
+
+  struct PassWatch {
+    uint64_t actions;
+    llvm::StringMap<uint64_t> FunctionWatches;
+    llvm::SmallVector<std::function<PassCallbackFunc>, 1> callbacks;
+  };
+
+private:
+  void HandlePass(llvm::PassInstrumentationCallbacks *PIC, StringRef P, Any IR, bool isafter);
+
+  bool isInterestingFunction(const llvm::Function& F) {
+    return FunctionWatches.contains(F.getName());
+  }
+
+  bool moduleContainsFilterPrintFunc(const Module &M) {
+    return any_of(M.functions(), [this](const Function &F) {
+      return FunctionWatches.contains(F.getName());
+    });
+  }
+
+  llvm::SmallVector<std::function<IRFuncCallback>, 4> FunctionMatchers;
+  llvm::StringMap<PassWatch> WatchedPasses;
+  llvm::StringMap<uint64_t> FunctionWatches;
+  raw_ostream *DebugOutput;
+  IRChangedPrinter ChangedPrinter;
 };
 
 extern template class ChangeReporter<std::string>;
