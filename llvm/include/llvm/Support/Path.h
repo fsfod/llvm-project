@@ -72,7 +72,7 @@ constexpr bool is_style_windows(Style S) { return !is_style_posix(S); }
 ///   C:\foo\bar => C:,\,foo,bar
 /// @endcode
 class const_iterator
-    : public iterator_facade_base<const_iterator, std::input_iterator_tag,
+    : public forward_iterator_facade_base<const_iterator, std::input_iterator_tag,
                                   const StringRef> {
   StringRef Path;          ///< The entire path.
   StringRef Component;     ///< The current component. Not necessarily in Path.
@@ -98,7 +98,7 @@ public:
 /// \a path in reverse order. The traversal order is exactly reversed from that
 /// of \a const_iterator
 class reverse_iterator
-    : public iterator_facade_base<reverse_iterator, std::input_iterator_tag,
+    : public forward_iterator_facade_base<reverse_iterator, std::input_iterator_tag,
                                   const StringRef> {
   StringRef Path;          ///< The entire path.
   StringRef Component;     ///< The current component. Not necessarily in Path.
