@@ -1156,3 +1156,11 @@ DbgMarker *BasicBlock::getTrailingDbgRecords() {
 void BasicBlock::deleteTrailingDbgRecords() {
   getContext().pImpl->deleteTrailingDbgRecords(this);
 }
+BasicBlock *BasicBlock::getPrevNode() {
+  return ::getPrevNode(this); 
+}
+
+BasicBlock *BasicBlock::getNextNode() {
+  return ::getNextNode(this);
+}
+

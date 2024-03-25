@@ -2614,3 +2614,11 @@ bool MachineInstr::mayFoldInlineAsmRegOp(unsigned OpId) const {
     return F.getRegMayBeFolded();
   return false;
 }
+
+MachineInstr *MachineInstr::getNextNode() {
+  return llvm::getNextNode(this);
+}
+
+MachineInstr *MachineInstr::getPrevNode() {
+  return llvm::getPrevNode(this);
+}

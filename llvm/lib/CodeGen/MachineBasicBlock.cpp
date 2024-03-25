@@ -1768,6 +1768,14 @@ bool MachineBasicBlock::sizeWithoutDebugLargerThan(unsigned Limit) const {
   return false;
 }
 
+MachineBasicBlock *MachineBasicBlock::getPrevNode() {
+  return llvm::getPrevNode(this);
+}
+
+MachineBasicBlock *MachineBasicBlock::getNextNode() {
+  return llvm::getNextNode(this);
+}
+
 const MBBSectionID MBBSectionID::ColdSectionID(MBBSectionID::SectionType::Cold);
 const MBBSectionID
     MBBSectionID::ExceptionSectionID(MBBSectionID::SectionType::Exception);
