@@ -531,8 +531,8 @@ public:
 
 /// A forward iterator over partitions of string over a separator.
 class SplittingIterator
-    : public iterator_facade_base<SplittingIterator, std::forward_iterator_tag,
-                                  StringRef> {
+    : public forward_iterator_facade_base<SplittingIterator, std::forward_iterator_tag,
+                                          StringRef> {
   char SeparatorStorage;
   StringRef Current;
   StringRef Next;
