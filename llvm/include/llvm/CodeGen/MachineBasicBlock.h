@@ -421,6 +421,11 @@ public:
     return make_range(succ_begin(), succ_end());
   }
 
+  MachineBasicBlock *getPrevNode();
+  MachineBasicBlock *getNextNode();
+  using ilist_node_with_parent::getNextNode;
+  using ilist_node_with_parent::getPrevNode;
+
   // LiveIn management methods.
 
   /// Adds the specified register as a live in. Note that it is an error to add

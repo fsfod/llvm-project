@@ -13,6 +13,7 @@
 #include "llvm/ADT/SmallString.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/ADT/ilist_iterator.h"
 #include "llvm/ADT/ilist_node.h"
 #include "llvm/MC/MCFixup.h"
 #include "llvm/MC/MCInst.h"
@@ -111,6 +112,11 @@ public:
 
   void setSubsectionNumber(unsigned Value) { SubsectionNumber = Value; }
   unsigned getSubsectionNumber() const { return SubsectionNumber; }
+
+  MCFragment *getPrevNode();
+  MCFragment *getNextNode();
+  using ilist_node_with_parent::getNextNode;
+  using ilist_node_with_parent::getPrevNode;
 };
 
 class MCDummyFragment : public MCFragment {

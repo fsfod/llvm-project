@@ -1312,3 +1312,11 @@ Instruction *Instruction::clone() const {
   New->copyMetadata(*this);
   return New;
 }
+
+Instruction *Instruction::getPrevNode() {
+  return llvm::getPrevNode(this);
+}
+
+Instruction *Instruction::getNextNode() {
+  return llvm::getNextNode(this);
+}

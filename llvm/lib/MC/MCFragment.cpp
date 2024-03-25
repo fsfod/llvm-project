@@ -333,6 +333,15 @@ raw_ostream &operator<<(raw_ostream &OS, const MCFixup &AF) {
   return OS;
 }
 
+
+MCFragment *MCFragment::getPrevNode() { 
+  return llvm::getPrevNode(this); 
+}
+
+llvm::MCFragment *MCFragment::getNextNode() { 
+  return llvm::getNextNode(this); 
+}
+
 } // end namespace llvm
 
 #if !defined(NDEBUG) || defined(LLVM_ENABLE_DUMP)
