@@ -70,9 +70,9 @@ bool BasicBlockEdge::isSingleEdge() const {
 //
 //===----------------------------------------------------------------------===//
 
-template class llvm::DomTreeNodeBase<BasicBlock>;
-template class llvm::DominatorTreeBase<BasicBlock, false>; // DomTreeBase
-template class llvm::DominatorTreeBase<BasicBlock, true>; // PostDomTreeBase
+template class LLVM_EXPORT_TEMPLATE llvm::DomTreeNodeBase<BasicBlock>;
+template class LLVM_EXPORT_TEMPLATE llvm::DominatorTreeBase<BasicBlock, false>; // DomTreeBase
+template class LLVM_EXPORT_TEMPLATE llvm::DominatorTreeBase<BasicBlock, true>; // PostDomTreeBase
 
 template class llvm::cfg::Update<BasicBlock *>;
 
