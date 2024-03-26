@@ -1494,22 +1494,22 @@ const char *locStr(AssignmentTrackingLowering::LocKind Loc) {
 }
 #endif
 
-VarLocInsertPt getNextNode(const DbgRecord *DVR) {
+VarLocInsertPt getNextNodeInsertLoc(const DbgRecord *DVR) {
   auto NextIt = ++(DVR->getIterator());
   if (NextIt == DVR->getMarker()->getDbgRecordRange().end())
     return DVR->getMarker()->MarkedInstr;
   return &*NextIt;
 }
-VarLocInsertPt getNextNode(const Instruction *Inst) {
+VarLocInsertPt getNextNodeInsertLoc(const Instruction *Inst) {
   const Instruction *Next = Inst->getNextNode();
-  if (!Next->hasDbgRecords())
+  if (!Next->hasDbgValues())
     return Next;
   return &*Next->getDbgRecordRange().begin();
 }
-VarLocInsertPt getNextNode(VarLocInsertPt InsertPt) {
+VarLocInsertPt getNextNodeInsertLoc(VarLocInsertPt InsertPt) {
   if (isa<const Instruction *>(InsertPt))
-    return getNextNode(cast<const Instruction *>(InsertPt));
-  return getNextNode(cast<const DbgRecord *>(InsertPt));
+    return getNextNodeInsertLoc(cast<const Instruction *>(InsertPt));
+  return getNextNodeInsertLoc(cast<const DbgRecord *>(InsertPt));
 }
 
 DbgAssignIntrinsic *CastToDbgAssign(DbgVariableIntrinsic *DVI) {
@@ -1543,7 +1543,7 @@ void AssignmentTrackingLowering::emitDbgValue(
           PoisonValue::get(Type::getInt1Ty(Source->getContext())));
 
     // Find a suitable insert point.
-    auto InsertBefore = getNextNode(After);
+    auto InsertBefore = getNextNodeInsertLoc(After);
     assert(InsertBefore && "Shouldn't be inserting after a terminator");
 
     VariableID Var = getVariableID(DebugVariable(Source));
@@ -1653,7 +1653,7 @@ void AssignmentTrackingLowering::processUntaggedInstruction(
                                        /*EntryValue=*/false);
     // Find a suitable insert point, before the next instruction or DbgRecord
     // after I.
-    auto InsertBefore = getNextNode(&I);
+    auto InsertBefore = getNextNodeInsertLoc(&I);
     assert(InsertBefore && "Shouldn't be inserting after a terminator");
 
     // Get DILocation for this unrecorded assignment.
@@ -1875,13 +1875,13 @@ void AssignmentTrackingLowering::processDbgVariableRecord(
 
 void AssignmentTrackingLowering::resetInsertionPoint(Instruction &After) {
   assert(!After.isTerminator() && "Can't insert after a terminator");
-  auto *R = InsertBeforeMap.find(getNextNode(&After));
+  auto *R = InsertBeforeMap.find(getNextNodeInsertLoc(&After));
   if (R == InsertBeforeMap.end())
     return;
   R->second.clear();
 }
 void AssignmentTrackingLowering::resetInsertionPoint(DbgVariableRecord &After) {
-  auto *R = InsertBeforeMap.find(getNextNode(&After));
+  auto *R = InsertBeforeMap.find(getNextNodeInsertLoc(&After));
   if (R == InsertBeforeMap.end())
     return;
   R->second.clear();
@@ -2459,7 +2459,7 @@ bool AssignmentTrackingLowering::emitPromotedVarLocs(
     // already.
     if (VarsWithStackSlot->contains(getAggregate(Record)))
       return;
-    auto InsertBefore = getNextNode(Record);
+    auto InsertBefore = getNextNodeInsertLoc(Record);
     assert(InsertBefore && "Unexpected: debug intrinsics after a terminator");
     FnVarLocs->addVarLoc(InsertBefore, DebugVariable(Record),
                          Record->getExpression(), Record->getDebugLoc(),
