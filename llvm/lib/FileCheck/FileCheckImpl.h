@@ -379,7 +379,7 @@ public:
 
   /// \returns the text that the string variable in this substitution matched
   /// when defined, or an error if the variable is undefined.
-  LLVM_FUNC_ABI Expected<std::string> getResult() const override;
+  Expected<std::string> getResult() const override;
 };
 
 LLVM_CLASS_ABI class NumericSubstitution : public Substitution {
@@ -397,7 +397,7 @@ public:
 
   /// \returns a string containing the result of evaluating the expression in
   /// this substitution, or an error if evaluation failed.
-  LLVM_FUNC_ABI Expected<std::string> getResult() const override;
+  Expected<std::string> getResult() const override;
 };
 
 //===----------------------------------------------------------------------===//
