@@ -314,6 +314,16 @@ RegionBase<Tr>::element_end() const {
 }
 
 template <class Tr>
+iterator_range<typename RegionBase<Tr>::element_iterator> RegionBase<Tr>::elements() {
+  return make_range(RegionBase<Tr>::element_begin(), RegionBase<Tr>::element_end());
+}
+
+template <class Tr>
+iterator_range<typename RegionBase<Tr>::const_element_iterator> RegionBase<Tr>::elements() const {
+  return make_range(RegionBase<Tr>::element_begin(), RegionBase<Tr>::element_end());
+}
+
+template <class Tr>
 typename Tr::RegionT *RegionBase<Tr>::getSubRegionNode(BlockT *BB) const {
   using RegionT = typename Tr::RegionT;
 
