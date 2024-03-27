@@ -125,13 +125,13 @@ bool isCompileUnit(const std::unique_ptr<DWARFUnit> &U);
 
 /// Describe a collection of units. Intended to hold all units either from
 /// .debug_info and .debug_types, or from .debug_info.dwo and .debug_types.dwo.
-class DWARFUnitVector final : public SmallVector<std::unique_ptr<DWARFUnit>, 1> {
+class LLVM_ABI DWARFUnitVector final {
   std::function<std::unique_ptr<DWARFUnit>(uint64_t, DWARFSectionKind,
                                            const DWARFSection *,
                                            const DWARFUnitIndex::Entry *)>
       Parser;
   int NumInfoUnits = -1;
-
+  SmallVector<std::unique_ptr<DWARFUnit>, 1> Units;
 public:
   using UnitVector = SmallVectorImpl<std::unique_ptr<DWARFUnit>>;
   using iterator = typename UnitVector::iterator;
@@ -139,6 +139,25 @@ public:
 
   using compile_unit_range =
       decltype(make_filter_range(std::declval<iterator_range>(), isCompileUnit));
+
+  DWARFUnitVector() = default;
+  DWARFUnitVector(const DWARFUnitVector&) = delete;
+  DWARFUnitVector operator =(const DWARFUnitVector&) = delete;
+
+  iterator begin() { return Units.begin(); }
+  iterator end() { return Units.end(); }
+  UnitVector::const_iterator begin() const { return Units.begin(); }
+  UnitVector::const_iterator end() const { return Units.end(); }
+  std::unique_ptr<DWARFUnit> *data() { return Units.begin(); }
+  const std::unique_ptr<DWARFUnit> *data() const { return Units.begin(); }
+  bool empty() const { return Units.empty(); }
+
+  std::unique_ptr<DWARFUnit> &operator[](size_t idx) { return Units[idx]; }
+  const std::unique_ptr<DWARFUnit> &operator[](size_t idx) const { return Units[idx]; }
+
+  iterator insert(iterator I, std::unique_ptr<DWARFUnit> &&Elt) {
+    return Units.insert(I, std::move(Elt));
+  }
 
   DWARFUnit *getUnitForOffset(uint64_t Offset) const;
   DWARFUnit *getUnitForIndexEntry(const DWARFUnitIndex::Entry &E);
@@ -160,6 +179,8 @@ public:
   /// Add an existing DWARFUnit to this UnitVector. This is used by the DWARF
   /// verifier to process unit separately.
   DWARFUnit *addUnit(std::unique_ptr<DWARFUnit> Unit);
+
+  size_t size() const { return Units.size(); }
 
   /// Returns number of all units held by this instance.
   unsigned getNumUnits() const { return size(); }
