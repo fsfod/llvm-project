@@ -647,15 +647,11 @@ public:
 
   element_iterator element_begin();
   element_iterator element_end();
-  iterator_range<element_iterator> elements() {
-    return make_range(element_begin(), element_end());
-  }
+  iterator_range<element_iterator> elements();
 
   const_element_iterator element_begin() const;
   const_element_iterator element_end() const;
-  iterator_range<const_element_iterator> elements() const {
-    return make_range(element_begin(), element_end());
-  }
+  iterator_range<const_element_iterator> elements() const;
   //@}
 };
 
