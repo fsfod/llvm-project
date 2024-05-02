@@ -125,10 +125,14 @@ public:
   ///
   /// This requires sentinel tracking to be explicitly enabled.  Use the
   /// ilist_sentinel_tracking<true> option to get this API.
-  template<typename T = OptionsT> typename std::enable_if_t<T::is_sentinel_tracking_explicit, bool>::type isSentinel() const {
+  template<typename T = OptionsT> typename std::enable_if_t<T::enable_sentinel_tracking, bool> isSentinel() const {
    // static_assert(OptionsT::is_sentinel_tracking_explicit,
    //               "Use ilist_sentinel_tracking<true> to enable isSentinel()");
     return node_base_type::isSentinel();
+  }
+
+  template<typename T = OptionsT> typename std::enable_if_t<!T::enable_sentinel_tracking, bool> isSentinel() const {
+    return false;
   }
 };
 
