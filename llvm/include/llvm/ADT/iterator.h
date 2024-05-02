@@ -125,7 +125,8 @@ protected:
   };
 
 public:
-  DerivedT operator+(DifferenceTypeT n) const {
+   template<typename U = DerivedT>
+    typename std::enable_if<IsRandomAccess, U>::type operator+(DifferenceTypeT n) const {
     static_assert(std::is_base_of<iterator_facade_base, DerivedT>::value,
                   "Must pass the derived type to this template!");
     static_assert(
@@ -141,7 +142,8 @@ public:
         "The '+' operator is only defined for random access iterators.");
     return i + n;
   }
-  DerivedT operator-(DifferenceTypeT n) const {
+  template<typename U = DerivedT>
+  typename std::enable_if<IsRandomAccess, U>::type  operator-(DifferenceTypeT n) const {
     static_assert(
         IsRandomAccess,
         "The '-' operator is only defined for random access iterators.");
@@ -160,13 +162,15 @@ public:
     ++*static_cast<DerivedT *>(this);
     return tmp;
   }
-  DerivedT &operator--() {
+  template<typename U = DerivedT>
+  typename std::enable_if<IsBidirectional, U>::type &operator--() {
     static_assert(
         IsBidirectional,
         "The decrement operator is only defined for bidirectional iterators.");
     return static_cast<DerivedT *>(this)->operator-=(1);
   }
-  DerivedT operator--(int) {
+  template<typename U = DerivedT>
+  typename std::enable_if<IsBidirectional, U>::type operator--(int) {
     static_assert(
         IsBidirectional,
         "The decrement operator is only defined for bidirectional iterators.");
