@@ -47,12 +47,12 @@ if(LLVM_BUILD_LLVM_DYLIB)
     ${LLVM_LIBRARY_DIR}/tools/llvm-shlib/simple_version_script.map)
 
     if(MSVC)
-      foreach(lib ${LIB_NAMES})
-        list(APPEND LINK_LIB_NAMES /WHOLEARCHIVE:${LLVM_LIBRARY_DIR}/${lib}.lib)
+      target_link_directories(LLVM PRIVATE ${LLVM_LIBRARY_DIR})
+      foreach(library ${LIB_NAMES})
+        # FIXME figure out how to use LINK_LIBRARY:WHOLE_ARCHIVE without cmake errors
+        # target_link_libraries(LLVM PRIVATE  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${library}>" )
+        target_link_options(LLVM PRIVATE /WHOLEARCHIVE:${library}.lib)
       endforeach()
-      # FIXME figure out how to use LINK_LIBRARY:WHOLE_ARCHIVE without cmake errors
-      # target_link_libraries(LLVM PRIVATE  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${LIB_NAMES}>" )
-      target_link_options(LLVM PRIVATE ${LINK_LIB_NAMES})
     else()
       # GNU ld doesn't resolve symbols in the version script.
       set(LIB_NAMES -Wl,--whole-archive ${LIB_NAMES} -Wl,--no-whole-archive)
