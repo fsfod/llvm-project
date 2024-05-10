@@ -1500,12 +1500,14 @@ VarLocInsertPt getNextNodeInsertLoc(const DbgRecord *DVR) {
     return DVR->getMarker()->MarkedInstr;
   return &*NextIt;
 }
+
 VarLocInsertPt getNextNodeInsertLoc(const Instruction *Inst) {
   const Instruction *Next = Inst->getNextNode();
-  if (!Next->hasDbgValues())
+  if (!Next->hasDbgRecords())
     return Next;
   return &*Next->getDbgRecordRange().begin();
 }
+
 VarLocInsertPt getNextNodeInsertLoc(VarLocInsertPt InsertPt) {
   if (isa<const Instruction *>(InsertPt))
     return getNextNodeInsertLoc(cast<const Instruction *>(InsertPt));
