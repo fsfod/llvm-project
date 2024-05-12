@@ -40,8 +40,8 @@
 using namespace llvm;
 
 // Explicitly instantiate methods in LoopInfoImpl.h for IR-level Loops.
-template class llvm::LoopBase<BasicBlock, Loop>;
-template class llvm::LoopInfoBase<BasicBlock, Loop>;
+template class LLVM_EXPORT_TEMPLATE llvm::LoopBase<BasicBlock, Loop>;
+template class LLVM_EXPORT_TEMPLATE llvm::LoopInfoBase<BasicBlock, Loop>;
 
 // Always verify loopinfo if expensive checking is enabled.
 #ifdef EXPENSIVE_CHECKS
