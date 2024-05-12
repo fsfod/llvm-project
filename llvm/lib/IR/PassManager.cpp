@@ -144,6 +144,6 @@ PreservedAnalyses ModuleToFunctionPassAdaptor::run(Module &M,
   return PA;
 }
 
-AnalysisSetKey CFGAnalyses::SetKey;
+LLVM_CLASS_ABI AnalysisSetKey CFGAnalyses::SetKey;
 
-AnalysisSetKey PreservedAnalyses::AllAnalysesKey;
+LLVM_CLASS_ABI AnalysisSetKey PreservedAnalyses::AllAnalysesKey;

@@ -560,7 +560,7 @@ void DbgRecord::moveAfter(DbgRecord *MoveAfter) {
 
 // An empty, global, DbgMarker for the purpose of describing empty ranges of
 // DbgRecords.
-DbgMarker DbgMarker::EmptyDbgMarker;
+LLVM_CLASS_ABI DbgMarker DbgMarker::EmptyDbgMarker;
 
 void DbgMarker::dropDbgRecords() {
   while (!StoredDbgRecords.empty()) {
