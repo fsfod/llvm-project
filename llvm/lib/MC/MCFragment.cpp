@@ -335,11 +335,11 @@ raw_ostream &operator<<(raw_ostream &OS, const MCFixup &AF) {
 
 
 MCFragment *MCFragment::getPrevNode() { 
-  return llvm::getPrevNode(this); 
+  return ilist_accessors::getPrevNode(this);
 }
 
 llvm::MCFragment *MCFragment::getNextNode() { 
-  return llvm::getNextNode(this); 
+  return ilist_accessors::getNextNode(this);
 }
 
 } // end namespace llvm
