@@ -2616,9 +2616,9 @@ bool MachineInstr::mayFoldInlineAsmRegOp(unsigned OpId) const {
 }
 
 MachineInstr *MachineInstr::getNextNode() {
-  return llvm::getNextNode(this);
+  return ilist_accessors::getNextNode(this);
 }
 
 MachineInstr *MachineInstr::getPrevNode() {
-  return llvm::getPrevNode(this);
+  return ilist_accessors::getPrevNode(this);
 }

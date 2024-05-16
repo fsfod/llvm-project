@@ -1314,9 +1314,9 @@ Instruction *Instruction::clone() const {
 }
 
 Instruction *Instruction::getPrevNode() {
-  return llvm::getPrevNode(this);
+  return ilist_accessors::getPrevNode(this);
 }
 
 Instruction *Instruction::getNextNode() {
-  return llvm::getNextNode(this);
+  return ilist_accessors::getNextNode(this);
 }

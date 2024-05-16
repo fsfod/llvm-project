@@ -1157,10 +1157,10 @@ void BasicBlock::deleteTrailingDbgRecords() {
   getContext().pImpl->deleteTrailingDbgRecords(this);
 }
 BasicBlock *BasicBlock::getPrevNode() {
-  return ::getPrevNode(this); 
+  return ilist_accessors::getPrevNode(this);
 }
 
 BasicBlock *BasicBlock::getNextNode() {
-  return ::getNextNode(this);
+  return ilist_accessors::getNextNode(this);
 }
 

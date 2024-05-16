@@ -1769,11 +1769,11 @@ bool MachineBasicBlock::sizeWithoutDebugLargerThan(unsigned Limit) const {
 }
 
 MachineBasicBlock *MachineBasicBlock::getPrevNode() {
-  return llvm::getPrevNode(this);
+  return ilist_accessors::getPrevNode(this);
 }
 
 MachineBasicBlock *MachineBasicBlock::getNextNode() {
-  return llvm::getNextNode(this);
+  return ilist_accessors::getNextNode(this);
 }
 
 const MBBSectionID MBBSectionID::ColdSectionID(MBBSectionID::SectionType::Cold);

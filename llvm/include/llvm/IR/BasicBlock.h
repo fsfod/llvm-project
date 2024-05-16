@@ -517,8 +517,8 @@ private:
   }
 
   /// Allow getPrevNode/getNextNode to access getSublistAccess 
-  template<typename node, typename parent> friend node* llvm::getPrevNode(node*);
-  template<typename node, typename parent> friend node* llvm::getNextNode(node*);
+  template<typename node, typename parent> friend node* ilist_accessors::getPrevNode(node*);
+  template<typename node, typename parent> friend node* ilist_accessors::getNextNode(node*);
 
   /// Dedicated function for splicing debug-info: when we have an empty
   /// splice (i.e. zero instructions), the caller may still intend any
