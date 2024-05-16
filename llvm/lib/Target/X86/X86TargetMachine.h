@@ -16,6 +16,7 @@
 #include "X86Subtarget.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Target/TargetMachine.h"
 #include <memory>
 #include <optional>
