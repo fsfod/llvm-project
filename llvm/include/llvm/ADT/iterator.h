@@ -126,7 +126,7 @@ protected:
   };
 
 public:
-  DerivedT operator+(DifferenceTypeT n) const {
+  template <int = 0> DerivedT operator+(DifferenceTypeT n) const {
     static_assert(std::is_base_of<iterator_facade_base, DerivedT>::value,
                   "Must pass the derived type to this template!");
     static_assert(
@@ -136,13 +136,14 @@ public:
     tmp += n;
     return tmp;
   }
+  template <int = 0>
   friend DerivedT operator+(DifferenceTypeT n, const DerivedT &i) {
     static_assert(
         IsRandomAccess,
         "The '+' operator is only defined for random access iterators.");
     return i + n;
   }
-  DerivedT operator-(DifferenceTypeT n) const {
+  template <int = 0> DerivedT operator-(DifferenceTypeT n) const {
     static_assert(
         IsRandomAccess,
         "The '-' operator is only defined for random access iterators.");
@@ -151,7 +152,7 @@ public:
     return tmp;
   }
 
-  DerivedT &operator++() {
+  template <int = 0> DerivedT &operator++() {
     static_assert(std::is_base_of<iterator_facade_base, DerivedT>::value,
                   "Must pass the derived type to this template!");
     return static_cast<DerivedT *>(this)->operator+=(1);
@@ -161,13 +162,13 @@ public:
     ++*static_cast<DerivedT *>(this);
     return tmp;
   }
-  DerivedT &operator--() {
+  template <int = 0> DerivedT &operator--() {
     static_assert(
         IsBidirectional,
         "The decrement operator is only defined for bidirectional iterators.");
     return static_cast<DerivedT *>(this)->operator-=(1);
   }
-  DerivedT operator--(int) {
+  template <int = 0> DerivedT operator--(int) {
     static_assert(
         IsBidirectional,
         "The decrement operator is only defined for bidirectional iterators.");
@@ -182,27 +183,27 @@ public:
   }
 #endif
 
-  bool operator>(const DerivedT &RHS) const {
+  template <int = 0> bool operator>(const DerivedT &RHS) const {
     static_assert(
         IsRandomAccess,
         "Relational operators are only defined for random access iterators.");
     return !(static_cast<const DerivedT &>(*this) < RHS) &&
            !(static_cast<const DerivedT &>(*this) == RHS);
   }
-  bool operator<=(const DerivedT &RHS) const {
+  template <int = 0> bool operator<=(const DerivedT &RHS) const {
     static_assert(
         IsRandomAccess,
         "Relational operators are only defined for random access iterators.");
     return !(static_cast<const DerivedT &>(*this) > RHS);
   }
-  bool operator>=(const DerivedT &RHS) const {
+  template <int = 0> bool operator>=(const DerivedT &RHS) const {
     static_assert(
         IsRandomAccess,
         "Relational operators are only defined for random access iterators.");
     return !(static_cast<const DerivedT &>(*this) < RHS);
   }
 
-  PointerProxy operator->() const {
+  template <int = 0> PointerProxy operator->() const {
     return static_cast<const DerivedT *>(this)->operator*();
   }
   ReferenceProxy operator[](DifferenceTypeT n) const {
@@ -252,14 +253,14 @@ protected:
 public:
   using difference_type = DifferenceTypeT;
 
-  DerivedT &operator+=(difference_type n) {
+  template <int = 0> DerivedT &operator+=(difference_type n) {
     static_assert(
         BaseT::IsRandomAccess,
         "The '+=' operator is only defined for random access iterators.");
     I += n;
     return *static_cast<DerivedT *>(this);
   }
-  DerivedT &operator-=(difference_type n) {
+  template <int = 0> DerivedT &operator-=(difference_type n) {
     static_assert(
         BaseT::IsRandomAccess,
         "The '-=' operator is only defined for random access iterators.");
@@ -267,7 +268,7 @@ public:
     return *static_cast<DerivedT *>(this);
   }
   using BaseT::operator-;
-  difference_type operator-(const DerivedT &RHS) const {
+  template <int = 0> difference_type operator-(const DerivedT &RHS) const {
     static_assert(
         BaseT::IsRandomAccess,
         "The '-' operator is only defined for random access iterators.");
@@ -281,8 +282,9 @@ public:
     ++I;
     return *static_cast<DerivedT *>(this);
   }
+
   using BaseT::operator--;
-  DerivedT &operator--() {
+  template <int = 0> DerivedT &operator--() {
     static_assert(
         BaseT::IsBidirectional,
         "The decrement operator is only defined for bidirectional iterators.");
@@ -294,6 +296,8 @@ public:
                          const iterator_adaptor_base &RHS) {
     return LHS.I == RHS.I;
   }
+
+  template <int = 0>
   friend bool operator<(const iterator_adaptor_base &LHS,
                         const iterator_adaptor_base &RHS) {
     static_assert(
@@ -302,7 +306,7 @@ public:
     return LHS.I < RHS.I;
   }
 
-  ReferenceT operator*() const { return *I; }
+  template <int = 0> ReferenceT operator*() const { return *I; }
 };
 
 /// An iterator type that allows iterating over the pointees via some
