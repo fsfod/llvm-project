@@ -395,6 +395,8 @@ private:
     Payloads.push_back(std::move(Payload1));
     Payloads.push_back(std::move(Payload2));
   }
+  ErrorList(const ErrorList &) = delete;
+  ErrorList &operator=(const ErrorList &) = delete;
 
   static Error join(Error E1, Error E2) {
     if (!E1)
