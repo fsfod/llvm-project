@@ -329,6 +329,8 @@ public:
   };
 
   Archive(MemoryBufferRef Source, Error &Err);
+  Archive(const Archive &) = delete;
+  Archive &operator=(const Archive &) = delete;
   static Expected<std::unique_ptr<Archive>> create(MemoryBufferRef Source);
 
   /// Size field is 10 decimal digits long
