@@ -52,6 +52,11 @@ struct LLVM_ABI TargetMachineBuilder {
 /// codegenerator.
 class LLVM_ABI ThinLTOCodeGenerator {
 public:
+  ThinLTOCodeGenerator() = default;
+  ThinLTOCodeGenerator(ThinLTOCodeGenerator &&) = default;
+  ThinLTOCodeGenerator(const ThinLTOCodeGenerator &) = delete;
+  ThinLTOCodeGenerator &operator =(const ThinLTOCodeGenerator &) = delete;
+
   /// Add given module to the code generator.
   void addModule(StringRef Identifier, StringRef Data);
 

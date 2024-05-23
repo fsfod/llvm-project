@@ -446,6 +446,12 @@ private:
   std::vector<std::unique_ptr<Substitution>> Substitutions;
 
 public:
+  FileCheckPatternContext() = default;
+  FileCheckPatternContext(const FileCheckPatternContext &) = delete;
+  FileCheckPatternContext(FileCheckPatternContext &&) = default;
+  FileCheckPatternContext &operator=(const FileCheckPatternContext &) = delete;
+  FileCheckPatternContext &operator=(FileCheckPatternContext &&) = default;
+
   /// \returns the value of string variable \p VarName or an error if no such
   /// variable has been defined.
   Expected<StringRef> getPatternVarValue(StringRef VarName);

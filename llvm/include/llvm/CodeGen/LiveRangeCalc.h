@@ -175,6 +175,8 @@ protected:
 
 public:
   LiveRangeCalc() = default;
+  LiveRangeCalc(const LiveRangeCalc &) = delete;
+  LiveRangeCalc &operator =(const LiveRangeCalc &) = delete;
 
   //===--------------------------------------------------------------------===//
   // High-level interface.

@@ -54,6 +54,8 @@ class LLVM_ABI LinePrinter {
 public:
   LinePrinter(int Indent, bool UseColor, raw_ostream &Stream,
               const FilterOptions &Filters);
+  LinePrinter(const LinePrinter &) = delete;
+  LinePrinter &operator =(const LinePrinter &) = delete;
 
   void Indent(uint32_t Amount = 0);
   void Unindent(uint32_t Amount = 0);

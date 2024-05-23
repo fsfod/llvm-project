@@ -249,6 +249,9 @@ namespace llvm {
       assign(Other, Allocator);
     }
 
+    LiveRange(const LiveRange &) = delete;
+    LiveRange &operator =(const LiveRange &) = delete;
+
     /// Copies values numbers and live segments from \p Other into this range.
     void assign(const LiveRange &Other, BumpPtrAllocator &Allocator) {
       if (this == &Other)

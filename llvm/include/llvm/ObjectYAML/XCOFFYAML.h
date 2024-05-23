@@ -218,6 +218,10 @@ struct LLVM_ABI Object {
   std::vector<Symbol> Symbols;
   StringTable StrTbl;
   Object();
+  Object(const Object &) = delete;
+  Object(Object &&) = default;
+  Object &operator =(const Object &) = delete;
+
 };
 } // namespace XCOFFYAML
 } // namespace llvm

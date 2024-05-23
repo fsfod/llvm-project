@@ -209,6 +209,8 @@ WinCOFFObjectWriter::WinCOFFObjectWriter(
       DwoWriter(std::make_unique<WinCOFFWriter>(*this, DwoOS,
                                                 WinCOFFWriter::DwoOnly)) {}
 
+WinCOFFObjectWriter::~WinCOFFObjectWriter() = default;
+
 static bool isDwoSection(const MCSection &Sec) {
   return Sec.getName().ends_with(".dwo");
 }

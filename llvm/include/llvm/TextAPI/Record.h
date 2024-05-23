@@ -164,6 +164,8 @@ class LLVM_ABI ObjCContainerRecord : public Record {
 public:
   ObjCContainerRecord(StringRef Name, RecordLinkage Linkage)
       : Record({Name, Linkage, SymbolFlags::Data}) {}
+  ObjCContainerRecord(const ObjCContainerRecord &) = delete;
+  ObjCContainerRecord &operator =(const ObjCContainerRecord &) = delete;
 
   ObjCIVarRecord *addObjCIVar(StringRef IVar, RecordLinkage Linkage);
   ObjCIVarRecord *findObjCIVar(StringRef IVar) const;

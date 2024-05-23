@@ -107,6 +107,8 @@ private:
 public:
   /// Create a SetTheory instance with only the standard operators.
   SetTheory();
+  SetTheory(const SetTheory &) = delete;
+  SetTheory &operator =(const SetTheory &) = delete;
 
   /// addExpander - Add an expander for Records with the named super class.
   void addExpander(StringRef ClassName, std::unique_ptr<Expander>);

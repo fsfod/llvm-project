@@ -45,7 +45,11 @@ class PassInstrumentationCallbacks;
 /// (typically Loop or SCC).
 class LLVM_ABI PrintIRInstrumentation {
 public:
+  PrintIRInstrumentation() = default;
   ~PrintIRInstrumentation();
+  PrintIRInstrumentation(PrintIRInstrumentation &&) = delete;
+  PrintIRInstrumentation(const PrintIRInstrumentation &) = delete;
+  PrintIRInstrumentation &operator=(const PrintIRInstrumentation &) = delete;
 
   void registerCallbacks(PassInstrumentationCallbacks &PIC);
 

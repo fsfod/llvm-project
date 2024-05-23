@@ -159,6 +159,11 @@ struct alignas(8) GlobalValueSummaryInfo {
     StringRef Name;
   } U;
 
+  GlobalValueSummaryInfo() = delete;
+  GlobalValueSummaryInfo(const GlobalValueSummaryInfo &) = delete;
+  GlobalValueSummaryInfo(GlobalValueSummaryInfo &&) = default;
+  GlobalValueSummaryInfo & operator =(const GlobalValueSummaryInfo &) = delete;
+
   inline GlobalValueSummaryInfo(bool HaveGVs);
 
   /// List of global value summary structures for a particular value held

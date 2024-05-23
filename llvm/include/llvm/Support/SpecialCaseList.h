@@ -118,6 +118,11 @@ protected:
   /// Represents a set of globs and their line numbers
   class LLVM_ABI Matcher {
   public:
+    Matcher() = default;
+    Matcher(const Matcher &) = delete;
+    Matcher(Matcher &&) = default;
+    Matcher &operator =(const Matcher &) = delete;
+
     Error insert(StringRef Pattern, unsigned LineNumber, bool UseRegex);
     // Returns the line number in the source file that this query matches to.
     // Returns zero if no match is found.

@@ -191,6 +191,9 @@ namespace llvm {
         : Context(Context), OPLex(F, SM, Err, Context),
           Lex(F, SM, Err, Context), M(M), Index(Index), Slots(Slots),
           BlockAddressPFS(nullptr) {}
+    LLParser(const LLParser &) = delete;
+    LLParser &operator =(const LLParser &) = delete;
+
     bool Run(
         bool UpgradeDebugInfo,
         DataLayoutCallbackTy DataLayoutCallback = [](StringRef, StringRef) {

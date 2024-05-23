@@ -38,7 +38,11 @@ class LLVM_ABI DwarfStringPool {
 public:
   using EntryRef = DwarfStringPoolEntryRef;
 
+  DwarfStringPool() = delete;
   DwarfStringPool(BumpPtrAllocator &A, AsmPrinter &Asm, StringRef Prefix);
+  DwarfStringPool(const DwarfStringPool &) = delete;
+  DwarfStringPool(DwarfStringPool &&) = delete;
+  DwarfStringPool &operator=(const DwarfStringPool &) = delete;
 
   void emitStringOffsetsTableHeader(AsmPrinter &Asm, MCSection *OffsetSection,
                                     MCSymbol *StartSym);

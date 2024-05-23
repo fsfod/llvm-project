@@ -33,6 +33,9 @@ public:
       getEntry("");
   }
 
+  NonRelocatableStringpool(const NonRelocatableStringpool &) = delete;
+  NonRelocatableStringpool &operator =(const NonRelocatableStringpool &) = delete;
+
   DwarfStringPoolEntryRef getEntry(StringRef S);
 
   /// Get the offset of string \p S in the string table. This can insert a new

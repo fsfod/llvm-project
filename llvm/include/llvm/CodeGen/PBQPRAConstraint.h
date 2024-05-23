@@ -50,6 +50,11 @@ private:
 /// added, to the PBQP graph.
 class LLVM_ABI PBQPRAConstraintList : public PBQPRAConstraint {
 public:
+  PBQPRAConstraintList(PBQPRAConstraintList &&) = default;
+  PBQPRAConstraintList() = default;
+  PBQPRAConstraintList(const PBQPRAConstraintList &) = delete;
+  PBQPRAConstraintList & operator =(const PBQPRAConstraintList &) = delete;
+
   void apply(PBQPRAGraph &G) override {
     for (auto &C : Constraints)
       C->apply(G);

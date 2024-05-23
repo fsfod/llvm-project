@@ -1525,8 +1525,10 @@ struct LLVM_ABI Attributor {
   ///                      generic features to use.
   Attributor(SetVector<Function *> &Functions, InformationCache &InfoCache,
              AttributorConfig Configuration);
-
+  Attributor(const Attributor &) = delete;
+  Attributor(Attributor &&) = default;
   ~Attributor();
+  Attributor &operator =(const Attributor &) = delete;
 
   /// Run the analyses until a fixpoint is reached or enforced (timeout).
   ///

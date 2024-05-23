@@ -88,6 +88,10 @@ class LLVM_ABI PassRegistry {
 public:
   static constexpr const char PassDelimToken = ',';
   PassRegistry() = default;
+  PassRegistry(const PassRegistry &) = delete;
+  PassRegistry(PassRegistry &&) = default;
+  PassRegistry &operator =(const PassRegistry &) = delete;
+
   /// Registers \p PassPtr and takes ownership.
   Pass &registerPass(std::unique_ptr<Pass> &&PassPtr) {
     auto &PassRef = *PassPtr.get();

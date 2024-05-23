@@ -333,6 +333,8 @@ public:
             StringRef SS, const DWARFSection &SOS, const DWARFSection *AOS,
             const DWARFSection &LS, bool LE, bool IsDWO,
             const DWARFUnitVector &UnitVector);
+  DWARFUnit(const DWARFUnit &) = delete;
+  DWARFUnit &operator=(const DWARFUnit &) = delete;
 
   virtual ~DWARFUnit();
 

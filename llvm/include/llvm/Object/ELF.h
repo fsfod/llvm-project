@@ -276,6 +276,10 @@ private:
   ELFFile(StringRef Object);
 
 public:
+  ELFFile(const ELFFile &) = default;
+  ELFFile(ELFFile &&) = default;
+  ELFFile &operator =(const ELFFile &) = default;
+
   const Elf_Ehdr &getHeader() const {
     return *reinterpret_cast<const Elf_Ehdr *>(base());
   }

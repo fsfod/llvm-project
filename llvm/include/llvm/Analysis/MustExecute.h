@@ -410,6 +410,10 @@ struct LLVM_ABI MustBeExecutedContextExplorer {
         ExploreCFGForward(ExploreCFGForward),
         ExploreCFGBackward(ExploreCFGBackward), LIGetter(LIGetter),
         DTGetter(DTGetter), PDTGetter(PDTGetter), EndIterator(*this, nullptr) {}
+  MustBeExecutedContextExplorer(const MustBeExecutedContextExplorer &) = delete;
+  MustBeExecutedContextExplorer(MustBeExecutedContextExplorer &&) = default;
+  MustBeExecutedContextExplorer &
+  operator=(const MustBeExecutedContextExplorer &) = delete;
 
   /// Iterator-based interface. \see MustBeExecutedIterator.
   ///{

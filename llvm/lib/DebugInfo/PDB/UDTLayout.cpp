@@ -117,6 +117,9 @@ UDTLayoutBase::UDTLayoutBase(const UDTLayoutBase *Parent, const PDBSymbol &Sym,
     UsedBytes.resize(LayoutSize);
 }
 
+UDTLayoutBase::~UDTLayoutBase() = default;
+UDTLayoutBase::UDTLayoutBase(UDTLayoutBase &&) = default;
+
 uint32_t UDTLayoutBase::tailPadding() const {
   uint32_t Abs = LayoutItemBase::tailPadding();
   if (!LayoutItems.empty()) {

@@ -686,6 +686,8 @@ public:
   DWARFDebugFrame(Triple::ArchType Arch,
                   bool IsEH = false, uint64_t EHFrameAddress = 0);
   ~DWARFDebugFrame();
+  DWARFDebugFrame(const DWARFDebugFrame &) = delete;
+  DWARFDebugFrame &operator =(const DWARFDebugFrame &) = delete;
 
   /// Dump the section data into the given stream.
   void dump(raw_ostream &OS, DIDumpOptions DumpOpts,

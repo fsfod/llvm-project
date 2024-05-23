@@ -155,6 +155,8 @@ class LLVM_ABI WindowsResourceParser {
 public:
   class TreeNode;
   WindowsResourceParser(bool MinGW = false);
+  WindowsResourceParser(const WindowsResourceParser &) = delete;
+  WindowsResourceParser &operator =(const WindowsResourceParser &) = delete;
   Error parse(WindowsResource *WR, std::vector<std::string> &Duplicates);
   Error parse(ResourceSectionRef &RSR, StringRef Filename,
               std::vector<std::string> &Duplicates);
@@ -198,6 +200,8 @@ public:
     explicit TreeNode(uint32_t StringIndex);
     TreeNode(uint16_t MajorVersion, uint16_t MinorVersion,
              uint32_t Characteristics, uint32_t Origin, uint32_t DataIndex);
+    TreeNode(const TreeNode &) = delete;
+    TreeNode &operator =(const TreeNode &) = delete;
 
     bool addEntry(const ResourceEntryRef &Entry, uint32_t Origin,
                   std::vector<std::vector<uint8_t>> &Data,

@@ -114,6 +114,10 @@ public:
   UDTLayoutBase(const UDTLayoutBase *Parent, const PDBSymbol &Sym,
                 const std::string &Name, uint32_t OffsetInParent, uint32_t Size,
                 bool IsElided);
+  UDTLayoutBase(UDTLayoutBase &&);
+  UDTLayoutBase(const UDTLayoutBase &) = delete;
+  UDTLayoutBase &operator =(const UDTLayoutBase &) = delete;
+  ~UDTLayoutBase();
 
   uint32_t tailPadding() const override;
   ArrayRef<LayoutItemBase *> layout_items() const { return LayoutItems; }
