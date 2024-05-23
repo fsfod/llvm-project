@@ -162,6 +162,8 @@ getHIPOffloadTargetTriple(const Driver &D, const ArgList &Args) {
   return std::nullopt;
 }
 
+Driver::~Driver() {}
+
 // static
 std::string Driver::GetResourcesPath(StringRef BinaryPath,
                                      StringRef CustomResourceDir) {

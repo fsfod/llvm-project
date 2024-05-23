@@ -327,6 +327,8 @@ public:
   phases::ID getFinalPhase(const llvm::opt::DerivedArgList &DAL,
                            llvm::opt::Arg **FinalPhaseArg = nullptr) const;
 
+  ~Driver();
+
 private:
   /// Certain options suppress the 'no input files' warning.
   LLVM_PREFERRED_TYPE(bool)
