@@ -120,6 +120,9 @@ public:
   RewriteSymbolPass(SymbolRewriter::RewriteDescriptorList &DL) {
     Descriptors.splice(Descriptors.begin(), DL);
   }
+  RewriteSymbolPass(const RewriteSymbolPass &) = delete;
+  RewriteSymbolPass(RewriteSymbolPass &&) = default;
+  RewriteSymbolPass &operator=(const RewriteSymbolPass &) = delete;
 
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 
