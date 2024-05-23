@@ -64,6 +64,8 @@ public:
   ImportedFunctionsInliningStatistics() = default;
   ImportedFunctionsInliningStatistics(
       const ImportedFunctionsInliningStatistics &) = delete;
+  ImportedFunctionsInliningStatistics &operator =( 
+      const ImportedFunctionsInliningStatistics &) = delete;
 
   /// Set information like AllFunctions, ImportedFunctions, ModuleName.
   void setModuleInfo(const Module &M);

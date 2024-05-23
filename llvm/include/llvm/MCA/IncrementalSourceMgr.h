@@ -46,6 +46,8 @@ class IncrementalSourceMgr : public SourceMgr {
 
 public:
   IncrementalSourceMgr() = default;
+  IncrementalSourceMgr(const IncrementalSourceMgr &) = delete;
+  IncrementalSourceMgr &operator =(const IncrementalSourceMgr &) = delete;
 
   void clear();
 

@@ -61,6 +61,8 @@ protected:
   ProfileSummaryBuilder(std::vector<uint32_t> Cutoffs)
       : DetailedSummaryCutoffs(std::move(Cutoffs)) {}
   ~ProfileSummaryBuilder() = default;
+  ProfileSummaryBuilder(const ProfileSummaryBuilder &) = delete;
+  ProfileSummaryBuilder &operator =(const ProfileSummaryBuilder &) = delete;
 
   inline void addCount(uint64_t Count);
   void computeDetailedSummary();

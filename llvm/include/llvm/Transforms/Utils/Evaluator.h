@@ -53,6 +53,7 @@ class Evaluator {
       Other.Val = nullptr;
     }
     ~MutableValue() { clear(); }
+    MutableValue &operator =(const MutableValue &) = delete;
 
     Type *getType() const {
       if (auto *C = dyn_cast_if_present<Constant *>(Val))
@@ -75,6 +76,8 @@ class Evaluator {
     SmallVector<MutableValue> Elements;
 
     MutableAggregate(Type *Ty) : Ty(Ty) {}
+    MutableAggregate(const MutableAggregate &) = delete;
+    MutableAggregate &operator =(const MutableAggregate &) = delete;
     Constant *toConstant() const;
   };
 
@@ -83,6 +86,8 @@ public:
       : DL(DL), TLI(TLI) {
     ValueStack.emplace_back();
   }
+  Evaluator(const Evaluator &) = delete;
+  Evaluator &operator =(const Evaluator &) = delete;
 
   ~Evaluator() {
     for (auto &Tmp : AllocaTmps)

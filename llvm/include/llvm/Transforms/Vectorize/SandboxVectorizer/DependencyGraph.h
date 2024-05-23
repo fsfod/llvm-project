@@ -357,6 +357,9 @@ public:
     if (EraseInstrCB)
       Ctx->unregisterEraseInstrCallback(*EraseInstrCB);
   }
+  DependencyGraph(const DependencyGraph &) = delete;
+  DependencyGraph(DependencyGraph &&) = default;
+  DependencyGraph &operator =(const DependencyGraph &) = delete;
 
   DGNode *getNode(Instruction *I) const {
     auto It = InstrToNodeMap.find(I);

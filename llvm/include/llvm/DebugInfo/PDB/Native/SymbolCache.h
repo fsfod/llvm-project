@@ -122,6 +122,8 @@ class SymbolCache {
 
 public:
   SymbolCache(NativeSession &Session, DbiStream *Dbi);
+  SymbolCache(const SymbolCache &) = delete;
+  SymbolCache &operator =(const SymbolCache &) = delete;
 
   template <typename ConcreteSymbolT, typename... Args>
   SymIndexId createSymbol(Args &&...ConstructorArgs) const {
