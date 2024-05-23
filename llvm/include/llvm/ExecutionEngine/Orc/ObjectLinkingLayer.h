@@ -216,6 +216,11 @@ public:
   EHFrameRegistrationPlugin(
       ExecutionSession &ES,
       std::unique_ptr<jitlink::EHFrameRegistrar> Registrar);
+  EHFrameRegistrationPlugin(const EHFrameRegistrationPlugin &) = delete;
+  ~EHFrameRegistrationPlugin();
+  EHFrameRegistrationPlugin &
+  operator=(const EHFrameRegistrationPlugin &) = delete;
+
   void modifyPassConfig(MaterializationResponsibility &MR,
                         jitlink::LinkGraph &G,
                         jitlink::PassConfiguration &PassConfig) override;

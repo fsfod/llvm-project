@@ -790,6 +790,8 @@ EHFrameRegistrationPlugin::EHFrameRegistrationPlugin(
     ExecutionSession &ES, std::unique_ptr<EHFrameRegistrar> Registrar)
     : ES(ES), Registrar(std::move(Registrar)) {}
 
+EHFrameRegistrationPlugin::~EHFrameRegistrationPlugin() {}
+
 void EHFrameRegistrationPlugin::modifyPassConfig(
     MaterializationResponsibility &MR, LinkGraph &G,
     PassConfiguration &PassConfig) {
