@@ -48,7 +48,7 @@ class PassRegistry {
   std::vector<PassRegistrationListener *> Listeners;
 
 public:
-  PassRegistry() = default;
+  PassRegistry();
   ~PassRegistry();
 
   /// getPassRegistry - Access the global registry object, which is

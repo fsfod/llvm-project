@@ -30,6 +30,8 @@ PassRegistry *PassRegistry::getPassRegistry() {
 // Accessors
 //
 
+PassRegistry::PassRegistry() = default;
+
 PassRegistry::~PassRegistry() = default;
 
 const PassInfo *PassRegistry::getPassInfo(const void *TI) const {
