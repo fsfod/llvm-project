@@ -1755,6 +1755,11 @@ struct PassConfiguration {
   ///
   /// Notable use cases: Testing and validation.
   LinkGraphPassList PostFixupPasses;
+
+  PassConfiguration() = default;
+  PassConfiguration(PassConfiguration &&) = default;
+  PassConfiguration(const PassConfiguration &) = delete;
+  PassConfiguration &operator=(const PassConfiguration &) = delete;
 };
 
 /// Flags for symbol lookup.
