@@ -644,7 +644,7 @@ struct OptionValue final
 // Other safe-to-copy-by-value common option types.
 enum boolOrDefault { BOU_UNSET, BOU_TRUE, BOU_FALSE };
 template <>
-struct OptionValue<cl::boolOrDefault> final
+struct LLVM_CLASS_ABI OptionValue<cl::boolOrDefault> final
     : OptionValueCopy<cl::boolOrDefault> {
   using WrapperType = cl::boolOrDefault;
 
@@ -662,7 +662,7 @@ private:
 };
 
 template <>
-struct OptionValue<std::string> final : OptionValueCopy<std::string> {
+struct LLVM_CLASS_ABI OptionValue<std::string> final : OptionValueCopy<std::string> {
   using WrapperType = StringRef;
 
   OptionValue() = default;
@@ -949,7 +949,7 @@ public:
 
 extern template class basic_parser<bool>;
 
-template <> class parser<bool> : public basic_parser<bool> {
+template <> class LLVM_CLASS_ABI parser<bool> : public basic_parser<bool> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -976,7 +976,7 @@ public:
 
 extern template class basic_parser<boolOrDefault>;
 
-template <> class parser<boolOrDefault> : public basic_parser<boolOrDefault> {
+template <> class LLVM_CLASS_ABI parser<boolOrDefault> : public basic_parser<boolOrDefault> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1001,7 +1001,7 @@ public:
 
 extern template class basic_parser<int>;
 
-template <> class parser<int> : public basic_parser<int> {
+template <> class LLVM_CLASS_ABI parser<int> : public basic_parser<int> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1022,7 +1022,7 @@ public:
 
 extern template class basic_parser<long>;
 
-template <> class parser<long> final : public basic_parser<long> {
+template <> class LLVM_CLASS_ABI parser<long> final : public basic_parser<long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1043,7 +1043,7 @@ public:
 
 extern template class basic_parser<long long>;
 
-template <> class parser<long long> : public basic_parser<long long> {
+template <> class LLVM_CLASS_ABI parser<long long> : public basic_parser<long long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1064,7 +1064,7 @@ public:
 
 extern template class basic_parser<unsigned>;
 
-template <> class parser<unsigned> : public basic_parser<unsigned> {
+template <> class LLVM_CLASS_ABI parser<unsigned> : public basic_parser<unsigned> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1086,7 +1086,7 @@ public:
 extern template class basic_parser<unsigned long>;
 
 template <>
-class parser<unsigned long> final : public basic_parser<unsigned long> {
+class LLVM_CLASS_ABI parser<unsigned long> final : public basic_parser<unsigned long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1108,7 +1108,7 @@ public:
 extern template class basic_parser<unsigned long long>;
 
 template <>
-class parser<unsigned long long> : public basic_parser<unsigned long long> {
+class LLVM_CLASS_ABI parser<unsigned long long> : public basic_parser<unsigned long long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1130,7 +1130,7 @@ public:
 
 extern template class basic_parser<double>;
 
-template <> class parser<double> : public basic_parser<double> {
+template <> class LLVM_CLASS_ABI parser<double> : public basic_parser<double> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1151,7 +1151,7 @@ public:
 
 extern template class basic_parser<float>;
 
-template <> class parser<float> : public basic_parser<float> {
+template <> class LLVM_CLASS_ABI parser<float> : public basic_parser<float> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1172,7 +1172,7 @@ public:
 
 extern template class basic_parser<std::string>;
 
-template <> class parser<std::string> : public basic_parser<std::string> {
+template <> class LLVM_CLASS_ABI parser<std::string> : public basic_parser<std::string> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1196,7 +1196,7 @@ public:
 
 extern template class basic_parser<char>;
 
-template <> class parser<char> : public basic_parser<char> {
+template <> class LLVM_CLASS_ABI parser<char> : public basic_parser<char> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
