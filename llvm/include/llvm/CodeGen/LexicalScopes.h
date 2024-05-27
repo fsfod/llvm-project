@@ -141,6 +141,8 @@ private:
 class LexicalScopes {
 public:
   LexicalScopes() = default;
+  LexicalScopes(const LexicalScopes &) = delete;
+  LexicalScopes &operator=(const LexicalScopes &) = delete;
 
   /// initialize - Scan machine function and constuct lexical scope nest, resets
   /// the instance if necessary.
