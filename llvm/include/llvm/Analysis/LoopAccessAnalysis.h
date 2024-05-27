@@ -586,6 +586,8 @@ public:
   LoopAccessInfo(Loop *L, ScalarEvolution *SE, const TargetTransformInfo *TTI,
                  const TargetLibraryInfo *TLI, AAResults *AA, DominatorTree *DT,
                  LoopInfo *LI);
+  LoopAccessInfo(const LoopAccessInfo &) = delete;
+  LoopAccessInfo& operator =(const LoopAccessInfo &) = delete;
 
   /// Return true we can analyze the memory accesses in the loop and there are
   /// no memory dependence cycles. Note that for dependences between loads &
@@ -816,6 +818,9 @@ public:
                         LoopInfo &LI, TargetTransformInfo *TTI,
                         const TargetLibraryInfo *TLI)
       : SE(SE), AA(AA), DT(DT), LI(LI), TTI(TTI), TLI(TLI) {}
+  LoopAccessInfoManager(const LoopAccessInfoManager &) = delete;
+  LoopAccessInfoManager(LoopAccessInfoManager &&) = default;
+  LoopAccessInfoManager &operator=(const LoopAccessInfoManager &) = delete;
 
   const LoopAccessInfo &getInfo(Loop &L);
 
