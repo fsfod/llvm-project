@@ -324,6 +324,6 @@ bool CSKYAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI,
   return AsmPrinter::PrintAsmMemoryOperand(MI, OpNo, ExtraCode, OS);
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeCSKYAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeCSKYAsmPrinter() {
   RegisterAsmPrinter<CSKYAsmPrinter> X(getTheCSKYTarget());
 }

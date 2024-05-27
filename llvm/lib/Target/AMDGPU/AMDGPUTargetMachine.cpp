@@ -478,7 +478,7 @@ static cl::opt<bool> HasClosedWorldAssumption(
     cl::desc("Whether has closed-world assumption at link time"),
     cl::init(false), cl::Hidden);
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAMDGPUTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeAMDGPUTarget() {
   // Register the target
   RegisterTargetMachine<R600TargetMachine> X(getTheR600Target());
   RegisterTargetMachine<GCNTargetMachine> Y(getTheGCNTarget());

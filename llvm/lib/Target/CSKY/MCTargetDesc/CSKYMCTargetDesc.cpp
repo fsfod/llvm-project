@@ -148,7 +148,7 @@ static MCInstrAnalysis *createCSKYInstrAnalysis(const MCInstrInfo *Info) {
   return new CSKYMCInstrAnalysis(Info);
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeCSKYTargetMC() {
+extern "C" LLVM_C_ABI void LLVMInitializeCSKYTargetMC() {
   auto &CSKYTarget = getTheCSKYTarget();
   TargetRegistry::RegisterMCAsmBackend(CSKYTarget, createCSKYAsmBackend);
   TargetRegistry::RegisterMCAsmInfo(CSKYTarget, createCSKYMCAsmInfo);

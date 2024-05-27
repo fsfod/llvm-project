@@ -15,7 +15,7 @@ Target &llvm::getTheXCoreTarget() {
   return TheXCoreTarget;
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeXCoreTargetInfo() {
+extern "C" LLVM_C_ABI void LLVMInitializeXCoreTargetInfo() {
   RegisterTarget<Triple::xcore> X(getTheXCoreTarget(), "xcore", "XCore",
                                   "XCore");
 }

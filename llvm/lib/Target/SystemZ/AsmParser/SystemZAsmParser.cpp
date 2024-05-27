@@ -1746,6 +1746,6 @@ bool SystemZAsmParser::isLabel(AsmToken &Token) {
 
 // Force static initialization.
 // NOLINTNEXTLINE(readability-identifier-naming)
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSystemZAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeSystemZAsmParser() {
   RegisterMCAsmParser<SystemZAsmParser> X(getTheSystemZTarget());
 }

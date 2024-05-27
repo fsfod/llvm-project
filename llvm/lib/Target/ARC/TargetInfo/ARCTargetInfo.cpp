@@ -16,6 +16,6 @@ Target &llvm::getTheARCTarget() {
   return TheARCTarget;
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeARCTargetInfo() {
+extern "C" LLVM_C_ABI void LLVMInitializeARCTargetInfo() {
   RegisterTarget<Triple::arc> X(getTheARCTarget(), "arc", "ARC", "ARC");
 }
