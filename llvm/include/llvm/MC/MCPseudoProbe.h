@@ -259,7 +259,7 @@ public:
 // instance is created as the root of a tree.
 // A real instance of this class is created for each function, either a
 // not inlined function that has code in .text section or an inlined function.
-class LLVM_CLASS_ABI MCPseudoProbeInlineTree
+class MCPseudoProbeInlineTree
     : public MCPseudoProbeInlineTreeBase<MCPseudoProbe,
                                          MCPseudoProbeInlineTree> {
 public:
@@ -276,7 +276,7 @@ public:
 };
 
 // inline tree node for the decoded pseudo probe
-class LLVM_CLASS_ABI MCDecodedPseudoProbeInlineTree
+class MCDecodedPseudoProbeInlineTree
     : public MCPseudoProbeInlineTreeBase<MCDecodedPseudoProbe *,
                                          MCDecodedPseudoProbeInlineTree> {
 public:
@@ -293,7 +293,7 @@ public:
 
 /// Instances of this class represent the pseudo probes inserted into a compile
 /// unit.
-class LLVM_CLASS_ABI MCPseudoProbeSections {
+class MCPseudoProbeSections {
 public:
   void addPseudoProbe(MCSymbol *FuncSym, const MCPseudoProbe &Probe,
                       const MCPseudoProbeInlineStack &InlineStack) {
@@ -318,7 +318,7 @@ public:
   void emit(MCObjectStreamer *MCOS);
 };
 
-class LLVM_CLASS_ABI MCPseudoProbeTable {
+class MCPseudoProbeTable {
   // A collection of MCPseudoProbe in the current module grouped by
   // functions. MCPseudoProbes will be encoded into a corresponding
   // .pseudoprobe section. With functions emitted as separate comdats,
