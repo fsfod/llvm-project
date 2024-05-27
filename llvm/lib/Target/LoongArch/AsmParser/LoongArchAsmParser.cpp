@@ -1972,7 +1972,7 @@ ParseStatus LoongArchAsmParser::parseDirective(AsmToken DirectiveID) {
   return ParseStatus::NoMatch;
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLoongArchAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeLoongArchAsmParser() {
   RegisterMCAsmParser<LoongArchAsmParser> X(getTheLoongArch32Target());
   RegisterMCAsmParser<LoongArchAsmParser> Y(getTheLoongArch64Target());
 }

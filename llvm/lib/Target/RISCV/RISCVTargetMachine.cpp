@@ -119,7 +119,7 @@ static cl::opt<bool> DisableVectorMaskMutation(
     cl::desc("Disable the vector mask scheduling mutation"), cl::init(false),
     cl::Hidden);
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeRISCVTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeRISCVTarget() {
   RegisterTargetMachine<RISCVTargetMachine> X(getTheRISCV32Target());
   RegisterTargetMachine<RISCVTargetMachine> Y(getTheRISCV64Target());
   auto *PR = PassRegistry::getPassRegistry();

@@ -294,7 +294,7 @@ createRISCVInstrumentManager(const MCSubtargetInfo &STI,
 }
 
 /// Extern function to initialize the targets for the RISC-V backend
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeRISCVTargetMCA() {
+extern "C" LLVM_C_ABI void LLVMInitializeRISCVTargetMCA() {
   TargetRegistry::RegisterInstrumentManager(getTheRISCV32Target(),
                                             createRISCVInstrumentManager);
   TargetRegistry::RegisterInstrumentManager(getTheRISCV64Target(),
