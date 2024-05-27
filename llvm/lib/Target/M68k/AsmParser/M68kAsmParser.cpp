@@ -223,7 +223,7 @@ public:
 
 } // end anonymous namespace.
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeM68kAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeM68kAsmParser() {
   RegisterMCAsmParser<M68kAsmParser> X(getTheM68kTarget());
 }
 

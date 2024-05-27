@@ -165,7 +165,7 @@ static MCDisassembler *createHexagonDisassembler(const Target &T,
   return new HexagonDisassembler(STI, Ctx, T.createMCInstrInfo());
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeHexagonDisassembler() {
+extern "C" LLVM_C_ABI void LLVMInitializeHexagonDisassembler() {
   TargetRegistry::RegisterMCDisassembler(getTheHexagonTarget(),
                                          createHexagonDisassembler);
 }

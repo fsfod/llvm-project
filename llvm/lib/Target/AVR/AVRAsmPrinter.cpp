@@ -324,6 +324,6 @@ void AVRAsmPrinter::emitStartOfAsmFile(Module &M) {
 
 } // end of namespace llvm
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAVRAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeAVRAsmPrinter() {
   llvm::RegisterAsmPrinter<llvm::AVRAsmPrinter> X(llvm::getTheAVRTarget());
 }

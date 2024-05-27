@@ -1545,7 +1545,7 @@ ParseStatus VEAsmParser::parseVEAsmOperand(std::unique_ptr<VEOperand> &Op) {
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeVEAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeVEAsmParser() {
   RegisterMCAsmParser<VEAsmParser> A(getTheVETarget());
 }
 

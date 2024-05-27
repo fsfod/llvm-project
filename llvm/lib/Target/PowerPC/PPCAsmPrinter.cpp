@@ -3326,7 +3326,7 @@ void PPCAIXAsmPrinter::emitModuleCommandLines(Module &M) {
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializePowerPCAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializePowerPCAsmPrinter() {
   TargetRegistry::RegisterAsmPrinter(getThePPC32Target(),
                                      createPPCAsmPrinterPass);
   TargetRegistry::RegisterAsmPrinter(getThePPC32LETarget(),

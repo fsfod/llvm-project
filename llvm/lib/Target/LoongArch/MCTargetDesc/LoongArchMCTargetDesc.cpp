@@ -199,7 +199,7 @@ MCStreamer *createLoongArchELFStreamer(const Triple &T, MCContext &Context,
 }
 } // end namespace
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLoongArchTargetMC() {
+extern "C" LLVM_C_ABI void LLVMInitializeLoongArchTargetMC() {
   for (Target *T : {&getTheLoongArch32Target(), &getTheLoongArch64Target()}) {
     TargetRegistry::RegisterMCRegInfo(*T, createLoongArchMCRegisterInfo);
     TargetRegistry::RegisterMCInstrInfo(*T, createLoongArchMCInstrInfo);

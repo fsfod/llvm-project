@@ -52,7 +52,7 @@ static cl::opt<bool>
     EnableMulMulFix("mfix4300", cl::init(false),
                     cl::desc("Enable the VR4300 mulmul bug fix."), cl::Hidden);
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeMipsTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeMipsTarget() {
   // Register the target.
   RegisterTargetMachine<MipsebTargetMachine> X(getTheMipsTarget());
   RegisterTargetMachine<MipselTargetMachine> Y(getTheMipselTarget());

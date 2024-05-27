@@ -38,7 +38,7 @@ static cl::
 opt<bool> DisableMIPeephole("disable-bpf-peephole", cl::Hidden,
                             cl::desc("Disable machine peepholes for BPF"));
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBPFTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeBPFTarget() {
   // Register the target.
   RegisterTargetMachine<BPFTargetMachine> X(getTheBPFleTarget());
   RegisterTargetMachine<BPFTargetMachine> Y(getTheBPFbeTarget());

@@ -1229,6 +1229,6 @@ bool LanaiAsmParser::parseInstruction(ParseInstructionInfo & /*Info*/,
 #define GET_MATCHER_IMPLEMENTATION
 #include "LanaiGenAsmMatcher.inc"
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLanaiAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeLanaiAsmParser() {
   RegisterMCAsmParser<LanaiAsmParser> x(getTheLanaiTarget());
 }
