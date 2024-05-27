@@ -23,7 +23,7 @@ using AnchorList = std::vector<std::pair<LineLocation, FunctionId>>;
 using AnchorMap = std::map<LineLocation, FunctionId>;
 
 // Sample profile matching - fuzzy match.
-class SampleProfileMatcher {
+class LLVM_CLASS_ABI SampleProfileMatcher {
   Module &M;
   SampleProfileReader &Reader;
   const PseudoProbeManager *ProbeManager;

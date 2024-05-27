@@ -20,7 +20,7 @@
 
 namespace llvm {
 
-class UnifyFunctionExitNodesPass
+class LLVM_CLASS_ABI UnifyFunctionExitNodesPass
     : public PassInfoMixin<UnifyFunctionExitNodesPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);

@@ -46,7 +46,7 @@ struct IPSCCPOptions {
 };
 
 /// Pass to perform interprocedural constant propagation.
-class IPSCCPPass : public PassInfoMixin<IPSCCPPass> {
+class LLVM_CLASS_ABI IPSCCPPass : public PassInfoMixin<IPSCCPPass> {
   IPSCCPOptions Options;
 
 public:

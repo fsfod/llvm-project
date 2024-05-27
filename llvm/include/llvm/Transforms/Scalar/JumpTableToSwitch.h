@@ -15,7 +15,7 @@ namespace llvm {
 
 class Function;
 
-struct JumpTableToSwitchPass : PassInfoMixin<JumpTableToSwitchPass> {
+struct LLVM_CLASS_ABI JumpTableToSwitchPass : PassInfoMixin<JumpTableToSwitchPass> {
   /// Run the pass over the function.
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

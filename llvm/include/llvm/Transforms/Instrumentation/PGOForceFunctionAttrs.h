@@ -14,7 +14,7 @@
 
 namespace llvm {
 
-struct PGOForceFunctionAttrsPass
+struct LLVM_CLASS_ABI PGOForceFunctionAttrsPass
     : public PassInfoMixin<PGOForceFunctionAttrsPass> {
   PGOForceFunctionAttrsPass(PGOOptions::ColdFuncOpt ColdType)
       : ColdType(ColdType) {}

@@ -36,7 +36,7 @@ struct ScalarizerPassOptions {
   std::optional<unsigned> ScalarizeMinBits;
 };
 
-class ScalarizerPass : public PassInfoMixin<ScalarizerPass> {
+class LLVM_CLASS_ABI ScalarizerPass : public PassInfoMixin<ScalarizerPass> {
   ScalarizerPassOptions Options;
 
 public:

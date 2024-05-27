@@ -16,7 +16,7 @@
 namespace llvm {
 class Type;
 
-class PGOCtxProfLoweringPass : public PassInfoMixin<PGOCtxProfLoweringPass> {
+class LLVM_CLASS_ABI PGOCtxProfLoweringPass : public PassInfoMixin<PGOCtxProfLoweringPass> {
 public:
   explicit PGOCtxProfLoweringPass() = default;
   static bool isContextualIRPGOEnabled();

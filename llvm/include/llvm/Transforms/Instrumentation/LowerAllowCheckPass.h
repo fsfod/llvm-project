@@ -22,7 +22,7 @@ namespace llvm {
 
 // This pass is responsible for removing optional traps, like llvm.ubsantrap
 // from the hot code.
-class LowerAllowCheckPass : public PassInfoMixin<LowerAllowCheckPass> {
+class LLVM_CLASS_ABI LowerAllowCheckPass : public PassInfoMixin<LowerAllowCheckPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

@@ -58,7 +58,7 @@ class Type;
 /// We cannot write all values to metadata, as the mere presence of some info,
 /// for example 'force', means a decision has been made. So, we need to be
 /// careful NOT to add them if the user hasn't specifically asked so.
-class LoopVectorizeHints {
+class LLVM_CLASS_ABI LoopVectorizeHints {
   enum HintKind {
     HK_WIDTH,
     HK_INTERLEAVE,
@@ -69,7 +69,7 @@ class LoopVectorizeHints {
   };
 
   /// Hint - associates name and validation with the hint value.
-  struct Hint {
+  struct LLVM_CLASS_ABI Hint {
     const char *Name;
     unsigned Value; // This may have to change for non-numeric values.
     HintKind Kind;
@@ -238,7 +238,7 @@ private:
 /// etc. This code reflects the capabilities of InnerLoopVectorizer.
 /// This class is also used by InnerLoopVectorizer for identifying
 /// induction variable and the different reduction variables.
-class LoopVectorizationLegality {
+class LLVM_CLASS_ABI LoopVectorizationLegality {
 public:
   LoopVectorizationLegality(
       Loop *L, PredicatedScalarEvolution &PSE, DominatorTree *DT,
