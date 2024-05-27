@@ -1522,7 +1522,7 @@ bool LoongArchAsmParser::MatchAndEmitInstruction(SMLoc IDLoc, unsigned &Opcode,
   llvm_unreachable("Unknown match type detected!");
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLoongArchAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeLoongArchAsmParser() {
   RegisterMCAsmParser<LoongArchAsmParser> X(getTheLoongArch32Target());
   RegisterMCAsmParser<LoongArchAsmParser> Y(getTheLoongArch64Target());
 }

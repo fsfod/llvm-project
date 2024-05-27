@@ -101,7 +101,7 @@ static cl::opt<bool> EnableMISchedLoadClustering(
     cl::desc("Enable load clustering in the machine scheduler"),
     cl::init(false));
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeRISCVTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeRISCVTarget() {
   RegisterTargetMachine<RISCVTargetMachine> X(getTheRISCV32Target());
   RegisterTargetMachine<RISCVTargetMachine> Y(getTheRISCV64Target());
   auto *PR = PassRegistry::getPassRegistry();

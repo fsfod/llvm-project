@@ -111,7 +111,7 @@ static cl::opt<bool> EnablePPCGenScalarMASSEntries(
              "(scalar) entries"),
     cl::Hidden);
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializePowerPCTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializePowerPCTarget() {
   // Register the targets
   RegisterTargetMachine<PPCTargetMachine> A(getThePPC32Target());
   RegisterTargetMachine<PPCTargetMachine> B(getThePPC32LETarget());

@@ -204,7 +204,7 @@ static cl::opt<bool>
                    cl::desc("Enable sinking and folding of instruction copies"),
                    cl::init(true), cl::Hidden);
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAArch64Target() {
+extern "C" LLVM_C_ABI void LLVMInitializeAArch64Target() {
   // Register the target.
   RegisterTargetMachine<AArch64leTargetMachine> X(getTheAArch64leTarget());
   RegisterTargetMachine<AArch64beTargetMachine> Y(getTheAArch64beTarget());

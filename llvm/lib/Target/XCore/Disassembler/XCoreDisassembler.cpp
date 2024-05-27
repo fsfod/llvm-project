@@ -750,7 +750,7 @@ static MCDisassembler *createXCoreDisassembler(const Target &T,
   return new XCoreDisassembler(STI, Ctx);
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeXCoreDisassembler() {
+extern "C" LLVM_C_ABI void LLVMInitializeXCoreDisassembler() {
   // Register the disassembler.
   TargetRegistry::RegisterMCDisassembler(getTheXCoreTarget(),
                                          createXCoreDisassembler);

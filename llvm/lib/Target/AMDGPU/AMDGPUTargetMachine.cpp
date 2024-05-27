@@ -365,7 +365,7 @@ static cl::opt<bool> EnableHipStdPar(
   cl::desc("Enable HIP Standard Parallelism Offload support"), cl::init(false),
   cl::Hidden);
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAMDGPUTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeAMDGPUTarget() {
   // Register the target
   RegisterTargetMachine<R600TargetMachine> X(getTheR600Target());
   RegisterTargetMachine<GCNTargetMachine> Y(getTheGCNTarget());

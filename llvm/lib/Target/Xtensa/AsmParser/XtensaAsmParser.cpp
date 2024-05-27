@@ -687,6 +687,6 @@ bool XtensaAsmParser::ParseInstruction(ParseInstructionInfo &Info,
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeXtensaAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeXtensaAsmParser() {
   RegisterMCAsmParser<XtensaAsmParser> X(getTheXtensaTarget());
 }

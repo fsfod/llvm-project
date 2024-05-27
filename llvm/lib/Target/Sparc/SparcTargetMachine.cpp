@@ -21,7 +21,7 @@
 #include <optional>
 using namespace llvm;
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSparcTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeSparcTarget() {
   // Register the target.
   RegisterTargetMachine<SparcV8TargetMachine> X(getTheSparcTarget());
   RegisterTargetMachine<SparcV9TargetMachine> Y(getTheSparcV9Target());

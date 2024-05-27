@@ -1267,7 +1267,7 @@ bool MipsAsmPrinter::isLongBranchPseudo(int Opcode) const {
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeMipsAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeMipsAsmPrinter() {
   RegisterAsmPrinter<MipsAsmPrinter> X(getTheMipsTarget());
   RegisterAsmPrinter<MipsAsmPrinter> Y(getTheMipselTarget());
   RegisterAsmPrinter<MipsAsmPrinter> A(getTheMips64Target());
