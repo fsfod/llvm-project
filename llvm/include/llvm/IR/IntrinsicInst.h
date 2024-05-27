@@ -192,7 +192,7 @@ public:
 // Iterator for ValueAsMetadata that internally uses direct pointer iteration
 // over either a ValueAsMetadata* or a ValueAsMetadata**, dereferencing to the
 // ValueAsMetadata .
-class LLVM_CLASS_ABI location_op_iterator
+class location_op_iterator
     : public iterator_facade_base<location_op_iterator,
                                   std::bidirectional_iterator_tag, Value *> {
   PointerUnion<ValueAsMetadata *, ValueAsMetadata **> I;
