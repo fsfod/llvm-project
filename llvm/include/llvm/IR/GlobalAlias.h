@@ -26,7 +26,7 @@ class Twine;
 class Module;
 template <typename ValueSubClass, typename... Args> class SymbolTableListTraits;
 
-class GlobalAlias : public GlobalValue, public ilist_node<GlobalAlias> {
+class LLVM_CLASS_ABI GlobalAlias : public GlobalValue, public ilist_node<GlobalAlias> {
   friend class SymbolTableListTraits<GlobalAlias>;
 
   GlobalAlias(Type *Ty, unsigned AddressSpace, LinkageTypes Linkage,

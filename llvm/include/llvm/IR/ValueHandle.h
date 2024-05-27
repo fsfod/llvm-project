@@ -27,7 +27,7 @@ namespace llvm {
 /// ValueHandle's are smart pointers to Value's that have special behavior when
 /// the value is deleted or ReplaceAllUsesWith'd.  See the specific handles
 /// below for details.
-class ValueHandleBase {
+class LLVM_CLASS_ABI ValueHandleBase {
   friend class Value;
 
 protected:
@@ -381,7 +381,7 @@ public:
 /// class can be used as the key of a map, as long as the user takes it out of
 /// the map before calling setValPtr() (since the map has to rearrange itself
 /// when the pointer changes).  Unlike ValueHandleBase, this class has a vtable.
-class CallbackVH : public ValueHandleBase {
+class LLVM_CLASS_ABI CallbackVH : public ValueHandleBase {
   virtual void anchor();
 protected:
   ~CallbackVH() = default;

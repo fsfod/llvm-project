@@ -43,7 +43,7 @@ struct ProfileSummaryEntry {
 
 using SummaryEntryVector = std::vector<ProfileSummaryEntry>;
 
-class ProfileSummary {
+class LLVM_CLASS_ABI ProfileSummary {
 public:
   enum Kind { PSK_Instr, PSK_CSInstr, PSK_Sample };
 

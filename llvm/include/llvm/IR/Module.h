@@ -810,7 +810,7 @@ public:
   }
 
   /// An iterator for DICompileUnits that skips those marked NoDebug.
-  class debug_compile_units_iterator {
+  class LLVM_CLASS_ABI debug_compile_units_iterator {
     NamedMDNode *CUs;
     unsigned Idx;
 
@@ -1068,7 +1068,7 @@ public:
 /// Given "llvm.used" or "llvm.compiler.used" as a global name, collect the
 /// initializer elements of that global in a SmallVector and return the global
 /// itself.
-GlobalVariable *collectUsedGlobalVariables(const Module &M,
+LLVM_ABI GlobalVariable *collectUsedGlobalVariables(const Module &M,
                                            SmallVectorImpl<GlobalValue *> &Vec,
                                            bool CompilerUsed);
 
