@@ -52,6 +52,6 @@ void DXILAsmPrinter::emitGlobalVariable(const GlobalVariable *GV) {
   emitGlobalConstant(GV->getDataLayout(), GV->getInitializer());
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeDirectXAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeDirectXAsmPrinter() {
   RegisterAsmPrinter<DXILAsmPrinter> X(getTheDirectXTarget());
 }

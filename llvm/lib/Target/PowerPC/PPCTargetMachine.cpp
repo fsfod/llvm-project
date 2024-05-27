@@ -120,7 +120,7 @@ static cl::opt<unsigned>
                          cl::init(0x7fff),
                          cl::desc("Maximum global merge offset"));
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializePowerPCTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializePowerPCTarget() {
   // Register the targets
   RegisterTargetMachine<PPCTargetMachine> A(getThePPC32Target());
   RegisterTargetMachine<PPCTargetMachine> B(getThePPC32LETarget());
