@@ -30,7 +30,7 @@ using namespace llvm;
 #define DEBUG_TYPE "ir"
 STATISTIC(NumInstrRenumberings, "Number of renumberings across all blocks");
 
-cl::opt<bool> UseNewDbgInfoFormat(
+LLVM_ABI cl::opt<bool> UseNewDbgInfoFormat(
     "experimental-debuginfo-iterators",
     cl::desc("Enable communicating debuginfo positions through iterators, "
              "eliminating intrinsics. Has no effect if "
