@@ -100,7 +100,7 @@ static inline int MCLOHIdToNbArgs(MCLOHType Kind) {
 }
 
 /// Store Linker Optimization Hint information (LOH).
-class MCLOHDirective {
+class LLVM_CLASS_ABI MCLOHDirective {
   MCLOHType Kind;
 
   /// Arguments of this directive. Order matters.

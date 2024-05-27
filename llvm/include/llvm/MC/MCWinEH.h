@@ -97,7 +97,7 @@ struct FrameInfo {
   }
 };
 
-class UnwindEmitter {
+class LLVM_CLASS_ABI UnwindEmitter {
 public:
   virtual ~UnwindEmitter();
 

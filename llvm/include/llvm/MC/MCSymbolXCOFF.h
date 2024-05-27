@@ -17,7 +17,7 @@ namespace llvm {
 
 class MCSectionXCOFF;
 
-class MCSymbolXCOFF : public MCSymbol {
+class LLVM_CLASS_ABI MCSymbolXCOFF : public MCSymbol {
 
   enum XCOFFSymbolFlags : uint16_t { SF_EHInfo = 0x0001 };
 

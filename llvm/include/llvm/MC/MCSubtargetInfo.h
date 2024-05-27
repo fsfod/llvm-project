@@ -74,7 +74,7 @@ struct SubtargetSubTypeKV {
 ///
 /// Generic base class for all target subtargets.
 ///
-class MCSubtargetInfo {
+class LLVM_CLASS_ABI MCSubtargetInfo {
   Triple TargetTriple;
   std::string CPU; // CPU being targeted.
   std::string TuneCPU; // CPU being tuned for.

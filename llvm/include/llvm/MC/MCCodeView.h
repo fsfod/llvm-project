@@ -142,7 +142,7 @@ struct MCCVFunctionInfo {
 };
 
 /// Holds state from .cv_file and .cv_loc directives for later emission.
-class CodeViewContext {
+class LLVM_CLASS_ABI CodeViewContext {
 public:
   CodeViewContext();
   ~CodeViewContext();

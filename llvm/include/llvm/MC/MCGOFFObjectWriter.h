@@ -34,7 +34,7 @@ public:
 /// \param MOTW - The target-specific GOFF writer subclass.
 /// \param OS - The stream to write to.
 /// \returns The constructed object writer.
-std::unique_ptr<MCObjectWriter>
+LLVM_ABI std::unique_ptr<MCObjectWriter>
 createGOFFObjectWriter(std::unique_ptr<MCGOFFObjectTargetWriter> MOTW,
                        raw_pwrite_stream &OS);
 } // namespace llvm
