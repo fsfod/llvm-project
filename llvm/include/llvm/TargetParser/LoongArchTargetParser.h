@@ -65,11 +65,11 @@ struct ArchInfo {
   uint32_t Features;
 };
 
-bool isValidArchName(StringRef Arch);
-bool getArchFeatures(StringRef Arch, std::vector<StringRef> &Features);
-bool isValidCPUName(StringRef TuneCPU);
-void fillValidCPUList(SmallVectorImpl<StringRef> &Values);
-StringRef getDefaultArch(bool Is64Bit);
+LLVM_ABI bool isValidArchName(StringRef Arch);
+LLVM_ABI bool getArchFeatures(StringRef Arch, std::vector<StringRef> &Features);
+LLVM_ABI bool isValidCPUName(StringRef TuneCPU);
+LLVM_ABI void fillValidCPUList(SmallVectorImpl<StringRef> &Values);
+LLVM_ABI StringRef getDefaultArch(bool Is64Bit);
 
 } // namespace LoongArch
 

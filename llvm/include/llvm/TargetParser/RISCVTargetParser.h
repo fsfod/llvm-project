@@ -28,15 +28,15 @@ namespace RISCV {
 // We use 64 bits as the known part in the scalable vector types.
 static constexpr unsigned RVVBitsPerBlock = 64;
 
-void getFeaturesForCPU(StringRef CPU,
+LLVM_ABI void getFeaturesForCPU(StringRef CPU,
                        SmallVectorImpl<std::string> &EnabledFeatures,
                        bool NeedPlus = false);
-bool parseCPU(StringRef CPU, bool IsRV64);
-bool parseTuneCPU(StringRef CPU, bool IsRV64);
-StringRef getMArchFromMcpu(StringRef CPU);
-void fillValidCPUArchList(SmallVectorImpl<StringRef> &Values, bool IsRV64);
-void fillValidTuneCPUArchList(SmallVectorImpl<StringRef> &Values, bool IsRV64);
-bool hasFastUnalignedAccess(StringRef CPU);
+LLVM_ABI bool parseCPU(StringRef CPU, bool IsRV64);
+LLVM_ABI bool parseTuneCPU(StringRef CPU, bool IsRV64);
+LLVM_ABI StringRef getMArchFromMcpu(StringRef CPU);
+LLVM_ABI void fillValidCPUArchList(SmallVectorImpl<StringRef> &Values, bool IsRV64);
+LLVM_ABI void fillValidTuneCPUArchList(SmallVectorImpl<StringRef> &Values, bool IsRV64);
+LLVM_ABI bool hasFastUnalignedAccess(StringRef CPU);
 
 } // namespace RISCV
 
@@ -70,7 +70,7 @@ inline static bool isValidLMUL(unsigned LMUL, bool Fractional) {
   return isPowerOf2_32(LMUL) && LMUL <= 8 && (!Fractional || LMUL != 1);
 }
 
-unsigned encodeVTYPE(RISCVII::VLMUL VLMUL, unsigned SEW, bool TailAgnostic,
+LLVM_ABI unsigned encodeVTYPE(RISCVII::VLMUL VLMUL, unsigned SEW, bool TailAgnostic,
                      bool MaskAgnostic);
 
 inline static RISCVII::VLMUL getVLMUL(unsigned VType) {
@@ -79,7 +79,7 @@ inline static RISCVII::VLMUL getVLMUL(unsigned VType) {
 }
 
 // Decode VLMUL into 1,2,4,8 and fractional indicator.
-std::pair<unsigned, bool> decodeVLMUL(RISCVII::VLMUL VLMUL);
+LLVM_ABI std::pair<unsigned, bool> decodeVLMUL(RISCVII::VLMUL VLMUL);
 
 inline static RISCVII::VLMUL encodeLMUL(unsigned LMUL, bool Fractional) {
   assert(isValidLMUL(LMUL, Fractional) && "Unsupported LMUL");
@@ -106,11 +106,11 @@ inline static bool isTailAgnostic(unsigned VType) { return VType & 0x40; }
 
 inline static bool isMaskAgnostic(unsigned VType) { return VType & 0x80; }
 
-void printVType(unsigned VType, raw_ostream &OS);
+LLVM_ABI void printVType(unsigned VType, raw_ostream &OS);
 
-unsigned getSEWLMULRatio(unsigned SEW, RISCVII::VLMUL VLMul);
+LLVM_ABI unsigned getSEWLMULRatio(unsigned SEW, RISCVII::VLMUL VLMul);
 
-std::optional<RISCVII::VLMUL>
+LLVM_ABI std::optional<RISCVII::VLMUL>
 getSameRatioLMUL(unsigned SEW, RISCVII::VLMUL VLMUL, unsigned EEW);
 } // namespace RISCVVType
 
