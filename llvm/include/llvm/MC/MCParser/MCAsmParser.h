@@ -106,7 +106,7 @@ struct AsmFieldInfo {
 };
 
 /// Generic Sema callback for assembly parser.
-class MCAsmParserSemaCallback {
+class LLVM_CLASS_ABI MCAsmParserSemaCallback {
 public:
   virtual ~MCAsmParserSemaCallback();
 
@@ -121,7 +121,7 @@ public:
 
 /// Generic assembler parser interface, for use by target specific
 /// assembly parsers.
-class MCAsmParser {
+class LLVM_CLASS_ABI MCAsmParser {
 public:
   using DirectiveHandler = bool (*)(MCAsmParserExtension*, StringRef, SMLoc);
   using ExtensionDirectiveHandler =
@@ -348,11 +348,11 @@ public:
 };
 
 /// Create an MCAsmParser instance for parsing assembly similar to gas syntax
-MCAsmParser *createMCAsmParser(SourceMgr &, MCContext &, MCStreamer &,
+LLVM_ABI MCAsmParser *createMCAsmParser(SourceMgr &, MCContext &, MCStreamer &,
                                const MCAsmInfo &, unsigned CB = 0);
 
 /// Create an MCAsmParser instance for parsing Microsoft MASM-style assembly
-MCAsmParser *createMCMasmParser(SourceMgr &, MCContext &, MCStreamer &,
+LLVM_ABI MCAsmParser *createMCMasmParser(SourceMgr &, MCContext &, MCStreamer &,
                                 const MCAsmInfo &, struct tm, unsigned CB = 0);
 
 } // end namespace llvm

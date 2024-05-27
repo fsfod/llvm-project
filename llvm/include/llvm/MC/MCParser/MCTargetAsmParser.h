@@ -350,7 +350,7 @@ private:
 };
 
 /// MCTargetAsmParser - Generic interface to target specific assembly parsers.
-class MCTargetAsmParser : public MCAsmParserExtension {
+class LLVM_CLASS_ABI MCTargetAsmParser : public MCAsmParserExtension {
 public:
   enum MatchResultTy {
     Match_InvalidOperand,

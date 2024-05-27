@@ -78,7 +78,7 @@ struct WasmSignature;
 /// Context object for machine code objects.  This class owns all of the
 /// sections that it creates.
 ///
-class MCContext {
+class LLVM_CLASS_ABI MCContext {
 public:
   using SymbolTable = StringMap<MCSymbol *, BumpPtrAllocator &>;
   using DiagHandlerTy =

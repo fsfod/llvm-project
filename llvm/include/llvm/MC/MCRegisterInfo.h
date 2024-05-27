@@ -144,7 +144,7 @@ struct MCRegisterDesc {
 /// TableGen generated physical register data. It must not be extended with
 /// virtual methods.
 ///
-class MCRegisterInfo {
+class LLVM_CLASS_ABI MCRegisterInfo {
 public:
   using regclass_iterator = const MCRegisterClass *;
 
@@ -191,8 +191,8 @@ private:
   /// Iterator class that can traverse the differentially encoded values in
   /// DiffLists. Don't use this class directly, use one of the adaptors below.
   class DiffListIterator
-      : public iterator_facade_base<DiffListIterator, std::forward_iterator_tag,
-                                    unsigned> {
+      : public forward_iterator_facade_base<
+            DiffListIterator, std::forward_iterator_tag, unsigned> {
     unsigned Val = 0;
     const int16_t *List = nullptr;
 
@@ -213,7 +213,7 @@ private:
     /// Dereference the iterator to get the value at the current position.
     const unsigned &operator*() const { return Val; }
 
-    using DiffListIterator::iterator_facade_base::operator++;
+    using DiffListIterator::forward_iterator_facade_base::operator++;
     /// Pre-increment to move to the next position.
     DiffListIterator &operator++() {
       assert(isValid() && "Cannot move off the end of the list.");

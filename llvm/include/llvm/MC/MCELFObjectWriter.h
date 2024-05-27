@@ -51,7 +51,7 @@ struct ELFRelocationEntry {
   LLVM_DUMP_METHOD void dump() const { print(errs()); }
 };
 
-class MCELFObjectTargetWriter : public MCObjectTargetWriter {
+class LLVM_CLASS_ABI MCELFObjectTargetWriter : public MCObjectTargetWriter {
   const uint8_t OSABI;
   const uint8_t ABIVersion;
   const uint16_t EMachine;
@@ -153,11 +153,11 @@ public:
 /// \param MOTW - The target specific ELF writer subclass.
 /// \param OS - The stream to write to.
 /// \returns The constructed object writer.
-std::unique_ptr<MCObjectWriter>
+LLVM_ABI std::unique_ptr<MCObjectWriter>
 createELFObjectWriter(std::unique_ptr<MCELFObjectTargetWriter> MOTW,
                       raw_pwrite_stream &OS, bool IsLittleEndian);
 
-std::unique_ptr<MCObjectWriter>
+LLVM_ABI std::unique_ptr<MCObjectWriter>
 createELFDwoObjectWriter(std::unique_ptr<MCELFObjectTargetWriter> MOTW,
                          raw_pwrite_stream &OS, raw_pwrite_stream &DwoOS,
                          bool IsLittleEndian);

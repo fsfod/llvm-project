@@ -196,7 +196,7 @@ enum Flag {
 /// use and many other things.  There is one instance of this struct for each
 /// target instruction class, and the MachineInstr class points to this struct
 /// directly to describe itself.
-class MCInstrDesc {
+class LLVM_CLASS_ABI MCInstrDesc {
 public:
   // FIXME: Disable copies and moves.
   // Do not allow MCInstrDescs to be copied or moved. They should only exist in

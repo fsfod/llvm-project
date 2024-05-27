@@ -47,7 +47,7 @@ struct PSVSignatureElement {
 // This structure is used to represent the extracted data in an inspectable and
 // modifiable format, and can be used to serialize the data back into valid PSV
 // RuntimeInfo.
-struct PSVRuntimeInfo {
+struct LLVM_CLASS_ABI PSVRuntimeInfo {
   PSVRuntimeInfo() : DXConStrTabBuilder(StringTableBuilder::DXContainer) {}
   bool IsFinalized = false;
   dxbc::PSV::v3::RuntimeInfo BaseData;
@@ -84,7 +84,7 @@ private:
   StringTableBuilder DXConStrTabBuilder;
 };
 
-class Signature {
+class LLVM_CLASS_ABI Signature {
   struct Parameter {
     uint32_t Stream;
     StringRef Name;
