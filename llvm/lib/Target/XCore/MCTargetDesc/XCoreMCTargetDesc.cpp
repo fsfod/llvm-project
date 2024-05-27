@@ -126,7 +126,7 @@ static MCTargetStreamer *createNullTargetStreamer(MCStreamer &S) {
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeXCoreTargetMC() {
+extern "C" LLVM_C_ABI void LLVMInitializeXCoreTargetMC() {
   // Register the MC asm info.
   RegisterMCAsmInfoFn X(getTheXCoreTarget(), createXCoreMCAsmInfo);
 

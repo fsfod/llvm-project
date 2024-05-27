@@ -874,10 +874,10 @@ bool HexagonAsmParser::RegisterMatchesArch(MCRegister MatchNum) const {
   return true;
 }
 
-// extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeHexagonAsmLexer();
+// extern "C" LLVM_C_ABI void LLVMInitializeHexagonAsmLexer();
 
 /// Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeHexagonAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeHexagonAsmParser() {
   RegisterMCAsmParser<HexagonAsmParser> X(getTheHexagonTarget());
 }
 

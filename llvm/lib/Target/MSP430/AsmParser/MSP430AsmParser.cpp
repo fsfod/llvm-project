@@ -536,7 +536,7 @@ bool MSP430AsmParser::ParseLiteralValues(unsigned Size, SMLoc L) {
   return (parseMany(parseOne));
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeMSP430AsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeMSP430AsmParser() {
   RegisterMCAsmParser<MSP430AsmParser> X(getTheMSP430Target());
 }
 

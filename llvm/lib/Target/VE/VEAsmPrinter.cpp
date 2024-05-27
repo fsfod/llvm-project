@@ -423,6 +423,6 @@ bool VEAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI, unsigned OpNo,
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeVEAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeVEAsmPrinter() {
   RegisterAsmPrinter<VEAsmPrinter> X(getTheVETarget());
 }

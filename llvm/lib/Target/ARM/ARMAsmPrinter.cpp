@@ -2424,7 +2424,7 @@ void ARMAsmPrinter::emitInstruction(const MachineInstr *MI) {
 //===----------------------------------------------------------------------===//
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeARMAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeARMAsmPrinter() {
   RegisterAsmPrinter<ARMAsmPrinter> X(getTheARMLETarget());
   RegisterAsmPrinter<ARMAsmPrinter> Y(getTheARMBETarget());
   RegisterAsmPrinter<ARMAsmPrinter> A(getTheThumbLETarget());

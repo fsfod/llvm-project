@@ -239,7 +239,7 @@ createNullTargetStreamer(MCStreamer &S) {
   return new SystemZTargetStreamer(S);
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSystemZTargetMC() {
+extern "C" LLVM_C_ABI void LLVMInitializeSystemZTargetMC() {
   // Register the MCAsmInfo.
   TargetRegistry::RegisterMCAsmInfo(getTheSystemZTarget(),
                                     createSystemZMCAsmInfo);
