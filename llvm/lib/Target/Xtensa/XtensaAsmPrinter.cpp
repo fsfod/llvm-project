@@ -213,6 +213,6 @@ void XtensaAsmPrinter::lowerToMCInst(const MachineInstr *MI,
   }
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeXtensaAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeXtensaAsmPrinter() {
   RegisterAsmPrinter<XtensaAsmPrinter> A(getTheXtensaTarget());
 }

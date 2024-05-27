@@ -47,7 +47,7 @@ static MCDisassembler *createLoongArchDisassembler(const Target &T,
   return new LoongArchDisassembler(STI, Ctx);
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLoongArchDisassembler() {
+extern "C" LLVM_C_ABI void LLVMInitializeLoongArchDisassembler() {
   // Register the disassembler for each target.
   TargetRegistry::RegisterMCDisassembler(getTheLoongArch32Target(),
                                          createLoongArchDisassembler);

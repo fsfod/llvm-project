@@ -17,7 +17,7 @@ Target &llvm::getTheSystemZTarget() {
 }
 
 // NOLINTNEXTLINE(readability-identifier-naming)
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSystemZTargetInfo() {
+extern "C" LLVM_C_ABI void LLVMInitializeSystemZTargetInfo() {
   RegisterTarget<Triple::systemz, /*HasJIT=*/true> X(
       getTheSystemZTarget(), "systemz", "SystemZ", "SystemZ");
 }

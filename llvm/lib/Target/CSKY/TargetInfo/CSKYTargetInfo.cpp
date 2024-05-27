@@ -15,6 +15,6 @@ Target &llvm::getTheCSKYTarget() {
   return TheCSKYTarget;
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeCSKYTargetInfo() {
+extern "C" LLVM_C_ABI void LLVMInitializeCSKYTargetInfo() {
   RegisterTarget<Triple::csky> X(getTheCSKYTarget(), "csky", "C-SKY", "CSKY");
 }

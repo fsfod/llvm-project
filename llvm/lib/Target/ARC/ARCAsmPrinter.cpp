@@ -73,6 +73,6 @@ bool ARCAsmPrinter::runOnMachineFunction(MachineFunction &MF) {
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeARCAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeARCAsmPrinter() {
   RegisterAsmPrinter<ARCAsmPrinter> X(getTheARCTarget());
 }

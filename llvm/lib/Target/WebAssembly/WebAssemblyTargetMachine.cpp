@@ -54,7 +54,7 @@ static cl::opt<bool> WasmDisableFixIrreducibleControlFlowPass(
              " irreducible control flow optimization pass"),
     cl::init(false));
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeWebAssemblyTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeWebAssemblyTarget() {
   // Register the target.
   RegisterTargetMachine<WebAssemblyTargetMachine> X(
       getTheWebAssemblyTarget32());
