@@ -91,7 +91,7 @@ private:
 
 using RewriteDescriptorList = std::list<std::unique_ptr<RewriteDescriptor>>;
 
-class RewriteMapParser {
+class LLVM_CLASS_ABI RewriteMapParser {
 public:
   bool parse(const std::string &MapFile, RewriteDescriptorList *Descriptors);
 
@@ -114,7 +114,7 @@ private:
 
 } // end namespace SymbolRewriter
 
-class RewriteSymbolPass : public PassInfoMixin<RewriteSymbolPass> {
+class LLVM_CLASS_ABI RewriteSymbolPass : public PassInfoMixin<RewriteSymbolPass> {
 public:
   RewriteSymbolPass() { loadAndParseMapFiles(); }
 

@@ -55,7 +55,7 @@ public:
 };
 
 // Get AddressSanitizer parameters.
-void getAddressSanitizerParams(const Triple &TargetTriple, int LongSize,
+LLVM_ABI void getAddressSanitizerParams(const Triple &TargetTriple, int LongSize,
                                bool IsKasan, uint64_t *ShadowBase,
                                int *MappingScale, bool *OrShadowOffset);
 

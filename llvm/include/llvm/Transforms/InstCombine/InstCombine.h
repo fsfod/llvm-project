@@ -52,7 +52,7 @@ struct InstCombineOptions {
   }
 };
 
-class InstCombinePass : public PassInfoMixin<InstCombinePass> {
+class LLVM_CLASS_ABI InstCombinePass : public PassInfoMixin<InstCombinePass> {
 private:
   InstructionWorklist Worklist;
   InstCombineOptions Options;
@@ -69,7 +69,7 @@ public:
 ///
 /// This is a basic whole-function wrapper around the instcombine utility. It
 /// will try to combine all instructions in the function.
-class InstructionCombiningPass : public FunctionPass {
+class LLVM_CLASS_ABI InstructionCombiningPass : public FunctionPass {
   InstructionWorklist Worklist;
 
 public:
@@ -93,7 +93,7 @@ public:
 // into:
 //    %Z = add int 2, %X
 //
-FunctionPass *createInstructionCombiningPass();
+LLVM_ABI FunctionPass *createInstructionCombiningPass();
 }
 
 #undef DEBUG_TYPE

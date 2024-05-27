@@ -40,7 +40,7 @@ struct MergedLoadStoreMotionOptions {
   }
 };
 
-class MergedLoadStoreMotionPass
+class LLVM_CLASS_ABI MergedLoadStoreMotionPass
     : public PassInfoMixin<MergedLoadStoreMotionPass> {
   MergedLoadStoreMotionOptions Options;
 

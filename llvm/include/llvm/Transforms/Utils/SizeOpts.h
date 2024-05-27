@@ -91,13 +91,13 @@ bool shouldOptimizeForSizeImpl(BlockTOrBlockFreq BBOrBlockFreq,
 
 /// Returns true if function \p F is suggested to be size-optimized based on the
 /// profile.
-bool shouldOptimizeForSize(const Function *F, ProfileSummaryInfo *PSI,
+LLVM_ABI bool shouldOptimizeForSize(const Function *F, ProfileSummaryInfo *PSI,
                            BlockFrequencyInfo *BFI,
                            PGSOQueryType QueryType = PGSOQueryType::Other);
 
 /// Returns true if basic block \p BB is suggested to be size-optimized based on
 /// the profile.
-bool shouldOptimizeForSize(const BasicBlock *BB, ProfileSummaryInfo *PSI,
+LLVM_ABI bool shouldOptimizeForSize(const BasicBlock *BB, ProfileSummaryInfo *PSI,
                            BlockFrequencyInfo *BFI,
                            PGSOQueryType QueryType = PGSOQueryType::Other);
 

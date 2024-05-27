@@ -122,7 +122,7 @@ struct ConstantInfo {
 
 } // end namespace consthoist
 
-class ConstantHoistingPass : public PassInfoMixin<ConstantHoistingPass> {
+class LLVM_CLASS_ABI ConstantHoistingPass : public PassInfoMixin<ConstantHoistingPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

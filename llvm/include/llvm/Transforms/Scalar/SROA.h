@@ -24,7 +24,7 @@ class Function;
 
 enum class SROAOptions : bool { ModifyCFG, PreserveCFG };
 
-class SROAPass : public PassInfoMixin<SROAPass> {
+class LLVM_CLASS_ABI SROAPass : public PassInfoMixin<SROAPass> {
   const SROAOptions PreserveCFG;
 
 public:

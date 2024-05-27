@@ -24,7 +24,7 @@ namespace llvm {
 
 class Module;
 
-class HipStdParAcceleratorCodeSelectionPass
+class LLVM_CLASS_ABI HipStdParAcceleratorCodeSelectionPass
   : public PassInfoMixin<HipStdParAcceleratorCodeSelectionPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);
@@ -32,7 +32,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class HipStdParAllocationInterpositionPass
+class LLVM_CLASS_ABI HipStdParAllocationInterpositionPass
   : public PassInfoMixin<HipStdParAllocationInterpositionPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);

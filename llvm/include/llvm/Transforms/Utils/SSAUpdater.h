@@ -38,7 +38,7 @@ class DbgValueInst;
 /// This is used when code duplication or another unstructured
 /// transformation wants to rewrite a set of uses of one value with uses of a
 /// set of values.
-class SSAUpdater {
+class LLVM_CLASS_ABI SSAUpdater {
   friend class SSAUpdaterTraits<SSAUpdater>;
 
 private:
@@ -149,7 +149,7 @@ private:
 ///
 /// Clients of this class are expected to subclass this and implement the
 /// virtual methods.
-class LoadAndStorePromoter {
+class LLVM_CLASS_ABI LoadAndStorePromoter {
 protected:
   SSAUpdater &SSA;
 

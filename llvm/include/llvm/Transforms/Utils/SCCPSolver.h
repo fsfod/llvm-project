@@ -63,7 +63,7 @@ class SCCPInstVisitor;
 /// SCCPSolver - This interface class is a general purpose solver for Sparse
 /// Conditional Constant Propagation (SCCP).
 ///
-class SCCPSolver {
+class LLVM_CLASS_ABI SCCPSolver {
   std::unique_ptr<SCCPInstVisitor> Visitor;
 
 public:

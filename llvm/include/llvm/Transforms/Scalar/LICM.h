@@ -64,7 +64,7 @@ struct LICMOptions {
 };
 
 /// Performs Loop Invariant Code Motion Pass.
-class LICMPass : public PassInfoMixin<LICMPass> {
+class LLVM_CLASS_ABI LICMPass : public PassInfoMixin<LICMPass> {
   LICMOptions Opts;
 
 public:
@@ -82,7 +82,7 @@ public:
 };
 
 /// Performs LoopNest Invariant Code Motion Pass.
-class LNICMPass : public PassInfoMixin<LNICMPass> {
+class LLVM_CLASS_ABI LNICMPass : public PassInfoMixin<LNICMPass> {
   LICMOptions Opts;
 
 public:

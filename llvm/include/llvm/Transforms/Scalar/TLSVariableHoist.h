@@ -101,7 +101,7 @@ struct TLSCandidate {
 
 } // end namespace tlshoist
 
-class TLSVariableHoistPass : public PassInfoMixin<TLSVariableHoistPass> {
+class LLVM_CLASS_ABI TLSVariableHoistPass : public PassInfoMixin<TLSVariableHoistPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

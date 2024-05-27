@@ -22,7 +22,7 @@ class Loop;
 class StringRef;
 class raw_ostream;
 
-struct ShouldRunExtraSimpleLoopUnswitch
+struct LLVM_CLASS_ABI ShouldRunExtraSimpleLoopUnswitch
     : public AnalysisInfoMixin<ShouldRunExtraSimpleLoopUnswitch> {
   static AnalysisKey Key;
   struct Result {
@@ -99,7 +99,7 @@ struct ExtraSimpleLoopUnswitchPassManager : public LoopPassManager {
 /// Because partial unswitching of switches is extremely unlikely to be possible
 /// in practice and significantly complicates the implementation, this pass does
 /// not currently implement that in any mode.
-class SimpleLoopUnswitchPass : public PassInfoMixin<SimpleLoopUnswitchPass> {
+class LLVM_CLASS_ABI SimpleLoopUnswitchPass : public PassInfoMixin<SimpleLoopUnswitchPass> {
   bool NonTrivial;
   bool Trivial;
 

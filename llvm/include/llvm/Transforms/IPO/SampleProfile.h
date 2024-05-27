@@ -36,7 +36,7 @@ class FileSystem;
 } // namespace vfs
 
 /// The sample profiler data loader pass.
-class SampleProfileLoaderPass : public PassInfoMixin<SampleProfileLoaderPass> {
+class LLVM_CLASS_ABI SampleProfileLoaderPass : public PassInfoMixin<SampleProfileLoaderPass> {
 public:
   SampleProfileLoaderPass(
       std::string File, std::string RemappingFile = "",
