@@ -104,7 +104,7 @@ void XCorePassConfig::addPreEmitPass() {
 }
 
 // Force static initialization.
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeXCoreTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeXCoreTarget() {
   RegisterTargetMachine<XCoreTargetMachine> X(getTheXCoreTarget());
   PassRegistry &PR = *PassRegistry::getPassRegistry();
   initializeXCoreDAGToDAGISelLegacyPass(PR);

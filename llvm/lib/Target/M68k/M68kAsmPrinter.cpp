@@ -195,6 +195,6 @@ void M68kAsmPrinter::emitStartOfAsmFile(Module &M) {
 
 void M68kAsmPrinter::emitEndOfAsmFile(Module &M) {}
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeM68kAsmPrinter() {
+extern "C" LLVM_C_ABI void LLVMInitializeM68kAsmPrinter() {
   RegisterAsmPrinter<M68kAsmPrinter> X(getTheM68kTarget());
 }

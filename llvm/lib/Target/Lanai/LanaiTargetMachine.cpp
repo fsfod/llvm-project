@@ -32,7 +32,7 @@ namespace llvm {
 void initializeLanaiMemAluCombinerPass(PassRegistry &);
 } // namespace llvm
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLanaiTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeLanaiTarget() {
   // Register the target.
   RegisterTargetMachine<LanaiTargetMachine> registered_target(
       getTheLanaiTarget());

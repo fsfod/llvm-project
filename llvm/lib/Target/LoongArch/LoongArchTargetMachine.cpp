@@ -29,7 +29,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "loongarch"
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeLoongArchTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeLoongArchTarget() {
   // Register the target.
   RegisterTargetMachine<LoongArchTargetMachine> X(getTheLoongArch32Target());
   RegisterTargetMachine<LoongArchTargetMachine> Y(getTheLoongArch64Target());
