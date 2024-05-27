@@ -45,7 +45,7 @@ typedef unsigned ID;
 // Objective-C functions which commonly have :'s in their names.
 inline constexpr char kGlobalIdentifierDelimiter = ';';
 
-class GlobalValue : public Constant {
+class LLVM_CLASS_ABI GlobalValue : public Constant {
 public:
   /// An enumeration for the kinds of linkage for global values.
   enum LinkageTypes {

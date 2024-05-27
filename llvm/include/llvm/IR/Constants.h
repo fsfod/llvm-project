@@ -77,7 +77,7 @@ public:
 /// This is the shared class of boolean and integer constants. This class
 /// represents both boolean and integral constants.
 /// Class for constant integers.
-class ConstantInt final : public ConstantData {
+class LLVM_CLASS_ABI ConstantInt final : public ConstantData {
   friend class Constant;
   friend class ConstantVector;
 
@@ -265,7 +265,7 @@ public:
 //===----------------------------------------------------------------------===//
 /// ConstantFP - Floating Point Values [float, double]
 ///
-class ConstantFP final : public ConstantData {
+class LLVM_CLASS_ABI ConstantFP final : public ConstantData {
   friend class Constant;
   friend class ConstantVector;
 
@@ -347,7 +347,7 @@ public:
 //===----------------------------------------------------------------------===//
 /// All zero aggregate value
 ///
-class ConstantAggregateZero final : public ConstantData {
+class LLVM_CLASS_ABI ConstantAggregateZero final : public ConstantData {
   friend class Constant;
 
   explicit ConstantAggregateZero(Type *Ty)
@@ -396,7 +396,7 @@ public:
 /// \note Some subclasses of \a ConstantData are semantically aggregates --
 /// such as \a ConstantDataArray -- but are not subclasses of this because they
 /// use operands.
-class ConstantAggregate : public Constant {
+class LLVM_CLASS_ABI ConstantAggregate : public Constant {
 protected:
   ConstantAggregate(Type *T, ValueTy VT, ArrayRef<Constant *> V);
 
@@ -420,7 +420,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(ConstantAggregate, Constant)
 //===----------------------------------------------------------------------===//
 /// ConstantArray - Constant Array Declarations
 ///
-class ConstantArray final : public ConstantAggregate {
+class LLVM_CLASS_ABI ConstantArray final : public ConstantAggregate {
   friend struct ConstantAggrKeyType<ConstantArray>;
   friend class Constant;
 
@@ -452,7 +452,7 @@ public:
 //===----------------------------------------------------------------------===//
 // Constant Struct Declarations
 //
-class ConstantStruct final : public ConstantAggregate {
+class LLVM_CLASS_ABI ConstantStruct final : public ConstantAggregate {
   friend struct ConstantAggrKeyType<ConstantStruct>;
   friend class Constant;
 
@@ -504,7 +504,7 @@ public:
 //===----------------------------------------------------------------------===//
 /// Constant Vector Declarations
 ///
-class ConstantVector final : public ConstantAggregate {
+class LLVM_CLASS_ABI ConstantVector final : public ConstantAggregate {
   friend struct ConstantAggrKeyType<ConstantVector>;
   friend class Constant;
 
@@ -545,7 +545,7 @@ public:
 //===----------------------------------------------------------------------===//
 /// A constant pointer value that points to null
 ///
-class ConstantPointerNull final : public ConstantData {
+class LLVM_CLASS_ABI ConstantPointerNull final : public ConstantData {
   friend class Constant;
 
   explicit ConstantPointerNull(PointerType *T)
@@ -580,7 +580,7 @@ public:
 ///
 /// This is the common base class of ConstantDataArray and ConstantDataVector.
 ///
-class ConstantDataSequential : public ConstantData {
+class LLVM_CLASS_ABI ConstantDataSequential : public ConstantData {
   friend class LLVMContextImpl;
   friend class Constant;
 
@@ -689,7 +689,7 @@ private:
 /// (i.e. ConstantInt/ConstantFP). This Constant node has no operands because it
 /// stores all of the elements of the constant as densely packed data, instead
 /// of as Value*'s.
-class ConstantDataArray final : public ConstantDataSequential {
+class LLVM_CLASS_ABI ConstantDataArray final : public ConstantDataSequential {
   friend class ConstantDataSequential;
 
   explicit ConstantDataArray(Type *ty, const char *Data)
@@ -763,7 +763,7 @@ public:
 /// (i.e. ConstantInt/ConstantFP). This Constant node has no operands because it
 /// stores all of the elements of the constant as densely packed data, instead
 /// of as Value*'s.
-class ConstantDataVector final : public ConstantDataSequential {
+class LLVM_CLASS_ABI ConstantDataVector final : public ConstantDataSequential {
   friend class ConstantDataSequential;
 
   explicit ConstantDataVector(Type *ty, const char *Data)
@@ -837,7 +837,7 @@ public:
 //===----------------------------------------------------------------------===//
 /// A constant token which is empty
 ///
-class ConstantTokenNone final : public ConstantData {
+class LLVM_CLASS_ABI ConstantTokenNone final : public ConstantData {
   friend class Constant;
 
   explicit ConstantTokenNone(LLVMContext &Context)
@@ -858,7 +858,7 @@ public:
 };
 
 /// A constant target extension type default initializer
-class ConstantTargetNone final : public ConstantData {
+class LLVM_CLASS_ABI ConstantTargetNone final : public ConstantData {
   friend class Constant;
 
   explicit ConstantTargetNone(TargetExtType *T)
@@ -886,7 +886,7 @@ public:
 
 /// The address of a basic block.
 ///
-class BlockAddress final : public Constant {
+class LLVM_CLASS_ABI BlockAddress final : public Constant {
   friend class Constant;
 
   BlockAddress(Function *F, BasicBlock *BB);
@@ -932,7 +932,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(BlockAddress, Value)
 /// Wrapper for a function that represents a value that
 /// functionally represents the original function. This can be a function,
 /// global alias to a function, or an ifunc.
-class DSOLocalEquivalent final : public Constant {
+class LLVM_CLASS_ABI DSOLocalEquivalent final : public Constant {
   friend class Constant;
 
   DSOLocalEquivalent(GlobalValue *GV);
@@ -969,7 +969,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(DSOLocalEquivalent, Value)
 
 /// Wrapper for a value that won't be replaced with a CFI jump table
 /// pointer in LowerTypeTestsModule.
-class NoCFIValue final : public Constant {
+class LLVM_CLASS_ABI NoCFIValue final : public Constant {
   friend class Constant;
 
   NoCFIValue(GlobalValue *GV);
@@ -1014,7 +1014,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(NoCFIValue, Value)
 /// This class uses the standard Instruction opcodes to define the various
 /// constant expressions.  The Opcode field for the ConstantExpr class is
 /// maintained in the Value::SubclassData field.
-class ConstantExpr : public Constant {
+class LLVM_CLASS_ABI ConstantExpr : public Constant {
   friend struct ConstantExprKeyType;
   friend class Constant;
 
@@ -1345,7 +1345,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(ConstantExpr, Constant)
 /// can appear to have different bit patterns at each use. See
 /// LangRef.html#undefvalues for details.
 ///
-class UndefValue : public ConstantData {
+class LLVM_CLASS_ABI UndefValue : public ConstantData {
   friend class Constant;
 
   explicit UndefValue(Type *T) : ConstantData(T, UndefValueVal) {}
@@ -1393,7 +1393,7 @@ public:
 ///
 /// see LangRef.html#poisonvalues for details.
 ///
-class PoisonValue final : public UndefValue {
+class LLVM_CLASS_ABI PoisonValue final : public UndefValue {
   friend class Constant;
 
   explicit PoisonValue(Type *T) : UndefValue(T, PoisonValueVal) {}

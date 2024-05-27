@@ -43,7 +43,7 @@ namespace llvm {
 
   using DbgInstPtr = PointerUnion<Instruction *, DbgRecord *>;
 
-  class DIBuilder {
+  class LLVM_CLASS_ABI DIBuilder {
     Module &M;
     LLVMContext &VMContext;
 
