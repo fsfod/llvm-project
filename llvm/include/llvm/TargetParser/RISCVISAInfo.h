@@ -20,9 +20,9 @@
 #include <vector>
 
 namespace llvm {
-void riscvExtensionsHelp(StringMap<StringRef> DescMap);
+LLVM_ABI void riscvExtensionsHelp(StringMap<StringRef> DescMap);
 
-class RISCVISAInfo {
+class LLVM_CLASS_ABI RISCVISAInfo {
 public:
   RISCVISAInfo(const RISCVISAInfo &) = delete;
   RISCVISAInfo &operator=(const RISCVISAInfo &) = delete;

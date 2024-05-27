@@ -172,7 +172,7 @@ public:
 /// Each of the remaining features is prefixed with + or - indicating whether
 /// that feature should be enabled or disabled contrary to the cpu
 /// specification.
-class SubtargetFeatures {
+class LLVM_CLASS_ABI SubtargetFeatures {
   std::vector<std::string> Features;    ///< Subtarget features as a vector
 
 public:
