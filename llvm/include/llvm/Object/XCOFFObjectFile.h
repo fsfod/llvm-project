@@ -205,7 +205,7 @@ struct XCOFFSectionHeader64 : XCOFFSectionHeader<XCOFFSectionHeader64> {
 
 struct LoaderSectionHeader32;
 struct LoaderSectionHeader64;
-struct LoaderSectionSymbolEntry32 {
+struct LLVM_CLASS_ABI LoaderSectionSymbolEntry32 {
   struct NameOffsetInStrTbl {
     support::big32_t IsNameInStrTbl; // Zero indicates name in string table.
     support::ubig32_t Offset;
@@ -223,7 +223,7 @@ struct LoaderSectionSymbolEntry32 {
   getSymbolName(const LoaderSectionHeader32 *LoaderSecHeader) const;
 };
 
-struct LoaderSectionSymbolEntry64 {
+struct LLVM_CLASS_ABI LoaderSectionSymbolEntry64 {
   support::ubig64_t Value; // The virtual address of the symbol.
   support::ubig32_t Offset;
   support::big16_t SectionNumber;
@@ -315,8 +315,8 @@ typedef ExceptionSectionEntry<support::ubig32_t> ExceptionSectionEntry32;
 typedef ExceptionSectionEntry<support::ubig64_t> ExceptionSectionEntry64;
 
 // Explicit extern template declarations.
-extern template struct ExceptionSectionEntry<support::ubig32_t>;
-extern template struct ExceptionSectionEntry<support::ubig64_t>;
+extern template struct LLVM_TEMPLATE_ABI ExceptionSectionEntry<support::ubig32_t>;
+extern template struct LLVM_TEMPLATE_ABI ExceptionSectionEntry<support::ubig64_t>;
 
 struct XCOFFStringTable {
   uint32_t Size;
@@ -518,15 +518,15 @@ public:
   uint8_t getRelocatedLength() const;
 };
 
-extern template struct XCOFFRelocation<llvm::support::ubig32_t>;
-extern template struct XCOFFRelocation<llvm::support::ubig64_t>;
+extern template struct LLVM_TEMPLATE_ABI XCOFFRelocation<llvm::support::ubig32_t>;
+extern template struct LLVM_TEMPLATE_ABI XCOFFRelocation<llvm::support::ubig64_t>;
 
 struct XCOFFRelocation32 : XCOFFRelocation<llvm::support::ubig32_t> {};
 struct XCOFFRelocation64 : XCOFFRelocation<llvm::support::ubig64_t> {};
 
 class XCOFFSymbolRef;
 
-class XCOFFObjectFile : public ObjectFile {
+class LLVM_CLASS_ABI XCOFFObjectFile : public ObjectFile {
 private:
   const void *FileHeader = nullptr;
   const void *AuxiliaryHeader = nullptr;
@@ -785,7 +785,7 @@ extern template Expected<ArrayRef<XCOFFRelocation64>>
 XCOFFObjectFile::relocations<XCOFFSectionHeader64, XCOFFRelocation64>(
     const XCOFFSectionHeader64 &Sec) const;
 
-class XCOFFSymbolRef : public SymbolRef {
+class LLVM_CLASS_ABI XCOFFSymbolRef : public SymbolRef {
 public:
   enum { NAME_IN_STR_TBL_MAGIC = 0x0 };
 
@@ -882,7 +882,7 @@ public:
   }
 };
 
-class TBVectorExt {
+class LLVM_CLASS_ABI TBVectorExt {
   uint16_t Data;
   SmallString<32> VecParmsInfo;
 
@@ -901,7 +901,7 @@ public:
 /// This class provides methods to extract traceback table data from a buffer.
 /// The various accessors may reference the buffer provided via the constructor.
 
-class XCOFFTracebackTable {
+class LLVM_CLASS_ABI XCOFFTracebackTable {
   const uint8_t *const TBPtr;
   bool Is64BitObj;
   std::optional<SmallString<32>> ParmsType;
@@ -993,7 +993,7 @@ public:
   const std::optional<uint64_t> &getEhInfoDisp() const { return EhInfoDisp; }
 };
 
-bool doesXCOFFTracebackTableBegin(ArrayRef<uint8_t> Bytes);
+LLVM_ABI bool doesXCOFFTracebackTableBegin(ArrayRef<uint8_t> Bytes);
 } // namespace object
 } // namespace llvm
 

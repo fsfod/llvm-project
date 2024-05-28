@@ -29,7 +29,7 @@ namespace llvm {
 
 namespace object {
 
-class GOFFObjectFile : public ObjectFile {
+class LLVM_CLASS_ABI GOFFObjectFile : public ObjectFile {
   friend class GOFFSymbolRef;
 
   IndexedMap<const uint8_t *> EsdPtrs; // Indexed by EsdId.

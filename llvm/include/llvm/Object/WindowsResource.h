@@ -96,7 +96,7 @@ public:
       : GenericBinaryError(Msg, ECOverride) {}
 };
 
-class ResourceEntryRef {
+class LLVM_CLASS_ABI ResourceEntryRef {
 public:
   Error moveNext(bool &End);
   bool checkTypeString() const { return IsStringType; }
@@ -134,7 +134,7 @@ private:
   ArrayRef<uint8_t> Data;
 };
 
-class WindowsResource : public Binary {
+class LLVM_CLASS_ABI WindowsResource : public Binary {
 public:
   Expected<ResourceEntryRef> getHeadEntry();
 
@@ -151,7 +151,7 @@ private:
   BinaryByteStream BBS;
 };
 
-class WindowsResourceParser {
+class LLVM_CLASS_ABI WindowsResourceParser {
 public:
   class TreeNode;
   WindowsResourceParser(bool MinGW = false);
@@ -166,7 +166,7 @@ public:
   ArrayRef<std::vector<uint8_t>> getData() const { return Data; }
   ArrayRef<std::vector<UTF16>> getStringTable() const { return StringTable; }
 
-  class TreeNode {
+  class LLVM_CLASS_ABI TreeNode {
   public:
     template <typename T>
     using Children = std::map<T, std::unique_ptr<TreeNode>>;
@@ -262,12 +262,12 @@ private:
   bool MinGW;
 };
 
-Expected<std::unique_ptr<MemoryBuffer>>
+LLVM_ABI Expected<std::unique_ptr<MemoryBuffer>>
 writeWindowsResourceCOFF(llvm::COFF::MachineTypes MachineType,
                          const WindowsResourceParser &Parser,
                          uint32_t TimeDateStamp);
 
-void printResourceTypeName(uint16_t TypeID, raw_ostream &OS);
+LLVM_ABI void printResourceTypeName(uint16_t TypeID, raw_ostream &OS);
 } // namespace object
 } // namespace llvm
 

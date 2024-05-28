@@ -28,7 +28,7 @@ namespace object {
 class Archive;
 class IRObjectFile;
 
-class MachOUniversalBinary : public Binary {
+class LLVM_CLASS_ABI MachOUniversalBinary : public Binary {
   virtual void anchor();
 
   uint32_t Magic;
@@ -36,7 +36,7 @@ class MachOUniversalBinary : public Binary {
 public:
   static constexpr uint32_t MaxSectionAlignment = 15; /* 2**15 or 0x8000 */
 
-  class ObjectForArch {
+  class LLVM_CLASS_ABI ObjectForArch {
     const MachOUniversalBinary *Parent;
     /// Index of object in the universal binary.
     uint32_t Index;

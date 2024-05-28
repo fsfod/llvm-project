@@ -79,7 +79,7 @@ using relocation_iterator = content_iterator<RelocationRef>;
 
 /// This is a value type class that represents a single section in the list of
 /// sections in the object file.
-class SectionRef {
+class LLVM_CLASS_ABI SectionRef {
   friend class SymbolRef;
 
   DataRefImpl SectionPimpl;
@@ -162,7 +162,7 @@ inline bool operator==(const SectionedAddress &LHS,
          std::tie(RHS.SectionIndex, RHS.Address);
 }
 
-raw_ostream &operator<<(raw_ostream &OS, const SectionedAddress &Addr);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const SectionedAddress &Addr);
 
 /// This is a value type class that represents a single symbol in the list of
 /// symbols in the object file.
@@ -227,7 +227,7 @@ public:
 /// This class is the base class for all object file types. Concrete instances
 /// of this object are created by createObjectFile, which figures out which type
 /// to create.
-class ObjectFile : public SymbolicFile {
+class LLVM_CLASS_ABI ObjectFile : public SymbolicFile {
   virtual void anchor();
 
 protected:
