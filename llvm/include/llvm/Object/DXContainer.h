@@ -117,7 +117,7 @@ template <typename T> struct ViewArray {
 };
 
 namespace DirectX {
-class PSVRuntimeInfo {
+class LLVM_CLASS_ABI PSVRuntimeInfo {
 
   using ResourceArray = ViewArray<dxbc::PSV::v2::ResourceBindInfo>;
   using SigElementArray = ViewArray<dxbc::PSV::v0::SignatureElement>;
@@ -242,7 +242,7 @@ public:
   }
 };
 
-class Signature {
+class LLVM_CLASS_ABI Signature {
   ViewArray<dxbc::ProgramSignatureElement> Parameters;
   uint32_t StringTableOffset;
   StringRef StringTable;
@@ -274,7 +274,7 @@ public:
 
 } // namespace DirectX
 
-class DXContainer {
+class LLVM_CLASS_ABI DXContainer {
 public:
   using DXILData = std::pair<dxbc::ProgramHeader, const char *>;
 
@@ -305,7 +305,7 @@ public:
   // The PartIterator is a wrapper around the iterator for the PartOffsets
   // member of the DXContainer. It contains a refernce to the container, and the
   // current iterator value, as well as storage for a parsed part header.
-  class PartIterator {
+  class LLVM_CLASS_ABI PartIterator {
     const DXContainer &Container;
     SmallVectorImpl<uint32_t>::const_iterator OffsetIt;
     struct PartData {

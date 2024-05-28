@@ -28,7 +28,7 @@ class TapiFile;
 
 class TapiUniversal : public Binary {
 public:
-  class ObjectForArch {
+  class LLVM_CLASS_ABI ObjectForArch {
     const TapiUniversal *Parent;
     int Index;
 

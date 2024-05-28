@@ -37,7 +37,7 @@ const char BigArchiveMagic[] = "<bigaf>\n";
 
 class Archive;
 
-class AbstractArchiveMemberHeader {
+class LLVM_CLASS_ABI AbstractArchiveMemberHeader {
 protected:
   AbstractArchiveMemberHeader(const Archive *Parent) : Parent(Parent){};
 
@@ -100,7 +100,7 @@ struct UnixArMemHdrType {
   char Terminator[2];
 };
 
-class ArchiveMemberHeader : public CommonArchiveMemberHeader<UnixArMemHdrType> {
+class LLVM_CLASS_ABI ArchiveMemberHeader : public CommonArchiveMemberHeader<UnixArMemHdrType> {
 public:
   ArchiveMemberHeader(const Archive *Parent, const char *RawHeaderPtr,
                       uint64_t Size, Error *Err);
@@ -134,7 +134,7 @@ struct BigArMemHdrType {
 };
 
 // Define file member header of AIX big archive.
-class BigArchiveMemberHeader
+class LLVM_CLASS_ABI BigArchiveMemberHeader
     : public CommonArchiveMemberHeader<BigArMemHdrType> {
 
 public:
@@ -154,11 +154,11 @@ public:
   Expected<bool> isThin() const override { return false; }
 };
 
-class Archive : public Binary {
+class LLVM_CLASS_ABI Archive : public Binary {
   virtual void anchor();
 
 public:
-  class Child {
+  class LLVM_CLASS_ABI Child {
     friend Archive;
     friend AbstractArchiveMemberHeader;
 
@@ -287,7 +287,7 @@ public:
 
   using child_iterator = fallible_iterator<ChildFallibleIterator>;
 
-  class Symbol {
+  class LLVM_CLASS_ABI Symbol {
     const Archive *Parent;
     uint32_t SymbolIndex;
     uint32_t StringIndex; // Extra index to the string.
@@ -397,7 +397,7 @@ private:
   mutable std::vector<std::unique_ptr<MemoryBuffer>> ThinBuffers;
 };
 
-class BigArchive : public Archive {
+class LLVM_CLASS_ABI BigArchive : public Archive {
 public:
   /// Fixed-Length Header.
   struct FixLenHdr {

@@ -155,13 +155,13 @@ public:
   }
 };
 
-raw_ostream &operator<<(raw_ostream &OS,
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS,
                         const FaultMapParser::FunctionFaultInfoAccessor &);
 
-raw_ostream &operator<<(raw_ostream &OS,
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS,
                         const FaultMapParser::FunctionInfoAccessor &);
 
-raw_ostream &operator<<(raw_ostream &OS, const FaultMapParser &);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const FaultMapParser &);
 
 } // namespace llvm
 

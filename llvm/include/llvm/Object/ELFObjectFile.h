@@ -44,7 +44,7 @@ template <typename T> class SmallVectorImpl;
 namespace object {
 
 constexpr int NumElfSymbolTypes = 16;
-extern const llvm::EnumEntry<unsigned> ElfSymbolTypes[NumElfSymbolTypes];
+LLVM_ABI extern const llvm::EnumEntry<unsigned> ElfSymbolTypes[NumElfSymbolTypes];
 
 class elf_symbol_iterator;
 
@@ -54,7 +54,7 @@ struct ELFPltEntry {
   uint64_t Address;
 };
 
-class ELFObjectFileBase : public ObjectFile {
+class LLVM_CLASS_ABI ELFObjectFileBase : public ObjectFile {
   friend class ELFRelocationRef;
   friend class ELFSectionRef;
   friend class ELFSymbolRef;

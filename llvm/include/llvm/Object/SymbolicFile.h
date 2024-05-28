@@ -143,7 +143,7 @@ public:
 
 using basic_symbol_iterator = content_iterator<BasicSymbolRef>;
 
-class SymbolicFile : public Binary {
+class LLVM_CLASS_ABI SymbolicFile : public Binary {
 public:
   SymbolicFile(unsigned int Type, MemoryBufferRef Source);
   ~SymbolicFile() override;
