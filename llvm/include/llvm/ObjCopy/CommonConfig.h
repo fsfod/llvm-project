@@ -90,7 +90,7 @@ enum class MatchStyle {
   Regex,    // Enabled with --regex.
 };
 
-class NameOrPattern {
+class LLVM_CLASS_ABI NameOrPattern {
   StringRef Name;
   // Regex is shared between multiple CommonConfig instances.
   std::shared_ptr<Regex> R;
