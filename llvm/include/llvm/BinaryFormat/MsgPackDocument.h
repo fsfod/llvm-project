@@ -297,6 +297,8 @@ public:
     for (unsigned T = 0; T != unsigned(Type::Empty) + 1; ++T)
       KindAndDocs[T] = {this, Type(T)};
   }
+  Document(const Document &) = delete;
+  Document &operator =(const Document &) = delete;
 
   /// Get ref to the document's root element.
   DocNode &getRoot() { return Root; }
