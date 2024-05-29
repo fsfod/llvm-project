@@ -154,6 +154,8 @@ class WindowsResourceParser {
 public:
   class TreeNode;
   WindowsResourceParser(bool MinGW = false);
+  WindowsResourceParser(const WindowsResourceParser &) = delete;
+  WindowsResourceParser &operator =(const WindowsResourceParser &) = delete;
   Error parse(WindowsResource *WR, std::vector<std::string> &Duplicates);
   Error parse(ResourceSectionRef &RSR, StringRef Filename,
               std::vector<std::string> &Duplicates);
