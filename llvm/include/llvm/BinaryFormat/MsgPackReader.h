@@ -102,7 +102,7 @@ struct Object {
 };
 
 /// Reads MessagePack objects from memory, one at a time.
-class Reader {
+class LLVM_CLASS_ABI Reader {
 public:
   /// Construct a reader, keeping a reference to the \p InputBuffer.
   Reader(MemoryBufferRef InputBuffer);
