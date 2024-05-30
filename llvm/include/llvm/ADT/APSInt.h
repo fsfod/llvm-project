@@ -21,7 +21,7 @@
 namespace llvm {
 
 /// An arbitrary precision integer that knows its signedness.
-class [[nodiscard]] APSInt : public APInt {
+class [[nodiscard]] LLVM_CLASS_ABI APSInt : public APInt {
   bool IsUnsigned = false;
 
 public:
