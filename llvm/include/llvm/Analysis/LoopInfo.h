@@ -37,6 +37,10 @@ class MemorySSAUpdater;
 class ScalarEvolution;
 class raw_ostream;
 
+#ifdef _WIN32
+#pragma warning(disable : 4661)
+#endif
+
 // Implementation in Support/GenericLoopInfoImpl.h
 extern template class LLVM_TEMPLATE_ABI LoopBase<BasicBlock, Loop>;
 
