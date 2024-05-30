@@ -26,7 +26,7 @@ using LoopVectorTy = SmallVector<Loop *, 8>;
 class LPMUpdater;
 
 /// This class represents a loop nest and can be used to query its properties.
-class LoopNest {
+class LLVM_CLASS_ABI LoopNest {
 public:
   using InstrVectorTy = SmallVector<const Instruction *>;
 
@@ -196,11 +196,11 @@ private:
                                                     ScalarEvolution &SE);
 };
 
-raw_ostream &operator<<(raw_ostream &, const LoopNest &);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &, const LoopNest &);
 
 /// This analysis provides information for a loop nest. The analysis runs on
 /// demand and can be initiated via AM.getResult<LoopNestAnalysis>.
-class LoopNestAnalysis : public AnalysisInfoMixin<LoopNestAnalysis> {
+class LLVM_CLASS_ABI LoopNestAnalysis : public AnalysisInfoMixin<LoopNestAnalysis> {
   friend AnalysisInfoMixin<LoopNestAnalysis>;
   static AnalysisKey Key;
 
@@ -210,7 +210,7 @@ public:
 };
 
 /// Printer pass for the \c LoopNest results.
-class LoopNestPrinterPass : public PassInfoMixin<LoopNestPrinterPass> {
+class LLVM_CLASS_ABI LoopNestPrinterPass : public PassInfoMixin<LoopNestPrinterPass> {
   raw_ostream &OS;
 
 public:

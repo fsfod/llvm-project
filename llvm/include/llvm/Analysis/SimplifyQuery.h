@@ -57,7 +57,7 @@ struct InstrInfoQuery {
   }
 };
 
-struct SimplifyQuery {
+struct LLVM_CLASS_ABI SimplifyQuery {
   const DataLayout &DL;
   const TargetLibraryInfo *TLI = nullptr;
   const DominatorTree *DT = nullptr;

@@ -23,13 +23,13 @@ namespace llvm {
   class Function;
   class RegionInfo;
 
-  FunctionPass *createRegionViewerPass();
-  FunctionPass *createRegionOnlyViewerPass();
-  FunctionPass *createRegionPrinterPass();
-  FunctionPass *createRegionOnlyPrinterPass();
+  LLVM_ABI FunctionPass *createRegionViewerPass();
+  LLVM_ABI FunctionPass *createRegionOnlyViewerPass();
+  LLVM_ABI FunctionPass *createRegionPrinterPass();
+  LLVM_ABI FunctionPass *createRegionOnlyPrinterPass();
 
   template <>
-  struct DOTGraphTraits<RegionNode *> : public DefaultDOTGraphTraits {
+  struct LLVM_CLASS_ABI DOTGraphTraits<RegionNode *> : public DefaultDOTGraphTraits {
     DOTGraphTraits(bool isSimple = false) : DefaultDOTGraphTraits(isSimple) {}
 
     std::string getNodeLabel(RegionNode *Node, RegionNode *Graph);
@@ -43,7 +43,7 @@ namespace llvm {
   /// Includes the instructions in each BasicBlock.
   ///
   /// @param RI The analysis to display.
-  void viewRegion(llvm::RegionInfo *RI);
+  LLVM_ABI void viewRegion(llvm::RegionInfo *RI);
 
   /// Analyze the regions of a function and open its GraphViz
   /// visualization in a viewer.
@@ -54,7 +54,7 @@ namespace llvm {
   /// manager currently holds.
   ///
   /// @param F Function to analyze.
-  void viewRegion(const llvm::Function *F);
+  LLVM_ABI void viewRegion(const llvm::Function *F);
 
   /// Open a viewer to display the GraphViz vizualization of the analysis
   /// result.
@@ -63,7 +63,7 @@ namespace llvm {
   /// Shows only the BasicBlock names without their instructions.
   ///
   /// @param RI The analysis to display.
-  void viewRegionOnly(llvm::RegionInfo *RI);
+  LLVM_ABI void viewRegionOnly(llvm::RegionInfo *RI);
 
   /// Analyze the regions of a function and open its GraphViz
   /// visualization in a viewer.
@@ -74,7 +74,7 @@ namespace llvm {
   /// manager currently holds.
   ///
   /// @param F Function to analyze.
-  void viewRegionOnly(const llvm::Function *F);
+  LLVM_ABI void viewRegionOnly(const llvm::Function *F);
 #endif
 } // End llvm namespace
 

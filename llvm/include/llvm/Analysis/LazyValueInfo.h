@@ -29,7 +29,7 @@ namespace llvm {
   class Value;
   class LazyValueInfoImpl;
   /// This pass computes, caches, and vends lazy value constraint information.
-  class LazyValueInfo {
+  class LLVM_CLASS_ABI LazyValueInfo {
     friend class LazyValueInfoWrapperPass;
     AssumptionCache *AC = nullptr;
     const DataLayout *DL = nullptr;
@@ -139,7 +139,7 @@ namespace llvm {
   };
 
 /// Analysis to compute lazy value information.
-class LazyValueAnalysis : public AnalysisInfoMixin<LazyValueAnalysis> {
+class LLVM_CLASS_ABI LazyValueAnalysis : public AnalysisInfoMixin<LazyValueAnalysis> {
 public:
   typedef LazyValueInfo Result;
   Result run(Function &F, FunctionAnalysisManager &FAM);
@@ -150,7 +150,7 @@ private:
 };
 
 /// Printer pass for the LazyValueAnalysis results.
-class LazyValueInfoPrinterPass
+class LLVM_CLASS_ABI LazyValueInfoPrinterPass
     : public PassInfoMixin<LazyValueInfoPrinterPass> {
   raw_ostream &OS;
 
@@ -163,7 +163,7 @@ public:
 };
 
 /// Wrapper around LazyValueInfo.
-class LazyValueInfoWrapperPass : public FunctionPass {
+class LLVM_CLASS_ABI LazyValueInfoWrapperPass : public FunctionPass {
   LazyValueInfoWrapperPass(const LazyValueInfoWrapperPass&) = delete;
   void operator=(const LazyValueInfoWrapperPass&) = delete;
 public:

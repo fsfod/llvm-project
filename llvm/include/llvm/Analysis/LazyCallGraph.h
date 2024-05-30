@@ -109,7 +109,7 @@ class Value;
 /// FIXME: This class is named LazyCallGraph in a lame attempt to distinguish
 /// it from the existing CallGraph. At some point, it is expected that this
 /// will be the only call graph and it will be renamed accordingly.
-class LazyCallGraph {
+class LLVM_CLASS_ABI LazyCallGraph {
 public:
   class Node;
   class EdgeSequence;
@@ -181,7 +181,7 @@ public:
   ///
   /// The sequence itself both iterable and indexable. The indexes remain
   /// stable even as the sequence mutates (including removal).
-  class EdgeSequence {
+  class LLVM_CLASS_ABI EdgeSequence {
     friend class LazyCallGraph;
     friend class LazyCallGraph::Node;
     friend class LazyCallGraph::RefSCC;
@@ -314,7 +314,7 @@ public:
   /// edges of each node. Until populated, there are no edges. Once populated,
   /// you can access the edges by dereferencing the node or using the `->`
   /// operator as if the node was an `std::optional<EdgeSequence>`.
-  class Node {
+  class LLVM_CLASS_ABI Node {
     friend class LazyCallGraph;
     friend class LazyCallGraph::RefSCC;
 
@@ -418,7 +418,7 @@ public:
   /// outer structure. SCCs do not support mutation of the call graph, that
   /// must be done through the containing \c RefSCC in order to fully reason
   /// about the ordering and connections of the graph.
-  class SCC {
+  class LLVM_CLASS_ABI SCC {
     friend class LazyCallGraph;
     friend class LazyCallGraph::Node;
 
@@ -543,7 +543,7 @@ public:
   /// this is deleting a dead function/node, otherwise the dead ref edges are
   /// automatically removed when visiting the function/node no longer containing
   /// the ref edge.
-  class RefSCC {
+  class LLVM_CLASS_ABI RefSCC {
     friend class LazyCallGraph;
     friend class LazyCallGraph::Node;
 
@@ -1256,7 +1256,7 @@ template <> struct GraphTraits<LazyCallGraph *> {
 };
 
 /// An analysis pass which computes the call graph for a module.
-class LazyCallGraphAnalysis : public AnalysisInfoMixin<LazyCallGraphAnalysis> {
+class LLVM_CLASS_ABI LazyCallGraphAnalysis : public AnalysisInfoMixin<LazyCallGraphAnalysis> {
   friend AnalysisInfoMixin<LazyCallGraphAnalysis>;
 
   static AnalysisKey Key;
@@ -1282,7 +1282,7 @@ public:
 /// A pass which prints the call graph to a \c raw_ostream.
 ///
 /// This is primarily useful for testing the analysis.
-class LazyCallGraphPrinterPass
+class LLVM_CLASS_ABI LazyCallGraphPrinterPass
     : public PassInfoMixin<LazyCallGraphPrinterPass> {
   raw_ostream &OS;
 
@@ -1297,7 +1297,7 @@ public:
 /// A pass which prints the call graph as a DOT file to a \c raw_ostream.
 ///
 /// This is primarily useful for visualization purposes.
-class LazyCallGraphDOTPrinterPass
+class LLVM_CLASS_ABI LazyCallGraphDOTPrinterPass
     : public PassInfoMixin<LazyCallGraphDOTPrinterPass> {
   raw_ostream &OS;
 

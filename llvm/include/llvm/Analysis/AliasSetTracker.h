@@ -45,7 +45,7 @@ class StoreInst;
 class VAArgInst;
 class Value;
 
-class AliasSet : public ilist_node<AliasSet> {
+class LLVM_CLASS_ABI AliasSet : public ilist_node<AliasSet> {
   friend class AliasSetTracker;
 
   // Forwarding pointer.
@@ -158,7 +158,7 @@ inline raw_ostream& operator<<(raw_ostream &OS, const AliasSet &AS) {
   return OS;
 }
 
-class AliasSetTracker {
+class LLVM_CLASS_ABI AliasSetTracker {
   BatchAAResults &AA;
   ilist<AliasSet> AliasSets;
 
@@ -266,7 +266,7 @@ inline raw_ostream& operator<<(raw_ostream &OS, const AliasSetTracker &AST) {
   return OS;
 }
 
-class AliasSetsPrinterPass : public PassInfoMixin<AliasSetsPrinterPass> {
+class LLVM_CLASS_ABI AliasSetsPrinterPass : public PassInfoMixin<AliasSetsPrinterPass> {
   raw_ostream &OS;
 
 public:

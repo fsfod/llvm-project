@@ -28,7 +28,7 @@ namespace llvm {
 class Value;
 class BranchInst;
 
-class DomConditionCache {
+class LLVM_CLASS_ABI DomConditionCache {
 private:
   /// A map of values about which a branch might be providing information.
   using AffectedValuesMap = DenseMap<Value *, SmallVector<BranchInst *, 1>>;

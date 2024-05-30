@@ -33,7 +33,7 @@ class TargetLibraryInfo;
 /// Return true if this is always a dereferenceable pointer. If the context
 /// instruction is specified perform context-sensitive analysis and return true
 /// if the pointer is dereferenceable at the specified instruction.
-bool isDereferenceablePointer(const Value *V, Type *Ty, const DataLayout &DL,
+LLVM_ABI bool isDereferenceablePointer(const Value *V, Type *Ty, const DataLayout &DL,
                               const Instruction *CtxI = nullptr,
                               AssumptionCache *AC = nullptr,
                               const DominatorTree *DT = nullptr,
@@ -43,7 +43,7 @@ bool isDereferenceablePointer(const Value *V, Type *Ty, const DataLayout &DL,
 /// greater or equal than requested. If the context instruction is specified
 /// performs context-sensitive analysis and returns true if the pointer is
 /// dereferenceable at the specified instruction.
-bool isDereferenceableAndAlignedPointer(const Value *V, Type *Ty,
+LLVM_ABI bool isDereferenceableAndAlignedPointer(const Value *V, Type *Ty,
                                         Align Alignment, const DataLayout &DL,
                                         const Instruction *CtxI = nullptr,
                                         AssumptionCache *AC = nullptr,
@@ -54,7 +54,7 @@ bool isDereferenceableAndAlignedPointer(const Value *V, Type *Ty,
 /// greater or equal than requested. If the context instruction is specified
 /// performs context-sensitive analysis and returns true if the pointer is
 /// dereferenceable at the specified instruction.
-bool isDereferenceableAndAlignedPointer(const Value *V, Align Alignment,
+LLVM_ABI bool isDereferenceableAndAlignedPointer(const Value *V, Align Alignment,
                                         const APInt &Size, const DataLayout &DL,
                                         const Instruction *CtxI = nullptr,
                                         AssumptionCache *AC = nullptr,
@@ -69,7 +69,7 @@ bool isDereferenceableAndAlignedPointer(const Value *V, Align Alignment,
 /// If it is not obviously safe to load from the specified pointer, we do a
 /// quick local scan of the basic block containing ScanFrom, to determine if
 /// the address is already accessed.
-bool isSafeToLoadUnconditionally(Value *V, Align Alignment, APInt &Size,
+LLVM_ABI bool isSafeToLoadUnconditionally(Value *V, Align Alignment, APInt &Size,
                                  const DataLayout &DL,
                                  Instruction *ScanFrom = nullptr,
                                  AssumptionCache *AC = nullptr,
@@ -83,7 +83,7 @@ bool isSafeToLoadUnconditionally(Value *V, Align Alignment, APInt &Size,
 /// that required by the header itself and could be hoisted into the header
 /// if desired.)  This is more powerful than the variants above when the
 /// address loaded from is analyzeable by SCEV.
-bool isDereferenceableAndAlignedInLoop(LoadInst *LI, Loop *L,
+LLVM_ABI bool isDereferenceableAndAlignedInLoop(LoadInst *LI, Loop *L,
                                        ScalarEvolution &SE, DominatorTree &DT,
                                        AssumptionCache *AC = nullptr);
 
@@ -95,7 +95,7 @@ bool isDereferenceableAndAlignedInLoop(LoadInst *LI, Loop *L,
 /// If it is not obviously safe to load from the specified pointer, we do a
 /// quick local scan of the basic block containing ScanFrom, to determine if
 /// the address is already accessed.
-bool isSafeToLoadUnconditionally(Value *V, Type *Ty, Align Alignment,
+LLVM_ABI bool isSafeToLoadUnconditionally(Value *V, Type *Ty, Align Alignment,
                                  const DataLayout &DL,
                                  Instruction *ScanFrom = nullptr,
                                  AssumptionCache *AC = nullptr,
@@ -130,7 +130,7 @@ extern cl::opt<unsigned> DefMaxInstsToScan;
 /// location in memory, as opposed to the value operand of a store.
 ///
 /// \returns The found value, or nullptr if no value is found.
-Value *FindAvailableLoadedValue(LoadInst *Load, BasicBlock *ScanBB,
+LLVM_ABI Value *FindAvailableLoadedValue(LoadInst *Load, BasicBlock *ScanBB,
                                 BasicBlock::iterator &ScanFrom,
                                 unsigned MaxInstsToScan = DefMaxInstsToScan,
                                 BatchAAResults *AA = nullptr,
@@ -141,7 +141,7 @@ Value *FindAvailableLoadedValue(LoadInst *Load, BasicBlock *ScanBB,
 /// FindAvailableLoadedValue() for the case where we are not interested in
 /// finding the closest clobbering instruction if no available load is found.
 /// This overload cannot be used to scan across multiple blocks.
-Value *FindAvailableLoadedValue(LoadInst *Load, BatchAAResults &AA,
+LLVM_ABI Value *FindAvailableLoadedValue(LoadInst *Load, BatchAAResults &AA,
                                 bool *IsLoadCSE,
                                 unsigned MaxInstsToScan = DefMaxInstsToScan);
 
@@ -168,7 +168,7 @@ Value *FindAvailableLoadedValue(LoadInst *Load, BatchAAResults &AA,
 /// location in memory, as opposed to the value operand of a store.
 ///
 /// \returns The found value, or nullptr if no value is found.
-Value *findAvailablePtrLoadStore(const MemoryLocation &Loc, Type *AccessTy,
+LLVM_ABI Value *findAvailablePtrLoadStore(const MemoryLocation &Loc, Type *AccessTy,
                                  bool AtLeastAtomic, BasicBlock *ScanBB,
                                  BasicBlock::iterator &ScanFrom,
                                  unsigned MaxInstsToScan, BatchAAResults *AA,
@@ -181,9 +181,9 @@ Value *findAvailablePtrLoadStore(const MemoryLocation &Loc, Type *AccessTy,
 /// instructions, as well as when we are replacing with a null pointer.
 /// Additionally it also allows replacement of pointers when both pointers have
 /// the same underlying object.
-bool canReplacePointersIfEqual(const Value *From, const Value *To,
+LLVM_ABI bool canReplacePointersIfEqual(const Value *From, const Value *To,
                                const DataLayout &DL);
-bool canReplacePointersInUseIfEqual(const Use &U, const Value *To,
+LLVM_ABI bool canReplacePointersInUseIfEqual(const Use &U, const Value *To,
                                     const DataLayout &DL);
 }
 

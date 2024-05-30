@@ -63,7 +63,7 @@ struct InlineContext {
   InlinePass Pass;
 };
 
-std::string AnnotateInlinePassName(InlineContext IC);
+LLVM_ABI std::string AnnotateInlinePassName(InlineContext IC);
 
 class InlineAdvisor;
 /// Capture state between an inlining decision having had been made, and
@@ -73,7 +73,7 @@ class InlineAdvisor;
 /// Derivations of this type are expected to be tightly coupled with their
 /// InliningAdvisors. The base type implements the minimal contractual
 /// obligations.
-class InlineAdvice {
+class LLVM_CLASS_ABI InlineAdvice {
 public:
   InlineAdvice(InlineAdvisor *Advisor, CallBase &CB,
                OptimizationRemarkEmitter &ORE, bool IsInliningRecommended);
@@ -142,7 +142,7 @@ private:
   bool Recorded = false;
 };
 
-class DefaultInlineAdvice : public InlineAdvice {
+class LLVM_CLASS_ABI DefaultInlineAdvice : public InlineAdvice {
 public:
   DefaultInlineAdvice(InlineAdvisor *Advisor, CallBase &CB,
                       std::optional<InlineCost> OIC,
@@ -162,7 +162,7 @@ private:
 };
 
 /// Interface for deciding whether to inline a call site or not.
-class InlineAdvisor {
+class LLVM_CLASS_ABI InlineAdvisor {
 public:
   InlineAdvisor(InlineAdvisor &&) = delete;
   virtual ~InlineAdvisor();
@@ -228,7 +228,7 @@ private:
 /// The default (manual heuristics) implementation of the InlineAdvisor. This
 /// implementation does not need to keep state between inliner pass runs, and is
 /// reusable as-is for inliner pass test scenarios, as well as for regular use.
-class DefaultInlineAdvisor : public InlineAdvisor {
+class LLVM_CLASS_ABI DefaultInlineAdvisor : public InlineAdvisor {
 public:
   DefaultInlineAdvisor(Module &M, FunctionAnalysisManager &FAM,
                        InlineParams Params, InlineContext IC)
@@ -285,7 +285,7 @@ private:
 /// InlineAdvisorAnalysis::Result::tryCreate will return the dynamically loaded
 /// advisor.
 ///
-class PluginInlineAdvisorAnalysis
+class LLVM_CLASS_ABI PluginInlineAdvisorAnalysis
     : public AnalysisInfoMixin<PluginInlineAdvisorAnalysis> {
 public:
   static AnalysisKey Key;
@@ -315,11 +315,11 @@ private:
 
 /// The InlineAdvisorAnalysis is a module pass because the InlineAdvisor
 /// needs to capture state right before inlining commences over a module.
-class InlineAdvisorAnalysis : public AnalysisInfoMixin<InlineAdvisorAnalysis> {
+class LLVM_CLASS_ABI InlineAdvisorAnalysis : public AnalysisInfoMixin<InlineAdvisorAnalysis> {
 public:
   static AnalysisKey Key;
   InlineAdvisorAnalysis() = default;
-  struct Result {
+  struct LLVM_CLASS_ABI Result {
     Result(Module &M, ModuleAnalysisManager &MAM) : M(M), MAM(MAM) {}
     bool invalidate(Module &, const PreservedAnalyses &PA,
                     ModuleAnalysisManager::Invalidator &) {
@@ -343,7 +343,7 @@ public:
 };
 
 /// Printer pass for the InlineAdvisorAnalysis results.
-class InlineAdvisorAnalysisPrinterPass
+class LLVM_CLASS_ABI InlineAdvisorAnalysisPrinterPass
     : public PassInfoMixin<InlineAdvisorAnalysisPrinterPass> {
   raw_ostream &OS;
 
@@ -357,11 +357,11 @@ public:
   static bool isRequired() { return true; }
 };
 
-std::unique_ptr<InlineAdvisor>
+LLVM_ABI std::unique_ptr<InlineAdvisor>
 getReleaseModeAdvisor(Module &M, ModuleAnalysisManager &MAM,
                       std::function<bool(CallBase &)> GetDefaultAdvice);
 
-std::unique_ptr<InlineAdvisor>
+LLVM_ABI std::unique_ptr<InlineAdvisor>
 getDevelopmentModeAdvisor(Module &M, ModuleAnalysisManager &MAM,
                           std::function<bool(CallBase &)> GetDefaultAdvice);
 
@@ -372,31 +372,31 @@ getDevelopmentModeAdvisor(Module &M, ModuleAnalysisManager &MAM,
 /// CallSite. If we return the cost, we will emit an optimisation remark later
 /// using that cost, so we won't do so from this function. Return std::nullopt
 /// if inlining should not be attempted.
-std::optional<InlineCost>
+LLVM_ABI std::optional<InlineCost>
 shouldInline(CallBase &CB, function_ref<InlineCost(CallBase &CB)> GetInlineCost,
              OptimizationRemarkEmitter &ORE, bool EnableDeferral = true);
 
 /// Emit ORE message.
-void emitInlinedInto(OptimizationRemarkEmitter &ORE, DebugLoc DLoc,
+LLVM_ABI void emitInlinedInto(OptimizationRemarkEmitter &ORE, DebugLoc DLoc,
                      const BasicBlock *Block, const Function &Callee,
                      const Function &Caller, bool IsMandatory,
                      function_ref<void(OptimizationRemark &)> ExtraContext = {},
                      const char *PassName = nullptr);
 
 /// Emit ORE message based in cost (default heuristic).
-void emitInlinedIntoBasedOnCost(OptimizationRemarkEmitter &ORE, DebugLoc DLoc,
+LLVM_ABI void emitInlinedIntoBasedOnCost(OptimizationRemarkEmitter &ORE, DebugLoc DLoc,
                                 const BasicBlock *Block, const Function &Callee,
                                 const Function &Caller, const InlineCost &IC,
                                 bool ForProfileContext = false,
                                 const char *PassName = nullptr);
 
 /// Add location info to ORE message.
-void addLocationToRemarks(OptimizationRemark &Remark, DebugLoc DLoc);
+LLVM_ABI void addLocationToRemarks(OptimizationRemark &Remark, DebugLoc DLoc);
 
 /// Set the inline-remark attribute.
-void setInlineRemark(CallBase &CB, StringRef Message);
+LLVM_ABI void setInlineRemark(CallBase &CB, StringRef Message);
 
 /// Utility for extracting the inline cost message to a string.
-std::string inlineCostStr(const InlineCost &IC);
+LLVM_ABI std::string inlineCostStr(const InlineCost &IC);
 } // namespace llvm
 #endif // LLVM_ANALYSIS_INLINEADVISOR_H
