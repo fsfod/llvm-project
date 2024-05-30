@@ -24,7 +24,7 @@ class raw_ostream;
 class BranchProbability;
 
 // This class represents Block Frequency as a 64-bit value.
-class BlockFrequency {
+class LLVM_CLASS_ABI BlockFrequency {
   uint64_t Frequency;
 
 public:
@@ -121,7 +121,7 @@ public:
   }
 };
 
-void printRelativeBlockFreq(raw_ostream &OS, BlockFrequency EntryFreq,
+LLVM_ABI void printRelativeBlockFreq(raw_ostream &OS, BlockFrequency EntryFreq,
                             BlockFrequency Freq);
 
 } // namespace llvm

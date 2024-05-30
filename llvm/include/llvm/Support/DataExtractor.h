@@ -39,7 +39,7 @@ inline uint24_t getSwappedBytes(uint24_t C) {
   return uint24_t(C.Bytes[2], C.Bytes[1], C.Bytes[0]);
 }
 
-class DataExtractor {
+class LLVM_CLASS_ABI DataExtractor {
   StringRef Data;
   uint8_t IsLittleEndian;
   uint8_t AddressSize;

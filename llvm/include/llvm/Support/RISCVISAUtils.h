@@ -28,7 +28,7 @@ struct ExtensionVersion {
   unsigned Minor;
 };
 
-bool compareExtension(const std::string &LHS, const std::string &RHS);
+LLVM_ABI bool compareExtension(const std::string &LHS, const std::string &RHS);
 
 /// Helper class for OrderedExtensionMap.
 struct ExtensionComparator {

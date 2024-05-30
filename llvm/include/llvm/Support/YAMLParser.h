@@ -66,25 +66,25 @@ struct Token;
 
 /// Dump all the tokens in this stream to OS.
 /// \returns true if there was an error, false otherwise.
-bool dumpTokens(StringRef Input, raw_ostream &);
+LLVM_ABI bool dumpTokens(StringRef Input, raw_ostream &);
 
 /// Scans all tokens in input without outputting anything. This is used
 ///        for benchmarking the tokenizer.
 /// \returns true if there was an error, false otherwise.
-bool scanTokens(StringRef Input);
+LLVM_ABI bool scanTokens(StringRef Input);
 
 /// Escape \a Input for a double quoted scalar; if \p EscapePrintable
 /// is true, all UTF8 sequences will be escaped, if \p EscapePrintable is
 /// false, those UTF8 sequences encoding printable unicode scalars will not be
 /// escaped, but emitted verbatim.
-std::string escape(StringRef Input, bool EscapePrintable = true);
+LLVM_ABI std::string escape(StringRef Input, bool EscapePrintable = true);
 
 /// Parse \p S as a bool according to https://yaml.org/type/bool.html.
-std::optional<bool> parseBool(StringRef S);
+LLVM_ABI std::optional<bool> parseBool(StringRef S);
 
 /// This class represents a YAML stream potentially containing multiple
 ///        documents.
-class Stream {
+class LLVM_CLASS_ABI Stream {
 public:
   /// This keeps a reference to the string referenced by \p Input.
   Stream(StringRef Input, SourceMgr &, bool ShowColors = true,
@@ -117,7 +117,7 @@ private:
 };
 
 /// Abstract base class for all Nodes.
-class Node {
+class LLVM_CLASS_ABI Node {
   virtual void anchor();
 
 public:
@@ -195,7 +195,7 @@ private:
 ///
 /// Example:
 ///   !!null null
-class NullNode final : public Node {
+class LLVM_CLASS_ABI NullNode final : public Node {
   void anchor() override;
 
 public:
@@ -210,7 +210,7 @@ public:
 ///
 /// Example:
 ///   Adena
-class ScalarNode final : public Node {
+class LLVM_CLASS_ABI ScalarNode final : public Node {
   void anchor() override;
 
 public:
@@ -258,7 +258,7 @@ private:
 ///   |
 ///     Hello
 ///     World
-class BlockScalarNode final : public Node {
+class LLVM_CLASS_ABI BlockScalarNode final : public Node {
   void anchor() override;
 
 public:
@@ -288,7 +288,7 @@ private:
 ///
 /// Example:
 ///   Section: .text
-class KeyValueNode final : public Node {
+class LLVM_CLASS_ABI KeyValueNode final : public Node {
   void anchor() override;
 
 public:
@@ -417,7 +417,7 @@ template <class CollectionType> void skip(CollectionType &C) {
 /// Example:
 ///   Name: _main
 ///   Scope: Global
-class MappingNode final : public Node {
+class LLVM_CLASS_ABI MappingNode final : public Node {
   void anchor() override;
 
 public:
@@ -465,7 +465,7 @@ private:
 /// Example:
 ///   - Hello
 ///   - World
-class SequenceNode final : public Node {
+class LLVM_CLASS_ABI SequenceNode final : public Node {
   void anchor() override;
 
 public:
@@ -517,7 +517,7 @@ private:
 ///
 /// Example:
 ///   *AnchorName
-class AliasNode final : public Node {
+class LLVM_CLASS_ABI AliasNode final : public Node {
   void anchor() override;
 
 public:
@@ -534,7 +534,7 @@ private:
 
 /// A YAML Stream is a sequence of Documents. A document contains a root
 ///        node.
-class Document {
+class LLVM_CLASS_ABI Document {
 public:
   Document(Stream &ParentStream);
 

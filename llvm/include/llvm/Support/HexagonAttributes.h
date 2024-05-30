@@ -14,7 +14,7 @@
 namespace llvm {
 namespace HexagonAttrs {
 
-const TagNameMap &getHexagonAttributeTags();
+LLVM_ABI const TagNameMap &getHexagonAttributeTags();
 
 enum AttrType : unsigned {
   ARCH = 4,

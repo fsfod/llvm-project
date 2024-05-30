@@ -22,7 +22,7 @@ class Error;
 
 namespace support {
 namespace detail {
-class format_adapter {
+class LLVM_CLASS_ABI format_adapter {
   virtual void anchor();
 
 protected:

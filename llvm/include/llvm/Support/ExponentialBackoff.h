@@ -30,7 +30,7 @@ namespace llvm {
 ///   } while (Backoff.waitForNextAttempt());
 ///   return Timeout;
 /// \endcode
-class ExponentialBackoff {
+class LLVM_CLASS_ABI ExponentialBackoff {
 public:
   using duration = std::chrono::steady_clock::duration;
   using time_point = std::chrono::steady_clock::time_point;
