@@ -25,7 +25,7 @@ enum class TextAPIErrorCode {
   UnsupportedTarget
 };
 
-class TextAPIError : public llvm::ErrorInfo<TextAPIError> {
+class LLVM_CLASS_ABI TextAPIError : public llvm::ErrorInfo<TextAPIError> {
 public:
   static char ID;
   TextAPIErrorCode EC;

@@ -64,7 +64,7 @@ enum class RecordLinkage : uint8_t {
 
 /// Define Record. They represent API's in binaries that could be linkable
 /// symbols.
-class Record {
+class LLVM_CLASS_ABI Record {
 public:
   Record() = default;
   Record(StringRef Name, RecordLinkage Linkage, SymbolFlags Flags)
@@ -159,7 +159,7 @@ using RecordMap = llvm::MapVector<K, std::unique_ptr<V>>;
 
 // Defines Objective-C record types that have assigned methods, properties,
 // instance variable (ivars) and protocols.
-class ObjCContainerRecord : public Record {
+class LLVM_CLASS_ABI ObjCContainerRecord : public Record {
 public:
   ObjCContainerRecord(StringRef Name, RecordLinkage Linkage)
       : Record({Name, Linkage, SymbolFlags::Data}) {}
@@ -190,7 +190,7 @@ private:
 };
 
 // Define Objective-C Interfaces or class types.
-class ObjCInterfaceRecord : public ObjCContainerRecord {
+class LLVM_CLASS_ABI ObjCInterfaceRecord : public ObjCContainerRecord {
 public:
   ObjCInterfaceRecord(StringRef Name, RecordLinkage Linkage,
                       ObjCIFSymbolKind SymType)
