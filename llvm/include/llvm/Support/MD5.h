@@ -39,9 +39,9 @@ namespace llvm {
 template <unsigned N> class SmallString;
 template <typename T> class ArrayRef;
 
-class MD5 {
+class LLVM_CLASS_ABI MD5 {
 public:
-  struct MD5Result : public std::array<uint8_t, 16> {
+  struct LLVM_CLASS_ABI MD5Result : public std::array<uint8_t, 16> {
     SmallString<32> digest() const;
 
     uint64_t low() const {

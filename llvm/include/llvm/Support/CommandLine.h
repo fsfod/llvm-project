@@ -67,7 +67,7 @@ namespace cl {
 // that give precedence to later occurrences.  If your program supports options
 // that give precedence to earlier occurrences, you will need to extend this
 // function to support it correctly.
-bool ParseCommandLineOptions(int argc, const char *const *argv,
+LLVM_ABI bool ParseCommandLineOptions(int argc, const char *const *argv,
                              StringRef Overview = "",
                              raw_ostream *Errs = nullptr,
                              const char *EnvVar = nullptr,
@@ -80,20 +80,20 @@ using VersionPrinterTy = std::function<void(raw_ostream &)>;
 /// Override the default (LLVM specific) version printer used to print out the
 /// version when --version is given on the command line. This allows other
 /// systems using the CommandLine utilities to print their own version string.
-void SetVersionPrinter(VersionPrinterTy func);
+LLVM_ABI void SetVersionPrinter(VersionPrinterTy func);
 
 ///===---------------------------------------------------------------------===//
 /// Add an extra printer to use in addition to the default one. This can be
 /// called multiple times, and each time it adds a new function to the list
 /// which will be called after the basic LLVM version printing is complete.
 /// Each can then add additional information specific to the tool.
-void AddExtraVersionPrinter(VersionPrinterTy func);
+LLVM_ABI void AddExtraVersionPrinter(VersionPrinterTy func);
 
 // Print option values.
 // With -print-options print the difference between option values and defaults.
 // With -print-all-options print all option values.
 // (Currently not perfect, but best-effort.)
-void PrintOptionValues();
+LLVM_ABI void PrintOptionValues();
 
 // Forward declaration - AddLiteralOption needs to be up here to make gcc happy.
 class Option;
@@ -105,7 +105,7 @@ class Option;
 ///
 /// Literal options are used by some parsers to register special option values.
 /// This is how the PassNameParser registers pass names for opt.
-void AddLiteralOption(Option &O, StringRef Name);
+LLVM_ABI void AddLiteralOption(Option &O, StringRef Name);
 
 //===----------------------------------------------------------------------===//
 // Flags permitted to be passed to command line arguments
@@ -178,7 +178,7 @@ enum MiscFlags {             // Miscellaneous flags to adjust argument
 
 //===----------------------------------------------------------------------===//
 //
-class OptionCategory {
+class LLVM_CLASS_ABI OptionCategory {
 private:
   StringRef const Name;
   StringRef const Description;
@@ -197,11 +197,11 @@ public:
 };
 
 // The general Option Category (used as default category).
-OptionCategory &getGeneralCategory();
+LLVM_ABI OptionCategory &getGeneralCategory();
 
 //===----------------------------------------------------------------------===//
 //
-class SubCommand {
+class LLVM_CLASS_ABI SubCommand {
 private:
   StringRef Name;
   StringRef Description;
@@ -239,10 +239,10 @@ public:
 };
 
 // A special subcommand representing no subcommand
-extern ManagedStatic<SubCommand> TopLevelSubCommand;
+LLVM_ABI extern ManagedStatic<SubCommand> TopLevelSubCommand;
 
 // A special subcommand that can be used to put an option into all subcommands.
-extern ManagedStatic<SubCommand> AllSubCommands;
+LLVM_ABI extern ManagedStatic<SubCommand> AllSubCommands;
 
 class SubCommandGroup {
   SmallVector<SubCommand *, 4> Subs;
@@ -255,7 +255,7 @@ public:
 
 //===----------------------------------------------------------------------===//
 //
-class Option {
+class LLVM_CLASS_ABI Option {
   friend class alias;
 
   // Overriden by subclasses to handle the value passed into an argument. Should
@@ -537,7 +537,7 @@ callback(F CB) {
 //===----------------------------------------------------------------------===//
 
 // Support value comparison outside the template.
-struct GenericOptionValue {
+struct LLVM_CLASS_ABI GenericOptionValue {
   virtual bool compare(const GenericOptionValue &V) const = 0;
 
 protected:
@@ -644,7 +644,7 @@ struct OptionValue final
 // Other safe-to-copy-by-value common option types.
 enum boolOrDefault { BOU_UNSET, BOU_TRUE, BOU_FALSE };
 template <>
-struct OptionValue<cl::boolOrDefault> final
+struct LLVM_ABI OptionValue<cl::boolOrDefault> final
     : OptionValueCopy<cl::boolOrDefault> {
   using WrapperType = cl::boolOrDefault;
 
@@ -662,7 +662,7 @@ private:
 };
 
 template <>
-struct OptionValue<std::string> final : OptionValueCopy<std::string> {
+struct LLVM_ABI OptionValue<std::string> final : OptionValueCopy<std::string> {
   using WrapperType = StringRef;
 
   OptionValue() = default;
@@ -732,7 +732,7 @@ template <typename... OptsTy> ValuesClass values(OptsTy... Options) {
 // every instance of the generic parser.  This also allows us to put stuff into
 // CommandLine.cpp
 //
-class generic_parser_base {
+class LLVM_CLASS_ABI generic_parser_base {
 protected:
   class GenericOptionInfo {
   public:
@@ -898,7 +898,7 @@ public:
 //--------------------------------------------------
 // Super class of parsers to provide boilerplate code
 //
-class basic_parser_impl { // non-template implementation of basic_parser<t>
+class LLVM_CLASS_ABI basic_parser_impl { // non-template implementation of basic_parser<t>
 public:
   basic_parser_impl(Option &) {}
 
@@ -947,9 +947,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<bool>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<bool>;
 
-template <> class parser<bool> : public basic_parser<bool> {
+template <> class LLVM_ABI parser<bool> : public basic_parser<bool> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -974,9 +974,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<boolOrDefault>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<boolOrDefault>;
 
-template <> class parser<boolOrDefault> : public basic_parser<boolOrDefault> {
+template <> class LLVM_ABI parser<boolOrDefault> : public basic_parser<boolOrDefault> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -999,9 +999,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<int>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<int>;
 
-template <> class parser<int> : public basic_parser<int> {
+template <> class LLVM_ABI parser<int> : public basic_parser<int> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1020,9 +1020,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<long>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<long>;
 
-template <> class parser<long> final : public basic_parser<long> {
+template <> class LLVM_ABI parser<long> final : public basic_parser<long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1041,9 +1041,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<long long>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<long long>;
 
-template <> class parser<long long> : public basic_parser<long long> {
+template <> class LLVM_ABI parser<long long> : public basic_parser<long long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1062,9 +1062,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<unsigned>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<unsigned>;
 
-template <> class parser<unsigned> : public basic_parser<unsigned> {
+template <> class LLVM_ABI parser<unsigned> : public basic_parser<unsigned> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1083,10 +1083,10 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<unsigned long>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<unsigned long>;
 
 template <>
-class parser<unsigned long> final : public basic_parser<unsigned long> {
+class LLVM_ABI parser<unsigned long> final : public basic_parser<unsigned long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1105,10 +1105,10 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<unsigned long long>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<unsigned long long>;
 
 template <>
-class parser<unsigned long long> : public basic_parser<unsigned long long> {
+class LLVM_ABI parser<unsigned long long> : public basic_parser<unsigned long long> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1128,9 +1128,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<double>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<double>;
 
-template <> class parser<double> : public basic_parser<double> {
+template <> class LLVM_ABI parser<double> : public basic_parser<double> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1149,9 +1149,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<float>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<float>;
 
-template <> class parser<float> : public basic_parser<float> {
+template <> class LLVM_ABI parser<float> : public basic_parser<float> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1170,9 +1170,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<std::string>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<std::string>;
 
-template <> class parser<std::string> : public basic_parser<std::string> {
+template <> class LLVM_ABI parser<std::string> : public basic_parser<std::string> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1194,9 +1194,9 @@ public:
 
 //--------------------------------------------------
 
-extern template class basic_parser<char>;
+extern template class LLVM_TEMPLATE_ABI basic_parser<char>;
 
-template <> class parser<char> : public basic_parser<char> {
+template <> class LLVM_ABI parser<char> : public basic_parser<char> {
 public:
   parser(Option &O) : basic_parser(O) {}
 
@@ -1518,11 +1518,10 @@ public:
       [](const typename ParserClass::parser_data_type &) {};
 };
 
-extern template class opt<unsigned>;
-extern template class opt<int>;
-extern template class opt<std::string>;
-extern template class opt<char>;
-extern template class opt<bool>;
+extern template class LLVM_TEMPLATE_ABI opt<unsigned>;
+extern template class LLVM_TEMPLATE_ABI opt<int>;
+extern template class LLVM_TEMPLATE_ABI opt<char>;
+extern template class LLVM_TEMPLATE_ABI opt<bool>;
 
 // FIXME: The exported explicit instantiation for this causes lots of inline 
 // members of std::string to be exported causing duplicate symbol errors when 
@@ -1925,7 +1924,7 @@ public:
 // Aliased command line option (alias this name to a preexisting name)
 //
 
-class alias : public Option {
+class LLVM_CLASS_ABI alias : public Option {
   Option *AliasFor;
 
   bool handleOccurrence(unsigned pos, StringRef /*ArgName*/,
@@ -1995,30 +1994,30 @@ struct aliasopt {
 // Provide additional help at the end of the normal help output. All occurrences
 // of cl::extrahelp will be accumulated and printed to stderr at the end of the
 // regular help, just before exit is called.
-struct extrahelp {
+struct LLVM_CLASS_ABI extrahelp {
   StringRef morehelp;
 
   explicit extrahelp(StringRef help);
 };
 
-void PrintVersionMessage();
+LLVM_ABI void PrintVersionMessage();
 
 /// This function just prints the help message, exactly the same way as if the
 /// -help or -help-hidden option had been given on the command line.
 ///
 /// \param Hidden if true will print hidden options
 /// \param Categorized if true print options in categories
-void PrintHelpMessage(bool Hidden = false, bool Categorized = false);
+LLVM_ABI void PrintHelpMessage(bool Hidden = false, bool Categorized = false);
 
 /// An array of optional enabled settings in the LLVM build configuration,
 /// which may be of interest to compiler developers. For example, includes
 /// "+assertions" if assertions are enabled. Used by printBuildConfig.
-ArrayRef<StringRef> getCompilerBuildConfig();
+LLVM_ABI ArrayRef<StringRef> getCompilerBuildConfig();
 
 /// Prints the compiler build configuration.
 /// Designed for compiler developers, not compiler end-users.
 /// Intended to be used in --version output when enabled.
-void printBuildConfig(raw_ostream &OS);
+LLVM_ABI void printBuildConfig(raw_ostream &OS);
 
 //===----------------------------------------------------------------------===//
 // Public interface for accessing registered options.
@@ -2051,7 +2050,7 @@ void printBuildConfig(raw_ostream &OS);
 /// Hopefully this API can be deprecated soon. Any situation where options need
 /// to be modified by tools or libraries should be handled by sane APIs rather
 /// than just handing around a global list.
-StringMap<Option *> &
+LLVM_ABI StringMap<Option *> &
 getRegisteredOptions(SubCommand &Sub = SubCommand::getTopLevel());
 
 /// Use this to get all registered SubCommands from the provided parser.
@@ -2073,7 +2072,7 @@ getRegisteredOptions(SubCommand &Sub = SubCommand::getTopLevel());
 ///
 /// This interface is useful for defining subcommands in libraries and
 /// the dispatch from a single point (like in the main function).
-iterator_range<typename SmallPtrSet<SubCommand *, 4>::iterator>
+LLVM_ABI iterator_range<typename SmallPtrSet<SubCommand *, 4>::iterator>
 getRegisteredSubcommands();
 
 //===----------------------------------------------------------------------===//
@@ -2092,7 +2091,7 @@ getRegisteredSubcommands();
 /// \param [in] MarkEOLs true if tokenizing a response file and you want end of
 /// lines and end of the response file to be marked with a nullptr string.
 /// \param [out] NewArgv All parsed strings are appended to NewArgv.
-void TokenizeGNUCommandLine(StringRef Source, StringSaver &Saver,
+LLVM_ABI void TokenizeGNUCommandLine(StringRef Source, StringSaver &Saver,
                             SmallVectorImpl<const char *> &NewArgv,
                             bool MarkEOLs = false);
 
@@ -2110,7 +2109,7 @@ void TokenizeGNUCommandLine(StringRef Source, StringSaver &Saver,
 /// \param [in] MarkEOLs true if tokenizing a response file and you want end of
 /// lines and end of the response file to be marked with a nullptr string.
 /// \param [out] NewArgv All parsed strings are appended to NewArgv.
-void TokenizeWindowsCommandLine(StringRef Source, StringSaver &Saver,
+LLVM_ABI void TokenizeWindowsCommandLine(StringRef Source, StringSaver &Saver,
                                 SmallVectorImpl<const char *> &NewArgv,
                                 bool MarkEOLs = false);
 
@@ -2118,7 +2117,7 @@ void TokenizeWindowsCommandLine(StringRef Source, StringSaver &Saver,
 /// quoting or escaping was used, this produces substrings of the original
 /// string. If a token requires unquoting, it will be allocated with the
 /// StringSaver.
-void TokenizeWindowsCommandLineNoCopy(StringRef Source, StringSaver &Saver,
+LLVM_ABI void TokenizeWindowsCommandLineNoCopy(StringRef Source, StringSaver &Saver,
                                       SmallVectorImpl<StringRef> &NewArgv);
 
 /// Tokenizes a Windows full command line, including command name at the start.
@@ -2134,7 +2133,7 @@ void TokenizeWindowsCommandLineNoCopy(StringRef Source, StringSaver &Saver,
 /// if you set MarkEOLs = true, then the first word of every line will be
 /// parsed using the special rules for command names, making this function
 /// suitable for parsing a file full of commands to execute.
-void TokenizeWindowsCommandLineFull(StringRef Source, StringSaver &Saver,
+LLVM_ABI void TokenizeWindowsCommandLineFull(StringRef Source, StringSaver &Saver,
                                     SmallVectorImpl<const char *> &NewArgv,
                                     bool MarkEOLs = false);
 
@@ -2153,12 +2152,12 @@ using TokenizerCallback = void (*)(StringRef Source, StringSaver &Saver,
 ///
 /// It works like TokenizeGNUCommandLine with ability to skip comment lines.
 ///
-void tokenizeConfigFile(StringRef Source, StringSaver &Saver,
+LLVM_ABI void tokenizeConfigFile(StringRef Source, StringSaver &Saver,
                         SmallVectorImpl<const char *> &NewArgv,
                         bool MarkEOLs = false);
 
 /// Contains options that control response file expansion.
-class ExpansionContext {
+class LLVM_CLASS_ABI ExpansionContext {
   /// Provides persistent storage for parsed strings.
   StringSaver Saver;
 
@@ -2248,19 +2247,19 @@ public:
 /// environment variable EnvVar and command line options, then expands
 /// response files recursively.
 /// \return true if all @files were expanded successfully or there were none.
-bool expandResponseFiles(int Argc, const char *const *Argv, const char *EnvVar,
+LLVM_ABI bool expandResponseFiles(int Argc, const char *const *Argv, const char *EnvVar,
                          SmallVectorImpl<const char *> &NewArgv);
 
 /// A convenience helper which supports the typical use case of expansion
 /// function call.
-bool ExpandResponseFiles(StringSaver &Saver, TokenizerCallback Tokenizer,
+LLVM_ABI bool ExpandResponseFiles(StringSaver &Saver, TokenizerCallback Tokenizer,
                          SmallVectorImpl<const char *> &Argv);
 
 /// A convenience helper which concatenates the options specified by the
 /// environment variable EnvVar and command line options, then expands response
 /// files recursively. The tokenizer is a predefined GNU or Windows one.
 /// \return true if all @files were expanded successfully or there were none.
-bool expandResponseFiles(int Argc, const char *const *Argv, const char *EnvVar,
+LLVM_ABI bool expandResponseFiles(int Argc, const char *const *Argv, const char *EnvVar,
                          StringSaver &Saver,
                          SmallVectorImpl<const char *> &NewArgv);
 
@@ -2271,7 +2270,7 @@ bool expandResponseFiles(int Argc, const char *const *Argv, const char *EnvVar,
 /// Some tools (like clang-format) like to be able to hide all options that are
 /// not specific to the tool. This function allows a tool to specify a single
 /// option category to display in the -help output.
-void HideUnrelatedOptions(cl::OptionCategory &Category,
+LLVM_ABI void HideUnrelatedOptions(cl::OptionCategory &Category,
                           SubCommand &Sub = SubCommand::getTopLevel());
 
 /// Mark all options not part of the categories as cl::ReallyHidden.
@@ -2281,22 +2280,22 @@ void HideUnrelatedOptions(cl::OptionCategory &Category,
 /// Some tools (like clang-format) like to be able to hide all options that are
 /// not specific to the tool. This function allows a tool to specify a single
 /// option category to display in the -help output.
-void HideUnrelatedOptions(ArrayRef<const cl::OptionCategory *> Categories,
+LLVM_ABI void HideUnrelatedOptions(ArrayRef<const cl::OptionCategory *> Categories,
                           SubCommand &Sub = SubCommand::getTopLevel());
 
 /// Reset all command line options to a state that looks as if they have
 /// never appeared on the command line.  This is useful for being able to parse
 /// a command line multiple times (especially useful for writing tests).
-void ResetAllOptionOccurrences();
+LLVM_ABI void ResetAllOptionOccurrences();
 
 /// Reset the command line parser back to its initial state.  This
 /// removes
 /// all options, categories, and subcommands and returns the parser to a state
 /// where no options are supported.
-void ResetCommandLineParser();
+LLVM_ABI void ResetCommandLineParser();
 
 /// Parses `Arg` into the option handler `Handler`.
-bool ProvidePositionalOption(Option *Handler, StringRef Arg, int i);
+LLVM_ABI bool ProvidePositionalOption(Option *Handler, StringRef Arg, int i);
 
 } // end namespace cl
 

@@ -151,7 +151,7 @@ protected:
 /// general, you should not pass around pointers or references to BinaryStreams
 /// and use inheritance to achieve polymorphism.  Instead, you should pass
 /// around BinaryStreamRefs by value and achieve polymorphism that way.
-class BinaryStreamRef
+class LLVM_CLASS_ABI BinaryStreamRef
     : public BinaryStreamRefBase<BinaryStreamRef, BinaryStream> {
   friend BinaryStreamRefBase<BinaryStreamRef, BinaryStream>;
   friend class WritableBinaryStreamRef;
@@ -215,7 +215,7 @@ struct BinarySubstreamRef {
   bool empty() const { return size() == 0; }
 };
 
-class WritableBinaryStreamRef
+class LLVM_CLASS_ABI WritableBinaryStreamRef
     : public BinaryStreamRefBase<WritableBinaryStreamRef,
                                  WritableBinaryStream> {
   friend BinaryStreamRefBase<WritableBinaryStreamRef, WritableBinaryStream>;

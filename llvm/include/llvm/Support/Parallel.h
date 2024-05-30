@@ -28,7 +28,7 @@ namespace parallel {
 // Strategy for the default executor used by the parallel routines provided by
 // this file. It defaults to using all hardware threads and should be
 // initialized before the first use of parallel routines.
-extern ThreadPoolStrategy strategy;
+LLVM_ABI extern ThreadPoolStrategy strategy;
 
 #if LLVM_ENABLE_THREADS
 #define GET_THREAD_INDEX_IMPL                                                  \
@@ -42,7 +42,7 @@ extern ThreadPoolStrategy strategy;
 #ifdef _WIN32
 // Direct access to thread_local variables from a different DLL isn't
 // possible with Windows Native TLS.
-unsigned getThreadIndex();
+LLVM_ABI unsigned getThreadIndex();
 #else
 // Don't access this directly, use the getThreadIndex wrapper.
 extern LLVM_ABI thread_local unsigned threadIndex;
@@ -50,7 +50,7 @@ extern LLVM_ABI thread_local unsigned threadIndex;
 inline unsigned getThreadIndex() { GET_THREAD_INDEX_IMPL; }
 #endif
 
-size_t getThreadCount();
+LLVM_ABI size_t getThreadCount();
 #else
 inline unsigned getThreadIndex() { return 0; }
 inline size_t getThreadCount() { return 1; }
@@ -87,7 +87,7 @@ public:
 };
 } // namespace detail
 
-class TaskGroup {
+class LLVM_CLASS_ABI TaskGroup {
   detail::Latch L;
   bool Parallel;
 
@@ -228,7 +228,7 @@ void parallelSort(RandomAccessIterator Start, RandomAccessIterator End,
   llvm::sort(Start, End, Comp);
 }
 
-void parallelFor(size_t Begin, size_t End, function_ref<void(size_t)> Fn);
+LLVM_ABI void parallelFor(size_t Begin, size_t End, function_ref<void(size_t)> Fn);
 
 template <class IterTy, class FuncTy>
 void parallelForEach(IterTy Begin, IterTy End, FuncTy Fn) {

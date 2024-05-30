@@ -67,7 +67,7 @@ class FileSystem;
 /// fun:cos=functional
 /// fun:sin=functional
 /// ---
-class SpecialCaseList {
+class LLVM_CLASS_ABI SpecialCaseList {
 public:
   /// Parses the special case list entries from files. On failure, returns
   /// 0 and writes an error message to string.
@@ -116,7 +116,7 @@ protected:
   SpecialCaseList &operator=(SpecialCaseList const &) = delete;
 
   /// Represents a set of globs and their line numbers
-  class Matcher {
+  class LLVM_CLASS_ABI Matcher {
   public:
     Matcher() = default;
     Matcher(const Matcher &) = delete;

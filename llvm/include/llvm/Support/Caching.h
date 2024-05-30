@@ -70,7 +70,7 @@ using AddBufferFn = std::function<void(unsigned Task, const Twine &ModuleName,
 /// done lazily the first time a file is added.  The cache name appears in error
 /// messages for errors during caching. The temporary file prefix is used in the
 /// temporary file naming scheme used when writing files atomically.
-Expected<FileCache> localCache(
+LLVM_ABI Expected<FileCache> localCache(
     const Twine &CacheNameRef, const Twine &TempFilePrefixRef,
     const Twine &CacheDirectoryPathRef,
     AddBufferFn AddBuffer = [](size_t Task, const Twine &ModuleName,

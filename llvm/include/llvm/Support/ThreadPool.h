@@ -47,7 +47,7 @@ class ThreadPoolTaskGroup;
 /// available threads are used up by tasks waiting for a task that has no thread
 /// left to run on (this includes waiting on the returned future). It should be
 /// generally safe to wait() for a group as long as groups do not form a cycle.
-class ThreadPoolInterface {
+class LLVM_CLASS_ABI ThreadPoolInterface {
   /// The actual method to enqueue a task to be defined by the concrete
   /// implementation.
   virtual void asyncEnqueue(std::function<void()> Task,
@@ -122,7 +122,7 @@ private:
 ///
 /// The pool keeps a vector of threads alive, waiting on a condition variable
 /// for some work to become available.
-class StdThreadPool : public ThreadPoolInterface {
+class LLVM_CLASS_ABI StdThreadPool : public ThreadPoolInterface {
 public:
   /// Construct a pool using the hardware strategy \p S for mapping hardware
   /// execution resources (threads, cores, CPUs)
@@ -216,7 +216,7 @@ private:
 #endif // LLVM_ENABLE_THREADS
 
 /// A non-threaded implementation.
-class SingleThreadExecutor : public ThreadPoolInterface {
+class LLVM_CLASS_ABI SingleThreadExecutor : public ThreadPoolInterface {
 public:
   /// Construct a non-threaded pool, ignoring using the hardware strategy.
   SingleThreadExecutor(ThreadPoolStrategy ignored = {});

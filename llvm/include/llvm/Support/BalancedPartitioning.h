@@ -54,7 +54,7 @@ namespace llvm {
 class ThreadPoolInterface;
 /// A function with a set of utility nodes where it is beneficial to order two
 /// functions close together if they have similar utility nodes
-class BPFunctionNode {
+class LLVM_CLASS_ABI BPFunctionNode {
   friend class BalancedPartitioning;
 
 public:
@@ -98,7 +98,7 @@ struct BalancedPartitioningConfig {
   unsigned TaskSplitDepth = 9;
 };
 
-class BalancedPartitioning {
+class LLVM_CLASS_ABI BalancedPartitioning {
 public:
   BalancedPartitioning(const BalancedPartitioningConfig &Config);
 
@@ -115,7 +115,7 @@ private:
   /// wait(). BalancedPartitioning recursively spawns new threads inside other
   /// threads, so we need to track how many active threads that could spawn more
   /// threads.
-  struct BPThreadPool {
+  struct LLVM_CLASS_ABI BPThreadPool {
     ThreadPoolInterface &TheThreadPool;
     std::mutex mtx;
     std::condition_variable cv;

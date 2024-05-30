@@ -64,7 +64,7 @@ struct ReplacementItem {
   StringRef Options;
 };
 
-class formatv_object_base {
+class LLVM_CLASS_ABI formatv_object_base {
 protected:
   StringRef Fmt;
   ArrayRef<support::detail::format_adapter *> Adapters;

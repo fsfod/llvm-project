@@ -13,7 +13,7 @@
 #include "llvm/Support/HexagonAttributes.h"
 
 namespace llvm {
-class HexagonAttributeParser : public ELFAttributeParser {
+class LLVM_CLASS_ABI HexagonAttributeParser : public ELFAttributeParser {
   struct DisplayHandler {
     HexagonAttrs::AttrType Attribute;
     Error (HexagonAttributeParser::*Routine)(unsigned);

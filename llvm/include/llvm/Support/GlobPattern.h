@@ -49,7 +49,7 @@ namespace llvm {
 ///
 /// For example, \p "*[/\\]foo.{c,cpp}" will match (unix or windows) paths to
 /// all files named \p "foo.c" or \p "foo.cpp".
-class GlobPattern {
+class LLVM_CLASS_ABI GlobPattern {
 public:
   /// \param Pat the pattern to match against
   /// \param MaxSubPatterns if provided limit the number of allowed subpatterns
@@ -73,7 +73,7 @@ public:
 private:
   StringRef Prefix;
 
-  struct SubGlobPattern {
+  struct LLVM_CLASS_ABI SubGlobPattern {
     /// \param Pat the pattern to match against
     static Expected<SubGlobPattern> create(StringRef Pat);
     /// \returns \p true if \p S matches this glob pattern
