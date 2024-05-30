@@ -20,7 +20,7 @@ namespace llvm {
 namespace MachO {
 
 /// Base class for any usage of traversing over collected Records.
-class RecordVisitor {
+class LLVM_CLASS_ABI RecordVisitor {
 public:
   virtual ~RecordVisitor();
 
@@ -32,7 +32,7 @@ public:
 /// Specialized RecordVisitor for collecting exported symbols
 /// and undefined symbols if RecordSlice being visited represents a
 /// flat-namespaced library.
-class SymbolConverter : public RecordVisitor {
+class LLVM_CLASS_ABI SymbolConverter : public RecordVisitor {
 public:
   SymbolConverter(SymbolSet *Symbols, const Target &T,
                   const bool RecordUndefs = false)

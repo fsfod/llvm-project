@@ -73,7 +73,7 @@ bool operator!=(const DenseMapBase<DerivedT, SymbolsMapKey, MachO::Symbol *,
 
 namespace MachO {
 
-class SymbolSet {
+class LLVM_CLASS_ABI SymbolSet {
 private:
   llvm::BumpPtrAllocator Allocator;
   StringRef copyString(StringRef String) {

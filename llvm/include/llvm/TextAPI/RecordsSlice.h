@@ -25,7 +25,7 @@ namespace MachO {
 
 // Define collection of records for a library that are tied to a darwin target
 // triple.
-class RecordsSlice {
+class LLVM_CLASS_ABI RecordsSlice {
 public:
   RecordsSlice(const llvm::Triple &T) : TargetTriple(T), TAPITarget(T) {}
   /// Get target triple.
@@ -196,7 +196,7 @@ private:
 
 using Records = llvm::SmallVector<std::shared_ptr<RecordsSlice>, 4>;
 class InterfaceFile;
-std::unique_ptr<InterfaceFile> convertToInterfaceFile(const Records &Slices);
+LLVM_ABI std::unique_ptr<InterfaceFile> convertToInterfaceFile(const Records &Slices);
 
 } // namespace MachO
 } // namespace llvm

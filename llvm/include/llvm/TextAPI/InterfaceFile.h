@@ -50,7 +50,7 @@ enum class ObjCConstraintType : unsigned {
 };
 
 /// Reference to an interface file.
-class InterfaceFileRef {
+class LLVM_CLASS_ABI InterfaceFileRef {
 public:
   InterfaceFileRef() = default;
 
@@ -103,7 +103,7 @@ private:
 namespace MachO {
 
 /// Defines the interface file.
-class InterfaceFile {
+class LLVM_CLASS_ABI InterfaceFile {
 public:
   InterfaceFile(std::unique_ptr<SymbolSet> &&InputSymbols)
       : SymbolsSet(std::move(InputSymbols)) {}
