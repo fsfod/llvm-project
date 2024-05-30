@@ -95,7 +95,7 @@ struct LoopBodyTraits {
 /// single loop.
 ///
 /// TODO: This could be generalized for any CFG region, or the entire CFG.
-class LoopBlocksDFS {
+class LLVM_CLASS_ABI LoopBlocksDFS {
 public:
   /// Postorder list iterators.
   typedef std::vector<BasicBlock*>::const_iterator POIterator;

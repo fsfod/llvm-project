@@ -90,7 +90,7 @@ template <class BT> struct BlockEdgesAdder;
 /// quite, maximum precision).
 ///
 /// Masses can be scaled by \a BranchProbability at maximum precision.
-class BlockMass {
+class LLVM_CLASS_ABI BlockMass {
   uint64_t Mass = 0;
 
 public:
@@ -178,7 +178,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, BlockMass X) {
 ///
 /// Nevertheless, the majority of the overall algorithm documentation lives with
 /// BlockFrequencyInfoImpl.  See there for details.
-class BlockFrequencyInfoImplBase {
+class LLVM_CLASS_ABI BlockFrequencyInfoImplBase {
 public:
   using Scaled64 = ScaledNumber<uint64_t>;
   using BlockMass = bfi_detail::BlockMass;
@@ -383,7 +383,7 @@ public:
   ///
   /// \a DidOverflow indicates whether \a Total did overflow while adding to
   /// the distribution.  It should never overflow twice.
-  struct Distribution {
+  struct LLVM_CLASS_ABI Distribution {
     using WeightList = SmallVector<Weight, 4>;
 
     WeightList Weights;       ///< Individual successor weights.
@@ -597,7 +597,7 @@ template <> inline std::string getBlockName(const BasicBlock *BB) {
 /// \a GraphTraits (so that \a analyzeIrreducible() can use \a scc_iterator),
 /// and it explicitly lists predecessors and successors.  The initialization
 /// that relies on \c MachineBasicBlock is defined in the header.
-struct IrreducibleGraph {
+struct LLVM_CLASS_ABI IrreducibleGraph {
   using BFIBase = BlockFrequencyInfoImplBase;
 
   BFIBase &BFI;

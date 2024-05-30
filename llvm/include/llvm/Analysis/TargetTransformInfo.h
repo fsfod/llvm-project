@@ -95,7 +95,7 @@ struct MemIntrinsicInfo {
 };
 
 /// Attributes of a target dependent hardware loop.
-struct HardwareLoopInfo {
+struct LLVM_CLASS_ABI HardwareLoopInfo {
   HardwareLoopInfo() = delete;
   HardwareLoopInfo(Loop *L);
   Loop *L = nullptr;
@@ -118,7 +118,7 @@ struct HardwareLoopInfo {
   bool canAnalyze(LoopInfo &LI);
 };
 
-class IntrinsicCostAttributes {
+class LLVM_CLASS_ABI IntrinsicCostAttributes {
   const IntrinsicInst *II = nullptr;
   Type *RetTy = nullptr;
   Intrinsic::ID IID;
@@ -211,7 +211,7 @@ typedef TargetTransformInfo TTI;
 
 /// This pass provides access to the codegen interfaces that are needed
 /// for IR-level transformations.
-class TargetTransformInfo {
+class LLVM_CLASS_ABI TargetTransformInfo {
 public:
   /// Construct a TTI object using a type implementing the \c Concept
   /// API below.
@@ -2932,7 +2932,7 @@ TargetTransformInfo::TargetTransformInfo(T Impl)
 /// is done in a subtarget specific way and LLVM supports compiling different
 /// functions targeting different subtargets in order to support runtime
 /// dispatch according to the observed subtarget.
-class TargetIRAnalysis : public AnalysisInfoMixin<TargetIRAnalysis> {
+class LLVM_CLASS_ABI TargetIRAnalysis : public AnalysisInfoMixin<TargetIRAnalysis> {
 public:
   typedef TargetTransformInfo Result;
 
@@ -2988,7 +2988,7 @@ private:
 ///
 /// This pass can be constructed from a TTI object which it stores internally
 /// and is queried by passes.
-class TargetTransformInfoWrapperPass : public ImmutablePass {
+class LLVM_CLASS_ABI TargetTransformInfoWrapperPass : public ImmutablePass {
   TargetIRAnalysis TIRA;
   std::optional<TargetTransformInfo> TTI;
 
@@ -3012,7 +3012,7 @@ public:
 ///
 /// This analysis pass just holds the TTI instance and makes it available to
 /// clients.
-ImmutablePass *createTargetTransformInfoWrapperPass(TargetIRAnalysis TIRA);
+LLVM_ABI ImmutablePass *createTargetTransformInfoWrapperPass(TargetIRAnalysis TIRA);
 
 } // namespace llvm
 
