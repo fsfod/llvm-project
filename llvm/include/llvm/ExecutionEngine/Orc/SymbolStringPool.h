@@ -36,7 +36,7 @@ class SymbolStringPool {
   friend class SymbolStringPoolEntryUnsafe;
 
   // Implemented in DebugUtils.h.
-  friend raw_ostream &operator<<(raw_ostream &OS, const SymbolStringPool &SSP);
+  friend LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const SymbolStringPool &SSP);
 
 public:
   /// Destroy a SymbolStringPool.

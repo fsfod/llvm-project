@@ -31,7 +31,7 @@ namespace llvm {
 namespace orc {
 
 /// Mediates between COFF initialization and ExecutionSession state.
-class COFFPlatform : public Platform {
+class LLVM_CLASS_ABI COFFPlatform : public Platform {
 public:
   /// A function that will be called with the name of dll file that must be
   /// loaded.
@@ -92,7 +92,7 @@ private:
   // The COFFPlatformPlugin scans/modifies LinkGraphs to support COFF
   // platform features including initializers, exceptions, and language
   // runtime registration.
-  class COFFPlatformPlugin : public ObjectLinkingLayer::Plugin {
+  class LLVM_CLASS_ABI COFFPlatformPlugin : public ObjectLinkingLayer::Plugin {
   public:
     COFFPlatformPlugin(COFFPlatform &CP) : CP(CP) {}
 

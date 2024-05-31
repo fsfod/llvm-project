@@ -29,9 +29,9 @@ class Module;
 
 namespace orc {
 
-class IRCompileLayer : public IRLayer {
+class LLVM_CLASS_ABI IRCompileLayer : public IRLayer {
 public:
-  class IRCompiler {
+  class LLVM_CLASS_ABI IRCompiler {
   public:
     IRCompiler(IRSymbolMapper::ManglingOptions MO) : MO(std::move(MO)) {}
     virtual ~IRCompiler();

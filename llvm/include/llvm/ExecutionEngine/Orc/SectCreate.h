@@ -21,7 +21,7 @@
 
 namespace llvm::orc {
 
-class SectCreateMaterializationUnit : public MaterializationUnit {
+class LLVM_CLASS_ABI SectCreateMaterializationUnit : public MaterializationUnit {
 public:
   struct ExtraSymbolInfo {
     JITSymbolFlags Flags;

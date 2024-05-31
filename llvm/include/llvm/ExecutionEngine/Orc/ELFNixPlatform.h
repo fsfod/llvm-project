@@ -53,7 +53,7 @@ using ELFNixJITDylibDeinitializerSequence =
     std::vector<ELFNixJITDylibDeinitializers>;
 
 /// Mediates between ELFNix initialization and ExecutionSession state.
-class ELFNixPlatform : public Platform {
+class LLVM_CLASS_ABI ELFNixPlatform : public Platform {
 public:
   /// Try to create a ELFNixPlatform instance, adding the ORC runtime to the
   /// given JITDylib.
@@ -130,7 +130,7 @@ private:
   // The ELFNixPlatformPlugin scans/modifies LinkGraphs to support ELF
   // platform features including initializers, exceptions, TLV, and language
   // runtime registration.
-  class ELFNixPlatformPlugin : public ObjectLinkingLayer::Plugin {
+  class LLVM_CLASS_ABI ELFNixPlatformPlugin : public ObjectLinkingLayer::Plugin {
   public:
     ELFNixPlatformPlugin(ELFNixPlatform &MP) : MP(MP) {}
 

@@ -34,12 +34,12 @@ namespace llvm {
 namespace orc {
 
 /// A simple EPC server implementation.
-class SimpleRemoteEPCServer : public SimpleRemoteEPCTransportClient {
+class LLVM_CLASS_ABI SimpleRemoteEPCServer : public SimpleRemoteEPCTransportClient {
 public:
   using ReportErrorFunction = unique_function<void(Error)>;
 
   /// Dispatches calls to runWrapper.
-  class Dispatcher {
+  class LLVM_CLASS_ABI Dispatcher {
   public:
     virtual ~Dispatcher();
     virtual void dispatch(unique_function<void()> Work) = 0;
@@ -47,7 +47,7 @@ public:
   };
 
 #if LLVM_ENABLE_THREADS
-  class ThreadDispatcher : public Dispatcher {
+  class LLVM_CLASS_ABI ThreadDispatcher : public Dispatcher {
   public:
     void dispatch(unique_function<void()> Work) override;
     void shutdown() override;

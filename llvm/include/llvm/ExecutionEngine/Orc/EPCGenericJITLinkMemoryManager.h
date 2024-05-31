@@ -25,7 +25,7 @@
 namespace llvm {
 namespace orc {
 
-class EPCGenericJITLinkMemoryManager : public jitlink::JITLinkMemoryManager {
+class LLVM_CLASS_ABI EPCGenericJITLinkMemoryManager : public jitlink::JITLinkMemoryManager {
 public:
   /// Function addresses for memory access.
   struct SymbolAddrs {
