@@ -15,7 +15,7 @@ namespace llvm {
 
 class TargetMachine;
 
-class ExpandMemCmpPass : public PassInfoMixin<ExpandMemCmpPass> {
+class LLVM_CLASS_ABI ExpandMemCmpPass : public PassInfoMixin<ExpandMemCmpPass> {
   const TargetMachine *TM;
 
 public:

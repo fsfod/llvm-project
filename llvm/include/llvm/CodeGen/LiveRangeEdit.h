@@ -40,10 +40,10 @@ class TargetRegisterInfo;
 class VirtRegMap;
 class VirtRegAuxInfo;
 
-class LiveRangeEdit : private MachineRegisterInfo::Delegate {
+class LLVM_CLASS_ABI LiveRangeEdit : private MachineRegisterInfo::Delegate {
 public:
   /// Callback methods for LiveRangeEdit owners.
-  class Delegate {
+  class LLVM_CLASS_ABI Delegate {
     virtual void anchor();
 
   public:

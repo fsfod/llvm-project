@@ -22,7 +22,7 @@ class LLVMTargetMachine;
 
 /// This analysis create MachineFunction for given Function.
 /// To release the MachineFunction, users should invalidate it explicitly.
-class MachineFunctionAnalysis
+class LLVM_CLASS_ABI MachineFunctionAnalysis
     : public AnalysisInfoMixin<MachineFunctionAnalysis> {
   friend AnalysisInfoMixin<MachineFunctionAnalysis>;
 
@@ -31,7 +31,7 @@ class MachineFunctionAnalysis
   const LLVMTargetMachine *TM;
 
 public:
-  class Result {
+  class LLVM_CLASS_ABI Result {
     std::unique_ptr<MachineFunction> MF;
 
   public:

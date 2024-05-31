@@ -15,7 +15,7 @@ namespace llvm {
 
 class TargetMachine;
 
-class ExpandLargeFpConvertPass
+class LLVM_CLASS_ABI ExpandLargeFpConvertPass
     : public PassInfoMixin<ExpandLargeFpConvertPass> {
 private:
   const TargetMachine *TM;

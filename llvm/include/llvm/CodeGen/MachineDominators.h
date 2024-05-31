@@ -38,9 +38,9 @@ inline void DominatorTreeBase<MachineBasicBlock, false>::addRoot(
   this->Roots.push_back(MBB);
 }
 
-extern template class DomTreeNodeBase<MachineBasicBlock>;
-extern template class DominatorTreeBase<MachineBasicBlock, false>; // DomTree
-extern template class DominatorTreeBase<MachineBasicBlock, true>; // PostDomTree
+extern template class LLVM_TEMPLATE_ABI DomTreeNodeBase<MachineBasicBlock>;
+extern template class LLVM_TEMPLATE_ABI DominatorTreeBase<MachineBasicBlock, false>; // DomTree
+extern template class LLVM_TEMPLATE_ABI DominatorTreeBase<MachineBasicBlock, true>; // PostDomTree
 
 using MachineDomTree = DomTreeBase<MachineBasicBlock>;
 using MachineDomTreeNode = DomTreeNodeBase<MachineBasicBlock>;
@@ -49,7 +49,7 @@ using MachineDomTreeNode = DomTreeNodeBase<MachineBasicBlock>;
 /// DominatorTree Class - Concrete subclass of DominatorTreeBase that is used to
 /// compute a normal dominator tree.
 ///
-class MachineDominatorTree : public MachineFunctionPass {
+class LLVM_CLASS_ABI MachineDominatorTree : public MachineFunctionPass {
   /// Helper structure used to hold all the basic blocks
   /// involved in the split of a critical edge.
   struct CriticalEdge {

@@ -13,7 +13,7 @@
 
 namespace llvm {
 
-class CallBrPreparePass : public PassInfoMixin<CallBrPreparePass> {
+class LLVM_CLASS_ABI CallBrPreparePass : public PassInfoMixin<CallBrPreparePass> {
 public:
   PreservedAnalyses run(Function &Fn, FunctionAnalysisManager &FAM);
 };

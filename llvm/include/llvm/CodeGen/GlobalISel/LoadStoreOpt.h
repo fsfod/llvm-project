@@ -94,7 +94,7 @@ private:
   /// Initialize the field members using \p MF.
   void init(MachineFunction &MF);
 
-  class StoreMergeCandidate {
+  class LLVM_CLASS_ABI StoreMergeCandidate {
   public:
     // The base pointer used as the base for all stores in this candidate.
     Register BasePtr;

@@ -66,7 +66,7 @@ class raw_ostream;
       : public ilist_noalloc_traits<IndexListEntry> {};
 
   /// SlotIndex - An opaque wrapper around machine indexes.
-  class SlotIndex {
+  class LLVM_CLASS_ABI SlotIndex {
     friend class SlotIndexes;
 
     enum Slot {
@@ -298,7 +298,7 @@ class raw_ostream;
   /// SlotIndexes pass.
   ///
   /// This pass assigns indexes to each instruction.
-  class SlotIndexes : public MachineFunctionPass {
+  class LLVM_CLASS_ABI SlotIndexes : public MachineFunctionPass {
   private:
     // IndexListEntry allocator.
     BumpPtrAllocator ileAllocator;

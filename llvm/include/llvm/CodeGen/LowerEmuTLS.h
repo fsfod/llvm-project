@@ -19,7 +19,7 @@
 
 namespace llvm {
 
-class LowerEmuTLSPass : public PassInfoMixin<LowerEmuTLSPass> {
+class LLVM_CLASS_ABI LowerEmuTLSPass : public PassInfoMixin<LowerEmuTLSPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);
 };

@@ -32,7 +32,7 @@ class Module;
 class TargetLoweringBase;
 class TargetMachine;
 
-class SSPLayoutInfo {
+class LLVM_CLASS_ABI SSPLayoutInfo {
   friend class StackProtectorPass;
   friend class SSPLayoutAnalysis;
   friend class StackProtector;
@@ -66,7 +66,7 @@ public:
   void copyToMachineFrameInfo(MachineFrameInfo &MFI) const;
 };
 
-class SSPLayoutAnalysis : public AnalysisInfoMixin<SSPLayoutAnalysis> {
+class LLVM_CLASS_ABI SSPLayoutAnalysis : public AnalysisInfoMixin<SSPLayoutAnalysis> {
   friend AnalysisInfoMixin<SSPLayoutAnalysis>;
   using SSPLayoutMap = SSPLayoutInfo::SSPLayoutMap;
 
@@ -83,7 +83,7 @@ public:
                                      SSPLayoutMap *Layout = nullptr);
 };
 
-class StackProtectorPass : public PassInfoMixin<StackProtectorPass> {
+class LLVM_CLASS_ABI StackProtectorPass : public PassInfoMixin<StackProtectorPass> {
   const TargetMachine *TM;
 
 public:
@@ -91,7 +91,7 @@ public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM);
 };
 
-class StackProtector : public FunctionPass {
+class LLVM_CLASS_ABI StackProtector : public FunctionPass {
 private:
   /// A mapping of AllocaInsts to their required SSP layout.
   using SSPLayoutMap = SSPLayoutInfo::SSPLayoutMap;

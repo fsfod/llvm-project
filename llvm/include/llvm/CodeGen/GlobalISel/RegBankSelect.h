@@ -202,7 +202,7 @@ public:
   };
 
   /// Insertion point before or after an instruction.
-  class InstrInsertPoint : public InsertPoint {
+  class LLVM_CLASS_ABI InstrInsertPoint : public InsertPoint {
   private:
     /// Insertion point.
     MachineInstr &Instr;
@@ -235,7 +235,7 @@ public:
   };
 
   /// Insertion point at the beginning or end of a basic block.
-  class MBBInsertPoint : public InsertPoint {
+  class LLVM_CLASS_ABI MBBInsertPoint : public InsertPoint {
   private:
     /// Insertion point.
     MachineBasicBlock &MBB;
@@ -271,7 +271,7 @@ public:
   };
 
   /// Insertion point on an edge.
-  class EdgeInsertPoint : public InsertPoint {
+  class LLVM_CLASS_ABI EdgeInsertPoint : public InsertPoint {
   private:
     /// Source of the edge.
     MachineBasicBlock &Src;
@@ -312,7 +312,7 @@ public:
 
   /// Struct used to represent the placement of a repairing point for
   /// a given operand.
-  class RepairingPlacement {
+  class LLVM_CLASS_ABI RepairingPlacement {
   public:
     /// Define the kind of action this repairing needs.
     enum RepairingKind {
@@ -423,7 +423,7 @@ protected:
   /// there are higher chances that we saturate the cost easier and end
   /// up having the same cost for actually different alternatives.
   /// Another option would be to use APInt everywhere.
-  class MappingCost {
+  class LLVM_CLASS_ABI MappingCost {
   private:
     /// Cost of the local instructions.
     /// This cost is free of basic block frequency.

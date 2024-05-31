@@ -24,7 +24,7 @@ class GlobalValue;
 class TargetMachine;
 
 /// Manages creation of pseudo source values.
-class PseudoSourceValueManager {
+class LLVM_CLASS_ABI PseudoSourceValueManager {
   const TargetMachine &TM;
   const PseudoSourceValue StackPSV, GOTPSV, JumpTablePSV, ConstantPoolPSV;
   SmallVector<std::unique_ptr<FixedStackPseudoSourceValue>> FSValues;

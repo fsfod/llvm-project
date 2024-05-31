@@ -191,7 +191,7 @@ public:
 
 /// This base class for TargetLowering contains the SelectionDAG-independent
 /// parts that can be used from the rest of CodeGen.
-class TargetLoweringBase {
+class LLVM_CLASS_ABI TargetLoweringBase {
 public:
   /// This enum indicates whether operations are valid for a target, and if not,
   /// what action should be used to make them valid.
@@ -293,7 +293,7 @@ public:
     ABS = 4,    // Fold with `llvm.abs` op is preferable.
   };
 
-  class ArgListEntry {
+  class LLVM_CLASS_ABI ArgListEntry {
   public:
     Value *Val = nullptr;
     SDValue Node = SDValue();
@@ -3769,7 +3769,7 @@ protected:
 ///
 /// This class also defines callbacks that targets must implement to lower
 /// target-specific constructs to SelectionDAG operators.
-class TargetLowering : public TargetLoweringBase {
+class LLVM_CLASS_ABI TargetLowering : public TargetLoweringBase {
 public:
   struct DAGCombinerInfo;
   struct MakeLibCallOptions;
@@ -4199,7 +4199,7 @@ public:
            Op.getOpcode() == ISD::SPLAT_VECTOR_PARTS;
   }
 
-  struct DAGCombinerInfo {
+  struct LLVM_CLASS_ABI DAGCombinerInfo {
     void *DC;  // The DAG Combiner object.
     CombineLevel Level;
     bool CalledByLegalizer;
@@ -4930,7 +4930,7 @@ public:
   };
 
   /// This contains information for each constraint that we are lowering.
-  struct AsmOperandInfo : public InlineAsm::ConstraintInfo {
+  struct LLVM_CLASS_ABI AsmOperandInfo : public InlineAsm::ConstraintInfo {
     /// This contains the actual string for the code, like "m".  TargetLowering
     /// picks the 'best' code from ConstraintInfo::Codes that most closely
     /// matches the operand.
@@ -5590,7 +5590,7 @@ private:
 /// Given an LLVM IR type and return type attributes, compute the return value
 /// EVTs and flags, and optionally also the offsets, if the return value is
 /// being lowered to memory.
-void GetReturnInfo(CallingConv::ID CC, Type *ReturnType, AttributeList attr,
+LLVM_ABI void GetReturnInfo(CallingConv::ID CC, Type *ReturnType, AttributeList attr,
                    SmallVectorImpl<ISD::OutputArg> &Outs,
                    const TargetLowering &TLI, const DataLayout &DL);
 

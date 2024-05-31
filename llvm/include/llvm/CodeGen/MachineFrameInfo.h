@@ -104,7 +104,7 @@ public:
 /// the program.
 ///
 /// Abstract Stack Frame Information
-class MachineFrameInfo {
+class LLVM_CLASS_ABI MachineFrameInfo {
 public:
   /// Stack Smashing Protection (SSP) rules require that vulnerable stack
   /// allocations are located close the stack protector.

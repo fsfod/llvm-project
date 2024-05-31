@@ -15,7 +15,7 @@ namespace llvm {
 
 class TargetMachine;
 
-class ExpandLargeDivRemPass : public PassInfoMixin<ExpandLargeDivRemPass> {
+class LLVM_CLASS_ABI ExpandLargeDivRemPass : public PassInfoMixin<ExpandLargeDivRemPass> {
 private:
   const TargetMachine *TM;
 

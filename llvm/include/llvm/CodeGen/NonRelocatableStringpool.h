@@ -21,7 +21,7 @@ namespace llvm {
 ///
 /// Use this class when a string table doesn't need relocations.
 /// This class provides this ability by just associating offsets with strings.
-class NonRelocatableStringpool {
+class LLVM_CLASS_ABI NonRelocatableStringpool {
 public:
   /// Entries are stored into the StringMap and simply linked together through
   /// the second element of this pair in order to keep track of insertion

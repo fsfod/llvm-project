@@ -39,7 +39,7 @@ public:
         MBB(MBB) {}
 
   /// MI-specific kinds of diagnostic Arguments.
-  struct MachineArgument : public DiagnosticInfoOptimizationBase::Argument {
+  struct LLVM_CLASS_ABI MachineArgument : public DiagnosticInfoOptimizationBase::Argument {
     /// Print an entire MachineInstr.
     MachineArgument(StringRef Key, const MachineInstr &MI);
   };
@@ -150,7 +150,7 @@ using MNV = DiagnosticInfoMIROptimization::MachineArgument;
 /// along with the reasons for it.  Hotness information of the corresponding
 /// code region can be included in the remark if DiagnosticsHotnessRequested is
 /// enabled in the LLVM context.
-class MachineOptimizationRemarkEmitter {
+class LLVM_CLASS_ABI MachineOptimizationRemarkEmitter {
 public:
   MachineOptimizationRemarkEmitter(MachineFunction &MF,
                                    MachineBlockFrequencyInfo *MBFI)
@@ -218,7 +218,7 @@ private:
 /// Note that this pass shouldn't generally be marked as preserved by other
 /// passes.  It's holding onto BFI, so if the pass does not preserve BFI, BFI
 /// could be freed.
-class MachineOptimizationRemarkEmitterPass : public MachineFunctionPass {
+class LLVM_CLASS_ABI MachineOptimizationRemarkEmitterPass : public MachineFunctionPass {
   std::unique_ptr<MachineOptimizationRemarkEmitter> ORE;
 
 public:

@@ -564,7 +564,7 @@ enum {
 /// Provides the logic to execute GlobalISel match tables, which are used by the
 /// instruction selector and instruction combiners as their engine to match and
 /// apply MIR patterns.
-class GIMatchTableExecutor {
+class LLVM_CLASS_ABI GIMatchTableExecutor {
 public:
   virtual ~GIMatchTableExecutor() = default;
 
@@ -598,7 +598,7 @@ protected:
   using RecordedMIVector = SmallVector<MachineInstr *, 4>;
   using NewMIVector = SmallVector<MachineInstrBuilder, 4>;
 
-  struct MatcherState {
+  struct LLVM_CLASS_ABI MatcherState {
     std::vector<ComplexRendererFns::value_type> Renderers;
     RecordedMIVector MIs;
     DenseMap<unsigned, unsigned> TempRegisters;

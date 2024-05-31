@@ -53,7 +53,7 @@ struct VRegInfo {
 using Name2RegClassMap = StringMap<const TargetRegisterClass *>;
 using Name2RegBankMap = StringMap<const RegisterBank *>;
 
-struct PerTargetMIParsingState {
+struct LLVM_CLASS_ABI PerTargetMIParsingState {
 private:
   const TargetSubtargetInfo &Subtarget;
 
@@ -162,7 +162,7 @@ public:
   void setTarget(const TargetSubtargetInfo &NewSubtarget);
 };
 
-struct PerFunctionMIParsingState {
+struct LLVM_CLASS_ABI PerFunctionMIParsingState {
   BumpPtrAllocator Allocator;
   MachineFunction &MF;
   SourceMgr *SM;
@@ -204,7 +204,7 @@ struct PerFunctionMIParsingState {
 /// resolve the machine basic block references.
 ///
 /// Return true if an error occurred.
-bool parseMachineBasicBlockDefinitions(PerFunctionMIParsingState &PFS,
+LLVM_ABI bool parseMachineBasicBlockDefinitions(PerFunctionMIParsingState &PFS,
                                        StringRef Src, SMDiagnostic &Error);
 
 /// Parse the machine instructions.
@@ -217,31 +217,31 @@ bool parseMachineBasicBlockDefinitions(PerFunctionMIParsingState &PFS,
 /// on the given source string.
 ///
 /// Return true if an error occurred.
-bool parseMachineInstructions(PerFunctionMIParsingState &PFS, StringRef Src,
+LLVM_ABI bool parseMachineInstructions(PerFunctionMIParsingState &PFS, StringRef Src,
                               SMDiagnostic &Error);
 
-bool parseMBBReference(PerFunctionMIParsingState &PFS,
+LLVM_ABI bool parseMBBReference(PerFunctionMIParsingState &PFS,
                        MachineBasicBlock *&MBB, StringRef Src,
                        SMDiagnostic &Error);
 
-bool parseRegisterReference(PerFunctionMIParsingState &PFS,
+LLVM_ABI bool parseRegisterReference(PerFunctionMIParsingState &PFS,
                             Register &Reg, StringRef Src,
                             SMDiagnostic &Error);
 
-bool parseNamedRegisterReference(PerFunctionMIParsingState &PFS, Register &Reg,
+LLVM_ABI bool parseNamedRegisterReference(PerFunctionMIParsingState &PFS, Register &Reg,
                                  StringRef Src, SMDiagnostic &Error);
 
-bool parseVirtualRegisterReference(PerFunctionMIParsingState &PFS,
+LLVM_ABI bool parseVirtualRegisterReference(PerFunctionMIParsingState &PFS,
                                    VRegInfo *&Info, StringRef Src,
                                    SMDiagnostic &Error);
 
-bool parseStackObjectReference(PerFunctionMIParsingState &PFS, int &FI,
+LLVM_ABI bool parseStackObjectReference(PerFunctionMIParsingState &PFS, int &FI,
                                StringRef Src, SMDiagnostic &Error);
 
-bool parseMDNode(PerFunctionMIParsingState &PFS, MDNode *&Node, StringRef Src,
+LLVM_ABI bool parseMDNode(PerFunctionMIParsingState &PFS, MDNode *&Node, StringRef Src,
                  SMDiagnostic &Error);
 
-bool parseMachineMetadata(PerFunctionMIParsingState &PFS, StringRef Src,
+LLVM_ABI bool parseMachineMetadata(PerFunctionMIParsingState &PFS, StringRef Src,
                           SMRange SourceRange, SMDiagnostic &Error);
 
 } // end namespace llvm

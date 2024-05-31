@@ -22,19 +22,19 @@
 
 namespace llvm {
 
-extern template class GenericUniformityInfo<MachineSSAContext>;
+extern template class LLVM_TEMPLATE_ABI GenericUniformityInfo<MachineSSAContext>;
 using MachineUniformityInfo = GenericUniformityInfo<MachineSSAContext>;
 
 /// \brief Compute uniformity information for a Machine IR function.
 ///
 /// If \p HasBranchDivergence is false, produces a dummy result which assumes
 /// everything is uniform.
-MachineUniformityInfo computeMachineUniformityInfo(
+LLVM_ABI MachineUniformityInfo computeMachineUniformityInfo(
     MachineFunction &F, const MachineCycleInfo &cycleInfo,
     const MachineDomTree &domTree, bool HasBranchDivergence);
 
 /// Legacy analysis pass which computes a \ref MachineUniformityInfo.
-class MachineUniformityAnalysisPass : public MachineFunctionPass {
+class LLVM_CLASS_ABI MachineUniformityAnalysisPass : public MachineFunctionPass {
   MachineUniformityInfo UI;
 
 public:

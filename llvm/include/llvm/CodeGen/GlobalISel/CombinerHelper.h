@@ -101,7 +101,7 @@ struct InstructionStepsMatchInfo {
       : InstrsToBuild(InstrsToBuild) {}
 };
 
-class CombinerHelper {
+class LLVM_CLASS_ABI CombinerHelper {
 protected:
   MachineIRBuilder &Builder;
   MachineRegisterInfo &MRI;

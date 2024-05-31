@@ -165,7 +165,7 @@ public:
   ///
   /// ValueAssigner should not depend on any specific function state, and
   /// only determine the types and locations for arguments.
-  struct ValueAssigner {
+  struct LLVM_CLASS_ABI ValueAssigner {
     ValueAssigner(bool IsIncoming, CCAssignFn *AssignFn_,
                   CCAssignFn *AssignFnVarArg_ = nullptr)
         : AssignFn(AssignFn_), AssignFnVarArg(AssignFnVarArg_),
@@ -232,7 +232,7 @@ public:
         : ValueAssigner(false, AssignFn_, AssignFnVarArg_) {}
   };
 
-  struct ValueHandler {
+  struct LLVM_CLASS_ABI ValueHandler {
     MachineIRBuilder &MIRBuilder;
     MachineRegisterInfo &MRI;
     const bool IsIncomingArgumentHandler;
@@ -321,7 +321,7 @@ public:
 
   /// Base class for ValueHandlers used for arguments coming into the current
   /// function, or for return values received from a call.
-  struct IncomingValueHandler : public ValueHandler {
+  struct LLVM_CLASS_ABI IncomingValueHandler : public ValueHandler {
     IncomingValueHandler(MachineIRBuilder &MIRBuilder, MachineRegisterInfo &MRI)
         : ValueHandler(/*IsIncoming*/ true, MIRBuilder, MRI) {}
 

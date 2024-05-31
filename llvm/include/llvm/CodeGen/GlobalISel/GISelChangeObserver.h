@@ -27,7 +27,7 @@ class MachineRegisterInfo;
 /// Typically calling erasingInstr/createdInstr multiple times should not affect
 /// the result. The observer would likely need to check if it was already
 /// notified earlier (consider using GISelWorkList).
-class GISelChangeObserver {
+class LLVM_CLASS_ABI GISelChangeObserver {
   SmallPtrSet<MachineInstr *, 4> ChangingAllUsesOfReg;
 
 public:
@@ -106,7 +106,7 @@ public:
 /// A simple RAII based Delegate installer.
 /// Use this in a scope to install a delegate to the MachineFunction and reset
 /// it at the end of the scope.
-class RAIIDelegateInstaller {
+class LLVM_CLASS_ABI RAIIDelegateInstaller {
   MachineFunction &MF;
   MachineFunction::Delegate *Delegate;
 
@@ -118,7 +118,7 @@ public:
 /// A simple RAII based Observer installer.
 /// Use this in a scope to install the Observer to the MachineFunction and reset
 /// it at the end of the scope.
-class RAIIMFObserverInstaller {
+class LLVM_CLASS_ABI RAIIMFObserverInstaller {
   MachineFunction &MF;
 
 public:

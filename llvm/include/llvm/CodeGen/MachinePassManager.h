@@ -34,7 +34,7 @@ class Module;
 class Function;
 class MachineFunction;
 
-extern template class AnalysisManager<MachineFunction>;
+extern template class LLVM_TEMPLATE_ABI AnalysisManager<MachineFunction>;
 using MachineFunctionAnalysisManager = AnalysisManager<MachineFunction>;
 
 namespace detail {
@@ -104,31 +104,31 @@ using MachineFunctionAnalysisManagerModuleProxy =
     InnerAnalysisManagerProxy<MachineFunctionAnalysisManager, Module>;
 
 template <>
-bool MachineFunctionAnalysisManagerModuleProxy::Result::invalidate(
+LLVM_ABI bool MachineFunctionAnalysisManagerModuleProxy::Result::invalidate(
     Module &M, const PreservedAnalyses &PA,
     ModuleAnalysisManager::Invalidator &Inv);
-extern template class InnerAnalysisManagerProxy<MachineFunctionAnalysisManager,
+extern template class LLVM_TEMPLATE_ABI InnerAnalysisManagerProxy<MachineFunctionAnalysisManager,
                                                 Module>;
 using MachineFunctionAnalysisManagerFunctionProxy =
     InnerAnalysisManagerProxy<MachineFunctionAnalysisManager, Function>;
 
 template <>
-bool MachineFunctionAnalysisManagerFunctionProxy::Result::invalidate(
+LLVM_ABI bool MachineFunctionAnalysisManagerFunctionProxy::Result::invalidate(
     Function &F, const PreservedAnalyses &PA,
     FunctionAnalysisManager::Invalidator &Inv);
-extern template class InnerAnalysisManagerProxy<MachineFunctionAnalysisManager,
+extern template class LLVM_TEMPLATE_ABI InnerAnalysisManagerProxy<MachineFunctionAnalysisManager,
                                                 Function>;
 
-extern template class OuterAnalysisManagerProxy<ModuleAnalysisManager,
+extern template class LLVM_TEMPLATE_ABI OuterAnalysisManagerProxy<ModuleAnalysisManager,
                                                 MachineFunction>;
 /// Provide the \c ModuleAnalysisManager to \c Function proxy.
 using ModuleAnalysisManagerMachineFunctionProxy =
     OuterAnalysisManagerProxy<ModuleAnalysisManager, MachineFunction>;
 
-class FunctionAnalysisManagerMachineFunctionProxy
+class LLVM_CLASS_ABI FunctionAnalysisManagerMachineFunctionProxy
     : public AnalysisInfoMixin<FunctionAnalysisManagerMachineFunctionProxy> {
 public:
-  class Result {
+  class LLVM_CLASS_ABI Result {
   public:
     explicit Result(FunctionAnalysisManager &FAM) : FAM(&FAM) {}
 
@@ -187,7 +187,7 @@ private:
   FunctionAnalysisManager *FAM;
 };
 
-class FunctionToMachineFunctionPassAdaptor
+class LLVM_CLASS_ABI FunctionToMachineFunctionPassAdaptor
     : public PassInfoMixin<FunctionToMachineFunctionPassAdaptor> {
 public:
   using PassConceptT =
@@ -236,17 +236,17 @@ void PassManager<MachineFunction>::addPass(PassT &&Pass) {
 }
 
 template <>
-PreservedAnalyses
+LLVM_ABI PreservedAnalyses
 PassManager<MachineFunction>::run(MachineFunction &,
                                   AnalysisManager<MachineFunction> &);
-extern template class PassManager<MachineFunction>;
+extern template class LLVM_TEMPLATE_ABI PassManager<MachineFunction>;
 
 /// Convenience typedef for a pass manager over functions.
 using MachineFunctionPassManager = PassManager<MachineFunction>;
 
 /// Returns the minimum set of Analyses that all machine function passes must
 /// preserve.
-PreservedAnalyses getMachineFunctionPassPreservedAnalyses();
+LLVM_ABI PreservedAnalyses getMachineFunctionPassPreservedAnalyses();
 
 } // end namespace llvm
 

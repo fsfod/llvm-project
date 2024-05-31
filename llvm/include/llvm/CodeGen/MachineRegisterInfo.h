@@ -49,9 +49,9 @@ using RegClassOrRegBank =
 /// MachineRegisterInfo - Keep track of information for virtual and physical
 /// registers, including vreg register classes, use/def chains for registers,
 /// etc.
-class MachineRegisterInfo {
+class LLVM_CLASS_ABI MachineRegisterInfo {
 public:
-  class Delegate {
+  class LLVM_CLASS_ABI Delegate {
     virtual void anchor();
 
   public:

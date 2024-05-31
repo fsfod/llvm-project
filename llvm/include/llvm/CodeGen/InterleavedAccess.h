@@ -21,7 +21,7 @@ namespace llvm {
 
 class TargetMachine;
 
-class InterleavedAccessPass : public PassInfoMixin<InterleavedAccessPass> {
+class LLVM_CLASS_ABI InterleavedAccessPass : public PassInfoMixin<InterleavedAccessPass> {
   const TargetMachine *TM;
 
 public:

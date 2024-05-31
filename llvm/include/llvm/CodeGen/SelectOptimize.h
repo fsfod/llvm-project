@@ -21,7 +21,7 @@ namespace llvm {
 
 class TargetMachine;
 
-class SelectOptimizePass : public PassInfoMixin<SelectOptimizePass> {
+class LLVM_CLASS_ABI SelectOptimizePass : public PassInfoMixin<SelectOptimizePass> {
   const TargetMachine *TM;
 
 public:
