@@ -36,7 +36,7 @@ struct FileHeader {
   std::optional<uint8_t> TargetSoftwareEnvironment;
 };
 
-struct Object {
+struct LLVM_CLASS_ABI Object {
   FileHeader Header;
   Object();
 };

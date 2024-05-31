@@ -42,7 +42,7 @@ struct YamlObjectFile {
   std::unique_ptr<DXContainerYAML::Object> DXContainer;
 };
 
-template <> struct MappingTraits<YamlObjectFile> {
+template <> struct LLVM_CLASS_ABI MappingTraits<YamlObjectFile> {
   static void mapping(IO &IO, YamlObjectFile &ObjectFile);
 };
 

@@ -25,7 +25,7 @@ namespace MinidumpYAML {
 /// one stream Kind can be used to represent multiple stream Types (e.g. any
 /// unrecognised stream Type will be handled via RawContentStream). The mapping
 /// from Types to Kinds is fixed and given by the static getKind function.
-struct Stream {
+struct LLVM_CLASS_ABI Stream {
   enum class StreamKind {
     Exception,
     MemoryInfoList,
@@ -199,7 +199,7 @@ struct TextContentStream : public Stream {
 /// minidump header, and zero or more streams. To construct an Object from a
 /// minidump file, use the static create function. To serialize to/from yaml,
 /// use the appropriate streaming operator on a yaml stream.
-struct Object {
+struct LLVM_CLASS_ABI Object {
   Object() = default;
   Object(const Object &) = delete;
   Object &operator=(const Object &) = delete;
@@ -235,12 +235,12 @@ template <> struct BlockScalarTraits<MinidumpYAML::BlockStringRef> {
   }
 };
 
-template <> struct MappingTraits<std::unique_ptr<MinidumpYAML::Stream>> {
+template <> struct LLVM_CLASS_ABI MappingTraits<std::unique_ptr<MinidumpYAML::Stream>> {
   static void mapping(IO &IO, std::unique_ptr<MinidumpYAML::Stream> &S);
   static std::string validate(IO &IO, std::unique_ptr<MinidumpYAML::Stream> &S);
 };
 
-template <> struct MappingContextTraits<minidump::MemoryDescriptor, BinaryRef> {
+template <> struct LLVM_CLASS_ABI MappingContextTraits<minidump::MemoryDescriptor, BinaryRef> {
   static void mapping(IO &IO, minidump::MemoryDescriptor &Memory,
                       BinaryRef &Content);
 };
