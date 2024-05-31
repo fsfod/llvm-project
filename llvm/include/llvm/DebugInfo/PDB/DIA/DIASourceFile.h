@@ -16,7 +16,7 @@ namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIASourceFile : public IPDBSourceFile {
+class LLVM_CLASS_ABI DIASourceFile : public IPDBSourceFile {
 public:
   explicit DIASourceFile(const DIASession &Session,
                          CComPtr<IDiaSourceFile> DiaSourceFile);

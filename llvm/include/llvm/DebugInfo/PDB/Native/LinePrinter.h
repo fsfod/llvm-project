@@ -48,7 +48,7 @@ class ClassLayout;
 class PDBFile;
 class SymbolGroup;
 
-class LinePrinter {
+class LLVM_CLASS_ABI LinePrinter {
   friend class WithColor;
 
 public:
@@ -170,7 +170,7 @@ enum class PDB_ColorItem {
   Register,
 };
 
-class WithColor {
+class LLVM_CLASS_ABI WithColor {
 public:
   WithColor(LinePrinter &P, PDB_ColorItem C);
   ~WithColor();

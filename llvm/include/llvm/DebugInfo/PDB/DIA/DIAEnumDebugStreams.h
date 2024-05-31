@@ -18,7 +18,7 @@ namespace pdb {
 
 class IPDBDataStream;
 
-class DIAEnumDebugStreams : public IPDBEnumChildren<IPDBDataStream> {
+class LLVM_CLASS_ABI DIAEnumDebugStreams : public IPDBEnumChildren<IPDBDataStream> {
 public:
   explicit DIAEnumDebugStreams(CComPtr<IDiaEnumDebugStreams> DiaEnumerator);
 

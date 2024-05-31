@@ -14,7 +14,7 @@
 
 namespace llvm {
 namespace pdb {
-class DIALineNumber : public IPDBLineNumber {
+class LLVM_CLASS_ABI DIALineNumber : public IPDBLineNumber {
 public:
   explicit DIALineNumber(CComPtr<IDiaLineNumber> DiaLineNumber);
 

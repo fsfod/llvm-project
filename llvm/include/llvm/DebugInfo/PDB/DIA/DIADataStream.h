@@ -14,7 +14,7 @@
 
 namespace llvm {
 namespace pdb {
-class DIADataStream : public IPDBDataStream {
+class LLVM_CLASS_ABI DIADataStream : public IPDBDataStream {
 public:
   explicit DIADataStream(CComPtr<IDiaEnumDebugStreamData> DiaStreamData);
 

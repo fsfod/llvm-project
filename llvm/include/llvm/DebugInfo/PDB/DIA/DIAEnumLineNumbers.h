@@ -17,7 +17,7 @@ namespace llvm {
 namespace pdb {
 class IPDBLineNumber;
 
-class DIAEnumLineNumbers : public IPDBEnumChildren<IPDBLineNumber> {
+class LLVM_CLASS_ABI DIAEnumLineNumbers : public IPDBEnumChildren<IPDBLineNumber> {
 public:
   explicit DIAEnumLineNumbers(CComPtr<IDiaEnumLineNumbers> DiaEnumerator);
 

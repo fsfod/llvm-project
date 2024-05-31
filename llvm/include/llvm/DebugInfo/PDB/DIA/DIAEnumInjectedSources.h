@@ -16,7 +16,7 @@
 namespace llvm {
 namespace pdb {
 
-class DIAEnumInjectedSources : public IPDBEnumChildren<IPDBInjectedSource> {
+class LLVM_CLASS_ABI DIAEnumInjectedSources : public IPDBEnumChildren<IPDBInjectedSource> {
 public:
   explicit DIAEnumInjectedSources(
       CComPtr<IDiaEnumInjectedSources> DiaEnumerator);

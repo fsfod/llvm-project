@@ -55,11 +55,11 @@ class LVType;
 class LVOptions;
 class LVPatterns;
 
-StringRef typeNone();
-StringRef typeVoid();
-StringRef typeInt();
-StringRef typeUnknown();
-StringRef emptyString();
+LLVM_ABI StringRef typeNone();
+LLVM_ABI StringRef typeVoid();
+LLVM_ABI StringRef typeInt();
+LLVM_ABI StringRef typeUnknown();
+LLVM_ABI StringRef emptyString();
 
 using LVElementSetFunction = void (LVElement::*)();
 using LVElementGetFunction = bool (LVElement::*)() const;
@@ -106,7 +106,7 @@ struct LVCounter {
   }
 };
 
-class LVObject {
+class LLVM_CLASS_ABI LVObject {
   enum class Property {
     IsLocation,          // Location.
     IsGlobalReference,   // This object is being referenced from another CU.

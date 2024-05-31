@@ -17,7 +17,7 @@ namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAEnumSourceFiles : public IPDBEnumChildren<IPDBSourceFile> {
+class LLVM_CLASS_ABI DIAEnumSourceFiles : public IPDBEnumChildren<IPDBSourceFile> {
 public:
   explicit DIAEnumSourceFiles(const DIASession &PDBSession,
                               CComPtr<IDiaEnumSourceFiles> DiaEnumerator);

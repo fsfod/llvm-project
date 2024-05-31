@@ -15,7 +15,7 @@ class StringRef;
 namespace codeview {
 class TypeIndex;
 
-class TypeSymbolEmitter {
+class LLVM_CLASS_ABI TypeSymbolEmitter {
 private:
   TypeSymbolEmitter(const TypeSymbolEmitter &) = delete;
   TypeSymbolEmitter &operator=(const TypeSymbolEmitter &) = delete;

@@ -17,7 +17,7 @@ namespace pdb {
 
 class DIASession;
 
-class DIAFrameData : public IPDBFrameData {
+class LLVM_CLASS_ABI DIAFrameData : public IPDBFrameData {
 public:
   explicit DIAFrameData(CComPtr<IDiaFrameData> DiaFrameData);
 

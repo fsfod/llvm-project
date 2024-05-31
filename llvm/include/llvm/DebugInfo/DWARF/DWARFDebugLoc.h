@@ -47,7 +47,7 @@ struct DWARFLocationEntry {
 
 /// An abstract base class for various kinds of location tables (.debug_loc,
 /// .debug_loclists, and their dwo variants).
-class DWARFLocationTable {
+class LLVM_CLASS_ABI DWARFLocationTable {
 public:
   DWARFLocationTable(DWARFDataExtractor Data) : Data(std::move(Data)) {}
   virtual ~DWARFLocationTable() = default;
@@ -86,7 +86,7 @@ protected:
                             const DWARFObject &Obj) const = 0;
 };
 
-class DWARFDebugLoc final : public DWARFLocationTable {
+class LLVM_CLASS_ABI DWARFDebugLoc final : public DWARFLocationTable {
 public:
   /// A list of locations that contain one variable.
   struct LocationList {
@@ -122,7 +122,7 @@ protected:
                     const DWARFObject &Obj) const override;
 };
 
-class DWARFDebugLoclists final : public DWARFLocationTable {
+class LLVM_CLASS_ABI DWARFDebugLoclists final : public DWARFLocationTable {
 public:
   DWARFDebugLoclists(DWARFDataExtractor Data, uint16_t Version)
       : DWARFLocationTable(std::move(Data)), Version(Version) {}
@@ -144,7 +144,7 @@ private:
   uint16_t Version;
 };
 
-class ResolverError : public ErrorInfo<ResolverError> {
+class LLVM_CLASS_ABI ResolverError : public ErrorInfo<ResolverError> {
 public:
   static char ID;
 

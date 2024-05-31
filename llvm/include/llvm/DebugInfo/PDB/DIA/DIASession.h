@@ -19,7 +19,7 @@ namespace llvm {
 class StringRef;
 
 namespace pdb {
-class DIASession : public IPDBSession {
+class LLVM_CLASS_ABI DIASession : public IPDBSession {
 public:
   explicit DIASession(CComPtr<IDiaSession> DiaSession);
 

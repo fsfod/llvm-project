@@ -15,7 +15,7 @@
 namespace llvm {
 namespace pdb {
 class DIASession;
-class DIARawSymbol : public IPDBRawSymbol {
+class LLVM_CLASS_ABI DIARawSymbol : public IPDBRawSymbol {
 public:
   DIARawSymbol(const DIASession &PDBSession, CComPtr<IDiaSymbol> DiaSymbol);
 

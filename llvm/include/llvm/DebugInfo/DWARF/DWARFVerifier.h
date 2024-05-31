@@ -31,7 +31,7 @@ class DWARFDebugAbbrev;
 class DataExtractor;
 struct DWARFSection;
 
-class OutputCategoryAggregator {
+class LLVM_CLASS_ABI OutputCategoryAggregator {
 private:
   std::map<std::string, unsigned> Aggregation;
   bool IncludeDetail;
@@ -46,10 +46,10 @@ public:
 };
 
 /// A class that verifies DWARF debug information given a DWARF Context.
-class DWARFVerifier {
+class LLVM_CLASS_ABI DWARFVerifier {
 public:
   /// A class that keeps the address range information for a single DIE.
-  struct DieRangeInfo {
+  struct LLVM_CLASS_ABI DieRangeInfo {
     DWARFDie Die;
 
     /// Sorted DWARFAddressRanges.

@@ -21,7 +21,7 @@ template <typename T> struct VarStreamArrayExtractor;
 namespace pdb {
 struct ModuleInfoHeader;
 struct SectionContrib;
-class DbiModuleDescriptor {
+class LLVM_CLASS_ABI DbiModuleDescriptor {
   friend class DbiStreamBuilder;
 
 public:
