@@ -355,7 +355,7 @@ struct BitstreamEntry {
 ///
 /// Unlike iterators, BitstreamCursors are heavy-weight objects that should not
 /// be passed by value.
-class BitstreamCursor : SimpleBitstreamCursor {
+class LLVM_CLASS_ABI BitstreamCursor : SimpleBitstreamCursor {
   // This is the declared size of code values used for the current block, in
   // bits.
   unsigned CurCodeSize = 2;
