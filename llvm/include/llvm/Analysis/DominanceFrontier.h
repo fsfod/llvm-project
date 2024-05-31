@@ -112,7 +112,7 @@ public:
   using DomTreeNodeT = DomTreeNodeBase<BlockT>;
   using DomSetType = typename DominanceFrontierBase<BlockT, false>::DomSetType;
 
-  void analyze(DomTreeT &DT) {
+  template<int = 0> void analyze(DomTreeT &DT) {
     assert(DT.root_size() == 1 &&
            "Only one entry block for forward domfronts!");
     this->Roots = {DT.getRoot()};
