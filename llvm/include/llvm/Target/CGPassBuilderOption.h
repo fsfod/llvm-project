@@ -65,7 +65,7 @@ struct CGPassBuilderOption {
   std::optional<bool> DebugifyCheckAndStripAll;
 };
 
-CGPassBuilderOption getCGPassBuilderOption();
+LLVM_ABI CGPassBuilderOption getCGPassBuilderOption();
 
 } // namespace llvm
 
