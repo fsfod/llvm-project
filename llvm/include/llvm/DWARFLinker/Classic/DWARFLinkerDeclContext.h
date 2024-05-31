@@ -78,7 +78,7 @@ private:
 /// allows to walk up the tree), but to query the existence of a specific
 /// DeclContext using a separate DenseMap keyed on the hash of the fully
 /// qualified name of the context.
-class DeclContext {
+class LLVM_CLASS_ABI DeclContext {
 public:
   using Map = DenseSet<DeclContext *, DeclMapInfo>;
 
@@ -127,7 +127,7 @@ private:
 /// This class gives a tree-like API to the DenseMap that stores the
 /// DeclContext objects. It holds the BumpPtrAllocator where these objects will
 /// be allocated.
-class DeclContextTree {
+class LLVM_CLASS_ABI DeclContextTree {
 public:
   /// Get the child of \a Context described by \a DIE in \a Unit. The
   /// required strings will be interned in \a StringPool.

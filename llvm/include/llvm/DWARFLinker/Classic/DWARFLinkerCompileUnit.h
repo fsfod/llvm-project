@@ -61,10 +61,10 @@ using LocListAttributesTy = SmallVector<PatchLocation>;
 
 /// Stores all information relating to a compile unit, be it in its original
 /// instance in the object file to its brand new cloned and generated DIE tree.
-class CompileUnit {
+class LLVM_CLASS_ABI CompileUnit {
 public:
   /// Information gathered about a DIE in the object file.
-  struct DIEInfo {
+  struct LLVM_CLASS_ABI DIEInfo {
     /// Address offset to apply to the described entity.
     int64_t AddrAdjust;
 
