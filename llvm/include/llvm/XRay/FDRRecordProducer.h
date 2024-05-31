@@ -25,7 +25,7 @@ public:
   virtual ~RecordProducer() = default;
 };
 
-class FileBasedRecordProducer : public RecordProducer {
+class LLVM_CLASS_ABI FileBasedRecordProducer : public RecordProducer {
   const XRayFileHeader &Header;
   DataExtractor &E;
   uint64_t &OffsetPtr;
