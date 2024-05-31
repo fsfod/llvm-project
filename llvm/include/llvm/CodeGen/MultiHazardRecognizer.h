@@ -27,6 +27,8 @@ class MultiHazardRecognizer : public ScheduleHazardRecognizer {
 
 public:
   MultiHazardRecognizer() = default;
+  MultiHazardRecognizer(const MultiHazardRecognizer &) = delete;
+  MultiHazardRecognizer &operator =(const MultiHazardRecognizer &) = delete;
   void AddHazardRecognizer(std::unique_ptr<ScheduleHazardRecognizer> &&);
 
   bool atIssueLimit() const override;
