@@ -36,7 +36,7 @@ class ExecutionSession;
 class SymbolLookupSet;
 
 /// ExecutorProcessControl supports interaction with a JIT target process.
-class ExecutorProcessControl {
+class LLVM_CLASS_ABI ExecutorProcessControl {
   friend class ExecutionSession;
 public:
 
@@ -99,7 +99,7 @@ public:
   };
 
   /// APIs for manipulating memory in the target process.
-  class MemoryAccess {
+  class LLVM_CLASS_ABI MemoryAccess {
   public:
     /// Callback function for asynchronous writes.
     using WriteResultFn = unique_function<void(Error)>;
@@ -433,7 +433,7 @@ protected:
   StringMap<ExecutorAddr> BootstrapSymbols;
 };
 
-class InProcessMemoryAccess : public ExecutorProcessControl::MemoryAccess {
+class LLVM_CLASS_ABI InProcessMemoryAccess : public ExecutorProcessControl::MemoryAccess {
 public:
   InProcessMemoryAccess(bool IsArch64Bit) : IsArch64Bit(IsArch64Bit) {}
   void writeUInt8sAsync(ArrayRef<tpctypes::UInt8Write> Ws,
@@ -509,7 +509,7 @@ public:
 };
 
 /// A ExecutorProcessControl implementation targeting the current process.
-class SelfExecutorProcessControl : public ExecutorProcessControl,
+class LLVM_CLASS_ABI SelfExecutorProcessControl : public ExecutorProcessControl,
                                    private InProcessMemoryAccess {
 public:
   SelfExecutorProcessControl(

@@ -31,8 +31,8 @@ namespace llvm {
 namespace orc {
 
 namespace SimpleRemoteEPCDefaultBootstrapSymbolNames {
-extern const char *ExecutorSessionObjectName;
-extern const char *DispatchFnName;
+LLVM_ABI extern const char *ExecutorSessionObjectName;
+LLVM_ABI extern const char *DispatchFnName;
 } // end namespace SimpleRemoteEPCDefaultBootstrapSymbolNames
 
 enum class SimpleRemoteEPCOpcode : uint8_t {
@@ -52,7 +52,7 @@ struct SimpleRemoteEPCExecutorInfo {
 
 using SimpleRemoteEPCArgBytesVector = SmallVector<char, 128>;
 
-class SimpleRemoteEPCTransportClient {
+class LLVM_CLASS_ABI SimpleRemoteEPCTransportClient {
 public:
   enum HandleMessageAction { ContinueSession, EndSession };
 
@@ -76,7 +76,7 @@ public:
   virtual void handleDisconnect(Error Err) = 0;
 };
 
-class SimpleRemoteEPCTransport {
+class LLVM_CLASS_ABI SimpleRemoteEPCTransport {
 public:
   virtual ~SimpleRemoteEPCTransport();
 
@@ -101,7 +101,7 @@ public:
 };
 
 /// Uses read/write on FileDescriptors for transport.
-class FDSimpleRemoteEPCTransport : public SimpleRemoteEPCTransport {
+class LLVM_CLASS_ABI FDSimpleRemoteEPCTransport : public SimpleRemoteEPCTransport {
 public:
   /// Create a FDSimpleRemoteEPCTransport using the given FDs for
   /// reading (InFD) and writing (OutFD).

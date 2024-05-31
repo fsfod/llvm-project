@@ -24,7 +24,7 @@ namespace llvm {
 
 namespace orc {
 
-class VTuneSupportPlugin : public ObjectLinkingLayer::Plugin {
+class LLVM_CLASS_ABI VTuneSupportPlugin : public ObjectLinkingLayer::Plugin {
 public:
   VTuneSupportPlugin(ExecutorProcessControl &EPC, ExecutorAddr RegisterImplAddr,
                      ExecutorAddr UnregisterImplAddr, bool EmitDebugInfo)

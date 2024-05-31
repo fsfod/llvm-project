@@ -22,9 +22,9 @@ namespace llvm {
 
 namespace orc {
 
-Error preserveDebugSections(jitlink::LinkGraph &G);
+LLVM_ABI Error preserveDebugSections(jitlink::LinkGraph &G);
 // The backing stringmap is also returned, for memory liftime management.
-Expected<std::pair<std::unique_ptr<DWARFContext>,
+LLVM_ABI Expected<std::pair<std::unique_ptr<DWARFContext>,
                    StringMap<std::unique_ptr<MemoryBuffer>>>>
 createDWARFContext(jitlink::LinkGraph &G);
 

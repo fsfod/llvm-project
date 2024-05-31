@@ -26,9 +26,9 @@ namespace orc {
 ///
 /// Currently MachO only. For ELF use DebugObjectManagerPlugin. These two
 /// plugins will be merged in the near future.
-class GDBJITDebugInfoRegistrationPlugin : public ObjectLinkingLayer::Plugin {
+class LLVM_CLASS_ABI GDBJITDebugInfoRegistrationPlugin : public ObjectLinkingLayer::Plugin {
 public:
-  class DebugSectionSynthesizer {
+  class LLVM_ABI DebugSectionSynthesizer {
   public:
     virtual ~DebugSectionSynthesizer() = default;
     virtual Error startSynthesis() = 0;
