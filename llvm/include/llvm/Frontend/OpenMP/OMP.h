@@ -19,17 +19,17 @@
 #include "llvm/ADT/SmallVector.h"
 
 namespace llvm::omp {
-ArrayRef<Directive> getLeafConstructs(Directive D);
-ArrayRef<Directive> getLeafConstructsOrSelf(Directive D);
+LLVM_ABI ArrayRef<Directive> getLeafConstructs(Directive D);
+LLVM_ABI ArrayRef<Directive> getLeafConstructsOrSelf(Directive D);
 
-ArrayRef<Directive>
+LLVM_ABI ArrayRef<Directive>
 getLeafOrCompositeConstructs(Directive D, SmallVectorImpl<Directive> &Output);
 
-Directive getCompoundConstruct(ArrayRef<Directive> Parts);
+LLVM_ABI Directive getCompoundConstruct(ArrayRef<Directive> Parts);
 
-bool isLeafConstruct(Directive D);
-bool isCompositeConstruct(Directive D);
-bool isCombinedConstruct(Directive D);
+LLVM_ABI bool isLeafConstruct(Directive D);
+LLVM_ABI bool isCompositeConstruct(Directive D);
+LLVM_ABI bool isCombinedConstruct(Directive D);
 } // namespace llvm::omp
 
 #endif // LLVM_FRONTEND_OPENMP_OMP_H
