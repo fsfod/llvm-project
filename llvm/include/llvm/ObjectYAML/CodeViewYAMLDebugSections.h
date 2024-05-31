@@ -108,7 +108,7 @@ struct InlineeInfo {
   std::vector<InlineeSite> Sites;
 };
 
-struct YAMLDebugSubsection {
+struct LLVM_CLASS_ABI YAMLDebugSubsection {
   static Expected<YAMLDebugSubsection>
   fromCodeViewSubection(const codeview::StringsAndChecksumsRef &SC,
                         const codeview::DebugSubsectionRecord &SS);
@@ -116,15 +116,15 @@ struct YAMLDebugSubsection {
   std::shared_ptr<detail::YAMLSubsectionBase> Subsection;
 };
 
-Expected<std::vector<std::shared_ptr<codeview::DebugSubsection>>>
+LLVM_ABI Expected<std::vector<std::shared_ptr<codeview::DebugSubsection>>>
 toCodeViewSubsectionList(BumpPtrAllocator &Allocator,
                          ArrayRef<YAMLDebugSubsection> Subsections,
                          const codeview::StringsAndChecksums &SC);
 
-std::vector<YAMLDebugSubsection>
+LLVM_ABI std::vector<YAMLDebugSubsection>
 fromDebugS(ArrayRef<uint8_t> Data, const codeview::StringsAndChecksumsRef &SC);
 
-void initializeStringsAndChecksums(ArrayRef<YAMLDebugSubsection> Sections,
+LLVM_ABI void initializeStringsAndChecksums(ArrayRef<YAMLDebugSubsection> Sections,
                                    codeview::StringsAndChecksums &SC);
 
 } // end namespace CodeViewYAML
