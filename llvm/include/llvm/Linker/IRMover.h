@@ -24,9 +24,9 @@ class StructType;
 class TrackingMDRef;
 class Type;
 
-class IRMover {
-  struct StructTypeKeyInfo {
-    struct KeyTy {
+class LLVM_CLASS_ABI IRMover {
+  struct LLVM_CLASS_ABI StructTypeKeyInfo {
+    struct LLVM_CLASS_ABI KeyTy {
       ArrayRef<Type *> ETypes;
       bool IsPacked;
       KeyTy(ArrayRef<Type *> E, bool P);
@@ -46,7 +46,7 @@ class IRMover {
   typedef DenseMap<const Metadata *, TrackingMDRef> MDMapT;
 
 public:
-  class IdentifiedStructTypeSet {
+  class LLVM_CLASS_ABI IdentifiedStructTypeSet {
     // The set of opaque types is the composite module.
     DenseSet<StructType *> OpaqueStructTypes;
 
