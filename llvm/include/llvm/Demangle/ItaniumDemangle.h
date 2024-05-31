@@ -159,7 +159,7 @@ public:
 
 // Base class of all AST nodes. The AST is built by the parser, then is
 // traversed by the printLeft/Right functions to produce a demangled string.
-class Node {
+class LLVM_CLASS_ABI Node {
 public:
   enum Kind : unsigned char {
 #define NODE(NodeKind) K##NodeKind,
@@ -2913,7 +2913,7 @@ template <typename Derived, typename Alloc> struct AbstractManglingParser {
   Node *parse(bool ParseParams = true);
 };
 
-const char* parse_discriminator(const char* first, const char* last);
+LLVM_ABI const char* parse_discriminator(const char* first, const char* last);
 
 // <name> ::= <nested-name> // N
 //        ::= <local-name> # See Scope Encoding below  // Z
