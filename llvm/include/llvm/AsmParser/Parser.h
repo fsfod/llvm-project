@@ -66,7 +66,7 @@ LLVM_ABI std::unique_ptr<Module> parseAssemblyString(StringRef AsmString,
 
 /// Holds the Module and ModuleSummaryIndex returned by the interfaces
 /// that parse both.
-struct LLVM_CLASS_ABI ParsedModuleAndIndex {
+struct ParsedModuleAndIndex {
   std::unique_ptr<Module> Mod;
   std::unique_ptr<ModuleSummaryIndex> Index;
 };
