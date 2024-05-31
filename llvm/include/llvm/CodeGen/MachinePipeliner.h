@@ -506,6 +506,9 @@ public:
       IssueWidth = SwpForceIssueWidth;
   }
 
+  ResourceManager(const ResourceManager &) = delete;
+  ResourceManager &operator =(const ResourceManager &) = delete;
+
   void initProcResourceVectors(const MCSchedModel &SM,
                                SmallVectorImpl<uint64_t> &Masks);
 
