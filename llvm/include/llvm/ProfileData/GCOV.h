@@ -191,6 +191,8 @@ private:
 class GCOVFile {
 public:
   GCOVFile() = default;
+  GCOVFile(const GCOVFile &) = delete;
+  GCOVFile &operator =(const GCOVFile &) = delete;
 
   bool readGCNO(GCOVBuffer &Buffer);
   bool readGCDA(GCOVBuffer &Buffer);
@@ -239,6 +241,8 @@ public:
       SmallVectorImpl<std::unique_ptr<GCOVBlock>>::const_iterator>;
 
   GCOVFunction(GCOVFile &file) : file(file) {}
+  GCOVFunction(const GCOVFunction &) = delete;
+  GCOVFunction &operator =(const GCOVFunction &) = delete;
 
   StringRef getName(bool demangle) const;
   StringRef getFilename() const;
