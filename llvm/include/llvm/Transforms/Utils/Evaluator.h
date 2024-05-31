@@ -84,6 +84,8 @@ public:
       : DL(DL), TLI(TLI) {
     ValueStack.emplace_back();
   }
+  Evaluator(const Evaluator &) = delete;
+  Evaluator &operator =(const Evaluator &) = delete;
 
   ~Evaluator() {
     for (auto &Tmp : AllocaTmps)
