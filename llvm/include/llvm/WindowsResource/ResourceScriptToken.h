@@ -26,7 +26,7 @@ namespace llvm {
 // RCToken does not claim ownership on its value. A memory buffer containing
 // the token value should be stored in a safe place and cannot be freed
 // nor reallocated.
-class RCToken {
+class LLVM_CLASS_ABI RCToken {
 public:
   enum class Kind {
 #define TOKEN(Name) Name,

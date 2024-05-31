@@ -20,7 +20,7 @@
 
 namespace llvm {
 
-class WindowsResourceProcessor {
+class LLVM_CLASS_ABI WindowsResourceProcessor {
 public:
   using PathType = SmallVector<char, 64>;
 
