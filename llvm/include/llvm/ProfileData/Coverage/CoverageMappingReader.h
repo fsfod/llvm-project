@@ -42,7 +42,7 @@ struct CoverageMappingRecord {
 };
 
 /// A file format agnostic iterator over coverage mapping data.
-class CoverageMappingIterator {
+class LLVM_CLASS_ABI CoverageMappingIterator {
   CoverageMappingReader *Reader;
   CoverageMappingRecord Record;
   coveragemap_error ReadErr;
@@ -107,7 +107,7 @@ public:
 };
 
 /// Base class for the raw coverage mapping and filenames data readers.
-class RawCoverageReader {
+class LLVM_CLASS_ABI RawCoverageReader {
 protected:
   StringRef Data;
 
@@ -121,7 +121,7 @@ protected:
 
 /// Checks if the given coverage mapping data is exported for
 /// an unused function.
-class RawCoverageMappingDummyChecker : public RawCoverageReader {
+class LLVM_CLASS_ABI RawCoverageMappingDummyChecker : public RawCoverageReader {
 public:
   RawCoverageMappingDummyChecker(StringRef MappingData)
       : RawCoverageReader(MappingData) {}
@@ -130,7 +130,7 @@ public:
 };
 
 /// Reader for the raw coverage mapping data.
-class RawCoverageMappingReader : public RawCoverageReader {
+class LLVM_CLASS_ABI RawCoverageMappingReader : public RawCoverageReader {
   ArrayRef<std::string> &TranslationUnitFilenames;
   std::vector<StringRef> &Filenames;
   std::vector<CounterExpression> &Expressions;
@@ -162,7 +162,7 @@ private:
 
 /// Reader for the coverage mapping data that is emitted by the
 /// frontend and stored in an object file.
-class BinaryCoverageReader : public CoverageMappingReader {
+class LLVM_CLASS_ABI BinaryCoverageReader : public CoverageMappingReader {
 public:
   struct ProfileMappingRecord {
     CovMapVersion Version;
@@ -220,7 +220,7 @@ public:
 };
 
 /// Reader for the raw coverage filenames.
-class RawCoverageFilenamesReader : public RawCoverageReader {
+class LLVM_CLASS_ABI RawCoverageFilenamesReader : public RawCoverageReader {
   std::vector<std::string> &Filenames;
   StringRef CompilationDir;
 

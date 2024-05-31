@@ -33,7 +33,7 @@ namespace llvm {
 namespace memprof {
 // A class for memprof profile data populated directly from external
 // sources.
-class MemProfReader {
+class LLVM_CLASS_ABI MemProfReader {
 public:
   // The MemProfReader only holds memory profile information.
   InstrProfKind getProfileKind() const { return InstrProfKind::MemProf; }
@@ -133,7 +133,7 @@ using CallStackMap = llvm::DenseMap<uint64_t, llvm::SmallVector<uint64_t>>;
 
 // Specializes the MemProfReader class to populate the contents from raw binary
 // memprof profiles from instrumentation based profiling.
-class RawMemProfReader final : public MemProfReader {
+class LLVM_CLASS_ABI RawMemProfReader final : public MemProfReader {
 public:
   RawMemProfReader(const RawMemProfReader &) = delete;
   RawMemProfReader &operator=(const RawMemProfReader &) = delete;

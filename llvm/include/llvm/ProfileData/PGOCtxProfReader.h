@@ -31,7 +31,7 @@ namespace llvm {
 /// indirect targets (usually, 1 for direct calls); but potentially a large
 /// number of callsites, and, as inlining progresses, the callsite count of a
 /// caller will grow.
-class PGOContextualProfile final {
+class LLVM_CLASS_ABI PGOContextualProfile final {
 public:
   using CallTargetMapTy = std::map<GlobalValue::GUID, PGOContextualProfile>;
   using CallsiteMapTy = DenseMap<uint32_t, CallTargetMapTy>;
@@ -72,7 +72,7 @@ public:
   void getContainedGuids(DenseSet<GlobalValue::GUID> &Guids) const;
 };
 
-class PGOCtxProfileReader final {
+class LLVM_CLASS_ABI PGOCtxProfileReader final {
   BitstreamCursor &Cursor;
   Expected<BitstreamEntry> advance();
   Error readMetadata();

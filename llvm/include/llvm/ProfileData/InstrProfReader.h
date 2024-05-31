@@ -89,7 +89,7 @@ public:
 
 /// Base class and interface for reading profiling data of any known instrprof
 /// format. Provides an iterator over NamedInstrProfRecords.
-class InstrProfReader {
+class LLVM_CLASS_ABI InstrProfReader {
   instrprof_error LastError = instrprof_error::success;
   std::string LastErrorMsg;
 
@@ -231,7 +231,7 @@ public:
 ///
 /// Each record consists of a function name, a function hash, a number of
 /// counters, and then each counter value, in that order.
-class TextInstrProfReader : public InstrProfReader {
+class LLVM_CLASS_ABI TextInstrProfReader : public InstrProfReader {
 private:
   /// The profile data file contents.
   std::unique_ptr<MemoryBuffer> DataBuffer;
@@ -478,7 +478,7 @@ enum class HashT : uint32_t;
 
 /// Trait for lookups into the on-disk hash table for the binary instrprof
 /// format.
-class InstrProfLookupTrait {
+class LLVM_CLASS_ABI InstrProfLookupTrait {
   std::vector<NamedInstrProfRecord> DataBuffer;
   IndexedInstrProf::HashT HashType;
   unsigned FormatVersion;
@@ -648,7 +648,7 @@ public:
                            ArrayRef<NamedInstrProfRecord> &Data) = 0;
 };
 
-class IndexedMemProfReader {
+class LLVM_CLASS_ABI IndexedMemProfReader {
 private:
   /// MemProf profile schema (if available).
   memprof::MemProfSchema Schema;
@@ -669,7 +669,7 @@ public:
 };
 
 /// Reader for the indexed binary instrprof format.
-class IndexedInstrProfReader : public InstrProfReader {
+class LLVM_CLASS_ABI IndexedInstrProfReader : public InstrProfReader {
 private:
   /// The profile data file contents.
   std::unique_ptr<MemoryBuffer> DataBuffer;

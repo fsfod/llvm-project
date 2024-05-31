@@ -59,7 +59,7 @@ enum PGOCtxProfileBlockIDs {
 /// like value profiling - which would appear as additional records. For
 /// example, value profiling would produce a new record with a new record ID,
 /// containing the profiled values (much like the counters)
-class PGOCtxProfileWriter final {
+class LLVM_CLASS_ABI PGOCtxProfileWriter final {
   SmallVector<char, 1 << 20> Buff;
   BitstreamWriter Writer;
 

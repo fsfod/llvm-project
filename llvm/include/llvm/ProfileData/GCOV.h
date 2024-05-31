@@ -189,7 +189,7 @@ private:
 
 /// GCOVFile - Collects coverage information for one pair of coverage file
 /// (.gcno and .gcda).
-class GCOVFile {
+class LLVM_CLASS_ABI GCOVFile {
 public:
   GCOVFile() = default;
   GCOVFile(const GCOVFile &) = delete;
@@ -223,7 +223,7 @@ private:
   unsigned addNormalizedPathToMap(StringRef filename);
 };
 
-struct GCOVArc {
+struct LLVM_CLASS_ABI GCOVArc {
   GCOVArc(GCOVBlock &src, GCOVBlock &dst, uint32_t flags)
       : src(src), dst(dst), flags(flags) {}
   bool onTree() const;
@@ -236,7 +236,7 @@ struct GCOVArc {
 };
 
 /// GCOVFunction - Collects function information.
-class GCOVFunction {
+class LLVM_CLASS_ABI GCOVFunction {
 public:
   using BlockIterator = pointee_iterator<
       SmallVectorImpl<std::unique_ptr<GCOVBlock>>::const_iterator>;
@@ -276,7 +276,7 @@ public:
 };
 
 /// GCOVBlock - Collects block information.
-class GCOVBlock {
+class LLVM_CLASS_ABI GCOVBlock {
 public:
   using EdgeIterator = SmallVectorImpl<GCOVArc *>::const_iterator;
   using BlockVector = SmallVector<const GCOVBlock *, 1>;
@@ -320,7 +320,7 @@ public:
   GCOVArc *incoming = nullptr;
 };
 
-void gcovOneInput(const GCOV::Options &options, StringRef filename,
+LLVM_ABI void gcovOneInput(const GCOV::Options &options, StringRef filename,
                   StringRef gcno, StringRef gcda, GCOVFile &file);
 
 } // end namespace llvm
