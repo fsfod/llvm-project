@@ -50,7 +50,7 @@ struct BCDumpOptions {
   BCDumpOptions(raw_ostream &OS) : OS(OS) {}
 };
 
-class BitcodeAnalyzer {
+class LLVM_CLASS_ABI BitcodeAnalyzer {
   BitstreamCursor Stream;
   BitstreamBlockInfo BlockInfo;
   CurStreamTypeType CurStreamType;
