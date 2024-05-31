@@ -35,7 +35,7 @@ enum class ResourceClass : uint8_t {
 using dxil::ElementType;
 using dxil::ResourceKind;
 
-class FrontendResource {
+class LLVM_CLASS_ABI FrontendResource {
   MDNode *Entry;
 
 public:
