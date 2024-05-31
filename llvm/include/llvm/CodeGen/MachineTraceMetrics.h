@@ -94,7 +94,7 @@ enum class MachineTraceStrategy {
   TS_NumStrategies
 };
 
-class MachineTraceMetrics : public MachineFunctionPass {
+class LLVM_CLASS_ABI MachineTraceMetrics : public MachineFunctionPass {
   const MachineFunction *MF = nullptr;
   const TargetInstrInfo *TII = nullptr;
   const TargetRegisterInfo *TRI = nullptr;
@@ -162,7 +162,7 @@ public:
   /// Per-basic block information that relates to a specific trace through the
   /// block. Convergent traces means that only one of these is required per
   /// block in a trace ensemble.
-  struct TraceBlockInfo {
+  struct LLVM_CLASS_ABI TraceBlockInfo {
     /// Trace predecessor, or NULL for the first block in the trace.
     /// Valid when hasValidDepth().
     const MachineBasicBlock *Pred = nullptr;
@@ -262,7 +262,7 @@ public:
   /// A trace represents a plausible sequence of executed basic blocks that
   /// passes through the current basic block one. The Trace class serves as a
   /// handle to internal cached data structures.
-  class Trace {
+  class LLVM_CLASS_ABI Trace {
     Ensemble &TE;
     TraceBlockInfo &TBI;
 
@@ -328,7 +328,7 @@ public:
   /// A trace ensemble is a collection of traces selected using the same
   /// strategy, for example 'minimum resource height'. There is one trace for
   /// every block in the function.
-  class Ensemble {
+  class LLVM_CLASS_ABI Ensemble {
     friend class Trace;
 
     SmallVector<TraceBlockInfo, 4> BlockInfo;

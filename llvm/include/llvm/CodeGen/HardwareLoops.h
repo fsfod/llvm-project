@@ -62,7 +62,7 @@ struct HardwareLoopOptions {
   }
 };
 
-class HardwareLoopsPass : public PassInfoMixin<HardwareLoopsPass> {
+class LLVM_CLASS_ABI HardwareLoopsPass : public PassInfoMixin<HardwareLoopsPass> {
   HardwareLoopOptions Opts;
 
 public:

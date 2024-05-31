@@ -412,7 +412,7 @@ template <> struct MappingTraits<FixedMachineStackObject> {
 
 /// A serializaable representation of a reference to a stack object or fixed
 /// stack object.
-struct FrameIndex {
+struct LLVM_CLASS_ABI FrameIndex {
   // The frame index as printed. This is always a positive number, even for
   // fixed objects. To obtain the real index,
   // MachineFrameInfo::getObjectIndexBegin has to be added.

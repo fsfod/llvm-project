@@ -36,7 +36,7 @@ struct VarLocInfo {
 /// Data structure describing the variable locations in a function. Used as the
 /// result of the AssignmentTrackingAnalysis pass. Essentially read-only
 /// outside of AssignmentTrackingAnalysis where it is built.
-class FunctionVarLocs {
+class LLVM_CLASS_ABI FunctionVarLocs {
   /// Maps VarLocInfo.VariableID to a DebugVariable for VarLocRecords.
   SmallVector<DebugVariable> Variables;
   /// List of variable location changes grouped by the instruction the
@@ -103,7 +103,7 @@ public:
   ///@}
 };
 
-class DebugAssignmentTrackingAnalysis
+class LLVM_CLASS_ABI DebugAssignmentTrackingAnalysis
     : public AnalysisInfoMixin<DebugAssignmentTrackingAnalysis> {
   friend AnalysisInfoMixin<DebugAssignmentTrackingAnalysis>;
   static AnalysisKey Key;
@@ -113,7 +113,7 @@ public:
   Result run(Function &F, FunctionAnalysisManager &FAM);
 };
 
-class DebugAssignmentTrackingPrinterPass
+class LLVM_CLASS_ABI DebugAssignmentTrackingPrinterPass
     : public PassInfoMixin<DebugAssignmentTrackingPrinterPass> {
   raw_ostream &OS;
 
@@ -122,7 +122,7 @@ public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM);
 };
 
-class AssignmentTrackingAnalysis : public FunctionPass {
+class LLVM_CLASS_ABI AssignmentTrackingAnalysis : public FunctionPass {
   std::unique_ptr<FunctionVarLocs> Results;
 
 public:

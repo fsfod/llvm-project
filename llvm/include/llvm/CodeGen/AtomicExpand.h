@@ -16,7 +16,7 @@ namespace llvm {
 class Function;
 class TargetMachine;
 
-class AtomicExpandPass : public PassInfoMixin<AtomicExpandPass> {
+class LLVM_CLASS_ABI AtomicExpandPass : public PassInfoMixin<AtomicExpandPass> {
 private:
   const TargetMachine *TM;
 

@@ -67,7 +67,7 @@ struct PointerLikeTypeTraits<ReachingDef> {
 };
 
 /// This class provides the reaching def analysis.
-class ReachingDefAnalysis : public MachineFunctionPass {
+class LLVM_CLASS_ABI ReachingDefAnalysis : public MachineFunctionPass {
 private:
   MachineFunction *MF = nullptr;
   const TargetRegisterInfo *TRI = nullptr;

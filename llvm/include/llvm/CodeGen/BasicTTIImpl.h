@@ -2631,7 +2631,7 @@ public:
 
 /// Concrete BasicTTIImpl that can be used if no further customization
 /// is needed.
-class BasicTTIImpl : public BasicTTIImplBase<BasicTTIImpl> {
+class LLVM_CLASS_ABI BasicTTIImpl : public BasicTTIImplBase<BasicTTIImpl> {
   using BaseT = BasicTTIImplBase<BasicTTIImpl>;
 
   friend class BasicTTIImplBase<BasicTTIImpl>;

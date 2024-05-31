@@ -86,7 +86,7 @@ struct WasmEHFuncInfo {
 };
 
 // Analyze the IR in the given function to build WasmEHFuncInfo.
-void calculateWasmEHInfo(const Function *F, WasmEHFuncInfo &EHInfo);
+LLVM_ABI void calculateWasmEHInfo(const Function *F, WasmEHFuncInfo &EHInfo);
 
 } // namespace llvm
 

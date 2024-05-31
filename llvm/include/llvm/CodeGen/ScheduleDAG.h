@@ -47,7 +47,7 @@ class TargetRegisterInfo;
 
   /// Scheduling dependency. This represents one direction of an edge in the
   /// scheduling DAG.
-  class SDep {
+  class LLVM_CLASS_ABI SDep {
   public:
     /// These are the different kinds of scheduling dependencies.
     enum Kind {
@@ -240,7 +240,7 @@ class TargetRegisterInfo;
   };
 
   /// Scheduling unit. This is a node in the scheduling DAG.
-  class SUnit {
+  class LLVM_CLASS_ABI SUnit {
   private:
     enum : unsigned { BoundaryID = ~0u };
 
@@ -494,7 +494,7 @@ class TargetRegisterInfo;
   /// returned in priority order.  The computation of the priority and the
   /// representation of the queue are totally up to the implementation to
   /// decide.
-  class SchedulingPriorityQueue {
+  class LLVM_CLASS_ABI SchedulingPriorityQueue {
     virtual void anchor();
 
     unsigned CurCycle = 0;
@@ -552,7 +552,7 @@ class TargetRegisterInfo;
     }
   };
 
-  class ScheduleDAG {
+  class LLVM_CLASS_ABI ScheduleDAG {
   public:
     const LLVMTargetMachine &TM;        ///< Target processor
     const TargetInstrInfo *TII;         ///< Target instruction information
@@ -700,7 +700,7 @@ class TargetRegisterInfo;
   /// methods for dynamically updating the ordering as new edges are added.
   ///
   /// This allows a very fast implementation of IsReachable, for example.
-  class ScheduleDAGTopologicalSort {
+  class LLVM_CLASS_ABI ScheduleDAGTopologicalSort {
     /// A reference to the ScheduleDAG's SUnits.
     std::vector<SUnit> &SUnits;
     SUnit *ExitSU;

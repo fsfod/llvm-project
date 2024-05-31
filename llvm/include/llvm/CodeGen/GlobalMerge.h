@@ -34,7 +34,7 @@ struct GlobalMergeOptions {
 };
 
 // FIXME: This pass must run before AsmPrinterPass::doInitialization!
-class GlobalMergePass : public PassInfoMixin<GlobalMergePass> {
+class LLVM_CLASS_ABI GlobalMergePass : public PassInfoMixin<GlobalMergePass> {
   const TargetMachine *TM;
   GlobalMergeOptions Options;
 

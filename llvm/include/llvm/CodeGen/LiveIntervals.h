@@ -50,7 +50,7 @@ class raw_ostream;
 class TargetInstrInfo;
 class VirtRegMap;
 
-  class LiveIntervals : public MachineFunctionPass {
+  class LLVM_CLASS_ABI LiveIntervals : public MachineFunctionPass {
     MachineFunction *MF = nullptr;
     MachineRegisterInfo *MRI = nullptr;
     const TargetRegisterInfo *TRI = nullptr;

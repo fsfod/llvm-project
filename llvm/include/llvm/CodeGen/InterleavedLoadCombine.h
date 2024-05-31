@@ -15,7 +15,7 @@ namespace llvm {
 
 class TargetMachine;
 
-class InterleavedLoadCombinePass
+class LLVM_CLASS_ABI InterleavedLoadCombinePass
     : public PassInfoMixin<InterleavedLoadCombinePass> {
   const TargetMachine *TM;
 

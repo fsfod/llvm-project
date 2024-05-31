@@ -37,7 +37,7 @@ namespace llvm {
 class Type;
 class raw_ostream;
 
-class LLT {
+class LLVM_CLASS_ABI LLT {
 public:
   /// Get a low-level scalar or aggregate "bag of bits".
   static constexpr LLT scalar(unsigned SizeInBits) {

@@ -157,7 +157,7 @@ template <> struct ilist_alloc_traits<SDNode> {
 /// should always go at the beginning of the function regardless of other code
 /// motion, and debug info for them is potentially useful even if the parameter
 /// is unused.  Right now only byval parameters are handled separately.
-class SDDbgInfo {
+class LLVM_CLASS_ABI SDDbgInfo {
   BumpPtrAllocator Alloc;
   SmallVector<SDDbgValue*, 32> DbgValues;
   SmallVector<SDDbgValue*, 32> ByvalParmDbgValues;
@@ -210,7 +210,7 @@ public:
   DbgLabelIterator DbgLabelEnd()   { return DbgLabels.end(); }
 };
 
-void checkForCycles(const SelectionDAG *DAG, bool force = false);
+LLVM_ABI void checkForCycles(const SelectionDAG *DAG, bool force = false);
 
 /// This is used to represent a portion of an LLVM function in a low-level
 /// Data Dependence DAG representation suitable for instruction selection.
@@ -223,7 +223,7 @@ void checkForCycles(const SelectionDAG *DAG, bool force = false);
 /// but is significantly more simple, powerful, and is a graph form instead of a
 /// linear form.
 ///
-class SelectionDAG {
+class LLVM_CLASS_ABI SelectionDAG {
   const TargetMachine &TM;
   const SelectionDAGTargetInfo *TSI = nullptr;
   const TargetLowering *TLI = nullptr;
@@ -305,7 +305,7 @@ public:
   ///
   /// A DAGUpdateListener automatically registers itself with DAG when it is
   /// constructed, and removes itself when destroyed in RAII fashion.
-  struct DAGUpdateListener {
+  struct LLVM_CLASS_ABI DAGUpdateListener {
     DAGUpdateListener *const Next;
     SelectionDAG &DAG;
 
@@ -331,7 +331,7 @@ public:
     virtual void NodeInserted(SDNode *N);
   };
 
-  struct DAGNodeDeletedListener : public DAGUpdateListener {
+  struct LLVM_CLASS_ABI DAGNodeDeletedListener : public DAGUpdateListener {
     std::function<void(SDNode *, SDNode *)> Callback;
 
     DAGNodeDeletedListener(SelectionDAG &DAG,
@@ -344,7 +344,7 @@ public:
     virtual void anchor();
   };
 
-  struct DAGNodeInsertedListener : public DAGUpdateListener {
+  struct LLVM_CLASS_ABI DAGNodeInsertedListener : public DAGUpdateListener {
     std::function<void(SDNode *)> Callback;
 
     DAGNodeInsertedListener(SelectionDAG &DAG,

@@ -83,7 +83,7 @@ public:
 ///
 /// This is an ImmutablePass solely for the purpose of exposing CodeGen options
 /// to the internals of other CodeGen passes.
-class TargetPassConfig : public ImmutablePass {
+class LLVM_CLASS_ABI TargetPassConfig : public ImmutablePass {
 private:
   PassManagerBase *PM = nullptr;
   AnalysisID StartBefore = nullptr;
@@ -494,7 +494,7 @@ protected:
   virtual bool addRegAssignAndRewriteOptimized();
 };
 
-void registerCodeGenCallback(PassInstrumentationCallbacks &PIC,
+LLVM_ABI void registerCodeGenCallback(PassInstrumentationCallbacks &PIC,
                              LLVMTargetMachine &);
 
 } // end namespace llvm

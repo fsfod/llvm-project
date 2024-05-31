@@ -119,7 +119,7 @@ namespace llvm {
   using UnderlyingObjectsVector = SmallVector<UnderlyingObject, 4>;
 
   /// A ScheduleDAG for scheduling lists of MachineInstr.
-  class ScheduleDAGInstrs : public ScheduleDAG {
+  class LLVM_CLASS_ABI ScheduleDAGInstrs : public ScheduleDAG {
   protected:
     const MachineLoopInfo *MLI = nullptr;
     const MachineFrameInfo &MFI;

@@ -21,7 +21,7 @@ namespace llvm {
 class Module;
 class TargetMachine;
 
-struct PreISelIntrinsicLoweringPass
+struct LLVM_CLASS_ABI PreISelIntrinsicLoweringPass
     : PassInfoMixin<PreISelIntrinsicLoweringPass> {
   const TargetMachine &TM;
 
