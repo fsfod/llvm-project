@@ -19,7 +19,7 @@
 
 namespace llvm {
 
-class LineEditor {
+class LLVM_CLASS_ABI LineEditor {
 public:
   /// Create a LineEditor object.
   ///
@@ -113,12 +113,12 @@ private:
   std::string HistoryPath;
   std::unique_ptr<InternalData> Data;
 
-  struct CompleterConcept {
+  struct LLVM_CLASS_ABI CompleterConcept {
     virtual ~CompleterConcept();
     virtual CompletionAction complete(StringRef Buffer, size_t Pos) const = 0;
   };
 
-  struct ListCompleterConcept : CompleterConcept {
+  struct LLVM_CLASS_ABI ListCompleterConcept : CompleterConcept {
     ~ListCompleterConcept() override;
     CompletionAction complete(StringRef Buffer, size_t Pos) const override;
     static std::string getCommonPrefix(const std::vector<Completion> &Comps);
