@@ -222,7 +222,7 @@ private:
 /// It keeps internally the insertion point and debug location for all
 /// the new instructions we want to create.
 /// This information can be modified via the related setters.
-class MachineIRBuilder {
+class LLVM_CLASS_ABI MachineIRBuilder {
 
   MachineIRBuilderState State;
 
