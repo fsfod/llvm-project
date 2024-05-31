@@ -57,7 +57,7 @@ struct PassPluginLibraryInfo {
 ///
 /// An instance of this class wraps a loaded pass plugin and gives access to
 /// its interface defined by the \c PassPluginLibraryInfo it exposes.
-class PassPlugin {
+class LLVM_CLASS_ABI PassPlugin {
 public:
   /// Attempts to load a pass plugin from a given file.
   ///
@@ -107,7 +107,7 @@ private:
 ///   };
 /// }
 /// ```
-extern "C" ::llvm::PassPluginLibraryInfo LLVM_ATTRIBUTE_WEAK
+extern "C" ::llvm::PassPluginLibraryInfo LLVM_ATTRIBUTE_WEAK LLVM_ABI
 llvmGetPassPluginInfo();
 
 #endif /* LLVM_PASSES_PASSPLUGIN_H */
