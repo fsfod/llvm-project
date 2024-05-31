@@ -136,7 +136,7 @@ template <typename passName> struct RegisterPass : public PassInfo {
 /// The actual interface may also be registered as well (by not specifying the
 /// second template argument).  The interface should be registered to associate
 /// a nice name with the interface.
-class RegisterAGBase : public PassInfo {
+class LLVM_CLASS_ABI RegisterAGBase : public PassInfo {
 public:
   RegisterAGBase(StringRef Name, const void *InterfaceID,
                  const void *PassID = nullptr, bool isDefault = false);
@@ -213,7 +213,7 @@ struct RegisterAnalysisGroup : public RegisterAGBase {
 /// at runtime (which can be because of the RegisterPass constructors being run
 /// as the program starts up, or may be because a shared object just got
 /// loaded).
-struct PassRegistrationListener {
+struct LLVM_CLASS_ABI PassRegistrationListener {
   PassRegistrationListener() = default;
   virtual ~PassRegistrationListener() = default;
 
