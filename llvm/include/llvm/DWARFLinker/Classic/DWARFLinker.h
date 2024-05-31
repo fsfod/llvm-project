@@ -209,7 +209,7 @@ using UnitListTy = std::vector<std::unique_ptr<CompileUnit>>;
 /// a variable). These relocations are called ValidRelocs in the
 /// AddressesInfo and are gathered as a very first step when we start
 /// processing a object file.
-class DWARFLinker : public DWARFLinkerBase {
+class LLVM_CLASS_ABI DWARFLinker : public DWARFLinkerBase {
 public:
   DWARFLinker(MessageHandlerTy ErrorHandler, MessageHandlerTy WarningHandler,
               std::function<StringRef(StringRef)> StringsTranslator)
@@ -541,7 +541,7 @@ private:
 
   struct DWARFLinkerOptions;
 
-  class DIECloner {
+  class LLVM_CLASS_ABI DIECloner {
     DWARFLinker &Linker;
     DwarfEmitter *Emitter;
     DWARFFile &ObjFile;

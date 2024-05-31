@@ -68,7 +68,7 @@ getSectionName(DebugSectionKind SectionKind) {
 }
 
 /// Recognise the table name and match it with the DebugSectionKind.
-std::optional<DebugSectionKind> parseDebugTableName(StringRef Name);
+LLVM_ABI std::optional<DebugSectionKind> parseDebugTableName(StringRef Name);
 
 /// The base interface for DWARFLinker implementations.
 class DWARFLinkerBase {

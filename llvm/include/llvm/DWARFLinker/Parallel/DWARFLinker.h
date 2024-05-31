@@ -117,7 +117,7 @@ protected:
 using SectionHandlerTy =
     std::function<void(std::shared_ptr<SectionDescriptorBase> Section)>;
 
-class DWARFLinker : public DWARFLinkerBase {
+class LLVM_CLASS_ABI DWARFLinker : public DWARFLinkerBase {
 public:
   virtual ~DWARFLinker() = default;
 
