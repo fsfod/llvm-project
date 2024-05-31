@@ -16,7 +16,7 @@
 namespace llvm {
 namespace pdb {
 
-class DIAEnumFrameData : public IPDBEnumChildren<IPDBFrameData> {
+class LLVM_CLASS_ABI DIAEnumFrameData : public IPDBEnumChildren<IPDBFrameData> {
 public:
   explicit DIAEnumFrameData(CComPtr<IDiaEnumFrameData> DiaEnumerator);
 

@@ -16,7 +16,7 @@ namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIASectionContrib : public IPDBSectionContrib {
+class LLVM_CLASS_ABI DIASectionContrib : public IPDBSectionContrib {
 public:
   explicit DIASectionContrib(const DIASession &PDBSession,
                              CComPtr<IDiaSectionContrib> DiaSection);

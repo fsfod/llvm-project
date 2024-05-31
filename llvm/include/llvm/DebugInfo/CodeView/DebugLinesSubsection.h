@@ -69,7 +69,7 @@ struct LineColumnEntry {
   FixedStreamArray<ColumnNumberEntry> Columns;
 };
 
-class LineColumnExtractor {
+class LLVM_CLASS_ABI LineColumnExtractor {
 public:
   Error operator()(BinaryStreamRef Stream, uint32_t &Len,
                    LineColumnEntry &Item);
@@ -77,7 +77,7 @@ public:
   const LineFragmentHeader *Header = nullptr;
 };
 
-class DebugLinesSubsectionRef final : public DebugSubsectionRef {
+class LLVM_CLASS_ABI DebugLinesSubsectionRef final : public DebugSubsectionRef {
   friend class LineColumnExtractor;
 
   using LineInfoArray = VarStreamArray<LineColumnEntry, LineColumnExtractor>;
@@ -104,7 +104,7 @@ private:
   LineInfoArray LinesAndColumns;
 };
 
-class DebugLinesSubsection final : public DebugSubsection {
+class LLVM_CLASS_ABI DebugLinesSubsection final : public DebugSubsection {
   struct Block {
     Block(uint32_t ChecksumBufferOffset)
         : ChecksumBufferOffset(ChecksumBufferOffset) {}

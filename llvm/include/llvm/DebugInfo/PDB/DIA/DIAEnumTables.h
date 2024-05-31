@@ -17,7 +17,7 @@ namespace llvm {
 namespace pdb {
 class IPDBTable;
 
-class DIAEnumTables : public IPDBEnumChildren<IPDBTable> {
+class LLVM_CLASS_ABI DIAEnumTables : public IPDBEnumChildren<IPDBTable> {
 public:
   explicit DIAEnumTables(CComPtr<IDiaEnumTables> DiaEnumerator);
 

@@ -14,7 +14,7 @@
 
 namespace llvm {
 namespace pdb {
-class DIATable : public IPDBTable {
+class LLVM_CLASS_ABI DIATable : public IPDBTable {
 public:
   explicit DIATable(CComPtr<IDiaTable> DiaTable);
 

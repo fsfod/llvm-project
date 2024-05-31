@@ -17,7 +17,7 @@ namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAEnumSectionContribs : public IPDBEnumChildren<IPDBSectionContrib> {
+class LLVM_CLASS_ABI DIAEnumSectionContribs : public IPDBEnumChildren<IPDBSectionContrib> {
 public:
   explicit DIAEnumSectionContribs(
       const DIASession &PDBSession,

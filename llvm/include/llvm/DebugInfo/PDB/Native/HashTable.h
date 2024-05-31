@@ -26,8 +26,8 @@ namespace llvm {
 
 namespace pdb {
 
-Error readSparseBitVector(BinaryStreamReader &Stream, SparseBitVector<> &V);
-Error writeSparseBitVector(BinaryStreamWriter &Writer, SparseBitVector<> &Vec);
+LLVM_ABI Error readSparseBitVector(BinaryStreamReader &Stream, SparseBitVector<> &V);
+LLVM_ABI Error writeSparseBitVector(BinaryStreamWriter &Writer, SparseBitVector<> &Vec);
 
 template <typename ValueT> class HashTable;
 

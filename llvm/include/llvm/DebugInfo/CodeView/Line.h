@@ -18,7 +18,7 @@ namespace codeview {
 
 using llvm::support::ulittle32_t;
 
-class LineInfo {
+class LLVM_CLASS_ABI LineInfo {
 public:
   enum : uint32_t {
     AlwaysStepIntoLineNumber = 0xfeefee,

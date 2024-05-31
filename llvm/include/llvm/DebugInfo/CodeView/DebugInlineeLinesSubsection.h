@@ -49,7 +49,7 @@ struct InlineeSourceLine {
 
 } // end namespace codeview
 
-template <> struct VarStreamArrayExtractor<codeview::InlineeSourceLine> {
+template <> struct LLVM_CLASS_ABI VarStreamArrayExtractor<codeview::InlineeSourceLine> {
   Error operator()(BinaryStreamRef Stream, uint32_t &Len,
                    codeview::InlineeSourceLine &Item);
 
@@ -58,7 +58,7 @@ template <> struct VarStreamArrayExtractor<codeview::InlineeSourceLine> {
 
 namespace codeview {
 
-class DebugInlineeLinesSubsectionRef final : public DebugSubsectionRef {
+class LLVM_CLASS_ABI DebugInlineeLinesSubsectionRef final : public DebugSubsectionRef {
   using LinesArray = VarStreamArray<InlineeSourceLine>;
   using Iterator = LinesArray::Iterator;
 
@@ -85,7 +85,7 @@ private:
   LinesArray Lines;
 };
 
-class DebugInlineeLinesSubsection final : public DebugSubsection {
+class LLVM_CLASS_ABI DebugInlineeLinesSubsection final : public DebugSubsection {
 public:
   struct Entry {
     std::vector<support::ulittle32_t> ExtraFiles;

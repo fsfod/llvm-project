@@ -47,7 +47,7 @@ struct LVSymbolTableEntry final {
 };
 
 // Function names extracted from the object symbol table.
-class LVSymbolTable final {
+class LLVM_CLASS_ABI LVSymbolTable final {
   using LVSymbolNames = std::map<std::string, LVSymbolTableEntry>;
   LVSymbolNames SymbolNames;
 
@@ -67,7 +67,7 @@ public:
   void print(raw_ostream &OS);
 };
 
-class LVBinaryReader : public LVReader {
+class LLVM_CLASS_ABI LVBinaryReader : public LVReader {
   // Function names extracted from the object symbol table.
   LVSymbolTable SymbolTable;
 

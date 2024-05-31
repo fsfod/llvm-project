@@ -37,7 +37,7 @@ struct MSFLayout;
 namespace pdb {
 struct TpiStreamHeader;
 
-class TpiStreamBuilder {
+class LLVM_CLASS_ABI TpiStreamBuilder {
 public:
   explicit TpiStreamBuilder(msf::MSFBuilder &Msf, uint32_t StreamIdx);
   ~TpiStreamBuilder();

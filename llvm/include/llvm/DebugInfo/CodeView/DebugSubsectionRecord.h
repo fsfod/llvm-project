@@ -33,7 +33,7 @@ struct DebugSubsectionHeader {
   support::ulittle32_t Length; // number of bytes occupied by this record.
 };
 
-class DebugSubsectionRecord {
+class LLVM_CLASS_ABI DebugSubsectionRecord {
 public:
   DebugSubsectionRecord();
   DebugSubsectionRecord(DebugSubsectionKind Kind, BinaryStreamRef Data);
@@ -49,7 +49,7 @@ private:
   BinaryStreamRef Data;
 };
 
-class DebugSubsectionRecordBuilder {
+class LLVM_CLASS_ABI DebugSubsectionRecordBuilder {
 public:
   DebugSubsectionRecordBuilder(std::shared_ptr<DebugSubsection> Subsection);
 

@@ -44,7 +44,7 @@ struct GSIHashStreamBuilder;
 struct BulkPublic;
 struct SymbolDenseMapInfo;
 
-class GSIStreamBuilder {
+class LLVM_CLASS_ABI GSIStreamBuilder {
 
 public:
   explicit GSIStreamBuilder(msf::MSFBuilder &Msf);

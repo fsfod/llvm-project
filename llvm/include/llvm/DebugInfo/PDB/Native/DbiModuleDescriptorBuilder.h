@@ -61,7 +61,7 @@ struct StringTableFixup {
   uint32_t SymOffsetOfReference = 0;
 };
 
-class DbiModuleDescriptorBuilder {
+class LLVM_CLASS_ABI DbiModuleDescriptorBuilder {
   friend class DbiStreamBuilder;
 
 public:

@@ -21,7 +21,7 @@ namespace llvm {
 class raw_ostream;
 class DWARFDataExtractor;
 
-class DWARFDebugArangeSet {
+class LLVM_CLASS_ABI DWARFDebugArangeSet {
 public:
   struct Header {
     /// The total length of the entries for that set, not including the length
@@ -42,7 +42,7 @@ public:
     uint8_t SegSize;
   };
 
-  struct Descriptor {
+  struct LLVM_CLASS_ABI Descriptor {
     uint64_t Address;
     uint64_t Length;
 

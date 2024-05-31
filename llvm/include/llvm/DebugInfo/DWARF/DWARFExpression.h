@@ -21,7 +21,7 @@ struct DIDumpOptions;
 class MCRegisterInfo;
 class raw_ostream;
 
-class DWARFExpression {
+class LLVM_CLASS_ABI DWARFExpression {
 public:
   class iterator;
 
@@ -30,7 +30,7 @@ public:
   /// An Operation can be in Error state (check with isError()). This
   /// means that it couldn't be decoded successfully and if it is the
   /// case, all others fields contain undefined values.
-  class Operation {
+  class LLVM_CLASS_ABI Operation {
   public:
     /// Size and signedness of expression operations' operands.
     enum Encoding : uint8_t {

@@ -17,7 +17,7 @@ namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAEnumSymbols : public IPDBEnumChildren<PDBSymbol> {
+class LLVM_CLASS_ABI DIAEnumSymbols : public IPDBEnumChildren<PDBSymbol> {
 public:
   explicit DIAEnumSymbols(const DIASession &Session,
                           CComPtr<IDiaEnumSymbols> DiaEnumerator);

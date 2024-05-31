@@ -16,7 +16,7 @@ namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAInjectedSource : public IPDBInjectedSource {
+class LLVM_CLASS_ABI DIAInjectedSource : public IPDBInjectedSource {
 public:
   explicit DIAInjectedSource(CComPtr<IDiaInjectedSource> DiaSourceFile);
 

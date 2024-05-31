@@ -49,7 +49,7 @@ struct MarkupNode {
 };
 
 /// Parses a log containing symbolizer markup into a sequence of nodes.
-class MarkupParser {
+class LLVM_CLASS_ABI MarkupParser {
 public:
   MarkupParser(StringSet<> MultilineTags = {});
 

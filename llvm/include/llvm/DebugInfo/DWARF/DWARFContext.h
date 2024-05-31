@@ -46,7 +46,7 @@ class DWARFUnitIndex;
 /// DWARFContext
 /// This data structure is the top level entity that deals with dwarf debug
 /// information parsing. The actual data is supplied through DWARFObj.
-class DWARFContext : public DIContext {
+class LLVM_CLASS_ABI DWARFContext : public DIContext {
 public:
   /// DWARFContextState
   /// This structure contains all member variables for DWARFContext that need
@@ -55,7 +55,7 @@ public:
   /// DWARFContext to allow DWARRContext to be able to be used in a
   /// multi-threaded environment, or not enabled to allow for maximum
   /// performance in single threaded environments.
-  class DWARFContextState {
+  class LLVM_CLASS_ABI DWARFContextState {
   protected:
     /// Helper enum to distinguish between macro[.dwo] and macinfo[.dwo]
     /// section.

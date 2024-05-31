@@ -556,9 +556,9 @@ enum class EncodedFramePtrReg : uint8_t {
   BasePtr = 3,
 };
 
-RegisterId decodeFramePtrReg(EncodedFramePtrReg EncodedReg, CPUType CPU);
+LLVM_ABI RegisterId decodeFramePtrReg(EncodedFramePtrReg EncodedReg, CPUType CPU);
 
-EncodedFramePtrReg encodeFramePtrReg(RegisterId Reg, CPUType CPU);
+LLVM_ABI EncodedFramePtrReg encodeFramePtrReg(RegisterId Reg, CPUType CPU);
 
 /// These values correspond to the THUNK_ORDINAL enumeration.
 enum class ThunkOrdinal : uint8_t {
