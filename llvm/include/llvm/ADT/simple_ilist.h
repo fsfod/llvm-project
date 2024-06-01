@@ -260,13 +260,13 @@ public:
   ///
   /// \pre \c this and \p RHS are sorted.
   ///@{
-  void merge(simple_ilist &RHS) { merge(RHS, std::less<T>()); }
+  template<int = 0> void merge(simple_ilist &RHS) { merge(RHS, std::less<T>()); }
   template <class Compare> void merge(simple_ilist &RHS, Compare comp);
   ///@}
 
   /// Sort the list.
   ///@{
-  void sort() { sort(std::less<T>()); }
+  template<int = 0> void sort() { sort(std::less<T>()); }
   template <class Compare> void sort(Compare comp);
   ///@}
 };
