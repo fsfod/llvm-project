@@ -386,6 +386,8 @@ class LLVM_CLASS_ABI ResourceManager {
 public:
   ResourceManager(const MCSchedModel &SM);
   virtual ~ResourceManager() = default;
+  ResourceManager(const ResourceManager &) = delete;
+  ResourceManager &operator =(const ResourceManager &) = delete;
 
   // Overrides the selection strategy for the resource at index ResourceID in
   // the MCProcResourceDesc table.
