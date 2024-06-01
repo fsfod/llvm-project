@@ -582,7 +582,7 @@ namespace PBQP {
 
     /// Remove a node from the graph.
     /// @param NId Node id.
-    void removeNode(NodeId NId) {
+    template<int = 0> void removeNode(NodeId NId) {
       if (Solver)
         Solver->handleRemoveNode(NId);
       NodeEntry &N = getNode(NId);
@@ -641,7 +641,7 @@ namespace PBQP {
     ///
     /// Adds an edge that had been previously disconnected back into the
     /// adjacency set of the nodes that the edge connects.
-    void reconnectEdge(EdgeId EId, NodeId NId) {
+    template<int = 0> void reconnectEdge(EdgeId EId, NodeId NId) {
       EdgeEntry &E = getEdge(EId);
       E.connectTo(*this, EId, NId);
       if (Solver)
@@ -650,7 +650,7 @@ namespace PBQP {
 
     /// Remove an edge from the graph.
     /// @param EId Edge id.
-    void removeEdge(EdgeId EId) {
+    template<int = 0> void removeEdge(EdgeId EId) {
       if (Solver)
         Solver->handleRemoveEdge(EId);
       EdgeEntry &E = getEdge(EId);
