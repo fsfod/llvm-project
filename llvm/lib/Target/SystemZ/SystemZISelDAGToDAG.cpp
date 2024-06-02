@@ -71,6 +71,7 @@ struct SystemZAddressingMode {
   // True if the address can (and must) include ADJDYNALLOC.
   bool isDynAlloc() { return Form == FormBDXDynAlloc; }
 
+#ifndef NDEBUG
   void dump(const llvm::SelectionDAG *DAG) {
     errs() << "SystemZAddressingMode " << this << '\n';
 
@@ -93,6 +94,7 @@ struct SystemZAddressingMode {
       errs() << " + ADJDYNALLOC";
     errs() << '\n';
   }
+#endif
 };
 
 // Return a mask with Count low bits set.
