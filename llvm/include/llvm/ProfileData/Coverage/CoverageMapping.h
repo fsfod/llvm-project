@@ -894,6 +894,8 @@ public:
   CoverageData() = default;
 
   CoverageData(StringRef Filename) : Filename(Filename) {}
+  CoverageData(const CoverageData &) = default;
+  CoverageData &operator =(const CoverageData &) = delete;
 
   /// Get the name of the file this data covers.
   StringRef getFilename() const { return Filename; }
