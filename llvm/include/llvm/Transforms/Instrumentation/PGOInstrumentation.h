@@ -66,9 +66,13 @@ private:
 /// The profile annotation (profile-instr-use) pass for IR based PGO.
 class LLVM_CLASS_ABI PGOInstrumentationUse : public PassInfoMixin<PGOInstrumentationUse> {
 public:
-  PGOInstrumentationUse(std::string Filename = "",
+  PGOInstrumentationUse(std::string Filename,
                         std::string RemappingFilename = "", bool IsCS = false,
                         IntrusiveRefCntPtr<vfs::FileSystem> FS = nullptr);
+  PGOInstrumentationUse();
+  ~PGOInstrumentationUse();
+  PGOInstrumentationUse(const PGOInstrumentationUse &);
+  PGOInstrumentationUse &operator =(const PGOInstrumentationUse &);
 
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);
 
