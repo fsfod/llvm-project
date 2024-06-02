@@ -39,9 +39,13 @@ class FileSystem;
 class SampleProfileLoaderPass : public PassInfoMixin<SampleProfileLoaderPass> {
 public:
   SampleProfileLoaderPass(
-      std::string File = "", std::string RemappingFile = "",
+      std::string File, std::string RemappingFile = "",
       ThinOrFullLTOPhase LTOPhase = ThinOrFullLTOPhase::None,
       IntrusiveRefCntPtr<vfs::FileSystem> FS = nullptr);
+  SampleProfileLoaderPass();
+  ~SampleProfileLoaderPass();
+  SampleProfileLoaderPass(const SampleProfileLoaderPass &);
+  SampleProfileLoaderPass &operator =(const SampleProfileLoaderPass &) = delete;
 
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 

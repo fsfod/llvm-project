@@ -2212,6 +2212,13 @@ PGOInstrumentationUse::PGOInstrumentationUse(
     FS = vfs::getRealFileSystem();
 }
 
+PGOInstrumentationUse::PGOInstrumentationUse() : 
+  PGOInstrumentationUse("") {}
+
+PGOInstrumentationUse::~PGOInstrumentationUse() = default;
+PGOInstrumentationUse::PGOInstrumentationUse(const PGOInstrumentationUse &) = default;
+PGOInstrumentationUse &PGOInstrumentationUse::operator =(const PGOInstrumentationUse &) = default;
+
 PreservedAnalyses PGOInstrumentationUse::run(Module &M,
                                              ModuleAnalysisManager &MAM) {
 

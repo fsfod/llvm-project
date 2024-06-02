@@ -2312,6 +2312,12 @@ SampleProfileLoaderPass::SampleProfileLoaderPass(
     : ProfileFileName(File), ProfileRemappingFileName(RemappingFile),
       LTOPhase(LTOPhase), FS(std::move(FS)) {}
 
+SampleProfileLoaderPass::SampleProfileLoaderPass() :
+  SampleProfileLoaderPass("") {
+}
+SampleProfileLoaderPass::~SampleProfileLoaderPass() = default;
+SampleProfileLoaderPass::SampleProfileLoaderPass(const SampleProfileLoaderPass &) = default;
+
 PreservedAnalyses SampleProfileLoaderPass::run(Module &M,
                                                ModuleAnalysisManager &AM) {
   FunctionAnalysisManager &FAM =
