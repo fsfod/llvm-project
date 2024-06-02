@@ -735,6 +735,10 @@ struct Object {
   std::optional<std::vector<Symbol>> DynamicSymbols;
   std::optional<DWARFYAML::Data> DWARF;
 
+  Object() = default;
+  Object(const Object &) = delete;
+  Object &operator =(const Object &) = delete;
+
   std::vector<Section *> getSections() {
     std::vector<Section *> Ret;
     for (const std::unique_ptr<Chunk> &Sec : Chunks)
