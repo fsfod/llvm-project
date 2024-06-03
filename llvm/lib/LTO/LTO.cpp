@@ -594,6 +594,9 @@ LTO::RegularLTOState::RegularLTOState(unsigned ParallelCodeGenParallelismLevel,
   CombinedModule->IsNewDbgInfoFormat = UseNewDbgInfoFormat;
 }
 
+// Defaulted here so it doesn't use incomplete types in header
+LTO::RegularLTOState::~RegularLTOState() = default;
+
 LTO::ThinLTOState::ThinLTOState(ThinBackend Backend)
     : Backend(Backend), CombinedIndex(/*HaveGVs*/ false) {
   if (!Backend)
