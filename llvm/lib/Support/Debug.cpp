@@ -193,4 +193,4 @@ void llvm::initDebugOptions() {}
 
 /// EnableDebugBuffering - Turn on signal handler installation.
 ///
-bool llvm::EnableDebugBuffering = false;
+LLVM_ABI bool llvm::EnableDebugBuffering = false;
