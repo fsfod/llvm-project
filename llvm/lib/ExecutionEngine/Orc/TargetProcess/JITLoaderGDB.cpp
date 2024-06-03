@@ -26,7 +26,7 @@ extern "C" {
 // We put information about the JITed function in this global, which the
 // debugger reads.  Make sure to specify the version statically, because the
 // debugger checks the version before we can set it during runtime.
-LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
+LLVM_C_ABI
 struct jit_descriptor __jit_debug_descriptor = {JitDescriptorVersion, 0,
                                                 nullptr, nullptr};
 
