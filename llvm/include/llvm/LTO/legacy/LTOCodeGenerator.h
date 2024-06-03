@@ -70,7 +70,7 @@ extern cl::opt<bool> EnableLTOInternalization;
 //===----------------------------------------------------------------------===//
 /// C++ class which implements the opaque lto_code_gen_t type.
 ///
-struct LTOCodeGenerator {
+struct LLVM_CLASS_ABI LTOCodeGenerator {
   static const char *getVersionString();
 
   LTOCodeGenerator(LLVMContext &Context);
@@ -253,6 +253,6 @@ private:
 
 /// A convenience function that calls cl::ParseCommandLineOptions on the given
 /// set of options.
-void parseCommandLineOptions(std::vector<std::string> &Options);
+LLVM_ABI void parseCommandLineOptions(std::vector<std::string> &Options);
 }
 #endif
