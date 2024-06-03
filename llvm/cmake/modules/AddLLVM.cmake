@@ -639,6 +639,8 @@ function(llvm_add_library name)
                             VISIBILITY_INLINES_HIDDEN YES)
     endif()
     set_property(GLOBAL APPEND PROPERTY LLVM_COMPONENT_LIBS ${name})
+  elseif(LLVM_LINK_LLVM_DYLIB AND ARG_LINK_COMPONENTS)
+    target_compile_options(${name} PRIVATE -DLLVM_DLL_IMPORT)
   endif()
 
   if(NOT ARG_NO_INSTALL_RPATH)
