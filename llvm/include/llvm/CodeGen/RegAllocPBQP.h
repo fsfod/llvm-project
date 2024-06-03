@@ -141,6 +141,10 @@ public:
                 MachineBlockFrequencyInfo &MBFI)
     : MF(MF), LIS(LIS), MBFI(MBFI) {}
 
+  GraphMetadata(const GraphMetadata &) = delete;
+  GraphMetadata(GraphMetadata &&) = default;
+  GraphMetadata &operator =(const GraphMetadata &) = delete;
+
   MachineFunction &MF;
   LiveIntervals &LIS;
   MachineBlockFrequencyInfo &MBFI;
