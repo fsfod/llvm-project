@@ -356,6 +356,7 @@ public:
     RepairingPlacement(MachineInstr &MI, unsigned OpIdx,
                        const TargetRegisterInfo &TRI, Pass &P,
                        RepairingKind Kind = RepairingKind::Insert);
+    RepairingPlacement(RepairingPlacement &&) = default;
     RepairingPlacement(const RepairingPlacement &) = delete;
     RepairingPlacement &operator =(const RepairingPlacement &) = delete;
 
