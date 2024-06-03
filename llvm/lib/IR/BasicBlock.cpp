@@ -36,7 +36,7 @@ LLVM_ABI cl::opt<bool> UseNewDbgInfoFormat(
              "eliminating intrinsics. Has no effect if "
              "--preserve-input-debuginfo-format=true."),
     cl::init(true));
-cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
+LLVM_ABI cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
     "preserve-input-debuginfo-format", cl::Hidden,
     cl::desc("When set to true, IR files will be processed and printed in "
              "their current debug info format, regardless of default behaviour "
@@ -45,7 +45,7 @@ cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
              "llvm-lto, and llvm-lto2."));
 
 LLVM_ABI bool WriteNewDbgInfoFormatToBitcode /*set default value in cl::init() below*/;
-cl::opt<bool, true> WriteNewDbgInfoFormatToBitcode2(
+LLVM_ABI cl::opt<bool, true> WriteNewDbgInfoFormatToBitcode2(
     "write-experimental-debuginfo-iterators-to-bitcode", cl::Hidden,
     cl::location(WriteNewDbgInfoFormatToBitcode), cl::init(true));
 
