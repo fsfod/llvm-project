@@ -309,6 +309,10 @@ private:
   struct RegularLTOState {
     RegularLTOState(unsigned ParallelCodeGenParallelismLevel,
                     const Config &Conf);
+    ~RegularLTOState();
+    RegularLTOState(const RegularLTOState &) = delete;
+    RegularLTOState &operator =(const RegularLTOState &) = delete;
+
     struct CommonResolution {
       uint64_t Size = 0;
       Align Alignment;
