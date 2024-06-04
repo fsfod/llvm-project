@@ -84,7 +84,7 @@ static cl::opt<bool>
                     cl::desc("Scale the memop size counts using the basic "
                              " block count value"));
 
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     MemOPOptMemcmpBcmp("pgo-memop-optimize-memcmp-bcmp", cl::init(true),
                        cl::Hidden,
                        cl::desc("Size-specialize memcmp and bcmp calls"));

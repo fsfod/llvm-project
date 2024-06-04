@@ -306,7 +306,7 @@ static const Regex DefaultAliasRegex(
     "^(default|thinlto-pre-link|thinlto|lto-pre-link|lto)<(O[0123sz])>$");
 
 namespace llvm {
-LLVM_FUNC_ABI // Used by opt.
+LLVM_ABI // Used by opt.
 cl::opt<bool> PrintPipelinePasses(
     "print-pipeline-passes",
     cl::desc("Print a '-passes' compatible string describing the pipeline "

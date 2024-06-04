@@ -88,7 +88,7 @@ STATISTIC(NumP9Setb,
           "Number of compares lowered to setb.");
 
 // FIXME: Remove this once the bug has been fixed!
-cl::opt<bool> ANDIGlueBug("expose-ppc-andi-glue-bug",
+LLVM_ABI cl::opt<bool> ANDIGlueBug("expose-ppc-andi-glue-bug",
 cl::desc("expose the ANDI glue bug on PPC"), cl::Hidden);
 
 static cl::opt<bool>

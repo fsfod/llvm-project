@@ -76,7 +76,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "mve-laneinterleave"
 
-cl::opt<bool> EnableInterleave(
+LLVM_ABI cl::opt<bool> EnableInterleave(
     "enable-mve-interleave", cl::Hidden, cl::init(true),
     cl::desc("Enable interleave MVE vector operation lowering"));
 

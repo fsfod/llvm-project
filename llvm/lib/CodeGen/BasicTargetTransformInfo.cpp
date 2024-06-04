@@ -24,7 +24,7 @@ using namespace llvm;
 
 // This flag is used by the template base class for BasicTTIImpl, and here to
 // provide a definition.
-cl::opt<unsigned>
+LLVM_ABI cl::opt<unsigned>
 llvm::PartialUnrollingThreshold("partial-unrolling-threshold", cl::init(0),
                                 cl::desc("Threshold for partial unrolling"),
                                 cl::Hidden);

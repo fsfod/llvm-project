@@ -72,7 +72,7 @@ using namespace llvm;
 #include "HexagonGenDFAPacketizer.inc"
 #include "HexagonGenInstrInfo.inc"
 
-cl::opt<bool> ScheduleInlineAsm("hexagon-sched-inline-asm", cl::Hidden,
+LLVM_ABI cl::opt<bool> ScheduleInlineAsm("hexagon-sched-inline-asm", cl::Hidden,
   cl::init(false), cl::desc("Do not consider inline-asm a scheduling/"
                             "packetization boundary."));
 

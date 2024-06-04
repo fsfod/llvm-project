@@ -36,7 +36,7 @@
 
 using namespace llvm;
 
-cl::opt<unsigned> llvm::SCEVCheapExpansionBudget(
+LLVM_ABI cl::opt<unsigned> llvm::SCEVCheapExpansionBudget(
     "scev-cheap-expansion-budget", cl::Hidden, cl::init(4),
     cl::desc("When performing SCEV expansion only if it is cheap to do, this "
              "controls the budget that is considered cheap (default = 4)"));

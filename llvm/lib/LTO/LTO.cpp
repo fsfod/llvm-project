@@ -71,7 +71,7 @@ static cl::opt<bool>
 
 namespace llvm {
 /// Enable global value internalization in LTO.
-cl::opt<bool> EnableLTOInternalization(
+LLVM_ABI cl::opt<bool> EnableLTOInternalization(
     "enable-lto-internalization", cl::init(true), cl::Hidden,
     cl::desc("Enable global value internalization in LTO"));
 
