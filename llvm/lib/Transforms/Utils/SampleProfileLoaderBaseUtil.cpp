@@ -18,27 +18,27 @@
 
 namespace llvm {
 
-cl::opt<unsigned> SampleProfileMaxPropagateIterations(
+LLVM_ABI cl::opt<unsigned> SampleProfileMaxPropagateIterations(
     "sample-profile-max-propagate-iterations", cl::init(100),
     cl::desc("Maximum number of iterations to go through when propagating "
              "sample block/edge weights through the CFG."));
 
-cl::opt<unsigned> SampleProfileRecordCoverage(
+LLVM_ABI cl::opt<unsigned> SampleProfileRecordCoverage(
     "sample-profile-check-record-coverage", cl::init(0), cl::value_desc("N"),
     cl::desc("Emit a warning if less than N% of records in the input profile "
              "are matched to the IR."));
 
-cl::opt<unsigned> SampleProfileSampleCoverage(
+LLVM_ABI cl::opt<unsigned> SampleProfileSampleCoverage(
     "sample-profile-check-sample-coverage", cl::init(0), cl::value_desc("N"),
     cl::desc("Emit a warning if less than N% of samples in the input profile "
              "are matched to the IR."));
 
-cl::opt<bool> NoWarnSampleUnused(
+LLVM_ABI cl::opt<bool> NoWarnSampleUnused(
     "no-warn-sample-unused", cl::init(false), cl::Hidden,
     cl::desc("Use this option to turn off/on warnings about function with "
              "samples but without debug information to use those samples. "));
 
-cl::opt<bool> SampleProfileUseProfi(
+LLVM_ABI cl::opt<bool> SampleProfileUseProfi(
     "sample-profile-use-profi", cl::Hidden,
     cl::desc("Use profi to infer block and edge counts."));
 
