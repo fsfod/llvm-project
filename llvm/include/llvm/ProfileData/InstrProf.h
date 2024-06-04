@@ -1358,7 +1358,7 @@ LLVM_ABI void createProfileFileNameVar(Module &M, StringRef InstrProfileOutput);
 
 // Whether to compress function names in profile records, and filenames in
 // code coverage mappings. Used by the Instrumentation library and unit tests.
-extern cl::opt<bool> DoInstrProfNameCompression;
+extern LLVM_ABI cl::opt<bool> DoInstrProfNameCompression;
 
 } // end namespace llvm
 #endif // LLVM_PROFILEDATA_INSTRPROF_H

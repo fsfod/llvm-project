@@ -28,7 +28,7 @@ enum class ChangePrinter {
   DotCfgQuiet
 };
 
-LLVM_ABI extern cl::opt<ChangePrinter> PrintChanged;
+extern LLVM_ABI cl::opt<ChangePrinter> PrintChanged;
 
 // Returns true if printing before/after some pass is enabled, whether all
 // passes or a specific pass.

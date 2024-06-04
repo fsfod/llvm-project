@@ -15,7 +15,7 @@
 
 namespace llvm {
 
-extern cl::opt<std::string> BBSectionsColdTextPrefix;
+extern LLVM_ABI cl::opt<std::string> BBSectionsColdTextPrefix;
 
 class MachineFunction;
 class MachineBasicBlock;

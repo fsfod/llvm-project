@@ -37,7 +37,7 @@
 
 namespace llvm {
 
-extern cl::opt<bool> UseSegmentSetForPhysRegs;
+extern LLVM_ABI cl::opt<bool> UseSegmentSetForPhysRegs;
 
 class BitVector;
 class LiveIntervalCalc;

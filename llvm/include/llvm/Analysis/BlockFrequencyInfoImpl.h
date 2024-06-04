@@ -53,11 +53,11 @@
 #define DEBUG_TYPE "block-freq"
 
 namespace llvm {
-extern llvm::cl::opt<bool> CheckBFIUnknownBlockQueries;
+extern LLVM_ABI llvm::cl::opt<bool> CheckBFIUnknownBlockQueries;
 
-extern llvm::cl::opt<bool> UseIterativeBFIInference;
-extern llvm::cl::opt<unsigned> IterativeBFIMaxIterationsPerBlock;
-extern llvm::cl::opt<double> IterativeBFIPrecision;
+extern LLVM_ABI llvm::cl::opt<bool> UseIterativeBFIInference;
+extern LLVM_ABI llvm::cl::opt<unsigned> IterativeBFIMaxIterationsPerBlock;
+extern LLVM_ABI llvm::cl::opt<double> IterativeBFIPrecision;
 
 class BranchProbabilityInfo;
 class Function;

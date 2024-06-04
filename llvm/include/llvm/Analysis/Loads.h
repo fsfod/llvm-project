@@ -104,7 +104,7 @@ LLVM_ABI bool isSafeToLoadUnconditionally(Value *V, Type *Ty, Align Alignment,
 
 /// The default number of maximum instructions to scan in the block, used by
 /// FindAvailableLoadedValue().
-extern cl::opt<unsigned> DefMaxInstsToScan;
+extern LLVM_ABI cl::opt<unsigned> DefMaxInstsToScan;
 
 /// Scan backwards to see if we have the value of the given load available
 /// locally within a small number of instructions.
