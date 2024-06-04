@@ -59,8 +59,8 @@ class AAResults;
 class NodeSet;
 class SMSchedule;
 
-extern cl::opt<bool> SwpEnableCopyToPhi;
-extern cl::opt<int> SwpForceIssueWidth;
+extern LLVM_ABI cl::opt<bool> SwpEnableCopyToPhi;
+extern LLVM_ABI cl::opt<int> SwpForceIssueWidth;
 
 /// The main class in the implementation of the target independent
 /// software pipeliner pass.

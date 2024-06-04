@@ -28,8 +28,8 @@ class Instruction;
 class AssumptionCache;
 class DominatorTree;
 
-extern cl::opt<bool> EnableKnowledgeRetention;
-extern cl::opt<bool> ShouldPreserveAllAttributes;
+extern LLVM_ABI cl::opt<bool> EnableKnowledgeRetention;
+extern LLVM_ABI cl::opt<bool> ShouldPreserveAllAttributes;
 
 /// Build a call to llvm.assume to preserve informations that can be derived
 /// from the given instruction.

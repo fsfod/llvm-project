@@ -43,8 +43,8 @@ class LPMUpdater;
 class Loop;
 class LoopNest;
 
-extern cl::opt<unsigned> SetLicmMssaOptCap;
-extern cl::opt<unsigned> SetLicmMssaNoAccForPromotionCap;
+extern LLVM_ABI cl::opt<unsigned> SetLicmMssaOptCap;
+extern LLVM_ABI cl::opt<unsigned> SetLicmMssaNoAccForPromotionCap;
 
 struct LICMOptions {
   unsigned MssaOptCap;

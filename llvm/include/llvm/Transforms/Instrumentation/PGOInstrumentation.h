@@ -25,7 +25,7 @@
 
 namespace llvm {
 
-extern cl::opt<bool> DebugInfoCorrelate;
+extern LLVM_ABI cl::opt<bool> DebugInfoCorrelate;
 
 class Function;
 class Instruction;

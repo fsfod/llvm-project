@@ -27,7 +27,7 @@
 #include "llvm/Support/InstructionCost.h"
 
 namespace llvm {
-extern cl::opt<unsigned> SCEVCheapExpansionBudget;
+extern LLVM_ABI cl::opt<unsigned> SCEVCheapExpansionBudget;
 
 /// struct for holding enough information to help calculate the cost of the
 /// given SCEV when expanded into IR.

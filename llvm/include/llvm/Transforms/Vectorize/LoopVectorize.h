@@ -77,8 +77,8 @@ class ScalarEvolution;
 class TargetLibraryInfo;
 class TargetTransformInfo;
 
-extern cl::opt<bool> EnableLoopInterleaving;
-extern cl::opt<bool> EnableLoopVectorization;
+extern LLVM_ABI cl::opt<bool> EnableLoopInterleaving;
+extern LLVM_ABI cl::opt<bool> EnableLoopVectorization;
 
 /// A marker to determine if extra passes after loop vectorization should be
 /// run.

@@ -26,10 +26,10 @@ using namespace sampleprof;
 class ProfileSummaryInfo;
 class Module;
 
-extern cl::opt<unsigned> SampleProfileMaxPropagateIterations;
-extern cl::opt<unsigned> SampleProfileRecordCoverage;
-extern cl::opt<unsigned> SampleProfileSampleCoverage;
-extern cl::opt<bool> NoWarnSampleUnused;
+extern LLVM_ABI cl::opt<unsigned> SampleProfileMaxPropagateIterations;
+extern LLVM_ABI cl::opt<unsigned> SampleProfileRecordCoverage;
+extern LLVM_ABI cl::opt<unsigned> SampleProfileSampleCoverage;
+extern LLVM_ABI cl::opt<bool> NoWarnSampleUnused;
 
 namespace sampleprofutil {
 
