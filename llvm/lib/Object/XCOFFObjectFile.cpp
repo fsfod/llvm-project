@@ -92,8 +92,8 @@ uint8_t XCOFFRelocation<AddressType>::getRelocatedLength() const {
   return (Info & XR_BIASED_LENGTH_MASK) + 1;
 }
 
-template struct ExceptionSectionEntry<support::ubig32_t>;
-template struct ExceptionSectionEntry<support::ubig64_t>;
+template struct LLVM_EXPORT_TEMPLATE ExceptionSectionEntry<support::ubig32_t>;
+template struct LLVM_EXPORT_TEMPLATE ExceptionSectionEntry<support::ubig64_t>;
 
 template <typename T>
 Expected<StringRef> getLoaderSecSymNameInStrTbl(const T *LoaderSecHeader,
@@ -1368,17 +1368,17 @@ Expected<StringRef> XCOFFSymbolRef::getName() const {
 }
 
 // Explictly instantiate template classes.
-template struct XCOFFSectionHeader<XCOFFSectionHeader32>;
-template struct XCOFFSectionHeader<XCOFFSectionHeader64>;
+template struct LLVM_EXPORT_TEMPLATE XCOFFSectionHeader<XCOFFSectionHeader32>;
+template struct LLVM_EXPORT_TEMPLATE XCOFFSectionHeader<XCOFFSectionHeader64>;
 
-template struct XCOFFRelocation<llvm::support::ubig32_t>;
-template struct XCOFFRelocation<llvm::support::ubig64_t>;
+template struct LLVM_EXPORT_TEMPLATE XCOFFRelocation<llvm::support::ubig32_t>;
+template struct LLVM_EXPORT_TEMPLATE XCOFFRelocation<llvm::support::ubig64_t>;
 
-template llvm::Expected<llvm::ArrayRef<llvm::object::XCOFFRelocation64>>
+template LLVM_EXPORT_TEMPLATE llvm::Expected<llvm::ArrayRef<llvm::object::XCOFFRelocation64>>
 llvm::object::XCOFFObjectFile::relocations<llvm::object::XCOFFSectionHeader64,
                                            llvm::object::XCOFFRelocation64>(
     llvm::object::XCOFFSectionHeader64 const &) const;
-template llvm::Expected<llvm::ArrayRef<llvm::object::XCOFFRelocation32>>
+template LLVM_EXPORT_TEMPLATE llvm::Expected<llvm::ArrayRef<llvm::object::XCOFFRelocation32>>
 llvm::object::XCOFFObjectFile::relocations<llvm::object::XCOFFSectionHeader32,
                                            llvm::object::XCOFFRelocation32>(
     llvm::object::XCOFFSectionHeader32 const &) const;
