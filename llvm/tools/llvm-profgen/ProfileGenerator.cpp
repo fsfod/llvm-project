@@ -104,8 +104,8 @@ using namespace llvm;
 using namespace sampleprof;
 
 namespace llvm {
-extern cl::opt<int> ProfileSummaryCutoffHot;
-extern cl::opt<bool> UseContextLessSummary;
+extern LLVM_ABI cl::opt<int> ProfileSummaryCutoffHot;
+extern LLVM_ABI cl::opt<bool> UseContextLessSummary;
 
 namespace sampleprof {
 
