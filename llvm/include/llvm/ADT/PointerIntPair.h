@@ -112,11 +112,11 @@ public:
                             static_cast<intptr_t>(IntVal));
   }
 
-  PointerTy const *getAddrOfPointer() const {
+  template<int = 0> PointerTy const *getAddrOfPointer() const {
     return const_cast<PointerIntPair *>(this)->getAddrOfPointer();
   }
 
-  PointerTy *getAddrOfPointer() {
+  template<int = 0> PointerTy *getAddrOfPointer() {
     assert(Value == reinterpret_cast<intptr_t>(getPointer()) &&
            "Can only return the address if IntBits is cleared and "
            "PtrTraits doesn't change the pointer");
