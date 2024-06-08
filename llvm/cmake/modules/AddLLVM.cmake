@@ -626,6 +626,14 @@ function(llvm_add_library name)
     #target_compile_definitions(${name} PRIVATE LLVM_ABI_EXPORTS)
     target_compile_options(${name} PRIVATE -DLLVM_ABI_EXPORTS)
 
+    ## If were compiling with clang-cl use /Zc:dllexportInlines- to exclude inline 
+    ## class members from being dllexport'ed to reduce compile time.
+    ## This will also keep us below the 64k exported symbol limit
+    ## https://blog.llvm.org/2018/11/30-faster-windows-builds-with-clang-cl_14.html
+    if(LLVM_BUILD_LLVM_DYLIB AND MSVC AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
+      target_compile_options(${name} PRIVATE /Zc:dllexportInlines-)
+    endif()
+
     # When building shared objects for each target there are some internal APIs
     # that are used across shared objects which we can't hide.
     if (NOT BUILD_SHARED_LIBS AND NOT APPLE AND
@@ -1100,6 +1108,9 @@ macro(add_llvm_executable name)
 
   if (LLVM_LINK_LLVM_DYLIB AND NOT ARG_DISABLE_LLVM_LINK_LLVM_DYLIB)
     target_compile_options(${name} PRIVATE -DLLVM_DLL_IMPORT)
+    if(MSVC AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
+      target_compile_options(${name} PRIVATE /Zc:dllexportInlines-)
+    endif()
   endif()
 endmacro(add_llvm_executable name)
 
