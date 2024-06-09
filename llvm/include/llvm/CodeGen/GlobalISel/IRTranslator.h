@@ -776,6 +776,10 @@ private:
 
 public:
   IRTranslator(CodeGenOptLevel OptLevel = CodeGenOptLevel::None);
+  IRTranslator(const IRTranslator &) = delete;
+  IRTranslator(IRTranslator &&) = default;
+  ~IRTranslator();
+  IRTranslator &operator =(const IRTranslator &) = delete;
 
   StringRef getPassName() const override { return "IRTranslator"; }
 
