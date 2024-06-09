@@ -133,6 +133,8 @@ static void reportTranslationError(MachineFunction &MF,
 IRTranslator::IRTranslator(CodeGenOptLevel optlevel)
     : MachineFunctionPass(ID), OptLevel(optlevel) {}
 
+IRTranslator::~IRTranslator() = default;
+
 #ifndef NDEBUG
 namespace {
 /// Verify that every instruction created has the same DILocation as the
