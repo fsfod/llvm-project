@@ -5132,6 +5132,8 @@ private:
   bool UndefIsContained;
 };
 
+template <typename MemberTy> unsigned PotentialValuesState<MemberTy>::MaxPotentialValues = -1;
+
 struct DenormalFPMathState : public AbstractState {
   struct DenormalState {
     DenormalMode Mode = DenormalMode::getInvalid();
@@ -5263,7 +5265,7 @@ struct AAPotentialConstantValues
   }
 
   /// Create an abstract attribute view for the position \p IRP.
-  static AAPotentialConstantValues &createForPosition(const IRPosition &IRP,
+  LLVM_ABI static AAPotentialConstantValues &createForPosition(const IRPosition &IRP,
                                                       Attributor &A);
 
   /// Return assumed constant for the associated value
@@ -5301,7 +5303,7 @@ struct AAPotentialConstantValues
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI static const char ID;
 };
 
 struct AAPotentialValues
