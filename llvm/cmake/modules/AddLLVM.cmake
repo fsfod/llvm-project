@@ -621,18 +621,18 @@ function(llvm_add_library name)
     add_library(${name} STATIC ${ALL_FILES})
   endif()
 
+  ## If were compiling with clang-cl use /Zc:dllexportInlines- to exclude inline 
+  ## class members from being dllexport'ed to reduce compile time.
+  ## This will also keep us below the 64k exported symbol limit
+  ## https://blog.llvm.org/2018/11/30-faster-windows-builds-with-clang-cl_14.html
+  if(LLVM_BUILD_LLVM_DYLIB AND MSVC AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
+    target_compile_options(${name} PUBLIC /Zc:dllexportInlines-)
+  endif()
+
   if(ARG_COMPONENT_LIB)
     set_target_properties(${name} PROPERTIES LLVM_COMPONENT TRUE)
     #target_compile_definitions(${name} PRIVATE LLVM_ABI_EXPORTS)
     target_compile_options(${name} PRIVATE -DLLVM_ABI_EXPORTS)
-
-    ## If were compiling with clang-cl use /Zc:dllexportInlines- to exclude inline 
-    ## class members from being dllexport'ed to reduce compile time.
-    ## This will also keep us below the 64k exported symbol limit
-    ## https://blog.llvm.org/2018/11/30-faster-windows-builds-with-clang-cl_14.html
-    if(LLVM_BUILD_LLVM_DYLIB AND MSVC AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
-      target_compile_options(${name} PRIVATE /Zc:dllexportInlines-)
-    endif()
 
     # When building shared objects for each target there are some internal APIs
     # that are used across shared objects which we can't hide.
