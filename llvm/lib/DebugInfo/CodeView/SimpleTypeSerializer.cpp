@@ -60,7 +60,7 @@ ArrayRef<uint8_t> SimpleTypeSerializer::serialize(T &Record) {
 // Explicitly instantiate the member function for each known type so that we can
 // implement this in the cpp file.
 #define TYPE_RECORD(EnumName, EnumVal, Name)                                   \
-  template ArrayRef<uint8_t> llvm::codeview::SimpleTypeSerializer::serialize(  \
+  template LLVM_EXPORT_TEMPLATE ArrayRef<uint8_t> llvm::codeview::SimpleTypeSerializer::serialize(  \
       Name##Record &Record);
 #define TYPE_RECORD_ALIAS(EnumName, EnumVal, Name, AliasName)
 #define MEMBER_RECORD(EnumName, EnumVal, Name)
