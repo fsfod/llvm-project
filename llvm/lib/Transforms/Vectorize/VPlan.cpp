@@ -1265,7 +1265,7 @@ void VPlanIngredient::print(raw_ostream &O) const {
 
 #endif
 
-template void DomTreeBuilder::Calculate<VPDominatorTree>(VPDominatorTree &DT);
+template void LLVM_EXPORT_TEMPLATE DomTreeBuilder::Calculate<VPDominatorTree>(VPDominatorTree &DT);
 
 void VPValue::replaceAllUsesWith(VPValue *New) {
   replaceUsesWithIf(New, [](VPUser &, unsigned) { return true; });
