@@ -26,7 +26,8 @@ class PredicatedScalarEvolution;
 class TargetLibraryInfo;
 class VPBuilder;
 
-struct VPlanTransforms {
+// Needs to be exported for VectorizeTests
+struct LLVM_CLASS_ABI VPlanTransforms {
   /// Replaces the VPInstructions in \p Plan with corresponding
   /// widen recipes.
   static void
