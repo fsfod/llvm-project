@@ -21,7 +21,7 @@
 using namespace llvm;
 
 namespace llvm {
-extern cl::opt<bool> ShouldPreserveAllAttributes;
+LLVM_ABI extern cl::opt<bool> ShouldPreserveAllAttributes;
 } // namespace llvm
 
 static void RunTest(
