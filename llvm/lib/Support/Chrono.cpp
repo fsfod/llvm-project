@@ -15,12 +15,12 @@ namespace llvm {
 
 using namespace sys;
 
-const char llvm::detail::unit<std::ratio<3600>>::value[] = "h";
-const char llvm::detail::unit<std::ratio<60>>::value[] = "m";
-const char llvm::detail::unit<std::ratio<1>>::value[] = "s";
-const char llvm::detail::unit<std::milli>::value[] = "ms";
-const char llvm::detail::unit<std::micro>::value[] = "us";
-const char llvm::detail::unit<std::nano>::value[] = "ns";
+const char LLVM_ABI llvm::detail::unit<std::ratio<3600>>::value[] = "h";
+const char LLVM_ABI llvm::detail::unit<std::ratio<60>>::value[] = "m";
+const char LLVM_ABI llvm::detail::unit<std::ratio<1>>::value[] = "s";
+const char LLVM_ABI llvm::detail::unit<std::milli>::value[] = "ms";
+const char LLVM_ABI llvm::detail::unit<std::micro>::value[] = "us";
+const char LLVM_ABI llvm::detail::unit<std::nano>::value[] = "ns";
 
 static inline struct tm getStructTM(TimePoint<> TP) {
   struct tm Storage;
