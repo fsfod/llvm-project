@@ -54,6 +54,7 @@ class LLVM_CLASS_ABI Evaluator {
       Other.Val = nullptr;
     }
     ~MutableValue() { clear(); }
+    MutableValue &operator =(const MutableValue &) = delete;
 
     Type *getType() const {
       if (auto *C = dyn_cast_if_present<Constant *>(Val))
