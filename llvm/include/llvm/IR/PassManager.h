@@ -699,13 +699,13 @@ private:
   friend AnalysisInfoMixin<
       InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT>>;
 
-  static LLVM_ABI AnalysisKey Key ;
+  static AnalysisKey Key ;
 
   AnalysisManagerT *InnerAM;
 };
 
 template <typename AnalysisManagerT, typename IRUnitT, typename... ExtraArgTs>
-LLVM_ABI AnalysisKey
+AnalysisKey
     InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT, ExtraArgTs...>::Key;
 
 /// Provide the \c FunctionAnalysisManager to \c Module proxy.
