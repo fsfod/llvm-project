@@ -76,7 +76,7 @@ class Evaluator {
     SmallVector<MutableValue> Elements;
 
     MutableAggregate(Type *Ty) : Ty(Ty) {}
-    Constant *toConstant() const;
+    LLVM_ABI Constant *toConstant() const;
   };
 
 public:
