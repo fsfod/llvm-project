@@ -813,7 +813,7 @@ struct LLVM_CLASS_ABI AAMDNodes {
 
   /// Create a new AAMDNode that describes this AAMDNode after applying a
   /// constant offset to the start of the pointer.
-  AAMDNodes shift(size_t Offset) const {
+  template<int = 0> AAMDNodes shift(size_t Offset) const {
     AAMDNodes Result;
     Result.TBAA = TBAA ? shiftTBAA(TBAA, Offset) : nullptr;
     Result.TBAAStruct =
@@ -826,7 +826,7 @@ struct LLVM_CLASS_ABI AAMDNodes {
   /// Create a new AAMDNode that describes this AAMDNode after extending it to
   /// apply to a series of bytes of length Len. A size of -1 denotes an unknown
   /// size.
-  AAMDNodes extendTo(ssize_t Len) const {
+  template<int = 0>  AAMDNodes extendTo(ssize_t Len) const {
     AAMDNodes Result;
     Result.TBAA = TBAA ? extendToTBAA(TBAA, Len) : nullptr;
     // tbaa.struct contains (offset, size, type) triples. Extending the length
