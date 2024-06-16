@@ -34,10 +34,10 @@ LLVM_ABI Error deregisterEHFrameSection(const void *EHFrameSectionAddr,
 } // end namespace orc
 } // end namespace llvm
 
-extern "C" llvm::orc::shared::CWrapperFunctionResult
+extern "C" LLVM_C_ABI llvm::orc::shared::CWrapperFunctionResult
 llvm_orc_registerEHFrameSectionWrapper(const char *Data, uint64_t Size);
 
-extern "C" llvm::orc::shared::CWrapperFunctionResult
+extern "C" LLVM_C_ABI llvm::orc::shared::CWrapperFunctionResult
 llvm_orc_deregisterEHFrameSectionWrapper(const char *Data, uint64_t Size);
 
 #endif // LLVM_EXECUTIONENGINE_ORC_TARGETPROCESS_REGISTEREHFRAMES_H
