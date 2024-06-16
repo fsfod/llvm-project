@@ -98,6 +98,7 @@ class Pass {
 
 public:
   explicit Pass(PassKind K, char &pid) : PassID(&pid), Kind(K) {}
+  Pass(Pass &&) = default;
   Pass(const Pass &) = delete;
   Pass &operator=(const Pass &) = delete;
   virtual ~Pass();
