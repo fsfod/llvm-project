@@ -311,6 +311,11 @@ private:
   MCProbeDivisionMap MCProbeDivisions;
 
 public:
+  MCPseudoProbeSections() = default;
+  MCPseudoProbeSections(const MCPseudoProbeSections &) = delete;
+  MCPseudoProbeSections(MCPseudoProbeSections &&) = default;
+  MCPseudoProbeSections &operator =(const MCPseudoProbeSections &) = delete;
+
   const MCProbeDivisionMap &getMCProbes() const { return MCProbeDivisions; }
 
   bool empty() const { return MCProbeDivisions.empty(); }
@@ -328,6 +333,11 @@ class MCPseudoProbeTable {
   MCPseudoProbeSections MCProbeSections;
 
 public:
+  MCPseudoProbeTable() = default;
+  MCPseudoProbeTable(const MCPseudoProbeTable &) = delete;
+  MCPseudoProbeTable(MCPseudoProbeTable &&) = default;
+  MCPseudoProbeTable &operator =(const MCPseudoProbeTable &) = delete;
+
   static void emit(MCObjectStreamer *MCOS);
 
   MCPseudoProbeSections &getProbeSections() { return MCProbeSections; }
