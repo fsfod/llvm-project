@@ -18,7 +18,7 @@
 #include "llvm/Support/Compiler.h"
 #include <cstdlib>
 
-extern "C" void LLVMLinkInMCJIT();
+extern "C" LLVM_C_ABI void LLVMLinkInMCJIT();
 
 namespace {
   struct ForceMCJITLinking {
