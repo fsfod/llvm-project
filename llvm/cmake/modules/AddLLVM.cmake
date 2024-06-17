@@ -631,8 +631,7 @@ function(llvm_add_library name)
 
   if(ARG_COMPONENT_LIB)
     set_target_properties(${name} PROPERTIES LLVM_COMPONENT TRUE)
-    #target_compile_definitions(${name} PRIVATE LLVM_ABI_EXPORTS)
-    target_compile_options(${name} PRIVATE -DLLVM_ABI_EXPORTS)
+    target_compile_definitions(${name} PRIVATE LLVM_ABI_EXPORTS)
 
     # When building shared objects for each target there are some internal APIs
     # that are used across shared objects which we can't hide.
@@ -1106,7 +1105,7 @@ macro(add_llvm_executable name)
   llvm_codesign(${name} ENTITLEMENTS ${ARG_ENTITLEMENTS} BUNDLE_PATH ${ARG_BUNDLE_PATH})
 
   if (LLVM_LINK_LLVM_DYLIB AND NOT ARG_DISABLE_LLVM_LINK_LLVM_DYLIB)
-    target_compile_options(${name} PRIVATE -DLLVM_DLL_IMPORT)
+    target_compile_definitions(${name} PRIVATE -DLLVM_DLL_IMPORT)
     if(MSVC AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
       target_compile_options(${name} PRIVATE /Zc:dllexportInlines-)
     endif()
