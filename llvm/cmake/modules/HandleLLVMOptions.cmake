@@ -757,6 +757,9 @@ if (MSVC)
       # This is triggered for every variable that is a template type of a class even 
       # if there private when the class is dllexport'ed
       -wd4251 # Suppress 'needs to have dll-interface to be used by clients'
+      # We are only putting dll export on classes with out of line members so this 
+      # warning gets triggered a lot for bases we haven't exported'
+      -wd4275 # non dll-interface class used as base for dll-interface class
 
       # Multiple llvm headers declare class templates members out of line in a separate header
       # thats only included where the class is used. This warning gets spam'ed for 
