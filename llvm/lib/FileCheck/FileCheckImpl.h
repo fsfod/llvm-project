@@ -35,7 +35,7 @@ namespace llvm {
 /// Type representing the format an expression value should be textualized into
 /// for matching. Used to represent both explicit format specifiers as well as
 /// implicit format from using numeric variables.
-struct ExpressionFormat {
+struct LLVM_ABI ExpressionFormat {
   enum class Kind {
     /// Denote absence of format. Used for implicit format of literals and
     /// empty expressions.
@@ -102,7 +102,7 @@ public:
 
 /// Class to represent an overflow error that might result when manipulating a
 /// value.
-class OverflowError : public ErrorInfo<OverflowError> {
+class LLVM_ABI OverflowError : public ErrorInfo<OverflowError> {
 public:
   static char ID;
 
@@ -115,15 +115,15 @@ public:
 
 /// Performs operation and \returns its result or an error in case of failure,
 /// such as if an overflow occurs.
-Expected<APInt> exprAdd(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprSub(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprMul(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprDiv(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprMax(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
-Expected<APInt> exprMin(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_ABI Expected<APInt> exprAdd(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_ABI Expected<APInt> exprSub(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_ABI Expected<APInt> exprMul(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_ABI Expected<APInt> exprDiv(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_ABI Expected<APInt> exprMax(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
+LLVM_ABI Expected<APInt> exprMin(const APInt &Lhs, const APInt &Rhs, bool &Overflow);
 
 /// Base class representing the AST of a given expression.
-class ExpressionAST {
+class LLVM_ABI ExpressionAST {
 private:
   StringRef ExpressionStr;
 
@@ -336,7 +336,7 @@ public:
 class FileCheckPatternContext;
 
 /// Class representing a substitution to perform in the RegExStr string.
-class Substitution {
+class LLVM_ABI Substitution {
 protected:
   /// Pointer to a class instance holding, among other things, the table with
   /// the values of live string variables at the start of any given CHECK line.
@@ -407,7 +407,7 @@ public:
 /// Class holding the Pattern global state, shared by all patterns: tables
 /// holding values of variables and whether they are defined or not at any
 /// given time in the matching process.
-class FileCheckPatternContext {
+class LLVM_ABI FileCheckPatternContext {
   friend class Pattern;
 
 private:
@@ -453,24 +453,24 @@ public:
 
   /// \returns the value of string variable \p VarName or an error if no such
   /// variable has been defined.
-  LLVM_FUNC_ABI Expected<StringRef> getPatternVarValue(StringRef VarName);
+  Expected<StringRef> getPatternVarValue(StringRef VarName);
 
   /// Defines string and numeric variables from definitions given on the
   /// command line, passed as a vector of [#]VAR=VAL strings in
   /// \p CmdlineDefines. \returns an error list containing diagnostics against
   /// \p SM for all definition parsing failures, if any, or Success otherwise.
-  LLVM_FUNC_ABI Error defineCmdlineVariables(ArrayRef<StringRef> CmdlineDefines,
+  Error defineCmdlineVariables(ArrayRef<StringRef> CmdlineDefines,
                                SourceMgr &SM);
 
   /// Create @LINE pseudo variable. Value is set when pattern are being
   /// matched.
-  LLVM_FUNC_ABI void createLineVariable();
+  void createLineVariable();
 
   /// Undefines local variables (variables whose name does not start with a '$'
   /// sign), i.e. removes them from GlobalVariableTable and from
   /// GlobalNumericVariableTable and also clears the value of numeric
   /// variables.
-  LLVM_FUNC_ABI void clearLocalVars();
+  void clearLocalVars();
 
 private:
   /// Makes a new numeric variable and registers it for destruction when the
@@ -490,7 +490,7 @@ private:
 
 /// Class to represent an error holding a diagnostic with location information
 /// used when printing it.
-class ErrorDiagnostic : public ErrorInfo<ErrorDiagnostic> {
+class LLVM_ABI ErrorDiagnostic : public ErrorInfo<ErrorDiagnostic> {
 private:
   SMDiagnostic Diagnostic;
   SMRange Range;
@@ -524,7 +524,7 @@ public:
   }
 };
 
-class NotFoundError : public ErrorInfo<NotFoundError> {
+class LLVM_ABI NotFoundError : public ErrorInfo<NotFoundError> {
 public:
   static char ID;
 
@@ -548,7 +548,7 @@ public:
 /// an error except, in the former case, (1) there is no confusion over polarity
 /// and (2) the caller must either check the result or explicitly ignore it with
 /// a call like \c consumeError.
-class ErrorReported final : public ErrorInfo<ErrorReported> {
+class LLVM_ABI ErrorReported final : public ErrorInfo<ErrorReported> {
 public:
   static char ID;
 
@@ -568,7 +568,7 @@ public:
   }
 };
 
-class Pattern {
+class LLVM_ABI Pattern {
   SMLoc PatternLoc;
 
   /// A fixed string to match as the pattern or empty if this pattern requires
@@ -675,7 +675,7 @@ public:
   /// successful, sets \p DefinedNumericVariable to point to the class
   /// representing the numeric variable defined in this numeric substitution
   /// block, or std::nullopt if this block does not define any variable.
-  LLVM_FUNC_ABI static Expected<std::unique_ptr<Expression>> parseNumericSubstitutionBlock(
+  static Expected<std::unique_ptr<Expression>> parseNumericSubstitutionBlock(
       StringRef Expr, std::optional<NumericVariable *> &DefinedNumericVariable,
       bool IsLegacyLineExpr, std::optional<size_t> LineNumber,
       FileCheckPatternContext *Context, const SourceMgr &SM);
@@ -686,7 +686,7 @@ public:
   /// global options that influence the parsing such as whitespace
   /// canonicalization, \p SM provides the SourceMgr used for error reports.
   /// \returns true in case of an error, false otherwise.
-  LLVM_FUNC_ABI bool parsePattern(StringRef PatternStr, StringRef Prefix, SourceMgr &SM,
+  bool parsePattern(StringRef PatternStr, StringRef Prefix, SourceMgr &SM,
                     const FileCheckRequest &Req);
   struct Match {
     size_t Pos;
@@ -711,7 +711,7 @@ public:
   /// GlobalNumericVariableTable StringMap in the same class provides the
   /// current values of FileCheck numeric variables and is updated if this
   /// match defines new numeric values.
-  LLVM_FUNC_ABI MatchResult match(StringRef Buffer, const SourceMgr &SM) const;
+  MatchResult match(StringRef Buffer, const SourceMgr &SM) const;
   /// Prints the value of successful substitutions.
   void printSubstitutions(const SourceMgr &SM, StringRef Buffer,
                           SMRange MatchRange, FileCheckDiag::MatchType MatchTy,
@@ -722,7 +722,7 @@ public:
   bool hasVariable() const {
     return !(Substitutions.empty() && VariableDefs.empty());
   }
-  LLVM_FUNC_ABI void printVariableDefs(const SourceMgr &SM, FileCheckDiag::MatchType MatchTy,
+  void printVariableDefs(const SourceMgr &SM, FileCheckDiag::MatchType MatchTy,
                          std::vector<FileCheckDiag> *Diags) const;
 
   Check::FileCheckType getCheckTy() const { return CheckTy; }
@@ -819,7 +819,7 @@ private:
 //===----------------------------------------------------------------------===//
 
 /// A check that we found in the input file.
-struct FileCheckString {
+struct LLVM_ABI FileCheckString {
   /// The pattern to match.
   Pattern Pat;
 
