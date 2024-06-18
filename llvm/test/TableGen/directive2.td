@@ -90,7 +90,7 @@ def TDL_DirA : Directive<"dira"> {
 // CHECK-NEXT:  LLVM_ABI bool isAllowedClauseForDirective(Directive D, Clause C, unsigned Version);
 // CHECK-EMPTY:
 // CHECK-NEXT:  constexpr std::size_t getMaxLeafCount() { return 0; }
-// CHECK-NEXT:  Association getDirectiveAssociation(Directive D);
+// CHECK-NEXT:  LLVM_ABI Association getDirectiveAssociation(Directive D);
 // CHECK-NEXT:  } // namespace tdl
 // CHECK-NEXT:  } // namespace llvm
 // CHECK-NEXT:  #endif // LLVM_Tdl_INC
