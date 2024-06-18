@@ -32,6 +32,10 @@ class MemorySSAUpdater;
 class ScalarEvolution;
 class raw_ostream;
 
+// Prevent warning spam about out of line template members
+#ifdef _MSC_VER
+#pragma warning(disable: 4661)
+#endif
 // Implementation in Support/GenericLoopInfoImpl.h
 extern template class LLVM_TEMPLATE_ABI LoopBase<BasicBlock, Loop>;
 
