@@ -302,7 +302,7 @@ public:
 /// the VPValues it defines and is responsible for deleting its defined values.
 /// Single-value VPDefs that also inherit from VPValue must make sure to inherit
 /// from VPDef before VPValue.
-class VPDef {
+class LLVM_ABI VPDef {
   friend class VPValue;
 
   /// Subclass identifier (for isa/dyn_cast).
