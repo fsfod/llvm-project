@@ -3726,6 +3726,11 @@ inline raw_ostream &operator<<(raw_ostream &OS, const VPlan &Plan) {
 }
 #endif
 
+
+// Needed by VectorizeTests
+extern template void LLVM_TEMPLATE_ABI
+DomTreeBuilder::Calculate<DomTreeBase<VPBlockBase>>(
+    DomTreeBase<VPBlockBase> &DT);
 } // end namespace llvm
 
 #endif // LLVM_TRANSFORMS_VECTORIZE_VPLAN_H
