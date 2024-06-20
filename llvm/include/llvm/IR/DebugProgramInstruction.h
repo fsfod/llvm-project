@@ -693,6 +693,11 @@ template <typename T>
 ScopedDbgInfoFormatSetter(T &Obj,
                           bool NewState) -> ScopedDbgInfoFormatSetter<T>;
 
+// Needed by DebugInfoTest.cpp
+extern template class LLVM_TEMPLATE_ABI DbgRecordParamRef<DIExpression>;
+extern template class LLVM_TEMPLATE_ABI DbgRecordParamRef<DILabel>;
+extern template class LLVM_TEMPLATE_ABI DbgRecordParamRef<DILocalVariable>;
+
 } // namespace llvm
 
 #endif // LLVM_IR_DEBUGPROGRAMINSTRUCTION_H
