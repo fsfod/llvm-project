@@ -1052,9 +1052,9 @@ Expected<ArrayRef<ExceptEnt>> XCOFFObjectFile::getExceptionEntries() const {
       ExceptEntStart, ExceptEntStart + getSectionSize(DRI) / sizeof(ExceptEnt));
 }
 
-template Expected<ArrayRef<ExceptionSectionEntry32>>
+template LLVM_EXPORT_TEMPLATE Expected<ArrayRef<ExceptionSectionEntry32>>
 XCOFFObjectFile::getExceptionEntries() const;
-template Expected<ArrayRef<ExceptionSectionEntry64>>
+template LLVM_EXPORT_TEMPLATE Expected<ArrayRef<ExceptionSectionEntry64>>
 XCOFFObjectFile::getExceptionEntries() const;
 
 Expected<XCOFFStringTable>

@@ -768,6 +768,13 @@ struct XCOFFSymbolEntry64 {
   uint8_t NumberOfAuxEntries;
 };
 
+extern template Expected<ArrayRef<XCOFFRelocation32>>
+XCOFFObjectFile::relocations<XCOFFSectionHeader32, XCOFFRelocation32>(
+    const XCOFFSectionHeader32 &Sec) const;
+extern template Expected<ArrayRef<XCOFFRelocation64>>
+XCOFFObjectFile::relocations<XCOFFSectionHeader64, XCOFFRelocation64>(
+    const XCOFFSectionHeader64 &Sec) const;
+
 class XCOFFSymbolRef : public SymbolRef {
 public:
   enum { NAME_IN_STR_TBL_MAGIC = 0x0 };
