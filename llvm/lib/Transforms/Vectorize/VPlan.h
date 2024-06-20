@@ -3588,6 +3588,11 @@ public:
   bool isCompletelySLP() const { return CompletelySLP; }
 };
 
+// Needed by VectorizeTests
+extern template void LLVM_TEMPLATE_ABI
+DomTreeBuilder::Calculate<DomTreeBase<VPBlockBase>>(
+    DomTreeBase<VPBlockBase> &DT);
+
 namespace vputils {
 
 /// Returns true if only the first lane of \p Def is used.
