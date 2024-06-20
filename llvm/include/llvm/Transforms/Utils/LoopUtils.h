@@ -580,6 +580,15 @@ std::optional<IVConditionInfo> hasPartialIVCondition(const Loop &L,
                                                      const MemorySSA &MSSA,
                                                      AAResults &AA);
 
+// Needed by ScalarTests
+extern template LLVM_TEMPLATE_ABI void
+llvm::appendLoopsToWorklist<ArrayRef<Loop *> &>(
+    ArrayRef<Loop *> &Loops, SmallPriorityWorklist<Loop *, 4> &Worklist);
+
+extern template LLVM_TEMPLATE_ABI void
+llvm::appendLoopsToWorklist<Loop &>(Loop &L,
+                                    SmallPriorityWorklist<Loop *, 4> &Worklist);
+
 } // end namespace llvm
 
 #endif // LLVM_TRANSFORMS_UTILS_LOOPUTILS_H
