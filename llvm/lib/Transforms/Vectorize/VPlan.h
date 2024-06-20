@@ -4010,6 +4010,11 @@ public:
   /// Return true if all visited instruction can be combined.
   bool isCompletelySLP() const { return CompletelySLP; }
 };
+
+// Needed by VectorizeTests
+extern template void LLVM_TEMPLATE_ABI
+DomTreeBuilder::Calculate<DomTreeBase<VPBlockBase>>(
+    DomTreeBase<VPBlockBase> &DT);
 } // end namespace llvm
 
 #endif // LLVM_TRANSFORMS_VECTORIZE_VPLAN_H
