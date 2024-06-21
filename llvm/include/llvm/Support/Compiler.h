@@ -149,6 +149,22 @@
 #define LLVM_EXTERNAL_VISIBILITY
 #endif
 
+/// LLVM_ABI is the main export/visibility macro to mark something as explicitly
+/// exported when llvm is built as a shared library with everything else that is 
+/// unannotated will have internal visibility.
+/// 
+/// LLVM_EXPORT_TEMPLATE is used on explicit template instantiations in source
+/// files that were declared extern in a header. This macro is only set as a 
+/// compiler export attribute on windows, on other platforms it does nothing.
+/// 
+/// LLVM_TEMPLATE_ABI is for annotating extern template declarations in headers 
+/// for both functions and classes. On windows its turned in to dllimport for 
+/// library consumers, for other platforms its a default visibility attribute.
+/// 
+/// LLVM_C_ABI is used to annotated functions and data that need to be exported 
+/// for the libllvm-c API. This used both for the llvm-c headers and for the 
+/// functions declared in the different Target's c++ source files that don't include
+/// the header forward declaring them.
 #if defined(_WIN32)
 #if defined(LLVM_ABI_EXPORTS)
 #define LLVM_ABI __declspec(dllexport)
