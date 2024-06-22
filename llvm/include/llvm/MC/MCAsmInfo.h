@@ -541,6 +541,8 @@ protected:
 public:
   explicit MCAsmInfo();
   virtual ~MCAsmInfo();
+  MCAsmInfo(const MCAsmInfo &);
+  MCAsmInfo &operator =(const MCAsmInfo &);
 
   /// Get the code pointer size in bytes.
   unsigned getCodePointerSize() const { return CodePointerSize; }
