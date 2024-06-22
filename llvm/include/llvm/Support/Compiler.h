@@ -138,16 +138,6 @@
 #define LLVM_ALWAYS_EXPORT
 #endif
 
-#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
-#define LLVM_EXTERNAL_VISIBILITY LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
-#else
-#define LLVM_EXTERNAL_VISIBILITY
-#endif
-#define LLVM_ALWAYS_EXPORT LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
-#else
-#define LLVM_LIBRARY_VISIBILITY
-#define LLVM_EXTERNAL_VISIBILITY
-#endif
 
 /// LLVM_ABI is the main export/visibility macro to mark something as explicitly
 /// exported when llvm is built as a shared library with everything else that is 
