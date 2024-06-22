@@ -28,7 +28,7 @@ class MCExpr;
 class MachineFunction;
 
 /// Track resource usage for kernels / entry functions.
-struct LLVM_EXTERNAL_VISIBILITY SIProgramInfo {
+struct LLVM_ABI SIProgramInfo {
     // Fields set in PGM_RSRC1 pm4 packet.
     const MCExpr *VGPRBlocks = nullptr;
     const MCExpr *SGPRBlocks = nullptr;
