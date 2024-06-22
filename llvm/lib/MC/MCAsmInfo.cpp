@@ -73,6 +73,9 @@ MCAsmInfo::MCAsmInfo() {
 
 MCAsmInfo::~MCAsmInfo() = default;
 
+MCAsmInfo::MCAsmInfo(const MCAsmInfo &) = default;
+MCAsmInfo &MCAsmInfo::operator =(const MCAsmInfo &) = default;
+
 void MCAsmInfo::addInitialFrameState(const MCCFIInstruction &Inst) {
   InitialFrameState.push_back(Inst);
 }
