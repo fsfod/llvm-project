@@ -174,7 +174,8 @@ namespace PBQP {
     EdgeVector Edges;
     FreeEdgeVector FreeEdgeIds;
 
-    Graph(const Graph &Other) {}
+    Graph(const Graph &Other) = default;
+    Graph &operator=(const Graph &Other) = default;
 
     // ----- INTERNAL METHODS -----
 
@@ -222,8 +223,6 @@ namespace PBQP {
       NE.connect(*this, EId);
       return EId;
     }
-
-    void operator=(const Graph &Other) {}
 
   public:
     using AdjEdgeItr = typename NodeEntry::AdjEdgeItr;
