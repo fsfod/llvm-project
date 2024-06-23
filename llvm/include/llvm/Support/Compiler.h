@@ -155,53 +155,44 @@
 /// for the libllvm-c API. This used both for the llvm-c headers and for the 
 /// functions declared in the different Target's c++ source files that don't include
 /// the header forward declaring them.
+#ifndef LLVM_ABI_GENERATING_ANNOTATIONS
+// Marker to add to classes or functions in public headers that should not have
+// export macros added to them by the clang tool
+#define LLVM_ABI_NOT_EXPORTED
+#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
 #if defined(_WIN32)
 #if defined(LLVM_ABI_EXPORTS)
 #define LLVM_ABI __declspec(dllexport)
-#define LLVM_C_ABI LLVM_ABI
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE LLVM_ABI
 #elif defined(LLVM_DLL_IMPORT)
 #define LLVM_ABI __declspec(dllimport)
-#define LLVM_C_ABI LLVM_ABI
-#define LLVM_TEMPLATE_ABI LLVM_ABI
+#define LLVM_TEMPLATE_ABI __declspec(dllimport)
 #define LLVM_EXPORT_TEMPLATE
 #else
-#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
-#define LLVM_C_ABI __declspec(dllexport)
-#else
-#define LLVM_C_ABI
-#endif
 #define LLVM_ABI
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE
 #endif
-#define LLVM_CLASS_ABI LLVM_ABI
-#define LLVM_ALWAYS_EXPORT __declspec(dllexport)
-#elif defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
-#if defined(__ELF__)
+#elif defined(__ELF__)
 #define LLVM_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
-#define LLVM_CLASS_ABI LLVM_ABI
-#define LLVM_TEMPLATE_ABI LLVM_ABI
+#define LLVM_TEMPLATE_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
 #define LLVM_EXPORT_TEMPLATE
 #elif defined(__MACH__) || defined(__WASM__)
 #define LLVM_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
-#define LLVM_CLASS_ABI LLVM_ABI
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE
 #endif
-#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
-#define LLVM_C_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
+#define LLVM_C_ABI LLVM_ABI
+#define LLVM_CLASS_ABI LLVM_ABI
 #else
-#define LLVM_C_ABI
-#endif
-#else
+#define LLVM_C_ABI 
 #define LLVM_ABI
 #define LLVM_CLASS_ABI
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE
 #endif
-#define LLVM_FUNC_ABI LLVM_ABI
+#endif
 
 #if defined(__GNUC__)
 #define LLVM_PREFETCH(addr, rw, locality) __builtin_prefetch(addr, rw, locality)
