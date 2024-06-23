@@ -761,6 +761,11 @@ if (MSVC)
       # warning gets triggered a lot for bases we haven't exported'
       -wd4275 # non dll-interface class used as base for dll-interface class
 
+      # Multiple llvm headers declare class templates members out of line in a separate header
+      # thats only included where the class is used. This warning gets spam'ed for 
+      # all those class template members when a dllexport'ed class is derived from that class template
+      -wd4661 # no suitable definition provided for explicit template instantiation request
+
       # Promoted warnings.
       -w14062 # Promote 'enumerator in switch of enum is not handled' to level 1 warning.
 
