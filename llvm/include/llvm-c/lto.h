@@ -16,7 +16,14 @@
 #ifndef LLVM_C_LTO_H
 #define LLVM_C_LTO_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm-c/ExternC.h"
+
+#ifdef LLVM_BUILDING_LIBLTO
+#define LLVM_ABI_LTO LLVM_ABI_EXPORT
+#else
+#define LLVM_ABI_LTO LLVM_C_ABI
+#endif
 
 #ifdef __cplusplus
 #include <cstddef>
