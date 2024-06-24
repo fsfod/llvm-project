@@ -2008,11 +2008,6 @@ public:
              Register, LLT>
   getFirst5RegLLTs() const;
 
-  MachineInstr *getPrevNode();
-  MachineInstr *getNextNode();
-  using ilist_node_with_parent::getNextNode;
-  using ilist_node_with_parent::getPrevNode;
-
 private:
   /// If this instruction is embedded into a MachineFunction, return the
   /// MachineRegisterInfo object for the current function, otherwise

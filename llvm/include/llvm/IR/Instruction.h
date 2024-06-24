@@ -928,11 +928,6 @@ public:
     return V->getValueID() >= Value::InstructionVal;
   }
 
-  Instruction *getPrevNode();
-  Instruction *getNextNode();
-  using ilist_node_with_parent::getNextNode;
-  using ilist_node_with_parent::getPrevNode;
-
   //----------------------------------------------------------------------
   // Exported enumerations.
   //
