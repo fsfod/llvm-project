@@ -5011,7 +5011,7 @@ template <typename MemberTy> struct PotentialValuesState : AbstractState {
 
   /// Maximum number of potential values to be tracked.
   /// This is set by -attributor-max-potential-values command line option
-  LLVM_ABI static unsigned MaxPotentialValues;
+  static unsigned MaxPotentialValues;
 
   /// Return empty set as the best state of potential values.
   static PotentialValuesState getBestState() {
@@ -5132,6 +5132,8 @@ private:
   /// Flag for undef value
   bool UndefIsContained;
 };
+
+template <typename MemberTy> unsigned PotentialValuesState<MemberTy>::MaxPotentialValues = -1;
 
 struct DenormalFPMathState : public AbstractState {
   struct DenormalState {
@@ -5324,7 +5326,7 @@ struct LLVM_CLASS_ABI AAPotentialValues
   const PotentialLLVMValuesState &getState() const override { return *this; }
 
   /// Create an abstract attribute view for the position \p IRP.
-  LLVM_ABI static AAPotentialValues &createForPosition(const IRPosition &IRP,
+  static AAPotentialValues &createForPosition(const IRPosition &IRP,
                                               Attributor &A);
 
   /// Extract the single value in \p Values if any.
@@ -5345,7 +5347,7 @@ struct LLVM_CLASS_ABI AAPotentialValues
   }
 
   /// Unique ID (due to the unique address)
-  LLVM_ABI static const char ID;
+  static const char ID;
 
 private:
   virtual bool getAssumedSimplifiedValues(
