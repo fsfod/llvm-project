@@ -516,10 +516,6 @@ private:
     return &BasicBlock::InstList;
   }
 
-  /// Allow getPrevNode/getNextNode to access getSublistAccess 
-  template<typename node, typename parent> friend node* ilist_accessors::getPrevNode(node*);
-  template<typename node, typename parent> friend node* ilist_accessors::getNextNode(node*);
-
   /// Dedicated function for splicing debug-info: when we have an empty
   /// splice (i.e. zero instructions), the caller may still intend any
   /// debug-info in between the two "positions" to be spliced.
@@ -708,11 +704,6 @@ public:
   /// each ordering to ensure that transforms have the same algorithmic
   /// complexity when asserts are enabled as when they are disabled.
   void validateInstrOrdering() const;
-
-  BasicBlock *getPrevNode();
-  BasicBlock *getNextNode();
-  using ilist_node_with_parent::getNextNode;
-  using ilist_node_with_parent::getPrevNode;
 
 private:
 #if defined(_AIX) && (!defined(__GNUC__) || defined(__clang__))

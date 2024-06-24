@@ -770,8 +770,6 @@ private:
   friend class InstIterator;
   friend class llvm::SymbolTableListTraits<llvm::BasicBlock>;
   friend class llvm::ilist_node_with_parent<llvm::BasicBlock, llvm::Function>;
-  friend BasicBlock* ilist_accessors::getPrevNode<llvm::BasicBlock, llvm::Function>(BasicBlock*);
-  friend BasicBlock* ilist_accessors::getNextNode<llvm::BasicBlock, llvm::Function>(BasicBlock*);
 
   /// Get the underlying elements of the Function... the basic block list is
   /// empty for external functions.

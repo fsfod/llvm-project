@@ -1312,11 +1312,3 @@ Instruction *Instruction::clone() const {
   New->copyMetadata(*this);
   return New;
 }
-
-Instruction *Instruction::getPrevNode() {
-  return ilist_accessors::getPrevNode(this);
-}
-
-Instruction *Instruction::getNextNode() {
-  return ilist_accessors::getNextNode(this);
-}

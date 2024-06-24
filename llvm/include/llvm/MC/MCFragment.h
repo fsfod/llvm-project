@@ -112,11 +112,6 @@ public:
 
   void setSubsectionNumber(unsigned Value) { SubsectionNumber = Value; }
   unsigned getSubsectionNumber() const { return SubsectionNumber; }
-
-  MCFragment *getPrevNode();
-  MCFragment *getNextNode();
-  using ilist_node_with_parent::getNextNode;
-  using ilist_node_with_parent::getPrevNode;
 };
 
 class MCDummyFragment : public MCFragment {

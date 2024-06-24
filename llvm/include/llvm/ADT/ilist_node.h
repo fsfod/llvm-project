@@ -281,51 +281,12 @@ public:
   bool empty() const { return this == this->getPrev(); }
 };
 
-
-class LLVM_CLASS_ABI ilist_accessors {
-public:
-  /// @name Adjacent Node Accessors
-  /// @{
-  /// Get the previous node, or \c nullptr for the list head.
-   template <typename NodeTy, typename ParentTy = typename NodeTy::parent_type> 
-   static NodeTy *getPrevNode(NodeTy *node) {
-    // Should be separated to a reused function, but then we couldn't use auto
-    // (and would need the type of the list).
-    const auto &List =
-      node->getNodeParent()->*(ParentTy::getSublistAccess((NodeTy *)nullptr));
-    return List.getPrevNode(*static_cast<NodeTy *>(node));
-  }
-
-  /// Get the next node, or \c nullptr for the list tail.
-  template <typename NodeTy, typename ParentTy = typename NodeTy::parent_type>
-  static NodeTy *getNextNode(NodeTy *node) {
-    const auto &List =
-      node->getNodeParent()->*(ParentTy::getSublistAccess((NodeTy *)nullptr));
-    return List.getNextNode(*static_cast<NodeTy *>(node));
-  }
-
-  template <typename NodeTy, typename ParentTy = typename NodeTy::parent_type>
-  static const NodeTy *getPrevNode(const NodeTy *node) {
-    return getPrevNode(const_cast<NodeTy *>(node));
-  }
-
-  /// Get the next node, or \c nullptr for the list tail.
-  template <typename NodeTy, typename ParentTy = typename NodeTy::parent_type>
-  static const NodeTy *getNextNode(const NodeTy *node) {
-    return getNextNode(const_cast<NodeTy *>(node));
-  }
-  /// @}
-};
-
 /// An ilist node that can access its parent list.
 ///
 /// Requires \c NodeTy to have \a getParent() to find the parent node, and the
 /// \c ParentTy to have \a getSublistAccess() to get a reference to the list.
 template <typename NodeTy, typename ParentTy, class... Options>
 class ilist_node_with_parent : public ilist_node<NodeTy, Options...> {
-public:
-  using parent_type = ParentTy;
-  using node_type = NodeTy;
 protected:
   ilist_node_with_parent() = default;
 
@@ -343,17 +304,33 @@ public:
   /// @name Adjacent Node Accessors
   /// @{
   /// Get the previous node, or \c nullptr for the list head.
-  const NodeTy *getPrevNode() const {
-    return static_cast<NodeTy *>(const_cast<ilist_node_with_parent *>(this))->getPrevNode();
+  NodeTy *getPrevNode() {
+    // Should be separated to a reused function, but then we couldn't use auto
+    // (and would need the type of the list).
+    const auto &List =
+        getNodeParent()->*(ParentTy::getSublistAccess((NodeTy *)nullptr));
+    return List.getPrevNode(*static_cast<NodeTy *>(this));
   }
+
+  /// Get the previous node, or \c nullptr for the list head.
+  const NodeTy *getPrevNode() const {
+    return const_cast<ilist_node_with_parent *>(this)->getPrevNode();
+  }
+
+  /// Get the next node, or \c nullptr for the list tail.
+  NodeTy *getNextNode() {
+    // Should be separated to a reused function, but then we couldn't use auto
+    // (and would need the type of the list).
+    const auto &List =
+        getNodeParent()->*(ParentTy::getSublistAccess((NodeTy *)nullptr));
+    return List.getNextNode(*static_cast<NodeTy *>(this));
+  }
+
   /// Get the next node, or \c nullptr for the list tail.
   const NodeTy *getNextNode() const {
-    return static_cast<NodeTy *>(const_cast<ilist_node_with_parent *>(this))->getNextNode();
+    return const_cast<ilist_node_with_parent *>(this)->getNextNode();
   }
   /// @}
-
-  friend NodeTy* ilist_accessors::getPrevNode<NodeTy, ParentTy>(NodeTy* node);
-  friend NodeTy* ilist_accessors::getNextNode<NodeTy, ParentTy>(NodeTy* node);
 };
 
 } // end namespace llvm

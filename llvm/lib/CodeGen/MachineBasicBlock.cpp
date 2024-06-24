@@ -1768,14 +1768,6 @@ bool MachineBasicBlock::sizeWithoutDebugLargerThan(unsigned Limit) const {
   return false;
 }
 
-MachineBasicBlock *MachineBasicBlock::getPrevNode() {
-  return ilist_accessors::getPrevNode(this);
-}
-
-MachineBasicBlock *MachineBasicBlock::getNextNode() {
-  return ilist_accessors::getNextNode(this);
-}
-
 const MBBSectionID MBBSectionID::ColdSectionID(MBBSectionID::SectionType::Cold);
 const MBBSectionID
     MBBSectionID::ExceptionSectionID(MBBSectionID::SectionType::Exception);
