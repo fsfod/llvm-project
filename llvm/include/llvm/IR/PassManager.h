@@ -610,6 +610,12 @@ extern template class LLVM_TEMPLATE_ABI AnalysisManager<Function>;
 /// Convenience typedef for the Function analysis manager.
 using FunctionAnalysisManager = AnalysisManager<Function>;
 
+#if !defined(_MSC_VER) || !defined(__clang__)
+#define LLVM_ABI_CLANGCL
+#else
+#define LLVM_ABI_CLANGCL LLVM_ABI
+#endif
+
 /// An analysis over an "outer" IR unit that provides access to an
 /// analysis manager over an "inner" IR unit.  The inner unit must be contained
 /// in the outer unit.
@@ -698,14 +704,12 @@ public:
 private:
   friend AnalysisInfoMixin<
       InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT>>;
-
-  static AnalysisKey Key ;
-
+  LLVM_ABI_CLANGCL static AnalysisKey Key;
   AnalysisManagerT *InnerAM;
 };
 
 template <typename AnalysisManagerT, typename IRUnitT, typename... ExtraArgTs>
-AnalysisKey
+LLVM_ABI_CLANGCL AnalysisKey
     InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT, ExtraArgTs...>::Key;
 
 /// Provide the \c FunctionAnalysisManager to \c Module proxy.
