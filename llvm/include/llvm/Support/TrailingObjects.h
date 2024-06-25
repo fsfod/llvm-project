@@ -110,6 +110,9 @@ class TrailingObjectsImpl {
   // specializations cover all possibilities.
 };
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4661)
+#endif
 template <int Align, typename BaseTy, typename TopTrailingObj, typename PrevTy,
           typename NextTy, typename... MoreTys>
 class TrailingObjectsImpl<Align, BaseTy, TopTrailingObj, PrevTy, NextTy,
