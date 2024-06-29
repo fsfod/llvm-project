@@ -1226,9 +1226,13 @@ Expected<file_t> openNativeFile(const Twine &Name, CreationDisposition Disp,
   if (Flags & OF_ChildInherit)
     Inherit = true;
 
+  DWORD AttributeFlags = (Flags & OpenFlags::OF_DeleteCrossProcess)
+                             ? FILE_FLAG_DELETE_ON_CLOSE
+                             : FILE_ATTRIBUTE_NORMAL;
+
   file_t Result;
   std::error_code EC = openNativeFileInternal(
-      Name, Result, NativeDisp, NativeAccess, FILE_ATTRIBUTE_NORMAL, Inherit);
+      Name, Result, NativeDisp, NativeAccess, AttributeFlags, Inherit);
   if (EC)
     return errorCodeToError(EC);
 
