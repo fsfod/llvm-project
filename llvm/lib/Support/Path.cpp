@@ -1335,9 +1335,11 @@ Expected<TempFile> TempFile::create(const Twine &Model, unsigned Mode,
 #ifdef _WIN32
   auto H = reinterpret_cast<HANDLE>(_get_osfhandle(FD));
   bool SetSignalHandler = false;
-  if (std::error_code EC = setDeleteDisposition(H, true)) {
-    Ret.RemoveOnClose = true;
-    SetSignalHandler = true;
+  if (!(OpenFlags::OF_DeleteCrossProcess & ExtraFlags)) {
+    if (std::error_code EC = setDeleteDisposition(H, true)) {
+      Ret.RemoveOnClose = true;
+      SetSignalHandler = true;
+    }
   }
 #else
   bool SetSignalHandler = true;
