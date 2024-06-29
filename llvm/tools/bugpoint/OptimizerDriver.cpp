@@ -145,7 +145,9 @@ bool BugDriver::runPasses(Module &Program,
 
   // set up the input file name
   Expected<sys::fs::TempFile> Temp =
-      sys::fs::TempFile::create(OutputPrefix + "-input-%%%%%%%.bc");
+      sys::fs::TempFile::create(OutputPrefix + "-input-%%%%%%%.bc",
+                                sys::fs::all_read | sys::fs::all_write,
+                                sys::fs::OpenFlags::OF_DeleteCrossProcess);
   if (!Temp) {
     errs() << getToolName()
            << ": Error making unique filename: " << toString(Temp.takeError())

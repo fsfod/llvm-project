@@ -370,7 +370,10 @@ llvm::SplitFunctionsOutOfModule(Module *M, const std::vector<Function *> &F,
 std::unique_ptr<Module>
 BugDriver::extractMappedBlocksFromModule(const std::vector<BasicBlock *> &BBs,
                                          Module *M) {
-  auto Temp = sys::fs::TempFile::create(OutputPrefix + "-extractblocks%%%%%%%");
+  auto Temp =
+      sys::fs::TempFile::create(OutputPrefix + "-extractblocks%%%%%%%",
+                                sys::fs::all_read | sys::fs::all_write,
+                                sys::fs::OpenFlags::OF_DeleteCrossProcess);
   if (!Temp) {
     outs() << "*** Basic Block extraction failed!\n";
     errs() << "Error creating temporary file: " << toString(Temp.takeError())
