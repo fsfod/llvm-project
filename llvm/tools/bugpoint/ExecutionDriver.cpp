@@ -258,7 +258,9 @@ Error BugDriver::initializeExecutionEnvironment() {
 Error BugDriver::compileProgram(Module &M) const {
   // Emit the program to a bitcode file...
   auto Temp =
-      sys::fs::TempFile::create(OutputPrefix + "-test-program-%%%%%%%.bc");
+      sys::fs::TempFile::create(OutputPrefix + "-test-program-%%%%%%%.bc",
+                                sys::fs::all_read | sys::fs::all_write,
+                                sys::fs::OpenFlags::OF_DeleteCrossProcess);
   if (!Temp) {
     errs() << ToolName
            << ": Error making unique filename: " << toString(Temp.takeError())
