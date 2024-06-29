@@ -780,6 +780,10 @@ enum OpenFlags : unsigned {
   /// Force files Atime to be updated on access. Only makes a difference on
   /// Windows.
   OF_UpdateAtime = 32,
+
+  /// Don't set file disposition on temp file so it can be open by other
+  /// processes. Only makes a difference on Windows.
+  OF_DeleteCrossProcess = 64,
 };
 
 /// Create a potentially unique file name but does not create it.
