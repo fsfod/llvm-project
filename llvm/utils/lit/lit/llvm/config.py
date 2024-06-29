@@ -457,7 +457,7 @@ class LLVMConfig(object):
             ),
         ]
 
-        self.config.substitutions.append(("%python", '"%s"' % (sys.executable)))
+        self.config.substitutions.append(("%python", '"%s"' % (sys.executable).replace('\\', '/')))
 
         self.add_tool_substitutions(tool_patterns, [self.config.llvm_tools_dir])
 
