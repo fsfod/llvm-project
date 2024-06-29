@@ -106,6 +106,9 @@ public:
 
   void reset() { Storage.reset(); }
 
+  template <typename T> static void* anchor() { 
+    return  &Any::TypeId<remove_cvref_t<T>>::Id; 
+  }
 private:
   // Only used for the internal llvm::Any implementation
   template <typename T> bool isa() const {

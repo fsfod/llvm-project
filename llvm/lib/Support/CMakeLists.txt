@@ -131,6 +131,7 @@ add_subdirectory(BLAKE3)
 
 add_llvm_component_library(LLVMSupport
   ABIBreak.cpp
+  Any.cpp
   AMDGPUMetadata.cpp
   APFixedPoint.cpp
   APFloat.cpp
