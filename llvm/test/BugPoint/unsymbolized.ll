@@ -1,4 +1,5 @@
 ; REQUIRES: plugins
+; UNSUPPORTED: system-windows
 ; RUN: echo "import sys" > %t.py
 ; RUN: echo "print('args = ' + str(sys.argv))" >> %t.py
 ; RUN: echo "exit(1)" >> %t.py
