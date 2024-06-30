@@ -159,7 +159,8 @@
 // Marker to add to classes or functions in public headers that should not have
 // export macros added to them by the clang tool
 #define LLVM_ABI_NOT_EXPORTED
-#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
+#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS) ||       \
+    defined(LLVM_ENABLE_PLUGINS)
 #if defined(_WIN32)
 #if defined(LLVM_ABI_EXPORTS)
 #define LLVM_ABI __declspec(dllexport)
