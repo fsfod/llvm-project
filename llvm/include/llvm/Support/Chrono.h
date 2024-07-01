@@ -100,7 +100,7 @@ template <> struct format_provider<sys::UtcTime<std::chrono::seconds>> {
 };
 
 namespace detail {
-template <typename Period> struct unit { static const char value[]; };
+template <typename Period> struct LLVM_ABI_NOT_EXPORTED unit { static const char value[]; };
 template <typename Period> const char unit<Period>::value[] = "";
 
 template <> struct unit<std::ratio<3600>> { static const char value[]; };
