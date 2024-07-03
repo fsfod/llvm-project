@@ -9,6 +9,7 @@
 #ifndef LLVM_CLANG_BASIC_CUDA_H
 #define LLVM_CLANG_BASIC_CUDA_H
 
+#include "clang/Support/Compiler.h"
 namespace llvm {
 class StringRef;
 class Twine;
@@ -47,9 +48,9 @@ enum class CudaVersion {
       CUDA_124, // Partially supported. Proceed with a warning.
   NEW = 10000,  // Too new. Issue a warning, but allow using it.
 };
-const char *CudaVersionToString(CudaVersion V);
+CLANG_ABI const char *CudaVersionToString(CudaVersion V);
 // Input is "Major.Minor"
-CudaVersion CudaStringToVersion(const llvm::Twine &S);
+CLANG_ABI CudaVersion CudaStringToVersion(const llvm::Twine &S);
 
 enum class CudaArch {
   UNUSED,
@@ -146,17 +147,17 @@ static inline bool IsAMDGpuArch(CudaArch A) {
   return A >= CudaArch::GFX600 && A < CudaArch::Generic;
 }
 
-const char *CudaArchToString(CudaArch A);
-const char *CudaArchToVirtualArchString(CudaArch A);
+CLANG_ABI const char *CudaArchToString(CudaArch A);
+CLANG_ABI const char *CudaArchToVirtualArchString(CudaArch A);
 
 // The input should have the form "sm_20".
-CudaArch StringToCudaArch(llvm::StringRef S);
+CLANG_ABI CudaArch StringToCudaArch(llvm::StringRef S);
 
 /// Get the earliest CudaVersion that supports the given CudaArch.
-CudaVersion MinVersionForCudaArch(CudaArch A);
+CLANG_ABI CudaVersion MinVersionForCudaArch(CudaArch A);
 
 /// Get the latest CudaVersion that supports the given CudaArch.
-CudaVersion MaxVersionForCudaArch(CudaArch A);
+CLANG_ABI CudaVersion MaxVersionForCudaArch(CudaArch A);
 
 //  Various SDK-dependent features that affect CUDA compilation
 enum class CudaFeature {
@@ -166,9 +167,9 @@ enum class CudaFeature {
   CUDA_USES_FATBIN_REGISTER_END,
 };
 
-CudaVersion ToCudaVersion(llvm::VersionTuple);
-bool CudaFeatureEnabled(llvm::VersionTuple, CudaFeature);
-bool CudaFeatureEnabled(CudaVersion, CudaFeature);
+CLANG_ABI CudaVersion ToCudaVersion(llvm::VersionTuple);
+CLANG_ABI bool CudaFeatureEnabled(llvm::VersionTuple, CudaFeature);
+CLANG_ABI bool CudaFeatureEnabled(CudaVersion, CudaFeature);
 
 } // namespace clang
 
