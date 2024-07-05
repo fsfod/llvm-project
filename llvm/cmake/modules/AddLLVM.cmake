@@ -588,6 +588,10 @@ function(llvm_add_library name)
         endif()
       endforeach()
     endif()
+
+    if(ARG_DISABLE_LLVM_LINK_LLVM_DYLIB)
+      target_compile_definitions(${obj_name} PRIVATE LLVM_BUILD_STATIC)
+    endif()
   endif()
 
   if(ARG_SHARED AND ARG_STATIC)
@@ -627,11 +631,14 @@ function(llvm_add_library name)
   ## https://blog.llvm.org/2018/11/30-faster-windows-builds-with-clang-cl_14.html
   if(LLVM_BUILD_LLVM_DYLIB AND NOT LLVM_DYLIB_EXPORT_INLINES AND MSVC AND CMAKE_CXX_COMPILER_ID MATCHES Clang)
     target_compile_options(${name} PUBLIC /Zc:dllexportInlines-)
+    if(TARGET ${obj_name})
+      target_compile_options(${obj_name} PUBLIC /Zc:dllexportInlines-)
+    endif()
   endif()
 
   if(ARG_COMPONENT_LIB)
     set_target_properties(${name} PROPERTIES LLVM_COMPONENT TRUE)
-    target_compile_definitions(${name} PRIVATE LLVM_ABI_EXPORTS)
+    target_compile_definitions(${name} PRIVATE LLVM_EXPORTS)
 
     # When building shared objects for each target there are some internal APIs
     # that are used across shared objects which we can't hide.
@@ -742,8 +749,10 @@ function(llvm_add_library name)
   elseif (NOT ARG_COMPONENT_LIB)
     if (LLVM_LINK_LLVM_DYLIB AND NOT ARG_DISABLE_LLVM_LINK_LLVM_DYLIB)
       set(llvm_libs LLVM)
-      target_compile_options(${name} PRIVATE -DLLVM_DLL_IMPORT)
     else()
+      if(ARG_DISABLE_LLVM_LINK_LLVM_DYLIB)
+        target_compile_definitions(${name} PRIVATE LLVM_BUILD_STATIC)
+      endif()
       llvm_map_components_to_libnames(llvm_libs
        ${ARG_LINK_COMPONENTS}
        ${LLVM_LINK_COMPONENTS}
