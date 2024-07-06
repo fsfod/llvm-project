@@ -59,6 +59,11 @@ template class LLVM_EXPORT_TEMPLATE OuterAnalysisManagerProxy<
 template class LLVM_EXPORT_TEMPLATE
     OuterAnalysisManagerProxy<CGSCCAnalysisManager, Function>;
 
+template struct LLVM_EXPORT_TEMPLATE PassInfoMixin<OuterAnalysisManagerProxy<
+    AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>, Function>>;
+template struct LLVM_EXPORT_TEMPLATE PassInfoMixin<OuterAnalysisManagerProxy<
+    AnalysisManager<Module>, LazyCallGraph::SCC, LazyCallGraph &>>;
+
 /// Explicitly specialize the pass manager run method to handle call graph
 /// updates.
 template <>
