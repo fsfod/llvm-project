@@ -41,7 +41,7 @@ namespace llvm {
   /// pluggable components (like targets or garbage collectors) "just work" when
   /// linked with an executable.
   template <typename T>
-  class Registry {
+  class LLVM_ABI_NOT_EXPORTED Registry {
   public:
     typedef T type;
     typedef SimpleRegistryEntry<T> entry;
@@ -152,8 +152,8 @@ namespace llvm {
   template REGISTRY_CLASS::node *Registry<REGISTRY_CLASS::type>::Head; \
   template REGISTRY_CLASS::node *Registry<REGISTRY_CLASS::type>::Tail; \
   template \
-  void Registry<REGISTRY_CLASS::type>::add_node(REGISTRY_CLASS::node*); \
-  template REGISTRY_CLASS::iterator Registry<REGISTRY_CLASS::type>::begin(); \
+  LLVM_ABI_EXPORT void Registry<REGISTRY_CLASS::type>::add_node(REGISTRY_CLASS::node*); \
+  template LLVM_ABI_EXPORT REGISTRY_CLASS::iterator Registry<REGISTRY_CLASS::type>::begin(); \
   }
 
 #endif // LLVM_SUPPORT_REGISTRY_H

@@ -23,4 +23,8 @@ using FrontendPluginRegistry = llvm::Registry<PluginASTAction>;
 
 } // namespace clang
 
+namespace llvm {
+extern template class CLANG_TEMPLATE_ABI Registry<clang::PluginASTAction>;
+} // namespace llvm
+
 #endif // LLVM_CLANG_FRONTEND_FRONTENDPLUGINREGISTRY_H
