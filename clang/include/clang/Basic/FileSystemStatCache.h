@@ -68,6 +68,10 @@ protected:
 /// execution of the front end.
 class MemorizeStatCalls : public FileSystemStatCache {
 public:
+  MemorizeStatCalls() = default;
+  MemorizeStatCalls(const MemorizeStatCalls &) = delete;
+  MemorizeStatCalls &operator =(const MemorizeStatCalls &) = delete;
+
   /// The set of stat() calls that have been seen.
   llvm::StringMap<llvm::vfs::Status, llvm::BumpPtrAllocator> StatCalls;
 

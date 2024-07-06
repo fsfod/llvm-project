@@ -668,6 +668,9 @@ public:
   /// language keywords for the language specified by \p LangOpts.
   explicit IdentifierTable(const LangOptions &LangOpts,
                            IdentifierInfoLookup *ExternalLookup = nullptr);
+  IdentifierTable(const IdentifierTable &) = delete;
+  IdentifierTable &operator =(const IdentifierTable &) = delete;
+
 
   /// Set the external identifier lookup mechanism.
   void setExternalIdentifierLookup(IdentifierInfoLookup *IILookup) {
