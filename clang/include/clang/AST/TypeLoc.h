@@ -22,6 +22,7 @@
 #include "clang/Basic/LLVM.h"
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Basic/Specifiers.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/Compiler.h"
@@ -56,7 +57,7 @@ class UnresolvedUsingTypenameDecl;
 ///
 /// A client should use the TypeLoc subclasses through castAs()/getAs()
 /// in order to get at the actual information.
-class TypeLoc {
+class CLANG_ABI TypeLoc {
 protected:
   // The correctness of this relies on the property that, for Type *Ty,
   //   QualType(Ty, 0).getAsOpaquePtr() == (void*) Ty
@@ -522,7 +523,7 @@ struct TypeSpecLocInfo {
 
 /// A reasonable base class for TypeLocs that correspond to
 /// types that are written as a type-specifier.
-class TypeSpecTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI TypeSpecTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                TypeSpecTypeLoc,
                                                Type,
                                                TypeSpecLocInfo> {
@@ -559,7 +560,7 @@ struct BuiltinLocInfo {
 };
 
 /// Wrapper for source info for builtin types.
-class BuiltinTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI BuiltinTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                               BuiltinTypeLoc,
                                               BuiltinType,
                                               BuiltinLocInfo> {
@@ -725,7 +726,7 @@ public:
 /// should be represented as an ElaboratedTypeLoc.  We currently
 /// only do that when C++ is enabled because of the expense of
 /// creating an ElaboratedType node for so many type references in C.
-class TagTypeLoc : public InheritingConcreteTypeLoc<TypeSpecTypeLoc,
+class CLANG_ABI TagTypeLoc : public InheritingConcreteTypeLoc<TypeSpecTypeLoc,
                                                     TagTypeLoc,
                                                     TagType> {
 public:
@@ -766,7 +767,7 @@ struct ObjCTypeParamTypeLocInfo {
 
 /// ProtocolLAngleLoc, ProtocolRAngleLoc, and the source locations for
 /// protocol qualifiers are stored after Info.
-class ObjCTypeParamTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI ObjCTypeParamTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                      ObjCTypeParamTypeLoc,
                                      ObjCTypeParamType,
                                      ObjCTypeParamTypeLocInfo> {
@@ -869,7 +870,7 @@ struct AttributedLocInfo {
 };
 
 /// Type source information for an attributed type.
-class AttributedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI AttributedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                  AttributedTypeLoc,
                                                  AttributedType,
                                                  AttributedLocInfo> {
@@ -920,7 +921,7 @@ public:
 struct BTFTagAttributedLocInfo {}; // Nothing.
 
 /// Type source information for an btf_tag attributed type.
-class BTFTagAttributedTypeLoc
+class CLANG_ABI BTFTagAttributedTypeLoc
     : public ConcreteTypeLoc<UnqualTypeLoc, BTFTagAttributedTypeLoc,
                              BTFTagAttributedType, BTFTagAttributedLocInfo> {
 public:
@@ -953,7 +954,7 @@ struct ObjCObjectTypeLocInfo {
 //
 // TypeClass basically has to be either ObjCInterfaceType or
 // ObjCObjectPointerType.
-class ObjCObjectTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI ObjCObjectTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                  ObjCObjectTypeLoc,
                                                  ObjCObjectType,
                                                  ObjCObjectTypeLocInfo> {
@@ -1134,7 +1135,7 @@ public:
   unsigned getLocalDataSize() const { return 0; }
 };
 
-class CountAttributedTypeLoc final
+class CLANG_ABI CountAttributedTypeLoc final
     : public InheritingConcreteTypeLoc<BoundsAttributedTypeLoc,
                                        CountAttributedTypeLoc,
                                        CountAttributedType> {
@@ -1650,7 +1651,7 @@ struct TemplateSpecializationLocInfo : TemplateNameLocInfo {
   SourceLocation RAngleLoc;
 };
 
-class TemplateSpecializationTypeLoc :
+class CLANG_ABI TemplateSpecializationTypeLoc :
     public ConcreteTypeLoc<UnqualTypeLoc,
                            TemplateSpecializationTypeLoc,
                            TemplateSpecializationType,
@@ -2033,7 +2034,7 @@ public:
   }
 };
 
-class TypeOfExprTypeLoc : public TypeofLikeTypeLoc<TypeOfExprTypeLoc,
+class CLANG_ABI TypeOfExprTypeLoc : public TypeofLikeTypeLoc<TypeOfExprTypeLoc,
                                                    TypeOfExprType,
                                                    TypeOfExprTypeLocInfo> {
 public:
@@ -2047,7 +2048,7 @@ public:
   SourceRange getLocalSourceRange() const;
 };
 
-class TypeOfTypeLoc
+class CLANG_ABI TypeOfTypeLoc
   : public TypeofLikeTypeLoc<TypeOfTypeLoc, TypeOfType, TypeOfTypeLocInfo> {
 public:
   QualType getUnmodifiedType() const {
@@ -2131,7 +2132,7 @@ struct UnaryTransformTypeLocInfo {
   TypeSourceInfo *UnderlyingTInfo;
 };
 
-class UnaryTransformTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI UnaryTransformTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                     UnaryTransformTypeLoc,
                                                     UnaryTransformType,
                                                     UnaryTransformTypeLocInfo> {
@@ -2180,7 +2181,7 @@ struct AutoTypeLocInfo : TypeSpecLocInfo {
   ConceptReference *CR = nullptr;
 };
 
-class AutoTypeLoc
+class CLANG_ABI AutoTypeLoc
     : public ConcreteTypeLoc<DeducedTypeLoc,
                              AutoTypeLoc,
                              AutoType,
@@ -2311,7 +2312,7 @@ struct ElaboratedLocInfo {
   void *QualifierData;
 };
 
-class ElaboratedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI ElaboratedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                  ElaboratedTypeLoc,
                                                  ElaboratedType,
                                                  ElaboratedLocInfo> {
@@ -2391,7 +2392,7 @@ struct DependentNameLocInfo : ElaboratedLocInfo {
   SourceLocation NameLoc;
 };
 
-class DependentNameTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class CLANG_ABI DependentNameTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                     DependentNameTypeLoc,
                                                     DependentNameType,
                                                     DependentNameLocInfo> {
@@ -2447,7 +2448,7 @@ struct DependentTemplateSpecializationLocInfo : DependentNameLocInfo {
   // followed by a TemplateArgumentLocInfo[]
 };
 
-class DependentTemplateSpecializationTypeLoc :
+class CLANG_ABI DependentTemplateSpecializationTypeLoc :
     public ConcreteTypeLoc<UnqualTypeLoc,
                            DependentTemplateSpecializationTypeLoc,
                            DependentTemplateSpecializationType,

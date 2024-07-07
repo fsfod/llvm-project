@@ -32,6 +32,7 @@
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Basic/Specifiers.h"
 #include "clang/Basic/Visibility.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/APInt.h"
 #include "llvm/ADT/APSInt.h"
 #include "llvm/ADT/ArrayRef.h"
@@ -315,7 +316,7 @@ public:
 /// * MS: __unaligned
 /// * Embedded C (TR18037): address spaces
 /// * Objective C: the GC attributes (none, weak, or strong)
-class Qualifiers {
+class CLANG_ABI Qualifiers {
 public:
   enum TQ : uint64_t {
     // NOTE: These flags must be kept in sync with DeclSpec::TQ.
@@ -937,7 +938,7 @@ enum class TypeOfKind : uint8_t {
 /// simple wrapper class that acts like a smart pointer.  A third bit
 /// indicates whether there are extended qualifiers present, in which
 /// case the pointer points to a special structure.
-class QualType {
+class CLANG_ABI QualType {
   friend class QualifierCollector;
 
   // Thankfully, these are efficiently composable.
@@ -1626,7 +1627,7 @@ private:
   static bool hasNonTrivialToPrimitiveCopyCUnion(const RecordDecl *RD);
 };
 
-raw_ostream &operator<<(raw_ostream &OS, QualType QT);
+CLANG_ABI raw_ostream &operator<<(raw_ostream &OS, QualType QT);
 
 } // namespace clang
 
@@ -1810,7 +1811,7 @@ enum class VectorKind;
 ///
 /// Types, once created, are immutable.
 ///
-class alignas(TypeAlignment) Type : public ExtQualsTypeCommonBase {
+class alignas(TypeAlignment) CLANG_ABI Type : public ExtQualsTypeCommonBase {
 public:
   enum TypeClass {
 #define TYPE(Class, Base) Class,
@@ -2945,25 +2946,25 @@ public:
 
 /// This will check for a TypedefType by removing any existing sugar
 /// until it reaches a TypedefType or a non-sugared type.
-template <> const TypedefType *Type::getAs() const;
-template <> const UsingType *Type::getAs() const;
+template <> CLANG_ABI const TypedefType *Type::getAs() const;
+template <> CLANG_ABI const UsingType *Type::getAs() const;
 
 /// This will check for a TemplateSpecializationType by removing any
 /// existing sugar until it reaches a TemplateSpecializationType or a
 /// non-sugared type.
-template <> const TemplateSpecializationType *Type::getAs() const;
+template <> CLANG_ABI const TemplateSpecializationType *Type::getAs() const;
 
 /// This will check for an AttributedType by removing any existing sugar
 /// until it reaches an AttributedType or a non-sugared type.
-template <> const AttributedType *Type::getAs() const;
+template <> CLANG_ABI const AttributedType *Type::getAs() const;
 
 /// This will check for a BoundsAttributedType by removing any existing
 /// sugar until it reaches an BoundsAttributedType or a non-sugared type.
-template <> const BoundsAttributedType *Type::getAs() const;
+template <> CLANG_ABI const BoundsAttributedType *Type::getAs() const;
 
 /// This will check for a CountAttributedType by removing any existing
 /// sugar until it reaches an CountAttributedType or a non-sugared type.
-template <> const CountAttributedType *Type::getAs() const;
+template <> CLANG_ABI const CountAttributedType *Type::getAs() const;
 
 // We can do canonical leaf types faster, because we don't have to
 // worry about preserving child type decoration.
@@ -2979,7 +2980,7 @@ template <> inline const Class##Type *Type::castAs() const { \
 
 /// This class is used for builtin types like 'int'.  Builtin
 /// types are always canonical and have a literal name field.
-class BuiltinType : public Type {
+class CLANG_ABI BuiltinType : public Type {
 public:
   enum Kind {
 // OpenCL image types
@@ -3165,7 +3166,7 @@ public:
 
 /// [BoundsSafety] Represents information of declarations referenced by the
 /// arguments of the `counted_by` attribute and the likes.
-class TypeCoupledDeclRefInfo {
+class CLANG_ABI TypeCoupledDeclRefInfo {
 public:
   using BaseTy = llvm::PointerIntPair<ValueDecl *, 1, unsigned>;
 
@@ -3197,7 +3198,7 @@ public:
 /// Provides a common interface to navigate declarations referred to by the
 /// bounds expression.
 
-class BoundsAttributedType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI BoundsAttributedType : public Type, public llvm::FoldingSetNode {
   QualType WrappedTy;
 
 protected:
@@ -3242,7 +3243,7 @@ public:
 
 /// Represents a sugar type with `__counted_by` or `__sized_by` annotations,
 /// including their `_or_null` variants.
-class CountAttributedType final
+class CLANG_ABI CountAttributedType final
     : public BoundsAttributedType,
       public llvm::TrailingObjects<CountAttributedType,
                                    TypeCoupledDeclRefInfo> {
@@ -3458,7 +3459,7 @@ public:
 /// A pointer to member type per C++ 8.3.3 - Pointers to members.
 ///
 /// This includes both pointers to data members and pointer to member functions.
-class MemberPointerType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI MemberPointerType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext; // ASTContext creates these.
 
   QualType PointeeType;
@@ -3516,7 +3517,7 @@ public:
 enum class ArraySizeModifier { Normal, Static, Star };
 
 /// Represents an array type, per C99 6.7.5.2 - Array Declarators.
-class ArrayType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI ArrayType : public Type, public llvm::FoldingSetNode {
 private:
   /// The element type of the array.
   QualType ElementType;
@@ -3554,7 +3555,7 @@ public:
 /// Represents the canonical version of C arrays with a specified constant size.
 /// For example, the canonical type for 'int A[4 + 4*100]' is a
 /// ConstantArrayType where the element type is 'int' and the size is 404.
-class ConstantArrayType : public ArrayType {
+class CLANG_ABI ConstantArrayType : public ArrayType {
   friend class ASTContext; // ASTContext creates these.
 
   struct ExternalSize {
@@ -3799,7 +3800,7 @@ public:
 /// For these types, we won't actually know what the array bound is
 /// until template instantiation occurs, at which point this will
 /// become either a ConstantArrayType or a VariableArrayType.
-class DependentSizedArrayType : public ArrayType {
+class CLANG_ABI DependentSizedArrayType : public ArrayType {
   friend class ASTContext; // ASTContext creates these.
 
   /// An assignment expression that will instantiate to the
@@ -3857,7 +3858,7 @@ public:
 ///   typedef T __attribute__((address_space(AddrSpace))) type;
 /// }
 /// \endcode
-class DependentAddressSpaceType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI DependentAddressSpaceType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext;
 
   Expr *AddrSpaceExpr;
@@ -3897,7 +3898,7 @@ public:
 ///   typedef T __attribute__((ext_vector_type(Size))) type;
 /// }
 /// \endcode
-class DependentSizedExtVectorType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI DependentSizedExtVectorType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext;
 
   Expr *SizeExpr;
@@ -3967,7 +3968,7 @@ enum class VectorKind {
 /// bytes; or from an Altivec __vector or vector declaration.
 /// Since the constructor takes the number of vector elements, the
 /// client is responsible for converting the size into the number of elements.
-class VectorType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI VectorType : public Type, public llvm::FoldingSetNode {
 protected:
   friend class ASTContext; // ASTContext creates these.
 
@@ -4019,7 +4020,7 @@ public:
 ///   typedef T __attribute__((vector_size(Size))) type;
 /// }
 /// \endcode
-class DependentVectorType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI DependentVectorType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext;
 
   QualType ElementType;
@@ -4129,7 +4130,7 @@ public:
 /// Represents a matrix type, as defined in the Matrix Types clang extensions.
 /// __attribute__((matrix_type(rows, columns))), where "rows" specifies
 /// number of rows and "columns" specifies the number of columns.
-class MatrixType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI MatrixType : public Type, public llvm::FoldingSetNode {
 protected:
   friend class ASTContext;
 
@@ -4165,7 +4166,7 @@ public:
 };
 
 /// Represents a concrete matrix type with constant number of rows and columns
-class ConstantMatrixType final : public MatrixType {
+class CLANG_ABI ConstantMatrixType final : public MatrixType {
 protected:
   friend class ASTContext;
 
@@ -4224,7 +4225,7 @@ public:
 
 /// Represents a matrix type where the type and the number of rows and columns
 /// is dependent on a template.
-class DependentSizedMatrixType final : public MatrixType {
+class CLANG_ABI DependentSizedMatrixType final : public MatrixType {
   friend class ASTContext;
 
   Expr *RowExpr;
@@ -4254,7 +4255,7 @@ public:
 
 /// FunctionType - C99 6.7.5.3 - Function Declarators.  This is the common base
 /// class of FunctionNoProtoType and FunctionProtoType.
-class FunctionType : public Type {
+class CLANG_ABI FunctionType : public Type {
   // The type returned by the function.
   QualType ResultType;
 
@@ -4647,7 +4648,7 @@ public:
 /// canonical type. FunctionProtoType has several trailing objects, some of
 /// which optional. For more information about the trailing objects see
 /// the first comment inside FunctionProtoType.
-class FunctionProtoType final
+class CLANG_ABI FunctionProtoType final
     : public FunctionType,
       public llvm::FoldingSetNode,
       private llvm::TrailingObjects<
@@ -4705,7 +4706,7 @@ public:
   /// ExceptionSpecInfo is not stored as such in FunctionProtoType but is
   /// used to group together the various bits of information about the
   /// exception specification.
-  struct ExceptionSpecInfo {
+  struct CLANG_ABI ExceptionSpecInfo {
     /// The kind of exception specification this is.
     ExceptionSpecificationType Type = EST_None;
 
@@ -5172,7 +5173,7 @@ public:
   }
 };
 
-class UsingType final : public Type,
+class CLANG_ABI UsingType final : public Type,
                         public llvm::FoldingSetNode,
                         private llvm::TrailingObjects<UsingType, QualType> {
   UsingShadowDecl *Found;
@@ -5204,7 +5205,7 @@ public:
   static bool classof(const Type *T) { return T->getTypeClass() == Using; }
 };
 
-class TypedefType final : public Type,
+class CLANG_ABI TypedefType final : public Type,
                           public llvm::FoldingSetNode,
                           private llvm::TrailingObjects<TypedefType, QualType> {
   TypedefNameDecl *Decl;
@@ -5240,7 +5241,7 @@ public:
 
 /// Sugar type that represents a type that was qualified by a qualifier written
 /// as a macro invocation.
-class MacroQualifiedType : public Type {
+class CLANG_ABI MacroQualifiedType : public Type {
   friend class ASTContext; // ASTContext creates these.
 
   QualType UnderlyingTy;
@@ -5272,7 +5273,7 @@ public:
 
 /// Represents a `typeof` (or __typeof__) expression (a C23 feature and GCC
 /// extension) or a `typeof_unqual` expression (a C23 feature).
-class TypeOfExprType : public Type {
+class CLANG_ABI TypeOfExprType : public Type {
   Expr *TOExpr;
 
 protected:
@@ -5304,7 +5305,7 @@ public:
 /// This class is used internally by the ASTContext to manage
 /// canonical, dependent types, only. Clients will only see instances
 /// of this class via TypeOfExprType nodes.
-class DependentTypeOfExprType : public TypeOfExprType,
+class CLANG_ABI DependentTypeOfExprType : public TypeOfExprType,
                                 public llvm::FoldingSetNode {
 public:
   DependentTypeOfExprType(Expr *E, TypeOfKind Kind) : TypeOfExprType(E, Kind) {}
@@ -5356,7 +5357,7 @@ public:
 };
 
 /// Represents the type `decltype(expr)` (C++11).
-class DecltypeType : public Type {
+class CLANG_ABI DecltypeType : public Type {
   Expr *E;
   QualType UnderlyingType;
 
@@ -5384,7 +5385,7 @@ public:
 /// This class is used internally by the ASTContext to manage
 /// canonical, dependent types, only. Clients will only see instances
 /// of this class via DecltypeType nodes.
-class DependentDecltypeType : public DecltypeType, public llvm::FoldingSetNode {
+class CLANG_ABI DependentDecltypeType : public DecltypeType, public llvm::FoldingSetNode {
 public:
   DependentDecltypeType(Expr *E, QualType UnderlyingTpe);
 
@@ -5396,7 +5397,7 @@ public:
                       Expr *E);
 };
 
-class PackIndexingType final
+class CLANG_ABI PackIndexingType final
     : public Type,
       public llvm::FoldingSetNode,
       private llvm::TrailingObjects<PackIndexingType, QualType> {
@@ -5464,7 +5465,7 @@ private:
 };
 
 /// A unary type transform, which is a type constructed from another.
-class UnaryTransformType : public Type {
+class CLANG_ABI UnaryTransformType : public Type {
 public:
   enum UTTKind {
 #define TRANSFORM_TYPE_TRAIT_DEF(Enum, _) Enum,
@@ -5506,7 +5507,7 @@ public:
 /// This class is used internally by the ASTContext to manage
 /// canonical, dependent types, only. Clients will only see instances
 /// of this class via UnaryTransformType nodes.
-class DependentUnaryTransformType : public UnaryTransformType,
+class CLANG_ABI DependentUnaryTransformType : public UnaryTransformType,
                                     public llvm::FoldingSetNode {
 public:
   DependentUnaryTransformType(const ASTContext &C, QualType BaseType,
@@ -5523,7 +5524,7 @@ public:
   }
 };
 
-class TagType : public Type {
+class CLANG_ABI TagType : public Type {
   friend class ASTReader;
   template <class T> friend class serialization::AbstractTypeReader;
 
@@ -5547,7 +5548,7 @@ public:
 
 /// A helper class that allows the use of isa/cast/dyncast
 /// to detect TagType objects of structs/unions/classes.
-class RecordType : public TagType {
+class CLANG_ABI RecordType : public TagType {
 protected:
   friend class ASTContext; // ASTContext creates these.
 
@@ -5602,7 +5603,7 @@ public:
 ///   - the modified type is the TypedefType for int32_t
 ///   - the equivalent type is VectorType(16, int32_t)
 ///   - the canonical type is VectorType(16, int)
-class AttributedType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI AttributedType : public Type, public llvm::FoldingSetNode {
 public:
   using Kind = attr::Kind;
 
@@ -5735,7 +5736,7 @@ public:
   }
 };
 
-class TemplateTypeParmType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI TemplateTypeParmType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext; // ASTContext creates these
 
   // Helper data collector for canonical types.
@@ -5814,7 +5815,7 @@ public:
 /// been replaced with these.  They are used solely to record that a
 /// type was originally written as a template type parameter;
 /// therefore they are never canonical.
-class SubstTemplateTypeParmType final
+class CLANG_ABI SubstTemplateTypeParmType final
     : public Type,
       public llvm::FoldingSetNode,
       private llvm::TrailingObjects<SubstTemplateTypeParmType, QualType> {
@@ -5887,7 +5888,7 @@ public:
 /// that pack expansion (e.g., when all template parameters have corresponding
 /// arguments), this type will be replaced with the \c SubstTemplateTypeParmType
 /// at the current pack substitution index.
-class SubstTemplateTypeParmPackType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI SubstTemplateTypeParmPackType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext;
 
   /// A pointer to the set of template arguments that this
@@ -5979,7 +5980,7 @@ public:
 
 /// Represents a C++11 auto or C++14 decltype(auto) type, possibly constrained
 /// by a type-constraint.
-class AutoType : public DeducedType, public llvm::FoldingSetNode {
+class CLANG_ABI AutoType : public DeducedType, public llvm::FoldingSetNode {
   friend class ASTContext; // ASTContext creates these
 
   ConceptDecl *TypeConstraintConcept;
@@ -6087,7 +6088,7 @@ public:
 /// TemplateArguments, followed by a QualType representing the
 /// non-canonical aliased type when the template is a type alias
 /// template.
-class TemplateSpecializationType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI TemplateSpecializationType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext; // ASTContext creates these
 
   /// The name of the template being specialized.  This is
@@ -6180,24 +6181,24 @@ public:
 
 /// Print a template argument list, including the '<' and '>'
 /// enclosing the template arguments.
-void printTemplateArgumentList(raw_ostream &OS,
+CLANG_ABI void printTemplateArgumentList(raw_ostream &OS,
                                ArrayRef<TemplateArgument> Args,
                                const PrintingPolicy &Policy,
                                const TemplateParameterList *TPL = nullptr);
 
-void printTemplateArgumentList(raw_ostream &OS,
+CLANG_ABI void printTemplateArgumentList(raw_ostream &OS,
                                ArrayRef<TemplateArgumentLoc> Args,
                                const PrintingPolicy &Policy,
                                const TemplateParameterList *TPL = nullptr);
 
-void printTemplateArgumentList(raw_ostream &OS,
+CLANG_ABI void printTemplateArgumentList(raw_ostream &OS,
                                const TemplateArgumentListInfo &Args,
                                const PrintingPolicy &Policy,
                                const TemplateParameterList *TPL = nullptr);
 
 /// Make a best-effort determination of whether the type T can be produced by
 /// substituting Args into the default argument of Param.
-bool isSubstitutedDefaultArgument(ASTContext &Ctx, TemplateArgument Arg,
+CLANG_ABI bool isSubstitutedDefaultArgument(ASTContext &Ctx, TemplateArgument Arg,
                                   const NamedDecl *Param,
                                   ArrayRef<TemplateArgument> Args,
                                   unsigned Depth);
@@ -6219,7 +6220,7 @@ bool isSubstitutedDefaultArgument(ASTContext &Ctx, TemplateArgument Arg,
 /// declaration, and within that scope every template specialization
 /// will canonicalize to the injected class name (when appropriate
 /// according to the rules of the language).
-class InjectedClassNameType : public Type {
+class CLANG_ABI InjectedClassNameType : public Type {
   friend class ASTContext; // ASTContext creates these.
   friend class ASTNodeImporter;
   friend class ASTReader; // FIXME: ASTContext::getInjectedClassNameType is not
@@ -6318,7 +6319,7 @@ enum class TagTypeKind {
 /// The keyword in stored in the free bits of the base class.
 /// Also provides a few static helpers for converting and printing
 /// elaborated type keyword and tag type kind enumerations.
-class TypeWithKeyword : public Type {
+class CLANG_ABI TypeWithKeyword : public Type {
 protected:
   TypeWithKeyword(ElaboratedTypeKeyword Keyword, TypeClass tc,
                   QualType Canonical, TypeDependence Dependence)
@@ -6501,7 +6502,7 @@ public:
 /// Represents a template specialization type whose template cannot be
 /// resolved, e.g.
 ///   A<T>::template B<T>
-class DependentTemplateSpecializationType : public TypeWithKeyword,
+class CLANG_ABI DependentTemplateSpecializationType : public TypeWithKeyword,
                                             public llvm::FoldingSetNode {
   friend class ASTContext; // ASTContext creates these
 
@@ -6676,7 +6677,7 @@ public:
 
 /// Represents a type parameter type in Objective C. It can take
 /// a list of protocols.
-class ObjCTypeParamType : public Type,
+class CLANG_ABI ObjCTypeParamType : public Type,
                           public ObjCProtocolQualifiers<ObjCTypeParamType>,
                           public llvm::FoldingSetNode {
   friend class ASTContext;
@@ -6751,7 +6752,7 @@ public:
 /// 'id<P>' is an ObjCObjectPointerType whose pointee is an ObjCObjectType
 /// with base BuiltinType::ObjCIdType and protocol list [P].  Eventually
 /// this should get its own sugar class to better represent the source.
-class ObjCObjectType : public Type,
+class CLANG_ABI ObjCObjectType : public Type,
                        public ObjCProtocolQualifiers<ObjCObjectType> {
   friend class ObjCProtocolQualifiers<ObjCObjectType>;
 
@@ -6903,7 +6904,7 @@ public:
 /// of ObjCObjectType, so as to not increase the footprint of
 /// ObjCInterfaceType.  Code outside of ASTContext and the core type
 /// system should not reference this type.
-class ObjCObjectTypeImpl : public ObjCObjectType, public llvm::FoldingSetNode {
+class CLANG_ABI ObjCObjectTypeImpl : public ObjCObjectType, public llvm::FoldingSetNode {
   friend class ASTContext;
 
   // If anyone adds fields here, ObjCObjectType::getProtocolStorage()
@@ -6950,7 +6951,7 @@ inline ObjCProtocolDecl **ObjCTypeParamType::getProtocolStorageImpl() {
 ///     fail to compile.
 ///   - It is its own base type.  That is, if T is an ObjCInterfaceType*,
 ///     T->getBaseType() == QualType(T, 0).
-class ObjCInterfaceType : public ObjCObjectType {
+class CLANG_ABI ObjCInterfaceType : public ObjCObjectType {
   friend class ASTContext; // ASTContext creates these.
   friend class ASTReader;
   template <class T> friend class serialization::AbstractTypeReader;
@@ -7006,7 +7007,7 @@ inline ObjCInterfaceDecl *ObjCObjectType::getInterface() const {
 ///
 /// Pointers to pointers to Objective C objects are still PointerTypes;
 /// only the first level of pointer gets it own type implementation.
-class ObjCObjectPointerType : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI ObjCObjectPointerType : public Type, public llvm::FoldingSetNode {
   friend class ASTContext; // ASTContext creates these.
 
   QualType PointeeType;
@@ -7240,7 +7241,7 @@ public:
 };
 
 /// A fixed int type of a specified bitwidth.
-class BitIntType final : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI BitIntType final : public Type, public llvm::FoldingSetNode {
   friend class ASTContext;
   LLVM_PREFERRED_TYPE(bool)
   unsigned IsUnsigned : 1;
@@ -7270,7 +7271,7 @@ public:
   static bool classof(const Type *T) { return T->getTypeClass() == BitInt; }
 };
 
-class DependentBitIntType final : public Type, public llvm::FoldingSetNode {
+class CLANG_ABI DependentBitIntType final : public Type, public llvm::FoldingSetNode {
   friend class ASTContext;
   llvm::PointerIntPair<Expr*, 1, bool> ExprAndUnsigned;
 
@@ -7297,7 +7298,7 @@ public:
 };
 
 /// A qualifier set is used to build a set of qualifiers.
-class QualifierCollector : public Qualifiers {
+class CLANG_ABI QualifierCollector : public Qualifiers {
 public:
   QualifierCollector(Qualifiers Qs = Qualifiers()) : Qualifiers(Qs) {}
 
@@ -7328,7 +7329,7 @@ public:
 /// TypeLoc TL = TypeSourceInfo->getTypeLoc();
 /// TL.getBeginLoc().print(OS, SrcMgr);
 /// @endcode
-class alignas(8) TypeSourceInfo {
+class alignas(8) CLANG_ABI TypeSourceInfo {
   // Contains a memory block after the class, used for type source information,
   // allocated by ASTContext.
   friend class ASTContext;
@@ -7944,8 +7945,8 @@ inline bool Type::isNullPtrType() const {
   return isSpecificBuiltinType(BuiltinType::NullPtr);
 }
 
-bool IsEnumDeclComplete(EnumDecl *);
-bool IsEnumDeclScoped(EnumDecl *);
+CLANG_ABI bool IsEnumDeclComplete(EnumDecl *);
+CLANG_ABI bool IsEnumDeclScoped(EnumDecl *);
 
 inline bool Type::isIntegerType() const {
   if (const auto *BT = dyn_cast<BuiltinType>(CanonicalType))
@@ -8230,7 +8231,7 @@ QualType DecayedType::getPointeeType() const {
 // as a scaled integer.
 // TODO: At some point, we should change the arguments to instead just accept an
 // APFixedPoint instead of APSInt and scale.
-void FixedPointValueToString(SmallVectorImpl<char> &Str, llvm::APSInt Val,
+CLANG_ABI void FixedPointValueToString(SmallVectorImpl<char> &Str, llvm::APSInt Val,
                              unsigned Scale);
 
 } // namespace clang
