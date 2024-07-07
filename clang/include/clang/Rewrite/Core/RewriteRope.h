@@ -13,6 +13,7 @@
 #ifndef LLVM_CLANG_REWRITE_CORE_REWRITEROPE_H
 #define LLVM_CLANG_REWRITE_CORE_REWRITEROPE_H
 
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/IntrusiveRefCntPtr.h"
 #include "llvm/ADT/StringRef.h"
 #include <cassert>
@@ -83,7 +84,7 @@ namespace clang {
   /// over bytes that are in a RopePieceBTree.  This first iterates over bytes
   /// in a RopePiece, then iterates over RopePiece's in a RopePieceBTreeLeaf,
   /// then iterates over RopePieceBTreeLeaf's in a RopePieceBTree.
-  class RopePieceBTreeIterator {
+  class CLANG_ABI RopePieceBTreeIterator {
     /// CurNode - The current B+Tree node that we are inspecting.
     const void /*RopePieceBTreeLeaf*/ *CurNode = nullptr;
 
@@ -138,7 +139,7 @@ namespace clang {
   // RopePieceBTree Class
   //===--------------------------------------------------------------------===//
 
-  class RopePieceBTree {
+  class CLANG_ABI RopePieceBTree {
     void /*RopePieceBTreeNode*/ *Root;
 
   public:
@@ -168,7 +169,7 @@ namespace clang {
 /// RewriteRope - A powerful string class.  This class supports extremely
 /// efficient insertions and deletions into the middle of it, even for
 /// ridiculously long strings.
-class RewriteRope {
+class CLANG_ABI RewriteRope {
   RopePieceBTree Chunks;
 
   /// We allocate space for string data out of a buffer of size AllocChunkSize.

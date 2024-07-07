@@ -13,6 +13,7 @@
 #ifndef LLVM_CLANG_REWRITE_CORE_DELTATREE_H
 #define LLVM_CLANG_REWRITE_CORE_DELTATREE_H
 
+#include "clang/Support/Compiler.h"
 namespace clang {
 
   /// DeltaTree - a multiway search tree (BTree) structure with some fancy
@@ -22,7 +23,7 @@ namespace clang {
   /// on index.  However, an added (important) bonus is that it can also
   /// efficiently tell us the full accumulated delta for a specific file offset
   /// as well, without traversing the whole tree.
-  class DeltaTree {
+  class CLANG_ABI DeltaTree {
     void *Root;    // "DeltaTreeNode *"
 
   public:
