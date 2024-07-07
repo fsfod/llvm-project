@@ -19,6 +19,7 @@
 #include "clang/Basic/SourceManager.h"
 #include "clang/Lex/ModuleLoader.h"
 #include "clang/Lex/Pragma.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 
 namespace clang {
@@ -32,7 +33,7 @@ class MacroArgs;
 /// preprocessor as it does its thing.
 ///
 /// Clients can define their hooks here to implement preprocessor level tools.
-class PPCallbacks {
+class CLANG_ABI PPCallbacks {
 public:
   virtual ~PPCallbacks();
 
@@ -434,7 +435,7 @@ public:
 };
 
 /// Simple wrapper class for chaining callbacks.
-class PPChainedCallbacks : public PPCallbacks {
+class CLANG_ABI PPChainedCallbacks : public PPCallbacks {
   std::unique_ptr<PPCallbacks> First, Second;
 
 public:
