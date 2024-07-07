@@ -9,6 +9,7 @@
 #ifndef LLVM_CLANG_DIRECTORYWATCHER_DIRECTORYWATCHER_H
 #define LLVM_CLANG_DIRECTORYWATCHER_DIRECTORYWATCHER_H
 
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/Error.h"
