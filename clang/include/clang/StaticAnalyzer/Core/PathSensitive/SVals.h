@@ -18,6 +18,7 @@
 #include "clang/AST/Type.h"
 #include "clang/Basic/LLVM.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/SymExpr.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/APSInt.h"
 #include "llvm/ADT/FoldingSet.h"
 #include "llvm/ADT/ImmutableList.h"
@@ -52,7 +53,7 @@ class TypedValueRegion;
 /// SVal - This represents a symbolic expression, which can be either
 ///  an L-value or an R-value.
 ///
-class SVal {
+class CLANG_ABI SVal {
 public:
   enum SValKind : unsigned char {
 #define BASIC_SVAL(Id, Parent) Id##Kind,
@@ -232,7 +233,7 @@ protected:
       : DefinedOrUnknownSVal(Kind, Data) {}
 };
 
-class NonLoc : public DefinedSVal {
+class CLANG_ABI NonLoc : public DefinedSVal {
 protected:
   NonLoc(SValKind Kind, const void *Data) : DefinedSVal(Kind, Data) {}
 
@@ -249,7 +250,7 @@ public:
   }
 };
 
-class Loc : public DefinedSVal {
+class CLANG_ABI Loc : public DefinedSVal {
 protected:
   Loc(SValKind Kind, const void *Data) : DefinedSVal(Kind, Data) {}
 
@@ -326,7 +327,7 @@ public:
   static bool classof(SVal V) { return V.getKind() == LocAsIntegerKind; }
 };
 
-class CompoundVal : public NonLoc {
+class CLANG_ABI CompoundVal : public NonLoc {
   friend class ento::SValBuilder;
 
   explicit CompoundVal(const CompoundValData *D) : NonLoc(CompoundValKind, D) {
@@ -346,7 +347,7 @@ public:
   static bool classof(SVal V) { return V.getKind() == CompoundValKind; }
 };
 
-class LazyCompoundVal : public NonLoc {
+class CLANG_ABI LazyCompoundVal : public NonLoc {
   friend class ento::SValBuilder;
 
   explicit LazyCompoundVal(const LazyCompoundValData *D)
@@ -379,7 +380,7 @@ public:
 /// This list is required to accumulate the pointer-to-member cast history to
 /// figure out the correct subobject field. In particular, implicit casts grow
 /// this list and explicit casts like static_cast shrink this list.
-class PointerToMember : public NonLoc {
+class CLANG_ABI PointerToMember : public NonLoc {
   friend class ento::SValBuilder;
 
 public:
@@ -430,7 +431,7 @@ public:
   static bool classof(SVal V) { return V.getKind() == GotoLabelKind; }
 };
 
-class MemRegionVal : public Loc {
+class CLANG_ABI MemRegionVal : public Loc {
 public:
   explicit MemRegionVal(const MemRegion *r) : Loc(MemRegionValKind, r) {
     assert(r);
