@@ -20,11 +20,12 @@
 #include "clang/Basic/TargetInfo.h"
 #include "clang/Sema/RISCVIntrinsicManager.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringMap.h"
 #include <memory>
 
 namespace clang {
-class SemaRISCV : public SemaBase {
+class CLANG_ABI SemaRISCV : public SemaBase {
 public:
   SemaRISCV(Sema &S);
 
@@ -45,7 +46,7 @@ public:
   std::unique_ptr<sema::RISCVIntrinsicManager> IntrinsicManager;
 };
 
-std::unique_ptr<sema::RISCVIntrinsicManager>
+CLANG_ABI std::unique_ptr<sema::RISCVIntrinsicManager>
 CreateRISCVIntrinsicManager(Sema &S);
 } // namespace clang
 

@@ -35,6 +35,7 @@
 #include "clang/Sema/Scope.h"
 #include "clang/Sema/ScopeInfo.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/PointerUnion.h"
 #include <optional>
@@ -43,7 +44,7 @@
 
 namespace clang {
 
-class SemaOpenMP : public SemaBase {
+class CLANG_ABI SemaOpenMP : public SemaBase {
 public:
   SemaOpenMP(Sema &S);
 
@@ -1394,7 +1395,7 @@ private:
 
   /// Helper to keep information about the current `omp begin/end declare
   /// variant` nesting.
-  struct OMPDeclareVariantScope {
+  struct CLANG_ABI OMPDeclareVariantScope {
     /// The associated OpenMP context selector.
     OMPTraitInfo *TI;
 

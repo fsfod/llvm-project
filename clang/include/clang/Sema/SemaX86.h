@@ -17,9 +17,10 @@
 #include "clang/Basic/LLVM.h"
 #include "clang/Basic/TargetInfo.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
-class SemaX86 : public SemaBase {
+class CLANG_ABI SemaX86 : public SemaBase {
 public:
   SemaX86(Sema &S);
 

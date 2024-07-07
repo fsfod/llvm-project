@@ -24,6 +24,7 @@
 #include "clang/Sema/Scope.h"
 #include "clang/Sema/ScopeInfo.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallVector.h"
 #include <string>
@@ -32,7 +33,7 @@ namespace clang {
 
 enum class CUDAFunctionTarget;
 
-class SemaCUDA : public SemaBase {
+class CLANG_ABI SemaCUDA : public SemaBase {
 public:
   SemaCUDA(Sema &S);
 
@@ -130,7 +131,7 @@ public:
     Decl *D = nullptr;
   } CurCUDATargetCtx;
 
-  struct CUDATargetContextRAII {
+  struct CLANG_ABI CUDATargetContextRAII {
     SemaCUDA &S;
     SemaCUDA::CUDATargetContext SavedCtx;
     CUDATargetContextRAII(SemaCUDA &S_, SemaCUDA::CUDATargetContextKind K,

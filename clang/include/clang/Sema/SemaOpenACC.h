@@ -19,12 +19,13 @@
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/Ownership.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include <variant>
 
 namespace clang {
 class OpenACCClause;
 
-class SemaOpenACC : public SemaBase {
+class CLANG_ABI SemaOpenACC : public SemaBase {
 public:
   // Redeclaration of the version in OpenACCClause.h.
   using DeviceTypeArgument = std::pair<IdentifierInfo *, SourceLocation>;

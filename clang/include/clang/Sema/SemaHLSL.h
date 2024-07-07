@@ -22,11 +22,12 @@
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/Scope.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include <initializer_list>
 
 namespace clang {
 
-class SemaHLSL : public SemaBase {
+class CLANG_ABI SemaHLSL : public SemaBase {
 public:
   SemaHLSL(Sema &S);
 

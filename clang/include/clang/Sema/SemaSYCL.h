@@ -18,11 +18,12 @@
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/Ownership.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseSet.h"
 
 namespace clang {
 
-class SemaSYCL : public SemaBase {
+class CLANG_ABI SemaSYCL : public SemaBase {
 public:
   SemaSYCL(Sema &S);
 

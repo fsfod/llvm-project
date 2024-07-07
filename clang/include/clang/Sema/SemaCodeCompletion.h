@@ -29,12 +29,13 @@
 #include "clang/Sema/Ownership.h"
 #include "clang/Sema/Scope.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 #include <optional>
 
 namespace clang {
 
-class SemaCodeCompletion : public SemaBase {
+class CLANG_ABI SemaCodeCompletion : public SemaBase {
 public:
   SemaCodeCompletion(Sema &S, CodeCompleteConsumer *CompletionConsumer);
 

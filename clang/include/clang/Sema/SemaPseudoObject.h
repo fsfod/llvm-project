@@ -20,10 +20,11 @@
 #include "clang/Sema/Ownership.h"
 #include "clang/Sema/Scope.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 
-class SemaPseudoObject : public SemaBase {
+class CLANG_ABI SemaPseudoObject : public SemaBase {
 public:
   SemaPseudoObject(Sema &S);
 
