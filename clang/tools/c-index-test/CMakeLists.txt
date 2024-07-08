@@ -22,15 +22,18 @@ if (LLVM_BUILD_STATIC)
     clangIndex
   )
 else()
-  target_link_libraries(c-index-test
+  clang_target_link_libraries(c-index-test
     PRIVATE
-    libclang
     clangAST
     clangBasic
     clangCodeGen
     clangFrontend
     clangIndex
     clangSerialization
+  )
+  target_link_libraries(c-index-test
+    PRIVATE
+    libclang
   )
 endif()
 

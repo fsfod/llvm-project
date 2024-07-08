@@ -11,7 +11,10 @@ add_clang_unittest(ClangReplInterpreterTests
   InterpreterTest.cpp
   CodeCompletionTest.cpp
   )
-target_link_libraries(ClangReplInterpreterTests PUBLIC
+  
+target_link_libraries(ClangReplInterpreterTests PUBLIC LLVMTestingSupport)
+
+clang_target_link_libraries(ClangReplInterpreterTests PRIVATE
   clangAST
   clangBasic
   clangInterpreter
