@@ -14,13 +14,15 @@ add_clang_unittest(ClangReplInterpreterTests
   InterpreterExtensionsTest.cpp
   CodeCompletionTest.cpp
   )
-target_link_libraries(ClangReplInterpreterTests PUBLIC
+  
+target_link_libraries(ClangReplInterpreterTests PUBLIC LLVMTestingSupport)
+
+clang_target_link_libraries(ClangReplInterpreterTests PRIVATE
   clangAST
   clangBasic
   clangInterpreter
   clangFrontend
   clangSema
-  LLVMTestingSupport
   )
 
 # Exceptions on Windows are not yet supported.
