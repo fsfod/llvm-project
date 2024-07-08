@@ -41,7 +41,9 @@ public:
   }
 };
 
+#if !defined(LLVM_DLL_IMPORTING)
 template <typename T> char InstructionError<T>::ID;
+#endif
 
 /// This class represents the number of cycles per resource (fractions of
 /// cycles).  That quantity is managed here as a ratio, and accessed via the

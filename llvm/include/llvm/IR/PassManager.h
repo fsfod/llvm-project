@@ -708,9 +708,11 @@ private:
   AnalysisManagerT *InnerAM;
 };
 
+#if !defined(LLVM_DLL_IMPORTING) || !defined(__clang__)
 template <typename AnalysisManagerT, typename IRUnitT, typename... ExtraArgTs>
 LLVM_ABI_CLANGCL AnalysisKey
     InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT, ExtraArgTs...>::Key;
+#endif
 
 /// Provide the \c FunctionAnalysisManager to \c Module proxy.
 using FunctionAnalysisManagerModuleProxy =
