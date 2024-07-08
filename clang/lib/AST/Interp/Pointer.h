@@ -19,6 +19,7 @@
 #include "clang/AST/Decl.h"
 #include "clang/AST/DeclCXX.h"
 #include "clang/AST/Expr.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/PointerUnion.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -77,7 +78,7 @@ enum class Storage { Block, Int };
 ///                      │
 ///                      │
 ///                     Base
-class Pointer {
+class CLANG_ABI Pointer {
 private:
   static constexpr unsigned PastEndMark = ~0u;
   static constexpr unsigned RootPtrMark = ~0u;
