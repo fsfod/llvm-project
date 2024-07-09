@@ -367,7 +367,7 @@
     static QualType (T::*value())() const { return &T::FunctionName; }         \
   };                                                                           \
   }                                                                            \
-  extern const ::clang::ast_matchers::internal::                               \
+  CLANG_ABI extern const ::clang::ast_matchers::internal::                               \
       TypeTraversePolymorphicMatcher<                                          \
           QualType,                                                            \
           ::clang::ast_matchers::internal::TypeMatcher##MatcherName##Getter,   \
@@ -407,7 +407,7 @@
     static TypeLoc (T::*value())() const { return &T::FunctionName##Loc; }     \
   };                                                                           \
   }                                                                            \
-  extern const ::clang::ast_matchers::internal::                               \
+  CLANG_ABI extern const ::clang::ast_matchers::internal::                               \
       TypeTraversePolymorphicMatcher<                                          \
           TypeLoc,                                                             \
           ::clang::ast_matchers::internal::                                    \
