@@ -368,6 +368,11 @@ public:
   using Uint64Set = DenseSet<uint64_t>;
   using Uint64Map = DenseMap<uint64_t, uint64_t>;
 
+  MCPseudoProbeDecoder() = default;
+  MCPseudoProbeDecoder(const MCPseudoProbeDecoder &) = delete;
+  MCPseudoProbeDecoder(MCPseudoProbeDecoder &&) = default;
+  MCPseudoProbeDecoder &operator =(const MCPseudoProbeDecoder &) = delete;
+
   // Decode pseudo_probe_desc section to build GUID to PseudoProbeFuncDesc map.
   bool buildGUID2FuncDescMap(const uint8_t *Start, std::size_t Size);
 
