@@ -148,26 +148,39 @@
 #define LLVM_EXTERNAL_VISIBILITY
 #endif
 
-#if defined(__ELF__)
-# define LLVM_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
-# define LLVM_CLASS_ABI LLVM_ABI
-# define LLVM_FUNC_ABI LLVM_ABI
-#elif defined(__MACH__) || defined(__WASM__)
-# define LLVM_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
-# define LLVM_CLASS_ABI LLVM_ABI
-# define LLVM_FUNC_ABI LLVM_ABI
+#if defined(_WIN32)
+#if defined(LLVM_ABI_EXPORTS)
+#define LLVM_ABI __declspec(dllexport)
+#define LLVM_C_ABI LLVM_ABI
+#define LLVM_TEMPLATE_ABI
+#define LLVM_EXPORT_TEMPLATE LLVM_ABI
+#elif defined(LLVM_DLL_IMPORT)
+#define LLVM_ABI __declspec(dllimport)
+#define LLVM_C_ABI LLVM_ABI
+#define LLVM_TEMPLATE_ABI LLVM_ABI
+#define LLVM_EXPORT_TEMPLATE
 #else
-# if defined(LLVM_ABI_EXPORTS)
-#   define LLVM_ABI __declspec(dllexport)
-# elif defined(LLVM_DLL_IMPORT)
-#   define LLVM_ABI __declspec(dllimport)
-# else
-#   define LLVM_ABI
-# endif
-# define LLVM_TEMPLATE_ABI
-# define LLVM_EXPORT_TEMPLATE __declspec(dllexport)
-# define LLVM_CLASS_ABI __declspec(dllexport)
-# define LLVM_FUNC_ABI LLVM_ABI
+#if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
+#define LLVM_C_ABI __declspec(dllexport)
+#else
+#define LLVM_C_ABI
+#endif
+#define LLVM_ABI
+#define LLVM_TEMPLATE_ABI
+#define LLVM_EXPORT_TEMPLATE
+#endif
+#define LLVM_CLASS_ABI LLVM_ABI
+#define LLVM_FUNC_ABI LLVM_ABI
+#elif defined(__ELF__)
+#define LLVM_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
+#define LLVM_CLASS_ABI LLVM_ABI
+#define LLVM_FUNC_ABI LLVM_ABI
+#define LLVM_TEMPLATE_ABI LLVM_ABI
+#elif defined(__MACH__) || defined(__WASM__)
+#define LLVM_ABI LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
+#define LLVM_CLASS_ABI LLVM_ABI
+#define LLVM_FUNC_ABI LLVM_ABI
+#define LLVM_TEMPLATE_ABI 
 #endif
 
 #if defined(__GNUC__)
