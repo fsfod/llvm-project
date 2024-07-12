@@ -80,3 +80,8 @@ endif()
 
 add_library(LLVMSupportBlake3 OBJECT EXCLUDE_FROM_ALL ${LLVM_BLAKE3_FILES})
 llvm_update_compile_flags(LLVMSupportBlake3)
+
+# We have to manually set this because this library was not created with llvm_add_library
+if(LLVM_BUILD_LLVM_DYLIB)
+  target_compile_definitions(LLVMSupportBlake3 PRIVATE LLVM_EXPORTS)
+endif()
