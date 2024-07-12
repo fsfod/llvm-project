@@ -19,6 +19,7 @@
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/FileCheck/FileCheck.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/SourceMgr.h"
 #include <map>
@@ -164,7 +165,7 @@ public:
 
 /// Class to represent an undefined variable error, which quotes that
 /// variable's name when printed.
-class UndefVarError : public ErrorInfo<UndefVarError> {
+class LLVM_ABI UndefVarError : public ErrorInfo<UndefVarError> {
 private:
   StringRef VarName;
 
@@ -277,7 +278,7 @@ public:
 
 /// Class representing the use of a numeric variable in the AST of an
 /// expression.
-class NumericVariableUse : public ExpressionAST {
+class LLVM_ABI NumericVariableUse : public ExpressionAST {
 private:
   /// Pointer to the class instance for the variable this use is about.
   NumericVariable *Variable;
@@ -299,7 +300,7 @@ public:
 using binop_eval_t = Expected<APInt> (*)(const APInt &, const APInt &, bool &);
 
 /// Class representing a single binary operation in the AST of an expression.
-class BinaryOperation : public ExpressionAST {
+class LLVM_ABI BinaryOperation : public ExpressionAST {
 private:
   /// Left operand.
   std::unique_ptr<ExpressionAST> LeftOperand;
@@ -371,7 +372,7 @@ public:
   virtual Expected<std::string> getResult() const = 0;
 };
 
-LLVM_CLASS_ABI class StringSubstitution : public Substitution {
+class LLVM_ABI StringSubstitution : public Substitution {
 public:
   StringSubstitution(FileCheckPatternContext *Context, StringRef VarName,
                      size_t InsertIdx)
@@ -382,7 +383,7 @@ public:
   Expected<std::string> getResult() const override;
 };
 
-LLVM_CLASS_ABI class NumericSubstitution : public Substitution {
+class LLVM_ABI NumericSubstitution : public Substitution {
 private:
   /// Pointer to the class representing the expression whose value is to be
   /// substituted.
