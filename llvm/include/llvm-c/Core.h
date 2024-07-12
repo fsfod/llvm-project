@@ -2030,7 +2030,7 @@ LLVMBool LLVMIsPoison(LLVMValueRef Val);
  * @see llvm::dyn_cast_or_null<>
  */
 #define LLVM_DECLARE_VALUE_CAST(name) \
-  LLVMValueRef LLVMIsA##name(LLVMValueRef Val);
+  LLVM_C_ABI LLVMValueRef LLVMIsA##name(LLVMValueRef Val);
 LLVM_FOR_EACH_VALUE_SUBCLASS(LLVM_DECLARE_VALUE_CAST)
 
 LLVMValueRef LLVMIsAMDNode(LLVMValueRef Val);
