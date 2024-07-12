@@ -62,6 +62,7 @@ int64_t decodeImmBT4BlT1BlxT2(uint32_t Hi, uint32_t Lo) {
 ///
 ///   S:I1:I2:Imm10:Imm11:0 -> [ 00000:S:Imm10, 00:J1:0:J2:Imm11 ]
 ///
+LLVM_ABI // Used by unittests.
 HalfWords encodeImmBT4BlT1BlxT2_J1J2(int64_t Value) {
   uint32_t S = (Value >> 14) & 0x0400;
   uint32_t J1 = (((~(Value >> 10)) ^ (Value >> 11)) & 0x2000);
@@ -76,6 +77,7 @@ HalfWords encodeImmBT4BlT1BlxT2_J1J2(int64_t Value) {
 ///
 ///   [ 00000:S:Imm10, 00:J1:0:J2:Imm11] -> S:I1:I2:Imm10:Imm11:0
 ///
+LLVM_ABI // Used by unittests.
 int64_t decodeImmBT4BlT1BlxT2_J1J2(uint32_t Hi, uint32_t Lo) {
   uint32_t S = Hi & 0x0400;
   uint32_t I1 = ~((Lo ^ (Hi << 3)) << 10) & 0x00800000;
@@ -90,6 +92,7 @@ int64_t decodeImmBT4BlT1BlxT2_J1J2(uint32_t Hi, uint32_t Lo) {
 ///
 ///   Imm24:00 ->  00000000:Imm24
 ///
+LLVM_ABI // Used by unittests.
 uint32_t encodeImmBA1BlA1BlxA2(int64_t Value) {
   return (Value >> 2) & 0x00ffffff;
 }
@@ -99,6 +102,7 @@ uint32_t encodeImmBA1BlA1BlxA2(int64_t Value) {
 ///
 ///   00000000:Imm24 ->  Imm24:00
 ///
+LLVM_ABI // Used by unittests.
 int64_t decodeImmBA1BlA1BlxA2(int64_t Value) {
   return SignExtend64<26>((Value & 0x00ffffff) << 2);
 }
@@ -108,6 +112,7 @@ int64_t decodeImmBA1BlA1BlxA2(int64_t Value) {
 ///
 ///   Imm4:Imm1:Imm3:Imm8 -> [ 00000:i:000000:Imm4, 0:Imm3:0000:Imm8 ]
 ///
+LLVM_ABI // Used by unittests.
 HalfWords encodeImmMovtT1MovwT3(uint16_t Value) {
   uint32_t Imm4 = (Value >> 12) & 0x0f;
   uint32_t Imm1 = (Value >> 11) & 0x01;
@@ -121,6 +126,7 @@ HalfWords encodeImmMovtT1MovwT3(uint16_t Value) {
 ///
 ///   [ 00000:i:000000:Imm4, 0:Imm3:0000:Imm8 ] -> Imm4:Imm1:Imm3:Imm8
 ///
+LLVM_ABI // Used by unittests.
 uint16_t decodeImmMovtT1MovwT3(uint32_t Hi, uint32_t Lo) {
   uint32_t Imm4 = Hi & 0x0f;
   uint32_t Imm1 = (Hi >> 10) & 0x01;
@@ -135,6 +141,7 @@ uint16_t decodeImmMovtT1MovwT3(uint32_t Hi, uint32_t Lo) {
 ///
 ///   Rd4 -> [0000000000000000, 0000:Rd4:00000000]
 ///
+LLVM_ABI // Used by unittests.
 HalfWords encodeRegMovtT1MovwT3(int64_t Value) {
   uint32_t Rd4 = (Value & 0x0f) << 8;
   return HalfWords{0, Rd4};
@@ -144,6 +151,7 @@ HalfWords encodeRegMovtT1MovwT3(int64_t Value) {
 ///
 ///   [0000000000000000, 0000:Rd4:00000000] -> Rd4
 ///
+LLVM_ABI // Used by unittests.
 int64_t decodeRegMovtT1MovwT3(uint32_t Hi, uint32_t Lo) {
   uint32_t Rd4 = (Lo >> 8) & 0x0f;
   return Rd4;
@@ -154,6 +162,7 @@ int64_t decodeRegMovtT1MovwT3(uint32_t Hi, uint32_t Lo) {
 ///
 ///   Imm4:Imm12 -> 000000000000:Imm4:0000:Imm12
 ///
+LLVM_ABI // Used by unittests.
 uint32_t encodeImmMovtA1MovwA2(uint16_t Value) {
   uint32_t Imm4 = (Value >> 12) & 0x0f;
   uint32_t Imm12 = Value & 0x0fff;
@@ -165,6 +174,7 @@ uint32_t encodeImmMovtA1MovwA2(uint16_t Value) {
 ///
 ///   000000000000:Imm4:0000:Imm12 -> Imm4:Imm12
 ///
+LLVM_ABI // Used by unittests.
 uint16_t decodeImmMovtA1MovwA2(uint64_t Value) {
   uint32_t Imm4 = (Value >> 16) & 0x0f;
   uint32_t Imm12 = Value & 0x0fff;
@@ -176,6 +186,7 @@ uint16_t decodeImmMovtA1MovwA2(uint64_t Value) {
 ///
 ///   Rd4 -> 0000000000000000:Rd4:000000000000
 ///
+LLVM_ABI // Used by unittests.
 uint32_t encodeRegMovtA1MovwA2(int64_t Value) {
   uint32_t Rd4 = (Value & 0x00000f) << 12;
   return Rd4;
@@ -186,6 +197,7 @@ uint32_t encodeRegMovtA1MovwA2(int64_t Value) {
 ///
 ///   0000000000000000:Rd4:000000000000 -> Rd4
 ///
+LLVM_ABI // Used by unittests.
 int64_t decodeRegMovtA1MovwA2(uint64_t Value) {
   uint32_t Rd4 = (Value >> 12) & 0x00000f;
   return Rd4;
