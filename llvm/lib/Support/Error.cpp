@@ -54,13 +54,13 @@ ErrorErrorCategory &getErrorErrorCat() {
 
 namespace llvm {
 
-void ErrorInfoBase::anchor() {}
-char ErrorInfoBase::ID = 0;
-char ErrorList::ID = 0;
-void ECError::anchor() {}
-char ECError::ID = 0;
-char StringError::ID = 0;
-char FileError::ID = 0;
+LLVM_ABI void ErrorInfoBase::anchor() {}
+LLVM_ABI char ErrorInfoBase::ID = 0;
+LLVM_ABI char ErrorList::ID = 0;
+LLVM_ABI void ECError::anchor() {}
+LLVM_ABI char ECError::ID = 0;
+LLVM_ABI char StringError::ID = 0;
+LLVM_ABI char FileError::ID = 0;
 
 void logAllUnhandledErrors(Error E, raw_ostream &OS, Twine ErrorBanner) {
   if (!E)
