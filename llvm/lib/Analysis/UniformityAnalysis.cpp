@@ -105,8 +105,8 @@ bool llvm::GenericUniformityAnalysisImpl<SSAContext>::isDivergentUse(
 
 // This ensures explicit instantiation of
 // GenericUniformityAnalysisImpl::ImplDeleter::operator()
-template class llvm::GenericUniformityInfo<SSAContext>;
-template struct llvm::GenericUniformityAnalysisImplDeleter<
+template class LLVM_EXPORT_TEMPLATE llvm::GenericUniformityInfo<SSAContext>;
+template struct LLVM_EXPORT_TEMPLATE llvm::GenericUniformityAnalysisImplDeleter<
     llvm::GenericUniformityAnalysisImpl<SSAContext>>;
 
 //===----------------------------------------------------------------------===//

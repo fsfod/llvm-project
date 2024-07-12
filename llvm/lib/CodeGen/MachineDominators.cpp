@@ -35,8 +35,8 @@ static cl::opt<bool, true> VerifyMachineDomInfoX(
     cl::desc("Verify machine dominator info (time consuming)"));
 
 namespace llvm {
-template class DomTreeNodeBase<MachineBasicBlock>;
-template class DominatorTreeBase<MachineBasicBlock, false>; // DomTreeBase
+template class LLVM_EXPORT_TEMPLATE DomTreeNodeBase<MachineBasicBlock>;
+template class LLVM_EXPORT_TEMPLATE DominatorTreeBase<MachineBasicBlock, false>; // DomTreeBase
 }
 
 char MachineDominatorTree::ID = 0;

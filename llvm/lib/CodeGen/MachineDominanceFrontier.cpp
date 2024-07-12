@@ -16,9 +16,9 @@
 using namespace llvm;
 
 namespace llvm {
-template class DominanceFrontierBase<MachineBasicBlock, false>;
-template class DominanceFrontierBase<MachineBasicBlock, true>;
-template class ForwardDominanceFrontierBase<MachineBasicBlock>;
+template class LLVM_EXPORT_TEMPLATE DominanceFrontierBase<MachineBasicBlock, false>;
+template class LLVM_EXPORT_TEMPLATE DominanceFrontierBase<MachineBasicBlock, true>;
+template class LLVM_EXPORT_TEMPLATE ForwardDominanceFrontierBase<MachineBasicBlock>;
 }
 
 
