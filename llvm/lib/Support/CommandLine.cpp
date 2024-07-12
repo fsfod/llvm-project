@@ -69,9 +69,13 @@ template class LLVM_EXPORT_TEMPLATE basic_parser<char>;
 
 template class LLVM_EXPORT_TEMPLATE opt<unsigned>;
 template class LLVM_EXPORT_TEMPLATE opt<int>;
-template class LLVM_EXPORT_TEMPLATE opt<std::string>;
 template class LLVM_EXPORT_TEMPLATE opt<char>;
 template class LLVM_EXPORT_TEMPLATE opt<bool>;
+
+// Avoid what appears to be a MSVC bug
+#if !defined(_MSC_VER) || defined(__clang__) || !defined(LLVM_BUILD_LLVM_DYLIB)
+template class LLVM_EXPORT_TEMPLATE opt<std::string>;
+#endif
 } // namespace cl
 } // namespace llvm
 
