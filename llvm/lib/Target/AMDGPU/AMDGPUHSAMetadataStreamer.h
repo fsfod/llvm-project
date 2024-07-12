@@ -62,7 +62,7 @@ protected:
                                msgpack::MapDocNode Kern) = 0;
 };
 
-class LLVM_EXTERNAL_VISIBILITY MetadataStreamerMsgPackV4
+class LLVM_ABI MetadataStreamerMsgPackV4
     : public MetadataStreamer {
 protected:
   std::unique_ptr<msgpack::Document> HSAMetadataDoc =
