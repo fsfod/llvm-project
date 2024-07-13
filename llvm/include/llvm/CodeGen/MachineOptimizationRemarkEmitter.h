@@ -28,7 +28,7 @@ class MachineInstr;
 
 /// Common features for diagnostics dealing with optimization remarks
 /// that are used by machine passes.
-class DiagnosticInfoMIROptimization : public DiagnosticInfoOptimizationBase {
+class LLVM_ABI DiagnosticInfoMIROptimization : public DiagnosticInfoOptimizationBase {
 public:
   DiagnosticInfoMIROptimization(enum DiagnosticKind Kind, const char *PassName,
                                 StringRef RemarkName,

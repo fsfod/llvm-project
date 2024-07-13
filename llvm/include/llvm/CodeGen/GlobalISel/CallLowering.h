@@ -337,7 +337,7 @@ public:
 
   /// Base class for ValueHandlers used for arguments passed to a function call,
   /// or for return values.
-  struct OutgoingValueHandler : public ValueHandler {
+  struct LLVM_ABI OutgoingValueHandler : public ValueHandler {
     OutgoingValueHandler(MachineIRBuilder &MIRBuilder, MachineRegisterInfo &MRI)
         : ValueHandler(/*IsIncoming*/ false, MIRBuilder, MRI) {}
   };

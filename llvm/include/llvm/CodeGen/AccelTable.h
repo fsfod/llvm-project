@@ -112,7 +112,7 @@ class raw_ostream;
 /// Interface which the different types of accelerator table data have to
 /// conform. It serves as a base class for different values of the template
 /// argument of the AccelTable class template.
-class AccelTableData {
+class LLVM_ABI AccelTableData {
 public:
   virtual ~AccelTableData() = default;
 
@@ -230,7 +230,7 @@ void AccelTable<AccelTableDataT>::addName(DwarfStringPoolEntryRef Name,
 /// A base class for different implementations of Data classes for Apple
 /// Accelerator Tables. The columns in the table are defined by the static Atoms
 /// variable defined on the subclasses.
-class AppleAccelTableData : public AccelTableData {
+class LLVM_ABI AppleAccelTableData : public AccelTableData {
 public:
   /// An Atom defines the form of the data in an Apple accelerator table.
   /// Conceptually it is a column in the accelerator consisting of a type and a

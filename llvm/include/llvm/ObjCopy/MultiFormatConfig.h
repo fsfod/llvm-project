@@ -22,7 +22,7 @@ struct MachOConfig;
 struct WasmConfig;
 struct XCOFFConfig;
 
-class MultiFormatConfig {
+class LLVM_ABI MultiFormatConfig {
 public:
   virtual ~MultiFormatConfig() {}
 

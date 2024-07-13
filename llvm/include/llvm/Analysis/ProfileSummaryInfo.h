@@ -22,6 +22,7 @@
 #include "llvm/IR/ProfileSummary.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 #include <optional>
 
@@ -349,7 +350,7 @@ ProfileSummaryInfo::getTotalCallCount<Function>(const Function *F) const {
 // here, because we cannot include MachineFunction header here, that would break
 // dependency rules.
 template <>
-std::optional<Function::ProfileCount>
+LLVM_ABI std::optional<Function::ProfileCount>
 ProfileSummaryInfo::getEntryCount<MachineFunction>(
     const MachineFunction *F) const;
 

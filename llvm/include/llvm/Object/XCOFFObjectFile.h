@@ -173,8 +173,8 @@ public:
 // Explicit extern template declarations.
 struct XCOFFSectionHeader32;
 struct XCOFFSectionHeader64;
-extern template struct XCOFFSectionHeader<XCOFFSectionHeader32>;
-extern template struct XCOFFSectionHeader<XCOFFSectionHeader64>;
+extern template struct LLVM_TEMPLATE_ABI XCOFFSectionHeader<XCOFFSectionHeader32>;
+extern template struct LLVM_TEMPLATE_ABI XCOFFSectionHeader<XCOFFSectionHeader64>;
 
 struct XCOFFSectionHeader32 : XCOFFSectionHeader<XCOFFSectionHeader32> {
   char Name[XCOFF::NameSize];

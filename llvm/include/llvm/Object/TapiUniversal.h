@@ -26,7 +26,7 @@ namespace object {
 
 class TapiFile;
 
-class TapiUniversal : public Binary {
+class LLVM_ABI TapiUniversal : public Binary {
 public:
   class LLVM_CLASS_ABI ObjectForArch {
     const TapiUniversal *Parent;

@@ -295,7 +295,7 @@ struct FunctionSymbolNode;
 struct VariableSymbolNode;
 struct SpecialTableSymbolNode;
 
-struct TypeNode : public Node {
+struct LLVM_ABI TypeNode : public Node {
   explicit TypeNode(NodeKind K) : Node(K) {}
 
   virtual void outputPre(OutputBuffer &OB, OutputFlags Flags) const = 0;
@@ -497,7 +497,7 @@ struct LLVM_CLASS_ABI ArrayTypeNode : public TypeNode {
   TypeNode *ElementType = nullptr;
 };
 
-struct IntrinsicNode : public TypeNode {
+struct LLVM_ABI IntrinsicNode : public TypeNode {
   IntrinsicNode() : TypeNode(NodeKind::IntrinsicType) {}
   void output(OutputBuffer &OB, OutputFlags Flags) const override {}
 };

@@ -109,7 +109,7 @@ public:
   /// It allows to reason about the frequency of this insertion point,
   /// without having to logically materialize it (e.g., on an edge),
   /// before we actually need to insert something.
-  class InsertPoint {
+  class LLVM_ABI InsertPoint {
   protected:
     /// Tell if the insert point has already been materialized.
     bool WasMaterialized = false;

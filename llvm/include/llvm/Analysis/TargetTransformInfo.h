@@ -1782,7 +1782,7 @@ private:
   std::unique_ptr<Concept> TTIImpl;
 };
 
-class TargetTransformInfo::Concept {
+class LLVM_ABI TargetTransformInfo::Concept {
 public:
   virtual ~Concept() = 0;
   virtual const DataLayout &getDataLayout() const = 0;
