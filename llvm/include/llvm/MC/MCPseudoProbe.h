@@ -302,9 +302,9 @@ public:
   }
 
   // MCPseudoProbeInlineTree method based on Inlinees
-  void addPseudoProbe(const MCPseudoProbe &Probe,
-                      const MCPseudoProbeInlineStack &InlineStack);
-  void emit(MCObjectStreamer *MCOS, const MCPseudoProbe *&LastProbe);
+  LLVM_ABI void addPseudoProbe(const MCPseudoProbe &Probe,
+                               const MCPseudoProbeInlineStack &InlineStack);
+  LLVM_ABI void emit(MCObjectStreamer *MCOS, const MCPseudoProbe *&LastProbe);
 };
 
 // inline tree node for the decoded pseudo probe
@@ -360,7 +360,7 @@ public:
 
   bool empty() const { return MCProbeDivisions.empty(); }
 
-  void emit(MCObjectStreamer *MCOS);
+  LLVM_ABI void emit(MCObjectStreamer *MCOS);
 };
 
 class MCPseudoProbeTable {
@@ -373,7 +373,7 @@ class MCPseudoProbeTable {
   MCPseudoProbeSections MCProbeSections;
 
 public:
-  static void emit(MCObjectStreamer *MCOS);
+  LLVM_ABI static void emit(MCObjectStreamer *MCOS);
 
   MCPseudoProbeSections &getProbeSections() { return MCProbeSections; }
 
