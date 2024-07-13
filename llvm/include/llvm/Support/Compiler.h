@@ -129,6 +129,15 @@
 #if (!(defined(_WIN32) || defined(__CYGWIN__)) ||                              \
      (defined(__MINGW32__) && defined(__clang__)))
 #define LLVM_LIBRARY_VISIBILITY LLVM_ATTRIBUTE_VISIBILITY_HIDDEN
+#define LLVM_ALWAYS_EXPORT LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
+#elif defined(_WIN32)
+#define LLVM_LIBRARY_VISIBILITY
+#define LLVM_ALWAYS_EXPORT __declspec(dllexport)
+#else
+#define LLVM_LIBRARY_VISIBILITY
+#define LLVM_ALWAYS_EXPORT
+#endif
+
 #if defined(LLVM_BUILD_LLVM_DYLIB) || defined(LLVM_BUILD_SHARED_LIBS)
 #define LLVM_EXTERNAL_VISIBILITY LLVM_ATTRIBUTE_VISIBILITY_DEFAULT
 #else
