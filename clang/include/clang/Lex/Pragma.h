@@ -101,6 +101,10 @@ class CLANG_ABI PragmaNamespace : public PragmaHandler {
 
 public:
   explicit PragmaNamespace(StringRef Name) : PragmaHandler(Name) {}
+  PragmaNamespace(const PragmaNamespace &) = delete;
+  PragmaNamespace(PragmaNamespace &&) = default;
+  PragmaNamespace &operator =(const PragmaNamespace &) = delete;
+
 
   /// FindHandler - Check to see if there is already a handler for the
   /// specified name.  If not, return the handler for the null name if it
