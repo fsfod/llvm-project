@@ -9458,6 +9458,7 @@ public:
     TypoDiagnosticGenerator DiagHandler;
     TypoRecoveryCallback RecoveryHandler;
     TypoExprState();
+    ~TypoExprState();
     TypoExprState(TypoExprState &&other) noexcept;
     TypoExprState &operator=(TypoExprState &&other) noexcept;
   };
