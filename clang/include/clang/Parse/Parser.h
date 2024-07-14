@@ -1460,6 +1460,9 @@ private:
   struct CLANG_ABI LateParsedMethodDeclaration : public LateParsedDeclaration {
     explicit LateParsedMethodDeclaration(Parser *P, Decl *M)
         : Self(P), Method(M), ExceptionSpecTokens(nullptr) {}
+    LateParsedMethodDeclaration(const LateParsedMethodDeclaration &) = delete;
+    LateParsedMethodDeclaration(LateParsedMethodDeclaration &&) = default;
+    LateParsedMethodDeclaration &operator =(const LateParsedMethodDeclaration &) = delete;
 
     void ParseLexedMethodDeclarations() override;
 

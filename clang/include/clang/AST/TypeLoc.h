@@ -378,12 +378,12 @@ class ConcreteTypeLoc : public Base {
     return static_cast<const Derived*>(this);
   }
 
-  static bool isKind(const TypeLoc &TL) {
+  template<int = 0> static bool isKind(const TypeLoc &TL) {
     return !TL.getType().hasLocalQualifiers() &&
            Derived::classofType(TL.getTypePtr());
   }
 
-  static bool classofType(const Type *Ty) {
+  template<int = 0> static bool classofType(const Type *Ty) {
     return TypeClass::classof(Ty);
   }
 
@@ -523,7 +523,7 @@ struct TypeSpecLocInfo {
 
 /// A reasonable base class for TypeLocs that correspond to
 /// types that are written as a type-specifier.
-class CLANG_ABI TypeSpecTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class TypeSpecTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                TypeSpecTypeLoc,
                                                Type,
                                                TypeSpecLocInfo> {
@@ -552,7 +552,7 @@ public:
 private:
   friend class TypeLoc;
 
-  static bool isKind(const TypeLoc &TL);
+  CLANG_ABI static bool isKind(const TypeLoc &TL);
 };
 
 struct BuiltinLocInfo {
@@ -560,7 +560,7 @@ struct BuiltinLocInfo {
 };
 
 /// Wrapper for source info for builtin types.
-class CLANG_ABI BuiltinTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class BuiltinTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                               BuiltinTypeLoc,
                                               BuiltinType,
                                               BuiltinLocInfo> {
@@ -643,7 +643,7 @@ public:
       getWrittenBuiltinSpecs().Width = static_cast<unsigned>(written);
   }
 
-  TypeSpecifierType getWrittenTypeSpec() const;
+  CLANG_ABI TypeSpecifierType getWrittenTypeSpec() const;
 
   bool hasWrittenTypeSpec() const {
     return getWrittenTypeSpec() != TST_unspecified;
@@ -726,14 +726,14 @@ public:
 /// should be represented as an ElaboratedTypeLoc.  We currently
 /// only do that when C++ is enabled because of the expense of
 /// creating an ElaboratedType node for so many type references in C.
-class CLANG_ABI TagTypeLoc : public InheritingConcreteTypeLoc<TypeSpecTypeLoc,
+class TagTypeLoc : public InheritingConcreteTypeLoc<TypeSpecTypeLoc,
                                                     TagTypeLoc,
                                                     TagType> {
 public:
   TagDecl *getDecl() const { return getTypePtr()->getDecl(); }
 
   /// True if the tag was defined in this type specifier.
-  bool isDefinition() const;
+  CLANG_ABI bool isDefinition() const;
 };
 
 /// Wrapper for source info for record types.
@@ -767,7 +767,7 @@ struct ObjCTypeParamTypeLocInfo {
 
 /// ProtocolLAngleLoc, ProtocolRAngleLoc, and the source locations for
 /// protocol qualifiers are stored after Info.
-class CLANG_ABI ObjCTypeParamTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class ObjCTypeParamTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                      ObjCTypeParamTypeLoc,
                                      ObjCTypeParamType,
                                      ObjCTypeParamTypeLocInfo> {
@@ -830,7 +830,7 @@ public:
     return llvm::ArrayRef(getProtocolLocArray(), getNumProtocols());
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 
   unsigned getExtraLocalDataSize() const {
     if (!this->getNumProtocols()) return 0;
@@ -870,7 +870,7 @@ struct AttributedLocInfo {
 };
 
 /// Type source information for an attributed type.
-class CLANG_ABI AttributedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class AttributedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                  AttributedTypeLoc,
                                                  AttributedType,
                                                  AttributedLocInfo> {
@@ -907,7 +907,7 @@ public:
     return dyn_cast_or_null<T>(getAttr());
   }
 
-  SourceRange getLocalSourceRange() const;
+  CLANG_ABI SourceRange getLocalSourceRange() const;
 
   void initializeLocal(ASTContext &Context, SourceLocation loc) {
     setAttr(nullptr);
@@ -921,7 +921,7 @@ public:
 struct BTFTagAttributedLocInfo {}; // Nothing.
 
 /// Type source information for an btf_tag attributed type.
-class CLANG_ABI BTFTagAttributedTypeLoc
+class BTFTagAttributedTypeLoc
     : public ConcreteTypeLoc<UnqualTypeLoc, BTFTagAttributedTypeLoc,
                              BTFTagAttributedType, BTFTagAttributedLocInfo> {
 public:
@@ -934,7 +934,7 @@ public:
     return dyn_cast_or_null<T>(getAttr());
   }
 
-  SourceRange getLocalSourceRange() const;
+  CLANG_ABI SourceRange getLocalSourceRange() const;
 
   void initializeLocal(ASTContext &Context, SourceLocation loc) {}
 
@@ -954,7 +954,7 @@ struct ObjCObjectTypeLocInfo {
 //
 // TypeClass basically has to be either ObjCInterfaceType or
 // ObjCObjectPointerType.
-class CLANG_ABI ObjCObjectTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class ObjCObjectTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                  ObjCObjectTypeLoc,
                                                  ObjCObjectType,
                                                  ObjCObjectTypeLocInfo> {
@@ -1062,7 +1062,7 @@ public:
     return SourceRange(start, end);
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 
   unsigned getExtraLocalDataSize() const {
     return this->getNumTypeArgs() * sizeof(TypeSourceInfo *)
@@ -1135,7 +1135,7 @@ public:
   unsigned getLocalDataSize() const { return 0; }
 };
 
-class CLANG_ABI CountAttributedTypeLoc final
+class CountAttributedTypeLoc final
     : public InheritingConcreteTypeLoc<BoundsAttributedTypeLoc,
                                        CountAttributedTypeLoc,
                                        CountAttributedType> {
@@ -1144,7 +1144,7 @@ public:
   bool isCountInBytes() const { return getTypePtr()->isCountInBytes(); }
   bool isOrNull() const { return getTypePtr()->isOrNull(); }
 
-  SourceRange getLocalSourceRange() const;
+  CLANG_ABI SourceRange getLocalSourceRange() const;
 };
 
 struct MacroQualifiedLocInfo {
@@ -1651,7 +1651,7 @@ struct TemplateSpecializationLocInfo : TemplateNameLocInfo {
   SourceLocation RAngleLoc;
 };
 
-class CLANG_ABI TemplateSpecializationTypeLoc :
+class TemplateSpecializationTypeLoc :
     public ConcreteTypeLoc<UnqualTypeLoc,
                            TemplateSpecializationTypeLoc,
                            TemplateSpecializationType,
@@ -1734,7 +1734,7 @@ public:
                       getArgInfos(), Loc);
   }
 
-  static void initializeArgLocs(ASTContext &Context,
+  CLANG_ABI static void initializeArgLocs(ASTContext &Context,
                                 ArrayRef<TemplateArgument> Args,
                                 TemplateArgumentLocInfo *ArgInfos,
                                 SourceLocation Loc);
@@ -2034,7 +2034,7 @@ public:
   }
 };
 
-class CLANG_ABI TypeOfExprTypeLoc : public TypeofLikeTypeLoc<TypeOfExprTypeLoc,
+class TypeOfExprTypeLoc : public TypeofLikeTypeLoc<TypeOfExprTypeLoc,
                                                    TypeOfExprType,
                                                    TypeOfExprTypeLocInfo> {
 public:
@@ -2045,10 +2045,10 @@ public:
   // Reimplemented to account for GNU/C++ extension
   //     typeof unary-expression
   // where there are no parentheses.
-  SourceRange getLocalSourceRange() const;
+  CLANG_ABI SourceRange getLocalSourceRange() const;
 };
 
-class CLANG_ABI TypeOfTypeLoc
+class TypeOfTypeLoc
   : public TypeofLikeTypeLoc<TypeOfTypeLoc, TypeOfType, TypeOfTypeLocInfo> {
 public:
   QualType getUnmodifiedType() const {
@@ -2063,7 +2063,7 @@ public:
     this->getLocalData()->UnmodifiedTInfo = TI;
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 };
 
 // decltype(expression) abc;
@@ -2132,7 +2132,7 @@ struct UnaryTransformTypeLocInfo {
   TypeSourceInfo *UnderlyingTInfo;
 };
 
-class CLANG_ABI UnaryTransformTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class UnaryTransformTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                     UnaryTransformTypeLoc,
                                                     UnaryTransformType,
                                                     UnaryTransformTypeLocInfo> {
@@ -2167,7 +2167,7 @@ public:
     setRParenLoc(Range.getEnd());
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 };
 
 class DeducedTypeLoc
@@ -2181,7 +2181,7 @@ struct AutoTypeLocInfo : TypeSpecLocInfo {
   ConceptReference *CR = nullptr;
 };
 
-class CLANG_ABI AutoTypeLoc
+class AutoTypeLoc
     : public ConcreteTypeLoc<DeducedTypeLoc,
                              AutoTypeLoc,
                              AutoType,
@@ -2288,7 +2288,7 @@ public:
     memcpy(Data, Loc.Data, size);
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 };
 
 class DeducedTemplateSpecializationTypeLoc
@@ -2312,7 +2312,7 @@ struct ElaboratedLocInfo {
   void *QualifierData;
 };
 
-class CLANG_ABI ElaboratedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class ElaboratedTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                  ElaboratedTypeLoc,
                                                  ElaboratedType,
                                                  ElaboratedLocInfo> {
@@ -2357,7 +2357,7 @@ public:
       return getQualifierLoc().getSourceRange();
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 
   TypeLoc getNamedTypeLoc() const { return getInnerTypeLoc(); }
 
@@ -2392,7 +2392,7 @@ struct DependentNameLocInfo : ElaboratedLocInfo {
   SourceLocation NameLoc;
 };
 
-class CLANG_ABI DependentNameTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
+class DependentNameTypeLoc : public ConcreteTypeLoc<UnqualTypeLoc,
                                                     DependentNameTypeLoc,
                                                     DependentNameType,
                                                     DependentNameLocInfo> {
@@ -2438,7 +2438,7 @@ public:
     memcpy(Data, Loc.Data, size);
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 };
 
 struct DependentTemplateSpecializationLocInfo : DependentNameLocInfo {
@@ -2448,7 +2448,7 @@ struct DependentTemplateSpecializationLocInfo : DependentNameLocInfo {
   // followed by a TemplateArgumentLocInfo[]
 };
 
-class CLANG_ABI DependentTemplateSpecializationTypeLoc :
+class DependentTemplateSpecializationTypeLoc :
     public ConcreteTypeLoc<UnqualTypeLoc,
                            DependentTemplateSpecializationTypeLoc,
                            DependentTemplateSpecializationType,
@@ -2552,7 +2552,7 @@ public:
     memcpy(Data, Loc.Data, size);
   }
 
-  void initializeLocal(ASTContext &Context, SourceLocation Loc);
+  CLANG_ABI void initializeLocal(ASTContext &Context, SourceLocation Loc);
 
   unsigned getExtraLocalDataSize() const {
     return getNumArgs() * sizeof(TemplateArgumentLocInfo);

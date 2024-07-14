@@ -66,6 +66,9 @@ private:
   APIIgnoresList(SymbolNameList SymbolsToIgnore, BufferList Buffers)
       : SymbolsToIgnore(std::move(SymbolsToIgnore)),
         Buffers(std::move(Buffers)) {}
+  APIIgnoresList(const APIIgnoresList &) = delete;
+  APIIgnoresList(APIIgnoresList &&) = default;
+  APIIgnoresList &operator =(const APIIgnoresList &) = delete;
 
   SymbolNameList SymbolsToIgnore;
   BufferList Buffers;

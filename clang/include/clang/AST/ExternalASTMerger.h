@@ -115,6 +115,9 @@ private:
 public:
   ExternalASTMerger(const ImporterTarget &Target,
                     llvm::ArrayRef<ImporterSource> Sources);
+  ExternalASTMerger(const ExternalASTMerger &) = delete;
+  ExternalASTMerger(ExternalASTMerger &&) = default;
+  ExternalASTMerger &operator =(const ExternalASTMerger &) = delete;
 
   /// Asks all connected ASTImporters if any of them imported the given
   /// declaration. If any ASTImporter did import the given declaration,

@@ -640,6 +640,9 @@ public:
             bool IncludeTimestamps = true, bool BuildingImplicitModule = false,
             bool GeneratingReducedBMI = false);
   ~ASTWriter() override;
+  ASTWriter(const ASTWriter &) = delete;
+  ASTWriter(ASTWriter &&) = default;
+  ASTWriter &operator =(const ASTWriter &) = delete;
 
   ASTContext &getASTContext() const {
     assert(Context && "requested AST context when not writing AST");

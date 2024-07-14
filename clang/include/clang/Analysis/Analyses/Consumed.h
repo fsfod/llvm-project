@@ -221,6 +221,9 @@ namespace consumed {
       for (const auto BI : *SortedGraph)
         VisitOrder[BI->getBlockID()] = VisitOrderCounter++;
     }
+    ConsumedBlockInfo(const ConsumedBlockInfo &) = delete;
+    ConsumedBlockInfo &operator =(const ConsumedBlockInfo &) = delete;
+    ConsumedBlockInfo &operator =(ConsumedBlockInfo &&) = default;
 
     bool allBackEdgesVisited(const CFGBlock *CurrBlock,
                              const CFGBlock *TargetBlock);
