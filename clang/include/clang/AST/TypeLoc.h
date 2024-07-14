@@ -456,7 +456,7 @@ protected:
   struct HasNoInnerType {};
   HasNoInnerType getInnerType() const { return HasNoInnerType(); }
 
-  TypeLoc getInnerTypeLoc() const {
+  template<int = 0> TypeLoc getInnerTypeLoc() const {
     return TypeLoc(asDerived()->getInnerType(), getNonLocalData());
   }
 
