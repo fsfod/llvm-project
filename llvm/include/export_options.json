@@ -1,0 +1,96 @@
+{
+  "version": "1",
+  "groups": [
+    {
+      "headerDirectories": [ "llvm/Support" ],
+      "ignoredHeaders": [
+        "BLAKE3.h"
+      ]
+    },
+    {
+      "headerDirectories": [
+        "llvm/ADT",
+        "llvm/Analysis",
+        "llvm/AsmParser",
+        "llvm/BinaryFormat",
+        "llvm/Bitcode",
+        "llvm/Bitstream",
+        "llvm/CodeGen",
+        "llvm/CodeGenTypes",
+        "llvm/DebugInfo",
+        "llvm/Demangle",
+        "llvm/DWARFLinker",
+        "llvm/DWP",
+        "llvm/ExecutionEngine",
+        "llvm/FileCheck",
+        "llvm/Frontend",
+        "llvm/FuzzMutate",
+        "llvm/InterfaceStub",
+        "llvm/IR",
+        "llvm/IRPrinter",
+        "llvm/IRReader",
+        "llvm/LineEditor",
+        "llvm/Linker",
+        "llvm/LTO",
+        "llvm/MC",
+        "llvm/MCA",
+        "llvm/ObjCopy",
+        "llvm/Object",
+        "llvm/ObjectYAML",
+        "llvm/Remarks"
+      ],
+      "headerFiles": [
+        "llvm/InitializePasses.h",
+        "llvm/Pass.h",
+        "llvm/PassAnalysisSupport.h",
+        "llvm/PassRegistry.h",
+        "llvm/PassSupport.h"
+      ],
+      "excludedDirectories": [
+        "llvm/Debuginfod"
+      ]
+    },
+    {
+      "name": "InternalHeaders",
+      "headerFiles": [
+        "../lib/CodeGen/RegAllocScore.h",
+        "../lib/CodeGen/AsmPrinter/DwarfStringPool.h",
+        "../lib/FileCheck/FileCheckImpl.h",
+        "../lib/Transforms/Vectorize/VPlan.h",
+        "../lib/Transforms/Vectorize/VPlanTransforms.h",
+        "../lib/Transforms/Vectorize/VPlanValue.h",
+        "../lib/Transforms/Vectorize/VPlanVerifier.h",
+        "../lib/Transforms/Vectorize/VPlanTransforms.h",
+        "../lib/Transforms/Vectorize/VPlanHCFGBuilder.h"
+      ]
+    },
+    {
+      "headerDirectories": [
+        "llvm/llvm-c"
+      ],
+      "ignoredHeaders": [
+        "lto.h"
+      ],
+      "exportExternC": true,
+    },
+    {
+      "name": "LTO mixed C and c++",
+      "headerFiles": [
+        "llvm/llvm-c/lto.h"
+      ],
+      "exportExternC": true,
+      "externCMacro": "LLVM_ABI_LTO"
+    }
+  ],
+  "exportMacroHeader": "llvm/Support/Compiler.h",
+  "exportMacro": "LLVM_ABI",
+  "externTemplateMacro": "LLVM_TEMPLATE_ABI",
+  "externCMacro": "LLVM_C_ABI",
+  "otherExportMacros": [
+    "LLVM_ABI_EXPORT",
+    "LLVM_ABI_NOT_EXPORTED",
+    "LLVM_CLASS_ABI"
+  ],
+  "isGeneratingMacro": "LLVM_ABI_GENERATING_ANNOTATIONS",
+  "clangFormatFile": "../.clang-format"
+}
