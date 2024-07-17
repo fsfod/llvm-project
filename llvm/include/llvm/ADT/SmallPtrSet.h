@@ -48,7 +48,7 @@ namespace llvm {
 /// (-2), to allow deletion.  The hash table is resized when the table is 3/4 or
 /// more.  When this happens, the table is doubled in size.
 ///
-class SmallPtrSetImplBase : public DebugEpochBase {
+class LLVM_ABI SmallPtrSetImplBase : public DebugEpochBase {
   friend class SmallPtrSetIteratorImpl;
 
 protected:

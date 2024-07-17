@@ -20,6 +20,7 @@
 #include "llvm/ADT/DenseMapInfo.h"
 #include "llvm/ADT/Hashing.h"
 #include "llvm/ADT/SmallString.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm {
@@ -32,7 +33,7 @@ struct fltSemantics;
 /// if any). The scale represents the number of fractional bits in this type.
 /// When HasUnsignedPadding is true and this type is unsigned, the first bit
 /// in the value this represents is treated as padding.
-class FixedPointSemantics {
+class LLVM_ABI FixedPointSemantics {
 public:
   static constexpr unsigned WidthBitWidth = 16;
   static constexpr unsigned LsbWeightBitWidth = 13;
@@ -151,7 +152,7 @@ template <> struct DenseMapInfo<FixedPointSemantics> {
 /// JTC1 SC22 WG14 N1169. The class carries the value and semantics of
 /// a fixed point, and provides different operations that would normally be
 /// performed on fixed point types.
-class APFixedPoint {
+class LLVM_ABI APFixedPoint {
 public:
   APFixedPoint(const APInt &Val, const FixedPointSemantics &Sema)
       : Val(Val, !Sema.isSigned()), Sema(Sema) {
