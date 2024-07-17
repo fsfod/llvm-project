@@ -17,6 +17,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/CodeGen/MachineJumpTableInfo.h"
 #include "llvm/CodeGen/TargetFrameLowering.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SMLoc.h"
 #include "llvm/Support/YAMLTraits.h"
 #include "llvm/Support/raw_ostream.h"
@@ -411,7 +412,7 @@ template <> struct MappingTraits<FixedMachineStackObject> {
 
 /// A serializaable representation of a reference to a stack object or fixed
 /// stack object.
-struct FrameIndex {
+struct LLVM_ABI FrameIndex {
   // The frame index as printed. This is always a positive number, even for
   // fixed objects. To obtain the real index,
   // MachineFrameInfo::getObjectIndexBegin has to be added.

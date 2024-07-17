@@ -10,6 +10,7 @@
 #define LLVM_CODEGEN_FAULTMAPS_H
 
 #include "llvm/MC/MCSymbol.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <vector>
 
@@ -18,7 +19,7 @@ namespace llvm {
 class AsmPrinter;
 class MCExpr;
 
-class FaultMaps {
+class LLVM_ABI FaultMaps {
 public:
   enum FaultKind {
     FaultingLoad = 1,

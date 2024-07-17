@@ -70,6 +70,7 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachineOptimizationRemarkEmitter.h"
 #include "llvm/CodeGen/RegisterBankInfo.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <memory>
@@ -88,7 +89,7 @@ class TargetRegisterInfo;
 
 /// This pass implements the reg bank selector pass used in the GlobalISel
 /// pipeline. At the end of this pass, all register operands have been assigned
-class RegBankSelect : public MachineFunctionPass {
+class LLVM_ABI RegBankSelect : public MachineFunctionPass {
 public:
   static char ID;
 
@@ -108,7 +109,7 @@ public:
   /// It allows to reason about the frequency of this insertion point,
   /// without having to logically materialize it (e.g., on an edge),
   /// before we actually need to insert something.
-  class InsertPoint {
+  class LLVM_ABI InsertPoint {
   protected:
     /// Tell if the insert point has already been materialized.
     bool WasMaterialized = false;
@@ -201,7 +202,7 @@ public:
   };
 
   /// Insertion point before or after an instruction.
-  class InstrInsertPoint : public InsertPoint {
+  class LLVM_ABI InstrInsertPoint : public InsertPoint {
   private:
     /// Insertion point.
     MachineInstr &Instr;
@@ -234,7 +235,7 @@ public:
   };
 
   /// Insertion point at the beginning or end of a basic block.
-  class MBBInsertPoint : public InsertPoint {
+  class LLVM_ABI MBBInsertPoint : public InsertPoint {
   private:
     /// Insertion point.
     MachineBasicBlock &MBB;
@@ -270,7 +271,7 @@ public:
   };
 
   /// Insertion point on an edge.
-  class EdgeInsertPoint : public InsertPoint {
+  class LLVM_ABI EdgeInsertPoint : public InsertPoint {
   private:
     /// Source of the edge.
     MachineBasicBlock &Src;
@@ -311,7 +312,7 @@ public:
 
   /// Struct used to represent the placement of a repairing point for
   /// a given operand.
-  class RepairingPlacement {
+  class LLVM_ABI RepairingPlacement {
   public:
     /// Define the kind of action this repairing needs.
     enum RepairingKind {
@@ -419,7 +420,7 @@ protected:
   /// there are higher chances that we saturate the cost easier and end
   /// up having the same cost for actually different alternatives.
   /// Another option would be to use APInt everywhere.
-  class MappingCost {
+  class LLVM_ABI MappingCost {
   private:
     /// Cost of the local instructions.
     /// This cost is free of basic block frequency.

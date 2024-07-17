@@ -17,6 +17,7 @@
 #include "llvm/ADT/StringMap.h"
 #include "llvm/CodeGen/PseudoSourceValue.h"
 #include "llvm/IR/ValueMap.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -24,7 +25,7 @@ class GlobalValue;
 class TargetMachine;
 
 /// Manages creation of pseudo source values.
-class PseudoSourceValueManager {
+class LLVM_ABI PseudoSourceValueManager {
   const TargetMachine &TM;
   const PseudoSourceValue StackPSV, GOTPSV, JumpTablePSV, ConstantPoolPSV;
   SmallVector<std::unique_ptr<FixedStackPseudoSourceValue>> FSValues;

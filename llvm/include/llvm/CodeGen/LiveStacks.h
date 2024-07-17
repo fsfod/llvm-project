@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <map>
 #include <unordered_map>
@@ -32,7 +33,7 @@ class raw_ostream;
 class TargetRegisterClass;
 class TargetRegisterInfo;
 
-class LiveStacks : public MachineFunctionPass {
+class LLVM_ABI LiveStacks : public MachineFunctionPass {
   const TargetRegisterInfo *TRI = nullptr;
 
   /// Special pool allocator for VNInfo's (LiveInterval val#).

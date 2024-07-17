@@ -18,6 +18,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/CodeGen/TargetOpcodes.h"
 #include "llvm/CodeGenTypes/LowLevelType.h"
+#include "llvm/Support/Compiler.h"
 #include <unordered_map>
 #include <vector>
 
@@ -75,7 +76,7 @@ enum LegacyLegalizeAction : std::uint8_t {
   NotFound,
 };
 } // end namespace LegacyLegalizeActions
-raw_ostream &operator<<(raw_ostream &OS,
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS,
                         LegacyLegalizeActions::LegacyLegalizeAction Action);
 
 /// Legalization is decided based on an instruction's opcode, which type slot
@@ -117,7 +118,7 @@ struct LegacyLegalizeActionStep {
 };
 
 
-class LegacyLegalizerInfo {
+class LLVM_ABI LegacyLegalizerInfo {
 public:
   using SizeAndAction =
       std::pair<uint16_t, LegacyLegalizeActions::LegacyLegalizeAction>;

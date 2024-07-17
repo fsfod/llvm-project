@@ -20,6 +20,7 @@
 #include "llvm/Config/llvm-config.h"
 #include "llvm/MC/MCInstrItineraries.h"
 #include "llvm/MC/MCSchedule.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -27,7 +28,7 @@ class MachineInstr;
 class TargetInstrInfo;
 
 /// Provide an instruction scheduling machine model to CodeGen passes.
-class TargetSchedModel {
+class LLVM_ABI TargetSchedModel {
   // For efficiency, hold a copy of the statically defined MCSchedModel for this
   // processor.
   MCSchedModel SchedModel;

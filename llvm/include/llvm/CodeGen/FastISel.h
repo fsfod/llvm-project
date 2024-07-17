@@ -26,6 +26,7 @@
 #include "llvm/IR/DebugLoc.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/InstrTypes.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <utility>
 
@@ -63,11 +64,11 @@ class Value;
 /// This is a fast-path instruction selection class that generates poor
 /// code and doesn't support illegal types or non-trivial lowering, but runs
 /// quickly.
-class FastISel {
+class LLVM_ABI FastISel {
 public:
   using ArgListEntry = TargetLoweringBase::ArgListEntry;
   using ArgListTy = TargetLoweringBase::ArgListTy;
-  struct CallLoweringInfo {
+  struct LLVM_ABI CallLoweringInfo {
     Type *RetTy = nullptr;
     bool RetSExt : 1;
     bool RetZExt : 1;

@@ -15,6 +15,7 @@
 #define LLVM_CODEGEN_HARDWARELOOPS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -61,7 +62,7 @@ struct HardwareLoopOptions {
   }
 };
 
-class HardwareLoopsPass : public PassInfoMixin<HardwareLoopsPass> {
+class LLVM_ABI HardwareLoopsPass : public PassInfoMixin<HardwareLoopsPass> {
   HardwareLoopOptions Opts;
 
 public:

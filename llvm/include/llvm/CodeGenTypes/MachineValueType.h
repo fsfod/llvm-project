@@ -17,6 +17,7 @@
 #define LLVM_CODEGEN_MACHINEVALUETYPE_H
 
 #include "llvm/ADT/Sequence.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Support/TypeSize.h"
@@ -31,7 +32,7 @@ namespace llvm {
   /// Machine Value Type. Every type that is supported natively by some
   /// processor targeted by LLVM occurs here. This means that any legal value
   /// type can be represented by an MVT.
-  class MVT {
+  class LLVM_ABI MVT {
   public:
     enum SimpleValueType : uint8_t {
       // Simple value types that aren't explicitly part of this enumeration

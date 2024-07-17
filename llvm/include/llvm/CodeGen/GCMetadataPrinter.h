@@ -19,6 +19,7 @@
 #ifndef LLVM_CODEGEN_GCMETADATAPRINTER_H
 #define LLVM_CODEGEN_GCMETADATAPRINTER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Registry.h"
 
 namespace llvm {
@@ -36,7 +37,7 @@ using GCMetadataPrinterRegistry = Registry<GCMetadataPrinter>;
 
 /// GCMetadataPrinter - Emits GC metadata as assembly code.  Instances are
 /// created, managed, and owned by the AsmPrinter.
-class GCMetadataPrinter {
+class LLVM_ABI GCMetadataPrinter {
 private:
   friend class AsmPrinter;
 
