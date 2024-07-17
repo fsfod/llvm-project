@@ -45,6 +45,7 @@
 #include "llvm/IR/Dominators.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <map>
@@ -886,7 +887,7 @@ public:
   }
 };
 
-class Region : public RegionBase<RegionTraits<Function>> {
+class LLVM_ABI Region : public RegionBase<RegionTraits<Function>> {
 public:
   Region(BasicBlock *Entry, BasicBlock *Exit, RegionInfo *RI, DominatorTree *DT,
          Region *Parent = nullptr);
@@ -897,7 +898,7 @@ public:
   }
 };
 
-class RegionInfo : public RegionInfoBase<RegionTraits<Function>> {
+class LLVM_ABI RegionInfo : public RegionInfoBase<RegionTraits<Function>> {
 public:
   using Base = RegionInfoBase<RegionTraits<Function>>;
 
@@ -939,7 +940,7 @@ public:
 #endif
 };
 
-class RegionInfoPass : public FunctionPass {
+class LLVM_ABI RegionInfoPass : public FunctionPass {
   RegionInfo RI;
 
 public:
@@ -964,7 +965,7 @@ public:
 };
 
 /// Analysis pass that exposes the \c RegionInfo for a function.
-class RegionInfoAnalysis : public AnalysisInfoMixin<RegionInfoAnalysis> {
+class LLVM_ABI RegionInfoAnalysis : public AnalysisInfoMixin<RegionInfoAnalysis> {
   friend AnalysisInfoMixin<RegionInfoAnalysis>;
 
   static AnalysisKey Key;
@@ -976,7 +977,7 @@ public:
 };
 
 /// Printer pass for the \c RegionInfo.
-class RegionInfoPrinterPass : public PassInfoMixin<RegionInfoPrinterPass> {
+class LLVM_ABI RegionInfoPrinterPass : public PassInfoMixin<RegionInfoPrinterPass> {
   raw_ostream &OS;
 
 public:
@@ -988,7 +989,7 @@ public:
 };
 
 /// Verifier pass for the \c RegionInfo.
-struct RegionInfoVerifierPass : PassInfoMixin<RegionInfoVerifierPass> {
+struct LLVM_ABI RegionInfoVerifierPass : PassInfoMixin<RegionInfoVerifierPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
   static bool isRequired() { return true; }
 };
@@ -1022,9 +1023,9 @@ inline raw_ostream &operator<<(raw_ostream &OS,
     return OS << Node.template getNodeAs<BlockT>()->getName();
 }
 
-extern template class RegionBase<RegionTraits<Function>>;
-extern template class RegionNodeBase<RegionTraits<Function>>;
-extern template class RegionInfoBase<RegionTraits<Function>>;
+extern template class LLVM_TEMPLATE_ABI RegionBase<RegionTraits<Function>>;
+extern template class LLVM_TEMPLATE_ABI RegionNodeBase<RegionTraits<Function>>;
+extern template class LLVM_TEMPLATE_ABI RegionInfoBase<RegionTraits<Function>>;
 
 } // end namespace llvm
 

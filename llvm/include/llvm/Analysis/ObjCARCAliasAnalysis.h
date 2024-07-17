@@ -24,6 +24,7 @@
 
 #include "llvm/Analysis/AliasAnalysis.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace objcarc {
@@ -34,7 +35,7 @@ namespace objcarc {
 /// TODO: This class could be generalized to know about other ObjC-specific
 /// tricks. Such as knowing that ivars in the non-fragile ABI are non-aliasing
 /// even though their offsets are dynamic.
-class ObjCARCAAResult : public AAResultBase {
+class LLVM_ABI ObjCARCAAResult : public AAResultBase {
   const DataLayout &DL;
 
 public:
@@ -64,7 +65,7 @@ public:
 };
 
 /// Analysis pass providing a never-invalidated alias analysis result.
-class ObjCARCAA : public AnalysisInfoMixin<ObjCARCAA> {
+class LLVM_ABI ObjCARCAA : public AnalysisInfoMixin<ObjCARCAA> {
   friend AnalysisInfoMixin<ObjCARCAA>;
   static AnalysisKey Key;
 

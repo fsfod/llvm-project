@@ -58,6 +58,7 @@
 #include "llvm/ADT/StringMap.h"
 #include "llvm/Analysis/TensorSpec.h"
 #include "llvm/IR/LLVMContext.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/JSON.h"
 
 #include <memory>
@@ -88,7 +89,7 @@ namespace llvm {
 /// At the end, call print to generate the log.
 /// Alternatively, don't call logReward at the end of each event, just
 /// log{Float|Int32|Int64}FinalReward at the end.
-class Logger final {
+class LLVM_ABI Logger final {
   std::unique_ptr<raw_ostream> OS;
   const std::vector<TensorSpec> FeatureSpecs;
   const TensorSpec RewardSpec;

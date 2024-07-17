@@ -16,14 +16,15 @@
 
 #include "llvm/ADT/GenericUniformityInfo.h"
 #include "llvm/Analysis/CycleAnalysis.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-extern template class GenericUniformityInfo<SSAContext>;
+extern template class LLVM_TEMPLATE_ABI GenericUniformityInfo<SSAContext>;
 using UniformityInfo = GenericUniformityInfo<SSAContext>;
 
 /// Analysis pass which computes \ref UniformityInfo.
-class UniformityInfoAnalysis
+class LLVM_ABI UniformityInfoAnalysis
     : public AnalysisInfoMixin<UniformityInfoAnalysis> {
   friend AnalysisInfoMixin<UniformityInfoAnalysis>;
   static AnalysisKey Key;
@@ -39,7 +40,7 @@ public:
 };
 
 /// Printer pass for the \c UniformityInfo.
-class UniformityInfoPrinterPass
+class LLVM_ABI UniformityInfoPrinterPass
     : public PassInfoMixin<UniformityInfoPrinterPass> {
   raw_ostream &OS;
 
@@ -52,7 +53,7 @@ public:
 };
 
 /// Legacy analysis pass which computes a \ref CycleInfo.
-class UniformityInfoWrapperPass : public FunctionPass {
+class LLVM_ABI UniformityInfoWrapperPass : public FunctionPass {
   Function *m_function = nullptr;
   UniformityInfo m_uniformityInfo;
 

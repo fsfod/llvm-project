@@ -19,6 +19,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/Analysis/ScalarEvolution.h"
 #include "llvm/IR/InstVisitor.h"
+#include "llvm/Support/Compiler.h"
 
 // This class is used to get an estimate of the optimization effects that we
 // could get from complete loop unrolling. It comes from the fact that some
@@ -39,7 +40,7 @@
 namespace llvm {
 class Instruction;
 
-class UnrolledInstAnalyzer : private InstVisitor<UnrolledInstAnalyzer, bool> {
+class LLVM_ABI UnrolledInstAnalyzer : private InstVisitor<UnrolledInstAnalyzer, bool> {
   typedef InstVisitor<UnrolledInstAnalyzer, bool> Base;
   friend class InstVisitor<UnrolledInstAnalyzer, bool>;
   struct SimplifiedAddress {

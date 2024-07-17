@@ -14,6 +14,7 @@
 #define LLVM_ANALYSIS_SCALAREVOLUTIONDIVISION_H
 
 #include "llvm/Analysis/ScalarEvolutionExpressions.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -23,7 +24,7 @@ class ScalarEvolution;
 
 struct SCEVCouldNotCompute;
 
-struct SCEVDivision : public SCEVVisitor<SCEVDivision, void> {
+struct LLVM_ABI SCEVDivision : public SCEVVisitor<SCEVDivision, void> {
 public:
   // Computes the Quotient and Remainder of the division of Numerator by
   // Denominator.
