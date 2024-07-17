@@ -33,6 +33,7 @@
 #include "llvm/IR/Intrinsics.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 #include <cassert>
 #include <cstdint>
@@ -45,7 +46,7 @@ class Metadata;
 /// A wrapper class for inspecting calls to intrinsic functions.
 /// This allows the standard isa/dyncast/cast functionality to work with calls
 /// to intrinsic functions.
-class IntrinsicInst : public CallInst {
+class LLVM_ABI IntrinsicInst : public CallInst {
 public:
   IntrinsicInst() = delete;
   IntrinsicInst(const IntrinsicInst &) = delete;
@@ -238,7 +239,7 @@ public:
 /// Lightweight class that wraps the location operand metadata of a debug
 /// intrinsic. The raw location may be a ValueAsMetadata, an empty MDTuple,
 /// or a DIArgList.
-class RawLocationWrapper {
+class LLVM_ABI RawLocationWrapper {
   Metadata *RawLocation = nullptr;
 
 public:
@@ -303,7 +304,7 @@ public:
 };
 
 /// This is the common base class for debug info intrinsics for variables.
-class DbgVariableIntrinsic : public DbgInfoIntrinsic {
+class LLVM_ABI DbgVariableIntrinsic : public DbgInfoIntrinsic {
 public:
   /// Get the locations corresponding to the variable referenced by the debug
   /// info intrinsic.  Depending on the intrinsic, this could be the
@@ -479,7 +480,7 @@ public:
 };
 
 /// This represents the llvm.dbg.assign instruction.
-class DbgAssignIntrinsic : public DbgValueInst {
+class LLVM_ABI DbgAssignIntrinsic : public DbgValueInst {
   enum Operands {
     OpValue,
     OpVar,
@@ -553,7 +554,7 @@ public:
 };
 
 /// This is the common base class for vector predication intrinsics.
-class VPIntrinsic : public IntrinsicInst {
+class LLVM_ABI VPIntrinsic : public IntrinsicInst {
 public:
   /// \brief Declares a llvm.vp.* intrinsic in \p M that matches the parameters
   /// \p Params. Additionally, the load and gather intrinsics require
@@ -636,7 +637,7 @@ public:
 };
 
 /// This represents vector predication reduction intrinsics.
-class VPReductionIntrinsic : public VPIntrinsic {
+class LLVM_ABI VPReductionIntrinsic : public VPIntrinsic {
 public:
   static bool isVPReduction(Intrinsic::ID ID);
 
@@ -657,7 +658,7 @@ public:
   /// @}
 };
 
-class VPCastIntrinsic : public VPIntrinsic {
+class LLVM_ABI VPCastIntrinsic : public VPIntrinsic {
 public:
   static bool isVPCast(Intrinsic::ID ID);
 
@@ -672,7 +673,7 @@ public:
   /// @}
 };
 
-class VPCmpIntrinsic : public VPIntrinsic {
+class LLVM_ABI VPCmpIntrinsic : public VPIntrinsic {
 public:
   static bool isVPCmp(Intrinsic::ID ID);
 
@@ -689,7 +690,7 @@ public:
   /// @}
 };
 
-class VPBinOpIntrinsic : public VPIntrinsic {
+class LLVM_ABI VPBinOpIntrinsic : public VPIntrinsic {
 public:
   static bool isVPBinOp(Intrinsic::ID ID);
 
@@ -706,7 +707,7 @@ public:
 
 
 /// This is the common base class for constrained floating point intrinsics.
-class ConstrainedFPIntrinsic : public IntrinsicInst {
+class LLVM_ABI ConstrainedFPIntrinsic : public IntrinsicInst {
 public:
   unsigned getNonMetadataArgCount() const;
   std::optional<RoundingMode> getRoundingMode() const;
@@ -721,7 +722,7 @@ public:
 };
 
 /// Constrained floating point compare intrinsics.
-class ConstrainedFPCmpIntrinsic : public ConstrainedFPIntrinsic {
+class LLVM_ABI ConstrainedFPCmpIntrinsic : public ConstrainedFPIntrinsic {
 public:
   FCmpInst::Predicate getPredicate() const;
   bool isSignaling() const {
@@ -873,7 +874,7 @@ public:
 
 /// This class represents an intrinsic that is based on a binary operation.
 /// This includes op.with.overflow and saturating add/sub intrinsics.
-class BinaryOpIntrinsic : public IntrinsicInst {
+class LLVM_ABI BinaryOpIntrinsic : public IntrinsicInst {
 public:
   static bool classof(const IntrinsicInst *I) {
     switch (I->getIntrinsicID()) {
@@ -1504,7 +1505,7 @@ public:
 };
 
 /// A base class for all instrprof counter intrinsics.
-class InstrProfCntrInstBase : public InstrProfInstBase {
+class LLVM_ABI InstrProfCntrInstBase : public InstrProfInstBase {
 public:
   static bool classof(const Value *V) {
     if (const auto *Instr = dyn_cast<IntrinsicInst>(V))
@@ -1530,7 +1531,7 @@ public:
 };
 
 /// This represents the llvm.instrprof.increment intrinsic.
-class InstrProfIncrementInst : public InstrProfCntrInstBase {
+class LLVM_ABI InstrProfIncrementInst : public InstrProfCntrInstBase {
 public:
   static bool classof(const IntrinsicInst *I) {
     return I->getIntrinsicID() == Intrinsic::instrprof_increment ||
@@ -1557,7 +1558,7 @@ public:
 /// It is structurally like the increment or step counters, hence the
 /// inheritance relationship, albeit somewhat tenuous (it's not 'counting' per
 /// se)
-class InstrProfCallsite : public InstrProfCntrInstBase {
+class LLVM_ABI InstrProfCallsite : public InstrProfCntrInstBase {
 public:
   static bool classof(const IntrinsicInst *I) {
     return I->getIntrinsicID() == Intrinsic::instrprof_callsite;
@@ -1711,7 +1712,7 @@ public:
 
 /// Common base class for representing values projected from a statepoint.
 /// Currently, the only projections available are gc.result and gc.relocate.
-class GCProjectionInst : public IntrinsicInst {
+class LLVM_ABI GCProjectionInst : public IntrinsicInst {
 public:
   static bool classof(const IntrinsicInst *I) {
     return I->getIntrinsicID() == Intrinsic::experimental_gc_relocate ||
@@ -1735,7 +1736,7 @@ public:
 };
 
 /// Represents calls to the gc.relocate intrinsic.
-class GCRelocateInst : public GCProjectionInst {
+class LLVM_ABI GCRelocateInst : public GCProjectionInst {
 public:
   static bool classof(const IntrinsicInst *I) {
     return I->getIntrinsicID() == Intrinsic::experimental_gc_relocate;

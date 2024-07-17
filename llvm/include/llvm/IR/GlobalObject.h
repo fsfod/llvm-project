@@ -18,13 +18,14 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Comdat;
 class Metadata;
 
-class GlobalObject : public GlobalValue {
+class LLVM_ABI GlobalObject : public GlobalValue {
 public:
   // VCallVisibility - values for visibility metadata attached to vtables. This
   // describes the scope in which a virtual call could end up being dispatched

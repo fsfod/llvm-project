@@ -30,6 +30,7 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/OperandTraits.h"
 #include "llvm/IR/User.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -103,7 +104,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(UnaryInstruction, Value)
 //                                UnaryOperator Class
 //===----------------------------------------------------------------------===//
 
-class UnaryOperator : public UnaryInstruction {
+class LLVM_ABI UnaryOperator : public UnaryInstruction {
   void AssertOK();
 
 protected:
@@ -185,7 +186,7 @@ public:
 //                           BinaryOperator Class
 //===----------------------------------------------------------------------===//
 
-class BinaryOperator : public Instruction {
+class LLVM_ABI BinaryOperator : public Instruction {
   void AssertOK();
 
 protected:
@@ -527,7 +528,7 @@ BinaryOperator *BinaryOperator::CreateDisjoint(BinaryOps Opc, Value *V1,
 ///
 /// if (isa<CastInst>(Instr)) { ... }
 /// Base class of casting instructions.
-class CastInst : public UnaryInstruction {
+class LLVM_ABI CastInst : public UnaryInstruction {
 protected:
   /// Constructor with insert-before-instruction semantics for subclasses
   CastInst(Type *Ty, unsigned iType, Value *S, const Twine &NameStr = "",
@@ -744,7 +745,7 @@ public:
 
 /// This class is the base class for the comparison instructions.
 /// Abstract base class of comparison instructions.
-class CmpInst : public Instruction {
+class LLVM_ABI CmpInst : public Instruction {
 public:
   /// This enumeration lists the possible predicates for CmpInst subclasses.
   /// Values in the range 0-31 are reserved for FCmpInst, while values in the
@@ -1124,7 +1125,7 @@ struct OperandTraits<CmpInst> : public FixedNumOperandTraits<CmpInst, 2> {
 
 DEFINE_TRANSPARENT_OPERAND_ACCESSORS(CmpInst, Value)
 
-raw_ostream &operator<<(raw_ostream &OS, CmpInst::Predicate Pred);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, CmpInst::Predicate Pred);
 
 /// A lightweight accessor for an operand bundle meant to be passed
 /// around by value.
@@ -1233,7 +1234,7 @@ using ConstOperandBundleDef = OperandBundleDefT<const Value *>;
 /// start of the arguments without knowing how many other operands a particular
 /// subclass requires. Note that accessing the end of the argument list isn't
 /// as cheap as most other operations on the base class.
-class CallBase : public Instruction {
+class LLVM_ABI CallBase : public Instruction {
 protected:
   // The first two bits are reserved by CallInst for fast retrieval,
   using CallInstReservedField = Bitfield::Element<unsigned, 0, 2>;
@@ -2414,7 +2415,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(CallBase, Value)
 //===----------------------------------------------------------------------===//
 //                           FuncletPadInst Class
 //===----------------------------------------------------------------------===//
-class FuncletPadInst : public Instruction {
+class LLVM_ABI FuncletPadInst : public Instruction {
 private:
   FuncletPadInst(const FuncletPadInst &CPI);
 

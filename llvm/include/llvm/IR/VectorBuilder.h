@@ -15,6 +15,7 @@
 #ifndef LLVM_IR_VECTORBUILDER_H
 #define LLVM_IR_VECTORBUILDER_H
 
+#include "llvm/Support/Compiler.h"
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/InstrTypes.h>
 #include <llvm/IR/Instruction.h>
@@ -22,7 +23,7 @@
 
 namespace llvm {
 
-class VectorBuilder {
+class LLVM_ABI VectorBuilder {
 public:
   enum class Behavior {
     // Abort if the requested VP intrinsic could not be created.

@@ -50,10 +50,11 @@
 #define LLVM_IR_PASSINSTRUMENTATION_H
 
 #include "llvm/ADT/Any.h"
+#include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/FunctionExtras.h"
 #include "llvm/ADT/SmallVector.h"
-#include "llvm/ADT/DenseMap.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <type_traits>
 #include <vector>
 
@@ -64,7 +65,7 @@ class StringRef;
 
 /// This class manages callbacks registration, as well as provides a way for
 /// PassInstrumentation to pass control to the registered callbacks.
-class PassInstrumentationCallbacks {
+class LLVM_ABI PassInstrumentationCallbacks {
 public:
   // Before/After callbacks accept IRUnits whenever appropriate, so they need
   // to take them as constant pointers, wrapped with llvm::Any.
@@ -341,11 +342,11 @@ public:
   }
 };
 
-bool isSpecialPass(StringRef PassID, const std::vector<StringRef> &Specials);
+LLVM_ABI bool isSpecialPass(StringRef PassID, const std::vector<StringRef> &Specials);
 
 /// Pseudo-analysis pass that exposes the \c PassInstrumentation to pass
 /// managers.
-class PassInstrumentationAnalysis
+class LLVM_ABI PassInstrumentationAnalysis
     : public AnalysisInfoMixin<PassInstrumentationAnalysis> {
   friend AnalysisInfoMixin<PassInstrumentationAnalysis>;
   static AnalysisKey Key;
