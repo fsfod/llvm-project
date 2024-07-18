@@ -18,6 +18,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/DebugInfo/Symbolize/Markup.h"
 #include "llvm/Object/BuildID.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/WithColor.h"
 #include "llvm/Support/raw_ostream.h"
 #include <map>
@@ -29,7 +30,7 @@ class LLVMSymbolizer;
 
 /// Filter to convert parsed log symbolizer markup elements into human-readable
 /// text.
-class MarkupFilter {
+class LLVM_ABI MarkupFilter {
 public:
   MarkupFilter(raw_ostream &OS, LLVMSymbolizer &Symbolizer,
                std::optional<bool> ColorsEnabled = std::nullopt);
@@ -51,7 +52,7 @@ private:
     SmallVector<uint8_t> BuildID;
   };
 
-  struct MMap {
+  struct LLVM_ABI MMap {
     uint64_t Addr;
     uint64_t Size;
     const Module *Mod;

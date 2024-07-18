@@ -23,6 +23,7 @@
 #include "llvm/DebugInfo/PDB/Native/InputFile.h"
 #include "llvm/Object/Binary.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <stack>
 #include <utility>
@@ -36,7 +37,7 @@ class LVCodeViewReader;
 class LVLogicalVisitor;
 struct LVShared;
 
-class LVTypeVisitor final : public TypeVisitorCallbacks {
+class LLVM_ABI LVTypeVisitor final : public TypeVisitorCallbacks {
   ScopedPrinter &W;
   LVLogicalVisitor *LogicalVisitor;
   LazyRandomTypeCollection &Types;
@@ -82,7 +83,7 @@ public:
   Error visitUnknownType(CVType &Record) override;
 };
 
-class LVSymbolVisitorDelegate final : public SymbolVisitorDelegate {
+class LLVM_ABI LVSymbolVisitorDelegate final : public SymbolVisitorDelegate {
   LVCodeViewReader *Reader;
   const llvm::object::coff_section *CoffSection;
   StringRef SectionContents;
@@ -121,7 +122,7 @@ class LVSymbol;
 class LVType;
 
 // Visitor for CodeView symbol streams found in COFF object files and PDB files.
-class LVSymbolVisitor final : public SymbolVisitorCallbacks {
+class LLVM_ABI LVSymbolVisitor final : public SymbolVisitorCallbacks {
   LVCodeViewReader *Reader;
   ScopedPrinter &W;
   LVLogicalVisitor *LogicalVisitor;
@@ -229,7 +230,7 @@ public:
 };
 
 // Visitor for CodeView types and symbols to populate elements.
-class LVLogicalVisitor final {
+class LLVM_ABI LVLogicalVisitor final {
   LVCodeViewReader *Reader;
   ScopedPrinter &W;
 

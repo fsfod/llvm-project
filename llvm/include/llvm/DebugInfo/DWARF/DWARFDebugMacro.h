@@ -12,6 +12,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/DebugInfo/DWARF/DWARFDataExtractor.h"
 #include "llvm/DebugInfo/DWARF/DWARFUnit.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 
@@ -25,7 +26,7 @@ class DwarfStreamer;
 }
 } // namespace dwarf_linker
 
-class DWARFDebugMacro {
+class LLVM_ABI DWARFDebugMacro {
   friend dwarf_linker::classic::DwarfStreamer;
   friend dwarf_linker::parallel::CompileUnit;
 
@@ -34,7 +35,7 @@ class DWARFDebugMacro {
 #define HANDLE_MACRO_FLAG(ID, NAME) MACRO_##NAME = ID,
 #include "llvm/BinaryFormat/Dwarf.def"
   };
-  struct MacroHeader {
+  struct LLVM_ABI MacroHeader {
     /// Macro version information number.
     uint16_t Version = 0;
 

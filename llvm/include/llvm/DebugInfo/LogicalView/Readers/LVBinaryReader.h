@@ -26,6 +26,7 @@
 #include "llvm/MC/TargetRegistry.h"
 #include "llvm/Object/COFF.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace logicalview {
@@ -46,7 +47,7 @@ struct LVSymbolTableEntry final {
 };
 
 // Function names extracted from the object symbol table.
-class LVSymbolTable final {
+class LLVM_ABI LVSymbolTable final {
   using LVSymbolNames = std::map<std::string, LVSymbolTableEntry>;
   LVSymbolNames SymbolNames;
 
@@ -66,7 +67,7 @@ public:
   void print(raw_ostream &OS);
 };
 
-class LVBinaryReader : public LVReader {
+class LLVM_ABI LVBinaryReader : public LVReader {
   // Function names extracted from the object symbol table.
   LVSymbolTable SymbolTable;
 

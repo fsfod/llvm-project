@@ -13,13 +13,14 @@
 
 #include "llvm/DebugInfo/CodeView/TypeRecord.h"
 #include "llvm/DebugInfo/PDB/PDBTypes.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 
 class NativeSession;
 
-class NativeTypeArray : public NativeRawSymbol {
+class LLVM_ABI NativeTypeArray : public NativeRawSymbol {
 public:
   NativeTypeArray(NativeSession &Session, SymIndexId Id, codeview::TypeIndex TI,
                   codeview::ArrayRecord Record);

@@ -12,6 +12,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/iterator.h"
 #include "llvm/BinaryFormat/Dwarf.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataExtractor.h"
 
 namespace llvm {
@@ -20,7 +21,7 @@ struct DIDumpOptions;
 class MCRegisterInfo;
 class raw_ostream;
 
-class DWARFExpression {
+class LLVM_ABI DWARFExpression {
 public:
   class iterator;
 
@@ -29,7 +30,7 @@ public:
   /// An Operation can be in Error state (check with isError()). This
   /// means that it couldn't be decoded successfully and if it is the
   /// case, all others fields contain undefined values.
-  class Operation {
+  class LLVM_ABI Operation {
   public:
     /// Size and signedness of expression operations' operands.
     enum Encoding : uint8_t {

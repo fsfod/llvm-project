@@ -18,6 +18,7 @@
 #include "llvm/DebugInfo/PDB/Native/NativeRawSymbol.h"
 #include "llvm/DebugInfo/PDB/Native/NativeSourceFile.h"
 #include "llvm/DebugInfo/PDB/PDBTypes.h"
+#include "llvm/Support/Compiler.h"
 
 #include <memory>
 #include <vector>
@@ -34,7 +35,7 @@ class PDBSymbol;
 class PDBSymbolCompiland;
 class DbiStream;
 
-class SymbolCache {
+class LLVM_ABI SymbolCache {
   NativeSession &Session;
   DbiStream *Dbi = nullptr;
 

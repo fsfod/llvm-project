@@ -15,6 +15,7 @@
 #include "llvm/Support/BinaryStreamArray.h"
 #include "llvm/Support/BinaryStreamRef.h"
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -31,7 +32,7 @@ namespace pdb {
 struct TpiStreamHeader;
 class PDBFile;
 
-class TpiStream {
+class LLVM_ABI TpiStream {
   friend class TpiStreamBuilder;
 
 public:

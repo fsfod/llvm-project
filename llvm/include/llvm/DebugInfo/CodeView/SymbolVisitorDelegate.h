@@ -10,6 +10,7 @@
 #define LLVM_DEBUGINFO_CODEVIEW_SYMBOLVISITORDELEGATE_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
@@ -20,7 +21,7 @@ namespace codeview {
 
 class DebugStringTableSubsectionRef;
 
-class SymbolVisitorDelegate {
+class LLVM_ABI SymbolVisitorDelegate {
 public:
   virtual ~SymbolVisitorDelegate() = default;
 

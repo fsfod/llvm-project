@@ -18,6 +18,7 @@
 #include "llvm/DebugInfo/PDB/Native/ModuleDebugStream.h"
 #include "llvm/Object/Binary.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -36,7 +37,7 @@ class NativeSession;
 class SymbolGroupIterator;
 class SymbolGroup;
 
-class InputFile {
+class LLVM_ABI InputFile {
   InputFile();
 
   std::unique_ptr<NativeSession> PdbSession;
@@ -87,7 +88,7 @@ public:
   bool isUnknown() const;
 };
 
-class SymbolGroup {
+class LLVM_ABI SymbolGroup {
   friend class SymbolGroupIterator;
 
 public:
@@ -128,7 +129,7 @@ private:
   StringMap<codeview::FileChecksumEntry> ChecksumsByFile;
 };
 
-class SymbolGroupIterator
+class LLVM_ABI SymbolGroupIterator
     : public iterator_facade_base<SymbolGroupIterator,
                                   std::forward_iterator_tag, SymbolGroup> {
 public:
@@ -152,12 +153,12 @@ private:
   SymbolGroup Value;
 };
 
-Expected<ModuleDebugStreamRef>
+LLVM_ABI Expected<ModuleDebugStreamRef>
 getModuleDebugStream(PDBFile &File, StringRef &ModuleName, uint32_t Index);
-Expected<ModuleDebugStreamRef> getModuleDebugStream(PDBFile &File,
+LLVM_ABI Expected<ModuleDebugStreamRef> getModuleDebugStream(PDBFile &File,
                                                     uint32_t Index);
 
-bool shouldDumpSymbolGroup(uint32_t Idx, const SymbolGroup &Group,
+LLVM_ABI bool shouldDumpSymbolGroup(uint32_t Idx, const SymbolGroup &Group,
                            const FilterOptions &Filters);
 
 // TODO: Change these callbacks to be function_refs (de-templatify them).

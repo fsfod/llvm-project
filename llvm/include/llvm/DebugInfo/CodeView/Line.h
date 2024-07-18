@@ -9,6 +9,7 @@
 #ifndef LLVM_DEBUGINFO_CODEVIEW_LINE_H
 #define LLVM_DEBUGINFO_CODEVIEW_LINE_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include <cinttypes>
 
@@ -17,7 +18,7 @@ namespace codeview {
 
 using llvm::support::ulittle32_t;
 
-class LineInfo {
+class LLVM_ABI LineInfo {
 public:
   enum : uint32_t {
     AlwaysStepIntoLineNumber = 0xfeefee,
