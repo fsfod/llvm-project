@@ -117,11 +117,13 @@ protected:
   class PointerProxy {
     friend iterator_facade_base;
 
-    const T& R;
+    ReferenceT R;
+
+    template <typename RefT>
+    PointerProxy(RefT &&R) : R(std::forward<RefT>(R)) {}
 
   public:
-    explicit PointerProxy(const T& R) : R(R) {}
-    const PointerT operator->() const { return const_cast<PointerT>(&R); }
+    PointerT operator->() const { return &R; }
   };
 
 public:
@@ -203,7 +205,7 @@ public:
   }
 
   template <int = 0> PointerProxy operator->() const {
-    return PointerProxy(static_cast<const DerivedT *>(this)->operator*());
+    return static_cast<const DerivedT *>(this)->operator*();
   }
 
   template<typename U = ReferenceProxy>
