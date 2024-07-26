@@ -929,7 +929,7 @@ public:
 private:
   friend AnalysisInfoMixin<AAManager>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   SmallVector<void (*)(Function &F, FunctionAnalysisManager &AM,
                        AAResults &AAResults),
@@ -962,7 +962,7 @@ class LLVM_CLASS_ABI AAResultsWrapperPass : public FunctionPass {
   std::unique_ptr<AAResults> AAR;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   AAResultsWrapperPass();
 
@@ -981,7 +981,7 @@ struct LLVM_CLASS_ABI ExternalAAWrapperPass : ImmutablePass {
 
   CallbackT CB;
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   ExternalAAWrapperPass();
 

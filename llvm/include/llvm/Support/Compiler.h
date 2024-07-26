@@ -167,22 +167,35 @@
 // missing symbol linker errors on windows.
 #if defined(LLVM_BUILD_STATIC)
 #define LLVM_ABI
+#define LLVM_ABI_DATA
+#define LLVM_ABI_DATA_IMPORT
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE
 #define LLVM_ABI_EXPORT
 #elif defined(_WIN32)
 #if defined(LLVM_EXPORTS)
 #define LLVM_ABI __declspec(dllexport)
+#define LLVM_ABI_DATA __declspec(dllexport)
+#define LLVM_ABI_DATA_IMPORT
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE __declspec(dllexport)
+#elif defined(LLVM_IMPORT_MSVC_COMPAT)
+#define LLVM_DLL_IMPORTING
+#define LLVM_ABI
+#define LLVM_ABI_DATA __declspec(dllimport)
+#define LLVM_ABI_DATA_IMPORT __declspec(dllimport)
+#define LLVM_TEMPLATE_ABI __declspec(dllimport)
+#define LLVM_EXPORT_TEMPLATE
 #else
 // This is used to turn off definitions of template static fields that trigger
 // a compiler error if the template class is annotated a export macro that is
 // in dllimport mode.
 #define LLVM_DLL_IMPORTING
 #define LLVM_ABI __declspec(dllimport)
+#define LLVM_ABI_DATA __declspec(dllimport)
 #define LLVM_TEMPLATE_ABI __declspec(dllimport)
 #define LLVM_EXPORT_TEMPLATE
+#define LLVM_ABI_DATA_IMPORT
 #endif
 #define LLVM_ABI_EXPORT __declspec(dllexport)
 #elif defined(__ELF__)
@@ -201,6 +214,7 @@
 #define LLVM_ABI_EXPORT
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE
+#define LLVM_ABI_DATA_IMPORT
 #endif
 #define LLVM_C_ABI LLVM_ABI
 #define LLVM_CLASS_ABI LLVM_ABI

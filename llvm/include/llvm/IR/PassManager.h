@@ -610,7 +610,9 @@ extern template class LLVM_TEMPLATE_ABI AnalysisManager<Function>;
 /// Convenience typedef for the Function analysis manager.
 using FunctionAnalysisManager = AnalysisManager<Function>;
 
-#if !defined(_MSC_VER) || !defined(__clang__)
+#if defined(LLVM_IMPORT_MSVC_COMPAT)
+#define LLVM_ABI_CLANGCL LLVM_ABI_DATA
+#elif !defined(_MSC_VER) || !defined(__clang__)
 #define LLVM_ABI_CLANGCL
 #else
 #define LLVM_ABI_CLANGCL LLVM_ABI
@@ -708,7 +710,7 @@ private:
   AnalysisManagerT *InnerAM;
 };
 
-#if !defined(LLVM_DLL_IMPORTING) || !defined(__clang__)
+#if (!defined(LLVM_DLL_IMPORTING) && !defined(LLVM_IMPORT_MSVC_COMPAT))  || !defined(__clang__)
 template <typename AnalysisManagerT, typename IRUnitT, typename... ExtraArgTs>
 LLVM_ABI_CLANGCL AnalysisKey
     InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT, ExtraArgTs...>::Key;
