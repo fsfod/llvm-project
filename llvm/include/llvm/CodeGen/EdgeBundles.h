@@ -34,7 +34,7 @@ class LLVM_CLASS_ABI EdgeBundles : public MachineFunctionPass {
   SmallVector<SmallVector<unsigned, 8>, 4> Blocks;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   EdgeBundles() : MachineFunctionPass(ID) {}
 
   /// getBundle - Return the ingoing (Out = false) or outgoing (Out = true)

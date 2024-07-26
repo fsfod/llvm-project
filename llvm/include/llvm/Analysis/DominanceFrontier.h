@@ -160,7 +160,7 @@ class LLVM_CLASS_ABI DominanceFrontierWrapperPass : public FunctionPass {
   DominanceFrontier DF;
 
 public:
-  static char ID; // Pass ID, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass ID, replacement for typeid
 
   DominanceFrontierWrapperPass();
 
@@ -187,7 +187,7 @@ class LLVM_CLASS_ABI DominanceFrontierAnalysis
     : public AnalysisInfoMixin<DominanceFrontierAnalysis> {
   friend AnalysisInfoMixin<DominanceFrontierAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result type for this analysis pass.

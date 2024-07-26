@@ -73,7 +73,7 @@ class LLVM_CLASS_ABI InstructionCombiningPass : public FunctionPass {
   InstructionWorklist Worklist;
 
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 
   explicit InstructionCombiningPass();
 

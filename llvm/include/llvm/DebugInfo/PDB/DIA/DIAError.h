@@ -44,7 +44,7 @@ class LLVM_CLASS_ABI DIAError : public ErrorInfo<DIAError, StringError> {
 public:
   using ErrorInfo<DIAError, StringError>::ErrorInfo;
   DIAError(const Twine &S) : ErrorInfo(S, dia_error_code::unspecified) {}
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 };
 } // namespace pdb
 } // namespace llvm

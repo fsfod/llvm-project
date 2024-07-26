@@ -69,13 +69,13 @@ namespace llvm {
 extern cl::opt<bool> EnableVTableValueProfiling;
 // TODO: Remove -debug-info-correlate in next LLVM release, in favor of
 // -profile-correlate=debug-info.
-LLVM_ABI cl::opt<bool> DebugInfoCorrelate(
+LLVM_ABI_DATA cl::opt<bool> DebugInfoCorrelate(
     "debug-info-correlate",
     cl::desc("Use debug info to correlate profiles. (Deprecated, use "
              "-profile-correlate=debug-info)"),
     cl::init(false));
 
-LLVM_ABI cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate(
+LLVM_ABI_DATA cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate(
     "profile-correlate",
     cl::desc("Use debug info or binary file to correlate profiles."),
     cl::init(InstrProfCorrelator::NONE),

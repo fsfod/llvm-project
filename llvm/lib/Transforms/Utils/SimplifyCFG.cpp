@@ -92,7 +92,7 @@ using namespace PatternMatch;
 
 #define DEBUG_TYPE "simplifycfg"
 
-LLVM_ABI cl::opt<bool> llvm::RequireAndPreserveDomTree(
+LLVM_ABI_DATA cl::opt<bool> llvm::RequireAndPreserveDomTree(
     "simplifycfg-require-and-preserve-domtree", cl::Hidden,
 
     cl::desc("Temorary development switch used to gradually uplift SimplifyCFG "

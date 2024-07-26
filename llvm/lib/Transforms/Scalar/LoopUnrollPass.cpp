@@ -73,7 +73,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "loop-unroll"
 
-LLVM_ABI cl::opt<bool> llvm::ForgetSCEVInLoopUnroll(
+LLVM_ABI_DATA cl::opt<bool> llvm::ForgetSCEVInLoopUnroll(
     "forget-scev-loop-unroll", cl::init(false), cl::Hidden,
     cl::desc("Forget everything in SCEV when doing LoopUnroll, instead of just"
              " the current top-most loop. This is sometimes preferred to reduce"

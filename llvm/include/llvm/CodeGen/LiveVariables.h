@@ -47,7 +47,7 @@ class MachineRegisterInfo;
 
 class LLVM_CLASS_ABI LiveVariables : public MachineFunctionPass {
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
   LiveVariables() : MachineFunctionPass(ID) {
     initializeLiveVariablesPass(*PassRegistry::getPassRegistry());
   }

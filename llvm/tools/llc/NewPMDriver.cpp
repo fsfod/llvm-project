@@ -46,7 +46,7 @@
 #include "llvm/Transforms/Utils/Cloning.h"
 
 namespace llvm {
-extern LLVM_ABI cl::opt<bool> PrintPipelinePasses;
+extern LLVM_ABI_DATA cl::opt<bool> PrintPipelinePasses;
 } // namespace llvm
 
 using namespace llvm;

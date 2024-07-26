@@ -207,7 +207,7 @@ static cl::opt<bool> TryUseNewDbgInfoFormat(
     cl::desc("Enable debuginfo iterator positions, if they're built in"),
     cl::init(false), cl::Hidden);
 
-LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI_DATA extern cl::opt<bool> UseNewDbgInfoFormat;
 
 namespace {
 

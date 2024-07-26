@@ -52,7 +52,7 @@ private:
 class LLVM_CLASS_ABI ScopedNoAliasAA : public AnalysisInfoMixin<ScopedNoAliasAA> {
   friend AnalysisInfoMixin<ScopedNoAliasAA>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = ScopedNoAliasAAResult;
@@ -65,7 +65,7 @@ class LLVM_CLASS_ABI ScopedNoAliasAAWrapperPass : public ImmutablePass {
   std::unique_ptr<ScopedNoAliasAAResult> Result;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   ScopedNoAliasAAWrapperPass();
 

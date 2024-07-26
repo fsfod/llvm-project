@@ -27,12 +27,12 @@
 using namespace llvm;
 // These options are only used for unittests, so they are not declared in any
 // headers, which is why we need to add the annotations here.
-LLVM_ABI cl::opt<double> CopyWeight("regalloc-copy-weight", cl::init(0.2), cl::Hidden);
-LLVM_ABI cl::opt<double> LoadWeight("regalloc-load-weight", cl::init(4.0), cl::Hidden);
-LLVM_ABI cl::opt<double> StoreWeight("regalloc-store-weight", cl::init(1.0), cl::Hidden);
-LLVM_ABI cl::opt<double> CheapRematWeight("regalloc-cheap-remat-weight", cl::init(0.2),
+LLVM_ABI_DATA cl::opt<double> CopyWeight("regalloc-copy-weight", cl::init(0.2), cl::Hidden);
+LLVM_ABI_DATA cl::opt<double> LoadWeight("regalloc-load-weight", cl::init(4.0), cl::Hidden);
+LLVM_ABI_DATA cl::opt<double> StoreWeight("regalloc-store-weight", cl::init(1.0), cl::Hidden);
+LLVM_ABI_DATA cl::opt<double> CheapRematWeight("regalloc-cheap-remat-weight", cl::init(0.2),
                                  cl::Hidden);
-LLVM_ABI cl::opt<double> ExpensiveRematWeight("regalloc-expensive-remat-weight",
+LLVM_ABI_DATA cl::opt<double> ExpensiveRematWeight("regalloc-expensive-remat-weight",
                                      cl::init(1.0), cl::Hidden);
 #define DEBUG_TYPE "regalloc-score"
 

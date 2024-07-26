@@ -76,7 +76,7 @@ using namespace GISelAddressing;
 
 class LLVM_CLASS_ABI LoadStoreOpt : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
 private:
   /// An input function to decide if the pass should run or not

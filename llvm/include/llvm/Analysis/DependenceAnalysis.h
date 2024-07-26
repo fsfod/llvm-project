@@ -982,7 +982,7 @@ namespace llvm {
     Result run(Function &F, FunctionAnalysisManager &FAM);
 
   private:
-    static AnalysisKey Key;
+    LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
     friend struct AnalysisInfoMixin<DependenceAnalysis>;
   }; // class DependenceAnalysis
 
@@ -1005,7 +1005,7 @@ namespace llvm {
   /// Legacy pass manager pass to access dependence information
   class LLVM_CLASS_ABI DependenceAnalysisWrapperPass : public FunctionPass {
   public:
-    static char ID; // Class identification, replacement for typeinfo
+    LLVM_ABI_DATA_IMPORT static char ID; // Class identification, replacement for typeinfo
     DependenceAnalysisWrapperPass();
 
     bool runOnFunction(Function &F) override;

@@ -14,7 +14,7 @@ public:
   std::error_code convertToErrorCode() const override {
     llvm_unreachable("Not implemented");
   }
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
 private:
   std::string Info;

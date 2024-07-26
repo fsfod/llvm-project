@@ -418,7 +418,7 @@ public:
 private:
   friend AnalysisInfoMixin<FunctionAnalysisManagerCGSCCProxy>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 };
 
 extern template class LLVM_TEMPLATE_ABI OuterAnalysisManagerProxy<CGSCCAnalysisManager, Function>;
@@ -536,7 +536,7 @@ createCGSCCToFunctionPassAdaptor(FunctionPassT &&Pass,
 class LLVM_CLASS_ABI ShouldNotRunFunctionPassesAnalysis
     : public AnalysisInfoMixin<ShouldNotRunFunctionPassesAnalysis> {
 public:
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   struct Result {};
 
   Result run(Function &F, FunctionAnalysisManager &FAM) { return Result(); }

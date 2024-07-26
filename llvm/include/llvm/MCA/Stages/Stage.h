@@ -89,7 +89,7 @@ public:
 /// This is actually not an error but a marker to indicate that
 /// the instruction stream is paused.
 struct LLVM_CLASS_ABI InstStreamPause : public ErrorInfo<InstStreamPause> {
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   std::error_code convertToErrorCode() const override {
     return llvm::inconvertibleErrorCode();

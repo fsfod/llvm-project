@@ -37,25 +37,25 @@ class Value;
 /// Loop Access Analysis.
 struct LLVM_CLASS_ABI VectorizerParams {
   /// Maximum SIMD width.
-  static const unsigned MaxVectorWidth;
+  LLVM_ABI_DATA_IMPORT static const unsigned MaxVectorWidth;
 
   /// VF as overridden by the user.
-  static unsigned VectorizationFactor;
+  LLVM_ABI_DATA_IMPORT static unsigned VectorizationFactor;
   /// Interleave factor as overridden by the user.
-  static unsigned VectorizationInterleave;
+  LLVM_ABI_DATA_IMPORT static unsigned VectorizationInterleave;
   /// True if force-vector-interleave was specified by the user.
   static bool isInterleaveForced();
 
   /// \When performing memory disambiguation checks at runtime do not
   /// make more than this number of comparisons.
-  static unsigned RuntimeMemoryCheckThreshold;
+  LLVM_ABI_DATA_IMPORT static unsigned RuntimeMemoryCheckThreshold;
 
   // When creating runtime checks for nested loops, where possible try to
   // write the checks in a form that allows them to be easily hoisted out of
   // the outermost loop. For example, we can do this by expanding the range of
   // addresses considered to include the entire nested loop so that they are
   // loop invariant.
-  static bool HoistRuntimeChecks;
+  LLVM_ABI_DATA_IMPORT static bool HoistRuntimeChecks;
 };
 
 /// Checks memory dependences among accesses to the same underlying
@@ -149,7 +149,7 @@ public:
     };
 
     /// String version of the types.
-    static const char *DepName[];
+    LLVM_ABI_DATA_IMPORT static const char *DepName[];
 
     /// Index of the source of the dependence in the InstMap vector.
     unsigned Source;
@@ -842,7 +842,7 @@ public:
 class LLVM_CLASS_ABI LoopAccessAnalysis
     : public AnalysisInfoMixin<LoopAccessAnalysis> {
   friend AnalysisInfoMixin<LoopAccessAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   typedef LoopAccessInfoManager Result;

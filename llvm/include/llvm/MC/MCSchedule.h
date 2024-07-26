@@ -391,7 +391,7 @@ struct LLVM_CLASS_ABI MCSchedModel {
                                            unsigned WriteResourceIdx = 0);
 
   /// Returns the default initialized model.
-  static const MCSchedModel Default;
+  LLVM_ABI_DATA_IMPORT static const MCSchedModel Default;
 };
 
 } // namespace llvm

@@ -100,7 +100,7 @@ static cl::opt<int>
                                "of delta passes (default=5)"),
                       cl::init(5), cl::cat(LLVMReduceOptions));
 
-LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+LLVM_ABI_DATA extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
 
 static codegen::RegisterCodeGenFlags CGF;
 

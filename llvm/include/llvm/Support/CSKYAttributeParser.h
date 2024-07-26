@@ -19,7 +19,7 @@ class LLVM_CLASS_ABI CSKYAttributeParser : public ELFAttributeParser {
     CSKYAttrs::AttrType attribute;
     Error (CSKYAttributeParser::*routine)(unsigned);
   };
-  static const DisplayHandler displayRoutines[];
+  LLVM_ABI_DATA_IMPORT static const DisplayHandler displayRoutines[];
 
   Error dspVersion(unsigned tag);
   Error vdspVersion(unsigned tag);

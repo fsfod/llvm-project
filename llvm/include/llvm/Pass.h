@@ -337,13 +337,13 @@ protected:
 /// If the user specifies the -time-passes argument on an LLVM tool command line
 /// then the value of this boolean will be true, otherwise false.
 /// This is the storage for the -time-passes option.
-LLVM_ABI extern bool TimePassesIsEnabled;
+LLVM_ABI_DATA extern bool TimePassesIsEnabled;
 /// If TimePassesPerRun is true, there would be one line of report for
 /// each pass invocation.
 /// If TimePassesPerRun is false, there would be only one line of
 /// report for each pass (even there are more than one pass objects).
 /// (For new pass manager only)
-LLVM_ABI extern bool TimePassesPerRun;
+LLVM_ABI_DATA extern bool TimePassesPerRun;
 
 } // end namespace llvm
 

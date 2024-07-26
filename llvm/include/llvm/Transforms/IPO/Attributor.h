@@ -478,7 +478,7 @@ struct DenseMapInfo<const AA::InstExclusionSetTy *>
 
 /// The value passed to the line option that defines the maximal initialization
 /// chain length.
-LLVM_ABI extern unsigned MaxInitializationChainLength;
+LLVM_ABI_DATA extern unsigned MaxInitializationChainLength;
 
 ///{
 enum class ChangeStatus {
@@ -932,8 +932,8 @@ struct LLVM_CLASS_ABI IRPosition {
   /// Special DenseMap key values.
   ///
   ///{
-  static const IRPosition EmptyKey;
-  static const IRPosition TombstoneKey;
+  LLVM_ABI_DATA_IMPORT static const IRPosition EmptyKey;
+  LLVM_ABI_DATA_IMPORT static const IRPosition TombstoneKey;
   ///}
 
   /// Conversion into a void * to allow reuse of pointer hashing.
@@ -3500,7 +3500,7 @@ struct LLVM_CLASS_ABI AANoUnwind
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 struct LLVM_CLASS_ABI AANoSync
@@ -3583,7 +3583,7 @@ struct LLVM_CLASS_ABI AANoSync
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for all nonnull attributes.
@@ -3625,7 +3625,7 @@ struct LLVM_CLASS_ABI AAMustProgress
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for all nonnull attributes.
@@ -3676,7 +3676,7 @@ struct LLVM_CLASS_ABI AANonNull
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract attribute for norecurse.
@@ -3707,7 +3707,7 @@ struct LLVM_CLASS_ABI AANoRecurse
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract attribute for willreturn.
@@ -3771,7 +3771,7 @@ struct LLVM_CLASS_ABI AAWillReturn
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract attribute for undefined behavior.
@@ -3809,7 +3809,7 @@ struct LLVM_CLASS_ABI AAUndefinedBehavior
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface to determine reachability of point A to B.
@@ -3842,7 +3842,7 @@ struct LLVM_CLASS_ABI AAIntraFnReachability
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for all noalias attributes.
@@ -3888,7 +3888,7 @@ struct LLVM_CLASS_ABI AANoAlias
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An AbstractAttribute for nofree.
@@ -3938,7 +3938,7 @@ struct LLVM_CLASS_ABI AANoFree
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An AbstractAttribute for noreturn.
@@ -3969,7 +3969,7 @@ struct LLVM_CLASS_ABI AANoReturn
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for liveness abstract attribute.
@@ -4064,7 +4064,7 @@ public:
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 
   friend struct Attributor;
 };
@@ -4261,7 +4261,7 @@ struct LLVM_CLASS_ABI AADereferenceable
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 using AAAlignmentStateType =
@@ -4301,7 +4301,7 @@ struct LLVM_CLASS_ABI AAAlign
   static AAAlign &createForPosition(const IRPosition &IRP, Attributor &A);
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface to track if a value leaves it's defining function
@@ -4341,7 +4341,7 @@ struct LLVM_CLASS_ABI AAInstanceInfo : public StateWrapper<BooleanState, Abstrac
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for all nocapture attributes.
@@ -4422,7 +4422,7 @@ struct LLVM_CLASS_ABI AANoCapture
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 struct LLVM_CLASS_ABI ValueSimplifyStateType : public AbstractState {
@@ -4523,7 +4523,7 @@ struct LLVM_CLASS_ABI AAValueSimplify
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 
 private:
   /// Return an assumed simplified value if a single candidate is found. If
@@ -4563,7 +4563,7 @@ struct LLVM_CLASS_ABI AAHeapToStack : public StateWrapper<BooleanState, Abstract
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for privatizability.
@@ -4619,7 +4619,7 @@ struct LLVM_CLASS_ABI AAPrivatizablePtr
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for memory access kind related attributes
@@ -4694,7 +4694,7 @@ struct LLVM_CLASS_ABI AAMemoryBehavior
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for all memory location attributes
@@ -4879,7 +4879,7 @@ struct LLVM_CLASS_ABI AAMemoryLocation
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for range value analysis.
@@ -4947,7 +4947,7 @@ struct LLVM_CLASS_ABI AAValueConstantRange
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// A class for a set state.
@@ -5310,7 +5310,7 @@ struct AAPotentialConstantValues
   }
 
   /// Unique ID (due to the unique address)
-  LLVM_ABI static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 struct LLVM_CLASS_ABI AAPotentialValues
@@ -5347,7 +5347,7 @@ struct LLVM_CLASS_ABI AAPotentialValues
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 
 private:
   virtual bool getAssumedSimplifiedValues(
@@ -5396,7 +5396,7 @@ struct LLVM_CLASS_ABI AANoUndef
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 struct LLVM_CLASS_ABI AANoFPClass
@@ -5443,7 +5443,7 @@ struct LLVM_CLASS_ABI AANoFPClass
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 struct AACallGraphNode;
@@ -5467,7 +5467,7 @@ private:
   friend AttributorCallGraph;
 };
 
-struct AACallGraphNode {
+struct LLVM_ABI AACallGraphNode {
   AACallGraphNode(Attributor &A) : A(A) {}
   virtual ~AACallGraphNode() = default;
 
@@ -5532,7 +5532,7 @@ struct LLVM_CLASS_ABI AACallEdges : public StateWrapper<BooleanState, AbstractAt
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 // Synthetic root node for the Attributor's internal call graph.
@@ -5680,7 +5680,7 @@ struct LLVM_CLASS_ABI AAExecutionDomain
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract Attribute for computing reachability between functions.
@@ -5720,7 +5720,7 @@ struct LLVM_CLASS_ABI AAInterFnReachability
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract Attribute for determining the necessity of the convergent
@@ -5753,7 +5753,7 @@ struct LLVM_CLASS_ABI AANonConvergent : public StateWrapper<BooleanState, Abstra
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for struct information.
@@ -6157,7 +6157,7 @@ struct LLVM_CLASS_ABI AAPointerInfo : public AbstractAttribute {
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 LLVM_ABI raw_ostream &operator<<(raw_ostream &, const AAPointerInfo::Access &);
@@ -6193,7 +6193,7 @@ struct LLVM_CLASS_ABI AAAssumptionInfo
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract attribute for getting all assumption underlying objects.
@@ -6227,7 +6227,7 @@ struct LLVM_CLASS_ABI AAUnderlyingObjects : AbstractAttribute {
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 
   /// Check \p Pred on all underlying objects in \p Scope collected so far.
   ///
@@ -6278,7 +6278,7 @@ struct LLVM_CLASS_ABI AAAddressSpace : public StateWrapper<BooleanState, Abstrac
   static const int32_t NoAddressSpace = -1;
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 struct LLVM_CLASS_ABI AAAllocationInfo : public StateWrapper<BooleanState, AbstractAttribute> {
@@ -6313,7 +6313,7 @@ struct LLVM_CLASS_ABI AAAllocationInfo : public StateWrapper<BooleanState, Abstr
   constexpr static const std::optional<TypeSize> HasNoAllocationSize =
       std::optional<TypeSize>(TypeSize(-1, true));
 
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for llvm::GlobalValue information interference.
@@ -6352,7 +6352,7 @@ struct LLVM_CLASS_ABI AAGlobalValueInfo
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract interface for indirect call information interference.
@@ -6393,7 +6393,7 @@ struct LLVM_CLASS_ABI AAIndirectCallInfo
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 /// An abstract Attribute for specializing "dynamic" components of
@@ -6421,7 +6421,7 @@ struct LLVM_CLASS_ABI AADenormalFPMath
   }
 
   /// Unique ID (due to the unique address)
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 };
 
 LLVM_ABI raw_ostream &operator<<(raw_ostream &, const AAPointerInfo::Access &);

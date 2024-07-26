@@ -115,7 +115,7 @@ class LLVM_CLASS_ABI GISelKnownBitsAnalysis : public MachineFunctionPass {
   std::unique_ptr<GISelKnownBits> Info;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   GISelKnownBitsAnalysis() : MachineFunctionPass(ID) {
     initializeGISelKnownBitsAnalysisPass(*PassRegistry::getPassRegistry());
   }

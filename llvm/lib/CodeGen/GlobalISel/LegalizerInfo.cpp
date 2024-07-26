@@ -29,7 +29,7 @@ using namespace LegalizeActions;
 
 #define DEBUG_TYPE "legalizer-info"
 
-LLVM_ABI cl::opt<bool> llvm::DisableGISelLegalityCheck(
+LLVM_ABI_DATA cl::opt<bool> llvm::DisableGISelLegalityCheck(
     "disable-gisel-legality-check",
     cl::desc("Don't verify that MIR is fully legal between GlobalISel passes"),
     cl::Hidden);

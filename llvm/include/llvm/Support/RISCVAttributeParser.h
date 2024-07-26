@@ -19,7 +19,7 @@ class LLVM_CLASS_ABI RISCVAttributeParser : public ELFAttributeParser {
     RISCVAttrs::AttrType attribute;
     Error (RISCVAttributeParser::*routine)(unsigned);
   };
-  static const DisplayHandler displayRoutines[];
+  LLVM_ABI_DATA_IMPORT static const DisplayHandler displayRoutines[];
 
   Error handler(uint64_t tag, bool &handled) override;
 

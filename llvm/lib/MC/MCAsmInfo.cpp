@@ -32,7 +32,7 @@ static cl::opt<DefaultOnOff> DwarfExtendedLoc(
     cl::init(Default));
 
 namespace llvm {
-LLVM_ABI cl::opt<cl::boolOrDefault> UseLEB128Directives(
+LLVM_ABI_DATA cl::opt<cl::boolOrDefault> UseLEB128Directives(
     "use-leb128-directives", cl::Hidden,
     cl::desc(
         "Disable the usage of LEB128 directives, and generate .byte instead."),

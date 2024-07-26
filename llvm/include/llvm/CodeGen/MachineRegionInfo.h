@@ -87,7 +87,7 @@ class LLVM_CLASS_ABI MachineRegionInfoPass : public MachineFunctionPass {
   MachineRegionInfo RI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   explicit MachineRegionInfoPass();
   ~MachineRegionInfoPass() override;

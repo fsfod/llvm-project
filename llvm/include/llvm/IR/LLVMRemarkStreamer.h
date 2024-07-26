@@ -63,21 +63,21 @@ struct LLVMRemarkSetupErrorInfo : public ErrorInfo<ThisError> {
 
 struct LLVM_CLASS_ABI LLVMRemarkSetupFileError
     : LLVMRemarkSetupErrorInfo<LLVMRemarkSetupFileError> {
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   using LLVMRemarkSetupErrorInfo<
       LLVMRemarkSetupFileError>::LLVMRemarkSetupErrorInfo;
 };
 
 struct LLVM_CLASS_ABI LLVMRemarkSetupPatternError
     : LLVMRemarkSetupErrorInfo<LLVMRemarkSetupPatternError> {
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   using LLVMRemarkSetupErrorInfo<
       LLVMRemarkSetupPatternError>::LLVMRemarkSetupErrorInfo;
 };
 
 struct LLVM_CLASS_ABI LLVMRemarkSetupFormatError
     : LLVMRemarkSetupErrorInfo<LLVMRemarkSetupFormatError> {
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   using LLVMRemarkSetupErrorInfo<
       LLVMRemarkSetupFormatError>::LLVMRemarkSetupErrorInfo;
 };

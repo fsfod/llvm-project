@@ -24,7 +24,7 @@ class raw_ostream;
 
 struct LLVM_CLASS_ABI ShouldRunExtraSimpleLoopUnswitch
     : public AnalysisInfoMixin<ShouldRunExtraSimpleLoopUnswitch> {
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   struct Result {
     bool invalidate(Loop &L, const PreservedAnalyses &PA,
                     LoopAnalysisManager::Invalidator &) {

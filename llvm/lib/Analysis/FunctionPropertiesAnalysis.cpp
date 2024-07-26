@@ -31,12 +31,12 @@ cl::opt<bool> EnableDetailedFunctionProperties(
     "enable-detailed-function-properties", cl::Hidden, cl::init(false),
     cl::desc("Whether or not to compute detailed function properties."));
 
-LLVM_ABI cl::opt<unsigned> BigBasicBlockInstructionThreshold(
+LLVM_ABI_DATA cl::opt<unsigned> BigBasicBlockInstructionThreshold(
     "big-basic-block-instruction-threshold", cl::Hidden, cl::init(500),
     cl::desc("The minimum number of instructions a basic block should contain "
              "before being considered big."));
 
-LLVM_ABI cl::opt<unsigned> MediumBasicBlockInstructionThreshold(
+LLVM_ABI_DATA cl::opt<unsigned> MediumBasicBlockInstructionThreshold(
     "medium-basic-block-instruction-threshold", cl::Hidden, cl::init(15),
     cl::desc("The minimum number of instructions a basic block should contain "
              "before being considered medium-sized."));

@@ -44,7 +44,7 @@ class LLVM_CLASS_ABI PDBError : public ErrorInfo<PDBError, StringError> {
 public:
   using ErrorInfo<PDBError, StringError>::ErrorInfo; // inherit constructors
   PDBError(const Twine &S) : ErrorInfo(S, pdb_error_code::unspecified) {}
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 };
 } // namespace pdb
 } // namespace llvm

@@ -168,7 +168,7 @@ struct LLVM_CLASS_ABI GCStrategyMap {
 class LLVM_CLASS_ABI CollectorMetadataAnalysis
     : public AnalysisInfoMixin<CollectorMetadataAnalysis> {
   friend struct AnalysisInfoMixin<CollectorMetadataAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = GCStrategyMap;
@@ -180,7 +180,7 @@ public:
 /// This pass depends on `CollectorMetadataAnalysis`.
 class LLVM_CLASS_ABI GCFunctionAnalysis : public AnalysisInfoMixin<GCFunctionAnalysis> {
   friend struct AnalysisInfoMixin<GCFunctionAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = GCFunctionInfo;
@@ -232,7 +232,7 @@ private:
 public:
   using iterator = SmallVector<std::unique_ptr<GCStrategy>, 1>::const_iterator;
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   GCModuleInfo();
 

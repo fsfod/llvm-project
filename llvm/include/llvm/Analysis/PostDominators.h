@@ -49,7 +49,7 @@ class LLVM_CLASS_ABI PostDominatorTreeAnalysis
     : public AnalysisInfoMixin<PostDominatorTreeAnalysis> {
   friend AnalysisInfoMixin<PostDominatorTreeAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result type for this analysis pass.
@@ -74,7 +74,7 @@ public:
 };
 
 struct LLVM_CLASS_ABI PostDominatorTreeWrapperPass : public FunctionPass {
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 
   PostDominatorTree DT;
 

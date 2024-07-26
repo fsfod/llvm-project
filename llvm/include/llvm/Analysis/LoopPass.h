@@ -76,7 +76,7 @@ protected:
 
 class LLVM_CLASS_ABI LPPassManager : public FunctionPass, public PMDataManager {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   explicit LPPassManager();
 
   /// run - Execute all of the passes scheduled for execution.  Keep track of
@@ -123,7 +123,7 @@ private:
 // LPPassManager to check if current pass preserves LCSSA form, and if it does
 // pass manager calls lcssa verification for the current loop.
 struct LLVM_CLASS_ABI LCSSAVerificationPass : public FunctionPass {
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   LCSSAVerificationPass();
 
   bool runOnFunction(Function &F) override { return false; }

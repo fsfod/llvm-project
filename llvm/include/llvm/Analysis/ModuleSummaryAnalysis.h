@@ -46,7 +46,7 @@ class LLVM_CLASS_ABI ModuleSummaryIndexAnalysis
     : public AnalysisInfoMixin<ModuleSummaryIndexAnalysis> {
   friend AnalysisInfoMixin<ModuleSummaryIndexAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = ModuleSummaryIndex;
@@ -59,7 +59,7 @@ class LLVM_CLASS_ABI ModuleSummaryIndexWrapperPass : public ModulePass {
   std::optional<ModuleSummaryIndex> Index;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   ModuleSummaryIndexWrapperPass();
 
@@ -84,7 +84,7 @@ class LLVM_CLASS_ABI ImmutableModuleSummaryIndexWrapperPass : public ImmutablePa
   const ModuleSummaryIndex *Index;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   ImmutableModuleSummaryIndexWrapperPass(
       const ModuleSummaryIndex *Index = nullptr);

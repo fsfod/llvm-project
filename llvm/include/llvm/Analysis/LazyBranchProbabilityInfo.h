@@ -85,7 +85,7 @@ class LLVM_CLASS_ABI LazyBranchProbabilityInfoPass : public FunctionPass {
   std::unique_ptr<LazyBranchProbabilityInfo> LBPI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   LazyBranchProbabilityInfoPass();
 

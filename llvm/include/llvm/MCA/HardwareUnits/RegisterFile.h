@@ -43,7 +43,7 @@ class LLVM_CLASS_ABI WriteRef {
   MCPhysReg RegisterID;
   WriteState *Write;
 
-  static const unsigned INVALID_IID;
+  LLVM_ABI_DATA_IMPORT static const unsigned INVALID_IID;
 
 public:
   WriteRef()

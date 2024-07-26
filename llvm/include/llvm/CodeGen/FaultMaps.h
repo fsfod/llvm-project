@@ -40,7 +40,7 @@ public:
   }
 
 private:
-  static const char *WFMP;
+  LLVM_ABI_DATA_IMPORT static const char *WFMP;
 
   struct FaultInfo {
     FaultKind Kind = FaultKindMax;

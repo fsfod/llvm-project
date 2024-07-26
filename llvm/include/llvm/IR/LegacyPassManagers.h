@@ -457,7 +457,7 @@ private:
 /// function.
 class LLVM_CLASS_ABI FPPassManager : public ModulePass, public PMDataManager {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   explicit FPPassManager() : ModulePass(ID) {}
 
   /// run - Execute all of the passes scheduled for execution.  Keep track of

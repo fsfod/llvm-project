@@ -52,7 +52,7 @@ class LLVM_CLASS_ABI ObjectLinkingLayer : public RTTIExtends<ObjectLinkingLayer,
   friend class ObjectLinkingLayerJITLinkContext;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   /// Plugin instances can be added to the ObjectLinkingLayer to receive
   /// callbacks when code is loaded or emitted, and when JITLink is being

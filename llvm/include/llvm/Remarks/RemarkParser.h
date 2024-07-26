@@ -27,7 +27,7 @@ struct Remark;
 
 class LLVM_CLASS_ABI EndOfFileError : public ErrorInfo<EndOfFileError> {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   EndOfFileError() = default;
 

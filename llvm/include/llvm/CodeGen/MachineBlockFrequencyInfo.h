@@ -36,7 +36,7 @@ class LLVM_CLASS_ABI MachineBlockFrequencyInfo : public MachineFunctionPass {
   std::unique_ptr<ImplType> MBFI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MachineBlockFrequencyInfo();
   explicit MachineBlockFrequencyInfo(MachineFunction &F,

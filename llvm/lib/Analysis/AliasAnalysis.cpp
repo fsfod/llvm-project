@@ -63,7 +63,7 @@ STATISTIC(NumMustAlias, "Number of MustAlias results");
 namespace llvm {
 /// Allow disabling BasicAA from the AA results. This is particularly useful
 /// when testing to isolate a single AA implementation.
-LLVM_ABI cl::opt<bool> DisableBasicAA("disable-basic-aa", cl::Hidden, cl::init(false));
+LLVM_ABI_DATA cl::opt<bool> DisableBasicAA("disable-basic-aa", cl::Hidden, cl::init(false));
 } // namespace llvm
 
 #ifndef NDEBUG

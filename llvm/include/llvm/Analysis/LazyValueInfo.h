@@ -145,7 +145,7 @@ public:
   Result run(Function &F, FunctionAnalysisManager &FAM);
 
 private:
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   friend struct AnalysisInfoMixin<LazyValueAnalysis>;
 };
 
@@ -167,7 +167,7 @@ class LLVM_CLASS_ABI LazyValueInfoWrapperPass : public FunctionPass {
   LazyValueInfoWrapperPass(const LazyValueInfoWrapperPass&) = delete;
   void operator=(const LazyValueInfoWrapperPass&) = delete;
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   LazyValueInfoWrapperPass();
   ~LazyValueInfoWrapperPass() override {
     assert(!Info.PImpl && "releaseMemory not called");

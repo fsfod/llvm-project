@@ -59,7 +59,7 @@ private:
 class LLVM_CLASS_ABI TypeBasedAA : public AnalysisInfoMixin<TypeBasedAA> {
   friend AnalysisInfoMixin<TypeBasedAA>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = TypeBasedAAResult;
@@ -72,7 +72,7 @@ class LLVM_CLASS_ABI TypeBasedAAWrapperPass : public ImmutablePass {
   std::unique_ptr<TypeBasedAAResult> Result;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   TypeBasedAAWrapperPass();
 

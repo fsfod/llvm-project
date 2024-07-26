@@ -23,7 +23,7 @@
 
 using namespace llvm;
 
-LLVM_ABI cl::opt<bool> WriteNewDbgInfoFormat(
+LLVM_ABI_DATA cl::opt<bool> WriteNewDbgInfoFormat(
     "write-experimental-debuginfo",
     cl::desc("Write debug info in the new non-intrinsic format. Has no effect "
              "if --preserve-input-debuginfo-format=true."),

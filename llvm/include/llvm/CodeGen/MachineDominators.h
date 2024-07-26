@@ -82,7 +82,7 @@ class LLVM_CLASS_ABI MachineDominatorTree : public MachineFunctionPass {
   void applySplitCriticalEdges() const;
 
 public:
-  static char ID; // Pass ID, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass ID, replacement for typeid
 
   MachineDominatorTree();
   explicit MachineDominatorTree(MachineFunction &MF) : MachineFunctionPass(ID) {

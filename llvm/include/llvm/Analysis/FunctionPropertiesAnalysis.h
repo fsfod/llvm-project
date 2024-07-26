@@ -143,7 +143,7 @@ class LLVM_CLASS_ABI FunctionPropertiesAnalysis
     : public AnalysisInfoMixin<FunctionPropertiesAnalysis> {
 
 public:
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   using Result = const FunctionPropertiesInfo;
 

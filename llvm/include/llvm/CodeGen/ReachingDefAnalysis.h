@@ -109,7 +109,7 @@ private:
   using BlockSet = SmallPtrSetImpl<MachineBasicBlock*>;
 
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 
   ReachingDefAnalysis() : MachineFunctionPass(ID) {
     initializeReachingDefAnalysisPass(*PassRegistry::getPassRegistry());

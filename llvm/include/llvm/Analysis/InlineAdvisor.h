@@ -288,8 +288,8 @@ private:
 class LLVM_CLASS_ABI PluginInlineAdvisorAnalysis
     : public AnalysisInfoMixin<PluginInlineAdvisorAnalysis> {
 public:
-  static AnalysisKey Key;
-  static bool HasBeenRegistered;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static bool HasBeenRegistered;
 
   typedef InlineAdvisor *(*AdvisorFactory)(Module &M,
                                            FunctionAnalysisManager &FAM,
@@ -317,7 +317,7 @@ private:
 /// needs to capture state right before inlining commences over a module.
 class LLVM_CLASS_ABI InlineAdvisorAnalysis : public AnalysisInfoMixin<InlineAdvisorAnalysis> {
 public:
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   InlineAdvisorAnalysis() = default;
   struct LLVM_CLASS_ABI Result {
     Result(Module &M, ModuleAnalysisManager &MAM) : M(M), MAM(MAM) {}

@@ -21,9 +21,9 @@
 using namespace llvm;
 using namespace llvm::memprof;
 
-LLVM_ABI extern cl::opt<float> MemProfLifetimeAccessDensityColdThreshold;
-LLVM_ABI extern cl::opt<unsigned> MemProfAveLifetimeColdThreshold;
-LLVM_ABI extern cl::opt<unsigned> MemProfMinAveLifetimeAccessDensityHotThreshold;
+LLVM_ABI_DATA extern cl::opt<float> MemProfLifetimeAccessDensityColdThreshold;
+LLVM_ABI_DATA extern cl::opt<unsigned> MemProfAveLifetimeColdThreshold;
+LLVM_ABI_DATA extern cl::opt<unsigned> MemProfMinAveLifetimeAccessDensityHotThreshold;
 
 namespace {
 

@@ -30,7 +30,7 @@ class LLVM_CLASS_ABI MachinePostDominatorTree : public MachineFunctionPass {
   std::unique_ptr<PostDomTreeT> PDT;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MachinePostDominatorTree();
 

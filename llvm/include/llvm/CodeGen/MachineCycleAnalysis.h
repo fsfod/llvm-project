@@ -30,7 +30,7 @@ class LLVM_CLASS_ABI MachineCycleInfoWrapperPass : public MachineFunctionPass {
   MachineCycleInfo CI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MachineCycleInfoWrapperPass();
 

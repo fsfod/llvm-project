@@ -895,7 +895,7 @@ class LLVM_CLASS_ABI ParseError : public llvm::ErrorInfo<ParseError> {
   unsigned Line, Column, Offset;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   ParseError(const char *Msg, unsigned Line, unsigned Column, unsigned Offset)
       : Msg(Msg), Line(Line), Column(Column), Offset(Offset) {}
   void log(llvm::raw_ostream &OS) const override {

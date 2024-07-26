@@ -65,7 +65,7 @@ template <typename T> class ArrayRef;
   class raw_pwrite_stream;
 
 /// Enable global value internalization in LTO.
-extern LLVM_ABI cl::opt<bool> EnableLTOInternalization;
+extern LLVM_ABI_DATA cl::opt<bool> EnableLTOInternalization;
 
 //===----------------------------------------------------------------------===//
 /// C++ class which implements the opaque lto_code_gen_t type.

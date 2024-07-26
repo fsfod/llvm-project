@@ -136,13 +136,13 @@ protected:
   /// getMemoryforGV - Allocate memory for a global variable.
   virtual char *getMemoryForGV(const GlobalVariable *GV);
 
-  static ExecutionEngine *(*MCJITCtor)(
+  LLVM_ABI_DATA_IMPORT static ExecutionEngine *(*MCJITCtor)(
       std::unique_ptr<Module> M, std::string *ErrorStr,
       std::shared_ptr<MCJITMemoryManager> MM,
       std::shared_ptr<LegacyJITSymbolResolver> SR,
       std::unique_ptr<TargetMachine> TM);
 
-  static ExecutionEngine *(*InterpCtor)(std::unique_ptr<Module> M,
+  LLVM_ABI_DATA_IMPORT static ExecutionEngine *(*InterpCtor)(std::unique_ptr<Module> M,
                                         std::string *ErrorStr);
 
   /// LazyFunctionCreator - If an unknown function is needed, this function

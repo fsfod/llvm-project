@@ -68,7 +68,7 @@ public:
   }
 #endif
 
-  static const std::optional<unsigned> DefaultStackSize;
+  LLVM_ABI_DATA_IMPORT static const std::optional<unsigned> DefaultStackSize;
 
   thread() : Thread(native_handle_type()) {}
   thread(thread &&Other) noexcept

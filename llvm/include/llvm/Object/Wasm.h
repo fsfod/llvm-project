@@ -354,7 +354,7 @@ public:
   };
 
   // Sections that may or may not be present, but cannot be predecessors
-  static int DisallowedPredecessors[WASM_NUM_SEC_ORDERS][WASM_NUM_SEC_ORDERS];
+  LLVM_ABI_DATA_IMPORT static int DisallowedPredecessors[WASM_NUM_SEC_ORDERS][WASM_NUM_SEC_ORDERS];
 
   bool isValidSectionOrder(unsigned ID, StringRef CustomSectionName = "");
 

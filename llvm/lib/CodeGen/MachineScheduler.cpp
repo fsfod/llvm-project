@@ -77,9 +77,9 @@ STATISTIC(NumClustered, "Number of load/store pairs clustered");
 
 namespace llvm {
 
-LLVM_ABI cl::opt<bool> ForceTopDown("misched-topdown", cl::Hidden,
+LLVM_ABI_DATA cl::opt<bool> ForceTopDown("misched-topdown", cl::Hidden,
                            cl::desc("Force top-down list scheduling"));
-LLVM_ABI cl::opt<bool> ForceBottomUp("misched-bottomup", cl::Hidden,
+LLVM_ABI_DATA cl::opt<bool> ForceBottomUp("misched-bottomup", cl::Hidden,
                             cl::desc("Force bottom-up list scheduling"));
 namespace MISchedPostRASched {
 enum Direction {
@@ -88,7 +88,7 @@ enum Direction {
   Bidirectional,
 };
 } // end namespace MISchedPostRASched
-LLVM_ABI cl::opt<MISchedPostRASched::Direction> PostRADirection(
+LLVM_ABI_DATA cl::opt<MISchedPostRASched::Direction> PostRADirection(
     "misched-postra-direction", cl::Hidden,
     cl::desc("Post reg-alloc list scheduling direction"),
     // Default to top-down because it was implemented first and existing targets
@@ -101,24 +101,24 @@ LLVM_ABI cl::opt<MISchedPostRASched::Direction> PostRADirection(
                    "Force bottom-up post reg-alloc list scheduling"),
         clEnumValN(MISchedPostRASched::Bidirectional, "bidirectional",
                    "Force bidirectional post reg-alloc list scheduling")));
-LLVM_ABI cl::opt<bool>
+LLVM_ABI_DATA cl::opt<bool>
 DumpCriticalPathLength("misched-dcpl", cl::Hidden,
                        cl::desc("Print critical path length to stdout"));
 
-LLVM_ABI cl::opt<bool> VerifyScheduling(
+LLVM_ABI_DATA cl::opt<bool> VerifyScheduling(
     "verify-misched", cl::Hidden,
     cl::desc("Verify machine instrs before and after machine scheduling"));
 
 #ifndef NDEBUG
-LLVM_ABI cl::opt<bool> ViewMISchedDAGs(
+LLVM_ABI_DATA cl::opt<bool> ViewMISchedDAGs(
     "view-misched-dags", cl::Hidden,
     cl::desc("Pop up a window to show MISched dags after they are processed"));
-LLVM_ABI cl::opt<bool> PrintDAGs("misched-print-dags", cl::Hidden,
+LLVM_ABI_DATA cl::opt<bool> PrintDAGs("misched-print-dags", cl::Hidden,
                         cl::desc("Print schedule DAGs"));
-LLVM_ABI cl::opt<bool> MISchedDumpReservedCycles(
+LLVM_ABI_DATA cl::opt<bool> MISchedDumpReservedCycles(
     "misched-dump-reserved-cycles", cl::Hidden, cl::init(false),
     cl::desc("Dump resource usage at schedule boundary."));
-LLVM_ABI cl::opt<bool> MischedDetailResourceBooking(
+LLVM_ABI_DATA cl::opt<bool> MischedDetailResourceBooking(
     "misched-detail-resource-booking", cl::Hidden, cl::init(false),
     cl::desc("Show details of invoking getNextResoufceCycle."));
 #else

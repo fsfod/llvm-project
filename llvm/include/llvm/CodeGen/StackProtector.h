@@ -70,7 +70,7 @@ class LLVM_CLASS_ABI SSPLayoutAnalysis : public AnalysisInfoMixin<SSPLayoutAnaly
   friend AnalysisInfoMixin<SSPLayoutAnalysis>;
   using SSPLayoutMap = SSPLayoutInfo::SSPLayoutMap;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = SSPLayoutInfo;
@@ -106,7 +106,7 @@ private:
   SSPLayoutInfo LayoutInfo;
 
 public:
-  static char ID; // Pass identification, replacement for typeid.
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid.
 
   StackProtector();
 

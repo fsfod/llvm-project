@@ -128,7 +128,7 @@ static cl::opt<bool>
                           cl::desc("disable vector permute decomposition"),
                           cl::init(true), cl::Hidden);
 
-LLVM_ABI cl::opt<bool> DisableAutoPairedVecSt(
+LLVM_ABI_DATA cl::opt<bool> DisableAutoPairedVecSt(
     "disable-auto-paired-vec-st",
     cl::desc("disable automatically generated 32byte paired vector stores"),
     cl::init(true), cl::Hidden);

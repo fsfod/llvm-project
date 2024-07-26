@@ -66,7 +66,7 @@ class Value;
 // by the LLVM IR as soon as the translation is over.
 class LLVM_CLASS_ABI IRTranslator : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
 private:
   /// Interface used to lower the everything related to calls.

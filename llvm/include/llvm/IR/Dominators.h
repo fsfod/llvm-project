@@ -280,7 +280,7 @@ template <> struct GraphTraits<DominatorTree*>
 /// Analysis pass which computes a \c DominatorTree.
 class LLVM_CLASS_ABI DominatorTreeAnalysis : public AnalysisInfoMixin<DominatorTreeAnalysis> {
   friend AnalysisInfoMixin<DominatorTreeAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result typedef for this analysis pass.
@@ -320,7 +320,7 @@ class LLVM_CLASS_ABI DominatorTreeWrapperPass : public FunctionPass {
   DominatorTree DT;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   DominatorTreeWrapperPass();
 

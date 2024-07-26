@@ -45,7 +45,7 @@ private:
 /// Analysis pass providing a never-invalidated alias analysis result.
 class LLVM_CLASS_ABI SCEVAA : public AnalysisInfoMixin<SCEVAA> {
   friend AnalysisInfoMixin<SCEVAA>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   typedef SCEVAAResult Result;
@@ -58,7 +58,7 @@ class LLVM_CLASS_ABI SCEVAAWrapperPass : public FunctionPass {
   std::unique_ptr<SCEVAAResult> Result;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   SCEVAAWrapperPass();
 

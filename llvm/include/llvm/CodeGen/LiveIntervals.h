@@ -37,7 +37,7 @@
 
 namespace llvm {
 
-extern LLVM_ABI cl::opt<bool> UseSegmentSetForPhysRegs;
+extern LLVM_ABI_DATA cl::opt<bool> UseSegmentSetForPhysRegs;
 
 class BitVector;
 class LiveIntervalCalc;
@@ -94,7 +94,7 @@ class VirtRegMap;
     SmallVector<LiveRange*, 0> RegUnitRanges;
 
   public:
-    static char ID;
+    LLVM_ABI_DATA_IMPORT static char ID;
 
     LiveIntervals();
     ~LiveIntervals() override;

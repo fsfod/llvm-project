@@ -224,7 +224,7 @@ class LLVM_CLASS_ABI GISelCSEAnalysisWrapperPass : public MachineFunctionPass {
   GISelCSEAnalysisWrapper Wrapper;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   GISelCSEAnalysisWrapperPass();
 
   void getAnalysisUsage(AnalysisUsage &AU) const override;

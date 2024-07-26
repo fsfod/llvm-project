@@ -25,9 +25,9 @@
 using namespace llvm;
 
 namespace llvm {
-LLVM_ABI extern cl::opt<bool> EnableDetailedFunctionProperties;
-LLVM_ABI extern cl::opt<bool> BigBasicBlockInstructionThreshold;
-LLVM_ABI extern cl::opt<bool> MediumBasicBlockInstrutionThreshold;
+LLVM_ABI_DATA extern cl::opt<bool> EnableDetailedFunctionProperties;
+LLVM_ABI_DATA extern cl::opt<bool> BigBasicBlockInstructionThreshold;
+LLVM_ABI_DATA extern cl::opt<bool> MediumBasicBlockInstrutionThreshold;
 } // namespace llvm
 
 namespace {

@@ -303,7 +303,7 @@ private:
 class LLVM_CLASS_ABI CallGraphAnalysis : public AnalysisInfoMixin<CallGraphAnalysis> {
   friend AnalysisInfoMixin<CallGraphAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// A formulaic type to inform clients of the result type.
@@ -351,7 +351,7 @@ class LLVM_CLASS_ABI CallGraphWrapperPass : public ModulePass {
   std::unique_ptr<CallGraph> G;
 
 public:
-  static char ID; // Class identification, replacement for typeinfo
+  LLVM_ABI_DATA_IMPORT static char ID; // Class identification, replacement for typeinfo
 
   CallGraphWrapperPass();
   ~CallGraphWrapperPass() override;

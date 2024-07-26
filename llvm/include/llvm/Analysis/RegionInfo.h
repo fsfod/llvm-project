@@ -940,7 +940,7 @@ class LLVM_CLASS_ABI RegionInfoPass : public FunctionPass {
   RegionInfo RI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   explicit RegionInfoPass();
   ~RegionInfoPass() override;
@@ -964,7 +964,7 @@ public:
 class LLVM_CLASS_ABI RegionInfoAnalysis : public AnalysisInfoMixin<RegionInfoAnalysis> {
   friend AnalysisInfoMixin<RegionInfoAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = RegionInfo;

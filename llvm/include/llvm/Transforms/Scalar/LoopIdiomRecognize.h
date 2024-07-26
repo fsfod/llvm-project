@@ -28,13 +28,13 @@ class LPMUpdater;
 /// passes.
 struct LLVM_CLASS_ABI DisableLIRP {
   /// When true, the entire pass is disabled.
-  static bool All;
+  LLVM_ABI_DATA_IMPORT static bool All;
 
   /// When true, Memset is disabled.
-  static bool Memset;
+  LLVM_ABI_DATA_IMPORT static bool Memset;
 
   /// When true, Memcpy is disabled.
-  static bool Memcpy;
+  LLVM_ABI_DATA_IMPORT static bool Memcpy;
 };
 
 /// Performs Loop Idiom Recognize Pass.

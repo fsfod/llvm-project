@@ -195,7 +195,7 @@ private:
   /// List of symbols to be inserted into PC sections.
   DenseMap<const MDNode *, SmallVector<const MCSymbol *>> PCSectionsSymbols;
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
 protected:
   MCSymbol *CurrentFnBegin = nullptr;

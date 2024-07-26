@@ -47,7 +47,7 @@ LLVM_ABI std::error_code orcError(OrcErrorCode ErrCode);
 
 class LLVM_CLASS_ABI DuplicateDefinition : public ErrorInfo<DuplicateDefinition> {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   DuplicateDefinition(std::string SymbolName);
   std::error_code convertToErrorCode() const override;
@@ -59,7 +59,7 @@ private:
 
 class LLVM_CLASS_ABI JITSymbolNotFound : public ErrorInfo<JITSymbolNotFound> {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   JITSymbolNotFound(std::string SymbolName);
   std::error_code convertToErrorCode() const override;

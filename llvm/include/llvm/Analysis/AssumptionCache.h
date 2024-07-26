@@ -174,7 +174,7 @@ public:
 class LLVM_CLASS_ABI AssumptionAnalysis : public AnalysisInfoMixin<AssumptionAnalysis> {
   friend AnalysisInfoMixin<AssumptionAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = AssumptionCache;
@@ -251,7 +251,7 @@ public:
     return false;
   }
 
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 };
 
 template<> struct simplify_type<AssumptionCache::ResultElem> {

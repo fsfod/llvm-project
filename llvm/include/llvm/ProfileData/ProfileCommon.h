@@ -29,13 +29,13 @@
 
 namespace llvm {
 
-extern LLVM_ABI cl::opt<bool> UseContextLessSummary;
-extern LLVM_ABI cl::opt<int> ProfileSummaryCutoffHot;
-extern LLVM_ABI cl::opt<int> ProfileSummaryCutoffCold;
-extern LLVM_ABI cl::opt<unsigned> ProfileSummaryHugeWorkingSetSizeThreshold;
-extern LLVM_ABI cl::opt<unsigned> ProfileSummaryLargeWorkingSetSizeThreshold;
-extern LLVM_ABI cl::opt<uint64_t> ProfileSummaryHotCount;
-extern LLVM_ABI cl::opt<uint64_t> ProfileSummaryColdCount;
+extern LLVM_ABI_DATA cl::opt<bool> UseContextLessSummary;
+extern LLVM_ABI_DATA cl::opt<int> ProfileSummaryCutoffHot;
+extern LLVM_ABI_DATA cl::opt<int> ProfileSummaryCutoffCold;
+extern LLVM_ABI_DATA cl::opt<unsigned> ProfileSummaryHugeWorkingSetSizeThreshold;
+extern LLVM_ABI_DATA cl::opt<unsigned> ProfileSummaryLargeWorkingSetSizeThreshold;
+extern LLVM_ABI_DATA cl::opt<uint64_t> ProfileSummaryHotCount;
+extern LLVM_ABI_DATA cl::opt<uint64_t> ProfileSummaryColdCount;
 
 namespace sampleprof {
 
@@ -70,7 +70,7 @@ protected:
 
 public:
   /// A vector of useful cutoff values for detailed summary.
-  static const ArrayRef<uint32_t> DefaultCutoffs;
+  LLVM_ABI_DATA_IMPORT static const ArrayRef<uint32_t> DefaultCutoffs;
 
   /// Find the summary entry for a desired percentile of counts.
   static const ProfileSummaryEntry &

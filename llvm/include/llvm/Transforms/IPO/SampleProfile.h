@@ -24,12 +24,12 @@ namespace llvm {
 
 class Module;
 
-extern LLVM_ABI cl::opt<int> SampleHotCallSiteThreshold;
-extern LLVM_ABI cl::opt<int> SampleColdCallSiteThreshold;
-extern LLVM_ABI cl::opt<int> ProfileInlineGrowthLimit;
-extern LLVM_ABI cl::opt<int> ProfileInlineLimitMin;
-extern LLVM_ABI cl::opt<int> ProfileInlineLimitMax;
-extern LLVM_ABI cl::opt<bool> SortProfiledSCC;
+extern LLVM_ABI_DATA cl::opt<int> SampleHotCallSiteThreshold;
+extern LLVM_ABI_DATA cl::opt<int> SampleColdCallSiteThreshold;
+extern LLVM_ABI_DATA cl::opt<int> ProfileInlineGrowthLimit;
+extern LLVM_ABI_DATA cl::opt<int> ProfileInlineLimitMin;
+extern LLVM_ABI_DATA cl::opt<int> ProfileInlineLimitMax;
+extern LLVM_ABI_DATA cl::opt<bool> SortProfiledSCC;
 
 namespace vfs {
 class FileSystem;

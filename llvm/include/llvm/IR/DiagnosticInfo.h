@@ -818,7 +818,7 @@ public:
   /// \see DiagnosticInfoOptimizationBase::isEnabled.
   bool isEnabled() const override;
 
-  static const char *AlwaysPrint;
+  LLVM_ABI_DATA_IMPORT static const char *AlwaysPrint;
 
   bool shouldAlwaysPrint() const { return getPassName() == AlwaysPrint; }
 

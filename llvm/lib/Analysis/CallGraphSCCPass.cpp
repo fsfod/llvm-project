@@ -44,7 +44,7 @@ using namespace llvm;
 #define DEBUG_TYPE "cgscc-passmgr"
 
 namespace llvm {
-LLVM_ABI cl::opt<unsigned> MaxDevirtIterations("max-devirt-iterations", cl::ReallyHidden,
+LLVM_ABI_DATA cl::opt<unsigned> MaxDevirtIterations("max-devirt-iterations", cl::ReallyHidden,
                                       cl::init(4));
 }
 

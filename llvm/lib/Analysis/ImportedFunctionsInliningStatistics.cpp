@@ -24,7 +24,7 @@
 using namespace llvm;
 
 namespace llvm {
-LLVM_ABI cl::opt<InlinerFunctionImportStatsOpts> InlinerFunctionImportStats(
+LLVM_ABI_DATA cl::opt<InlinerFunctionImportStatsOpts> InlinerFunctionImportStats(
     "inliner-function-import-stats",
     cl::init(InlinerFunctionImportStatsOpts::No),
     cl::values(clEnumValN(InlinerFunctionImportStatsOpts::Basic, "basic",

@@ -33,7 +33,7 @@ class LLVM_CLASS_ABI LiveDebugVariables : public MachineFunctionPass {
   void *pImpl = nullptr;
 
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 
   LiveDebugVariables();
   ~LiveDebugVariables() override;

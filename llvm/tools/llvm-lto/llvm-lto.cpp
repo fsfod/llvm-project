@@ -268,10 +268,10 @@ static cl::opt<bool> TryUseNewDbgInfoFormat(
     "try-experimental-debuginfo-iterators",
     cl::desc("Enable debuginfo iterator positions, if they're built in"),
     cl::init(false), cl::Hidden);
-
-LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
-LLVM_ABI extern cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat;
-LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+ 
+LLVM_ABI_DATA extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI_DATA extern cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat;
+LLVM_ABI_DATA extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
 
 namespace {
 

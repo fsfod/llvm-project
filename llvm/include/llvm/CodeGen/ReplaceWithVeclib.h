@@ -28,7 +28,7 @@ struct LLVM_CLASS_ABI ReplaceWithVeclib : public PassInfoMixin<ReplaceWithVeclib
 
 // Legacy pass
 struct LLVM_CLASS_ABI ReplaceWithVeclibLegacy : public FunctionPass {
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   ReplaceWithVeclibLegacy() : FunctionPass(ID) {
     initializeReplaceWithVeclibLegacyPass(*PassRegistry::getPassRegistry());
   }

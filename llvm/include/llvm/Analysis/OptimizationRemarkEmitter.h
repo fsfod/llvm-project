@@ -159,13 +159,13 @@ public:
     return *ORE;
   }
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 };
 
 class LLVM_CLASS_ABI OptimizationRemarkEmitterAnalysis
     : public AnalysisInfoMixin<OptimizationRemarkEmitterAnalysis> {
   friend AnalysisInfoMixin<OptimizationRemarkEmitterAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result typedef for this analysis pass.

@@ -26,7 +26,7 @@
 #include <memory>
 #include <optional>
 
-LLVM_ABI extern llvm::cl::opt<bool> ScalePartialSampleProfileWorkingSetSize;
+LLVM_ABI_DATA extern llvm::cl::opt<bool> ScalePartialSampleProfileWorkingSetSize;
 
 namespace llvm {
 class BasicBlock;
@@ -359,7 +359,7 @@ class LLVM_CLASS_ABI ProfileSummaryInfoWrapperPass : public ImmutablePass {
   std::unique_ptr<ProfileSummaryInfo> PSI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   ProfileSummaryInfoWrapperPass();
 
   ProfileSummaryInfo &getPSI() { return *PSI; }
@@ -382,7 +382,7 @@ public:
 
 private:
   friend AnalysisInfoMixin<ProfileSummaryAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 };
 
 /// Printer pass that uses \c ProfileSummaryAnalysis.

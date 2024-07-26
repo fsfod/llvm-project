@@ -419,7 +419,7 @@ public:
 
 private:
   friend AnalysisInfoMixin<DDGAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 };
 
 /// Textual printer pass for the DDG of a loop.

@@ -34,7 +34,7 @@ using namespace llvm;
 
 enum UncheckedLdStMode { UncheckedNever, UncheckedSafe, UncheckedAlways };
 
-LLVM_ABI cl::opt<UncheckedLdStMode> ClUncheckedLdSt(
+LLVM_ABI_DATA cl::opt<UncheckedLdStMode> ClUncheckedLdSt(
     "stack-tagging-unchecked-ld-st", cl::Hidden,
     cl::init(UncheckedSafe),
     cl::desc(

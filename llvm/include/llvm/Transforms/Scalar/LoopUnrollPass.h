@@ -17,7 +17,7 @@
 
 namespace llvm {
 
-extern LLVM_ABI cl::opt<bool> ForgetSCEVInLoopUnroll;
+extern LLVM_ABI_DATA cl::opt<bool> ForgetSCEVInLoopUnroll;
 
 class Function;
 class Loop;

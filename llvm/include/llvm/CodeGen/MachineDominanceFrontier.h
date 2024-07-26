@@ -32,7 +32,7 @@ public:
  MachineDominanceFrontier(const MachineDominanceFrontier &) = delete;
  MachineDominanceFrontier &operator=(const MachineDominanceFrontier &) = delete;
 
- static char ID;
+ LLVM_ABI_DATA_IMPORT static char ID;
 
  MachineDominanceFrontier();
 

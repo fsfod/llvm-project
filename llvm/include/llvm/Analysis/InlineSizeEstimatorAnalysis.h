@@ -24,7 +24,7 @@ public:
   InlineSizeEstimatorAnalysis(InlineSizeEstimatorAnalysis &&);
   ~InlineSizeEstimatorAnalysis();
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   using Result = std::optional<size_t>;
   Result run(const Function &F, FunctionAnalysisManager &FAM);
   static bool isEvaluatorRequested();

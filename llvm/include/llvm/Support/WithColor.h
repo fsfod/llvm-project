@@ -143,7 +143,7 @@ private:
   raw_ostream &OS;
   ColorMode Mode;
 
-  static AutoDetectFunctionType AutoDetectFunction;
+  LLVM_ABI_DATA_IMPORT static AutoDetectFunctionType AutoDetectFunction;
 };
 
 } // end namespace llvm

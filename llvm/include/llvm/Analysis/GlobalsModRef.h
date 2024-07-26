@@ -127,7 +127,7 @@ private:
 /// Analysis pass providing a never-invalidated alias analysis result.
 class LLVM_CLASS_ABI GlobalsAA : public AnalysisInfoMixin<GlobalsAA> {
   friend AnalysisInfoMixin<GlobalsAA>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   typedef GlobalsAAResult Result;
@@ -144,7 +144,7 @@ class LLVM_CLASS_ABI GlobalsAAWrapperPass : public ModulePass {
   std::unique_ptr<GlobalsAAResult> Result;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   GlobalsAAWrapperPass();
 

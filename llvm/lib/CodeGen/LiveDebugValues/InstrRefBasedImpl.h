@@ -166,8 +166,8 @@ public:
         .str();
   }
 
-  LLVM_ABI static ValueIDNum EmptyValue;
-  LLVM_ABI static ValueIDNum TombstoneValue;
+  LLVM_ABI_DATA static ValueIDNum EmptyValue;
+  LLVM_ABI_DATA static ValueIDNum TombstoneValue;
 };
 
 } // End namespace LiveDebugValues
@@ -387,7 +387,7 @@ struct DbgOpID {
   DbgOpID(uint32_t RawID) : RawID(RawID) {}
   DbgOpID(bool IsConst, uint32_t Index) : ID({IsConst, Index}) {}
 
-  LLVM_ABI static DbgOpID UndefID;
+  LLVM_ABI_DATA static DbgOpID UndefID;
 
   bool operator==(const DbgOpID &Other) const { return RawID == Other.RawID; }
   bool operator!=(const DbgOpID &Other) const { return !(*this == Other); }

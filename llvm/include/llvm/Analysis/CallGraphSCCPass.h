@@ -122,7 +122,7 @@ LLVM_ABI void initializeDummyCGSCCPassPass(PassRegistry &);
 /// codegen to follow bottom up order on call graph.
 class LLVM_CLASS_ABI DummyCGSCCPass : public CallGraphSCCPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   DummyCGSCCPass() : CallGraphSCCPass(ID) {
     PassRegistry &Registry = *PassRegistry::getPassRegistry();

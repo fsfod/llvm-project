@@ -54,7 +54,7 @@ private:
   MachineBlockFrequencyInfo &calculateIfNotAvailable() const;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   LazyMachineBlockFrequencyInfoPass();
 

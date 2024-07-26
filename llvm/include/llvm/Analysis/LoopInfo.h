@@ -570,7 +570,7 @@ template <> struct GraphTraits<Loop *> {
 /// Analysis pass that exposes the \c LoopInfo for a function.
 class LLVM_CLASS_ABI LoopAnalysis : public AnalysisInfoMixin<LoopAnalysis> {
   friend AnalysisInfoMixin<LoopAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   typedef LoopInfo Result;
@@ -599,7 +599,7 @@ class LLVM_CLASS_ABI LoopInfoWrapperPass : public FunctionPass {
   LoopInfo LI;
 
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 
   LoopInfoWrapperPass();
 

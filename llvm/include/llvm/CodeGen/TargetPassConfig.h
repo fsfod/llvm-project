@@ -152,7 +152,7 @@ public:
 
   ~TargetPassConfig() override;
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   /// Get the right type of TargetMachine for this target.
   template<typename TMC> TMC &getTM() const {

@@ -80,9 +80,9 @@ static cl::opt<bool> PrintThinLTOIndexOnly(
     cl::desc("Only read thinlto index and print the index as LLVM assembly."),
     cl::init(false), cl::Hidden, cl::cat(DisCategory));
 
-LLVM_ABI extern cl::opt<bool> WriteNewDbgInfoFormat;
+LLVM_ABI_DATA extern cl::opt<bool> WriteNewDbgInfoFormat;
 
-LLVM_ABI extern cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat;
+LLVM_ABI_DATA extern cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat;
 
 namespace {
 

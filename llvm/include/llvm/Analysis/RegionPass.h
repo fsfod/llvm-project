@@ -91,7 +91,7 @@ class LLVM_CLASS_ABI RGPassManager : public FunctionPass, public PMDataManager {
   Region *CurrentRegion;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   explicit RGPassManager();
 
   /// Execute all of the passes scheduled for execution.

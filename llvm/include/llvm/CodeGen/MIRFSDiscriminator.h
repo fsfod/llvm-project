@@ -37,7 +37,7 @@ class LLVM_CLASS_ABI MIRAddFSDiscriminators : public MachineFunctionPass {
   unsigned HighBit;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   /// PassNum is the sequence number this pass is called, start from 1.
   MIRAddFSDiscriminators(FSDiscriminatorPass P = FSDiscriminatorPass::Pass1)
       : MachineFunctionPass(ID), Pass(P) {

@@ -630,7 +630,7 @@ public:
 
   /// A reserved operand number representing the instructions memory operand,
   /// for instructions that have a stack spill fused into them.
-  const static unsigned int DebugOperandMemNumber;
+  LLVM_ABI_DATA_IMPORT const static unsigned int DebugOperandMemNumber;
 
   MachineFunction(Function &F, const LLVMTargetMachine &Target,
                   const TargetSubtargetInfo &STI, unsigned FunctionNum,

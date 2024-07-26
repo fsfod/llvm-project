@@ -38,7 +38,7 @@ class LLVM_CLASS_ABI MachineUniformityAnalysisPass : public MachineFunctionPass 
   MachineUniformityInfo UI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MachineUniformityAnalysisPass();
 

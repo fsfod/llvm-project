@@ -28,7 +28,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "x86-indirect-branch-tracking"
 
-LLVM_ABI cl::opt<bool> IndirectBranchTracking(
+LLVM_ABI_DATA cl::opt<bool> IndirectBranchTracking(
     "x86-indirect-branch-tracking", cl::init(false), cl::Hidden,
     cl::desc("Enable X86 indirect branch tracking pass."));
 

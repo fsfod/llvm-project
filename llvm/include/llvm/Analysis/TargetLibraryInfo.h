@@ -86,7 +86,7 @@ class LLVM_CLASS_ABI TargetLibraryInfoImpl {
 
   unsigned char AvailableArray[(NumLibFuncs+3)/4];
   DenseMap<unsigned, std::string> CustomNames;
-  static StringLiteral const StandardNames[NumLibFuncs];
+  LLVM_ABI_DATA_IMPORT static StringLiteral const StandardNames[NumLibFuncs];
   bool ShouldExtI32Param, ShouldExtI32Return, ShouldSignExtI32Param, ShouldSignExtI32Return;
   unsigned SizeOfInt;
 
@@ -617,7 +617,7 @@ public:
 
 private:
   friend AnalysisInfoMixin<TargetLibraryAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   std::optional<TargetLibraryInfoImpl> BaselineInfoImpl;
 };
@@ -629,7 +629,7 @@ class LLVM_CLASS_ABI TargetLibraryInfoWrapperPass : public ImmutablePass {
   virtual void anchor();
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   TargetLibraryInfoWrapperPass();
   explicit TargetLibraryInfoWrapperPass(const Triple &T);
   explicit TargetLibraryInfoWrapperPass(const TargetLibraryInfoImpl &TLI);

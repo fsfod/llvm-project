@@ -59,8 +59,8 @@ class AAResults;
 class NodeSet;
 class SMSchedule;
 
-extern LLVM_ABI cl::opt<bool> SwpEnableCopyToPhi;
-extern LLVM_ABI cl::opt<int> SwpForceIssueWidth;
+extern LLVM_ABI_DATA cl::opt<bool> SwpEnableCopyToPhi;
+extern LLVM_ABI_DATA cl::opt<int> SwpForceIssueWidth;
 
 /// The main class in the implementation of the target independent
 /// software pipeliner pass.
@@ -92,7 +92,7 @@ public:
   };
   LoopInfo LI;
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MachinePipeliner() : MachineFunctionPass(ID) {
     initializeMachinePipelinerPass(*PassRegistry::getPassRegistry());
@@ -170,7 +170,7 @@ class LLVM_CLASS_ABI SwingSchedulerDAG : public ScheduleDAGInstrs {
     // Node to Index from ScheduleDAGTopologicalSort
     std::vector<int> *Node2Idx;
     unsigned NumPaths = 0u;
-    static unsigned MaxPaths;
+    LLVM_ABI_DATA_IMPORT static unsigned MaxPaths;
 
   public:
     Circuits(std::vector<SUnit> &SUs, ScheduleDAGTopologicalSort &Topo)

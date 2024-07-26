@@ -31,7 +31,7 @@
 
 namespace llvm {
 
-extern LLVM_ABI cl::opt<bool> DisableGISelLegalityCheck;
+extern LLVM_ABI_DATA cl::opt<bool> DisableGISelLegalityCheck;
 
 class MachineFunction;
 class raw_ostream;

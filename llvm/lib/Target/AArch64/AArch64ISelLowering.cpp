@@ -114,7 +114,7 @@ STATISTIC(NumOptimizedImms, "Number of times immediates were optimized");
 // FIXME: The necessary dtprel relocations don't seem to be supported
 // well in the GNU bfd and gold linkers at the moment. Therefore, by
 // default, for now, fall back to GeneralDynamic code generation.
-LLVM_ABI cl::opt<bool> EnableAArch64ELFLocalDynamicTLSGeneration(
+LLVM_ABI_DATA cl::opt<bool> EnableAArch64ELFLocalDynamicTLSGeneration(
     "aarch64-elf-ldtls-generation", cl::Hidden,
     cl::desc("Allow AArch64 Local Dynamic TLS code generation"),
     cl::init(false));

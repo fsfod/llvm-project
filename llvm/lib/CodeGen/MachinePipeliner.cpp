@@ -195,13 +195,13 @@ static cl::opt<int>
 namespace llvm {
 
 // A command line option to enable the CopyToPhi DAG mutation.
-LLVM_ABI cl::opt<bool> SwpEnableCopyToPhi("pipeliner-enable-copytophi", cl::ReallyHidden,
+LLVM_ABI_DATA cl::opt<bool> SwpEnableCopyToPhi("pipeliner-enable-copytophi", cl::ReallyHidden,
                                  cl::init(true),
                                  cl::desc("Enable CopyToPhi DAG Mutation"));
 
 /// A command line argument to force pipeliner to use specified issue
 /// width.
-LLVM_ABI cl::opt<int> SwpForceIssueWidth(
+LLVM_ABI_DATA cl::opt<int> SwpForceIssueWidth(
     "pipeliner-force-issue-width",
     cl::desc("Force pipeliner to use specified issue width."), cl::Hidden,
     cl::init(-1));

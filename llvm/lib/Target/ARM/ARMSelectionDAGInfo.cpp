@@ -19,7 +19,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "arm-selectiondag-info"
 
-LLVM_ABI cl::opt<TPLoop::MemTransfer> EnableMemtransferTPLoop(
+LLVM_ABI_DATA cl::opt<TPLoop::MemTransfer> EnableMemtransferTPLoop(
     "arm-memtransfer-tploop", cl::Hidden,
     cl::desc("Control conversion of memcpy to "
              "Tail predicated loops (WLSTP)"),

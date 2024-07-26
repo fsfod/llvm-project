@@ -37,7 +37,7 @@ class LostDebugLocObserver;
 
 class LLVM_CLASS_ABI Legalizer : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   struct MFResult {
     bool Changed;

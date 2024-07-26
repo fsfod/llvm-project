@@ -353,7 +353,7 @@ static cl::opt<bool> PreferPredicatedReductionSelect(
         "Prefer predicating a reduction operation over an after loop select."));
 
 namespace llvm {
-LLVM_ABI cl::opt<bool> EnableVPlanNativePath(
+LLVM_ABI_DATA cl::opt<bool> EnableVPlanNativePath(
     "enable-vplan-native-path", cl::Hidden,
     cl::desc("Enable VPlan-native vectorization path with "
              "support for outer loop vectorization."));
@@ -370,10 +370,10 @@ static cl::opt<bool> VPlanBuildStressTest(
         "out right after the build (stress test the VPlan H-CFG construction "
         "in the VPlan-native vectorization path)."));
 
-LLVM_ABI cl::opt<bool> llvm::EnableLoopInterleaving(
+LLVM_ABI_DATA cl::opt<bool> llvm::EnableLoopInterleaving(
     "interleave-loops", cl::init(true), cl::Hidden,
     cl::desc("Enable loop interleaving in Loop vectorization passes"));
-LLVM_ABI cl::opt<bool> llvm::EnableLoopVectorization(
+LLVM_ABI_DATA cl::opt<bool> llvm::EnableLoopVectorization(
     "vectorize-loops", cl::init(true), cl::Hidden,
     cl::desc("Run the Loop vectorization passes"));
 

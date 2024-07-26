@@ -228,7 +228,7 @@ static cl::opt<bool> DisableLoopUnrolling(
     cl::desc("Disable loop unrolling in all relevant passes"), cl::init(false));
 
 namespace llvm {
-LLVM_ABI extern cl::opt<bool> PrintPipelinePasses;
+LLVM_ABI_DATA extern cl::opt<bool> PrintPipelinePasses;
 } // namespace llvm
 
 template <typename PassManagerT>

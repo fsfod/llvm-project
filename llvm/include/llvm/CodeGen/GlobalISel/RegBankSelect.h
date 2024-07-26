@@ -91,7 +91,7 @@ class TargetRegisterInfo;
 /// pipeline. At the end of this pass, all register operands have been assigned
 class LLVM_CLASS_ABI RegBankSelect : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   /// List of the modes supported by the RegBankSelect pass.
   enum Mode {

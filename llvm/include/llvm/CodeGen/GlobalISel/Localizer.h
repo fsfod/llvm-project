@@ -43,7 +43,7 @@ class TargetTransformInfo;
 /// related predecessor.
 class LLVM_CLASS_ABI Localizer : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
 private:
   /// An input function to decide if the pass should run or not

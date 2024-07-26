@@ -1259,7 +1259,7 @@ template <> struct GraphTraits<LazyCallGraph *> {
 class LLVM_CLASS_ABI LazyCallGraphAnalysis : public AnalysisInfoMixin<LazyCallGraphAnalysis> {
   friend AnalysisInfoMixin<LazyCallGraphAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Inform generic clients of the result type.

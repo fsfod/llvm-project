@@ -17,7 +17,7 @@
 #include "gtest/gtest.h"
 using namespace llvm;
 
-LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI_DATA extern cl::opt<bool> UseNewDbgInfoFormat;
 
 namespace {
 

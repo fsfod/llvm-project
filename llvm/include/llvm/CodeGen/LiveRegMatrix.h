@@ -64,7 +64,7 @@ class LLVM_CLASS_ABI LiveRegMatrix : public MachineFunctionPass {
   void releaseMemory() override;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   LiveRegMatrix();
 

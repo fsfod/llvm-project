@@ -202,7 +202,7 @@ LLVM_ABI raw_ostream &operator<<(raw_ostream &, const LoopNest &);
 /// demand and can be initiated via AM.getResult<LoopNestAnalysis>.
 class LLVM_CLASS_ABI LoopNestAnalysis : public AnalysisInfoMixin<LoopNestAnalysis> {
   friend AnalysisInfoMixin<LoopNestAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = LoopNest;

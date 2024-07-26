@@ -77,14 +77,14 @@ class ScalarEvolution;
 class TargetLibraryInfo;
 class TargetTransformInfo;
 
-extern LLVM_ABI cl::opt<bool> EnableLoopInterleaving;
-extern LLVM_ABI cl::opt<bool> EnableLoopVectorization;
+extern LLVM_ABI_DATA cl::opt<bool> EnableLoopInterleaving;
+extern LLVM_ABI_DATA cl::opt<bool> EnableLoopVectorization;
 
 /// A marker to determine if extra passes after loop vectorization should be
 /// run.
 struct LLVM_CLASS_ABI ShouldRunExtraVectorPasses
     : public AnalysisInfoMixin<ShouldRunExtraVectorPasses> {
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   struct Result {
     bool invalidate(Function &F, const PreservedAnalyses &PA,
                     FunctionAnalysisManager::Invalidator &) {

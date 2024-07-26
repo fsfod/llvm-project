@@ -164,7 +164,7 @@ class LLVM_CLASS_ABI IVUsersWrapperPass : public LoopPass {
   std::unique_ptr<IVUsers> IU;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   IVUsersWrapperPass();
 
@@ -183,7 +183,7 @@ public:
 /// Analysis pass that exposes the \c IVUsers for a loop.
 class LLVM_CLASS_ABI IVUsersAnalysis : public AnalysisInfoMixin<IVUsersAnalysis> {
   friend AnalysisInfoMixin<IVUsersAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   typedef IVUsers Result;

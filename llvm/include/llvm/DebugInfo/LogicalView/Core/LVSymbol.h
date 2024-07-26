@@ -40,7 +40,7 @@ class LLVM_CLASS_ABI LVSymbol final : public LVElement {
   // Typed bitvector with kinds and properties for this symbol.
   LVProperties<LVSymbolKind> Kinds;
   LVProperties<Property> Properties;
-  static LVSymbolDispatch Dispatch;
+  LLVM_ABI_DATA_IMPORT static LVSymbolDispatch Dispatch;
 
   // CodeView symbol Linkage name.
   size_t LinkageNameIndex = 0;

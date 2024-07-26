@@ -108,7 +108,7 @@ public:
 
   class Ensemble;
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MachineTraceMetrics();
 

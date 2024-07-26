@@ -102,7 +102,7 @@ class LLVM_CLASS_ABI LVElement : public LVObject {
   };
   // Typed bitvector with properties for this element.
   LVProperties<Property> Properties;
-  static LVElementDispatch Dispatch;
+  LLVM_ABI_DATA_IMPORT static LVElementDispatch Dispatch;
 
   /// RTTI.
   const LVSubclassID SubclassID;

@@ -181,7 +181,7 @@ public:
     return Result(*FAM);
   }
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 private:
   FunctionAnalysisManager *FAM;

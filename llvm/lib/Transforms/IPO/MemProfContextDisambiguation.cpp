@@ -122,13 +122,13 @@ static cl::opt<unsigned>
                                  "frames through tail calls."));
 
 namespace llvm {
-LLVM_ABI cl::opt<bool> EnableMemProfContextDisambiguation(
+LLVM_ABI_DATA cl::opt<bool> EnableMemProfContextDisambiguation(
     "enable-memprof-context-disambiguation", cl::init(false), cl::Hidden,
     cl::ZeroOrMore, cl::desc("Enable MemProf context disambiguation"));
 
 // Indicate we are linking with an allocator that supports hot/cold operator
 // new interfaces.
-LLVM_ABI cl::opt<bool> SupportsHotColdNew(
+LLVM_ABI_DATA cl::opt<bool> SupportsHotColdNew(
     "supports-hot-cold-new", cl::init(false), cl::Hidden,
     cl::desc("Linking with hot/cold operator new interfaces"));
 } // namespace llvm

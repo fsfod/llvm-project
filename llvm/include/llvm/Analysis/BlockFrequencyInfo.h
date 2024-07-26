@@ -116,7 +116,7 @@ class LLVM_CLASS_ABI BlockFrequencyAnalysis
     : public AnalysisInfoMixin<BlockFrequencyAnalysis> {
   friend AnalysisInfoMixin<BlockFrequencyAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result type for this analysis pass.
@@ -144,7 +144,7 @@ class LLVM_CLASS_ABI BlockFrequencyInfoWrapperPass : public FunctionPass {
   BlockFrequencyInfo BFI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   BlockFrequencyInfoWrapperPass();
   ~BlockFrequencyInfoWrapperPass() override;

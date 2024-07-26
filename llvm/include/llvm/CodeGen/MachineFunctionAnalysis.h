@@ -14,6 +14,7 @@
 #define LLVM_CODEGEN_MACHINEFUNCTIONANALYSIS
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ class LLVM_CLASS_ABI MachineFunctionAnalysis
     : public AnalysisInfoMixin<MachineFunctionAnalysis> {
   friend AnalysisInfoMixin<MachineFunctionAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   const LLVMTargetMachine *TM;
 

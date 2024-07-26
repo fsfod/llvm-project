@@ -61,8 +61,8 @@ struct LLVM_CLASS_ABI MBBSectionID {
   MBBSectionID(unsigned N) : Type(Default), Number(N) {}
 
   // Special unique sections for cold and exception blocks.
-  const static MBBSectionID ColdSectionID;
-  const static MBBSectionID ExceptionSectionID;
+  LLVM_ABI_DATA_IMPORT const static MBBSectionID ColdSectionID;
+  LLVM_ABI_DATA_IMPORT const static MBBSectionID ExceptionSectionID;
 
   bool operator==(const MBBSectionID &Other) const {
     return Type == Other.Type && Number == Other.Number;

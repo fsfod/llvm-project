@@ -1164,7 +1164,7 @@ class LLVM_CLASS_ABI IRSimilarityIdentifierWrapperPass : public ModulePass {
   std::unique_ptr<IRSimilarity::IRSimilarityIdentifier> IRSI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   IRSimilarityIdentifierWrapperPass();
 
   IRSimilarity::IRSimilarityIdentifier &getIRSI() { return *IRSI; }
@@ -1188,7 +1188,7 @@ public:
 
 private:
   friend AnalysisInfoMixin<IRSimilarityAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 };
 
 /// Printer pass that uses \c IRSimilarityAnalysis.

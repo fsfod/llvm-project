@@ -153,7 +153,7 @@ private:
 class LLVM_CLASS_ABI BasicAA : public AnalysisInfoMixin<BasicAA> {
   friend AnalysisInfoMixin<BasicAA>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = BasicAAResult;
@@ -168,7 +168,7 @@ class LLVM_CLASS_ABI BasicAAWrapperPass : public FunctionPass {
   virtual void anchor();
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   BasicAAWrapperPass();
 

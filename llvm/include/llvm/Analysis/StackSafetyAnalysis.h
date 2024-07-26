@@ -92,7 +92,7 @@ public:
 /// StackSafetyInfo wrapper for the new pass manager.
 class LLVM_CLASS_ABI StackSafetyAnalysis : public AnalysisInfoMixin<StackSafetyAnalysis> {
   friend AnalysisInfoMixin<StackSafetyAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = StackSafetyInfo;
@@ -114,7 +114,7 @@ class LLVM_CLASS_ABI StackSafetyInfoWrapperPass : public FunctionPass {
   StackSafetyInfo SSI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   StackSafetyInfoWrapperPass();
 
   const StackSafetyInfo &getResult() const { return SSI; }
@@ -130,7 +130,7 @@ public:
 class LLVM_CLASS_ABI StackSafetyGlobalAnalysis
     : public AnalysisInfoMixin<StackSafetyGlobalAnalysis> {
   friend AnalysisInfoMixin<StackSafetyGlobalAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = StackSafetyGlobalInfo;
@@ -154,7 +154,7 @@ class LLVM_CLASS_ABI StackSafetyGlobalInfoWrapperPass : public ModulePass {
   StackSafetyGlobalInfo SSGI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   StackSafetyGlobalInfoWrapperPass();
   ~StackSafetyGlobalInfoWrapperPass();

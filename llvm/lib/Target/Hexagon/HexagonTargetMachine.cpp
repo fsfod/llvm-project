@@ -39,7 +39,7 @@ static cl::opt<bool>
 static cl::opt<bool> EnableRDFOpt("rdf-opt", cl::Hidden, cl::init(true),
                                   cl::desc("Enable RDF-based optimizations"));
 
-LLVM_ABI cl::opt<unsigned> RDFFuncBlockLimit(
+LLVM_ABI_DATA cl::opt<unsigned> RDFFuncBlockLimit(
     "rdf-bb-limit", cl::Hidden, cl::init(1000),
     cl::desc("Basic block limit for a function for RDF optimizations"));
 

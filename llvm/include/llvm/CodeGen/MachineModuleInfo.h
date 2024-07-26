@@ -203,7 +203,7 @@ class LLVM_CLASS_ABI MachineModuleInfoWrapperPass : public ImmutablePass {
   MachineModuleInfo MMI;
 
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
   explicit MachineModuleInfoWrapperPass(const LLVMTargetMachine *TM = nullptr);
 
   explicit MachineModuleInfoWrapperPass(const LLVMTargetMachine *TM,
@@ -224,7 +224,7 @@ public:
 /// infrastructure must own the MachineModuleInfo.
 class LLVM_CLASS_ABI MachineModuleAnalysis : public AnalysisInfoMixin<MachineModuleAnalysis> {
   friend AnalysisInfoMixin<MachineModuleAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   MachineModuleInfo &MMI;
 

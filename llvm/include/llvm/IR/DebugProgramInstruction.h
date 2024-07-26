@@ -54,6 +54,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/SymbolTableListTraits.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -632,7 +633,7 @@ public:
   /// static markers range instead. This will bite us if someone tries to insert
   /// a DbgRecord in that range, but they should be using the Official (TM) API
   /// for that.
-  static DbgMarker EmptyDbgMarker;
+  LLVM_ABI_DATA_IMPORT static DbgMarker EmptyDbgMarker;
   static iterator_range<simple_ilist<DbgRecord>::iterator>
   getEmptyDbgRecordRange() {
     return make_range(EmptyDbgMarker.StoredDbgRecords.end(),

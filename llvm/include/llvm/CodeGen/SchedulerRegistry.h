@@ -36,7 +36,7 @@ public:
   using FunctionPassCtor = ScheduleDAGSDNodes *(*)(SelectionDAGISel *,
                                                    CodeGenOptLevel);
 
-  static MachinePassRegistry<FunctionPassCtor> Registry;
+  LLVM_ABI_DATA_IMPORT static MachinePassRegistry<FunctionPassCtor> Registry;
 
   RegisterScheduler(const char *N, const char *D, FunctionPassCtor C)
       : MachinePassRegistryNode(N, D, C) {

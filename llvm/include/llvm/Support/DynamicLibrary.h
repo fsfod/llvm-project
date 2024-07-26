@@ -35,7 +35,7 @@ class LLVM_CLASS_ABI DynamicLibrary {
   // Placeholder whose address represents an invalid library.
   // We use this instead of NULL or a pointer-int pair because the OS library
   // might define 0 or 1 to be "special" handles, such as "search all".
-  static char Invalid;
+  LLVM_ABI_DATA_IMPORT static char Invalid;
 
   // Opaque data used to interface with OS-specific dynamic library handling.
   void *Data;
@@ -124,7 +124,7 @@ public:
     /// The default bahaviour is to search loaded libraries in reverse.
     SO_LoadOrder = 4
   };
-  static SearchOrdering SearchOrder; // = SO_Linker
+  LLVM_ABI_DATA_IMPORT static SearchOrdering SearchOrder; // = SO_Linker
 
   /// This function will search through all previously loaded dynamic
   /// libraries for the symbol \p symbolName. If it is found, the address of

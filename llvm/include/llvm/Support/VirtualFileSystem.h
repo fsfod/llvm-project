@@ -267,7 +267,7 @@ public:
 class LLVM_CLASS_ABI FileSystem : public llvm::ThreadSafeRefCountedBase<FileSystem>,
                    public RTTIExtends<FileSystem, RTTIRoot> {
 public:
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
   virtual ~FileSystem();
 
   /// Get the status of the entry at \p Path, if one exists.
@@ -385,7 +385,7 @@ class LLVM_CLASS_ABI OverlayFileSystem : public RTTIExtends<OverlayFileSystem, F
   FileSystemList FSList;
 
 public:
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
   OverlayFileSystem(IntrusiveRefCntPtr<FileSystem> Base);
 
   /// Pushes a file system on top of the stack.
@@ -439,7 +439,7 @@ protected:
 /// proxy other calls.
 class LLVM_CLASS_ABI ProxyFileSystem : public RTTIExtends<ProxyFileSystem, FileSystem> {
 public:
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
   explicit ProxyFileSystem(IntrusiveRefCntPtr<FileSystem> FS)
       : FS(std::move(FS)) {}
 
@@ -529,7 +529,7 @@ class LLVM_CLASS_ABI InMemoryFileSystem : public RTTIExtends<InMemoryFileSystem,
   bool UseNormalizedPaths = true;
 
 public:
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
 
 private:
   using MakeNodeFn = llvm::function_ref<std::unique_ptr<detail::InMemoryNode>(
@@ -766,7 +766,7 @@ class RedirectingFileSystemParser;
 class LLVM_CLASS_ABI RedirectingFileSystem
     : public RTTIExtends<RedirectingFileSystem, vfs::FileSystem> {
 public:
-  static const char ID;
+  LLVM_ABI_DATA_IMPORT static const char ID;
   enum EntryKind { EK_Directory, EK_DirectoryRemap, EK_File };
   enum NameKind { NK_NotSet, NK_External, NK_Virtual };
 

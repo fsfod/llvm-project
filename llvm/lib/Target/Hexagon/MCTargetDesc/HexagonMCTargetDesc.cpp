@@ -56,11 +56,11 @@ using namespace llvm;
 #define GET_REGINFO_MC_DESC
 #include "HexagonGenRegisterInfo.inc"
 
-LLVM_ABI cl::opt<bool> llvm::HexagonDisableCompound
+LLVM_ABI_DATA cl::opt<bool> llvm::HexagonDisableCompound
   ("mno-compound",
    cl::desc("Disable looking for compound instructions for Hexagon"));
 
-LLVM_ABI cl::opt<bool> llvm::HexagonDisableDuplex
+LLVM_ABI_DATA cl::opt<bool> llvm::HexagonDisableDuplex
   ("mno-pairing",
    cl::desc("Disable looking for duplex instructions for Hexagon"));
 
@@ -93,7 +93,7 @@ cl::opt<bool> MV73("mv73", cl::Hidden, cl::desc("Build for Hexagon V73"),
                    cl::init(false));
 } // namespace
 
-LLVM_ABI cl::opt<Hexagon::ArchEnum> EnableHVX(
+LLVM_ABI_DATA cl::opt<Hexagon::ArchEnum> EnableHVX(
     "mhvx", cl::desc("Enable Hexagon Vector eXtensions"),
     cl::values(clEnumValN(Hexagon::ArchEnum::V60, "v60", "Build for HVX v60"),
                clEnumValN(Hexagon::ArchEnum::V62, "v62", "Build for HVX v62"),

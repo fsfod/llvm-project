@@ -100,12 +100,12 @@
 
 namespace llvm {
 
-extern LLVM_ABI cl::opt<bool> ForceTopDown;
-extern LLVM_ABI cl::opt<bool> ForceBottomUp;
-extern LLVM_ABI cl::opt<bool> VerifyScheduling;
+extern LLVM_ABI_DATA cl::opt<bool> ForceTopDown;
+extern LLVM_ABI_DATA cl::opt<bool> ForceBottomUp;
+extern LLVM_ABI_DATA cl::opt<bool> VerifyScheduling;
 #ifndef NDEBUG
-extern LLVM_ABI cl::opt<bool> ViewMISchedDAGs;
-extern LLVM_ABI cl::opt<bool> PrintDAGs;
+extern LLVM_ABI_DATA cl::opt<bool> ViewMISchedDAGs;
+extern LLVM_ABI_DATA cl::opt<bool> PrintDAGs;
 #else
 LLVM_ABI extern const bool ViewMISchedDAGs;
 LLVM_ABI extern const bool PrintDAGs;
@@ -153,7 +153,7 @@ public:
   // RegisterPassParser requires a (misnamed) FunctionPassCtor type.
   using FunctionPassCtor = ScheduleDAGCtor;
 
-  static MachinePassRegistry<ScheduleDAGCtor> Registry;
+  LLVM_ABI_DATA_IMPORT static MachinePassRegistry<ScheduleDAGCtor> Registry;
 
   MachineSchedRegistry(const char *N, const char *D, ScheduleDAGCtor C)
       : MachinePassRegistryNode(N, D, C) {

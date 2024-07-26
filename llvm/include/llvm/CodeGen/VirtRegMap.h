@@ -70,7 +70,7 @@ class TargetInstrInfo;
     unsigned createSpillSlot(const TargetRegisterClass *RC);
 
   public:
-    static char ID;
+    LLVM_ABI_DATA_IMPORT static char ID;
 
     VirtRegMap()
         : MachineFunctionPass(ID), Virt2PhysMap(NO_PHYS_REG),

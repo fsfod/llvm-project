@@ -359,7 +359,7 @@ public:
   FnInfoMap &getFnInfos() { return FnInfos; }
 
 private:
-  static const char *WSMP;
+  LLVM_ABI_DATA_IMPORT static const char *WSMP;
 
   AsmPrinter &AP;
   CallsiteInfoList CSInfos;

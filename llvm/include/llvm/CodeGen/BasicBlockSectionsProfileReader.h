@@ -168,7 +168,7 @@ class LLVM_CLASS_ABI BasicBlockSectionsProfileReaderAnalysis
     : public AnalysisInfoMixin<BasicBlockSectionsProfileReaderAnalysis> {
 
 public:
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
   typedef BasicBlockSectionsProfileReader Result;
   BasicBlockSectionsProfileReaderAnalysis(const TargetMachine *TM) : TM(TM) {}
 
@@ -180,7 +180,7 @@ private:
 
 class LLVM_CLASS_ABI BasicBlockSectionsProfileReaderWrapperPass : public ImmutablePass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   BasicBlockSectionsProfileReader BBSPR;
 
   BasicBlockSectionsProfileReaderWrapperPass(const MemoryBuffer *Buf)

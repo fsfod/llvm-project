@@ -2966,7 +2966,7 @@ public:
 
 private:
   friend AnalysisInfoMixin<TargetIRAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   /// The callback used to produce a result.
   ///
@@ -2995,7 +2995,7 @@ class LLVM_CLASS_ABI TargetTransformInfoWrapperPass : public ImmutablePass {
   virtual void anchor();
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   /// We must provide a default constructor for the pass but it should
   /// never be used.

@@ -57,7 +57,7 @@ static cl::opt<bool> PrintAfterAll("print-after-all",
 // utility to do comparisons and insert the prefixes. For systems that do not
 // have the necessary facilities, the error message will be shown in place of
 // the expected output.
-LLVM_ABI cl::opt<ChangePrinter> llvm::PrintChanged(
+LLVM_ABI_DATA cl::opt<ChangePrinter> llvm::PrintChanged(
     "print-changed", cl::desc("Print changed IRs"), cl::Hidden,
     cl::ValueOptional, cl::init(ChangePrinter::None),
     cl::values(

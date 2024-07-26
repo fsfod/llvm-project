@@ -67,7 +67,7 @@ public:
 /// Analysis pass providing a never-invalidated alias analysis result.
 class LLVM_CLASS_ABI ObjCARCAA : public AnalysisInfoMixin<ObjCARCAA> {
   friend AnalysisInfoMixin<ObjCARCAA>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   typedef ObjCARCAAResult Result;

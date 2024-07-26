@@ -103,12 +103,12 @@ namespace detail {
 template <typename Period> struct LLVM_ABI_NOT_EXPORTED unit { static const char value[]; };
 template <typename Period> const char unit<Period>::value[] = "";
 
-template <> struct LLVM_CLASS_ABI unit<std::ratio<3600>> { static const char value[]; };
-template <> struct LLVM_CLASS_ABI unit<std::ratio<60>> { static const char value[]; };
-template <> struct LLVM_CLASS_ABI unit<std::ratio<1>> { static const char value[]; };
-template <> struct LLVM_CLASS_ABI unit<std::milli> { static const char value[]; };
-template <> struct LLVM_CLASS_ABI unit<std::micro> { static const char value[]; };
-template <> struct LLVM_CLASS_ABI unit<std::nano> { static const char value[]; };
+template <> struct LLVM_CLASS_ABI unit<std::ratio<3600>> { LLVM_ABI_DATA_IMPORT static const char value[]; };
+template <> struct LLVM_CLASS_ABI unit<std::ratio<60>> { LLVM_ABI_DATA_IMPORT static const char value[]; };
+template <> struct LLVM_CLASS_ABI unit<std::ratio<1>> { LLVM_ABI_DATA_IMPORT static const char value[]; };
+template <> struct LLVM_CLASS_ABI unit<std::milli> { LLVM_ABI_DATA_IMPORT static const char value[]; };
+template <> struct LLVM_CLASS_ABI unit<std::micro> { LLVM_ABI_DATA_IMPORT static const char value[]; };
+template <> struct LLVM_CLASS_ABI unit<std::nano> { LLVM_ABI_DATA_IMPORT static const char value[]; };
 } // namespace detail
 
 /// Implementation of format_provider<T> for duration types.

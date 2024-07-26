@@ -27,7 +27,7 @@ using UniformityInfo = GenericUniformityInfo<SSAContext>;
 class LLVM_CLASS_ABI UniformityInfoAnalysis
     : public AnalysisInfoMixin<UniformityInfoAnalysis> {
   friend AnalysisInfoMixin<UniformityInfoAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result typedef for this analysis pass.
@@ -58,7 +58,7 @@ class LLVM_CLASS_ABI UniformityInfoWrapperPass : public FunctionPass {
   UniformityInfo m_uniformityInfo;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   UniformityInfoWrapperPass();
 

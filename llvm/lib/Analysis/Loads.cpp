@@ -446,7 +446,7 @@ bool llvm::isSafeToLoadUnconditionally(Value *V, Type *Ty, Align Alignment,
 /// threading in part by eliminating partially redundant loads.
 /// At that point, the value of MaxInstsToScan was already set to '6'
 /// without documented explanation.
-LLVM_ABI cl::opt<unsigned>
+LLVM_ABI_DATA cl::opt<unsigned>
 llvm::DefMaxInstsToScan("available-load-scan-limit", cl::init(6), cl::Hidden,
   cl::desc("Use this to specify the default maximum number of instructions "
            "to scan backward from a given instruction, when searching for "

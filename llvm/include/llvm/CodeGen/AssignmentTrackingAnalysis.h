@@ -106,7 +106,7 @@ public:
 class LLVM_CLASS_ABI DebugAssignmentTrackingAnalysis
     : public AnalysisInfoMixin<DebugAssignmentTrackingAnalysis> {
   friend AnalysisInfoMixin<DebugAssignmentTrackingAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = FunctionVarLocs;
@@ -126,7 +126,7 @@ class LLVM_CLASS_ABI AssignmentTrackingAnalysis : public FunctionPass {
   std::unique_ptr<FunctionVarLocs> Results;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   AssignmentTrackingAnalysis();
 

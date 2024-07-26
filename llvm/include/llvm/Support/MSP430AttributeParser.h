@@ -24,7 +24,7 @@ class LLVM_CLASS_ABI MSP430AttributeParser : public ELFAttributeParser {
     MSP430Attrs::AttrType Attribute;
     Error (MSP430AttributeParser::*Routine)(MSP430Attrs::AttrType);
   };
-  static const std::array<DisplayHandler, 4> DisplayRoutines;
+  LLVM_ABI_DATA_IMPORT static const std::array<DisplayHandler, 4> DisplayRoutines;
 
   Error parseISA(MSP430Attrs::AttrType Tag);
   Error parseCodeModel(MSP430Attrs::AttrType Tag);

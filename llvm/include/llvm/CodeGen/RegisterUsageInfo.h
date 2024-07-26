@@ -34,7 +34,7 @@ class LLVMTargetMachine;
 
 class LLVM_CLASS_ABI PhysicalRegisterUsageInfo : public ImmutablePass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   PhysicalRegisterUsageInfo() : ImmutablePass(ID) {
     PassRegistry &Registry = *PassRegistry::getPassRegistry();

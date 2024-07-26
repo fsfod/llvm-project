@@ -33,7 +33,7 @@ class ProfileSummaryInfo;
 /// \post for all inst in MF: not isPreISelGenericOpcode(inst.opcode)
 class LLVM_CLASS_ABI InstructionSelect : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   StringRef getPassName() const override { return "InstructionSelect"; }
 
   void getAnalysisUsage(AnalysisUsage &AU) const override;

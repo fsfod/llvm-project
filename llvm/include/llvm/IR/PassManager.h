@@ -61,7 +61,7 @@
 #include <utility>
 #include <vector>
 
-LLVM_ABI extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI_DATA extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
 
 namespace llvm {
 
@@ -296,7 +296,7 @@ using FunctionPassManager = PassManager<Function>;
 class LLVM_CLASS_ABI PassInstrumentationAnalysis
     : public AnalysisInfoMixin<PassInstrumentationAnalysis> {
   friend AnalysisInfoMixin<PassInstrumentationAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   PassInstrumentationCallbacks *Callbacks;
 
@@ -610,10 +610,11 @@ extern template class LLVM_TEMPLATE_ABI AnalysisManager<Function>;
 /// Convenience typedef for the Function analysis manager.
 using FunctionAnalysisManager = AnalysisManager<Function>;
 
-#if defined(LLVM_IMPORT_MSVC_COMPAT)
-#define LLVM_ABI_CLANGCL LLVM_ABI_DATA
-#elif !defined(_MSC_VER) || !defined(__clang__)
+
+#if !defined(_MSC_VER) || !defined(__clang__)
 #define LLVM_ABI_CLANGCL
+#elif defined(LLVM_IMPORT_MSVC_COMPAT)
+#define LLVM_ABI_CLANGCL LLVM_ABI_DATA
 #else
 #define LLVM_ABI_CLANGCL LLVM_ABI
 #endif
@@ -710,7 +711,7 @@ private:
   AnalysisManagerT *InnerAM;
 };
 
-#if (!defined(LLVM_DLL_IMPORTING) && !defined(LLVM_IMPORT_MSVC_COMPAT))  || !defined(__clang__)
+#if (!defined(LLVM_DLL_IMPORTING) && !defined(LLVM_IMPORT_MSVC_COMPAT))
 template <typename AnalysisManagerT, typename IRUnitT, typename... ExtraArgTs>
 LLVM_ABI_CLANGCL AnalysisKey
     InnerAnalysisManagerProxy<AnalysisManagerT, IRUnitT, ExtraArgTs...>::Key;

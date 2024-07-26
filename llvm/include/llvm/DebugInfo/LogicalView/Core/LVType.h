@@ -55,7 +55,7 @@ class LLVM_CLASS_ABI LVType : public LVElement {
   // Typed bitvector with kinds and properties for this type.
   LVProperties<LVTypeKind> Kinds;
   LVProperties<Property> Properties;
-  static LVTypeDispatch Dispatch;
+  LLVM_ABI_DATA_IMPORT static LVTypeDispatch Dispatch;
 
   // Find the current type in the given 'Targets'.
   LVType *findIn(const LVTypes *Targets) const;

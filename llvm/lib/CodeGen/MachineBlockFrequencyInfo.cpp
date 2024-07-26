@@ -45,7 +45,7 @@ static cl::opt<GVDAGType> ViewMachineBlockFreqPropagationDAG(
                                                "profile count if available.")));
 
 // Similar option above, but used to control BFI display only after MBP pass
-LLVM_ABI cl::opt<GVDAGType> ViewBlockLayoutWithBFI(
+LLVM_ABI_DATA cl::opt<GVDAGType> ViewBlockLayoutWithBFI(
     "view-block-layout-with-bfi", cl::Hidden,
     cl::desc(
         "Pop up a window to show a dag displaying MBP layout and associated "

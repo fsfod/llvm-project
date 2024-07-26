@@ -92,7 +92,7 @@ class LLVM_CLASS_ABI LVScope : public LVElement {
   // Typed bitvector with kinds and properties for this scope.
   LVProperties<LVScopeKind> Kinds;
   LVProperties<Property> Properties;
-  static LVScopeDispatch Dispatch;
+  LLVM_ABI_DATA_IMPORT static LVScopeDispatch Dispatch;
 
   // Coverage factor in units (bytes).
   unsigned CoverageFactor = 0;

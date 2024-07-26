@@ -43,7 +43,7 @@ class LLVM_CLASS_ABI MIRProfileLoaderPass : public MachineFunctionPass {
   unsigned HighBit;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   /// FS bits will only use the '1' bits in the Mask.
   MIRProfileLoaderPass(std::string FileName = "",
                        std::string RemappingFileName = "",

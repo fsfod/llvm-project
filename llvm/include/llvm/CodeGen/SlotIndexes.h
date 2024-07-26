@@ -332,7 +332,7 @@ class raw_ostream;
     void renumberIndexes(IndexList::iterator curItr);
 
   public:
-    static char ID;
+    LLVM_ABI_DATA_IMPORT static char ID;
 
     SlotIndexes();
 

@@ -78,7 +78,7 @@ LLVM_ABI void setCurrentDebugTypes(const char **Types, unsigned Count);
 /// is specified.  This should probably not be referenced directly, instead, use
 /// the DEBUG macro below.
 ///
-LLVM_ABI extern bool DebugFlag;
+LLVM_ABI_DATA extern bool DebugFlag;
 
 /// EnableDebugBuffering - This defaults to false.  If true, the debug
 /// stream will install signal handlers to dump any buffered debug
@@ -86,7 +86,7 @@ LLVM_ABI extern bool DebugFlag;
 /// to install signal handlers if they are certain there will be no
 /// conflict.
 ///
-LLVM_ABI extern bool EnableDebugBuffering;
+LLVM_ABI_DATA extern bool EnableDebugBuffering;
 
 /// dbgs() - This returns a reference to a raw_ostream for debugging
 /// messages.  If debugging is disabled it returns errs().  Use it

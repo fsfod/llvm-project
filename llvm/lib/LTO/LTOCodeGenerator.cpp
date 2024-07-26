@@ -71,7 +71,7 @@ const char* LTOCodeGenerator::getVersionString() {
 }
 
 namespace llvm {
-LLVM_ABI cl::opt<bool> LTODiscardValueNames(
+LLVM_ABI_DATA cl::opt<bool> LTODiscardValueNames(
     "lto-discard-value-names",
     cl::desc("Strip names from Value during LTO (other than GlobalValue)."),
 #ifdef NDEBUG
@@ -81,12 +81,12 @@ LLVM_ABI cl::opt<bool> LTODiscardValueNames(
 #endif
     cl::Hidden);
 
-LLVM_ABI cl::opt<bool> RemarksWithHotness(
+LLVM_ABI_DATA cl::opt<bool> RemarksWithHotness(
     "lto-pass-remarks-with-hotness",
     cl::desc("With PGO, include profile count in optimization remarks"),
     cl::Hidden);
 
-LLVM_ABI cl::opt<std::optional<uint64_t>, false, remarks::HotnessThresholdParser>
+LLVM_ABI_DATA cl::opt<std::optional<uint64_t>, false, remarks::HotnessThresholdParser>
     RemarksHotnessThreshold(
         "lto-pass-remarks-hotness-threshold",
         cl::desc("Minimum profile count required for an "
@@ -94,37 +94,37 @@ LLVM_ABI cl::opt<std::optional<uint64_t>, false, remarks::HotnessThresholdParser
                  " Use 'auto' to apply the threshold from profile summary."),
         cl::value_desc("uint or 'auto'"), cl::init(0), cl::Hidden);
 
-LLVM_ABI cl::opt<std::string>
+LLVM_ABI_DATA cl::opt<std::string>
     RemarksFilename("lto-pass-remarks-output",
                     cl::desc("Output filename for pass remarks"),
                     cl::value_desc("filename"));
 
-LLVM_ABI cl::opt<std::string>
+LLVM_ABI_DATA cl::opt<std::string>
     RemarksPasses("lto-pass-remarks-filter",
                   cl::desc("Only record optimization remarks from passes whose "
                            "names match the given regular expression"),
                   cl::value_desc("regex"));
 
-LLVM_ABI cl::opt<std::string> RemarksFormat(
+LLVM_ABI_DATA cl::opt<std::string> RemarksFormat(
     "lto-pass-remarks-format",
     cl::desc("The format used for serializing remarks (default: YAML)"),
     cl::value_desc("format"), cl::init("yaml"));
 
-LLVM_ABI cl::opt<std::string> LTOStatsFile(
+LLVM_ABI_DATA cl::opt<std::string> LTOStatsFile(
     "lto-stats-file",
     cl::desc("Save statistics to the specified file"),
     cl::Hidden);
 
-LLVM_ABI cl::opt<std::string> AIXSystemAssemblerPath(
+LLVM_ABI_DATA cl::opt<std::string> AIXSystemAssemblerPath(
     "lto-aix-system-assembler",
     cl::desc("Path to a system assembler, picked up on AIX only"),
     cl::value_desc("path"));
 
-LLVM_ABI cl::opt<bool>
+LLVM_ABI_DATA cl::opt<bool>
     LTORunCSIRInstr("cs-profile-generate",
                     cl::desc("Perform context sensitive PGO instrumentation"));
 
-LLVM_ABI cl::opt<std::string>
+LLVM_ABI_DATA cl::opt<std::string>
     LTOCSIRProfile("cs-profile-path",
                    cl::desc("Context sensitive profile file path"));
 } // namespace llvm

@@ -29,11 +29,11 @@
 #include "gtest/gtest.h"
 
 using namespace llvm;
-extern LLVM_ABI cl::opt<double> CopyWeight;
-extern LLVM_ABI cl::opt<double> LoadWeight;
-extern LLVM_ABI cl::opt<double> StoreWeight;
-extern LLVM_ABI cl::opt<double> CheapRematWeight;
-extern LLVM_ABI cl::opt<double> ExpensiveRematWeight;
+extern LLVM_ABI_DATA cl::opt<double> CopyWeight;
+extern LLVM_ABI_DATA cl::opt<double> LoadWeight;
+extern LLVM_ABI_DATA cl::opt<double> StoreWeight;
+extern LLVM_ABI_DATA cl::opt<double> CheapRematWeight;
+extern LLVM_ABI_DATA cl::opt<double> ExpensiveRematWeight;
 
 namespace {
 // Include helper functions to ease the manipulation of MachineFunctions.

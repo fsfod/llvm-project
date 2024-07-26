@@ -18,15 +18,15 @@
 #include "llvm/Support/Compiler.h"
 
 namespace llvm {
-extern LLVM_ABI cl::opt<bool> EnablePGSO;
-extern LLVM_ABI cl::opt<bool> PGSOLargeWorkingSetSizeOnly;
-extern LLVM_ABI cl::opt<bool> PGSOColdCodeOnly;
-extern LLVM_ABI cl::opt<bool> PGSOColdCodeOnlyForInstrPGO;
-extern LLVM_ABI cl::opt<bool> PGSOColdCodeOnlyForSamplePGO;
-extern LLVM_ABI cl::opt<bool> PGSOColdCodeOnlyForPartialSamplePGO;
-extern LLVM_ABI cl::opt<bool> ForcePGSO;
-extern LLVM_ABI cl::opt<int> PgsoCutoffInstrProf;
-extern LLVM_ABI cl::opt<int> PgsoCutoffSampleProf;
+extern LLVM_ABI_DATA cl::opt<bool> EnablePGSO;
+extern LLVM_ABI_DATA cl::opt<bool> PGSOLargeWorkingSetSizeOnly;
+extern LLVM_ABI_DATA cl::opt<bool> PGSOColdCodeOnly;
+extern LLVM_ABI_DATA cl::opt<bool> PGSOColdCodeOnlyForInstrPGO;
+extern LLVM_ABI_DATA cl::opt<bool> PGSOColdCodeOnlyForSamplePGO;
+extern LLVM_ABI_DATA cl::opt<bool> PGSOColdCodeOnlyForPartialSamplePGO;
+extern LLVM_ABI_DATA cl::opt<bool> ForcePGSO;
+extern LLVM_ABI_DATA cl::opt<int> PgsoCutoffInstrProf;
+extern LLVM_ABI_DATA cl::opt<int> PgsoCutoffSampleProf;
 
 class BasicBlock;
 class BlockFrequencyInfo;

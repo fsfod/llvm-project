@@ -68,7 +68,7 @@ enum Tag : uint16_t;
 class DbgVariableIntrinsic;
 class DbgVariableRecord;
 
-LLVM_ABI extern cl::opt<bool> EnableFSDiscriminator;
+LLVM_ABI_DATA extern cl::opt<bool> EnableFSDiscriminator;
 
 class DITypeRefArray {
   const MDTuple *N = nullptr;
@@ -3873,7 +3873,7 @@ class LLVM_CLASS_ABI DebugVariable {
 
   /// Fragment that will overlap all other fragments. Used as default when
   /// caller demands a fragment.
-  static const FragmentInfo DefaultFragment;
+  LLVM_ABI_DATA_IMPORT static const FragmentInfo DefaultFragment;
 
 public:
   DebugVariable(const DbgVariableIntrinsic *DII);

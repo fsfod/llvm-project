@@ -199,7 +199,7 @@ static cl::opt<bool> DoComdatRenaming(
 namespace llvm {
 // Command line option to enable/disable the warning about missing profile
 // information.
-LLVM_ABI cl::opt<bool> PGOWarnMissing("pgo-warn-missing-function", cl::init(false),
+LLVM_ABI_DATA cl::opt<bool> PGOWarnMissing("pgo-warn-missing-function", cl::init(false),
                              cl::Hidden,
                              cl::desc("Use this option to turn on/off "
                                       "warnings about missing profile data for "
@@ -207,7 +207,7 @@ LLVM_ABI cl::opt<bool> PGOWarnMissing("pgo-warn-missing-function", cl::init(fals
 
 // Command line option to enable/disable the warning about a hash mismatch in
 // the profile data.
-LLVM_ABI cl::opt<bool>
+LLVM_ABI_DATA cl::opt<bool>
     NoPGOWarnMismatch("no-pgo-warn-mismatch", cl::init(false), cl::Hidden,
                       cl::desc("Use this option to turn off/on "
                                "warnings about profile cfg mismatch."));
@@ -215,7 +215,7 @@ LLVM_ABI cl::opt<bool>
 // Command line option to enable/disable the warning about a hash mismatch in
 // the profile data for Comdat functions, which often turns out to be false
 // positive due to the pre-instrumentation inline.
-LLVM_ABI cl::opt<bool> NoPGOWarnMismatchComdatWeak(
+LLVM_ABI_DATA cl::opt<bool> NoPGOWarnMismatchComdatWeak(
     "no-pgo-warn-mismatch-comdat-weak", cl::init(true), cl::Hidden,
     cl::desc("The option is used to turn on/off "
              "warnings about hash mismatch for comdat "

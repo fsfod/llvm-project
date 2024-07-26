@@ -108,7 +108,7 @@ class LLVM_CLASS_ABI MachineLoopInfo : public MachineFunctionPass {
   LoopInfoBase<MachineBasicBlock, MachineLoop> LI;
 
 public:
-  static char ID; // Pass identification, replacement for typeid
+  LLVM_ABI_DATA_IMPORT static char ID; // Pass identification, replacement for typeid
 
   MachineLoopInfo();
   explicit MachineLoopInfo(MachineDominatorTree &MDT)

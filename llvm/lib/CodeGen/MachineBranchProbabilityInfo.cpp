@@ -24,13 +24,13 @@ INITIALIZE_PASS_END(MachineBranchProbabilityInfo, "machine-branch-prob",
                     "Machine Branch Probability Analysis", false, true)
 
 namespace llvm {
-LLVM_ABI cl::opt<unsigned>
+LLVM_ABI_DATA cl::opt<unsigned>
     StaticLikelyProb("static-likely-prob",
                      cl::desc("branch probability threshold in percentage"
                               "to be considered very likely"),
                      cl::init(80), cl::Hidden);
 
-LLVM_ABI cl::opt<unsigned> ProfileLikelyProb(
+LLVM_ABI_DATA cl::opt<unsigned> ProfileLikelyProb(
     "profile-likely-prob",
     cl::desc("branch probability threshold in percentage to be considered"
              " very likely when profile is available"),

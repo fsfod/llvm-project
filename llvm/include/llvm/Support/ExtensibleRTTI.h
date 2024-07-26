@@ -90,7 +90,7 @@ public:
 private:
   virtual void anchor();
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 };
 
 /// Inheritance utility for extensible RTTI.

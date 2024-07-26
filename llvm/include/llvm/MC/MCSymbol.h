@@ -63,7 +63,7 @@ protected:
   };
 
   // Special sentinel value for the absolute pseudo fragment.
-  static MCFragment *AbsolutePseudoFragment;
+  LLVM_ABI_DATA_IMPORT static MCFragment *AbsolutePseudoFragment;
 
   /// If a symbol has a Fragment, the section is implied, so we only need
   /// one pointer.

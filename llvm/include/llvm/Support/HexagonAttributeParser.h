@@ -9,6 +9,7 @@
 #ifndef LLVM_SUPPORT_HEXAGONATTRIBUTEPARSER_H
 #define LLVM_SUPPORT_HEXAGONATTRIBUTEPARSER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ELFAttributeParser.h"
 #include "llvm/Support/HexagonAttributes.h"
 
@@ -19,7 +20,7 @@ class LLVM_CLASS_ABI HexagonAttributeParser : public ELFAttributeParser {
     Error (HexagonAttributeParser::*Routine)(unsigned);
   };
 
-  static const DisplayHandler DisplayRoutines[];
+  LLVM_ABI_DATA_IMPORT static const DisplayHandler DisplayRoutines[];
 
   Error handler(uint64_t Tag, bool &Handled) override;
 

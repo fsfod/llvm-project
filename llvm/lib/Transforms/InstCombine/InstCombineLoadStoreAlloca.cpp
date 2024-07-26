@@ -37,7 +37,7 @@ static cl::opt<unsigned> MaxCopiedFromConstantUsers(
     cl::Hidden);
 
 namespace llvm {
-LLVM_ABI cl::opt<bool> EnableInferAlignmentPass(
+LLVM_ABI_DATA cl::opt<bool> EnableInferAlignmentPass(
     "enable-infer-alignment-pass", cl::init(true), cl::Hidden, cl::ZeroOrMore,
     cl::desc("Enable the InferAlignment pass, disabling alignment inference in "
              "InstCombine"));

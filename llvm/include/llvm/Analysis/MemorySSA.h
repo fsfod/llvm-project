@@ -929,7 +929,7 @@ protected:
 class LLVM_CLASS_ABI MemorySSAAnalysis : public AnalysisInfoMixin<MemorySSAAnalysis> {
   friend AnalysisInfoMixin<MemorySSAAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   // Wrap MemorySSA result to ensure address stability of internal MemorySSA
@@ -987,7 +987,7 @@ class LLVM_CLASS_ABI MemorySSAWrapperPass : public FunctionPass {
 public:
   MemorySSAWrapperPass();
 
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   bool runOnFunction(Function &) override;
   void releaseMemory() override;

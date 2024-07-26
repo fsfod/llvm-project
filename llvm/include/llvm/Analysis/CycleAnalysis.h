@@ -29,7 +29,7 @@ class LLVM_CLASS_ABI CycleInfoWrapperPass : public FunctionPass {
   CycleInfo CI;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   CycleInfoWrapperPass();
 
@@ -47,7 +47,7 @@ public:
 /// Analysis pass which computes a \ref CycleInfo.
 class LLVM_CLASS_ABI CycleAnalysis : public AnalysisInfoMixin<CycleAnalysis> {
   friend AnalysisInfoMixin<CycleAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   /// Provide the result typedef for this analysis pass.

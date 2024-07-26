@@ -21,7 +21,7 @@
 namespace llvm {
 class LLVM_CLASS_ABI CFIFixup : public MachineFunctionPass {
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   CFIFixup() : MachineFunctionPass(ID) {
     initializeCFIFixupPass(*PassRegistry::getPassRegistry());

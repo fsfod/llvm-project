@@ -52,7 +52,7 @@ getInlineOrder(FunctionAnalysisManager &FAM, const InlineParams &Params,
 class LLVM_CLASS_ABI PluginInlineOrderAnalysis
     : public AnalysisInfoMixin<PluginInlineOrderAnalysis> {
 public:
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   typedef std::unique_ptr<InlineOrder<std::pair<CallBase *, int>>> (
       *InlineOrderFactory)(FunctionAnalysisManager &FAM,
@@ -76,7 +76,7 @@ public:
   static void unregister() { HasBeenRegistered = false; }
 
 private:
-  static bool HasBeenRegistered;
+  LLVM_ABI_DATA_IMPORT static bool HasBeenRegistered;
   InlineOrderFactory Factory;
 };
 

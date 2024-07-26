@@ -516,7 +516,7 @@ class LLVM_CLASS_ABI MemoryDependenceAnalysis
     : public AnalysisInfoMixin<MemoryDependenceAnalysis> {
   friend AnalysisInfoMixin<MemoryDependenceAnalysis>;
 
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
   unsigned DefaultBlockScanLimit;
 
@@ -535,7 +535,7 @@ class LLVM_CLASS_ABI MemoryDependenceWrapperPass : public FunctionPass {
   std::optional<MemoryDependenceResults> MemDep;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
 
   MemoryDependenceWrapperPass();
   ~MemoryDependenceWrapperPass() override;

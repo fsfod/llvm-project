@@ -859,7 +859,7 @@ public:
   }
 
   /// A dummy node to reference external functions that aren't in the index
-  static FunctionSummary ExternalNode;
+  LLVM_ABI_DATA_IMPORT static FunctionSummary ExternalNode;
 
 private:
   /// Number of instructions (ignoring debug instructions, e.g.) computed

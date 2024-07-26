@@ -1177,24 +1177,24 @@ public:
       const DILocation *DIL,
       SampleProfileReaderItaniumRemapper *Remapper = nullptr) const;
 
-  static bool ProfileIsProbeBased;
+  LLVM_ABI_DATA_IMPORT static bool ProfileIsProbeBased;
 
-  static bool ProfileIsCS;
+  LLVM_ABI_DATA_IMPORT static bool ProfileIsCS;
 
-  static bool ProfileIsPreInlined;
+  LLVM_ABI_DATA_IMPORT static bool ProfileIsPreInlined;
 
   SampleContext &getContext() const { return Context; }
 
   void setContext(const SampleContext &FContext) { Context = FContext; }
 
   /// Whether the profile uses MD5 to represent string.
-  static bool UseMD5;
+  LLVM_ABI_DATA_IMPORT static bool UseMD5;
 
   /// Whether the profile contains any ".__uniq." suffix in a name.
-  static bool HasUniqSuffix;
+  LLVM_ABI_DATA_IMPORT static bool HasUniqSuffix;
 
   /// If this profile uses flow sensitive discriminators.
-  static bool ProfileIsFS;
+  LLVM_ABI_DATA_IMPORT static bool ProfileIsFS;
 
   /// GUIDToFuncNameMap saves the mapping from GUID to the symbol name, for
   /// all the function symbols defined or declared in current module.

@@ -24,7 +24,7 @@ class LLVM_CLASS_ABI ARMAttributeParser : public ELFAttributeParser {
     ARMBuildAttrs::AttrType attribute;
     Error (ARMAttributeParser::*routine)(ARMBuildAttrs::AttrType);
   };
-  static const DisplayHandler displayRoutines[];
+  LLVM_ABI_DATA_IMPORT static const DisplayHandler displayRoutines[];
 
   Error handler(uint64_t tag, bool &handled) override;
 

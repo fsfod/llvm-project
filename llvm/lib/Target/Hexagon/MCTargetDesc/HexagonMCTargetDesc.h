@@ -60,8 +60,8 @@ class Target;
 class Triple;
 class StringRef;
 
-LLVM_ABI extern cl::opt<bool> HexagonDisableCompound;
-LLVM_ABI extern cl::opt<bool> HexagonDisableDuplex;
+LLVM_ABI_DATA extern cl::opt<bool> HexagonDisableCompound;
+LLVM_ABI_DATA extern cl::opt<bool> HexagonDisableDuplex;
 extern const InstrStage HexagonStages[];
 
 MCInstrInfo *createHexagonMCInstrInfo();

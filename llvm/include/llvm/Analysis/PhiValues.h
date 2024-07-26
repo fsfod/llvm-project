@@ -115,7 +115,7 @@ private:
 /// which will get filled in as it's used.
 class LLVM_CLASS_ABI PhiValuesAnalysis : public AnalysisInfoMixin<PhiValuesAnalysis> {
   friend AnalysisInfoMixin<PhiValuesAnalysis>;
-  static AnalysisKey Key;
+  LLVM_ABI_DATA_IMPORT static AnalysisKey Key;
 
 public:
   using Result = PhiValues;
@@ -141,7 +141,7 @@ class LLVM_CLASS_ABI PhiValuesWrapperPass : public FunctionPass {
   std::unique_ptr<PhiValues> Result;
 
 public:
-  static char ID;
+  LLVM_ABI_DATA_IMPORT static char ID;
   PhiValuesWrapperPass();
 
   PhiValues &getResult() { return *Result; }
