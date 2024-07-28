@@ -1421,6 +1421,11 @@ public:
   DataType operator->() const { return Value; }
 };
 
+extern template class LLVM_TEMPLATE_ABI opt_storage<unsigned, false, false>;
+extern template class LLVM_TEMPLATE_ABI opt_storage<int, false, false>;
+extern template class LLVM_TEMPLATE_ABI opt_storage<char, false, false>;
+extern template class LLVM_TEMPLATE_ABI opt_storage<bool, false, false>;
+
 //===----------------------------------------------------------------------===//
 // A scalar command line option.
 //

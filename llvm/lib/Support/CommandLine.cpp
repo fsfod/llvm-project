@@ -67,6 +67,12 @@ template class LLVM_EXPORT_TEMPLATE basic_parser<float>;
 template class LLVM_EXPORT_TEMPLATE basic_parser<std::string>;
 template class LLVM_EXPORT_TEMPLATE basic_parser<char>;
 
+
+template class LLVM_EXPORT_TEMPLATE opt_storage<unsigned, false, false>;
+template class LLVM_EXPORT_TEMPLATE opt_storage<int, false, false>;
+template class LLVM_EXPORT_TEMPLATE opt_storage<char, false, false>;
+template class LLVM_EXPORT_TEMPLATE opt_storage<bool, false, false>;
+
 template class LLVM_EXPORT_TEMPLATE opt<unsigned>;
 template class LLVM_EXPORT_TEMPLATE opt<int>;
 template class LLVM_EXPORT_TEMPLATE opt<char>;
