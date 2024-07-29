@@ -21,6 +21,13 @@ using namespace llvm;
 AnalysisKey FunctionAnalysisManagerMachineFunctionProxy::Key;
 
 namespace llvm {
+// Export a symbol MSVC would of exported but clang-cl doesn't
+#if defined(_MSC_VER) && defined(__clang__)
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<PassManager<llvm::MachineFunction, MachineFunctionAnalysisManager>>::name();
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<PassManager<llvm::MachineFunction, MachineFunctionAnalysisManager>>::name();
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<PassManager<llvm::MachineFunction, MachineFunctionAnalysisManager>>::name();
+#endif
+
 template class LLVM_EXPORT_TEMPLATE AnalysisManager<MachineFunction>;
 template class LLVM_EXPORT_TEMPLATE PassManager<MachineFunction>;
 template class LLVM_EXPORT_TEMPLATE

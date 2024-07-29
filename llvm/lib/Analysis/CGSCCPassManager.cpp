@@ -59,10 +59,28 @@ template class LLVM_EXPORT_TEMPLATE OuterAnalysisManagerProxy<
 template class LLVM_EXPORT_TEMPLATE
     OuterAnalysisManagerProxy<CGSCCAnalysisManager, Function>;
 
+// Export a symbol MSVC would of exported but clang-cl doesn't
+#if defined(_MSC_VER) && defined(__clang__)
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<OuterAnalysisManagerProxy<
+  AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>, Function>>::name();
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<OuterAnalysisManagerProxy<
+  AnalysisManager<Module>, LazyCallGraph::SCC, LazyCallGraph &>>::name();
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<InnerAnalysisManagerProxy<
+  AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>, Function>>::name();
+template LLVM_EXPORT_TEMPLATE StringRef PassInfoMixin<OuterAnalysisManagerProxy<
+  AnalysisManager<Module>, LazyCallGraph::SCC, LazyCallGraph &>>::name();
+template LLVM_EXPORT_TEMPLATE AnalysisKey* AnalysisInfoMixin<OuterAnalysisManagerProxy<
+  AnalysisManager<Module>, LazyCallGraph::SCC, LazyCallGraph &>>::ID();
+
+template LLVM_EXPORT_TEMPLATE
+  StringRef PassInfoMixin<InnerAnalysisManagerProxy<CGSCCAnalysisManager, Module>>::name();
+
+#else
 template struct LLVM_EXPORT_TEMPLATE PassInfoMixin<OuterAnalysisManagerProxy<
-    AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>, Function>>;
+  AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>, Function>>;
 template struct LLVM_EXPORT_TEMPLATE PassInfoMixin<OuterAnalysisManagerProxy<
-    AnalysisManager<Module>, LazyCallGraph::SCC, LazyCallGraph &>>;
+  AnalysisManager<Module>, LazyCallGraph::SCC, LazyCallGraph &>>;
+#endif
 
 /// Explicitly specialize the pass manager run method to handle call graph
 /// updates.

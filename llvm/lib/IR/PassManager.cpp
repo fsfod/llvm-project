@@ -13,6 +13,19 @@
 using namespace llvm;
 
 namespace llvm {
+
+// Export a symbol MSVC would of exported but we don't
+#if defined(_MSC_VER) && defined(__clang__)
+template LLVM_EXPORT_TEMPLATE StringRef 
+PassInfoMixin<PassManager<llvm::Function, FunctionAnalysisManager>>::name();
+template LLVM_EXPORT_TEMPLATE StringRef
+PassInfoMixin<OuterAnalysisManagerProxy<AnalysisManager<Module>, Function>>::name();
+template LLVM_EXPORT_TEMPLATE AnalysisKey* 
+AnalysisInfoMixin<InnerAnalysisManagerProxy<FunctionAnalysisManager, Module>>::ID();
+template LLVM_EXPORT_TEMPLATE AnalysisKey*
+AnalysisInfoMixin<OuterAnalysisManagerProxy<ModuleAnalysisManager, Function>>::ID();
+#endif
+
 // Explicit template instantiations and specialization defininitions for core
 // template typedefs.
 template class LLVM_EXPORT_TEMPLATE AllAnalysesOn<Module>;
@@ -23,8 +36,8 @@ template class LLVM_EXPORT_TEMPLATE AnalysisManager<Module>;
 template class LLVM_EXPORT_TEMPLATE AnalysisManager<Function>;
 template class LLVM_EXPORT_TEMPLATE InnerAnalysisManagerProxy<FunctionAnalysisManager, Module>;
 template class LLVM_EXPORT_TEMPLATE OuterAnalysisManagerProxy<ModuleAnalysisManager, Function>;
-template struct LLVM_EXPORT_TEMPLATE
-    PassInfoMixin<OuterAnalysisManagerProxy<AnalysisManager<Module>, Function>>;
+//template struct LLVM_EXPORT_TEMPLATE
+//    PassInfoMixin<OuterAnalysisManagerProxy<AnalysisManager<Module>, Function>>;
 
 template <>
 bool FunctionAnalysisManagerModuleProxy::Result::invalidate(
