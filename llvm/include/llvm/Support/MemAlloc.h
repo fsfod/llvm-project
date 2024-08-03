@@ -71,7 +71,7 @@ LLVM_ATTRIBUTE_RETURNS_NONNULL inline void *safe_realloc(void *Ptr, size_t Sz) {
 /// like posix_memalign due to portability. It is mostly intended to allow
 /// compatibility with platforms that, after aligned allocation was added, use
 /// reduced default alignment.
-LLVM_ATTRIBUTE_RETURNS_NONNULL LLVM_ATTRIBUTE_RETURNS_NOALIAS void *
+LLVM_ATTRIBUTE_RETURNS_NONNULL LLVM_ATTRIBUTE_RETURNS_NOALIAS LLVM_ABI void *
 allocate_buffer(size_t Size, size_t Alignment);
 
 /// Deallocate a buffer of memory with the given size and alignment.
