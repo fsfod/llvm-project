@@ -1172,34 +1172,46 @@ private:
 
 template <typename Enum> struct EnumTraits : public std::false_type {};
 
+typedef StringRef(*ElfFormatFn)(unsigned);
+
+static ElfFormatFn DwarfFormatProviders[] = {
+  nullptr,
+  &AttributeString,
+  &FormEncodingString,
+  &IndexString,
+  &TagString,
+  &LNStandardString,
+  &OperationEncodingString
+};
+
 template <> struct EnumTraits<Attribute> : public std::true_type {
   static constexpr char Type[3] = "AT";
-  static constexpr StringRef (*StringFn)(unsigned) = &AttributeString;
+  static constexpr int StringFn = 1;
 };
 
 template <> struct EnumTraits<Form> : public std::true_type {
   static constexpr char Type[5] = "FORM";
-  static constexpr StringRef (*StringFn)(unsigned) = &FormEncodingString;
+  static constexpr int StringFn = 2;
 };
 
 template <> struct EnumTraits<Index> : public std::true_type {
   static constexpr char Type[4] = "IDX";
-  static constexpr StringRef (*StringFn)(unsigned) = &IndexString;
+  static constexpr int StringFn = 3;
 };
 
 template <> struct EnumTraits<Tag> : public std::true_type {
   static constexpr char Type[4] = "TAG";
-  static constexpr StringRef (*StringFn)(unsigned) = &TagString;
+  static constexpr int StringFn = 4;
 };
 
 template <> struct EnumTraits<LineNumberOps> : public std::true_type {
   static constexpr char Type[4] = "LNS";
-  static constexpr StringRef (*StringFn)(unsigned) = &LNStandardString;
+  static constexpr int StringFn = 5;
 };
 
 template <> struct EnumTraits<LocationAtom> : public std::true_type {
   static constexpr char Type[3] = "OP";
-  static constexpr StringRef (*StringFn)(unsigned) = &OperationEncodingString;
+  static constexpr int StringFn = 6;
 };
 
 inline uint64_t computeTombstoneAddress(uint8_t AddressByteSize) {
@@ -1216,7 +1228,7 @@ inline uint64_t computeTombstoneAddress(uint8_t AddressByteSize) {
 template <typename Enum>
 struct format_provider<Enum, std::enable_if_t<dwarf::EnumTraits<Enum>::value>> {
   static void format(const Enum &E, raw_ostream &OS, StringRef Style) {
-    StringRef Str = dwarf::EnumTraits<Enum>::StringFn(E);
+    StringRef Str = dwarf::DwarfFormatProviders[dwarf::EnumTraits<Enum>::StringFn](E);
     if (Str.empty()) {
       OS << "DW_" << dwarf::EnumTraits<Enum>::Type << "_unknown_"
          << llvm::format("%x", E);
