@@ -76,37 +76,47 @@ template class llvm::DominatorTreeBase<BasicBlock, true>; // PostDomTreeBase
 
 template class llvm::cfg::Update<BasicBlock *>;
 
-template void llvm::DomTreeBuilder::Calculate<DomTreeBuilder::BBDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::Calculate<DomTreeBuilder::BBDomTree>(
     DomTreeBuilder::BBDomTree &DT);
-template void
+template LLVM_EXPORT_TEMPLATE void
 llvm::DomTreeBuilder::CalculateWithUpdates<DomTreeBuilder::BBDomTree>(
     DomTreeBuilder::BBDomTree &DT, BBUpdates U);
 
-template void llvm::DomTreeBuilder::Calculate<DomTreeBuilder::BBPostDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::Calculate<DomTreeBuilder::BBPostDomTree>(
     DomTreeBuilder::BBPostDomTree &DT);
 // No CalculateWithUpdates<PostDomTree> instantiation, unless a usecase arises.
 
-template void llvm::DomTreeBuilder::InsertEdge<DomTreeBuilder::BBDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::InsertEdge<DomTreeBuilder::BBDomTree>(
     DomTreeBuilder::BBDomTree &DT, BasicBlock *From, BasicBlock *To);
-template void llvm::DomTreeBuilder::InsertEdge<DomTreeBuilder::BBPostDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::InsertEdge<DomTreeBuilder::BBPostDomTree>(
     DomTreeBuilder::BBPostDomTree &DT, BasicBlock *From, BasicBlock *To);
 
-template void llvm::DomTreeBuilder::DeleteEdge<DomTreeBuilder::BBDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::DeleteEdge<DomTreeBuilder::BBDomTree>(
     DomTreeBuilder::BBDomTree &DT, BasicBlock *From, BasicBlock *To);
-template void llvm::DomTreeBuilder::DeleteEdge<DomTreeBuilder::BBPostDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::DeleteEdge<DomTreeBuilder::BBPostDomTree>(
     DomTreeBuilder::BBPostDomTree &DT, BasicBlock *From, BasicBlock *To);
 
-template void llvm::DomTreeBuilder::ApplyUpdates<DomTreeBuilder::BBDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::ApplyUpdates<DomTreeBuilder::BBDomTree>(
     DomTreeBuilder::BBDomTree &DT, DomTreeBuilder::BBDomTreeGraphDiff &,
     DomTreeBuilder::BBDomTreeGraphDiff *);
-template void llvm::DomTreeBuilder::ApplyUpdates<DomTreeBuilder::BBPostDomTree>(
+template LLVM_EXPORT_TEMPLATE void
+llvm::DomTreeBuilder::ApplyUpdates<DomTreeBuilder::BBPostDomTree>(
     DomTreeBuilder::BBPostDomTree &DT, DomTreeBuilder::BBPostDomTreeGraphDiff &,
     DomTreeBuilder::BBPostDomTreeGraphDiff *);
 
-template bool llvm::DomTreeBuilder::Verify<DomTreeBuilder::BBDomTree>(
+template LLVM_EXPORT_TEMPLATE bool
+llvm::DomTreeBuilder::Verify<DomTreeBuilder::BBDomTree>(
     const DomTreeBuilder::BBDomTree &DT,
     DomTreeBuilder::BBDomTree::VerificationLevel VL);
-template bool llvm::DomTreeBuilder::Verify<DomTreeBuilder::BBPostDomTree>(
+template LLVM_EXPORT_TEMPLATE bool
+llvm::DomTreeBuilder::Verify<DomTreeBuilder::BBPostDomTree>(
     const DomTreeBuilder::BBPostDomTree &DT,
     DomTreeBuilder::BBPostDomTree::VerificationLevel VL);
 
