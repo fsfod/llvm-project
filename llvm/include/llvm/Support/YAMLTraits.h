@@ -2075,7 +2075,7 @@ template <typename T> struct StdMapStringCustomMappingTraitsImpl {
 #define LLVM_YAML_DECLARE_MAPPING_TRAITS(Type)                                 \
   namespace llvm {                                                             \
   namespace yaml {                                                             \
-  template <> struct MappingTraits<Type> {                                     \
+  template <> struct LLVM_ABI MappingTraits<Type> {                      \
     static void mapping(IO &IO, Type &Obj);                                    \
   };                                                                           \
   }                                                                            \
@@ -2084,7 +2084,7 @@ template <typename T> struct StdMapStringCustomMappingTraitsImpl {
 #define LLVM_YAML_DECLARE_ENUM_TRAITS(Type)                                    \
   namespace llvm {                                                             \
   namespace yaml {                                                             \
-  template <> struct ScalarEnumerationTraits<Type> {                           \
+  template <> struct LLVM_ABI ScalarEnumerationTraits<Type> {            \
     static void enumeration(IO &io, Type &Value);                              \
   };                                                                           \
   }                                                                            \
@@ -2093,7 +2093,7 @@ template <typename T> struct StdMapStringCustomMappingTraitsImpl {
 #define LLVM_YAML_DECLARE_BITSET_TRAITS(Type)                                  \
   namespace llvm {                                                             \
   namespace yaml {                                                             \
-  template <> struct ScalarBitSetTraits<Type> {                                \
+  template <> struct LLVM_ABI ScalarBitSetTraits<Type> {                 \
     static void bitset(IO &IO, Type &Options);                                 \
   };                                                                           \
   }                                                                            \
@@ -2102,7 +2102,7 @@ template <typename T> struct StdMapStringCustomMappingTraitsImpl {
 #define LLVM_YAML_DECLARE_SCALAR_TRAITS(Type, MustQuote)                       \
   namespace llvm {                                                             \
   namespace yaml {                                                             \
-  template <> struct ScalarTraits<Type> {                                      \
+  template <> struct LLVM_ABI ScalarTraits<Type> {                       \
     static void output(const Type &Value, void *ctx, raw_ostream &Out);        \
     static StringRef input(StringRef Scalar, void *ctxt, Type &Value);         \
     static QuotingType mustQuote(StringRef) { return MustQuote; }              \
