@@ -37,7 +37,7 @@ template bool LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<
 template class GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                                      PostDominatorTree>;
 
-template void
+template void LLVM_EXPORT_TEMPLATE
 GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                       PostDominatorTree>::recalculate(Function &F);
 

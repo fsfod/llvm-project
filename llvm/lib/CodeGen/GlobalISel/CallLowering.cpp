@@ -274,12 +274,12 @@ void CallLowering::setArgFlags(CallLowering::ArgInfo &Arg, unsigned OpIdx,
     Flags.setReturned(false);
 }
 
-template void
+template void LLVM_EXPORT_TEMPLATE
 CallLowering::setArgFlags<Function>(CallLowering::ArgInfo &Arg, unsigned OpIdx,
                                     const DataLayout &DL,
                                     const Function &FuncInfo) const;
 
-template void
+template void LLVM_EXPORT_TEMPLATE
 CallLowering::setArgFlags<CallBase>(CallLowering::ArgInfo &Arg, unsigned OpIdx,
                                     const DataLayout &DL,
                                     const CallBase &FuncInfo) const;
