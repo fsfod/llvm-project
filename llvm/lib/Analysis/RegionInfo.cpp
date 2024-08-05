@@ -17,6 +17,7 @@
 #endif
 #include "llvm/Analysis/Passes.h"
 #include "llvm/Analysis/RegionInfoImpl.h"
+#include "llvm/Analysis/Passes.h"
 #include "llvm/Config/llvm-config.h"
 #include "llvm/IR/Function.h"
 #include "llvm/Support/CommandLine.h"
