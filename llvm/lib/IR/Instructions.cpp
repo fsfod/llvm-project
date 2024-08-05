@@ -458,9 +458,10 @@ Attribute CallBase::getFnAttrOnCalledFunction(AK Kind) const {
   return Attribute();
 }
 
-template Attribute
+template LLVM_EXPORT_TEMPLATE Attribute
 CallBase::getFnAttrOnCalledFunction(Attribute::AttrKind Kind) const;
-template Attribute CallBase::getFnAttrOnCalledFunction(StringRef Kind) const;
+template LLVM_EXPORT_TEMPLATE Attribute
+CallBase::getFnAttrOnCalledFunction(StringRef Kind) const;
 
 template <typename AK>
 Attribute CallBase::getParamAttrOnCalledFunction(unsigned ArgNo,
@@ -472,11 +473,10 @@ Attribute CallBase::getParamAttrOnCalledFunction(unsigned ArgNo,
 
   return Attribute();
 }
-template Attribute
-CallBase::getParamAttrOnCalledFunction(unsigned ArgNo,
-                                       Attribute::AttrKind Kind) const;
-template Attribute CallBase::getParamAttrOnCalledFunction(unsigned ArgNo,
-                                                          StringRef Kind) const;
+template LLVM_EXPORT_TEMPLATE Attribute CallBase::getParamAttrOnCalledFunction(
+    unsigned ArgNo, Attribute::AttrKind Kind) const;
+template LLVM_EXPORT_TEMPLATE Attribute
+CallBase::getParamAttrOnCalledFunction(unsigned ArgNo, StringRef Kind) const;
 
 void CallBase::getOperandBundlesAsDefs(
     SmallVectorImpl<OperandBundleDef> &Defs) const {

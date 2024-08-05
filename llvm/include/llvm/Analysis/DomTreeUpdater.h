@@ -117,7 +117,7 @@ private:
 extern template class GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                                             PostDominatorTree>;
 
-extern template void
+extern template void LLVM_TEMPLATE_ABI
 GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                       PostDominatorTree>::recalculate(Function &F);
 } // namespace llvm

@@ -65,7 +65,7 @@ private:
 extern template class GenericDomTreeUpdater<
     MachineDomTreeUpdater, MachineDominatorTree, MachinePostDominatorTree>;
 
-extern template void
+extern template void LLVM_TEMPLATE_ABI
 GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
                       MachinePostDominatorTree>::recalculate(MachineFunction
                                                                  &MF);
