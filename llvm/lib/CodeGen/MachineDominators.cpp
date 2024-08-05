@@ -40,19 +40,19 @@ template class DomTreeNodeBase<MachineBasicBlock>;
 template class DominatorTreeBase<MachineBasicBlock, false>; // DomTreeBase
 
 namespace DomTreeBuilder {
-template void Calculate<MBBDomTree>(MBBDomTree &DT);
-template void CalculateWithUpdates<MBBDomTree>(MBBDomTree &DT, MBBUpdates U);
+template void LLVM_EXPORT_TEMPLATE Calculate<MBBDomTree>(MBBDomTree &DT);
+template void LLVM_EXPORT_TEMPLATE CalculateWithUpdates<MBBDomTree>(MBBDomTree &DT, MBBUpdates U);
 
-template void InsertEdge<MBBDomTree>(MBBDomTree &DT, MachineBasicBlock *From,
+template void LLVM_EXPORT_TEMPLATE InsertEdge<MBBDomTree>(MBBDomTree &DT, MachineBasicBlock *From,
                                      MachineBasicBlock *To);
 
-template void DeleteEdge<MBBDomTree>(MBBDomTree &DT, MachineBasicBlock *From,
+template void LLVM_EXPORT_TEMPLATE DeleteEdge<MBBDomTree>(MBBDomTree &DT, MachineBasicBlock *From,
                                      MachineBasicBlock *To);
 
-template void ApplyUpdates<MBBDomTree>(MBBDomTree &DT, MBBDomTreeGraphDiff &,
+template void LLVM_EXPORT_TEMPLATE ApplyUpdates<MBBDomTree>(MBBDomTree &DT, MBBDomTreeGraphDiff &,
                                        MBBDomTreeGraphDiff *);
 
-template bool Verify<MBBDomTree>(const MBBDomTree &DT,
+template bool LLVM_EXPORT_TEMPLATE Verify<MBBDomTree>(const MBBDomTree &DT,
                                  MBBDomTree::VerificationLevel VL);
 } // namespace DomTreeBuilder
 }

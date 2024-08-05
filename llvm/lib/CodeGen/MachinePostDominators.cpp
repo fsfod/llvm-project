@@ -13,6 +13,7 @@
 
 #include "llvm/CodeGen/MachinePostDominators.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTreeConstruction.h"
 
 using namespace llvm;
@@ -22,17 +23,17 @@ template class DominatorTreeBase<MachineBasicBlock, true>; // PostDomTreeBase
 
 namespace DomTreeBuilder {
 
-template void Calculate<MBBPostDomTree>(MBBPostDomTree &DT);
-template void InsertEdge<MBBPostDomTree>(MBBPostDomTree &DT,
+template void LLVM_EXPORT_TEMPLATE Calculate<MBBPostDomTree>(MBBPostDomTree &DT);
+template void LLVM_EXPORT_TEMPLATE InsertEdge<MBBPostDomTree>(MBBPostDomTree &DT,
                                          MachineBasicBlock *From,
                                          MachineBasicBlock *To);
-template void DeleteEdge<MBBPostDomTree>(MBBPostDomTree &DT,
+template void LLVM_EXPORT_TEMPLATE DeleteEdge<MBBPostDomTree>(MBBPostDomTree &DT,
                                          MachineBasicBlock *From,
                                          MachineBasicBlock *To);
-template void ApplyUpdates<MBBPostDomTree>(MBBPostDomTree &DT,
+template void LLVM_EXPORT_TEMPLATE ApplyUpdates<MBBPostDomTree>(MBBPostDomTree &DT,
                                            MBBPostDomTreeGraphDiff &,
                                            MBBPostDomTreeGraphDiff *);
-template bool Verify<MBBPostDomTree>(const MBBPostDomTree &DT,
+template bool LLVM_EXPORT_TEMPLATE Verify<MBBPostDomTree>(const MBBPostDomTree &DT,
                                      MBBPostDomTree::VerificationLevel VL);
 
 } // namespace DomTreeBuilder

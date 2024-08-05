@@ -15,6 +15,7 @@
 #include "llvm/ADT/SmallSet.h"
 #include "llvm/Analysis/GenericDomTreeUpdaterImpl.h"
 #include "llvm/CodeGen/MachinePostDominators.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include <algorithm>
 #include <functional>
@@ -33,7 +34,7 @@ GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
 template class GenericDomTreeUpdater<
     MachineDomTreeUpdater, MachineDominatorTree, MachinePostDominatorTree>;
 
-template void
+template void LLVM_EXPORT_TEMPLATE
 GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
                       MachinePostDominatorTree>::recalculate(MachineFunction
                                                                  &MF);
