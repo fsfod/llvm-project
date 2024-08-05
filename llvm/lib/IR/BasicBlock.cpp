@@ -44,7 +44,7 @@ cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
              "contain debug records or intrinsics. Ignored in llvm-link, "
              "llvm-lto, and llvm-lto2."));
 
-bool WriteNewDbgInfoFormatToBitcode /*set default value in cl::init() below*/;
+LLVM_ABI bool WriteNewDbgInfoFormatToBitcode /*set default value in cl::init() below*/;
 cl::opt<bool, true> WriteNewDbgInfoFormatToBitcode2(
     "write-experimental-debuginfo-iterators-to-bitcode", cl::Hidden,
     cl::location(WriteNewDbgInfoFormatToBitcode), cl::init(true));
