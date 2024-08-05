@@ -42,10 +42,10 @@ struct jit_descriptor {
 };
 }
 
-extern "C" llvm::orc::shared::CWrapperFunctionResult
+extern "C" LLVM_ALWAYS_EXPORT llvm::orc::shared::CWrapperFunctionResult
 llvm_orc_registerJITLoaderGDBWrapper(const char *Data, uint64_t Size);
 
-extern "C" llvm::orc::shared::CWrapperFunctionResult
+extern "C" LLVM_ALWAYS_EXPORT llvm::orc::shared::CWrapperFunctionResult
 llvm_orc_registerJITLoaderGDBAllocAction(const char *Data, size_t Size);
 
 #endif // LLVM_EXECUTIONENGINE_ORC_TARGETPROCESS_JITLOADERGDB_H
