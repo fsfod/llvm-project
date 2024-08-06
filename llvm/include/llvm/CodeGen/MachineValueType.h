@@ -68,10 +68,10 @@ namespace llvm {
     bool operator<=(const MVT& S) const { return SimpleTy <= S.SimpleTy; }
 
     /// Support for debugging, callable in GDB: VT.dump()
-    void dump() const;
+    LLVM_ABI void dump() const;
 
     /// Implement operator<<.
-    void print(raw_ostream &OS) const;
+    LLVM_ABI void print(raw_ostream &OS) const;
 
     /// Return true if this is a valid simple valuetype.
     bool isValid() const {
@@ -479,7 +479,7 @@ namespace llvm {
     /// Return the value type corresponding to the specified type.  This returns
     /// all pointers as iPTR.  If HandleUnknown is true, unknown types are
     /// returned as Other, otherwise they are invalid.
-    static MVT getVT(Type *Ty, bool HandleUnknown = false);
+    LLVM_ABI static MVT getVT(Type *Ty, bool HandleUnknown = false);
 
   public:
     /// SimpleValueType Iteration
