@@ -65,10 +65,10 @@ namespace llvm {
     bool operator<=(const MVT& S) const { return SimpleTy <= S.SimpleTy; }
 
     /// Support for debugging, callable in GDB: VT.dump()
-    void dump() const;
+    LLVM_ABI void dump() const;
 
     /// Implement operator<<.
-    void print(raw_ostream &OS) const;
+    LLVM_ABI void print(raw_ostream &OS) const;
 
     /// Return true if this is a valid simple valuetype.
     bool isValid() const {
@@ -508,7 +508,7 @@ namespace llvm {
     /// otherwise they are invalid.
     /// NB: This includes pointer types, which require a DataLayout to convert
     /// to a concrete value type.
-    static MVT getVT(Type *Ty, bool HandleUnknown = false);
+    LLVM_ABI static MVT getVT(Type *Ty, bool HandleUnknown = false);
 
     /// Returns an APFloat semantics tag appropriate for the value type. If this
     /// is a vector type, the element semantics are returned.
