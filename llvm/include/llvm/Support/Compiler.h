@@ -182,6 +182,10 @@
 #define LLVM_TEMPLATE_ABI
 #define LLVM_EXPORT_TEMPLATE __declspec(dllexport)
 #else
+// This is used to turn off definitions of template static fields that trigger
+// a compiler error if the template class is annotated a export macro that is
+// in dllimport mode.
+#define LLVM_DLL_IMPORTING
 #define LLVM_ABI __declspec(dllimport)
 #define LLVM_TEMPLATE_ABI __declspec(dllimport)
 #define LLVM_EXPORT_TEMPLATE
