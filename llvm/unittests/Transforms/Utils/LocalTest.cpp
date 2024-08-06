@@ -30,7 +30,7 @@ using namespace llvm;
 
 extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
 extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
-extern bool WriteNewDbgInfoFormatToBitcode;
+LLVM_ABI extern bool WriteNewDbgInfoFormatToBitcode;
 extern cl::opt<bool> WriteNewDbgInfoFormat;
 
 // Backup all of the existing settings that may be modified when
