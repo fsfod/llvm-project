@@ -67,7 +67,7 @@ static cl::opt<std::string> ClDataLayout("data-layout",
                                          cl::value_desc("layout-string"),
                                          cl::init(""), cl::cat(AsCat));
 extern cl::opt<bool> UseNewDbgInfoFormat;
-extern bool WriteNewDbgInfoFormatToBitcode;
+LLVM_ABI extern bool WriteNewDbgInfoFormatToBitcode;
 
 static void WriteOutputFile(const Module *M, const ModuleSummaryIndex *Index) {
   // Infer the output filename if needed.
