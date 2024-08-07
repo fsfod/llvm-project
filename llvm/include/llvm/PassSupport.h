@@ -121,7 +121,7 @@ template <typename passName> struct RegisterPass : public PassInfo {
 /// at runtime (which can be because of the RegisterPass constructors being run
 /// as the program starts up, or may be because a shared object just got
 /// loaded).
-struct PassRegistrationListener {
+struct LLVM_ABI PassRegistrationListener {
   PassRegistrationListener() = default;
   virtual ~PassRegistrationListener() = default;
 
