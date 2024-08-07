@@ -1,0 +1,61 @@
+{
+  "version": "1",
+  "groups": [
+    {
+      "name": "public_headers",
+      "pathRoot": "clang",
+      "headerDirectories": [
+        "*"
+      ],
+      "excludedDirectories": [
+        "Testing"
+      ],
+      "ignoredFiles": [
+        "AST/TypeLoc.h"
+      ]
+    },
+    {
+      "headerFiles": [ "clang/AST/TypeLoc.h" ],
+      "exportMembers": true,
+      "ignoredTypes": [
+      ]
+    },
+    {
+      "name": "internal_headers",
+      "pathRoot": "../lib",
+      "headerFiles": [
+        "Format/MatchFilePath.h",
+        "AST/Interp/Program.h",
+        "AST/Interp/Pointer.h",
+        "Format/FormatTokenLexer.h",
+        "Format/TokenAnnotator.h",
+        "Format/Macros.h",
+        "Format/QualifierAlignmentFixer.h",
+        "Format/UnwrappedLineParser.h",
+        "Format/FormatToken.h"
+      ]
+    },
+    {
+      "name": "source_files",
+      "pathRoot": "../lib",
+      "sourceDirectories": [
+        "*"
+      ],
+      "excludedDirectories": [
+        "Testing"
+      ],
+      "exportGlobalVariableDefs": true
+    }
+  ],
+  "exportMacroHeader": "clang/Support/Compiler.h",
+  "exportMacro": "CLANG_ABI",
+  "externTemplateMacro": "CLANG_TEMPLATE_ABI",
+  "exportTemplateMacro": "CLANG_EXPORT_TEMPLATE",
+  "externCMacro": "CLANG_C_ABI",
+  "otherExportMacros": [
+    "CLANG_ABI_EXPORT",
+    "CLANG_ABI_NOT_EXPORTED"
+  ],
+  "isGeneratingMacro": "CLANG_ABI_GENERATING_ANNOTATIONS",
+  "clangFormatFile": "../.clang-format"
+}
