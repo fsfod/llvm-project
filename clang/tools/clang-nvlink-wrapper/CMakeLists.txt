@@ -25,7 +25,7 @@ if(NOT CLANG_BUILT_STANDALONE)
   set(tablegen_deps intrinsics_gen NVLinkWrapperOpts)
 endif()
 
-add_clang_tool(clang-nvlink-wrapper
+add_clang_tool(clang-nvlink-wrapper DISABLE_CLANG_LINK_DYLIB
   ClangNVLinkWrapper.cpp
 
   DEPENDS
