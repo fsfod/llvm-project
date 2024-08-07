@@ -96,14 +96,14 @@ using namespace llvm;
 #include "llvm/Support/Extension.def"
 
 namespace llvm {
-extern cl::opt<bool> PrintPipelinePasses;
+extern LLVM_ABI cl::opt<bool> PrintPipelinePasses;
 
 // Experiment to move sanitizers earlier.
 static cl::opt<bool> ClSanitizeOnOptimizerEarlyEP(
     "sanitizer-early-opt-ep", cl::Optional,
     cl::desc("Insert sanitizers on OptimizerEarlyEP."), cl::init(false));
 
-extern cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate;
+extern LLVM_ABI cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate;
 
 // Re-link builtin bitcodes after optimization
 cl::opt<bool> ClRelinkBuiltinBitcodePostop(
