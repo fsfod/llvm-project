@@ -22,6 +22,14 @@
 
 namespace llvm {
 
+#if defined(__clang__) && defined(_MSC_VER)
+// Workaround clang-cl not exporting all members from explicit template
+// instantiation below
+template void LLVM_EXPORT_TEMPLATE
+GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
+                      MachinePostDominatorTree>::flush();
+#endif
+
 template class GenericDomTreeUpdater<
     MachineDomTreeUpdater, MachineDominatorTree, MachinePostDominatorTree>;
 
