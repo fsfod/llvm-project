@@ -8,7 +8,8 @@
         "*"
       ],
       "excludedDirectories": [
-        "Testing"
+        "Testing",
+        "DirectoryWatcher"
       ],
       "ignoredFiles": [
         "AST/TypeLoc.h"
@@ -27,6 +28,7 @@
         "Format/MatchFilePath.h",
         "AST/Interp/Program.h",
         "AST/Interp/Pointer.h",
+        "AST/Interp/MemberPointer.h",
         "Format/FormatTokenLexer.h",
         "Format/TokenAnnotator.h",
         "Format/Macros.h",
