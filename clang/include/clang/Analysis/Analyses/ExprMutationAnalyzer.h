@@ -12,6 +12,7 @@
 
 #include "clang/AST/AST.h"
 #include "clang/ASTMatchers/ASTMatchers.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 
 namespace clang {
@@ -20,7 +21,7 @@ class FunctionParmMutationAnalyzer;
 
 /// Analyzes whether any mutative operations are applied to an expression within
 /// a given statement.
-class ExprMutationAnalyzer {
+class CLANG_ABI ExprMutationAnalyzer {
 public:
   ExprMutationAnalyzer(const Stmt &Stm, ASTContext &Context)
       : Stm(Stm), Context(Context) {}
@@ -78,7 +79,7 @@ private:
 
 // A convenient wrapper around ExprMutationAnalyzer for analyzing function
 // params.
-class FunctionParmMutationAnalyzer {
+class CLANG_ABI FunctionParmMutationAnalyzer {
 public:
   FunctionParmMutationAnalyzer(const FunctionDecl &Func, ASTContext &Context);
 

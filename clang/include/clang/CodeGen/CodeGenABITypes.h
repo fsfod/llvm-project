@@ -27,6 +27,7 @@
 #include "clang/AST/Type.h"
 #include "clang/Basic/ABI.h"
 #include "clang/CodeGen/CGFunctionInfo.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/IR/BasicBlock.h"
 
 namespace llvm {
@@ -59,22 +60,22 @@ struct ImplicitCXXConstructorArgs {
   SmallVector<llvm::Value *, 1> Suffix;
 };
 
-const CGFunctionInfo &arrangeObjCMessageSendSignature(CodeGenModule &CGM,
+CLANG_ABI const CGFunctionInfo &arrangeObjCMessageSendSignature(CodeGenModule &CGM,
                                                       const ObjCMethodDecl *MD,
                                                       QualType receiverType);
 
-const CGFunctionInfo &arrangeFreeFunctionType(CodeGenModule &CGM,
+CLANG_ABI const CGFunctionInfo &arrangeFreeFunctionType(CodeGenModule &CGM,
                                               CanQual<FunctionProtoType> Ty);
 
-const CGFunctionInfo &arrangeFreeFunctionType(CodeGenModule &CGM,
+CLANG_ABI const CGFunctionInfo &arrangeFreeFunctionType(CodeGenModule &CGM,
                                               CanQual<FunctionNoProtoType> Ty);
 
-const CGFunctionInfo &arrangeCXXMethodType(CodeGenModule &CGM,
+CLANG_ABI const CGFunctionInfo &arrangeCXXMethodType(CodeGenModule &CGM,
                                            const CXXRecordDecl *RD,
                                            const FunctionProtoType *FTP,
                                            const CXXMethodDecl *MD);
 
-const CGFunctionInfo &arrangeFreeFunctionCall(CodeGenModule &CGM,
+CLANG_ABI const CGFunctionInfo &arrangeFreeFunctionCall(CodeGenModule &CGM,
                                               CanQualType returnType,
                                               ArrayRef<CanQualType> argTypes,
                                               FunctionType::ExtInfo info,
@@ -82,26 +83,26 @@ const CGFunctionInfo &arrangeFreeFunctionCall(CodeGenModule &CGM,
 
 /// Returns the implicit arguments to add to a complete, non-delegating C++
 /// constructor call.
-ImplicitCXXConstructorArgs
+CLANG_ABI ImplicitCXXConstructorArgs
 getImplicitCXXConstructorArgs(CodeGenModule &CGM, const CXXConstructorDecl *D);
 
-llvm::Value *
+CLANG_ABI llvm::Value *
 getCXXDestructorImplicitParam(CodeGenModule &CGM, llvm::BasicBlock *InsertBlock,
                               llvm::BasicBlock::iterator InsertPoint,
                               const CXXDestructorDecl *D, CXXDtorType Type,
                               bool ForVirtualBase, bool Delegating);
 
 /// Returns null if the function type is incomplete and can't be lowered.
-llvm::FunctionType *convertFreeFunctionType(CodeGenModule &CGM,
+CLANG_ABI llvm::FunctionType *convertFreeFunctionType(CodeGenModule &CGM,
                                             const FunctionDecl *FD);
 
-llvm::Type *convertTypeForMemory(CodeGenModule &CGM, QualType T);
+CLANG_ABI llvm::Type *convertTypeForMemory(CodeGenModule &CGM, QualType T);
 
 /// Given a non-bitfield struct field, return its index within the elements of
 /// the struct's converted type.  The returned index refers to a field number in
 /// the complete object type which is returned by convertTypeForMemory.  FD must
 /// be a field in RD directly (i.e. not an inherited field).
-unsigned getLLVMFieldNumber(CodeGenModule &CGM,
+CLANG_ABI unsigned getLLVMFieldNumber(CodeGenModule &CGM,
                             const RecordDecl *RD, const FieldDecl *FD);
 
 /// Given the language and code-generation options that Clang was configured
@@ -120,14 +121,14 @@ unsigned getLLVMFieldNumber(CodeGenModule &CGM,
 ///
 /// This function assumes that the caller is not defining a function that
 /// requires special no-builtin treatment.
-void addDefaultFunctionDefinitionAttributes(CodeGenModule &CGM,
+CLANG_ABI void addDefaultFunctionDefinitionAttributes(CodeGenModule &CGM,
                                             llvm::AttrBuilder &attrs);
 
 /// Returns the default constructor for a C struct with non-trivially copyable
 /// fields, generating it if necessary. The returned function uses the `cdecl`
 /// calling convention, returns void, and takes a single argument that is a
 /// pointer to the address of the struct.
-llvm::Function *getNonTrivialCStructDefaultConstructor(CodeGenModule &GCM,
+CLANG_ABI llvm::Function *getNonTrivialCStructDefaultConstructor(CodeGenModule &GCM,
                                                        CharUnits DstAlignment,
                                                        bool IsVolatile,
                                                        QualType QT);
@@ -136,7 +137,7 @@ llvm::Function *getNonTrivialCStructDefaultConstructor(CodeGenModule &GCM,
 /// fields, generating it if necessary. The returned function uses the `cdecl`
 /// calling convention, returns void, and takes two arguments: pointers to the
 /// addresses of the destination and source structs, respectively.
-llvm::Function *getNonTrivialCStructCopyConstructor(CodeGenModule &CGM,
+CLANG_ABI llvm::Function *getNonTrivialCStructCopyConstructor(CodeGenModule &CGM,
                                                     CharUnits DstAlignment,
                                                     CharUnits SrcAlignment,
                                                     bool IsVolatile,
@@ -146,7 +147,7 @@ llvm::Function *getNonTrivialCStructCopyConstructor(CodeGenModule &CGM,
 /// fields, generating it if necessary. The returned function uses the `cdecl`
 /// calling convention, returns void, and takes two arguments: pointers to the
 /// addresses of the destination and source structs, respectively.
-llvm::Function *getNonTrivialCStructMoveConstructor(CodeGenModule &CGM,
+CLANG_ABI llvm::Function *getNonTrivialCStructMoveConstructor(CodeGenModule &CGM,
                                                     CharUnits DstAlignment,
                                                     CharUnits SrcAlignment,
                                                     bool IsVolatile,
@@ -156,7 +157,7 @@ llvm::Function *getNonTrivialCStructMoveConstructor(CodeGenModule &CGM,
 /// copyable fields, generating it if necessary. The returned function uses the
 /// `cdecl` calling convention, returns void, and takes two arguments: pointers
 /// to the addresses of the destination and source structs, respectively.
-llvm::Function *getNonTrivialCStructCopyAssignmentOperator(
+CLANG_ABI llvm::Function *getNonTrivialCStructCopyAssignmentOperator(
     CodeGenModule &CGM, CharUnits DstAlignment, CharUnits SrcAlignment,
     bool IsVolatile, QualType QT);
 
@@ -164,7 +165,7 @@ llvm::Function *getNonTrivialCStructCopyAssignmentOperator(
 /// copyable fields, generating it if necessary. The returned function uses the
 /// `cdecl` calling convention, returns void, and takes two arguments: pointers
 /// to the addresses of the destination and source structs, respectively.
-llvm::Function *getNonTrivialCStructMoveAssignmentOperator(
+CLANG_ABI llvm::Function *getNonTrivialCStructMoveAssignmentOperator(
     CodeGenModule &CGM, CharUnits DstAlignment, CharUnits SrcAlignment,
     bool IsVolatile, QualType QT);
 
@@ -172,7 +173,7 @@ llvm::Function *getNonTrivialCStructMoveAssignmentOperator(
 /// generating it if necessary. The returned function uses the `cdecl` calling
 /// convention, returns void, and takes a single argument that is a pointer to
 /// the address of the struct.
-llvm::Function *getNonTrivialCStructDestructor(CodeGenModule &CGM,
+CLANG_ABI llvm::Function *getNonTrivialCStructDestructor(CodeGenModule &CGM,
                                                CharUnits DstAlignment,
                                                bool IsVolatile, QualType QT);
 
@@ -181,7 +182,7 @@ llvm::Function *getNonTrivialCStructDestructor(CodeGenModule &CGM,
 /// for emitting a protocol reference in code (e.g. for a protocol expression)
 /// in most runtimes is not as simple as just materializing a pointer to this
 /// object.
-llvm::Constant *emitObjCProtocolObject(CodeGenModule &CGM,
+CLANG_ABI llvm::Constant *emitObjCProtocolObject(CodeGenModule &CGM,
                                        const ObjCProtocolDecl *p);
 }  // end namespace CodeGen
 }  // end namespace clang

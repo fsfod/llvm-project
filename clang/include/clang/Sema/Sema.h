@@ -58,6 +58,7 @@
 #include "clang/Sema/SemaConcept.h"
 #include "clang/Sema/TypoCorrection.h"
 #include "clang/Sema/Weak.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/SmallBitVector.h"
@@ -234,7 +235,7 @@ namespace sema {
 
 namespace threadSafety {
   class BeforeSet;
-  void threadSafetyCleanup(BeforeSet* Cache);
+  CLANG_ABI void threadSafetyCleanup(BeforeSet* Cache);
 }
 
 // FIXME: No way to easily map from TemplateTypeParmTypes to
@@ -295,7 +296,7 @@ public:
 /// The type is tied to a particular token, all functions that update or consume
 /// the type take a start location of the token they are looking at as a
 /// parameter. This avoids updating the type on hot paths in the parser.
-class PreferredTypeBuilder {
+class CLANG_ABI PreferredTypeBuilder {
 public:
   PreferredTypeBuilder(bool Enabled) : Enabled(Enabled) {}
 
@@ -354,7 +355,7 @@ private:
 };
 
 /// Sema - This implements semantic analysis and AST building for C.
-class Sema final {
+class CLANG_ABI Sema final {
   Sema(const Sema &) = delete;
   void operator=(const Sema &) = delete;
 
@@ -733,7 +734,7 @@ public:
 
   // RAII object to push / pop sentinel slots for all MS #pragma stacks.
   // Actions should be performed only if we enter / exit a C++ method body.
-  class PragmaStackSentinelRAII {
+  class CLANG_ABI PragmaStackSentinelRAII {
   public:
     PragmaStackSentinelRAII(Sema &S, StringRef SlotLabel, bool ShouldAct);
     ~PragmaStackSentinelRAII();
@@ -970,7 +971,7 @@ public:
 
   /// A class which encapsulates the logic for delaying diagnostics
   /// during parsing and other processing.
-  class DelayedDiagnostics {
+  class CLANG_ABI DelayedDiagnostics {
     /// The current pool of diagnostics into which delayed
     /// diagnostics should go.
     sema::DelayedDiagnosticPool *CurPool = nullptr;
@@ -1631,7 +1632,7 @@ public:
 
   /// Records and restores the CurFPFeatures state on entry/exit of compound
   /// statements.
-  class FPFeaturesStateRAII {
+  class CLANG_ABI FPFeaturesStateRAII {
   public:
     FPFeaturesStateRAII(Sema &S);
     ~FPFeaturesStateRAII();
@@ -1799,7 +1800,7 @@ public:
   /// diagnostic, or no diagnostic at all, according to an argument you pass to
   /// its constructor, thus simplifying the process of creating these "maybe
   /// deferred" diagnostics.
-  class SemaDiagnosticBuilder {
+  class CLANG_ABI SemaDiagnosticBuilder {
   public:
     enum Kind {
       /// Emit no diagnostics.
@@ -2006,7 +2007,7 @@ public:
 
   /// Custom deleter to allow FunctionScopeInfos to be kept alive for a short
   /// time after they've been popped.
-  class PoppedFunctionScopeDeleter {
+  class CLANG_ABI PoppedFunctionScopeDeleter {
     Sema *Self;
 
   public:
@@ -2211,7 +2212,7 @@ public:
   ParsedType ActOnObjCInstanceType(SourceLocation Loc);
 
   /// Abstract class used to diagnose incomplete types.
-  struct TypeDiagnoser {
+  struct CLANG_ABI TypeDiagnoser {
     TypeDiagnoser() {}
 
     virtual void diagnose(Sema &S, SourceLocation Loc, QualType T) = 0;
@@ -3952,7 +3953,7 @@ public:
 
   /// Abstract base class used to perform a contextual implicit
   /// conversion from an expression to any type passing a filter.
-  class ContextualImplicitConverter {
+  class CLANG_ABI ContextualImplicitConverter {
   public:
     bool Suppress;
     bool SuppressConversion;
@@ -4000,7 +4001,7 @@ public:
     virtual ~ContextualImplicitConverter() {}
   };
 
-  class ICEConvertDiagnoser : public ContextualImplicitConverter {
+  class CLANG_ABI ICEConvertDiagnoser : public ContextualImplicitConverter {
     bool AllowScopedEnumerations;
 
   public:
@@ -4484,7 +4485,7 @@ public:
 private:
   bool CppLookupName(LookupResult &R, Scope *S);
 
-  struct TypoExprState {
+  struct CLANG_ABI TypoExprState {
     std::unique_ptr<TypoCorrectionConsumer> Consumer;
     TypoDiagnosticGenerator DiagHandler;
     TypoRecoveryCallback RecoveryHandler;
@@ -6422,7 +6423,7 @@ public:
 
   /// Helper class that collects exception specifications for
   /// implicitly-declared special member functions.
-  class ImplicitExceptionSpecification {
+  class CLANG_ABI ImplicitExceptionSpecification {
     // Pointer to allow copying
     Sema *Self;
     // We order exception specifications thus:
@@ -6790,7 +6791,7 @@ public:
 
   /// RAII object used to temporarily allow the C++ 'this' expression
   /// to be used, with the given qualifiers on the current class type.
-  class CXXThisScopeRAII {
+  class CLANG_ABI CXXThisScopeRAII {
     Sema &S;
     QualType OldCXXThisTypeOverride;
     bool Enabled;
@@ -7395,7 +7396,7 @@ public:
 
   sema::LambdaScopeInfo *RebuildLambdaScopeInfo(CXXMethodDecl *CallOperator);
 
-  class LambdaScopeForCallOperatorInstantiationRAII
+  class CLANG_ABI LambdaScopeForCallOperatorInstantiationRAII
       : private FunctionScopeRAII {
   public:
     LambdaScopeForCallOperatorInstantiationRAII(
@@ -9460,7 +9461,7 @@ public:
   /// A context in which code is being synthesized (where a source location
   /// alone is not sufficient to identify the context). This covers template
   /// instantiation and various forms of implicitly-generated functions.
-  struct CodeSynthesisContext {
+  struct CLANG_ABI CodeSynthesisContext {
     /// The kind of template instantiation we are performing
     enum SynthesisKind {
       /// We are instantiating a template declaration. The entity is
@@ -9743,7 +9744,7 @@ public:
   ///
   /// Destruction of this object will pop the named instantiation off
   /// the stack.
-  struct InstantiatingTemplate {
+  struct CLANG_ABI InstantiatingTemplate {
     /// Note that we are instantiating a class template,
     /// function template, variable template, alias template,
     /// or a member thereof.
@@ -11344,7 +11345,7 @@ private:
 
   /// Helper to keep information about the current `omp begin/end declare
   /// variant` nesting.
-  struct OMPDeclareVariantScope {
+  struct CLANG_ABI OMPDeclareVariantScope {
     /// The associated OpenMP context selector.
     OMPTraitInfo *TI;
 
@@ -13291,7 +13292,7 @@ public:
 
   /// Abstract base class used for diagnosing integer constant
   /// expression violations.
-  class VerifyICEDiagnoser {
+  class CLANG_ABI VerifyICEDiagnoser {
   public:
     bool Suppress;
 
@@ -13483,7 +13484,7 @@ public:
     Decl *D = nullptr;
   } CurCUDATargetCtx;
 
-  struct CUDATargetContextRAII {
+  struct CLANG_ABI CUDATargetContextRAII {
     Sema &S;
     CUDATargetContext SavedCtx;
     CUDATargetContextRAII(Sema &S_, CUDATargetContextKind K, Decl *D);
@@ -14347,7 +14348,7 @@ public:
                                   ValueDecl *DeclToCheck);
 };
 
-DeductionFailureInfo
+CLANG_ABI DeductionFailureInfo
 MakeDeductionFailureInfo(ASTContext &Context, Sema::TemplateDeductionResult TDK,
                          sema::TemplateDeductionInfo &Info);
 
@@ -14362,12 +14363,12 @@ struct LateParsedTemplate {
 };
 
 template <>
-void Sema::PragmaStack<Sema::AlignPackInfo>::Act(SourceLocation PragmaLocation,
+CLANG_ABI CLANG_ABI void Sema::PragmaStack<Sema::AlignPackInfo>::Act(SourceLocation PragmaLocation,
                                                  PragmaMsStackAction Action,
                                                  llvm::StringRef StackSlotLabel,
                                                  AlignPackInfo Value);
 
-std::unique_ptr<sema::RISCVIntrinsicManager>
+CLANG_ABI std::unique_ptr<sema::RISCVIntrinsicManager>
 CreateRISCVIntrinsicManager(Sema &S);
 } // end namespace clang
 

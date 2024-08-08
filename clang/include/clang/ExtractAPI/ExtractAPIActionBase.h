@@ -17,6 +17,7 @@
 
 #include "clang/ExtractAPI/API.h"
 #include "clang/ExtractAPI/APIIgnoresList.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 
@@ -24,7 +25,7 @@ namespace clang {
 ///
 /// Deriving from this class equips an action with all the necessary tools to
 /// generate ExractAPI information in form of symbol-graphs
-class ExtractAPIActionBase {
+class CLANG_ABI ExtractAPIActionBase {
 protected:
   /// A representation of the APIs this action extracts.
   std::unique_ptr<extractapi::APISet> API;

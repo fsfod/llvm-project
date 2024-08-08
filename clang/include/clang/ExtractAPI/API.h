@@ -25,6 +25,7 @@
 #include "clang/Basic/Specifiers.h"
 #include "clang/ExtractAPI/AvailabilityInfo.h"
 #include "clang/ExtractAPI/DeclarationFragments.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/MapVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/Allocator.h"
@@ -153,7 +154,7 @@ using DocComment = std::vector<RawComment::CommentLine>;
 // argument. This is so that they are compatible with `addTopLevelRecord`
 // defined in API.cpp
 /// The base representation of an API record. Holds common symbol information.
-struct APIRecord {
+struct CLANG_ABI APIRecord {
   /// Discriminator for LLVM-style RTTI (dyn_cast<> et al.)
   enum RecordKind {
     RK_Unknown,
@@ -288,7 +289,7 @@ struct NamespaceRecord : APIRecord {
 };
 
 /// This holds information associated with global functions.
-struct GlobalFunctionRecord : APIRecord {
+struct CLANG_ABI GlobalFunctionRecord : APIRecord {
   FunctionSignature Signature;
 
   GlobalFunctionRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
@@ -359,7 +360,7 @@ struct GlobalFunctionTemplateSpecializationRecord : GlobalFunctionRecord {
 };
 
 /// This holds information associated with global functions.
-struct GlobalVariableRecord : APIRecord {
+struct CLANG_ABI GlobalVariableRecord : APIRecord {
   GlobalVariableRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                        AvailabilityInfo Availability, LinkageInfo Linkage,
                        const DocComment &Comment,
@@ -441,7 +442,7 @@ struct GlobalVariableTemplatePartialSpecializationRecord
 };
 
 /// This holds information associated with enum constants.
-struct EnumConstantRecord : APIRecord {
+struct CLANG_ABI EnumConstantRecord : APIRecord {
   EnumConstantRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                      AvailabilityInfo Availability, const DocComment &Comment,
                      DeclarationFragments Declaration,
@@ -459,7 +460,7 @@ private:
 };
 
 /// This holds information associated with enums.
-struct EnumRecord : APIRecord {
+struct CLANG_ABI EnumRecord : APIRecord {
   SmallVector<std::unique_ptr<EnumConstantRecord>> Constants;
 
   EnumRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
@@ -479,7 +480,7 @@ private:
 };
 
 /// This holds information associated with struct fields.
-struct RecordFieldRecord : APIRecord {
+struct CLANG_ABI RecordFieldRecord : APIRecord {
   RecordFieldRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                     AvailabilityInfo Availability, const DocComment &Comment,
                     DeclarationFragments Declaration,
@@ -499,7 +500,7 @@ private:
 };
 
 /// This holds information associated with structs.
-struct RecordRecord : APIRecord {
+struct CLANG_ABI RecordRecord : APIRecord {
   SmallVector<std::unique_ptr<RecordFieldRecord>> Fields;
 
   RecordRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
@@ -519,7 +520,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXFieldRecord : APIRecord {
+struct CLANG_ABI CXXFieldRecord : APIRecord {
   AccessControl Access;
 
   CXXFieldRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
@@ -569,7 +570,7 @@ struct CXXFieldTemplateRecord : CXXFieldRecord {
   }
 };
 
-struct CXXMethodRecord : APIRecord {
+struct CLANG_ABI CXXMethodRecord : APIRecord {
   FunctionSignature Signature;
   AccessControl Access;
 
@@ -588,7 +589,7 @@ struct CXXMethodRecord : APIRecord {
   virtual ~CXXMethodRecord() = 0;
 };
 
-struct CXXConstructorRecord : CXXMethodRecord {
+struct CLANG_ABI CXXConstructorRecord : CXXMethodRecord {
   CXXConstructorRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                        AvailabilityInfo Availability, const DocComment &Comment,
                        DeclarationFragments Declaration,
@@ -606,7 +607,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXDestructorRecord : CXXMethodRecord {
+struct CLANG_ABI CXXDestructorRecord : CXXMethodRecord {
   CXXDestructorRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                       AvailabilityInfo Availability, const DocComment &Comment,
                       DeclarationFragments Declaration,
@@ -624,7 +625,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXStaticMethodRecord : CXXMethodRecord {
+struct CLANG_ABI CXXStaticMethodRecord : CXXMethodRecord {
   CXXStaticMethodRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                         AvailabilityInfo Availability,
                         const DocComment &Comment,
@@ -643,7 +644,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXInstanceMethodRecord : CXXMethodRecord {
+struct CLANG_ABI CXXInstanceMethodRecord : CXXMethodRecord {
   CXXInstanceMethodRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                           AvailabilityInfo Availability,
                           const DocComment &Comment,
@@ -700,7 +701,7 @@ struct CXXMethodTemplateSpecializationRecord : CXXMethodRecord {
 };
 
 /// This holds information associated with Objective-C properties.
-struct ObjCPropertyRecord : APIRecord {
+struct CLANG_ABI ObjCPropertyRecord : APIRecord {
   /// The attributes associated with an Objective-C property.
   enum AttributeKind : unsigned {
     NoAttr = 0,
@@ -732,7 +733,7 @@ struct ObjCPropertyRecord : APIRecord {
   virtual ~ObjCPropertyRecord() = 0;
 };
 
-struct ObjCInstancePropertyRecord : ObjCPropertyRecord {
+struct CLANG_ABI ObjCInstancePropertyRecord : ObjCPropertyRecord {
   ObjCInstancePropertyRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                              AvailabilityInfo Availability,
                              const DocComment &Comment,
@@ -754,7 +755,7 @@ private:
   virtual void anchor();
 };
 
-struct ObjCClassPropertyRecord : ObjCPropertyRecord {
+struct CLANG_ABI ObjCClassPropertyRecord : ObjCPropertyRecord {
   ObjCClassPropertyRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                           AvailabilityInfo Availability,
                           const DocComment &Comment,
@@ -777,7 +778,7 @@ private:
 };
 
 /// This holds information associated with Objective-C instance variables.
-struct ObjCInstanceVariableRecord : APIRecord {
+struct CLANG_ABI ObjCInstanceVariableRecord : APIRecord {
   using AccessControl = ObjCIvarDecl::AccessControl;
   AccessControl Access;
 
@@ -801,7 +802,7 @@ private:
 };
 
 /// This holds information associated with Objective-C methods.
-struct ObjCMethodRecord : APIRecord {
+struct CLANG_ABI ObjCMethodRecord : APIRecord {
   FunctionSignature Signature;
 
   ObjCMethodRecord() = delete;
@@ -819,7 +820,7 @@ struct ObjCMethodRecord : APIRecord {
   virtual ~ObjCMethodRecord() = 0;
 };
 
-struct ObjCInstanceMethodRecord : ObjCMethodRecord {
+struct CLANG_ABI ObjCInstanceMethodRecord : ObjCMethodRecord {
   ObjCInstanceMethodRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                            AvailabilityInfo Availability,
                            const DocComment &Comment,
@@ -837,7 +838,7 @@ private:
   virtual void anchor();
 };
 
-struct ObjCClassMethodRecord : ObjCMethodRecord {
+struct CLANG_ABI ObjCClassMethodRecord : ObjCMethodRecord {
   ObjCClassMethodRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                         AvailabilityInfo Availability,
                         const DocComment &Comment,
@@ -899,7 +900,7 @@ struct StaticFieldRecord : CXXFieldRecord {
 
 /// The base representation of an Objective-C container record. Holds common
 /// information associated with Objective-C containers.
-struct ObjCContainerRecord : APIRecord {
+struct CLANG_ABI ObjCContainerRecord : APIRecord {
   SmallVector<std::unique_ptr<ObjCMethodRecord>> Methods;
   SmallVector<std::unique_ptr<ObjCPropertyRecord>> Properties;
   SmallVector<std::unique_ptr<ObjCInstanceVariableRecord>> Ivars;
@@ -918,7 +919,7 @@ struct ObjCContainerRecord : APIRecord {
   virtual ~ObjCContainerRecord() = 0;
 };
 
-struct CXXClassRecord : APIRecord {
+struct CLANG_ABI CXXClassRecord : APIRecord {
   SmallVector<std::unique_ptr<CXXFieldRecord>> Fields;
   SmallVector<std::unique_ptr<CXXMethodRecord>> Methods;
   SmallVector<SymbolReference> Bases;
@@ -1007,7 +1008,7 @@ struct ConceptRecord : APIRecord {
 };
 
 /// This holds information associated with Objective-C categories.
-struct ObjCCategoryRecord : ObjCContainerRecord {
+struct CLANG_ABI ObjCCategoryRecord : ObjCContainerRecord {
   SymbolReference Interface;
   /// Determine whether the Category is derived from external class interface.
   bool IsFromExternalModule = false;
@@ -1032,7 +1033,7 @@ private:
 };
 
 /// This holds information associated with Objective-C interfaces/classes.
-struct ObjCInterfaceRecord : ObjCContainerRecord {
+struct CLANG_ABI ObjCInterfaceRecord : ObjCContainerRecord {
   SymbolReference SuperClass;
   // ObjCCategoryRecord%s are stored in and owned by APISet.
   SmallVector<ObjCCategoryRecord *> Categories;
@@ -1057,7 +1058,7 @@ private:
 };
 
 /// This holds information associated with Objective-C protocols.
-struct ObjCProtocolRecord : ObjCContainerRecord {
+struct CLANG_ABI ObjCProtocolRecord : ObjCContainerRecord {
   ObjCProtocolRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                      AvailabilityInfo Availability, const DocComment &Comment,
                      DeclarationFragments Declaration,
@@ -1076,7 +1077,7 @@ private:
 };
 
 /// This holds information associated with macro definitions.
-struct MacroDefinitionRecord : APIRecord {
+struct CLANG_ABI MacroDefinitionRecord : APIRecord {
   MacroDefinitionRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
                         DeclarationFragments Declaration,
                         DeclarationFragments SubHeading,
@@ -1098,7 +1099,7 @@ private:
 /// Note: Typedefs for anonymous enums and structs typically don't get emitted
 /// by the serializers but still get a TypedefRecord. Instead we use the
 /// typedef name as a name for the underlying anonymous struct or enum.
-struct TypedefRecord : APIRecord {
+struct CLANG_ABI TypedefRecord : APIRecord {
   SymbolReference UnderlyingType;
 
   TypedefRecord(StringRef USR, StringRef Name, PresumedLoc Loc,
@@ -1190,7 +1191,7 @@ struct has_function_signature<GlobalFunctionTemplateSpecializationRecord>
     : public std::true_type {};
 
 /// APISet holds the set of API records collected from given inputs.
-class APISet {
+class CLANG_ABI APISet {
 public:
   NamespaceRecord *addNamespace(APIRecord *Parent, StringRef Name,
                                 StringRef USR, PresumedLoc Loc,

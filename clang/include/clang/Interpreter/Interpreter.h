@@ -19,6 +19,7 @@
 #include "clang/Interpreter/PartialTranslationUnit.h"
 #include "clang/Interpreter/Value.h"
 
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ExecutionEngine/JITSymbol.h"
 #include "llvm/ExecutionEngine/Orc/Shared/ExecutorAddress.h"
@@ -40,7 +41,7 @@ class IncrementalExecutor;
 class IncrementalParser;
 
 /// Create a pre-configured \c CompilerInstance for incremental processing.
-class IncrementalCompilerBuilder {
+class CLANG_ABI IncrementalCompilerBuilder {
 public:
   IncrementalCompilerBuilder() {}
 
@@ -73,7 +74,7 @@ private:
 };
 
 /// Provides top-level interfaces for incremental compilation and execution.
-class Interpreter {
+class CLANG_ABI Interpreter {
   std::unique_ptr<llvm::orc::ThreadSafeContext> TSCtx;
   std::unique_ptr<IncrementalParser> IncrParser;
   std::unique_ptr<IncrementalExecutor> IncrExecutor;

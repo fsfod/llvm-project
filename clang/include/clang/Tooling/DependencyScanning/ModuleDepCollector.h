@@ -16,6 +16,7 @@
 #include "clang/Lex/HeaderSearch.h"
 #include "clang/Lex/PPCallbacks.h"
 #include "clang/Serialization/ASTReader.h"
+#include "clang/Support/Compiler.h"
 #include "clang/Tooling/DependencyScanning/DependencyScanningService.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/Hashing.h"
@@ -106,7 +107,7 @@ enum class ModuleOutputKind {
   DiagnosticSerializationFile,
 };
 
-struct ModuleDeps {
+struct CLANG_ABI ModuleDeps {
   /// The identifier of the module.
   ModuleID ID;
 
@@ -155,7 +156,7 @@ class ModuleDepCollector;
 /// during preprocessing. At the end of the main file, it also collects
 /// transitive modular dependencies and passes everything to the
 /// \c DependencyConsumer of the parent \c ModuleDepCollector.
-class ModuleDepCollectorPP final : public PPCallbacks {
+class CLANG_ABI ModuleDepCollectorPP final : public PPCallbacks {
 public:
   ModuleDepCollectorPP(ModuleDepCollector &MDC) : MDC(MDC) {}
 
@@ -207,7 +208,7 @@ private:
 
 /// Collects modular and non-modular dependencies of the main file by attaching
 /// \c ModuleDepCollectorPP to the preprocessor.
-class ModuleDepCollector final : public DependencyCollector {
+class CLANG_ABI ModuleDepCollector final : public DependencyCollector {
 public:
   ModuleDepCollector(std::unique_ptr<DependencyOutputOptions> Opts,
                      CompilerInstance &ScanInstance, DependencyConsumer &C,

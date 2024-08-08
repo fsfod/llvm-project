@@ -26,6 +26,7 @@
 #include "clang/Serialization/ASTDeserializationListener.h"
 #include "clang/Serialization/PCHContainerOperations.h"
 #include "clang/Serialization/SourceLocationEncoding.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/DenseSet.h"
@@ -82,7 +83,7 @@ class Token;
 /// representation of a given abstract syntax tree and its supporting
 /// data structures. This bitstream can be de-serialized via an
 /// instance of the ASTReader class.
-class ASTWriter : public ASTDeserializationListener,
+class CLANG_ABI ASTWriter : public ASTDeserializationListener,
                   public ASTMutationListener {
 public:
   friend class ASTDeclWriter;
@@ -840,7 +841,7 @@ private:
 
 /// AST and semantic-analysis consumer that generates a
 /// precompiled header from the parsed source code.
-class PCHGenerator : public SemaConsumer {
+class CLANG_ABI PCHGenerator : public SemaConsumer {
   const Preprocessor &PP;
   std::string OutputFile;
   std::string isysroot;

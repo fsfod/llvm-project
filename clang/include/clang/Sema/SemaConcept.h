@@ -14,9 +14,10 @@
 #define LLVM_CLANG_SEMA_SEMACONCEPT_H
 #include "clang/AST/ASTConcept.h"
 #include "clang/AST/ASTContext.h"
-#include "clang/AST/Expr.h"
 #include "clang/AST/DeclTemplate.h"
+#include "clang/AST/Expr.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/PointerUnion.h"
 #include "llvm/ADT/SmallVector.h"
 #include <optional>
@@ -78,7 +79,7 @@ struct AtomicConstraint {
 /// \brief A normalized constraint, as defined in C++ [temp.constr.normal], is
 /// either an atomic constraint, a conjunction of normalized constraints or a
 /// disjunction of normalized constraints.
-struct NormalizedConstraint {
+struct CLANG_ABI NormalizedConstraint {
   friend class Sema;
 
   enum CompoundConstraintKind { CCK_Conjunction, CCK_Disjunction };

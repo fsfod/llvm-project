@@ -31,6 +31,7 @@
 #include "clang/Lex/PPCallbacks.h"
 #include "clang/Lex/Token.h"
 #include "clang/Lex/TokenLexer.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/FoldingSet.h"
@@ -125,7 +126,7 @@ enum MacroUse {
 /// Lexers know only about tokens within a single source file, and don't
 /// know anything about preprocessor-level issues like the \#include stack,
 /// token expansion, etc.
-class Preprocessor {
+class CLANG_ABI Preprocessor {
   friend class VAOptDefinitionContext;
   friend class VariadicMacroScopeGuard;
 
@@ -2930,7 +2931,7 @@ private:
 
 /// Abstract base class that describes a handler that will receive
 /// source ranges for each of the comments encountered in the source file.
-class CommentHandler {
+class CLANG_ABI CommentHandler {
 public:
   virtual ~CommentHandler();
 
@@ -2941,7 +2942,7 @@ public:
 
 /// Abstract base class that describes a handler that will receive
 /// source ranges for empty lines encountered in the source file.
-class EmptylineHandler {
+class CLANG_ABI EmptylineHandler {
 public:
   virtual ~EmptylineHandler();
 

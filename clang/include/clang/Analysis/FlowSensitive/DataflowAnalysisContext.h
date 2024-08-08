@@ -23,6 +23,7 @@
 #include "clang/Analysis/FlowSensitive/Solver.h"
 #include "clang/Analysis/FlowSensitive/StorageLocation.h"
 #include "clang/Analysis/FlowSensitive/Value.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/SetVector.h"
@@ -48,18 +49,18 @@ class Logger;
 ///   * `ExprWithCleanups` - The CFG will generate the appropriate calls to
 ///   destructors and then omit the node.
 ///
-const Expr &ignoreCFGOmittedNodes(const Expr &E);
-const Stmt &ignoreCFGOmittedNodes(const Stmt &S);
+CLANG_ABI const Expr &ignoreCFGOmittedNodes(const Expr &E);
+CLANG_ABI const Stmt &ignoreCFGOmittedNodes(const Stmt &S);
 
 /// A set of `FieldDecl *`. Use `SmallSetVector` to guarantee deterministic
 /// iteration order.
 using FieldSet = llvm::SmallSetVector<const FieldDecl *, 4>;
 
 /// Returns the set of all fields in the type.
-FieldSet getObjectFields(QualType Type);
+CLANG_ABI FieldSet getObjectFields(QualType Type);
 
 /// Returns whether `Fields` and `FieldLocs` contain the same fields.
-bool containsSameFields(const FieldSet &Fields,
+CLANG_ABI bool containsSameFields(const FieldSet &Fields,
                         const RecordStorageLocation::FieldToLoc &FieldLocs);
 
 struct ContextSensitiveOptions {
@@ -70,7 +71,7 @@ struct ContextSensitiveOptions {
 
 /// Owns objects that encompass the state of a program and stores context that
 /// is used during dataflow analysis.
-class DataflowAnalysisContext {
+class CLANG_ABI DataflowAnalysisContext {
 public:
   struct Options {
     /// Options for analyzing function bodies when present in the translation

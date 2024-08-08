@@ -11,6 +11,7 @@
 
 #include "clang/Basic/Module.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/PointerUnion.h"
@@ -41,7 +42,7 @@ class APINotesReader;
 /// external API notes files that correspond to a given header. Its primary
 /// operation is \c findAPINotes(), which finds the API notes reader that
 /// provides information about the declarations at that location.
-class APINotesManager {
+class CLANG_ABI APINotesManager {
   using ReaderEntry = llvm::PointerUnion<DirectoryEntryRef, APINotesReader *>;
 
   SourceManager &SM;

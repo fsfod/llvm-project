@@ -22,6 +22,7 @@
 #include "clang/Basic/IdentifierTable.h"
 #include "clang/Basic/OperatorKinds.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMapInfo.h"
 #include "llvm/Bitstream/BitCodes.h"
 #include <cassert>
@@ -2108,7 +2109,7 @@ struct ObjCCategoriesInfo {
 /// Different \ref DeclarationNames are mapped to different keys, but the
 /// same key can occasionally represent multiple names (for names that
 /// contain types, in particular).
-class DeclarationNameKey {
+class CLANG_ABI DeclarationNameKey {
   using NameKind = unsigned;
 
   NameKind Kind = 0;

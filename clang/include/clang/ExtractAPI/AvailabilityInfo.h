@@ -16,6 +16,7 @@
 #define LLVM_CLANG_EXTRACTAPI_AVAILABILITY_INFO_H
 
 #include "clang/AST/Decl.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/VersionTuple.h"
 #include "llvm/Support/raw_ostream.h"
@@ -24,7 +25,7 @@ namespace clang {
 namespace extractapi {
 
 /// Stores availability attributes of a symbol.
-struct AvailabilityInfo {
+struct CLANG_ABI AvailabilityInfo {
   /// The domain for which this availability info item applies
   std::string Domain;
   VersionTuple Introduced;

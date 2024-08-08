@@ -10,6 +10,7 @@
 #define LLVM_CLANG_APINOTES_TYPES_H
 
 #include "clang/Basic/Specifiers.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include <climits>
@@ -49,7 +50,7 @@ enum class SwiftNewTypeKind {
 /// Describes API notes data for any entity.
 ///
 /// This is used as the base of all API notes.
-class CommonEntityInfo {
+class CLANG_ABI CommonEntityInfo {
 public:
   /// Message to use when this entity is unavailable.
   std::string UnavailableMsg;
@@ -128,7 +129,7 @@ inline bool operator!=(const CommonEntityInfo &LHS,
 }
 
 /// Describes API notes for types.
-class CommonTypeInfo : public CommonEntityInfo {
+class CLANG_ABI CommonTypeInfo : public CommonEntityInfo {
   /// The Swift type to which a given type is bridged.
   ///
   /// Reflects the swift_bridge attribute.
@@ -189,7 +190,7 @@ inline bool operator!=(const CommonTypeInfo &LHS, const CommonTypeInfo &RHS) {
 }
 
 /// Describes API notes data for an Objective-C class or protocol.
-class ObjCContextInfo : public CommonTypeInfo {
+class CLANG_ABI ObjCContextInfo : public CommonTypeInfo {
   /// Whether this class has a default nullability.
   unsigned HasDefaultNullability : 1;
 
@@ -296,7 +297,7 @@ inline bool operator!=(const ObjCContextInfo &LHS, const ObjCContextInfo &RHS) {
 }
 
 /// API notes for a variable/property.
-class VariableInfo : public CommonEntityInfo {
+class CLANG_ABI VariableInfo : public CommonEntityInfo {
   /// Whether this property has been audited for nullability.
   unsigned NullabilityAudited : 1;
 
@@ -351,7 +352,7 @@ inline bool operator!=(const VariableInfo &LHS, const VariableInfo &RHS) {
 }
 
 /// Describes API notes data for an Objective-C property.
-class ObjCPropertyInfo : public VariableInfo {
+class CLANG_ABI ObjCPropertyInfo : public VariableInfo {
   unsigned SwiftImportAsAccessorsSpecified : 1;
   unsigned SwiftImportAsAccessors : 1;
 
@@ -407,7 +408,7 @@ inline bool operator!=(const ObjCPropertyInfo &LHS,
 }
 
 /// Describes a function or method parameter.
-class ParamInfo : public VariableInfo {
+class CLANG_ABI ParamInfo : public VariableInfo {
   /// Whether noescape was specified.
   unsigned NoEscapeSpecified : 1;
 
@@ -475,7 +476,7 @@ inline bool operator!=(const ParamInfo &LHS, const ParamInfo &RHS) {
 }
 
 /// API notes for a function or method.
-class FunctionInfo : public CommonEntityInfo {
+class CLANG_ABI FunctionInfo : public CommonEntityInfo {
 private:
   static constexpr const uint64_t NullabilityKindMask = 0x3;
   static constexpr const unsigned NullabilityKindSize = 2;
@@ -594,7 +595,7 @@ inline bool operator!=(const FunctionInfo &LHS, const FunctionInfo &RHS) {
 }
 
 /// Describes API notes data for an Objective-C method.
-class ObjCMethodInfo : public FunctionInfo {
+class CLANG_ABI ObjCMethodInfo : public FunctionInfo {
 public:
   /// Whether this is a designated initializer of its class.
   unsigned DesignatedInit : 1;
@@ -649,7 +650,7 @@ public:
 };
 
 /// Describes API notes data for a tag.
-class TagInfo : public CommonTypeInfo {
+class CLANG_ABI TagInfo : public CommonTypeInfo {
   unsigned HasFlagEnum : 1;
   unsigned IsFlagEnum : 1;
 
@@ -710,7 +711,7 @@ inline bool operator!=(const TagInfo &LHS, const TagInfo &RHS) {
 }
 
 /// Describes API notes data for a typedef.
-class TypedefInfo : public CommonTypeInfo {
+class CLANG_ABI TypedefInfo : public CommonTypeInfo {
 public:
   std::optional<SwiftNewTypeKind> SwiftWrapper;
 

@@ -20,6 +20,7 @@
 #include "clang/Basic/ParsedAttrInfo.h"
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/Ownership.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/PointerUnion.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Support/Allocator.h"
@@ -95,7 +96,7 @@ struct PropertyData {
 } // namespace
 
 /// Wraps an identifier and optional source location for the identifier.
-struct IdentifierLoc {
+struct CLANG_ABI IdentifierLoc {
   SourceLocation Loc;
   IdentifierInfo *Ident;
 
@@ -117,7 +118,7 @@ using ArgsVector = llvm::SmallVector<ArgsUnion, 12U>;
 /// 3: __attribute__(( format(printf, 1, 2) )). ParmName/Args/NumArgs all used.
 /// 4: __attribute__(( aligned(16) )). ParmName is unused, Args/Num used.
 ///
-class ParsedAttr final
+class CLANG_ABI ParsedAttr final
     : public AttributeCommonInfo,
       private llvm::TrailingObjects<
           ParsedAttr, ArgsUnion, detail::AvailabilityData,
@@ -616,7 +617,7 @@ class AttributePool;
 ///
 /// Note that it's tolerably cheap to create and destroy one of
 /// these as long as you don't actually allocate anything in it.
-class AttributeFactory {
+class CLANG_ABI AttributeFactory {
 public:
   enum {
     AvailabilityAllocSize =
@@ -670,7 +671,7 @@ public:
   ~AttributeFactory();
 };
 
-class AttributePool {
+class CLANG_ABI AttributePool {
   friend class AttributeFactory;
   friend class ParsedAttributes;
   AttributeFactory &Factory;
@@ -1045,7 +1046,7 @@ private:
 
 /// Consumes the attributes from `First` and `Second` and concatenates them into
 /// `Result`. Sets `Result.Range` to the combined range of `First` and `Second`.
-void takeAndConcatenateAttrs(ParsedAttributes &First, ParsedAttributes &Second,
+CLANG_ABI void takeAndConcatenateAttrs(ParsedAttributes &First, ParsedAttributes &Second,
                              ParsedAttributes &Result);
 
 /// These constants match the enumerated choices of

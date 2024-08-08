@@ -15,6 +15,7 @@
 
 #include "clang/AST/ASTConsumer.h"
 #include "clang/Basic/LLVM.h"
+#include "clang/Support/Compiler.h"
 
 namespace llvm {
   class Constant;
@@ -45,7 +46,7 @@ namespace CodeGen {
 /// The primary public interface to the Clang code generator.
 ///
 /// This is not really an abstract interface.
-class CodeGenerator : public ASTConsumer {
+class CLANG_ABI CodeGenerator : public ASTConsumer {
   virtual void anchor();
 
 public:
@@ -101,7 +102,7 @@ public:
 /// CreateLLVMCodeGen - Create a CodeGenerator instance.
 /// It is the responsibility of the caller to call delete on
 /// the allocated CodeGenerator instance.
-CodeGenerator *CreateLLVMCodeGen(DiagnosticsEngine &Diags,
+CLANG_ABI CodeGenerator *CreateLLVMCodeGen(DiagnosticsEngine &Diags,
                                  llvm::StringRef ModuleName,
                                  IntrusiveRefCntPtr<llvm::vfs::FileSystem> FS,
                                  const HeaderSearchOptions &HeaderSearchOpts,

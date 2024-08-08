@@ -15,6 +15,7 @@
 
 #include "clang/Analysis/FlowSensitive/DataflowEnvironment.h"
 #include "clang/Analysis/FlowSensitive/StorageLocation.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 namespace dataflow {
@@ -32,7 +33,7 @@ namespace dataflow {
 /// Requirements:
 ///
 ///  `Src` and `Dst` must have the same canonical unqualified type.
-void copyRecord(RecordStorageLocation &Src, RecordStorageLocation &Dst,
+CLANG_ABI void copyRecord(RecordStorageLocation &Src, RecordStorageLocation &Dst,
                 Environment &Env);
 
 /// Returns whether the records `Loc1` and `Loc2` are equal.
@@ -53,7 +54,7 @@ void copyRecord(RecordStorageLocation &Src, RecordStorageLocation &Dst,
 /// Requirements:
 ///
 ///  `Src` and `Dst` must have the same canonical unqualified type.
-bool recordsEqual(const RecordStorageLocation &Loc1, const Environment &Env1,
+CLANG_ABI bool recordsEqual(const RecordStorageLocation &Loc1, const Environment &Env1,
                   const RecordStorageLocation &Loc2, const Environment &Env2);
 
 inline bool recordsEqual(const RecordStorageLocation &Loc1,

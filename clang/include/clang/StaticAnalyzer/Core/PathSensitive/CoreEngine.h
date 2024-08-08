@@ -24,6 +24,7 @@
 #include "clang/StaticAnalyzer/Core/PathSensitive/ExplodedGraph.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/ProgramState_Fwd.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/WorkList.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/Support/Casting.h"
@@ -53,7 +54,7 @@ class ExprEngine;
 ///   for states.  Note that this engine only dispatches to transfer functions
 ///   at the statement and block-level.  The analyses themselves must implement
 ///   any transfer function logic and the sub-expression level (if any).
-class CoreEngine {
+class CLANG_ABI CoreEngine {
   friend class CommonNodeBuilder;
   friend class EndOfFunctionNodeBuilder;
   friend class ExprEngine;
@@ -235,7 +236,7 @@ struct NodeBuilderContext {
 /// be propagated to the next step / builder. They are the nodes which have been
 /// added to the builder (either as the input node set or as the newly
 /// constructed nodes) but did not have any outgoing transitions added.
-class NodeBuilder {
+class CLANG_ABI NodeBuilder {
   virtual void anchor();
 
 protected:
@@ -342,7 +343,7 @@ public:
 
 /// \class NodeBuilderWithSinks
 /// This node builder keeps track of the generated sink nodes.
-class NodeBuilderWithSinks: public NodeBuilder {
+class CLANG_ABI NodeBuilderWithSinks: public NodeBuilder {
   void anchor() override;
 
 protected:
@@ -379,7 +380,7 @@ public:
 /// This builder class is useful for generating nodes that resulted from
 /// visiting a statement. The main difference from its parent NodeBuilder is
 /// that it creates a statement specific ProgramPoint.
-class StmtNodeBuilder: public NodeBuilder {
+class CLANG_ABI StmtNodeBuilder: public NodeBuilder {
   NodeBuilder *EnclosingBldr;
 
 public:
@@ -431,7 +432,7 @@ public:
 
 /// BranchNodeBuilder is responsible for constructing the nodes
 /// corresponding to the two branches of the if statement - true and false.
-class BranchNodeBuilder: public NodeBuilder {
+class CLANG_ABI BranchNodeBuilder: public NodeBuilder {
   const CFGBlock *DstT;
   const CFGBlock *DstF;
 
@@ -478,7 +479,7 @@ public:
   }
 };
 
-class IndirectGotoNodeBuilder {
+class CLANG_ABI IndirectGotoNodeBuilder {
   CoreEngine& Eng;
   const CFGBlock *Src;
   const CFGBlock &DispatchBlock;
@@ -531,7 +532,7 @@ public:
   }
 };
 
-class SwitchNodeBuilder {
+class CLANG_ABI SwitchNodeBuilder {
   CoreEngine& Eng;
   const CFGBlock *Src;
   const Expr *Condition;

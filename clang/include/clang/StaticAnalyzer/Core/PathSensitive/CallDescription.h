@@ -16,6 +16,7 @@
 #define LLVM_CLANG_STATICANALYZER_CORE_PATHSENSITIVE_CALLDESCRIPTION_H
 
 #include "clang/StaticAnalyzer/Core/PathSensitive/CallEvent.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/Support/Compiler.h"
 #include <optional>
@@ -40,7 +41,7 @@ enum CallDescriptionFlags : unsigned {
 
 /// This class represents a description of a function call using the number of
 /// arguments and the name of the function.
-class CallDescription {
+class CLANG_ABI CallDescription {
   friend class CallEvent;
   using MaybeCount = std::optional<unsigned>;
 
@@ -225,7 +226,7 @@ public:
 /// An immutable set of CallDescriptions.
 /// Checkers can efficiently decide if a given CallEvent matches any
 /// CallDescription in the set.
-class CallDescriptionSet {
+class CLANG_ABI CallDescriptionSet {
   CallDescriptionMap<bool /*unused*/> Impl = {};
 
 public:

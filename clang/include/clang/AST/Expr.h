@@ -28,6 +28,7 @@
 #include "clang/Basic/LangOptions.h"
 #include "clang/Basic/SyncScope.h"
 #include "clang/Basic/TypeTraits.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/APSInt.h"
 #include "llvm/ADT/SmallVector.h"
@@ -108,7 +109,7 @@ struct SubobjectAdjustment {
 /// This represents one expression.  Note that Expr's are subclasses of Stmt.
 /// This allows an expression to be transparently used any place a Stmt is
 /// required.
-class Expr : public ValueStmt {
+class CLANG_ABI Expr : public ValueStmt {
   QualType TR;
 
 public:
@@ -627,7 +628,7 @@ public:
   };
 
   /// EvalResult is a struct with detailed info about an evaluated expression.
-  struct EvalResult : EvalStatus {
+  struct CLANG_ABI EvalResult : EvalStatus {
     /// Val - This is the value the expression can be folded to.
     APValue Val;
 
@@ -1055,7 +1056,7 @@ enum class ConstantResultStorageKind { None, Int64, APValue };
 
 /// ConstantExpr - An expression that occurs in a constant context and
 /// optionally the result of evaluating the expression.
-class ConstantExpr final
+class CLANG_ABI ConstantExpr final
     : public FullExpr,
       private llvm::TrailingObjects<ConstantExpr, APValue, uint64_t> {
   static_assert(std::is_same<uint64_t, llvm::APInt::WordType>::value,
@@ -1153,7 +1154,7 @@ public:
 /// syntax; instead they're used to express operations (usually copy
 /// operations) on values whose source is generally obvious from
 /// context.
-class OpaqueValueExpr : public Expr {
+class CLANG_ABI OpaqueValueExpr : public Expr {
   friend class ASTStmtReader;
   Expr *SourceExpr;
 
@@ -1241,7 +1242,7 @@ public:
 ///   DeclRefExprBits.RefersToEnclosingVariableOrCapture
 ///       Specifies when this declaration reference expression (validly)
 ///       refers to an enclosed local or a captured variable.
-class DeclRefExpr final
+class CLANG_ABI DeclRefExpr final
     : public Expr,
       private llvm::TrailingObjects<DeclRefExpr, NestedNameSpecifierLoc,
                                     NamedDecl *, ASTTemplateKWAndArgsInfo,
@@ -1479,7 +1480,7 @@ public:
   }
 };
 
-class IntegerLiteral : public Expr, public APIntStorage {
+class CLANG_ABI IntegerLiteral : public Expr, public APIntStorage {
   SourceLocation Loc;
 
   /// Construct an empty integer literal.
@@ -1522,7 +1523,7 @@ public:
   }
 };
 
-class FixedPointLiteral : public Expr, public APIntStorage {
+class CLANG_ABI FixedPointLiteral : public Expr, public APIntStorage {
   SourceLocation Loc;
   unsigned Scale;
 
@@ -1571,7 +1572,7 @@ class FixedPointLiteral : public Expr, public APIntStorage {
 
 enum class CharacterLiteralKind { Ascii, Wide, UTF8, UTF16, UTF32 };
 
-class CharacterLiteral : public Expr {
+class CLANG_ABI CharacterLiteral : public Expr {
   unsigned Value;
   SourceLocation Loc;
 public:
@@ -1618,7 +1619,7 @@ public:
   }
 };
 
-class FloatingLiteral : public Expr, private APFloatStorage {
+class CLANG_ABI FloatingLiteral : public Expr, private APFloatStorage {
   SourceLocation Loc;
 
   FloatingLiteral(const ASTContext &C, const llvm::APFloat &V, bool isexact,
@@ -1755,7 +1756,7 @@ enum class StringLiteralKind {
 ///   char X[2] = "foobar";
 /// In this case, getByteLength() will return 6, but the string literal will
 /// have type "char[2]".
-class StringLiteral final
+class CLANG_ABI StringLiteral final
     : public Expr,
       private llvm::TrailingObjects<StringLiteral, unsigned, SourceLocation,
                                     char> {
@@ -1958,7 +1959,7 @@ enum class PredefinedIdentKind {
 };
 
 /// [C99 6.4.2.2] - A predefined identifier such as __func__.
-class PredefinedExpr final
+class CLANG_ABI PredefinedExpr final
     : public Expr,
       private llvm::TrailingObjects<PredefinedExpr, Stmt *> {
   friend class ASTStmtReader;
@@ -2047,7 +2048,7 @@ public:
 // type-id, and at CodeGen time emits a unique string representation of the
 // type in a way that permits us to properly encode information about the SYCL
 // kernels.
-class SYCLUniqueStableNameExpr final : public Expr {
+class CLANG_ABI SYCLUniqueStableNameExpr final : public Expr {
   friend class ASTStmtReader;
   SourceLocation OpLoc, LParen, RParen;
   TypeSourceInfo *TypeInfo;
@@ -2154,7 +2155,7 @@ public:
 ///   applied to a non-complex value, the former returns its operand and the
 ///   later returns zero in the type of the operand.
 ///
-class UnaryOperator final
+class CLANG_ABI UnaryOperator final
     : public Expr,
       private llvm::TrailingObjects<UnaryOperator, FPOptionsOverride> {
   Stmt *Val;
@@ -2332,7 +2333,7 @@ public:
 /// Helper class for OffsetOfExpr.
 
 // __builtin_offsetof(type, identifier(.identifier|[expr])*)
-class OffsetOfNode {
+class CLANG_ABI OffsetOfNode {
 public:
   /// The kind of offsetof node we have.
   enum Kind {
@@ -2436,7 +2437,7 @@ public:
 /// @endcode
 /// we can represent and evaluate the expression @c offsetof(struct T, s[2].d).
 
-class OffsetOfExpr final
+class CLANG_ABI OffsetOfExpr final
     : public Expr,
       private llvm::TrailingObjects<OffsetOfExpr, OffsetOfNode, Expr *> {
   SourceLocation OperatorLoc, RParenLoc;
@@ -2541,7 +2542,7 @@ public:
 /// UnaryExprOrTypeTraitExpr - expression with either a type or (unevaluated)
 /// expression operand.  Used for sizeof/alignof (C99 6.5.3.4) and
 /// vec_step (OpenCL 1.1 6.11.12).
-class UnaryExprOrTypeTraitExpr : public Expr {
+class CLANG_ABI UnaryExprOrTypeTraitExpr : public Expr {
   union {
     TypeSourceInfo *Ty;
     Stmt *Ex;
@@ -2793,7 +2794,7 @@ public:
 /// results in a function call. For example, CXXOperatorCallExpr is
 /// a subclass for overloaded operator calls that use operator syntax, e.g.,
 /// "str1 + str2" to resolve to a function call.
-class CallExpr : public Expr {
+class CLANG_ABI CallExpr : public Expr {
   enum { FN = 0, PREARGS_START = 1 };
 
   /// The number of arguments in the call expression.
@@ -3152,7 +3153,7 @@ struct MemberExprNameQualifier {
 
 /// MemberExpr - [C99 6.5.2.3] Structure and Union Members.  X->F and X.F.
 ///
-class MemberExpr final
+class CLANG_ABI MemberExpr final
     : public Expr,
       private llvm::TrailingObjects<MemberExpr, MemberExprNameQualifier,
                                     ASTTemplateKWAndArgsInfo,
@@ -3463,7 +3464,7 @@ public:
 /// casts (ImplicitCastExpr) and explicit casts that have some
 /// representation in the source code (ExplicitCastExpr's derived
 /// classes).
-class CastExpr : public Expr {
+class CLANG_ABI CastExpr : public Expr {
   Stmt *Op;
 
   bool CastConsistency() const;
@@ -3620,7 +3621,7 @@ public:
 ///                     // to an xvalue of type Base
 /// }
 /// @endcode
-class ImplicitCastExpr final
+class CLANG_ABI ImplicitCastExpr final
     : public CastExpr,
       private llvm::TrailingObjects<ImplicitCastExpr, CXXBaseSpecifier *,
                                     FPOptionsOverride> {
@@ -3736,7 +3737,7 @@ public:
 /// CStyleCastExpr - An explicit cast in C (C99 6.5.4) or a C-style
 /// cast in C++ (C++ [expr.cast]), which uses the syntax
 /// (Type)expr. For example: @c (int)f.
-class CStyleCastExpr final
+class CLANG_ABI CStyleCastExpr final
     : public ExplicitCastExpr,
       private llvm::TrailingObjects<CStyleCastExpr, CXXBaseSpecifier *,
                                     FPOptionsOverride> {
@@ -3808,7 +3809,7 @@ public:
 /// value-dependent). If either x or y is type-dependent, or if the
 /// "+" resolves to an overloaded operator, CXXOperatorCallExpr will
 /// be used to express the computation.
-class BinaryOperator : public Expr {
+class CLANG_ABI BinaryOperator : public Expr {
   enum { LHS, RHS, END_EXPR };
   Stmt *SubExprs[END_EXPR];
 
@@ -4056,7 +4057,7 @@ protected:
 /// implicit conversion back to the result type done, then the assignment takes
 /// place.  This captures the intermediate type which the computation is done
 /// in.
-class CompoundAssignOperator : public BinaryOperator {
+class CLANG_ABI CompoundAssignOperator : public BinaryOperator {
   QualType ComputationLHSType;
   QualType ComputationResultType;
 
@@ -4399,7 +4400,7 @@ public:
 /// shuffle, similar to LLVM's shufflevector instruction. It takes
 /// two vectors and a variable number of constant indices,
 /// and returns the appropriately shuffled vector.
-class ShuffleVectorExpr : public Expr {
+class CLANG_ABI ShuffleVectorExpr : public Expr {
   SourceLocation BuiltinLoc, RParenLoc;
 
   // SubExprs - the list of values passed to the __builtin_shufflevector
@@ -4695,7 +4696,7 @@ enum class SourceLocIdentKind {
 /// Represents a function call to one of __builtin_LINE(), __builtin_COLUMN(),
 /// __builtin_FUNCTION(), __builtin_FUNCSIG(), __builtin_FILE(),
 /// __builtin_FILE_NAME() or __builtin_source_location().
-class SourceLocExpr final : public Expr {
+class CLANG_ABI SourceLocExpr final : public Expr {
   SourceLocation BuiltinLoc, RParenLoc;
   DeclContext *ParentContext;
 
@@ -4815,7 +4816,7 @@ private:
 /// Since many initializer lists have the same syntactic and semantic forms,
 /// getSyntacticForm() may return NULL, indicating that the current
 /// semantic initializer list also serves as its syntactic form.
-class InitListExpr : public Expr {
+class CLANG_ABI InitListExpr : public Expr {
   // FIXME: Eliminate this vector in favor of ASTContext allocation
   typedef ASTVector<Stmt *> InitExprsTy;
   InitExprsTy InitExprs;
@@ -5058,7 +5059,7 @@ public:
 /// which covers @c [2].y=1.0. This DesignatedInitExpr will have two
 /// designators, one array designator for @c [2] followed by one field
 /// designator for @c .y. The initialization expression will be 1.0.
-class DesignatedInitExpr final
+class CLANG_ABI DesignatedInitExpr final
     : public Expr,
       private llvm::TrailingObjects<DesignatedInitExpr, Stmt *> {
 public:
@@ -5103,7 +5104,7 @@ public:
   /// but minor differences (storing indices vs. storing pointers)
   /// keep us from reusing it. Try harder, later, to rectify these
   /// differences.
-  class Designator {
+  class CLANG_ABI Designator {
     /// A field designator, e.g., ".x".
     struct FieldDesignatorInfo {
       /// Refers to the field that is being initialized. The low bit
@@ -5425,7 +5426,7 @@ public:
 // DesignatedInitUpdateExpr for "a.q" with type Q. The "base" for this DIUE
 // is the call expression *getQ(); the "updater" for the DIUE is ".q.b = 3"
 //
-class DesignatedInitUpdateExpr : public Expr {
+class CLANG_ABI DesignatedInitUpdateExpr : public Expr {
   // BaseAndUpdaterExprs[0] is the base expression;
   // BaseAndUpdaterExprs[1] is an InitListExpr overwriting part of the base.
   Stmt *BaseAndUpdaterExprs[2];
@@ -5595,7 +5596,7 @@ public:
   }
 };
 
-class ParenListExpr final
+class CLANG_ABI ParenListExpr final
     : public Expr,
       private llvm::TrailingObjects<ParenListExpr, Stmt *> {
   friend class ASTStmtReader;
@@ -5690,7 +5691,7 @@ public:
 /// This type argument form does not perform any conversions for the
 /// controlling type, which makes it suitable for use with qualified type
 /// associations, which is not possible with the expression form.
-class GenericSelectionExpr final
+class CLANG_ABI GenericSelectionExpr final
     : public Expr,
       private llvm::TrailingObjects<GenericSelectionExpr, Stmt *,
                                     TypeSourceInfo *> {
@@ -6081,7 +6082,7 @@ public:
 /// Note that the base may have either vector or pointer to vector type, just
 /// like a struct field reference.
 ///
-class ExtVectorElementExpr : public Expr {
+class CLANG_ABI ExtVectorElementExpr : public Expr {
   Stmt *Base;
   IdentifierInfo *Accessor;
   SourceLocation AccessorLoc;
@@ -6141,7 +6142,7 @@ public:
 
 /// BlockExpr - Adaptor class for mixing a BlockDecl with expressions.
 /// ^{ statement-body }   or   ^(int arg1, float arg2){ statement-body }
-class BlockExpr : public Expr {
+class CLANG_ABI BlockExpr : public Expr {
 protected:
   BlockDecl *TheBlock;
 public:
@@ -6271,7 +6272,7 @@ public:
 /// equivalent to a particular message send, and this is very much
 /// part of the user model.  The name of this class encourages this
 /// modelling design.
-class PseudoObjectExpr final
+class CLANG_ABI PseudoObjectExpr final
     : public Expr,
       private llvm::TrailingObjects<PseudoObjectExpr, Expr *> {
   // PseudoObjectExprBits.NumSubExprs - The number of sub-expressions.
@@ -6405,7 +6406,7 @@ public:
 /// All of these instructions take one primary pointer, at least one memory
 /// order. The instructions for which getScopeModel returns non-null value
 /// take one synch scope.
-class AtomicExpr : public Expr {
+class CLANG_ABI AtomicExpr : public Expr {
 public:
   enum AtomicOp {
 #define BUILTIN(ID, TYPE, ATTRS)
@@ -6604,7 +6605,7 @@ public:
 ///
 /// One can also reliably suppress all bogus errors on expressions containing
 /// recovery expressions by examining results of Expr::containsErrors().
-class RecoveryExpr final : public Expr,
+class CLANG_ABI RecoveryExpr final : public Expr,
                            private llvm::TrailingObjects<RecoveryExpr, Expr *> {
 public:
   static RecoveryExpr *Create(ASTContext &Ctx, QualType T,

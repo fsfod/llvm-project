@@ -20,6 +20,7 @@
 #include "clang/ExtractAPI/API.h"
 #include "clang/ExtractAPI/APIIgnoresList.h"
 #include "clang/ExtractAPI/Serialization/SerializerBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringSet.h"
 #include "llvm/Support/JSON.h"
@@ -43,7 +44,7 @@ struct SymbolGraphSerializerOption {
 /// The Symbol Graph format (https://github.com/apple/swift-docc-symbolkit)
 /// models an API set as a directed graph, where nodes are symbol declarations,
 /// and edges are relationships between the connected symbols.
-class SymbolGraphSerializer : public APISetVisitor<SymbolGraphSerializer> {
+class CLANG_ABI SymbolGraphSerializer : public APISetVisitor<SymbolGraphSerializer> {
   /// A JSON array of formatted symbols in \c APISet.
   Array Symbols;
 

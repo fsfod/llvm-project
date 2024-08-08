@@ -10,6 +10,7 @@
 #define LLVM_CLANG_APINOTES_WRITER_H
 
 #include "clang/APINotes/Types.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/VersionTuple.h"
 #include "llvm/Support/raw_ostream.h"
@@ -20,7 +21,7 @@ namespace clang {
 class FileEntry;
 
 namespace api_notes {
-class APINotesWriter {
+class CLANG_ABI APINotesWriter {
   class Implementation;
   std::unique_ptr<Implementation> Implementation;
 

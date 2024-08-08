@@ -15,6 +15,7 @@
 
 #include "clang/AST/ASTTypeTraits.h"
 #include "clang/AST/DeclarationName.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/IntrusiveRefCntPtr.h"
 #include <set>
 
@@ -51,14 +52,14 @@ private:
   std::string m_name;
 };
 
-class LocationCallFormatterCpp {
+class CLANG_ABI LocationCallFormatterCpp {
 public:
   static void print(const LocationCall &Call, llvm::raw_ostream &OS);
   static std::string format(const LocationCall &Call);
 };
 
 namespace internal {
-struct RangeLessThan {
+struct CLANG_ABI RangeLessThan {
   bool operator()(std::pair<SourceRange, SharedLocationCall> const &LHS,
                   std::pair<SourceRange, SharedLocationCall> const &RHS) const;
   bool
@@ -85,16 +86,16 @@ struct NodeLocationAccessors {
 };
 
 namespace NodeIntrospection {
-bool hasIntrospectionSupport();
-NodeLocationAccessors GetLocations(clang::Stmt const *Object);
-NodeLocationAccessors GetLocations(clang::Decl const *Object);
-NodeLocationAccessors GetLocations(clang::CXXCtorInitializer const *Object);
-NodeLocationAccessors GetLocations(clang::NestedNameSpecifierLoc const &);
-NodeLocationAccessors GetLocations(clang::TemplateArgumentLoc const &);
-NodeLocationAccessors GetLocations(clang::CXXBaseSpecifier const *);
-NodeLocationAccessors GetLocations(clang::TypeLoc const &);
-NodeLocationAccessors GetLocations(clang::DeclarationNameInfo const &);
-NodeLocationAccessors GetLocations(clang::DynTypedNode const &Node);
+CLANG_ABI bool hasIntrospectionSupport();
+CLANG_ABI NodeLocationAccessors GetLocations(clang::Stmt const *Object);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::Decl const *Object);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::CXXCtorInitializer const *Object);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::NestedNameSpecifierLoc const &);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::TemplateArgumentLoc const &);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::CXXBaseSpecifier const *);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::TypeLoc const &);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::DeclarationNameInfo const &);
+CLANG_ABI NodeLocationAccessors GetLocations(clang::DynTypedNode const &Node);
 } // namespace NodeIntrospection
 } // namespace tooling
 } // namespace clang

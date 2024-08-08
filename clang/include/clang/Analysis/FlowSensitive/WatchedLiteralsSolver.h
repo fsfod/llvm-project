@@ -16,6 +16,7 @@
 
 #include "clang/Analysis/FlowSensitive/Formula.h"
 #include "clang/Analysis/FlowSensitive/Solver.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include <limits>
 
@@ -27,7 +28,7 @@ namespace dataflow {
 /// the Davis-Putnam-Logemann-Loveland (DPLL) algorithm, keeps references to a
 /// single "watched" literal per clause, and uses a set of "active" variables
 /// for unit propagation.
-class WatchedLiteralsSolver : public Solver {
+class CLANG_ABI WatchedLiteralsSolver : public Solver {
   // Count of the iterations of the main loop of the solver. This spans *all*
   // calls to the underlying solver across the life of this object. It is
   // reduced with every (non-trivial) call to the solver.

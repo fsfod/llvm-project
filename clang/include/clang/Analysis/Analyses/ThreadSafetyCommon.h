@@ -29,6 +29,7 @@
 #include "clang/Analysis/AnalysisDeclContext.h"
 #include "clang/Analysis/CFG.h"
 #include "clang/Basic/LLVM.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/PointerIntPair.h"
 #include "llvm/ADT/PointerUnion.h"
@@ -336,7 +337,7 @@ public:
 };
 
 // Translate clang::Expr to til::SExpr.
-class SExprBuilder {
+class CLANG_ABI SExprBuilder {
 public:
   /// Encapsulates the lexical context of a function call.  The lexical
   /// context includes the arguments to the call, including the implicit object
@@ -528,7 +529,7 @@ private:
 };
 
 // Dump an SCFG to llvm::errs().
-void printSCFG(CFGWalker &Walker);
+CLANG_ABI void printSCFG(CFGWalker &Walker);
 
 } // namespace threadSafety
 } // namespace clang

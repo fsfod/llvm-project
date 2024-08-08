@@ -12,6 +12,7 @@
 #include "clang/Basic/LLVM.h"
 #include "clang/Rewrite/Core/DeltaTree.h"
 #include "clang/Rewrite/Core/RewriteRope.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 
 namespace clang {
@@ -22,7 +23,7 @@ namespace clang {
 /// to map between SourceLocation's in the original input and offsets in the
 /// RewriteBuffer.  For example, if text is inserted into the buffer, any
 /// locations after the insertion point have to be mapped.
-class RewriteBuffer {
+class CLANG_ABI RewriteBuffer {
   friend class Rewriter;
 
   /// Deltas - Keep track of all the deltas in the source code due to insertions

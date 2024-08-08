@@ -27,6 +27,7 @@
 #include "clang/AST/TypeLoc.h"
 #include "clang/Basic/Specifiers.h"
 #include "clang/Lex/MacroInfo.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include <vector>
@@ -45,7 +46,7 @@ namespace extractapi {
 ///   int   -> type       "int"
 ///   pi;   -> identifier "pi"
 /// \endcode
-class DeclarationFragments {
+class CLANG_ABI DeclarationFragments {
 public:
   DeclarationFragments() = default;
 
@@ -249,7 +250,7 @@ private:
 };
 
 /// A factory class to build DeclarationFragments for different kinds of Decl.
-class DeclarationFragmentsBuilder {
+class CLANG_ABI DeclarationFragmentsBuilder {
 public:
   /// Build FunctionSignature for a function-like declaration \c FunctionT like
   /// FunctionDecl, ObjCMethodDecl, or CXXMethodDecl.

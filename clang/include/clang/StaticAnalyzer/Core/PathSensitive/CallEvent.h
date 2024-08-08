@@ -32,6 +32,7 @@
 #include "clang/StaticAnalyzer/Core/PathSensitive/ProgramState.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/ProgramState_Fwd.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/SVals.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/IntrusiveRefCntPtr.h"
 #include "llvm/ADT/PointerIntPair.h"
@@ -149,7 +150,7 @@ public:
 /// CallEventManager to be able to re-use CallEvent-sized memory blocks,
 /// subclasses of CallEvent may not add any data members to the base class.
 /// Use the "Data" and "Location" fields instead.
-class CallEvent {
+class CLANG_ABI CallEvent {
 public:
   using Kind = CallEventKind;
 
@@ -495,7 +496,7 @@ public:
 
 /// Represents a call to any sort of function that might have a
 /// FunctionDecl.
-class AnyFunctionCall : public CallEvent {
+class CLANG_ABI AnyFunctionCall : public CallEvent {
 protected:
   AnyFunctionCall(const Expr *E, ProgramStateRef St,
                   const LocationContext *LCtx,
@@ -532,7 +533,7 @@ public:
 /// Represents a C function or static C++ member function call.
 ///
 /// Example: \c fun()
-class SimpleFunctionCall : public AnyFunctionCall {
+class CLANG_ABI SimpleFunctionCall : public AnyFunctionCall {
   friend class CallEventManager;
 
 protected:
@@ -570,7 +571,7 @@ public:
 /// Represents a call to a block.
 ///
 /// Example: <tt>^{ statement-body }()</tt>
-class BlockCall : public CallEvent {
+class CLANG_ABI BlockCall : public CallEvent {
   friend class CallEventManager;
 
 protected:
@@ -673,7 +674,7 @@ public:
 
 /// Represents a non-static C++ member function call, no matter how
 /// it is written.
-class CXXInstanceCall : public AnyFunctionCall {
+class CLANG_ABI CXXInstanceCall : public AnyFunctionCall {
 protected:
   CXXInstanceCall(const CallExpr *CE, ProgramStateRef St,
                   const LocationContext *LCtx,
@@ -712,7 +713,7 @@ public:
 /// Represents a non-static C++ member function call.
 ///
 /// Example: \c obj.fun()
-class CXXMemberCall : public CXXInstanceCall {
+class CLANG_ABI CXXMemberCall : public CXXInstanceCall {
   friend class CallEventManager;
 
 protected:
@@ -755,7 +756,7 @@ public:
 /// implemented as a non-static member function.
 ///
 /// Example: <tt>iter + 1</tt>
-class CXXMemberOperatorCall : public CXXInstanceCall {
+class CLANG_ABI CXXMemberOperatorCall : public CXXInstanceCall {
   friend class CallEventManager;
 
 protected:
@@ -815,7 +816,7 @@ public:
 ///
 /// This can occur at the end of a scope (for automatic objects), at the end
 /// of a full-expression (for temporaries), or as part of a delete.
-class CXXDestructorCall : public CXXInstanceCall {
+class CLANG_ABI CXXDestructorCall : public CXXInstanceCall {
   friend class CallEventManager;
 
 protected:
@@ -873,7 +874,7 @@ public:
 
 /// Represents any constructor invocation. This includes regular constructors
 /// and inherited constructors.
-class AnyCXXConstructorCall : public AnyFunctionCall {
+class CLANG_ABI AnyCXXConstructorCall : public AnyFunctionCall {
 protected:
   AnyCXXConstructorCall(const Expr *E, const MemRegion *Target,
                         ProgramStateRef St, const LocationContext *LCtx,
@@ -973,7 +974,7 @@ public:
 /// B b = X{};
 ///
 /// ... b.b is initialized to true.
-class CXXInheritedConstructorCall : public AnyCXXConstructorCall {
+class CLANG_ABI CXXInheritedConstructorCall : public AnyCXXConstructorCall {
   friend class CallEventManager;
 
 protected:
@@ -1168,7 +1169,7 @@ enum ObjCMessageKind { OCM_PropertyAccess, OCM_Subscript, OCM_Message };
 /// Represents any expression that calls an Objective-C method.
 ///
 /// This includes all of the kinds listed in ObjCMessageKind.
-class ObjCMethodCall : public CallEvent {
+class CLANG_ABI ObjCMethodCall : public CallEvent {
   friend class CallEventManager;
 
   const PseudoObjectExpr *getContainingPseudoObjectExpr() const;
@@ -1281,7 +1282,7 @@ public:
 /// memory blocks. The CallEvents created by CallEventManager are only valid
 /// for the lifetime of the OwnedCallEvent that holds them; right now these
 /// objects cannot be copied and ownership cannot be transferred.
-class CallEventManager {
+class CLANG_ABI CallEventManager {
   friend class CallEvent;
 
   llvm::BumpPtrAllocator &Alloc;
