@@ -17,6 +17,7 @@
 
 #include "UnwrappedLineParser.h"
 #include "clang/Format/Format.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 namespace format {
@@ -209,7 +210,7 @@ private:
 
 /// Determines extra information about the tokens comprising an
 /// \c UnwrappedLine.
-class TokenAnnotator {
+class CLANG_ABI TokenAnnotator {
 public:
   TokenAnnotator(const FormatStyle &Style, const AdditionalKeywords &Keywords)
       : Style(Style), Keywords(Keywords) {}

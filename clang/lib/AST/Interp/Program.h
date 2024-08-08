@@ -13,17 +13,18 @@
 #ifndef LLVM_CLANG_AST_INTERP_PROGRAM_H
 #define LLVM_CLANG_AST_INTERP_PROGRAM_H
 
-#include <map>
-#include <vector>
 #include "Function.h"
 #include "Pointer.h"
 #include "PrimType.h"
 #include "Record.h"
 #include "Source.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/PointerUnion.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/Allocator.h"
+#include <map>
+#include <vector>
 
 namespace clang {
 class RecordDecl;
@@ -37,7 +38,7 @@ class Context;
 class Record;
 
 /// The program contains and links the bytecode for all functions.
-class Program final {
+class CLANG_ABI Program final {
 public:
   Program(Context &Ctx) : Ctx(Ctx) {}
 

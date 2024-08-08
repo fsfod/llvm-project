@@ -16,6 +16,7 @@
 #define LLVM_CLANG_LIB_FORMAT_QUALIFIERALIGNMENTFIXER_H
 
 #include "TokenAnalyzer.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 namespace format {
@@ -24,15 +25,15 @@ typedef std::function<std::pair<tooling::Replacements, unsigned>(
     const Environment &)>
     AnalyzerPass;
 
-void addQualifierAlignmentFixerPasses(const FormatStyle &Style,
+CLANG_ABI void addQualifierAlignmentFixerPasses(const FormatStyle &Style,
                                       SmallVectorImpl<AnalyzerPass> &Passes);
 
-void prepareLeftRightOrderingForQualifierAlignmentFixer(
+CLANG_ABI void prepareLeftRightOrderingForQualifierAlignmentFixer(
     const std::vector<std::string> &Order, std::vector<std::string> &LeftOrder,
     std::vector<std::string> &RightOrder,
     std::vector<tok::TokenKind> &Qualifiers);
 
-class LeftRightQualifierAlignmentFixer : public TokenAnalyzer {
+class CLANG_ABI LeftRightQualifierAlignmentFixer : public TokenAnalyzer {
   std::string Qualifier;
   bool RightAlign;
   SmallVector<tok::TokenKind, 8> QualifierTokens;

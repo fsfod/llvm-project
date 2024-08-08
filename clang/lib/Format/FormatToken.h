@@ -19,6 +19,7 @@
 #include "clang/Basic/OperatorPrecedence.h"
 #include "clang/Format/Format.h"
 #include "clang/Lex/Lexer.h"
+#include "clang/Support/Compiler.h"
 #include <memory>
 #include <optional>
 #include <unordered_set>
@@ -196,7 +197,7 @@ enum TokenType : uint8_t {
 };
 
 /// Determines the name of a token type.
-const char *getTokenTypeName(TokenType Type);
+CLANG_ABI const char *getTokenTypeName(TokenType Type);
 
 // Represents what type of block a set of braces open.
 enum BraceBlockKind { BK_Unknown, BK_Block, BK_BracedInit };
@@ -273,7 +274,7 @@ class AnnotatedLine;
 
 /// A wrapper around a \c Token storing information about the
 /// whitespace characters preceding it.
-struct FormatToken {
+struct CLANG_ABI FormatToken {
   FormatToken()
       : HasUnescapedNewline(false), IsMultiline(false), IsFirst(false),
         MustBreakBefore(false), MustBreakBeforeFinalized(false),
@@ -879,7 +880,7 @@ private:
 class ContinuationIndenter;
 struct LineState;
 
-class TokenRole {
+class CLANG_ABI TokenRole {
 public:
   TokenRole(const FormatStyle &Style) : Style(Style) {}
   virtual ~TokenRole();
@@ -917,7 +918,7 @@ protected:
   const FormatStyle &Style;
 };
 
-class CommaSeparatedList : public TokenRole {
+class CLANG_ABI CommaSeparatedList : public TokenRole {
 public:
   CommaSeparatedList(const FormatStyle &Style)
       : TokenRole(Style), HasNestedBracedList(false) {}

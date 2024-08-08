@@ -19,6 +19,7 @@
 #include "clang/AST/Decl.h"
 #include "clang/AST/DeclCXX.h"
 #include "clang/AST/Expr.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/PointerUnion.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -62,7 +63,7 @@ inline llvm::raw_ostream &operator<<(llvm::raw_ostream &OS, const Pointer &P);
 ///                      │
 ///                      │
 ///                     Base
-class Pointer {
+class CLANG_ABI Pointer {
 private:
   static constexpr unsigned PastEndMark = ~0u;
   static constexpr unsigned RootPtrMark = ~0u;

@@ -20,6 +20,7 @@
 #include "Macros.h"
 #include "clang/Basic/IdentifierTable.h"
 #include "clang/Format/Format.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/BitVector.h"
 #include "llvm/Support/Regex.h"
@@ -95,7 +96,7 @@ struct UnwrappedLine {
 /// for each parsed unwrapped line, and then \c finishRun to indicate
 /// that the set of unwrapped lines before is one coherent view of the
 /// code snippet to be formatted.
-class UnwrappedLineConsumer {
+class CLANG_ABI UnwrappedLineConsumer {
 public:
   virtual ~UnwrappedLineConsumer() {}
   virtual void consumeUnwrappedLine(const UnwrappedLine &Line) = 0;
@@ -104,7 +105,7 @@ public:
 
 class FormatTokenSource;
 
-class UnwrappedLineParser {
+class CLANG_ABI UnwrappedLineParser {
 public:
   UnwrappedLineParser(SourceManager &SourceMgr, const FormatStyle &Style,
                       const AdditionalKeywords &Keywords,
