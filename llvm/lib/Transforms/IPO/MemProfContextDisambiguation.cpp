@@ -39,6 +39,7 @@
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/Support/raw_ostream.h"
@@ -124,7 +125,7 @@ static cl::opt<unsigned>
 namespace llvm {
 // Indicate we are linking with an allocator that supports hot/cold operator
 // new interfaces.
-cl::opt<bool> SupportsHotColdNew(
+LLVM_ABI cl::opt<bool> SupportsHotColdNew(
     "supports-hot-cold-new", cl::init(false), cl::Hidden,
     cl::desc("Linking with hot/cold operator new interfaces"));
 } // namespace llvm

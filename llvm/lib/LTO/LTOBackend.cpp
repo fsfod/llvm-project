@@ -30,6 +30,7 @@
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/StandardInstrumentations.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/MemoryBuffer.h"
@@ -75,7 +76,7 @@ static cl::opt<bool> ThinLTOAssumeMerged(
              "importing and the other pre-optimization pipeline changes."));
 
 namespace llvm {
-extern cl::opt<bool> NoPGOWarnMismatch;
+LLVM_ABI extern cl::opt<bool> NoPGOWarnMismatch;
 }
 
 [[noreturn]] static void reportOpenError(StringRef Path, Twine Msg) {

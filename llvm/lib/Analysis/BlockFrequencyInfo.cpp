@@ -22,6 +22,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/Support/raw_ostream.h"
 #include <cassert>
@@ -47,13 +48,13 @@ static cl::opt<GVDAGType> ViewBlockFreqPropagationDAG(
                                                "profile count if available.")));
 
 namespace llvm {
-cl::opt<std::string>
+LLVM_ABI cl::opt<std::string>
     ViewBlockFreqFuncName("view-bfi-func-name", cl::Hidden,
                           cl::desc("The option to specify "
                                    "the name of the function "
                                    "whose CFG will be displayed."));
 
-cl::opt<unsigned>
+LLVM_ABI cl::opt<unsigned>
     ViewHotFreqPercent("view-hot-freq-percent", cl::init(10), cl::Hidden,
                        cl::desc("An integer in percent used to specify "
                                 "the hot blocks/edges to be displayed "
@@ -62,7 +63,7 @@ cl::opt<unsigned>
                                 "function multiplied by this percent."));
 
 // Command line option to turn on CFG dot or text dump after profile annotation.
-cl::opt<PGOViewCountsType> PGOViewCounts(
+LLVM_ABI cl::opt<PGOViewCountsType> PGOViewCounts(
     "pgo-view-counts", cl::Hidden,
     cl::desc("A boolean option to show CFG dag or text with "
              "block profile counts and branch probabilities "
@@ -81,7 +82,7 @@ cl::opt<PGOViewCountsType> PGOViewCounts(
 static cl::opt<bool> PrintBFI("print-bfi", cl::init(false), cl::Hidden,
                               cl::desc("Print the block frequency info."));
 
-cl::opt<std::string>
+LLVM_ABI cl::opt<std::string>
     PrintBFIFuncName("print-bfi-func-name", cl::Hidden,
                      cl::desc("The option to specify the name of the function "
                               "whose block frequency info is printed."));

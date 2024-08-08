@@ -27,6 +27,7 @@
 #include "llvm/Passes/OptimizationLevel.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/PGOOptions.h"
 #include "llvm/Support/VirtualFileSystem.h"
@@ -278,11 +279,11 @@ static cl::opt<bool> UseLoopVersioningLICM(
     cl::desc("Enable the experimental Loop Versioning LICM pass"));
 
 namespace llvm {
-cl::opt<bool> EnableMemProfContextDisambiguation(
+LLVM_ABI cl::opt<bool> EnableMemProfContextDisambiguation(
     "enable-memprof-context-disambiguation", cl::init(false), cl::Hidden,
     cl::ZeroOrMore, cl::desc("Enable MemProf context disambiguation"));
 
-extern cl::opt<bool> EnableInferAlignmentPass;
+LLVM_ABI extern cl::opt<bool> EnableInferAlignmentPass;
 } // namespace llvm
 
 PipelineTuningOptions::PipelineTuningOptions() {
@@ -301,7 +302,7 @@ PipelineTuningOptions::PipelineTuningOptions() {
 }
 
 namespace llvm {
-extern cl::opt<unsigned> MaxDevirtIterations;
+LLVM_ABI extern cl::opt<unsigned> MaxDevirtIterations;
 } // namespace llvm
 
 void PassBuilder::invokePeepholeEPCallbacks(FunctionPassManager &FPM,

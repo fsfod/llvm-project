@@ -27,9 +27,9 @@
 #include "llvm/Config/llvm-config.h"
 #include "llvm/IR/DebugInfo.h"
 #include "llvm/IR/DiagnosticPrinter.h"
-#include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/LLVMRemarkStreamer.h"
+#include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IR/Mangler.h"
 #include "llvm/IR/PassTimingInfo.h"
 #include "llvm/IR/Verifier.h"
@@ -42,6 +42,7 @@
 #include "llvm/Passes/StandardInstrumentations.h"
 #include "llvm/Remarks/HotnessThresholdParser.h"
 #include "llvm/Support/CachePruning.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/FileSystem.h"
@@ -75,13 +76,13 @@ using namespace llvm;
 
 namespace llvm {
 // Flags -discard-value-names, defined in LTOCodeGenerator.cpp
-extern cl::opt<bool> LTODiscardValueNames;
-extern cl::opt<std::string> RemarksFilename;
-extern cl::opt<std::string> RemarksPasses;
-extern cl::opt<bool> RemarksWithHotness;
-extern cl::opt<std::optional<uint64_t>, false, remarks::HotnessThresholdParser>
+LLVM_ABI extern cl::opt<bool> LTODiscardValueNames;
+LLVM_ABI extern cl::opt<std::string> RemarksFilename;
+LLVM_ABI extern cl::opt<std::string> RemarksPasses;
+LLVM_ABI extern cl::opt<bool> RemarksWithHotness;
+LLVM_ABI extern cl::opt<std::optional<uint64_t>, false, remarks::HotnessThresholdParser>
     RemarksHotnessThreshold;
-extern cl::opt<std::string> RemarksFormat;
+LLVM_ABI extern cl::opt<std::string> RemarksFormat;
 }
 
 namespace {

@@ -34,6 +34,7 @@
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/GenericDomTreeConstruction.h"
 #include "llvm/Support/GraphWriter.h"
@@ -48,7 +49,7 @@
 using namespace llvm;
 
 namespace llvm {
-extern cl::opt<bool> EnableVPlanNativePath;
+LLVM_ABI extern cl::opt<bool> EnableVPlanNativePath;
 }
 
 #define DEBUG_TYPE "vplan"

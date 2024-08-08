@@ -77,15 +77,15 @@ STATISTIC(NumClustered, "Number of load/store pairs clustered");
 
 namespace llvm {
 
-cl::opt<bool> ForceTopDown("misched-topdown", cl::Hidden,
+LLVM_ABI cl::opt<bool> ForceTopDown("misched-topdown", cl::Hidden,
                            cl::desc("Force top-down list scheduling"));
-cl::opt<bool> ForceBottomUp("misched-bottomup", cl::Hidden,
+LLVM_ABI cl::opt<bool> ForceBottomUp("misched-bottomup", cl::Hidden,
                             cl::desc("Force bottom-up list scheduling"));
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
 DumpCriticalPathLength("misched-dcpl", cl::Hidden,
                        cl::desc("Print critical path length to stdout"));
 
-cl::opt<bool> VerifyScheduling(
+LLVM_ABI cl::opt<bool> VerifyScheduling(
     "verify-misched", cl::Hidden,
     cl::desc("Verify machine instrs before and after machine scheduling"));
 

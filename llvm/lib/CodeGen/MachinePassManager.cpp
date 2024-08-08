@@ -14,13 +14,14 @@
 #include "llvm/CodeGen/MachineFunction.h"
 #include "llvm/CodeGen/MachineModuleInfo.h"
 #include "llvm/IR/PassManagerImpl.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 namespace llvm {
-template class AllAnalysesOn<MachineFunction>;
-template class AnalysisManager<MachineFunction>;
-template class PassManager<MachineFunction>;
+template class LLVM_EXPORT_TEMPLATE AllAnalysesOn<MachineFunction>;
+template class LLVM_EXPORT_TEMPLATE AnalysisManager<MachineFunction>;
+template class LLVM_EXPORT_TEMPLATE PassManager<MachineFunction>;
 
 Error MachineFunctionPassManager::run(Module &M,
                                       MachineFunctionAnalysisManager &MFAM) {

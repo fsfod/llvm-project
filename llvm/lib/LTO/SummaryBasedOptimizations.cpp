@@ -16,6 +16,7 @@
 #include "llvm/Analysis/SyntheticCountsUtils.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -24,7 +25,7 @@ static cl::opt<bool> ThinLTOSynthesizeEntryCounts(
     cl::desc("Synthesize entry counts based on the summary"));
 
 namespace llvm {
-extern cl::opt<int> InitialSyntheticCount;
+LLVM_ABI extern cl::opt<int> InitialSyntheticCount;
 }
 
 static void initializeCounts(ModuleSummaryIndex &Index) {

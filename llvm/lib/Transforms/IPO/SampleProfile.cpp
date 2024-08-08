@@ -64,6 +64,7 @@
 #include "llvm/ProfileData/SampleProfReader.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorOr.h"
 #include "llvm/Support/VirtualFileSystem.h"
@@ -194,31 +195,31 @@ static cl::opt<bool> DisableSampleLoaderInlining(
              "--sample-profile-merge-inlinee)."));
 
 namespace llvm {
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     SortProfiledSCC("sort-profiled-scc-member", cl::init(true), cl::Hidden,
                     cl::desc("Sort profiled recursion by edge weights."));
 
-cl::opt<int> ProfileInlineGrowthLimit(
+LLVM_ABI cl::opt<int> ProfileInlineGrowthLimit(
     "sample-profile-inline-growth-limit", cl::Hidden, cl::init(12),
     cl::desc("The size growth ratio limit for proirity-based sample profile "
              "loader inlining."));
 
-cl::opt<int> ProfileInlineLimitMin(
+LLVM_ABI cl::opt<int> ProfileInlineLimitMin(
     "sample-profile-inline-limit-min", cl::Hidden, cl::init(100),
     cl::desc("The lower bound of size growth limit for "
              "proirity-based sample profile loader inlining."));
 
-cl::opt<int> ProfileInlineLimitMax(
+LLVM_ABI cl::opt<int> ProfileInlineLimitMax(
     "sample-profile-inline-limit-max", cl::Hidden, cl::init(10000),
     cl::desc("The upper bound of size growth limit for "
              "proirity-based sample profile loader inlining."));
 
-cl::opt<int> SampleHotCallSiteThreshold(
+LLVM_ABI cl::opt<int> SampleHotCallSiteThreshold(
     "sample-profile-hot-inline-threshold", cl::Hidden, cl::init(3000),
     cl::desc("Hot callsite threshold for proirity-based sample profile loader "
              "inlining."));
 
-cl::opt<int> SampleColdCallSiteThreshold(
+LLVM_ABI cl::opt<int> SampleColdCallSiteThreshold(
     "sample-profile-cold-inline-threshold", cl::Hidden, cl::init(45),
     cl::desc("Threshold for inlining cold callsites"));
 } // namespace llvm
@@ -316,7 +317,7 @@ static cl::opt<bool> AnnotateSampleProfileInlinePhase(
              "sample-profile inline pass name."));
 
 namespace llvm {
-extern cl::opt<bool> EnableExtTspBlockPlacement;
+LLVM_ABI extern cl::opt<bool> EnableExtTspBlockPlacement;
 }
 
 namespace {

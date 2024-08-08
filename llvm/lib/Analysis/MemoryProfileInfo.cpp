@@ -12,6 +12,7 @@
 
 #include "llvm/Analysis/MemoryProfileInfo.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 using namespace llvm::memprof;
@@ -20,7 +21,7 @@ using namespace llvm::memprof;
 
 // Upper bound on lifetime access density (accesses per byte per lifetime sec)
 // for marking an allocation cold.
-cl::opt<float> MemProfLifetimeAccessDensityColdThreshold(
+LLVM_ABI cl::opt<float> MemProfLifetimeAccessDensityColdThreshold(
     "memprof-lifetime-access-density-cold-threshold", cl::init(0.05),
     cl::Hidden,
     cl::desc("The threshold the lifetime access density (accesses per byte per "
@@ -28,14 +29,14 @@ cl::opt<float> MemProfLifetimeAccessDensityColdThreshold(
 
 // Lower bound on lifetime to mark an allocation cold (in addition to accesses
 // per byte per sec above). This is to avoid pessimizing short lived objects.
-cl::opt<unsigned> MemProfAveLifetimeColdThreshold(
+LLVM_ABI cl::opt<unsigned> MemProfAveLifetimeColdThreshold(
     "memprof-ave-lifetime-cold-threshold", cl::init(200), cl::Hidden,
     cl::desc("The average lifetime (s) for an allocation to be considered "
              "cold"));
 
 // Lower bound on average lifetime accesses density (total life time access
 // density / alloc count) for marking an allocation hot.
-cl::opt<unsigned> MemProfMinAveLifetimeAccessDensityHotThreshold(
+LLVM_ABI cl::opt<unsigned> MemProfMinAveLifetimeAccessDensityHotThreshold(
     "memprof-min-ave-lifetime-access-density-hot-threshold", cl::init(1000),
     cl::Hidden,
     cl::desc("The minimum TotalLifetimeAccessDensity / AllocCount for an "

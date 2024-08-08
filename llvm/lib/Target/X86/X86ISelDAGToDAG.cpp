@@ -26,6 +26,7 @@
 #include "llvm/IR/Intrinsics.h"
 #include "llvm/IR/IntrinsicsX86.h"
 #include "llvm/IR/Type.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/KnownBits.h"
@@ -47,7 +48,7 @@ static cl::opt<bool> EnablePromoteAnyextLoad(
     "x86-promote-anyext-load", cl::init(true),
     cl::desc("Enable promoting aligned anyext load to wider load"), cl::Hidden);
 
-extern cl::opt<bool> IndirectBranchTracking;
+LLVM_ABI extern cl::opt<bool> IndirectBranchTracking;
 
 //===----------------------------------------------------------------------===//
 //                      Pattern Matcher Implementation

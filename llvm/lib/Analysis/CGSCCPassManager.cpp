@@ -46,14 +46,14 @@ static cl::opt<bool> AbortOnMaxDevirtIterationsReached(
 AnalysisKey ShouldNotRunFunctionPassesAnalysis::Key;
 
 // Explicit instantiations for the core proxy templates.
-template class AllAnalysesOn<LazyCallGraph::SCC>;
-template class AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>;
-template class PassManager<LazyCallGraph::SCC, CGSCCAnalysisManager,
+template class LLVM_EXPORT_TEMPLATE AllAnalysesOn<LazyCallGraph::SCC>;
+template class LLVM_EXPORT_TEMPLATE AnalysisManager<LazyCallGraph::SCC, LazyCallGraph &>;
+template class LLVM_EXPORT_TEMPLATE PassManager<LazyCallGraph::SCC, CGSCCAnalysisManager,
                            LazyCallGraph &, CGSCCUpdateResult &>;
-template class InnerAnalysisManagerProxy<CGSCCAnalysisManager, Module>;
-template class OuterAnalysisManagerProxy<ModuleAnalysisManager,
+template class LLVM_EXPORT_TEMPLATE InnerAnalysisManagerProxy<CGSCCAnalysisManager, Module>;
+template class LLVM_EXPORT_TEMPLATE OuterAnalysisManagerProxy<ModuleAnalysisManager,
                                          LazyCallGraph::SCC, LazyCallGraph &>;
-template class OuterAnalysisManagerProxy<CGSCCAnalysisManager, Function>;
+template class LLVM_EXPORT_TEMPLATE OuterAnalysisManagerProxy<CGSCCAnalysisManager, Function>;
 
 /// Explicitly specialize the pass manager run method to handle call graph
 /// updates.

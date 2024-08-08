@@ -25,6 +25,7 @@
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 using namespace llvm;
@@ -63,7 +64,7 @@ static cl::opt<bool>
                                  "with LTO and pass information."));
 
 namespace llvm {
-extern cl::opt<InlinerFunctionImportStatsOpts> InlinerFunctionImportStats;
+LLVM_ABI extern cl::opt<InlinerFunctionImportStatsOpts> InlinerFunctionImportStats;
 }
 
 namespace {
