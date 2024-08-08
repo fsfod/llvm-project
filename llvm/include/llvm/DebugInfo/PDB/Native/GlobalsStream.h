@@ -13,6 +13,7 @@
 #include "llvm/DebugInfo/CodeView/CVRecord.h"
 #include "llvm/DebugInfo/PDB/Native/RawTypes.h"
 #include "llvm/Support/BinaryStreamArray.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 
@@ -47,7 +48,7 @@ enum : unsigned { IPHR_HASH = 4096 };
 /// A readonly view of a hash table used in the globals and publics streams.
 /// Most clients will only want to iterate this to get symbol record offsets
 /// into the PDB symbol stream.
-class GSIHashTable {
+class LLVM_ABI GSIHashTable {
 public:
   const GSIHashHeader *HashHdr;
   FixedStreamArray<PSHashRecord> HashRecords;
@@ -67,7 +68,7 @@ public:
   GSIHashIterator end() const { return GSIHashIterator(HashRecords.end()); }
 };
 
-class GlobalsStream {
+class LLVM_ABI GlobalsStream {
 public:
   explicit GlobalsStream(std::unique_ptr<msf::MappedBlockStream> Stream);
   ~GlobalsStream();

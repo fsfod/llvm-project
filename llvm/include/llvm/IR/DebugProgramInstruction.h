@@ -53,6 +53,7 @@
 #include "llvm/IR/DebugLoc.h"
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/SymbolTableListTraits.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -74,7 +75,7 @@ class raw_ostream;
 ///
 /// This class inherits from DebugValueUser to allow LLVM's metadata facilities
 /// to update our references to metadata beneath our feet.
-class DPValue : public ilist_node<DPValue>, private DebugValueUser {
+class LLVM_ABI DPValue : public ilist_node<DPValue>, private DebugValueUser {
   friend class DebugValueUser;
 
   // NB: there is no explicit "Value" field in this class, it's effectively the
@@ -363,7 +364,7 @@ public:
 /// which we can improve in the future. Additionally, many improvements in the
 /// way that debug-info is stored can be achieved in this class, at a future
 /// date.
-class DPMarker {
+class LLVM_ABI DPMarker {
 public:
   DPMarker() {}
   /// Link back to the Instruction that owns this marker. Can be null during

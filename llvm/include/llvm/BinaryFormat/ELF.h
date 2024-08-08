@@ -20,6 +20,7 @@
 #define LLVM_BINARYFORMAT_ELF_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <cstring>
 
@@ -1903,10 +1904,10 @@ enum {
 };
 
 /// Convert an architecture name into ELF's e_machine value.
-uint16_t convertArchNameToEMachine(StringRef Arch);
+LLVM_ABI uint16_t convertArchNameToEMachine(StringRef Arch);
 
 /// Convert an ELF's e_machine value into an architecture name.
-StringRef convertEMachineToArchName(uint16_t EMachine);
+LLVM_ABI StringRef convertEMachineToArchName(uint16_t EMachine);
 
 } // end namespace ELF
 } // end namespace llvm

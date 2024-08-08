@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_EXPANDMEMCMP_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class ExpandMemCmpPass : public PassInfoMixin<ExpandMemCmpPass> {
+class LLVM_ABI ExpandMemCmpPass : public PassInfoMixin<ExpandMemCmpPass> {
   const TargetMachine *TM;
 
 public:

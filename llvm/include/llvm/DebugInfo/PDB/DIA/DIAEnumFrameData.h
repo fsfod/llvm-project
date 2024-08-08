@@ -12,11 +12,12 @@
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBEnumChildren.h"
 #include "llvm/DebugInfo/PDB/IPDBFrameData.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 
-class DIAEnumFrameData : public IPDBEnumChildren<IPDBFrameData> {
+class LLVM_ABI DIAEnumFrameData : public IPDBEnumChildren<IPDBFrameData> {
 public:
   explicit DIAEnumFrameData(CComPtr<IDiaEnumFrameData> DiaEnumerator);
 

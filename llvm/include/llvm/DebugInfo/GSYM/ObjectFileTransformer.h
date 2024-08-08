@@ -9,6 +9,7 @@
 #ifndef LLVM_DEBUGINFO_GSYM_OBJECTFILETRANSFORMER_H
 #define LLVM_DEBUGINFO_GSYM_OBJECTFILETRANSFORMER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -23,7 +24,7 @@ namespace gsym {
 
 class GsymCreator;
 
-class ObjectFileTransformer {
+class LLVM_ABI ObjectFileTransformer {
 public:
   /// Extract any object file data that is needed by the GsymCreator.
   ///

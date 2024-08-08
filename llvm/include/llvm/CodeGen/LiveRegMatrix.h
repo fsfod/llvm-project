@@ -26,6 +26,7 @@
 #include "llvm/ADT/BitVector.h"
 #include "llvm/CodeGen/LiveIntervalUnion.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -37,7 +38,7 @@ class MachineFunction;
 class TargetRegisterInfo;
 class VirtRegMap;
 
-class LiveRegMatrix : public MachineFunctionPass {
+class LLVM_ABI LiveRegMatrix : public MachineFunctionPass {
   const TargetRegisterInfo *TRI = nullptr;
   LiveIntervals *LIS = nullptr;
   VirtRegMap *VRM = nullptr;

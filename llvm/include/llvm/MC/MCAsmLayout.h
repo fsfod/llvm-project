@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class MCAssembler;
@@ -25,7 +26,7 @@ class MCSymbol;
 /// at a single point in time in such a way that it is always possible to
 /// efficiently compute the exact address of any symbol in the assembly file,
 /// even during the relaxation process.
-class MCAsmLayout {
+class LLVM_ABI MCAsmLayout {
   MCAssembler &Assembler;
 
   /// List of sections in layout order.

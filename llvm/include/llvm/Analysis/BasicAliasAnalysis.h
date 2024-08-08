@@ -17,6 +17,7 @@
 #include "llvm/Analysis/AliasAnalysis.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 #include <utility>
 
@@ -38,7 +39,7 @@ class Value;
 /// While it does retain some storage, that is used as an optimization and not
 /// to preserve information from query to query. However it does retain handles
 /// to various other analyses and must be recomputed when those analyses are.
-class BasicAAResult : public AAResultBase {
+class LLVM_ABI BasicAAResult : public AAResultBase {
   const DataLayout &DL;
   const Function &F;
   const TargetLibraryInfo &TLI;
@@ -149,7 +150,7 @@ private:
 };
 
 /// Analysis pass providing a never-invalidated alias analysis result.
-class BasicAA : public AnalysisInfoMixin<BasicAA> {
+class LLVM_ABI BasicAA : public AnalysisInfoMixin<BasicAA> {
   friend AnalysisInfoMixin<BasicAA>;
 
   static AnalysisKey Key;
@@ -161,7 +162,7 @@ public:
 };
 
 /// Legacy wrapper pass to provide the BasicAAResult object.
-class BasicAAWrapperPass : public FunctionPass {
+class LLVM_ABI BasicAAWrapperPass : public FunctionPass {
   std::unique_ptr<BasicAAResult> Result;
 
   virtual void anchor();
@@ -178,7 +179,7 @@ public:
   void getAnalysisUsage(AnalysisUsage &AU) const override;
 };
 
-FunctionPass *createBasicAAWrapperPass();
+LLVM_ABI FunctionPass *createBasicAAWrapperPass();
 
 } // end namespace llvm
 

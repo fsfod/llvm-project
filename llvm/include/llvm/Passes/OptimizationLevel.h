@@ -15,11 +15,12 @@
 #ifndef LLVM_PASSES_OPTIMIZATIONLEVEL_H
 #define LLVM_PASSES_OPTIMIZATIONLEVEL_H
 
+#include "llvm/Support/Compiler.h"
 #include <assert.h>
 
 namespace llvm {
 
-class OptimizationLevel final {
+class LLVM_ABI OptimizationLevel final {
   unsigned SpeedLevel = 2;
   unsigned SizeLevel = 0;
   OptimizationLevel(unsigned SpeedLevel, unsigned SizeLevel)

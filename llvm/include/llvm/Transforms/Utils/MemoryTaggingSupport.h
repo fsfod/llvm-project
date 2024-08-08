@@ -18,6 +18,7 @@
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/StackSafetyAnalysis.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class DominatorTree;
@@ -34,18 +35,18 @@ namespace memtag {
 // Returns whether Ends covered all possible exits. If they did not,
 // the caller should remove Ends to ensure that work done at the other
 // exits does not happen outside of the lifetime.
-bool forAllReachableExits(const DominatorTree &DT, const PostDominatorTree &PDT,
+LLVM_ABI bool forAllReachableExits(const DominatorTree &DT, const PostDominatorTree &PDT,
                           const LoopInfo &LI, const Instruction *Start,
                           const SmallVectorImpl<IntrinsicInst *> &Ends,
                           const SmallVectorImpl<Instruction *> &RetVec,
                           llvm::function_ref<void(Instruction *)> Callback);
 
-bool isStandardLifetime(const SmallVectorImpl<IntrinsicInst *> &LifetimeStart,
+LLVM_ABI bool isStandardLifetime(const SmallVectorImpl<IntrinsicInst *> &LifetimeStart,
                         const SmallVectorImpl<IntrinsicInst *> &LifetimeEnd,
                         const DominatorTree *DT, const LoopInfo *LI,
                         size_t MaxLifetimes);
 
-Instruction *getUntagLocationIfFunctionExit(Instruction &Inst);
+LLVM_ABI Instruction *getUntagLocationIfFunctionExit(Instruction &Inst);
 
 struct AllocaInfo {
   AllocaInst *AI;
@@ -61,7 +62,7 @@ struct StackInfo {
   bool CallsReturnTwice = false;
 };
 
-class StackInfoBuilder {
+class LLVM_ABI StackInfoBuilder {
 public:
   StackInfoBuilder(const StackSafetyGlobalInfo *SSI) : SSI(SSI) {}
 
@@ -74,8 +75,8 @@ private:
   const StackSafetyGlobalInfo *SSI;
 };
 
-uint64_t getAllocaSizeInBytes(const AllocaInst &AI);
-void alignAndPadAlloca(memtag::AllocaInfo &Info, llvm::Align Align);
+LLVM_ABI uint64_t getAllocaSizeInBytes(const AllocaInst &AI);
+LLVM_ABI void alignAndPadAlloca(memtag::AllocaInfo &Info, llvm::Align Align);
 
 } // namespace memtag
 } // namespace llvm

@@ -23,6 +23,7 @@
 #define LLVM_ANALYSIS_INTERVALPARTITION_H
 
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <vector>
 
@@ -39,7 +40,7 @@ class Interval;
 // interval is a (possibly nonexistent) loop with a "tail" of non-looping
 // nodes following it.
 //
-class IntervalPartition : public FunctionPass {
+class LLVM_ABI IntervalPartition : public FunctionPass {
   using IntervalMapTy = std::map<BasicBlock *, Interval *>;
   IntervalMapTy IntervalMap;
 

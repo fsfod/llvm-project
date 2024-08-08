@@ -47,6 +47,7 @@
 #include "llvm/IR/PassInstrumentation.h"
 #include "llvm/IR/PassManagerInternal.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/TimeProfiler.h"
 #include "llvm/Support/TypeName.h"
 #include <cassert>
@@ -59,7 +60,7 @@
 #include <utility>
 #include <vector>
 
-extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
 
 namespace llvm {
 
@@ -117,8 +118,8 @@ private:
 
 template <typename IRUnitT> AnalysisSetKey AllAnalysesOn<IRUnitT>::SetKey;
 
-extern template class AllAnalysesOn<Module>;
-extern template class AllAnalysesOn<Function>;
+extern template class LLVM_TEMPLATE_ABI AllAnalysesOn<Module>;
+extern template class LLVM_TEMPLATE_ABI AllAnalysesOn<Function>;
 
 /// Represents analyses that only rely on functions' control flow.
 ///
@@ -130,7 +131,7 @@ extern template class AllAnalysesOn<Function>;
 /// mutate the CFG. Mutating the condition of a branch or argument of an
 /// invoked function does not mutate the CFG, but changing the successor labels
 /// of those instructions does.
-class CFGAnalyses {
+class LLVM_ABI CFGAnalyses {
 public:
   static AnalysisSetKey *ID() { return &SetKey; }
 
@@ -169,7 +170,7 @@ private:
 ///     // The analysis has been successfully preserved ...
 ///   }
 /// ```
-class PreservedAnalyses {
+class LLVM_ABI PreservedAnalyses {
 public:
   /// Convenience factory function for the empty preserved set.
   static PreservedAnalyses none() { return PreservedAnalyses(); }
@@ -605,12 +606,12 @@ protected:
   std::vector<std::unique_ptr<PassConceptT>> Passes;
 };
 
-extern template class PassManager<Module>;
+extern template class LLVM_TEMPLATE_ABI PassManager<Module>;
 
 /// Convenience typedef for a pass manager over modules.
 using ModulePassManager = PassManager<Module>;
 
-extern template class PassManager<Function>;
+extern template class LLVM_TEMPLATE_ABI PassManager<Function>;
 
 /// Convenience typedef for a pass manager over functions.
 using FunctionPassManager = PassManager<Function>;
@@ -620,7 +621,7 @@ using FunctionPassManager = PassManager<Function>;
 /// internals (e.g PassInstrumentationAnalysis::ID) for use there if needed.
 /// FIXME: figure out a way to move PassInstrumentationAnalysis into its own
 /// header.
-class PassInstrumentationAnalysis
+class LLVM_ABI PassInstrumentationAnalysis
     : public AnalysisInfoMixin<PassInstrumentationAnalysis> {
   friend AnalysisInfoMixin<PassInstrumentationAnalysis>;
   static AnalysisKey Key;
@@ -930,12 +931,12 @@ private:
   AnalysisResultMapT AnalysisResults;
 };
 
-extern template class AnalysisManager<Module>;
+extern template class LLVM_TEMPLATE_ABI AnalysisManager<Module>;
 
 /// Convenience typedef for the Module analysis manager.
 using ModuleAnalysisManager = AnalysisManager<Module>;
 
-extern template class AnalysisManager<Function>;
+extern template class LLVM_TEMPLATE_ABI AnalysisManager<Function>;
 
 /// Convenience typedef for the Function analysis manager.
 using FunctionAnalysisManager = AnalysisManager<Function>;
@@ -1051,13 +1052,13 @@ using FunctionAnalysisManagerModuleProxy =
 /// Specialization of the invalidate method for the \c
 /// FunctionAnalysisManagerModuleProxy's result.
 template <>
-bool FunctionAnalysisManagerModuleProxy::Result::invalidate(
+LLVM_ABI LLVM_ABI bool FunctionAnalysisManagerModuleProxy::Result::invalidate(
     Module &M, const PreservedAnalyses &PA,
     ModuleAnalysisManager::Invalidator &Inv);
 
 // Ensure the \c FunctionAnalysisManagerModuleProxy is provided as an extern
 // template.
-extern template class InnerAnalysisManagerProxy<FunctionAnalysisManager,
+extern template class LLVM_TEMPLATE_ABI InnerAnalysisManagerProxy<FunctionAnalysisManager,
                                                 Module>;
 
 /// An analysis over an "inner" IR unit that provides access to an
@@ -1196,7 +1197,7 @@ template <typename AnalysisManagerT, typename IRUnitT, typename... ExtraArgTs>
 AnalysisKey
     OuterAnalysisManagerProxy<AnalysisManagerT, IRUnitT, ExtraArgTs...>::Key;
 
-extern template class OuterAnalysisManagerProxy<ModuleAnalysisManager,
+extern template class LLVM_TEMPLATE_ABI OuterAnalysisManagerProxy<ModuleAnalysisManager,
                                                 Function>;
 /// Provide the \c ModuleAnalysisManager to \c Function proxy.
 using ModuleAnalysisManagerFunctionProxy =
@@ -1225,7 +1226,7 @@ using ModuleAnalysisManagerFunctionProxy =
 /// Note that although function passes can access module analyses, module
 /// analyses are not invalidated while the function passes are running, so they
 /// may be stale.  Function analyses will not be stale.
-class ModuleToFunctionPassAdaptor
+class LLVM_ABI ModuleToFunctionPassAdaptor
     : public PassInfoMixin<ModuleToFunctionPassAdaptor> {
 public:
   using PassConceptT = detail::PassConcept<Function, FunctionAnalysisManager>;

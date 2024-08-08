@@ -15,6 +15,7 @@
 #ifndef LLVM_TRANSFORMS_UTILS_SIMPLIFYINDVAR_H
 #define LLVM_TRANSFORMS_UTILS_SIMPLIFYINDVAR_H
 
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 
 class Type;
@@ -31,7 +32,7 @@ class TargetTransformInfo;
 
 /// Interface for visiting interesting IV users that are recognized but not
 /// simplified by this utility.
-class IVVisitor {
+class LLVM_ABI IVVisitor {
 protected:
   const DominatorTree *DT = nullptr;
 
@@ -47,14 +48,14 @@ public:
 
 /// simplifyUsersOfIV - Simplify instructions that use this induction variable
 /// by using ScalarEvolution to analyze the IV's recurrence.
-bool simplifyUsersOfIV(PHINode *CurrIV, ScalarEvolution *SE, DominatorTree *DT,
+LLVM_ABI bool simplifyUsersOfIV(PHINode *CurrIV, ScalarEvolution *SE, DominatorTree *DT,
                        LoopInfo *LI, const TargetTransformInfo *TTI,
                        SmallVectorImpl<WeakTrackingVH> &Dead,
                        SCEVExpander &Rewriter, IVVisitor *V = nullptr);
 
 /// SimplifyLoopIVs - Simplify users of induction variables within this
 /// loop. This does not actually change or add IVs.
-bool simplifyLoopIVs(Loop *L, ScalarEvolution *SE, DominatorTree *DT,
+LLVM_ABI bool simplifyLoopIVs(Loop *L, ScalarEvolution *SE, DominatorTree *DT,
                      LoopInfo *LI, const TargetTransformInfo *TTI,
                      SmallVectorImpl<WeakTrackingVH> &Dead);
 
@@ -73,7 +74,7 @@ struct WideIVInfo {
 
 /// Widen Induction Variables - Extend the width of an IV to cover its
 /// widest uses.
-PHINode *createWideIV(const WideIVInfo &WI,
+LLVM_ABI PHINode *createWideIV(const WideIVInfo &WI,
     LoopInfo *LI, ScalarEvolution *SE, SCEVExpander &Rewriter,
     DominatorTree *DT, SmallVectorImpl<WeakTrackingVH> &DeadInsts,
     unsigned &NumElimExt, unsigned &NumWidened,

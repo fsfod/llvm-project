@@ -17,6 +17,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/CBindingWrapping.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include <optional>
 #include <string>
@@ -28,7 +29,7 @@ namespace remarks {
 constexpr uint64_t CurrentRemarkVersion = 0;
 
 /// The debug location used to track a remark back to the source file.
-struct RemarkLocation {
+struct LLVM_ABI RemarkLocation {
   /// Absolute path of the source file corresponding to this remark.
   StringRef SourceFilePath;
   unsigned SourceLine = 0;
@@ -43,7 +44,7 @@ DEFINE_SIMPLE_CONVERSION_FUNCTIONS(RemarkLocation, LLVMRemarkDebugLocRef)
 
 /// A key-value pair with a debug location that is used to display the remarks
 /// at the right place in the source.
-struct Argument {
+struct LLVM_ABI Argument {
   StringRef Key;
   // FIXME: We might want to be able to store other types than strings here.
   StringRef Val;
@@ -94,7 +95,7 @@ inline StringRef typeToStr(Type Ty) {
 }
 
 /// A remark type used for both emission and parsing.
-struct Remark {
+struct LLVM_ABI Remark {
   /// The type of the remark.
   Type RemarkType = Type::Unknown;
 

@@ -10,10 +10,11 @@
 #define LLVM_TRANSFORMS_SCALAR_INFERADDRESSSPACES_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct InferAddressSpacesPass : PassInfoMixin<InferAddressSpacesPass> {
+struct LLVM_ABI InferAddressSpacesPass : PassInfoMixin<InferAddressSpacesPass> {
   InferAddressSpacesPass();
   InferAddressSpacesPass(unsigned AddressSpace);
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);

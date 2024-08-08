@@ -10,10 +10,11 @@
 #define LLVM_TRANSFORMS_UTILS_HELLOWORLD_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class HelloWorldPass : public PassInfoMixin<HelloWorldPass> {
+class LLVM_ABI HelloWorldPass : public PassInfoMixin<HelloWorldPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

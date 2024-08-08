@@ -12,6 +12,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/MC/MCAsmMacro.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <string>
@@ -20,7 +21,7 @@ namespace llvm {
 
 /// A callback class which is notified of each comment in an assembly file as
 /// it is lexed.
-class AsmCommentConsumer {
+class LLVM_ABI AsmCommentConsumer {
 public:
   virtual ~AsmCommentConsumer() = default;
 
@@ -34,7 +35,7 @@ public:
 
 /// Generic assembler lexer interface, for use by target specific assembly
 /// lexers.
-class MCAsmLexer {
+class LLVM_ABI MCAsmLexer {
   /// The current token, stored in the base class for faster access.
   SmallVector<AsmToken, 1> CurTok;
 

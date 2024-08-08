@@ -29,6 +29,7 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "llvm/MC/LaneBitmask.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
@@ -48,9 +49,9 @@ using RegClassOrRegBank =
 /// MachineRegisterInfo - Keep track of information for virtual and physical
 /// registers, including vreg register classes, use/def chains for registers,
 /// etc.
-class MachineRegisterInfo {
+class LLVM_ABI MachineRegisterInfo {
 public:
-  class Delegate {
+  class LLVM_ABI Delegate {
     virtual void anchor();
 
   public:

@@ -38,6 +38,7 @@
 #include "llvm/ProfileData/SampleProf.h"
 #include "llvm/ProfileData/SampleProfReader.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/SampleProfileInference.h"
@@ -142,7 +143,7 @@ public:
 
 
 
-extern cl::opt<bool> SampleProfileUseProfi;
+LLVM_ABI extern cl::opt<bool> SampleProfileUseProfi;
 
 template <typename FT> class SampleProfileLoaderBaseImpl {
 public:

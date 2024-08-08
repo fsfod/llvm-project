@@ -44,6 +44,7 @@
 #ifndef LLVM_ADT_HASHING_H
 #define LLVM_ADT_HASHING_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataTypes.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/SwapByteOrder.h"
@@ -140,7 +141,7 @@ template <typename T> hash_code hash_value(const std::optional<T> &arg);
 /// undone. This makes it thread-hostile and very hard to use outside of
 /// immediately on start of a simple program designed for reproducible
 /// behavior.
-void set_fixed_execution_hash_seed(uint64_t fixed_value);
+LLVM_ABI void set_fixed_execution_hash_seed(uint64_t fixed_value);
 
 
 // All of the implementation details of actually computing the various hash
@@ -328,7 +329,7 @@ struct hash_state {
 /// This variable can be set using the \see llvm::set_fixed_execution_seed
 /// function. See that function for details. Do not, under any circumstances,
 /// set or read this variable.
-extern uint64_t fixed_seed_override;
+LLVM_ABI extern uint64_t fixed_seed_override;
 
 inline uint64_t get_execution_seed() {
   // FIXME: This needs to be a per-execution seed. This is just a placeholder

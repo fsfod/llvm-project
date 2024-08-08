@@ -10,10 +10,11 @@
 #define LLVM_TRANSFORMS_SCALAR_STRAIGHTLINESTRENGTHREDUCE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class StraightLineStrengthReducePass
+class LLVM_ABI StraightLineStrengthReducePass
     : public PassInfoMixin<StraightLineStrengthReducePass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);

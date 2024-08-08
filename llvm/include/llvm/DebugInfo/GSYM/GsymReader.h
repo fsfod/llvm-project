@@ -15,6 +15,7 @@
 #include "llvm/DebugInfo/GSYM/Header.h"
 #include "llvm/DebugInfo/GSYM/LineEntry.h"
 #include "llvm/DebugInfo/GSYM/StringTable.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataExtractor.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/ErrorOr.h"
@@ -41,7 +42,7 @@ namespace gsym {
 /// GsymReader objects must use one of the static functions to create an
 /// instance: GsymReader::openFile(...) and GsymReader::copyBuffer(...).
 
-class GsymReader {
+class LLVM_ABI GsymReader {
   GsymReader(std::unique_ptr<MemoryBuffer> Buffer);
   llvm::Error parse();
 

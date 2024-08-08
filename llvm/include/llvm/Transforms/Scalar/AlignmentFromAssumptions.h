@@ -18,6 +18,7 @@
 #define LLVM_TRANSFORMS_SCALAR_ALIGNMENTFROMASSUMPTIONS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ class DominatorTree;
 class ScalarEvolution;
 class SCEV;
 
-struct AlignmentFromAssumptionsPass
+struct LLVM_ABI AlignmentFromAssumptionsPass
     : public PassInfoMixin<AlignmentFromAssumptionsPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

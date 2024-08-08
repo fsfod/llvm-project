@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_SAFESTACK_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class SafeStackPass : public PassInfoMixin<SafeStackPass> {
+class LLVM_ABI SafeStackPass : public PassInfoMixin<SafeStackPass> {
   const TargetMachine *TM;
 
 public:

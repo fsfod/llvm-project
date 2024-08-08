@@ -57,6 +57,7 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/ValueHandle.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -78,7 +79,7 @@ struct PredicateConstraint {
 
 // Base class for all predicate information we provide.
 // All of our predicate information has at least a comparison.
-class PredicateBase : public ilist_node<PredicateBase> {
+class LLVM_ABI PredicateBase : public ilist_node<PredicateBase> {
 public:
   PredicateType Type;
   // The original operand before we renamed it.
@@ -174,7 +175,7 @@ public:
 
 /// Encapsulates PredicateInfo, including all data associated with memory
 /// accesses.
-class PredicateInfo {
+class LLVM_ABI PredicateInfo {
 public:
   PredicateInfo(Function &, DominatorTree &, AssumptionCache &);
   ~PredicateInfo();
@@ -208,7 +209,7 @@ private:
 };
 
 /// Printer pass for \c PredicateInfo.
-class PredicateInfoPrinterPass
+class LLVM_ABI PredicateInfoPrinterPass
     : public PassInfoMixin<PredicateInfoPrinterPass> {
   raw_ostream &OS;
 
@@ -219,7 +220,7 @@ public:
 };
 
 /// Verifier pass for \c PredicateInfo.
-struct PredicateInfoVerifierPass : PassInfoMixin<PredicateInfoVerifierPass> {
+struct LLVM_ABI PredicateInfoVerifierPass : PassInfoMixin<PredicateInfoVerifierPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
   static bool isRequired() { return true; }
 };

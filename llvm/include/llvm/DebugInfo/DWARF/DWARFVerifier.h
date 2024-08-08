@@ -14,6 +14,7 @@
 #include "llvm/DebugInfo/DWARF/DWARFAddressRange.h"
 #include "llvm/DebugInfo/DWARF/DWARFDie.h"
 #include "llvm/DebugInfo/DWARF/DWARFUnitIndex.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <map>
 #include <set>
@@ -31,10 +32,10 @@ class DataExtractor;
 struct DWARFSection;
 
 /// A class that verifies DWARF debug information given a DWARF Context.
-class DWARFVerifier {
+class LLVM_ABI DWARFVerifier {
 public:
   /// A class that keeps the address range information for a single DIE.
-  struct DieRangeInfo {
+  struct LLVM_ABI DieRangeInfo {
     DWARFDie Die;
 
     /// Sorted DWARFAddressRanges.

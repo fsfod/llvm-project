@@ -38,13 +38,14 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class MachineBasicBlock;
 class MachineRegisterInfo;
 
-class LiveVariables : public MachineFunctionPass {
+class LLVM_ABI LiveVariables : public MachineFunctionPass {
 public:
   static char ID; // Pass identification, replacement for typeid
   LiveVariables() : MachineFunctionPass(ID) {
@@ -77,7 +78,7 @@ public:
   /// not live across any  blocks) and Kills is empty (phi nodes are not
   /// included). This is sensical because the value must be live to the end of
   /// the block, but is not live in any successor blocks.
-  struct VarInfo {
+  struct LLVM_ABI VarInfo {
     /// AliveBlocks - Set of blocks in which this value is alive completely
     /// through.  This is a bit set which uses the basic block number as an
     /// index.

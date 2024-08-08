@@ -10,9 +10,10 @@
 #define LLVM_TRANSFORMS_SCALAR_STRUCTURIZECFG_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
-struct StructurizeCFGPass : PassInfoMixin<StructurizeCFGPass> {
+struct LLVM_ABI StructurizeCFGPass : PassInfoMixin<StructurizeCFGPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 } // namespace llvm

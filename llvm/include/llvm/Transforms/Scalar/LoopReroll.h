@@ -10,11 +10,12 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPREROLL_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Scalar/LoopPassManager.h"
 
 namespace llvm {
 
-class LoopRerollPass : public PassInfoMixin<LoopRerollPass> {
+class LLVM_ABI LoopRerollPass : public PassInfoMixin<LoopRerollPass> {
 public:
   PreservedAnalyses run(Loop &L, LoopAnalysisManager &AM,
                         LoopStandardAnalysisResults &AR, LPMUpdater &U);

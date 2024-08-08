@@ -19,6 +19,7 @@
 #include "llvm/ObjectYAML/OffloadYAML.h"
 #include "llvm/ObjectYAML/WasmYAML.h"
 #include "llvm/ObjectYAML/XCOFFYAML.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/YAMLTraits.h"
 #include <memory>
 
@@ -41,7 +42,7 @@ struct YamlObjectFile {
   std::unique_ptr<DXContainerYAML::Object> DXContainer;
 };
 
-template <> struct MappingTraits<YamlObjectFile> {
+template <> struct LLVM_ABI MappingTraits<YamlObjectFile> {
   static void mapping(IO &IO, YamlObjectFile &ObjectFile);
 };
 

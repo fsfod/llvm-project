@@ -33,6 +33,7 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/DebugLoc.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericLoopInfo.h"
 
 namespace llvm {
@@ -40,9 +41,9 @@ namespace llvm {
 class MachineDominatorTree;
 // Implementation in LoopInfoImpl.h
 class MachineLoop;
-extern template class LoopBase<MachineBasicBlock, MachineLoop>;
+extern template class LLVM_TEMPLATE_ABI LoopBase<MachineBasicBlock, MachineLoop>;
 
-class MachineLoop : public LoopBase<MachineBasicBlock, MachineLoop> {
+class LLVM_ABI MachineLoop : public LoopBase<MachineBasicBlock, MachineLoop> {
 public:
   /// Return the "top" block in the loop, which is the first block in the linear
   /// layout, ignoring any parts of the loop not contiguous with the part that
@@ -93,9 +94,9 @@ private:
 };
 
 // Implementation in LoopInfoImpl.h
-extern template class LoopInfoBase<MachineBasicBlock, MachineLoop>;
+extern template class LLVM_TEMPLATE_ABI LoopInfoBase<MachineBasicBlock, MachineLoop>;
 
-class MachineLoopInfo : public MachineFunctionPass {
+class LLVM_ABI MachineLoopInfo : public MachineFunctionPass {
   friend class LoopBase<MachineBasicBlock, MachineLoop>;
 
   LoopInfoBase<MachineBasicBlock, MachineLoop> LI;

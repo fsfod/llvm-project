@@ -16,10 +16,11 @@
 #include "llvm/CodeGen/MachineBasicBlock.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/BranchProbability.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class MachineBranchProbabilityInfo : public ImmutablePass {
+class LLVM_ABI MachineBranchProbabilityInfo : public ImmutablePass {
   virtual void anchor();
 
   // Default weight value. Used when we don't have information about the edge.

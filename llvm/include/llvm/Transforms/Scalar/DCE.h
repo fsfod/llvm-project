@@ -14,18 +14,19 @@
 #define LLVM_TRANSFORMS_SCALAR_DCE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
 /// Basic Dead Code Elimination pass.
-class DCEPass : public PassInfoMixin<DCEPass> {
+class LLVM_ABI DCEPass : public PassInfoMixin<DCEPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 
-class RedundantDbgInstEliminationPass
+class LLVM_ABI RedundantDbgInstEliminationPass
     : public PassInfoMixin<RedundantDbgInstEliminationPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);

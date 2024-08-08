@@ -9,9 +9,10 @@
 #ifndef LLVM_ANALYSIS_VALUELATTICE_H
 #define LLVM_ANALYSIS_VALUELATTICE_H
 
-#include "llvm/IR/Constants.h"
 #include "llvm/IR/ConstantRange.h"
+#include "llvm/IR/Constants.h"
 #include "llvm/IR/Instructions.h"
+#include "llvm/Support/Compiler.h"
 
 //===----------------------------------------------------------------------===//
 //                               ValueLatticeElement
@@ -26,7 +27,7 @@ class Constant;
 /// FIXME: This is basically just for bringup, this can be made a lot more rich
 /// in the future.
 ///
-class ValueLatticeElement {
+class LLVM_ABI ValueLatticeElement {
   enum ValueLatticeElementTy {
     /// This Value has no known value yet.  As a result, this implies the
     /// producing instruction is dead.  Caution: We use this as the starting
@@ -459,6 +460,6 @@ public:
 static_assert(sizeof(ValueLatticeElement) <= 40,
               "size of ValueLatticeElement changed unexpectedly");
 
-raw_ostream &operator<<(raw_ostream &OS, const ValueLatticeElement &Val);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const ValueLatticeElement &Val);
 } // end namespace llvm
 #endif

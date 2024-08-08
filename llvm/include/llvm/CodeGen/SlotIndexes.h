@@ -29,6 +29,7 @@
 #include "llvm/CodeGen/MachineInstr.h"
 #include "llvm/CodeGen/MachineInstrBundle.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <iterator>
@@ -65,7 +66,7 @@ class raw_ostream;
       : public ilist_noalloc_traits<IndexListEntry> {};
 
   /// SlotIndex - An opaque wrapper around machine indexes.
-  class SlotIndex {
+  class LLVM_ABI SlotIndex {
     friend class SlotIndexes;
 
     enum Slot {
@@ -297,7 +298,7 @@ class raw_ostream;
   /// SlotIndexes pass.
   ///
   /// This pass assigns indexes to each instruction.
-  class SlotIndexes : public MachineFunctionPass {
+  class LLVM_ABI SlotIndexes : public MachineFunctionPass {
   private:
     // IndexListEntry allocator.
     BumpPtrAllocator ileAllocator;

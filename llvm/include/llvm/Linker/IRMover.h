@@ -12,6 +12,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/FunctionExtras.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 
 namespace llvm {
@@ -23,9 +24,9 @@ class StructType;
 class TrackingMDRef;
 class Type;
 
-class IRMover {
-  struct StructTypeKeyInfo {
-    struct KeyTy {
+class LLVM_ABI IRMover {
+  struct LLVM_ABI StructTypeKeyInfo {
+    struct LLVM_ABI KeyTy {
       ArrayRef<Type *> ETypes;
       bool IsPacked;
       KeyTy(ArrayRef<Type *> E, bool P);
@@ -45,7 +46,7 @@ class IRMover {
   typedef DenseMap<const Metadata *, TrackingMDRef> MDMapT;
 
 public:
-  class IdentifiedStructTypeSet {
+  class LLVM_ABI IdentifiedStructTypeSet {
     // The set of opaque types is the composite module.
     DenseSet<StructType *> OpaqueStructTypes;
 

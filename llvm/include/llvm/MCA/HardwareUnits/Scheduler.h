@@ -20,11 +20,12 @@
 #include "llvm/MCA/HardwareUnits/LSUnit.h"
 #include "llvm/MCA/HardwareUnits/ResourceManager.h"
 #include "llvm/MCA/Support.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace mca {
 
-class SchedulerStrategy {
+class LLVM_ABI SchedulerStrategy {
 public:
   SchedulerStrategy() = default;
   virtual ~SchedulerStrategy();
@@ -37,7 +38,7 @@ public:
 };
 
 /// Default instruction selection strategy used by class Scheduler.
-class DefaultSchedulerStrategy : public SchedulerStrategy {
+class LLVM_ABI DefaultSchedulerStrategy : public SchedulerStrategy {
   /// This method ranks instructions based on their age, and the number of known
   /// users. The lower the rank value, the better.
   int computeRank(const InstRef &Lhs) const {
@@ -67,7 +68,7 @@ public:
 /// resources. This class is also responsible for tracking the progress of
 /// instructions from the dispatch stage, until the write-back stage.
 ///
-class Scheduler : public HardwareUnit {
+class LLVM_ABI Scheduler : public HardwareUnit {
   LSUnitBase &LSU;
 
   // Instruction selection strategy for this Scheduler.

@@ -10,10 +10,11 @@
 #define LLVM_TRANSFORMS_SCALAR_CONSTRAINTELIMINATION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class ConstraintEliminationPass
+class LLVM_ABI ConstraintEliminationPass
     : public PassInfoMixin<ConstraintEliminationPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &);

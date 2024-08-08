@@ -8,11 +8,12 @@
 
 #ifndef LLVM_LTO_SUMMARYBASEDOPTIMIZATIONS_H
 #define LLVM_LTO_SUMMARYBASEDOPTIMIZATIONS_H
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 class ModuleSummaryIndex;
 
 /// Compute synthetic function entry counts.
-void computeSyntheticCounts(ModuleSummaryIndex &Index);
+LLVM_ABI void computeSyntheticCounts(ModuleSummaryIndex &Index);
 
 } // namespace llvm
 #endif

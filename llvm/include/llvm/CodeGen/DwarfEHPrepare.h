@@ -15,12 +15,13 @@
 #define LLVM_CODEGEN_DWARFEHPREPARE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class DwarfEHPreparePass : public PassInfoMixin<DwarfEHPreparePass> {
+class LLVM_ABI DwarfEHPreparePass : public PassInfoMixin<DwarfEHPreparePass> {
   const TargetMachine *TM;
 
 public:

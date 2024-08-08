@@ -16,6 +16,7 @@
 
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/WithColor.h"
 #include "llvm/Support/raw_ostream.h"
 #include <cassert>
@@ -231,7 +232,7 @@ struct DIDumpOptions {
   std::function<void(Error)> WarningHandler = WithColor::defaultWarningHandler;
 };
 
-class DIContext {
+class LLVM_ABI DIContext {
 public:
   enum DIContextKind { CK_DWARF, CK_PDB, CK_BTF };
 
@@ -269,7 +270,7 @@ private:
 /// An inferface for inquiring the load address of a loaded object file
 /// to be used by the DIContext implementations when applying relocations
 /// on the fly.
-class LoadedObjectInfo {
+class LLVM_ABI LoadedObjectInfo {
 protected:
   LoadedObjectInfo() = default;
   LoadedObjectInfo(const LoadedObjectInfo &) = default;

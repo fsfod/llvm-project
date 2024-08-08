@@ -18,17 +18,18 @@
 #include "llvm/CodeGen/MachineCycleAnalysis.h"
 #include "llvm/CodeGen/MachineDominators.h"
 #include "llvm/CodeGen/MachineSSAContext.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-extern template class GenericUniformityInfo<MachineSSAContext>;
+extern template class LLVM_TEMPLATE_ABI GenericUniformityInfo<MachineSSAContext>;
 using MachineUniformityInfo = GenericUniformityInfo<MachineSSAContext>;
 
 /// \brief Compute uniformity information for a Machine IR function.
 ///
 /// If \p HasBranchDivergence is false, produces a dummy result which assumes
 /// everything is uniform.
-MachineUniformityInfo computeMachineUniformityInfo(
+LLVM_ABI MachineUniformityInfo computeMachineUniformityInfo(
     MachineFunction &F, const MachineCycleInfo &cycleInfo,
     const MachineDomTree &domTree, bool HasBranchDivergence);
 

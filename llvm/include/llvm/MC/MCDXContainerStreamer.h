@@ -20,12 +20,13 @@
 #include "llvm/MC/MCCodeEmitter.h"
 #include "llvm/MC/MCObjectStreamer.h"
 #include "llvm/MC/MCObjectWriter.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class MCInst;
 class raw_ostream;
 
-class MCDXContainerStreamer : public MCObjectStreamer {
+class LLVM_ABI MCDXContainerStreamer : public MCObjectStreamer {
 public:
   MCDXContainerStreamer(MCContext &Context, std::unique_ptr<MCAsmBackend> TAB,
                         std::unique_ptr<MCObjectWriter> OW,

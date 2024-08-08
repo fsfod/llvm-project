@@ -14,6 +14,7 @@
 #define LLVM_MC_MCSECTIONWASM_H
 
 #include "llvm/MC/MCSection.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -23,7 +24,7 @@ class StringRef;
 class raw_ostream;
 
 /// This represents a section on wasm.
-class MCSectionWasm final : public MCSection {
+class LLVM_ABI MCSectionWasm final : public MCSection {
   unsigned UniqueID;
 
   const MCSymbolWasm *Group;

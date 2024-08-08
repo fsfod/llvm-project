@@ -12,6 +12,7 @@
 #include "llvm/DebugInfo/CodeView/CodeView.h"
 #include "llvm/DebugInfo/CodeView/DebugSubsection.h"
 #include "llvm/Support/BinaryStreamArray.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
@@ -23,7 +24,7 @@ class BinaryStreamReader;
 
 namespace codeview {
 
-class DebugSymbolRVASubsectionRef final : public DebugSubsectionRef {
+class LLVM_ABI DebugSymbolRVASubsectionRef final : public DebugSubsectionRef {
 public:
   using ArrayType = FixedStreamArray<support::ulittle32_t>;
 
@@ -42,7 +43,7 @@ private:
   ArrayType RVAs;
 };
 
-class DebugSymbolRVASubsection final : public DebugSubsection {
+class LLVM_ABI DebugSymbolRVASubsection final : public DebugSubsection {
 public:
   DebugSymbolRVASubsection();
 

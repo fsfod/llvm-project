@@ -16,12 +16,13 @@
 #include "llvm/Support/BinaryStream.h"
 #include "llvm/Support/BinaryStreamRef.h"
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
 namespace pdb {
 struct InfoStreamHeader;
-class InfoStream {
+class LLVM_ABI InfoStream {
   friend class InfoStreamBuilder;
 
 public:

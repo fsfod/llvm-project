@@ -17,10 +17,11 @@
 #define LLVM_TRANSFORMS_SCALAR_SCALARIZEMASKEDMEMINTRIN_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct ScalarizeMaskedMemIntrinPass
+struct LLVM_ABI ScalarizeMaskedMemIntrinPass
     : public PassInfoMixin<ScalarizeMaskedMemIntrinPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

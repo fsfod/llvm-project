@@ -23,10 +23,11 @@
 #define LLVM_CODEGEN_UNREACHABLEBLOCKELIM_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class UnreachableBlockElimPass
+class LLVM_ABI UnreachableBlockElimPass
     : public PassInfoMixin<UnreachableBlockElimPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);

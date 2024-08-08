@@ -21,6 +21,7 @@
 #include "llvm/DebugInfo/DWARF/DWARFDebugRangeList.h"
 #include "llvm/DebugInfo/DWARF/DWARFDie.h"
 #include "llvm/DebugInfo/DWARF/DWARFExpression.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 
 namespace llvm {
@@ -37,7 +38,7 @@ using Offset2UnitMap = DenseMap<uint64_t, CompileUnit *>;
 using DebugDieValuePool = IndexedValuesMap<uint64_t>;
 
 /// DwarfEmitter presents interface to generate all debug info tables.
-class DwarfEmitter {
+class LLVM_ABI DwarfEmitter {
 public:
   virtual ~DwarfEmitter() = default;
 
@@ -208,7 +209,7 @@ using UnitListTy = std::vector<std::unique_ptr<CompileUnit>>;
 /// a variable). These relocations are called ValidRelocs in the
 /// AddressesInfo and are gathered as a very first step when we start
 /// processing a object file.
-class DWARFLinker : public DWARFLinkerBase {
+class LLVM_ABI DWARFLinker : public DWARFLinkerBase {
 public:
   DWARFLinker(MessageHandlerTy ErrorHandler, MessageHandlerTy WarningHandler,
               std::function<StringRef(StringRef)> StringsTranslator)
@@ -540,7 +541,7 @@ private:
 
   struct DWARFLinkerOptions;
 
-  class DIECloner {
+  class LLVM_ABI DIECloner {
     DWARFLinker &Linker;
     DwarfEmitter *Emitter;
     DWARFFile &ObjFile;

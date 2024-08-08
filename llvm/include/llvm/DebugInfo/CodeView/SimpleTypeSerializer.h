@@ -10,13 +10,14 @@
 #define LLVM_DEBUGINFO_CODEVIEW_SIMPLETYPESERIALIZER_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/Support/Compiler.h"
 #include <vector>
 
 namespace llvm {
 namespace codeview {
 class FieldListRecord;
 
-class SimpleTypeSerializer {
+class LLVM_ABI SimpleTypeSerializer {
   std::vector<uint8_t> ScratchBuffer;
 
 public:

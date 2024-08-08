@@ -20,6 +20,7 @@
 #include "llvm/IR/FMF.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ModRef.h"
 #include <map>
 #include <optional>
@@ -100,7 +101,7 @@ namespace llvm {
     }
   };
 
-  class LLParser {
+  class LLVM_ABI LLParser {
   public:
     typedef LLLexer::LocTy LocTy;
   private:
@@ -467,7 +468,7 @@ namespace llvm {
     };
 
     // Function Semantic Analysis.
-    class PerFunctionState {
+    class LLVM_ABI PerFunctionState {
       LLParser &P;
       Function &F;
       std::map<std::string, std::pair<Value*, LocTy> > ForwardRefVals;

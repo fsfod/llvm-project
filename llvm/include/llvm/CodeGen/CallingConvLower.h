@@ -20,6 +20,7 @@
 #include "llvm/CodeGen/TargetCallingConv.h"
 #include "llvm/IR/CallingConv.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include <variant>
 
 namespace llvm {
@@ -167,7 +168,7 @@ typedef bool CCCustomFn(unsigned &ValNo, MVT &ValVT,
 /// CCState - This class holds information needed while lowering arguments and
 /// return values.  It captures which registers are already assigned and which
 /// stack slots are used.  It provides accessors to allocate these values.
-class CCState {
+class LLVM_ABI CCState {
 private:
   CallingConv::ID CallingConv;
   bool IsVarArg;

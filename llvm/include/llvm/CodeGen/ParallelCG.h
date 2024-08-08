@@ -14,6 +14,7 @@
 #define LLVM_CODEGEN_PARALLELCG_H
 
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 #include <memory>
 
@@ -32,7 +33,7 @@ class raw_pwrite_stream;
 ///
 /// Writes bitcode for individual partitions into output streams in BCOSs, if
 /// BCOSs is not empty.
-void splitCodeGen(
+LLVM_ABI void splitCodeGen(
     Module &M, ArrayRef<raw_pwrite_stream *> OSs,
     ArrayRef<llvm::raw_pwrite_stream *> BCOSs,
     const std::function<std::unique_ptr<TargetMachine>()> &TMFactory,

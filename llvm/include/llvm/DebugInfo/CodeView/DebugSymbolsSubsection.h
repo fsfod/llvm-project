@@ -11,11 +11,12 @@
 
 #include "llvm/DebugInfo/CodeView/CVRecord.h"
 #include "llvm/DebugInfo/CodeView/DebugSubsection.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
 namespace codeview {
-class DebugSymbolsSubsectionRef final : public DebugSubsectionRef {
+class LLVM_ABI DebugSymbolsSubsectionRef final : public DebugSubsectionRef {
 public:
   DebugSymbolsSubsectionRef()
       : DebugSubsectionRef(DebugSubsectionKind::Symbols) {}
@@ -33,7 +34,7 @@ private:
   CVSymbolArray Records;
 };
 
-class DebugSymbolsSubsection final : public DebugSubsection {
+class LLVM_ABI DebugSymbolsSubsection final : public DebugSubsection {
 public:
   DebugSymbolsSubsection() : DebugSubsection(DebugSubsectionKind::Symbols) {}
   static bool classof(const DebugSubsection *S) {

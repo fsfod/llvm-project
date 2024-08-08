@@ -14,6 +14,7 @@
 #ifndef LLVM_SUPPORT_LEB128_H
 #define LLVM_SUPPORT_LEB128_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm {
@@ -201,10 +202,10 @@ inline int64_t decodeSLEB128(const uint8_t *p, unsigned *n = nullptr,
 }
 
 /// Utility function to get the size of the ULEB128-encoded value.
-extern unsigned getULEB128Size(uint64_t Value);
+LLVM_ABI extern unsigned getULEB128Size(uint64_t Value);
 
 /// Utility function to get the size of the SLEB128-encoded value.
-extern unsigned getSLEB128Size(int64_t Value);
+LLVM_ABI extern unsigned getSLEB128Size(int64_t Value);
 
 } // namespace llvm
 

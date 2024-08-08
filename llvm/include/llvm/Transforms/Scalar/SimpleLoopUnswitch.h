@@ -12,6 +12,7 @@
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -63,7 +64,7 @@ class raw_ostream;
 /// Because partial unswitching of switches is extremely unlikely to be possible
 /// in practice and significantly complicates the implementation, this pass does
 /// not currently implement that in any mode.
-class SimpleLoopUnswitchPass : public PassInfoMixin<SimpleLoopUnswitchPass> {
+class LLVM_ABI SimpleLoopUnswitchPass : public PassInfoMixin<SimpleLoopUnswitchPass> {
   bool NonTrivial;
   bool Trivial;
 

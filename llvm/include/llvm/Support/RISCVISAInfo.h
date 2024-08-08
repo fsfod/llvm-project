@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include <map>
@@ -18,9 +19,9 @@
 #include <vector>
 
 namespace llvm {
-void riscvExtensionsHelp(StringMap<StringRef> DescMap);
+LLVM_ABI void riscvExtensionsHelp(StringMap<StringRef> DescMap);
 
-class RISCVISAInfo {
+class LLVM_ABI RISCVISAInfo {
 public:
   RISCVISAInfo(const RISCVISAInfo &) = delete;
   RISCVISAInfo &operator=(const RISCVISAInfo &) = delete;

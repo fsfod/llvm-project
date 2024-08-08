@@ -15,6 +15,7 @@
 #define LLVM_TRANSFORMS_SCALAR_INSTSIMPLIFYPASS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -29,7 +30,7 @@ namespace llvm {
 /// restricted transform at a pass granularity. However, for a much more
 /// powerful and comprehensive peephole optimization engine, see the
 /// `instcombine` pass instead.
-class InstSimplifyPass : public PassInfoMixin<InstSimplifyPass> {
+class LLVM_ABI InstSimplifyPass : public PassInfoMixin<InstSimplifyPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

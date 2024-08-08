@@ -17,6 +17,7 @@
 #include "llvm/MC/MCFixup.h"
 #include "llvm/MC/MCInst.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SMLoc.h"
 #include <cstdint>
 #include <utility>
@@ -27,7 +28,7 @@ class MCSection;
 class MCSubtargetInfo;
 class MCSymbol;
 
-class MCFragment : public ilist_node_with_parent<MCFragment, MCSection> {
+class LLVM_ABI MCFragment : public ilist_node_with_parent<MCFragment, MCSection> {
   friend class MCAsmLayout;
 
 public:

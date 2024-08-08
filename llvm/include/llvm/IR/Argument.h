@@ -16,6 +16,7 @@
 #include "llvm/ADT/Twine.h"
 #include "llvm/IR/Attributes.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -25,7 +26,7 @@ namespace llvm {
 /// for a specific function. When used in the body of said function, the
 /// argument of course represents the value of the actual argument that the
 /// function was called with.
-class Argument final : public Value {
+class LLVM_ABI Argument final : public Value {
   Function *Parent;
   unsigned ArgNo;
 

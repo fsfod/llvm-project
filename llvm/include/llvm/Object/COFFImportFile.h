@@ -20,6 +20,7 @@
 #include "llvm/Object/COFF.h"
 #include "llvm/Object/ObjectFile.h"
 #include "llvm/Object/SymbolicFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MemoryBufferRef.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -32,7 +33,7 @@ constexpr std::string_view NullImportDescriptorSymbolName =
 constexpr std::string_view NullThunkDataPrefix = "\x7f";
 constexpr std::string_view NullThunkDataSuffix = "_NULL_THUNK_DATA";
 
-class COFFImportFile : public SymbolicFile {
+class LLVM_ABI COFFImportFile : public SymbolicFile {
 private:
   enum SymbolIndex { ImpSymbol, ThunkSymbol, ECAuxSymbol, ECThunkSymbol };
 
@@ -137,7 +138,7 @@ struct COFFShortExport {
   }
 };
 
-Error writeImportLibrary(StringRef ImportName, StringRef Path,
+LLVM_ABI Error writeImportLibrary(StringRef ImportName, StringRef Path,
                          ArrayRef<COFFShortExport> Exports,
                          COFF::MachineTypes Machine, bool MinGW);
 

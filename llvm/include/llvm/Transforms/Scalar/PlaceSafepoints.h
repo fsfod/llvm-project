@@ -51,12 +51,13 @@
 #define LLVM_TRANSFORMS_SCALAR_PLACESAFEPOINTS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetLibraryInfo;
 
-class PlaceSafepointsPass : public PassInfoMixin<PlaceSafepointsPass> {
+class LLVM_ABI PlaceSafepointsPass : public PassInfoMixin<PlaceSafepointsPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

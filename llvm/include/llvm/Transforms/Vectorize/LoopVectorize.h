@@ -58,6 +58,7 @@
 
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 
 namespace llvm {
@@ -76,12 +77,12 @@ class ScalarEvolution;
 class TargetLibraryInfo;
 class TargetTransformInfo;
 
-extern cl::opt<bool> EnableLoopInterleaving;
-extern cl::opt<bool> EnableLoopVectorization;
+LLVM_ABI extern cl::opt<bool> EnableLoopInterleaving;
+LLVM_ABI extern cl::opt<bool> EnableLoopVectorization;
 
 /// A marker to determine if extra passes after loop vectorization should be
 /// run.
-struct ShouldRunExtraVectorPasses
+struct LLVM_ABI ShouldRunExtraVectorPasses
     : public AnalysisInfoMixin<ShouldRunExtraVectorPasses> {
   static AnalysisKey Key;
   struct Result {
@@ -157,7 +158,7 @@ struct LoopVectorizeResult {
 };
 
 /// The LoopVectorize Pass.
-struct LoopVectorizePass : public PassInfoMixin<LoopVectorizePass> {
+struct LLVM_ABI LoopVectorizePass : public PassInfoMixin<LoopVectorizePass> {
 private:
   /// If false, consider all loops for interleaving.
   /// If true, only loops that explicitly request interleaving are considered.
@@ -202,14 +203,14 @@ public:
 /// purposes along with the corresponding optimization remark \p RemarkName.
 /// If \p I is passed, it is an instruction that prevents vectorization.
 /// Otherwise, the loop \p TheLoop is used for the location of the remark.
-void reportVectorizationFailure(const StringRef DebugMsg,
+LLVM_ABI void reportVectorizationFailure(const StringRef DebugMsg,
     const StringRef OREMsg, const StringRef ORETag,
     OptimizationRemarkEmitter *ORE, Loop *TheLoop, Instruction *I = nullptr);
 
 /// Reports an informative message: print \p Msg for debugging purposes as well
 /// as an optimization remark. Uses either \p I as location of the remark, or
 /// otherwise \p TheLoop.
-void reportVectorizationInfo(const StringRef OREMsg, const StringRef ORETag,
+LLVM_ABI void reportVectorizationInfo(const StringRef OREMsg, const StringRef ORETag,
                              OptimizationRemarkEmitter *ORE, Loop *TheLoop,
                              Instruction *I = nullptr);
 

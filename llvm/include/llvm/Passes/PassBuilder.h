@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Passes/OptimizationLevel.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/PGOOptions.h"
 #include "llvm/Support/raw_ostream.h"
@@ -39,7 +40,7 @@ class FileSystem;
 } // namespace vfs
 
 /// Tunable parameters for passes in the default pipelines.
-class PipelineTuningOptions {
+class LLVM_ABI PipelineTuningOptions {
 public:
   /// Constructor sets pipeline tuning defaults based on cl::opts. Each option
   /// can be set in the PassBuilder when using a LLVM as a library.
@@ -101,7 +102,7 @@ public:
 /// construction. The \c PassRegistry.def file specifies how to construct all
 /// of the built-in passes, and those may reference these members during
 /// construction.
-class PassBuilder {
+class LLVM_ABI PassBuilder {
   TargetMachine *TM;
   PipelineTuningOptions PTO;
   std::optional<PGOOptions> PGOOpt;
@@ -790,7 +791,7 @@ struct NoOpModulePass : PassInfoMixin<NoOpModulePass> {
 };
 
 /// No-op module analysis.
-class NoOpModuleAnalysis : public AnalysisInfoMixin<NoOpModuleAnalysis> {
+class LLVM_ABI NoOpModuleAnalysis : public AnalysisInfoMixin<NoOpModuleAnalysis> {
   friend AnalysisInfoMixin<NoOpModuleAnalysis>;
   static AnalysisKey Key;
 
@@ -808,7 +809,7 @@ struct NoOpCGSCCPass : PassInfoMixin<NoOpCGSCCPass> {
 };
 
 /// No-op CGSCC analysis.
-class NoOpCGSCCAnalysis : public AnalysisInfoMixin<NoOpCGSCCAnalysis> {
+class LLVM_ABI NoOpCGSCCAnalysis : public AnalysisInfoMixin<NoOpCGSCCAnalysis> {
   friend AnalysisInfoMixin<NoOpCGSCCAnalysis>;
   static AnalysisKey Key;
 
@@ -827,7 +828,7 @@ struct NoOpFunctionPass : PassInfoMixin<NoOpFunctionPass> {
 };
 
 /// No-op function analysis.
-class NoOpFunctionAnalysis : public AnalysisInfoMixin<NoOpFunctionAnalysis> {
+class LLVM_ABI NoOpFunctionAnalysis : public AnalysisInfoMixin<NoOpFunctionAnalysis> {
   friend AnalysisInfoMixin<NoOpFunctionAnalysis>;
   static AnalysisKey Key;
 
@@ -853,7 +854,7 @@ struct NoOpLoopPass : PassInfoMixin<NoOpLoopPass> {
 };
 
 /// No-op loop analysis.
-class NoOpLoopAnalysis : public AnalysisInfoMixin<NoOpLoopAnalysis> {
+class LLVM_ABI NoOpLoopAnalysis : public AnalysisInfoMixin<NoOpLoopAnalysis> {
   friend AnalysisInfoMixin<NoOpLoopAnalysis>;
   static AnalysisKey Key;
 

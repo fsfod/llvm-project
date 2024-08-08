@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
@@ -36,7 +37,7 @@ struct HWAddressSanitizerOptions {
 /// This is a public interface to the hardware address sanitizer pass for
 /// instrumenting code to check for various memory errors at runtime, similar to
 /// AddressSanitizer but based on partial hardware assistance.
-class HWAddressSanitizerPass : public PassInfoMixin<HWAddressSanitizerPass> {
+class LLVM_ABI HWAddressSanitizerPass : public PassInfoMixin<HWAddressSanitizerPass> {
 public:
   explicit HWAddressSanitizerPass(HWAddressSanitizerOptions Options)
       : Options(Options){};

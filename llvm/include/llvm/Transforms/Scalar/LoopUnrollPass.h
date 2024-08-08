@@ -12,18 +12,19 @@
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
 
-extern cl::opt<bool> ForgetSCEVInLoopUnroll;
+LLVM_ABI extern cl::opt<bool> ForgetSCEVInLoopUnroll;
 
 class Function;
 class Loop;
 class LPMUpdater;
 
 /// Loop unroll pass that only does full loop unrolling and peeling.
-class LoopFullUnrollPass : public PassInfoMixin<LoopFullUnrollPass> {
+class LLVM_ABI LoopFullUnrollPass : public PassInfoMixin<LoopFullUnrollPass> {
   const int OptLevel;
 
   /// If false, use a cost model to determine whether unrolling of a loop is
@@ -130,7 +131,7 @@ struct LoopUnrollOptions {
 /// Loop unroll pass that will support both full and partial unrolling.
 /// It is a function pass to have access to function and module analyses.
 /// It will also put loops into canonical form (simplified and LCSSA).
-class LoopUnrollPass : public PassInfoMixin<LoopUnrollPass> {
+class LLVM_ABI LoopUnrollPass : public PassInfoMixin<LoopUnrollPass> {
   LoopUnrollOptions UnrollOpts;
 
 public:

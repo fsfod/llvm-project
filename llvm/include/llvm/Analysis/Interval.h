@@ -20,6 +20,7 @@
 #define LLVM_ANALYSIS_INTERVAL_H
 
 #include "llvm/ADT/GraphTraits.h"
+#include "llvm/Support/Compiler.h"
 #include <vector>
 
 namespace llvm {
@@ -33,7 +34,7 @@ class raw_ostream;
 /// in the interval has all of its predecessors in the interval (except for the
 /// header)
 ///
-class Interval {
+class LLVM_ABI Interval {
   /// HeaderNode - The header BasicBlock, which dominates all BasicBlocks in this
   /// interval.  Also, any loops in this interval must go through the HeaderNode.
   ///

@@ -15,9 +15,10 @@
 #define LLVM_TRANSFORMS_SCALAR_FLATTENCFG_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
-struct FlattenCFGPass : PassInfoMixin<FlattenCFGPass> {
+struct LLVM_ABI FlattenCFGPass : PassInfoMixin<FlattenCFGPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 } // namespace llvm

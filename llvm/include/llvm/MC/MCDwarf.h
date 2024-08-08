@@ -19,6 +19,7 @@
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/MC/StringTableBuilder.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MD5.h"
 #include "llvm/Support/SMLoc.h"
@@ -44,11 +45,11 @@ class SourceMgr;
 
 namespace mcdwarf {
 // Emit the common part of the DWARF 5 range/locations list tables header.
-MCSymbol *emitListsTableHeaderStart(MCStreamer &S);
+LLVM_ABI MCSymbol *emitListsTableHeaderStart(MCStreamer &S);
 } // namespace mcdwarf
 
 /// Manage the .debug_line_str section contents, if we use it.
-class MCDwarfLineStr {
+class LLVM_ABI MCDwarfLineStr {
   BumpPtrAllocator Alloc;
   StringSaver Saver{Alloc};
   MCSymbol *LineStrLabel = nullptr;
@@ -185,7 +186,7 @@ public:
 /// instruction is assembled and uses an address from a temporary label
 /// created at the current address in the current section and the info from
 /// the last .loc directive seen as stored in the context.
-class MCDwarfLineEntry : public MCDwarfLoc {
+class LLVM_ABI MCDwarfLineEntry : public MCDwarfLoc {
   MCSymbol *Label;
 
 private:
@@ -218,7 +219,7 @@ public:
 /// unit where machine instructions have been assembled after seeing .loc
 /// directives.  This is the information used to build the dwarf line
 /// table for a section.
-class MCLineSection {
+class LLVM_ABI MCLineSection {
 public:
   // Add an entry to this MCLineSection's line entries.
   void addLineEntry(const MCDwarfLineEntry &LineEntry, MCSection *Sec) {
@@ -258,7 +259,7 @@ struct MCDwarfLineTableParams {
   uint8_t DWARF2LineRange = 14;
 };
 
-struct MCDwarfLineTableHeader {
+struct LLVM_ABI MCDwarfLineTableHeader {
   MCSymbol *Label = nullptr;
   SmallVector<std::string, 3> MCDwarfDirs;
   SmallVector<MCDwarfFile, 3> MCDwarfFiles;
@@ -323,7 +324,7 @@ private:
                            std::optional<MCDwarfLineStr> &LineStr) const;
 };
 
-class MCDwarfDwoLineTable {
+class LLVM_ABI MCDwarfDwoLineTable {
   MCDwarfLineTableHeader Header;
   bool HasSplitLineTable = false;
 
@@ -348,7 +349,7 @@ public:
             MCSection *Section) const;
 };
 
-class MCDwarfLineTable {
+class LLVM_ABI MCDwarfLineTable {
   MCDwarfLineTableHeader Header;
   MCLineSection MCLineSections;
 
@@ -431,7 +432,7 @@ public:
   }
 };
 
-class MCDwarfLineAddr {
+class LLVM_ABI MCDwarfLineAddr {
 public:
   /// Utility function to encode a Dwarf pair of LineDelta and AddrDeltas.
   static void encode(MCContext &Context, MCDwarfLineTableParams Params,
@@ -442,7 +443,7 @@ public:
                    int64_t LineDelta, uint64_t AddrDelta);
 };
 
-class MCGenDwarfInfo {
+class LLVM_ABI MCGenDwarfInfo {
 public:
   //
   // When generating dwarf for assembly source files this emits the Dwarf
@@ -453,7 +454,7 @@ public:
 
 // When generating dwarf for assembly source files this is the info that is
 // needed to be gathered for each symbol that will have a dwarf label.
-class MCGenDwarfLabelEntry {
+class LLVM_ABI MCGenDwarfLabelEntry {
 private:
   // Name of the symbol without a leading underbar, if any.
   StringRef Name;
@@ -713,7 +714,7 @@ struct MCDwarfFrameInfo {
   bool IsMTETaggedFrame = false;
 };
 
-class MCDwarfFrameEmitter {
+class LLVM_ABI MCDwarfFrameEmitter {
 public:
   //
   // This emits the frame info section.

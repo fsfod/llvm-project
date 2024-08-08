@@ -12,6 +12,7 @@
 #include "llvm/DebugInfo/CodeView/CodeView.h"
 #include "llvm/Support/BinaryStreamArray.h"
 #include "llvm/Support/BinaryStreamRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MathExtras.h"
@@ -32,7 +33,7 @@ struct DebugSubsectionHeader {
   support::ulittle32_t Length; // number of bytes occupied by this record.
 };
 
-class DebugSubsectionRecord {
+class LLVM_ABI DebugSubsectionRecord {
 public:
   DebugSubsectionRecord();
   DebugSubsectionRecord(DebugSubsectionKind Kind, BinaryStreamRef Data);
@@ -48,7 +49,7 @@ private:
   BinaryStreamRef Data;
 };
 
-class DebugSubsectionRecordBuilder {
+class LLVM_ABI DebugSubsectionRecordBuilder {
 public:
   DebugSubsectionRecordBuilder(std::shared_ptr<DebugSubsection> Subsection);
 

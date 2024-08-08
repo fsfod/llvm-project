@@ -59,6 +59,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/IR/PseudoProbe.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorOr.h"
 #include <list>
 #include <memory>
@@ -82,7 +83,7 @@ enum class MCPseudoProbeFlag {
 };
 
 // Function descriptor decoded from .pseudo_probe_desc section
-struct MCPseudoProbeFuncDesc {
+struct LLVM_ABI MCPseudoProbeFuncDesc {
   uint64_t FuncGUID = 0;
   uint64_t FuncHash = 0;
   std::string FuncName;
@@ -156,7 +157,7 @@ public:
 /// table entry, which is created during a machine instruction is assembled and
 /// uses an address from a temporary label created at the current address in the
 /// current section.
-class MCPseudoProbe : public MCPseudoProbeBase {
+class LLVM_ABI MCPseudoProbe : public MCPseudoProbeBase {
   MCSymbol *Label;
 
 public:
@@ -176,7 +177,7 @@ public:
 // Represents a callsite with caller function name and probe id
 using MCPseduoProbeFrameLocation = std::pair<StringRef, uint32_t>;
 
-class MCDecodedPseudoProbe : public MCPseudoProbeBase {
+class LLVM_ABI MCDecodedPseudoProbe : public MCPseudoProbeBase {
   uint64_t Address;
   MCDecodedPseudoProbeInlineTree *InlineTree;
 
@@ -258,7 +259,7 @@ public:
 // instance is created as the root of a tree.
 // A real instance of this class is created for each function, either a
 // not inlined function that has code in .text section or an inlined function.
-class MCPseudoProbeInlineTree
+class LLVM_ABI MCPseudoProbeInlineTree
     : public MCPseudoProbeInlineTreeBase<MCPseudoProbe,
                                          MCPseudoProbeInlineTree> {
 public:
@@ -292,7 +293,7 @@ public:
 
 /// Instances of this class represent the pseudo probes inserted into a compile
 /// unit.
-class MCPseudoProbeSections {
+class LLVM_ABI MCPseudoProbeSections {
 public:
   void addPseudoProbe(MCSymbol *FuncSym, const MCPseudoProbe &Probe,
                       const MCPseudoProbeInlineStack &InlineStack) {
@@ -317,7 +318,7 @@ public:
   void emit(MCObjectStreamer *MCOS);
 };
 
-class MCPseudoProbeTable {
+class LLVM_ABI MCPseudoProbeTable {
   // A collection of MCPseudoProbe in the current module grouped by
   // functions. MCPseudoProbes will be encoded into a corresponding
   // .pseudoprobe section. With functions emitted as separate comdats,
@@ -336,7 +337,7 @@ public:
 #endif
 };
 
-class MCPseudoProbeDecoder {
+class LLVM_ABI MCPseudoProbeDecoder {
   // GUID to PseudoProbeFuncDesc map.
   GUIDProbeFunctionMap GUID2FuncDescMap;
 

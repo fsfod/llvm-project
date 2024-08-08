@@ -13,6 +13,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Option/OptSpecifier.h"
 #include "llvm/Option/OptTable.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 
@@ -51,7 +52,7 @@ enum DriverVisibility {
 /// flags. At runtime the driver parses the command line into
 /// concrete Arg instances, each of which corresponds to a
 /// particular Option instance.
-class Option {
+class LLVM_ABI Option {
 public:
   enum OptionClass {
     GroupClass = 0,

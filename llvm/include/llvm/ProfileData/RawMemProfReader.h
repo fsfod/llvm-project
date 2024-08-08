@@ -23,6 +23,7 @@
 #include "llvm/ProfileData/InstrProfReader.h"
 #include "llvm/ProfileData/MemProf.h"
 #include "llvm/ProfileData/MemProfData.inc"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBuffer.h"
 
@@ -110,7 +111,7 @@ using CallStackMap = llvm::DenseMap<uint64_t, llvm::SmallVector<uint64_t>>;
 
 // Specializes the MemProfReader class to populate the contents from raw binary
 // memprof profiles from instrumentation based profiling.
-class RawMemProfReader final : public MemProfReader {
+class LLVM_ABI RawMemProfReader final : public MemProfReader {
 public:
   RawMemProfReader(const RawMemProfReader &) = delete;
   RawMemProfReader &operator=(const RawMemProfReader &) = delete;

@@ -19,6 +19,7 @@
 #define LLVM_TRANSFORMS_SCALAR_SCALARIZER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -35,7 +36,7 @@ struct ScalarizerPassOptions {
   std::optional<unsigned> ScalarizeMinBits;
 };
 
-class ScalarizerPass : public PassInfoMixin<ScalarizerPass> {
+class LLVM_ABI ScalarizerPass : public PassInfoMixin<ScalarizerPass> {
   ScalarizerPassOptions Options;
 
 public:

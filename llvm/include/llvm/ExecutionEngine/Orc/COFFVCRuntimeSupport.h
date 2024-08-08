@@ -18,6 +18,7 @@
 #include "llvm/ExecutionEngine/Orc/ExecutorProcessControl.h"
 #include "llvm/ExecutionEngine/Orc/ObjectLinkingLayer.h"
 #include "llvm/ExecutionEngine/Orc/Shared/ExecutorAddress.h"
+#include "llvm/Support/Compiler.h"
 
 #include <future>
 #include <memory>
@@ -28,7 +29,7 @@ namespace llvm {
 namespace orc {
 
 /// Bootstraps the vc runtime within jitdylibs.
-class COFFVCRuntimeBootstrapper {
+class LLVM_ABI COFFVCRuntimeBootstrapper {
 public:
   /// Try to create a COFFVCRuntimeBootstrapper instance. An optional
   /// RuntimePath can be given to specify the location of directory that

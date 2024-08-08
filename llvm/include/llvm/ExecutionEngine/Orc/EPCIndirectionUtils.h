@@ -17,6 +17,7 @@
 #include "llvm/ExecutionEngine/JITLink/JITLinkMemoryManager.h"
 #include "llvm/ExecutionEngine/Orc/IndirectionUtils.h"
 #include "llvm/ExecutionEngine/Orc/LazyReexports.h"
+#include "llvm/Support/Compiler.h"
 
 #include <mutex>
 
@@ -27,13 +28,13 @@ class ExecutorProcessControl;
 
 /// Provides ExecutorProcessControl based indirect stubs, trampoline pool and
 /// lazy call through manager.
-class EPCIndirectionUtils {
+class LLVM_ABI EPCIndirectionUtils {
   friend class EPCIndirectionUtilsAccess;
 
 public:
   /// ABI support base class. Used to write resolver, stub, and trampoline
   /// blocks.
-  class ABISupport {
+  class LLVM_ABI ABISupport {
   protected:
     ABISupport(unsigned PointerSize, unsigned TrampolineSize, unsigned StubSize,
                unsigned StubToPointerMaxDisplacement, unsigned ResolverCodeSize)
@@ -170,7 +171,7 @@ private:
 /// called.
 ///
 /// This function is experimental and likely subject to revision.
-Error setUpInProcessLCTMReentryViaEPCIU(EPCIndirectionUtils &EPCIU);
+LLVM_ABI Error setUpInProcessLCTMReentryViaEPCIU(EPCIndirectionUtils &EPCIU);
 
 namespace detail {
 

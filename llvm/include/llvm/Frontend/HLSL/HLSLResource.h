@@ -14,6 +14,7 @@
 #define LLVM_FRONTEND_HLSL_HLSLRESOURCE_H
 
 #include "llvm/IR/Metadata.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class GlobalVariable;
@@ -78,7 +79,7 @@ enum class ElementType : uint32_t {
   PackedU8x32,
 };
 
-class FrontendResource {
+class LLVM_ABI FrontendResource {
   MDNode *Entry;
 
 public:

@@ -15,13 +15,14 @@
 #define LLVM_TRANSFORMS_IPO_ELIMAVAILEXTERN_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Module;
 
 /// A pass that transforms external global definitions into declarations.
-class EliminateAvailableExternallyPass
+class LLVM_ABI EliminateAvailableExternallyPass
     : public PassInfoMixin<EliminateAvailableExternallyPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &);

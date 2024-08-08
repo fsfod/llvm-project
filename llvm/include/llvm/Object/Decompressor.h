@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Compression.h"
 #include "llvm/Support/Error.h"
 
@@ -18,7 +19,7 @@ namespace llvm {
 namespace object {
 
 /// Decompressor helps to handle decompression of compressed sections.
-class Decompressor {
+class LLVM_ABI Decompressor {
 public:
   /// Create decompressor object.
   /// @param Name        Section name.

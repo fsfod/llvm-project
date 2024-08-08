@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 #include <random>
 
 namespace llvm {
@@ -34,7 +35,7 @@ class SourcePred;
 
 using RandomEngine = std::mt19937;
 
-struct RandomIRBuilder {
+struct LLVM_ABI RandomIRBuilder {
   RandomEngine Rand;
   SmallVector<Type *, 16> KnownTypes;
 

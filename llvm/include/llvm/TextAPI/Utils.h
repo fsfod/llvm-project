@@ -14,6 +14,7 @@
 #define LLVM_TEXTAPI_UTILS_H
 
 #include "llvm/ADT/Twine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/Path.h"
 
@@ -29,6 +30,6 @@ using PathSeq = std::vector<std::string>;
 ///
 /// \param Path Location of file.
 /// \param Extension File extension to update with.
-void replace_extension(SmallVectorImpl<char> &Path, const Twine &Extension);
+LLVM_ABI void replace_extension(SmallVectorImpl<char> &Path, const Twine &Extension);
 } // namespace llvm::MachO
 #endif // LLVM_TEXTAPI_UTILS_H

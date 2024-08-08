@@ -15,6 +15,7 @@
 #include "llvm/DebugInfo/CodeView/DebugSubsectionRecord.h"
 #include "llvm/DebugInfo/PDB/Native/RawTypes.h"
 #include "llvm/Support/BinaryStreamRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 #include <string>
@@ -60,7 +61,7 @@ struct StringTableFixup {
   uint32_t SymOffsetOfReference = 0;
 };
 
-class DbiModuleDescriptorBuilder {
+class LLVM_ABI DbiModuleDescriptorBuilder {
   friend class DbiStreamBuilder;
 
 public:

@@ -23,6 +23,7 @@
 #include "llvm/IR/User.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/AtomicOrdering.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <utility>
 
@@ -40,7 +41,7 @@ template <> struct ilist_alloc_traits<Instruction> {
   static inline void deleteNode(Instruction *V);
 };
 
-class Instruction : public User,
+class LLVM_ABI Instruction : public User,
                     public ilist_node_with_parent<Instruction, BasicBlock,
                                                   ilist_iterator_bits<true>> {
 public:

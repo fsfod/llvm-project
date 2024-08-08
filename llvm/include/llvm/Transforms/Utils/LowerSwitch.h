@@ -16,9 +16,10 @@
 #define LLVM_TRANSFORMS_UTILS_LOWERSWITCH_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
-struct LowerSwitchPass : public PassInfoMixin<LowerSwitchPass> {
+struct LLVM_ABI LowerSwitchPass : public PassInfoMixin<LowerSwitchPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 } // namespace llvm

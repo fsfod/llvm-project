@@ -9,13 +9,14 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_DATAFLOWSANITIZER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 #include <vector>
 
 namespace llvm {
 class Module;
 
-class DataFlowSanitizerPass : public PassInfoMixin<DataFlowSanitizerPass> {
+class LLVM_ABI DataFlowSanitizerPass : public PassInfoMixin<DataFlowSanitizerPass> {
 private:
   std::vector<std::string> ABIListFiles;
 

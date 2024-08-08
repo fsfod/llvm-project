@@ -27,6 +27,7 @@
 #include "llvm/CodeGen/LoopTraversal.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -66,7 +67,7 @@ struct PointerLikeTypeTraits<ReachingDef> {
 };
 
 /// This class provides the reaching def analysis.
-class ReachingDefAnalysis : public MachineFunctionPass {
+class LLVM_ABI ReachingDefAnalysis : public MachineFunctionPass {
 private:
   MachineFunction *MF = nullptr;
   const TargetRegisterInfo *TRI = nullptr;

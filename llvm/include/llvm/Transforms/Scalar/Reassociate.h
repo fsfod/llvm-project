@@ -27,6 +27,7 @@
 #include "llvm/ADT/SetVector.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/ValueHandle.h"
+#include "llvm/Support/Compiler.h"
 #include <deque>
 
 namespace llvm {
@@ -68,7 +69,7 @@ class XorOpnd;
 } // end namespace reassociate
 
 /// Reassociate commutative expressions.
-class ReassociatePass : public PassInfoMixin<ReassociatePass> {
+class LLVM_ABI ReassociatePass : public PassInfoMixin<ReassociatePass> {
 public:
   using OrderedSet =
       SetVector<AssertingVH<Instruction>, std::deque<AssertingVH<Instruction>>>;

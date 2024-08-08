@@ -18,6 +18,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/BinaryFormat/MachO.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 #include <string>
@@ -31,7 +32,7 @@ class Binary;
 class IRObjectFile;
 class MachOObjectFile;
 
-class Slice {
+class LLVM_ABI Slice {
   const Binary *B;
   uint32_t CPUType;
   uint32_t CPUSubType;
@@ -99,10 +100,10 @@ public:
 
 enum class FatHeaderType { FatHeader, Fat64Header };
 
-Error writeUniversalBinary(ArrayRef<Slice> Slices, StringRef OutputFileName,
+LLVM_ABI Error writeUniversalBinary(ArrayRef<Slice> Slices, StringRef OutputFileName,
                            FatHeaderType FatHeader = FatHeaderType::FatHeader);
 
-Error writeUniversalBinaryToStream(
+LLVM_ABI Error writeUniversalBinaryToStream(
     ArrayRef<Slice> Slices, raw_ostream &Out,
     FatHeaderType FatHeader = FatHeaderType::FatHeader);
 

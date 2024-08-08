@@ -16,6 +16,7 @@
 
 #include "llvm/IR/Function.h"
 #include "llvm/IR/IRBuilder.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ class DomTreeUpdater;
 /// to finding the existing return and unwind instructions, it also (if
 /// necessary) transforms any call instructions into invokes and sends them to
 /// a landing pad.
-class EscapeEnumerator {
+class LLVM_ABI EscapeEnumerator {
   Function &F;
   const char *CleanupBBName;
 

@@ -26,6 +26,7 @@
 #include "llvm/ADT/FunctionExtras.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include <map>
@@ -35,7 +36,7 @@ class Module;
 class Function;
 class MachineFunction;
 
-extern template class AnalysisManager<MachineFunction>;
+extern template class LLVM_TEMPLATE_ABI AnalysisManager<MachineFunction>;
 
 /// Like \c AnalysisKey, but only for machine passes.
 struct alignas(8) MachinePassKey {};
@@ -116,7 +117,7 @@ public:
   ModuleAnalysisManager *MAM;
 };
 
-extern template class PassManager<MachineFunction>;
+extern template class LLVM_TEMPLATE_ABI PassManager<MachineFunction>;
 
 /// MachineFunctionPassManager adds/removes below features to/from the base
 /// PassManager template instantiation.
@@ -145,7 +146,7 @@ extern template class PassManager<MachineFunction>;
 ///
 /// - Support codegening in the SCC order. Users include interprocedural
 ///   register allocation (IPRA).
-class MachineFunctionPassManager
+class LLVM_ABI MachineFunctionPassManager
     : public PassManager<MachineFunction, MachineFunctionAnalysisManager> {
   using Base = PassManager<MachineFunction, MachineFunctionAnalysisManager>;
 

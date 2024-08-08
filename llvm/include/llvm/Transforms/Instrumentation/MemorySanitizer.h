@@ -15,13 +15,14 @@
 
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
 class StringRef;
 class raw_ostream;
 
-struct MemorySanitizerOptions {
+struct LLVM_ABI MemorySanitizerOptions {
   MemorySanitizerOptions() : MemorySanitizerOptions(0, false, false, false){};
   MemorySanitizerOptions(int TrackOrigins, bool Recover, bool Kernel)
       : MemorySanitizerOptions(TrackOrigins, Recover, Kernel, false) {}
@@ -39,7 +40,7 @@ struct MemorySanitizerOptions {
 /// inserts calls to runtime library functions. If the functions aren't declared
 /// yet, the pass inserts the declarations. Otherwise the existing globals are
 /// used.
-struct MemorySanitizerPass : public PassInfoMixin<MemorySanitizerPass> {
+struct LLVM_ABI MemorySanitizerPass : public PassInfoMixin<MemorySanitizerPass> {
   MemorySanitizerPass(MemorySanitizerOptions Options) : Options(Options) {}
 
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);

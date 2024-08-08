@@ -15,6 +15,7 @@
 
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/Support/BlockFrequency.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <memory>
 #include <optional>
@@ -30,7 +31,7 @@ class raw_ostream;
 
 /// MachineBlockFrequencyInfo pass uses BlockFrequencyInfoImpl implementation
 /// to estimate machine basic block frequencies.
-class MachineBlockFrequencyInfo : public MachineFunctionPass {
+class LLVM_ABI MachineBlockFrequencyInfo : public MachineFunctionPass {
   using ImplType = BlockFrequencyInfoImpl<MachineBasicBlock>;
   std::unique_ptr<ImplType> MBFI;
 
@@ -99,12 +100,12 @@ public:
 /// Print the block frequency @p Freq relative to the current functions entry
 /// frequency. Returns a Printable object that can be piped via `<<` to a
 /// `raw_ostream`.
-Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
+LLVM_ABI Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
                          BlockFrequency Freq);
 
 /// Convenience function equivalent to calling
 /// `printBlockFreq(MBFI, MBFI.getBlockFreq(&MBB))`.
-Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
+LLVM_ABI Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
                          const MachineBasicBlock &MBB);
 
 } // end namespace llvm

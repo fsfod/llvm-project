@@ -13,6 +13,7 @@
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/DebugInfo/DWARF/DWARFFormValue.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
@@ -23,10 +24,10 @@ class DataExtractor;
 class DWARFUnit;
 class raw_ostream;
 
-class DWARFAbbreviationDeclaration {
+class LLVM_ABI DWARFAbbreviationDeclaration {
 public:
   enum class ExtractState { Complete, MoreItems };
-  struct AttributeSpec {
+  struct LLVM_ABI AttributeSpec {
     AttributeSpec(dwarf::Attribute A, dwarf::Form F, int64_t Value)
         : Attr(A), Form(F), Value(Value) {
       assert(isImplicitConst());
@@ -186,7 +187,7 @@ private:
 
   /// A helper structure that can quickly determine the size in bytes of an
   /// abbreviation declaration.
-  struct FixedSizeInfo {
+  struct LLVM_ABI FixedSizeInfo {
     /// The fixed byte size for fixed size forms.
     uint16_t NumBytes = 0;
     /// Number of DW_FORM_address forms in this abbrevation declaration.

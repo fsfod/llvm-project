@@ -30,6 +30,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/CFGDiff.h"
 #include "llvm/Support/CFGUpdate.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include <algorithm>
 #include <utility>
@@ -58,34 +59,34 @@ using BBUpdates = ArrayRef<llvm::cfg::Update<BasicBlock *>>;
 using BBDomTreeGraphDiff = GraphDiff<BasicBlock *, false>;
 using BBPostDomTreeGraphDiff = GraphDiff<BasicBlock *, true>;
 
-extern template void Calculate<BBDomTree>(BBDomTree &DT);
+extern template LLVM_TEMPLATE_ABI LLVM_TEMPLATE_ABI void Calculate<BBDomTree>(BBDomTree &DT);
 extern template void CalculateWithUpdates<BBDomTree>(BBDomTree &DT,
                                                      BBUpdates U);
 
-extern template void Calculate<BBPostDomTree>(BBPostDomTree &DT);
+extern template LLVM_TEMPLATE_ABI void Calculate<BBPostDomTree>(BBPostDomTree &DT);
 
-extern template void InsertEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
+extern template LLVM_TEMPLATE_ABI void InsertEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
                                            BasicBlock *To);
-extern template void InsertEdge<BBPostDomTree>(BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void InsertEdge<BBPostDomTree>(BBPostDomTree &DT,
                                                BasicBlock *From,
                                                BasicBlock *To);
 
-extern template void DeleteEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
+extern template LLVM_TEMPLATE_ABI void DeleteEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
                                            BasicBlock *To);
-extern template void DeleteEdge<BBPostDomTree>(BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void DeleteEdge<BBPostDomTree>(BBPostDomTree &DT,
                                                BasicBlock *From,
                                                BasicBlock *To);
 
-extern template void ApplyUpdates<BBDomTree>(BBDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void ApplyUpdates<BBDomTree>(BBDomTree &DT,
                                              BBDomTreeGraphDiff &,
                                              BBDomTreeGraphDiff *);
-extern template void ApplyUpdates<BBPostDomTree>(BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void ApplyUpdates<BBPostDomTree>(BBPostDomTree &DT,
                                                  BBPostDomTreeGraphDiff &,
                                                  BBPostDomTreeGraphDiff *);
 
-extern template bool Verify<BBDomTree>(const BBDomTree &DT,
+extern template LLVM_TEMPLATE_ABI bool Verify<BBDomTree>(const BBDomTree &DT,
                                        BBDomTree::VerificationLevel VL);
-extern template bool Verify<BBPostDomTree>(const BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI bool Verify<BBPostDomTree>(const BBPostDomTree &DT,
                                            BBPostDomTree::VerificationLevel VL);
 }  // namespace DomTreeBuilder
 

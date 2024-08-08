@@ -5,6 +5,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/ProfileData/MemProfData.inc"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/EndianStream.h"
 #include "llvm/Support/raw_ostream.h"
@@ -324,7 +325,7 @@ struct AllocationInfo {
 // Holds the memprof profile information for a function. The internal
 // representation stores frame ids for efficiency. This representation should
 // be used in the profile conversion and manipulation tools.
-struct IndexedMemProfRecord {
+struct LLVM_ABI IndexedMemProfRecord {
   // Memory allocation sites in this function for which we have memory
   // profiling data.
   llvm::SmallVector<IndexedAllocationInfo> AllocSites;
@@ -445,7 +446,7 @@ struct MemProfRecord {
 // ids in the schema. Subsequent entries are integers which map to memprof::Meta
 // enum class entries. After successfully reading the schema, the pointer is one
 // byte past the schema contents.
-Expected<MemProfSchema> readMemProfSchema(const unsigned char *&Buffer);
+LLVM_ABI Expected<MemProfSchema> readMemProfSchema(const unsigned char *&Buffer);
 
 // Trait for reading IndexedMemProfRecord data from the on-disk hash table.
 class RecordLookupTrait {

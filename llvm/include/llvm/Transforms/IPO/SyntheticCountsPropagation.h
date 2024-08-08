@@ -10,11 +10,12 @@
 #define LLVM_TRANSFORMS_IPO_SYNTHETICCOUNTSPROPAGATION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
 
-class SyntheticCountsPropagation
+class LLVM_ABI SyntheticCountsPropagation
     : public PassInfoMixin<SyntheticCountsPropagation> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);

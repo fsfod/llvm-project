@@ -16,6 +16,7 @@
 #include "llvm/ExecutionEngine/Orc/Core.h"
 #include "llvm/ExecutionEngine/Orc/ThreadSafeModule.h"
 #include "llvm/IR/Module.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MemoryBuffer.h"
 
 namespace llvm {
@@ -23,7 +24,7 @@ namespace orc {
 
 /// Mangles symbol names then uniques them in the context of an
 /// ExecutionSession.
-class MangleAndInterner {
+class LLVM_ABI MangleAndInterner {
 public:
   MangleAndInterner(ExecutionSession &ES, const DataLayout &DL);
   SymbolStringPtr operator()(StringRef Name);
@@ -36,7 +37,7 @@ private:
 /// Maps IR global values to their linker symbol names / flags.
 ///
 /// This utility can be used when adding new IR globals in the JIT.
-class IRSymbolMapper {
+class LLVM_ABI IRSymbolMapper {
 public:
   struct ManglingOptions {
     bool EmulatedTLS = false;

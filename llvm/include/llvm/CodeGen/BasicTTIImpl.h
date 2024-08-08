@@ -44,6 +44,7 @@
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Target/TargetMachine.h"
@@ -64,7 +65,7 @@ class ScalarEvolution;
 class SCEV;
 class TargetMachine;
 
-extern cl::opt<unsigned> PartialUnrollingThreshold;
+LLVM_ABI extern cl::opt<unsigned> PartialUnrollingThreshold;
 
 /// Base class which can be used to help build a TTI implementation.
 ///
@@ -2563,7 +2564,7 @@ public:
 
 /// Concrete BasicTTIImpl that can be used if no further customization
 /// is needed.
-class BasicTTIImpl : public BasicTTIImplBase<BasicTTIImpl> {
+class LLVM_ABI BasicTTIImpl : public BasicTTIImplBase<BasicTTIImpl> {
   using BaseT = BasicTTIImplBase<BasicTTIImpl>;
 
   friend class BasicTTIImplBase<BasicTTIImpl>;
