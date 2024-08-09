@@ -1,6 +1,6 @@
 add_subdirectory(GlobalISel)
 
-add_llvm_library(LLVMTableGenCommon STATIC OBJECT EXCLUDE_FROM_ALL
+add_llvm_library(LLVMTableGenCommon STATIC OBJECT EXCLUDE_FROM_ALL DISABLE_LLVM_LINK_LLVM_DYLIB
   Attributes.cpp
   CodeGenIntrinsics.cpp
   DirectiveEmitter.cpp
