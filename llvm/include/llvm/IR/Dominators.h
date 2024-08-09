@@ -160,7 +160,7 @@ template <> struct DenseMapInfo<BasicBlockEdge> {
 /// the dominator tree is initially constructed may still exist in the tree,
 /// even if the tree is properly updated. Calling code should not rely on the
 /// preceding statements; this is stated only to assist human understanding.
-class DominatorTree : public DominatorTreeBase<BasicBlock, false> {
+class LLVM_ABI DominatorTree : public DominatorTreeBase<BasicBlock, false> {
  public:
   using Base = DominatorTreeBase<BasicBlock, false>;
 

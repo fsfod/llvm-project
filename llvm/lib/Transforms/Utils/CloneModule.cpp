@@ -217,7 +217,7 @@ std::unique_ptr<Module> llvm::CloneModule(
 
 extern "C" {
 
-LLVMModuleRef LLVMCloneModule(LLVMModuleRef M) {
+LLVM_ABI LLVMModuleRef LLVMCloneModule(LLVMModuleRef M) {
   return wrap(CloneModule(*unwrap(M)).release());
 }
 
