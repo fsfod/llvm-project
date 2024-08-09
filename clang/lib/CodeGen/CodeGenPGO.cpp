@@ -15,6 +15,7 @@
 #include "CoverageMappingGen.h"
 #include "clang/AST/RecursiveASTVisitor.h"
 #include "clang/AST/StmtVisitor.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/IR/Intrinsics.h"
 #include "llvm/IR/MDBuilder.h"
 #include "llvm/Support/CommandLine.h"
@@ -28,7 +29,7 @@ static llvm::cl::opt<bool>
                          llvm::cl::desc("Enable value profiling"),
                          llvm::cl::Hidden, llvm::cl::init(false));
 
-extern llvm::cl::opt<bool> SystemHeadersCoverage;
+CLANG_ABI extern llvm::cl::opt<bool> SystemHeadersCoverage;
 
 using namespace clang;
 using namespace CodeGen;

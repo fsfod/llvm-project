@@ -17,6 +17,7 @@
 #include "clang/Basic/FileManager.h"
 #include "clang/Frontend/FrontendDiagnostic.h"
 #include "clang/Lex/Lexer.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallSet.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/ProfileData/Coverage/CoverageMapping.h"
@@ -37,7 +38,7 @@ static llvm::cl::opt<bool> EmptyLineCommentCoverage(
                    "disable it on test)"),
     llvm::cl::init(true), llvm::cl::Hidden);
 
-llvm::cl::opt<bool> SystemHeadersCoverage(
+CLANG_ABI llvm::cl::opt<bool> SystemHeadersCoverage(
     "system-headers-coverage",
     llvm::cl::desc("Enable collecting coverage from system headers"),
     llvm::cl::init(false), llvm::cl::Hidden);

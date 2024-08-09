@@ -16,6 +16,7 @@
 #include "clang/Frontend/FrontendDiagnostic.h"
 #include "clang/Frontend/Utils.h"
 #include "clang/Lex/HeaderSearchOptions.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallSet.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/ADT/StringSwitch.h"
@@ -106,7 +107,7 @@ static cl::opt<bool> ClSanitizeOnOptimizerEarlyEP(
 extern LLVM_ABI cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate;
 
 // Re-link builtin bitcodes after optimization
-cl::opt<bool> ClRelinkBuiltinBitcodePostop(
+CLANG_ABI cl::opt<bool> ClRelinkBuiltinBitcodePostop(
     "relink-builtin-bitcode-postop", cl::Optional,
     cl::desc("Re-link builtin bitcodes after optimization."), cl::init(false));
 } // namespace llvm

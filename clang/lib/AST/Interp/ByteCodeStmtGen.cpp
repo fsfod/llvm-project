@@ -12,6 +12,7 @@
 #include "Context.h"
 #include "Function.h"
 #include "PrimType.h"
+#include "clang/Support/Compiler.h"
 
 using namespace clang;
 using namespace clang::interp;
@@ -674,7 +675,7 @@ bool ByteCodeStmtGen<Emitter>::visitCXXTryStmt(const CXXTryStmt *S) {
 namespace clang {
 namespace interp {
 
-template class ByteCodeStmtGen<ByteCodeEmitter>;
+template class CLANG_EXPORT_TEMPLATE ByteCodeStmtGen<ByteCodeEmitter>;
 
 } // namespace interp
 } // namespace clang

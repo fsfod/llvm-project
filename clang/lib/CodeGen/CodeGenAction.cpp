@@ -27,6 +27,7 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Frontend/FrontendDiagnostic.h"
 #include "clang/Lex/Preprocessor.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/Hashing.h"
 #include "llvm/Bitcode/BitcodeReader.h"
 #include "llvm/CodeGen/MachineOptimizationRemarkEmitter.h"
@@ -58,7 +59,7 @@ using namespace llvm;
 #define DEBUG_TYPE "codegenaction"
 
 namespace llvm {
-extern cl::opt<bool> ClRelinkBuiltinBitcodePostop;
+CLANG_ABI extern cl::opt<bool> ClRelinkBuiltinBitcodePostop;
 }
 
 namespace clang {

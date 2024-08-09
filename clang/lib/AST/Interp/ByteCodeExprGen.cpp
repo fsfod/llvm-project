@@ -15,6 +15,7 @@
 #include "Function.h"
 #include "PrimType.h"
 #include "Program.h"
+#include "clang/Support/Compiler.h"
 
 using namespace clang;
 using namespace clang::interp;
@@ -3081,8 +3082,8 @@ bool ByteCodeExprGen<Emitter>::emitRecordDestruction(const Descriptor *Desc) {
 namespace clang {
 namespace interp {
 
-template class ByteCodeExprGen<ByteCodeEmitter>;
-template class ByteCodeExprGen<EvalEmitter>;
+template class CLANG_EXPORT_TEMPLATE ByteCodeExprGen<ByteCodeEmitter>;
+template class CLANG_EXPORT_TEMPLATE ByteCodeExprGen<EvalEmitter>;
 
 } // namespace interp
 } // namespace clang
