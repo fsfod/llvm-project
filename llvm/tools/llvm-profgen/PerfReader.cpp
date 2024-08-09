@@ -8,6 +8,7 @@
 #include "PerfReader.h"
 #include "ProfileGenerator.h"
 #include "llvm/DebugInfo/Symbolize/SymbolizableModule.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/Process.h"
 
@@ -40,10 +41,10 @@ static cl::opt<bool>
 cl::opt<bool> ShowDetailedWarning("show-detailed-warning",
                                   cl::desc("Show detailed warning message."));
 
-extern cl::opt<std::string> PerfTraceFilename;
-extern cl::opt<bool> ShowDisassemblyOnly;
-extern cl::opt<bool> ShowSourceLocations;
-extern cl::opt<std::string> OutputFilename;
+LLVM_ABI extern cl::opt<std::string> PerfTraceFilename;
+LLVM_ABI extern cl::opt<bool> ShowDisassemblyOnly;
+LLVM_ABI extern cl::opt<bool> ShowSourceLocations;
+LLVM_ABI extern cl::opt<std::string> OutputFilename;
 
 namespace llvm {
 namespace sampleprof {

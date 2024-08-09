@@ -29,6 +29,7 @@
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Passes/StandardInstrumentations.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/ToolOutputFile.h"
 #include "llvm/Support/VirtualFileSystem.h"
@@ -215,7 +216,7 @@ static cl::opt<bool> DisableLoopUnrolling(
     cl::desc("Disable loop unrolling in all relevant passes"), cl::init(false));
 
 namespace llvm {
-extern cl::opt<bool> PrintPipelinePasses;
+LLVM_ABI extern cl::opt<bool> PrintPipelinePasses;
 } // namespace llvm
 
 template <typename PassManagerT>
