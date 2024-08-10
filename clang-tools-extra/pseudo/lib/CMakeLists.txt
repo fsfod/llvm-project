@@ -4,7 +4,7 @@ add_subdirectory(grammar)
 
 set(LLVM_LINK_COMPONENTS Support)
 
-add_clang_library(clangPseudo
+add_clang_library(clangPseudo STATIC
   Bracket.cpp
   DirectiveTree.cpp
   Disambiguate.cpp

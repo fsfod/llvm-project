@@ -2,7 +2,7 @@ set(LLVM_LINK_COMPONENTS
   Support
   )
 
-add_clang_library(clangPseudoCLI
+add_clang_library(clangPseudoCLI STATIC
   CLI.cpp
 
   # FIXME export the headers from clangPseudoCXX instead

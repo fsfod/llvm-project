@@ -2,7 +2,7 @@ set(LLVM_LINK_COMPONENTS
   Support
   )
 
-add_clang_library(clangPseudoCXX
+add_clang_library(clangPseudoCXX STATIC
   CXX.cpp
 
   DEPENDS
