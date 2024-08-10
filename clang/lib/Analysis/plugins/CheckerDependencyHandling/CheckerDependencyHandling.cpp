@@ -24,5 +24,4 @@ extern "C" void clang_registerCheckers(CheckerRegistry &registry) {
   registry.addDependency("example.DependendentChecker", "example.Dependency");
 }
 
-extern "C" const char clang_analyzerAPIVersionString[] =
-    CLANG_ANALYZER_API_VERSION_STRING;
+EXPORT_ANALYZER_API_VERSION();
