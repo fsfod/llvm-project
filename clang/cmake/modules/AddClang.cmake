@@ -47,7 +47,7 @@ endmacro()
 
 macro(add_clang_library name)
   cmake_parse_arguments(ARG
-    "SHARED;STATIC;INSTALL_WITH_TOOLCHAIN"
+    "SHARED;STATIC;INSTALL_WITH_TOOLCHAIN;CLANG_IMPORT"
     ""
     "ADDITIONAL_HEADERS"
     ${ARGN})
@@ -108,7 +108,7 @@ macro(add_clang_library name)
   endif()
   llvm_add_library(${name} ${LIBTYPE} ${ARG_UNPARSED_ARGUMENTS} ${srcs})
 
-  if(NOT ARG_SHARED AND NOT ARG_STATIC)
+  if(NOT ARG_CLANG_IMPORT AND NOT ARG_SHARED AND NOT ARG_STATIC)
     target_compile_definitions("obj.${name}" PRIVATE CLANG_EXPORTS)
   endif()
 
