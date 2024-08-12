@@ -421,7 +421,7 @@ public:
 };
 
 /// Argument of a sandboxir::Function.
-class Argument : public sandboxir::Value {
+class LLVM_ABI Argument : public sandboxir::Value {
   Argument(llvm::Argument *Arg, sandboxir::Context &Ctx)
       : sandboxir::Value(ClassID::Argument, Arg, Ctx) {}
   friend class Context; // For constructor.
@@ -3610,7 +3610,7 @@ public:
   size_t getNumValues() const { return LLVMValueToValueMap.size(); }
 };
 
-class Function : public Constant {
+class LLVM_ABI Function : public Constant {
   /// Helper for mapped_iterator.
   struct LLVMBBToBB {
     Context &Ctx;
