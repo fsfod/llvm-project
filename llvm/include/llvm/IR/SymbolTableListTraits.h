@@ -116,6 +116,13 @@ class SymbolTableList : public iplist_impl<simple_ilist<T, Args...>,
                                            SymbolTableListTraits<T, Args...>> {
 };
 
+// Needed by llvm-reduce and IRTests
+extern template class LLVM_TEMPLATE_ABI SymbolTableListTraits<Function>;
+extern template class LLVM_TEMPLATE_ABI SymbolTableListTraits<BasicBlock>;
+extern template class LLVM_TEMPLATE_ABI SymbolTableListTraits<GlobalVariable>;
+extern template class LLVM_TEMPLATE_ABI SymbolTableListTraits<GlobalIFunc>;
+extern template class LLVM_TEMPLATE_ABI SymbolTableListTraits<GlobalAlias>;
+
 } // end namespace llvm
 
 #endif // LLVM_IR_SYMBOLTABLELISTTRAITS_H
