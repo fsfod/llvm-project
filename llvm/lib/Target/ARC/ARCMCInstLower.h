@@ -23,7 +23,7 @@ class Mangler;
 class AsmPrinter;
 
 /// This class is used to lower an MachineInstr into an MCInst.
-class LLVM_LIBRARY_VISIBILITY ARCMCInstLower {
+class ARCMCInstLower {
   using MachineOperandType = MachineOperand::MachineOperandType;
   MCContext *Ctx;
   AsmPrinter &Printer;

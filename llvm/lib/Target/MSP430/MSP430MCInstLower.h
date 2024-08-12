@@ -22,7 +22,7 @@ namespace llvm {
 
   /// MSP430MCInstLower - This class is used to lower an MachineInstr
   /// into an MCInst.
-class LLVM_LIBRARY_VISIBILITY MSP430MCInstLower {
+class MSP430MCInstLower {
   MCContext &Ctx;
 
   AsmPrinter &Printer;

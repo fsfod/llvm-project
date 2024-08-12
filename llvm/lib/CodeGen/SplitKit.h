@@ -47,7 +47,7 @@ class VirtRegAuxInfo;
 
 /// Determines the latest safe point in a block in which we can insert a split,
 /// spill or other instruction related with CurLI.
-class LLVM_LIBRARY_VISIBILITY InsertPointAnalysis {
+class InsertPointAnalysis {
 private:
   const LiveIntervals &LIS;
 
@@ -93,7 +93,7 @@ public:
 
 /// SplitAnalysis - Analyze a LiveInterval, looking for live range splitting
 /// opportunities.
-class LLVM_LIBRARY_VISIBILITY SplitAnalysis {
+class SplitAnalysis {
 public:
   const MachineFunction &MF;
   const VirtRegMap &VRM;
@@ -260,7 +260,7 @@ public:
 /// - Finish the current interval with closeIntv and repeat from 2.
 /// - Rewrite instructions with finish().
 ///
-class LLVM_LIBRARY_VISIBILITY SplitEditor {
+class SplitEditor {
   SplitAnalysis &SA;
   LiveIntervals &LIS;
   VirtRegMap &VRM;

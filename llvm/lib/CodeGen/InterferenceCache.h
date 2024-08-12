@@ -29,7 +29,7 @@ class LiveIntervals;
 class MachineFunction;
 class TargetRegisterInfo;
 
-class LLVM_LIBRARY_VISIBILITY InterferenceCache {
+class InterferenceCache {
   /// BlockInterference - information about the interference in a single basic
   /// block.
   struct BlockInterference {

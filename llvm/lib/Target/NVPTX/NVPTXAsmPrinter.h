@@ -59,7 +59,7 @@ namespace llvm {
 
 class MCOperand;
 
-class LLVM_LIBRARY_VISIBILITY NVPTXAsmPrinter : public AsmPrinter {
+class NVPTXAsmPrinter : public AsmPrinter {
 
   class AggBuffer {
     // Used to buffer the emitted string for initializing global aggregates.

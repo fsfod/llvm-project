@@ -23,7 +23,7 @@ class MachineInstr;
 class Module;
 class raw_ostream;
 
-class LLVM_LIBRARY_VISIBILITY SystemZAsmPrinter : public AsmPrinter {
+class SystemZAsmPrinter : public AsmPrinter {
 private:
   MCSymbol *CurrentFnPPA1Sym;     // PPA1 Symbol.
   MCSymbol *CurrentFnEPMarkerSym; // Entry Point Marker.

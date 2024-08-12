@@ -35,7 +35,7 @@ class raw_ostream;
 class M68kSubtarget;
 class M68kMachineFunctionInfo;
 
-class LLVM_LIBRARY_VISIBILITY M68kAsmPrinter
+class M68kAsmPrinter
     : public AsmPrinter,
       public M68kMemOperandPrinter<M68kAsmPrinter, MachineInstr> {
 

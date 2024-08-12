@@ -24,7 +24,7 @@ class MCStreamer;
 class X86Subtarget;
 class TargetMachine;
 
-class LLVM_LIBRARY_VISIBILITY X86AsmPrinter : public AsmPrinter {
+class X86AsmPrinter : public AsmPrinter {
   const X86Subtarget *Subtarget = nullptr;
   FaultMaps FM;
   std::unique_ptr<MCCodeEmitter> CodeEmitter;

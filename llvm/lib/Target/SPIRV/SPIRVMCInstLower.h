@@ -19,7 +19,7 @@ struct ModuleAnalysisInfo;
 } // namespace SPIRV
 
 // This class is used to lower a MachineInstr into an MCInst.
-class LLVM_LIBRARY_VISIBILITY SPIRVMCInstLower {
+class SPIRVMCInstLower {
 public:
   void lower(const MachineInstr *MI, MCInst &OutMI,
              SPIRV::ModuleAnalysisInfo *MAI) const;

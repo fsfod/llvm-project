@@ -21,7 +21,7 @@ namespace llvm {
 class MachineFunction;
 class ARMTargetStreamer;
 
-class LLVM_LIBRARY_VISIBILITY DwarfCFIException : public EHStreamer {
+class DwarfCFIException : public EHStreamer {
   /// Per-function flag to indicate if .cfi_personality should be emitted.
   bool shouldEmitPersonality = false;
 
@@ -63,7 +63,7 @@ public:
   void endBasicBlockSection(const MachineBasicBlock &MBB) override;
 };
 
-class LLVM_LIBRARY_VISIBILITY ARMException : public EHStreamer {
+class ARMException : public EHStreamer {
   /// Per-function flag to indicate if frame CFI info should be emitted.
   bool shouldEmitCFI = false;
 
@@ -93,7 +93,7 @@ public:
   void markFunctionEnd() override;
 };
 
-class LLVM_LIBRARY_VISIBILITY AIXException : public EHStreamer {
+class AIXException : public EHStreamer {
   /// This is AIX's compat unwind section, which unwinder would use
   /// to find the location of LSDA area and personality rountine.
   void emitExceptionInfoTable(const MCSymbol *LSDA, const MCSymbol *PerSym);
