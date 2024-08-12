@@ -21,7 +21,7 @@ namespace clang {
 namespace targets {
 
 /// Information about a specific microcontroller.
-struct LLVM_LIBRARY_VISIBILITY MCUInfo {
+struct MCUInfo {
   const char *Name;
   const char *DefineName;
   StringRef Arch; // The __AVR_ARCH__ value.

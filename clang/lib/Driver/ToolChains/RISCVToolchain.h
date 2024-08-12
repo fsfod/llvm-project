@@ -16,7 +16,7 @@ namespace clang {
 namespace driver {
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY RISCVToolChain : public Generic_ELF {
+class RISCVToolChain : public Generic_ELF {
 public:
   RISCVToolChain(const Driver &D, const llvm::Triple &Triple,
                  const llvm::opt::ArgList &Args);
@@ -48,7 +48,7 @@ private:
 
 namespace tools {
 namespace RISCV {
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("RISCV::Linker", "ld", TC) {}
   bool hasIntegratedCPP() const override { return false; }

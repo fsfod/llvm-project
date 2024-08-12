@@ -56,7 +56,7 @@ static const unsigned TCEOpenCLAddrSpaceMap[] = {
     20, // wasm_funcref
 };
 
-class LLVM_LIBRARY_VISIBILITY TCETargetInfo : public TargetInfo {
+class TCETargetInfo : public TargetInfo {
 public:
   TCETargetInfo(const llvm::Triple &Triple, const TargetOptions &)
       : TargetInfo(Triple) {
@@ -119,7 +119,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY TCELETargetInfo : public TCETargetInfo {
+class TCELETargetInfo : public TCETargetInfo {
 public:
   TCELETargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : TCETargetInfo(Triple, Opts) {

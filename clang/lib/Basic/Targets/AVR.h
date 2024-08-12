@@ -22,7 +22,7 @@ namespace clang {
 namespace targets {
 
 // AVR Target
-class LLVM_LIBRARY_VISIBILITY AVRTargetInfo : public TargetInfo {
+class AVRTargetInfo : public TargetInfo {
 public:
   AVRTargetInfo(const llvm::Triple &Triple, const TargetOptions &)
       : TargetInfo(Triple) {

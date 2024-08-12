@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY MipsTargetInfo : public TargetInfo {
+class MipsTargetInfo : public TargetInfo {
   void setDataLayout() {
     StringRef Layout;
 

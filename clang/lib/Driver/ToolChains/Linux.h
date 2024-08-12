@@ -16,7 +16,7 @@ namespace clang {
 namespace driver {
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY Linux : public Generic_ELF {
+class Linux : public Generic_ELF {
 public:
   Linux(const Driver &D, const llvm::Triple &Triple,
         const llvm::opt::ArgList &Args);

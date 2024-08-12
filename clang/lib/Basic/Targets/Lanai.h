@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY LanaiTargetInfo : public TargetInfo {
+class LanaiTargetInfo : public TargetInfo {
   // Class for Lanai (32-bit).
   // The CPU profiles supported by the Lanai backend
   enum CPUKind {

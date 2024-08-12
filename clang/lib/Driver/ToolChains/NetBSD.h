@@ -19,7 +19,7 @@ namespace tools {
 
 /// Directly call GNU Binutils assembler and linker
 namespace netbsd {
-class LLVM_LIBRARY_VISIBILITY Assembler final : public Tool {
+class Assembler final : public Tool {
 public:
   Assembler(const ToolChain &TC) : Tool("netbsd::Assembler", "assembler", TC) {}
 
@@ -31,7 +31,7 @@ public:
                     const char *LinkingOutput) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("netbsd::Linker", "linker", TC) {}
 
@@ -48,7 +48,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY NetBSD : public Generic_ELF {
+class NetBSD : public Generic_ELF {
 public:
   NetBSD(const Driver &D, const llvm::Triple &Triple,
          const llvm::opt::ArgList &Args);

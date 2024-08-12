@@ -22,7 +22,7 @@ class AMDGPUOpenMPToolChain;
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY AMDGPUOpenMPToolChain final
+class AMDGPUOpenMPToolChain final
     : public ROCMToolChain {
 public:
   AMDGPUOpenMPToolChain(const Driver &D, const llvm::Triple &Triple,

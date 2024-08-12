@@ -19,7 +19,7 @@ namespace tools {
 
 /// Directly call GNU Binutils assembler and linker
 namespace haiku {
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("haiku::Linker", "linker", TC) {}
 
@@ -36,7 +36,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY Haiku : public Generic_ELF {
+class Haiku : public Generic_ELF {
 public:
   Haiku(const Driver &D, const llvm::Triple &Triple,
           const llvm::opt::ArgList &Args);

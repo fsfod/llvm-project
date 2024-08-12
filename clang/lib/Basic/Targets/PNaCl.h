@@ -22,7 +22,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY PNaClTargetInfo : public TargetInfo {
+class PNaClTargetInfo : public TargetInfo {
 public:
   PNaClTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : TargetInfo(Triple) {
@@ -75,7 +75,7 @@ public:
 };
 
 // We attempt to use PNaCl (le32) frontend and Mips32EL backend.
-class LLVM_LIBRARY_VISIBILITY NaClMips32TargetInfo : public MipsTargetInfo {
+class NaClMips32TargetInfo : public MipsTargetInfo {
 public:
   NaClMips32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : MipsTargetInfo(Triple, Opts) {}

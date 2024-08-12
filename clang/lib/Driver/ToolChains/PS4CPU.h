@@ -27,7 +27,7 @@ void addProfileRTArgs(const ToolChain &TC, const llvm::opt::ArgList &Args,
 void addSanitizerArgs(const ToolChain &TC, const llvm::opt::ArgList &Args,
                       llvm::opt::ArgStringList &CmdArgs);
 
-class LLVM_LIBRARY_VISIBILITY Assembler final : public Tool {
+class Assembler final : public Tool {
 public:
   Assembler(const ToolChain &TC) : Tool("PScpu::Assembler", "assembler", TC) {}
 
@@ -41,7 +41,7 @@ public:
 } // namespace PScpu
 
 namespace PS4cpu {
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("PS4cpu::Linker", "linker", TC) {}
 
@@ -56,7 +56,7 @@ public:
 } // namespace PS4cpu
 
 namespace PS5cpu {
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("PS5cpu::Linker", "linker", TC) {}
 
@@ -75,7 +75,7 @@ public:
 namespace toolchains {
 
 // Common Toolchain base class for PS4 and PS5.
-class LLVM_LIBRARY_VISIBILITY PS4PS5Base : public Generic_ELF {
+class PS4PS5Base : public Generic_ELF {
 public:
   PS4PS5Base(const Driver &D, const llvm::Triple &Triple,
              const llvm::opt::ArgList &Args, StringRef Platform,
@@ -137,7 +137,7 @@ private:
 };
 
 // PS4-specific Toolchain class.
-class LLVM_LIBRARY_VISIBILITY PS4CPU : public PS4PS5Base {
+class PS4CPU : public PS4PS5Base {
 public:
   PS4CPU(const Driver &D, const llvm::Triple &Triple,
          const llvm::opt::ArgList &Args);
@@ -165,7 +165,7 @@ protected:
 };
 
 // PS5-specific Toolchain class.
-class LLVM_LIBRARY_VISIBILITY PS5CPU : public PS4PS5Base {
+class PS5CPU : public PS4PS5Base {
 public:
   PS5CPU(const Driver &D, const llvm::Triple &Triple,
          const llvm::opt::ArgList &Args);

@@ -23,7 +23,7 @@ namespace clang {
 namespace targets {
 
 // Hexagon abstract base class
-class LLVM_LIBRARY_VISIBILITY HexagonTargetInfo : public TargetInfo {
+class HexagonTargetInfo : public TargetInfo {
 
   static const char *const GCCRegNames[];
   static const TargetInfo::GCCRegAlias GCCRegAliases[];

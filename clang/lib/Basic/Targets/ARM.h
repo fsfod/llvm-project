@@ -24,7 +24,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY ARMTargetInfo : public TargetInfo {
+class ARMTargetInfo : public TargetInfo {
   // Possible FPU choices.
   enum FPUMode {
     VFP2FPU = (1 << 0),
@@ -231,21 +231,21 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY ARMleTargetInfo : public ARMTargetInfo {
+class ARMleTargetInfo : public ARMTargetInfo {
 public:
   ARMleTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
   void getTargetDefines(const LangOptions &Opts,
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY ARMbeTargetInfo : public ARMTargetInfo {
+class ARMbeTargetInfo : public ARMTargetInfo {
 public:
   ARMbeTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
   void getTargetDefines(const LangOptions &Opts,
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY WindowsARMTargetInfo
+class WindowsARMTargetInfo
     : public WindowsTargetInfo<ARMleTargetInfo> {
   const llvm::Triple Triple;
 
@@ -261,7 +261,7 @@ public:
 };
 
 // Windows ARM + Itanium C++ ABI Target
-class LLVM_LIBRARY_VISIBILITY ItaniumWindowsARMleTargetInfo
+class ItaniumWindowsARMleTargetInfo
     : public WindowsARMTargetInfo {
 public:
   ItaniumWindowsARMleTargetInfo(const llvm::Triple &Triple,
@@ -272,7 +272,7 @@ public:
 };
 
 // Windows ARM, MS (C++) ABI
-class LLVM_LIBRARY_VISIBILITY MicrosoftARMleTargetInfo
+class MicrosoftARMleTargetInfo
     : public WindowsARMTargetInfo {
 public:
   MicrosoftARMleTargetInfo(const llvm::Triple &Triple,
@@ -283,7 +283,7 @@ public:
 };
 
 // ARM MinGW target
-class LLVM_LIBRARY_VISIBILITY MinGWARMTargetInfo : public WindowsARMTargetInfo {
+class MinGWARMTargetInfo : public WindowsARMTargetInfo {
 public:
   MinGWARMTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
 
@@ -292,7 +292,7 @@ public:
 };
 
 // ARM Cygwin target
-class LLVM_LIBRARY_VISIBILITY CygwinARMTargetInfo : public ARMleTargetInfo {
+class CygwinARMTargetInfo : public ARMleTargetInfo {
 public:
   CygwinARMTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
 
@@ -300,7 +300,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY DarwinARMTargetInfo
+class DarwinARMTargetInfo
     : public DarwinTargetInfo<ARMleTargetInfo> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
@@ -311,7 +311,7 @@ public:
 };
 
 // 32-bit RenderScript is armv7 with width and align of 'long' set to 8-bytes
-class LLVM_LIBRARY_VISIBILITY RenderScript32TargetInfo
+class RenderScript32TargetInfo
     : public ARMleTargetInfo {
 public:
   RenderScript32TargetInfo(const llvm::Triple &Triple,

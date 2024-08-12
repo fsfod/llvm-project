@@ -45,7 +45,7 @@ static const unsigned WebAssemblyAddrSpaceMap[] = {
     20, // wasm_funcref
 };
 
-class LLVM_LIBRARY_VISIBILITY WebAssemblyTargetInfo : public TargetInfo {
+class WebAssemblyTargetInfo : public TargetInfo {
 
   enum SIMDEnum {
     NoSIMD,
@@ -172,7 +172,7 @@ private:
   void adjust(DiagnosticsEngine &Diags, LangOptions &Opts) override;
 };
 
-class LLVM_LIBRARY_VISIBILITY WebAssembly32TargetInfo
+class WebAssembly32TargetInfo
     : public WebAssemblyTargetInfo {
 public:
   explicit WebAssembly32TargetInfo(const llvm::Triple &T,
@@ -191,7 +191,7 @@ protected:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY WebAssembly64TargetInfo
+class WebAssembly64TargetInfo
     : public WebAssemblyTargetInfo {
 public:
   explicit WebAssembly64TargetInfo(const llvm::Triple &T,

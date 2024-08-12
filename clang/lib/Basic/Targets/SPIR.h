@@ -86,7 +86,7 @@ static const unsigned SPIRDefIsGenMap[] = {
 };
 
 // Base class for SPIR and SPIR-V target info.
-class LLVM_LIBRARY_VISIBILITY BaseSPIRTargetInfo : public TargetInfo {
+class BaseSPIRTargetInfo : public TargetInfo {
   std::unique_ptr<TargetInfo> HostTarget;
 
 protected:
@@ -228,7 +228,7 @@ public:
   bool hasInt128Type() const override { return false; }
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIRTargetInfo : public BaseSPIRTargetInfo {
+class SPIRTargetInfo : public BaseSPIRTargetInfo {
 public:
   SPIRTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : BaseSPIRTargetInfo(Triple, Opts) {
@@ -249,7 +249,7 @@ public:
   bool checkArithmeticFenceSupported() const override { return true; }
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIR32TargetInfo : public SPIRTargetInfo {
+class SPIR32TargetInfo : public SPIRTargetInfo {
 public:
   SPIR32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : SPIRTargetInfo(Triple, Opts) {
@@ -266,7 +266,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIR64TargetInfo : public SPIRTargetInfo {
+class SPIR64TargetInfo : public SPIRTargetInfo {
 public:
   SPIR64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : SPIRTargetInfo(Triple, Opts) {
@@ -283,7 +283,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY BaseSPIRVTargetInfo : public BaseSPIRTargetInfo {
+class BaseSPIRVTargetInfo : public BaseSPIRTargetInfo {
 public:
   BaseSPIRVTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : BaseSPIRTargetInfo(Triple, Opts) {
@@ -298,7 +298,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIRVTargetInfo : public BaseSPIRVTargetInfo {
+class SPIRVTargetInfo : public BaseSPIRVTargetInfo {
 public:
   SPIRVTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : BaseSPIRVTargetInfo(Triple, Opts) {
@@ -322,7 +322,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIRV32TargetInfo : public BaseSPIRVTargetInfo {
+class SPIRV32TargetInfo : public BaseSPIRVTargetInfo {
 public:
   SPIRV32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : BaseSPIRVTargetInfo(Triple, Opts) {
@@ -346,7 +346,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIRV64TargetInfo : public BaseSPIRVTargetInfo {
+class SPIRV64TargetInfo : public BaseSPIRVTargetInfo {
 public:
   SPIRV64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : BaseSPIRVTargetInfo(Triple, Opts) {
@@ -370,7 +370,7 @@ public:
                         MacroBuilder &Builder) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY SPIRV64AMDGCNTargetInfo final
+class SPIRV64AMDGCNTargetInfo final
     : public BaseSPIRVTargetInfo {
 public:
   SPIRV64AMDGCNTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)

@@ -45,7 +45,7 @@ static const unsigned ZOSAddressMap[] = {
     0  // wasm_funcref
 };
 
-class LLVM_LIBRARY_VISIBILITY SystemZTargetInfo : public TargetInfo {
+class SystemZTargetInfo : public TargetInfo {
 
   static const char *const GCCRegNames[];
   int ISARevision;
