@@ -16,7 +16,7 @@ namespace clang {
 namespace driver {
 namespace tools {
 namespace ifstool {
-class LLVM_LIBRARY_VISIBILITY Merger : public Tool {
+class Merger : public Tool {
 public:
   Merger(const ToolChain &TC) : Tool("IFS::Merger", "llvm-ifs", TC) {}
 

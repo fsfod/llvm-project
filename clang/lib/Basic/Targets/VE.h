@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY VETargetInfo : public TargetInfo {
+class VETargetInfo : public TargetInfo {
 
 public:
   VETargetInfo(const llvm::Triple &Triple, const TargetOptions &)

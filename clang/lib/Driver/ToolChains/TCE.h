@@ -19,7 +19,7 @@ namespace toolchains {
 
 /// TCEToolChain - A tool chain using the llvm bitcode tools to perform
 /// all subcommands. See http://tce.cs.tut.fi for our peculiar target.
-class LLVM_LIBRARY_VISIBILITY TCEToolChain : public ToolChain {
+class TCEToolChain : public ToolChain {
 public:
   TCEToolChain(const Driver &D, const llvm::Triple &Triple,
                const llvm::opt::ArgList &Args);
@@ -32,7 +32,7 @@ public:
 };
 
 /// Toolchain for little endian TCE cores.
-class LLVM_LIBRARY_VISIBILITY TCELEToolChain : public TCEToolChain {
+class TCELEToolChain : public TCEToolChain {
 public:
   TCELEToolChain(const Driver &D, const llvm::Triple &Triple,
                  const llvm::opt::ArgList &Args);

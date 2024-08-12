@@ -53,7 +53,7 @@ static const unsigned X86AddrSpaceMap[] = {
 
 // X86 target abstract base class; x86-32 and x86-64 are very close, so
 // most of the implementation can be shared.
-class LLVM_LIBRARY_VISIBILITY X86TargetInfo : public TargetInfo {
+class X86TargetInfo : public TargetInfo {
 
   enum X86SSEEnum {
     NoSSE,
@@ -434,7 +434,7 @@ public:
 };
 
 // X86-32 generic target
-class LLVM_LIBRARY_VISIBILITY X86_32TargetInfo : public X86TargetInfo {
+class X86_32TargetInfo : public X86TargetInfo {
 public:
   X86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : X86TargetInfo(Triple, Opts) {
@@ -510,14 +510,14 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY NetBSDI386TargetInfo
+class NetBSDI386TargetInfo
     : public NetBSDTargetInfo<X86_32TargetInfo> {
 public:
   NetBSDI386TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : NetBSDTargetInfo<X86_32TargetInfo>(Triple, Opts) {}
 };
 
-class LLVM_LIBRARY_VISIBILITY OpenBSDI386TargetInfo
+class OpenBSDI386TargetInfo
     : public OpenBSDTargetInfo<X86_32TargetInfo> {
 public:
   OpenBSDI386TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -528,7 +528,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY DarwinI386TargetInfo
+class DarwinI386TargetInfo
     : public DarwinTargetInfo<X86_32TargetInfo> {
 public:
   DarwinI386TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -562,7 +562,7 @@ public:
 };
 
 // x86-32 Windows target
-class LLVM_LIBRARY_VISIBILITY WindowsX86_32TargetInfo
+class WindowsX86_32TargetInfo
     : public WindowsTargetInfo<X86_32TargetInfo> {
 public:
   WindowsX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -580,7 +580,7 @@ public:
 };
 
 // x86-32 Windows Visual Studio target
-class LLVM_LIBRARY_VISIBILITY MicrosoftX86_32TargetInfo
+class MicrosoftX86_32TargetInfo
     : public WindowsX86_32TargetInfo {
 public:
   MicrosoftX86_32TargetInfo(const llvm::Triple &Triple,
@@ -601,7 +601,7 @@ public:
 };
 
 // x86-32 MinGW target
-class LLVM_LIBRARY_VISIBILITY MinGWX86_32TargetInfo
+class MinGWX86_32TargetInfo
     : public WindowsX86_32TargetInfo {
 public:
   MinGWX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -617,7 +617,7 @@ public:
 };
 
 // x86-32 Cygwin target
-class LLVM_LIBRARY_VISIBILITY CygwinX86_32TargetInfo : public X86_32TargetInfo {
+class CygwinX86_32TargetInfo : public X86_32TargetInfo {
 public:
   CygwinX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : X86_32TargetInfo(Triple, Opts) {
@@ -642,7 +642,7 @@ public:
 };
 
 // x86-32 Haiku target
-class LLVM_LIBRARY_VISIBILITY HaikuX86_32TargetInfo
+class HaikuX86_32TargetInfo
     : public HaikuTargetInfo<X86_32TargetInfo> {
 public:
   HaikuX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -656,7 +656,7 @@ public:
 };
 
 // X86-32 MCU target
-class LLVM_LIBRARY_VISIBILITY MCUX86_32TargetInfo : public X86_32TargetInfo {
+class MCUX86_32TargetInfo : public X86_32TargetInfo {
 public:
   MCUX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : X86_32TargetInfo(Triple, Opts) {
@@ -684,7 +684,7 @@ public:
 };
 
 // x86-32 RTEMS target
-class LLVM_LIBRARY_VISIBILITY RTEMSX86_32TargetInfo : public X86_32TargetInfo {
+class RTEMSX86_32TargetInfo : public X86_32TargetInfo {
 public:
   RTEMSX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : X86_32TargetInfo(Triple, Opts) {
@@ -702,7 +702,7 @@ public:
 };
 
 // x86-64 generic target
-class LLVM_LIBRARY_VISIBILITY X86_64TargetInfo : public X86TargetInfo {
+class X86_64TargetInfo : public X86TargetInfo {
 public:
   X86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : X86TargetInfo(Triple, Opts) {
@@ -815,7 +815,7 @@ public:
 };
 
 // x86-64 Windows target
-class LLVM_LIBRARY_VISIBILITY WindowsX86_64TargetInfo
+class WindowsX86_64TargetInfo
     : public WindowsTargetInfo<X86_64TargetInfo> {
 public:
   WindowsX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -858,7 +858,7 @@ public:
 };
 
 // x86-64 Windows Visual Studio target
-class LLVM_LIBRARY_VISIBILITY MicrosoftX86_64TargetInfo
+class MicrosoftX86_64TargetInfo
     : public WindowsX86_64TargetInfo {
 public:
   MicrosoftX86_64TargetInfo(const llvm::Triple &Triple,
@@ -882,7 +882,7 @@ public:
 };
 
 // x86-64 MinGW target
-class LLVM_LIBRARY_VISIBILITY MinGWX86_64TargetInfo
+class MinGWX86_64TargetInfo
     : public WindowsX86_64TargetInfo {
 public:
   MinGWX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -896,7 +896,7 @@ public:
 };
 
 // x86-64 Cygwin target
-class LLVM_LIBRARY_VISIBILITY CygwinX86_64TargetInfo : public X86_64TargetInfo {
+class CygwinX86_64TargetInfo : public X86_64TargetInfo {
 public:
   CygwinX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : X86_64TargetInfo(Triple, Opts) {
@@ -917,7 +917,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY DarwinX86_64TargetInfo
+class DarwinX86_64TargetInfo
     : public DarwinTargetInfo<X86_64TargetInfo> {
 public:
   DarwinX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -944,7 +944,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY OpenBSDX86_64TargetInfo
+class OpenBSDX86_64TargetInfo
     : public OpenBSDTargetInfo<X86_64TargetInfo> {
 public:
   OpenBSDX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -955,7 +955,7 @@ public:
 };
 
 // x86_32 Android target
-class LLVM_LIBRARY_VISIBILITY AndroidX86_32TargetInfo
+class AndroidX86_32TargetInfo
     : public LinuxTargetInfo<X86_32TargetInfo> {
 public:
   AndroidX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -967,7 +967,7 @@ public:
 };
 
 // x86_64 Android target
-class LLVM_LIBRARY_VISIBILITY AndroidX86_64TargetInfo
+class AndroidX86_64TargetInfo
     : public LinuxTargetInfo<X86_64TargetInfo> {
 public:
   AndroidX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -977,7 +977,7 @@ public:
 };
 
 // x86_32 OHOS target
-class LLVM_LIBRARY_VISIBILITY OHOSX86_32TargetInfo
+class OHOSX86_32TargetInfo
     : public OHOSTargetInfo<X86_32TargetInfo> {
 public:
   OHOSX86_32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -989,7 +989,7 @@ public:
 };
 
 // x86_64 OHOS target
-class LLVM_LIBRARY_VISIBILITY OHOSX86_64TargetInfo
+class OHOSX86_64TargetInfo
     : public OHOSTargetInfo<X86_64TargetInfo> {
 public:
   OHOSX86_64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)

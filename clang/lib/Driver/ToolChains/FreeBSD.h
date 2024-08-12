@@ -19,7 +19,7 @@ namespace tools {
 
 /// Directly call GNU Binutils assembler and linker
 namespace freebsd {
-class LLVM_LIBRARY_VISIBILITY Assembler final : public Tool {
+class Assembler final : public Tool {
 public:
   Assembler(const ToolChain &TC)
       : Tool("freebsd::Assembler", "assembler", TC) {}
@@ -32,7 +32,7 @@ public:
                     const char *LinkingOutput) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("freebsd::Linker", "linker", TC) {}
 
@@ -49,7 +49,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY FreeBSD : public Generic_ELF {
+class FreeBSD : public Generic_ELF {
 public:
   FreeBSD(const Driver &D, const llvm::Triple &Triple,
           const llvm::opt::ArgList &Args);

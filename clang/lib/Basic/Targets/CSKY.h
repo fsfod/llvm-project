@@ -20,7 +20,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY CSKYTargetInfo : public TargetInfo {
+class CSKYTargetInfo : public TargetInfo {
 protected:
   std::string ABI;
   llvm::CSKY::ArchKind Arch = llvm::CSKY::ArchKind::INVALID;

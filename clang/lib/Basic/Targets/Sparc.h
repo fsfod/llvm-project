@@ -19,7 +19,7 @@
 namespace clang {
 namespace targets {
 // Shared base class for SPARC v8 (32-bit) and SPARC v9 (64-bit).
-class LLVM_LIBRARY_VISIBILITY SparcTargetInfo : public TargetInfo {
+class SparcTargetInfo : public TargetInfo {
   static const TargetInfo::GCCRegAlias GCCRegAliases[];
   static const char *const GCCRegNames[];
   bool SoftFloat;
@@ -147,7 +147,7 @@ public:
 };
 
 // SPARC v8 is the 32-bit mode selected by Triple::sparc.
-class LLVM_LIBRARY_VISIBILITY SparcV8TargetInfo : public SparcTargetInfo {
+class SparcV8TargetInfo : public SparcTargetInfo {
 public:
   SparcV8TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : SparcTargetInfo(Triple, Opts) {
@@ -184,7 +184,7 @@ public:
 };
 
 // SPARCV8el is the 32-bit little-endian mode selected by Triple::sparcel.
-class LLVM_LIBRARY_VISIBILITY SparcV8elTargetInfo : public SparcV8TargetInfo {
+class SparcV8elTargetInfo : public SparcV8TargetInfo {
 public:
   SparcV8elTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : SparcV8TargetInfo(Triple, Opts) {
@@ -193,7 +193,7 @@ public:
 };
 
 // SPARC v9 is the 64-bit mode selected by Triple::sparcv9.
-class LLVM_LIBRARY_VISIBILITY SparcV9TargetInfo : public SparcTargetInfo {
+class SparcV9TargetInfo : public SparcTargetInfo {
 public:
   SparcV9TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : SparcTargetInfo(Triple, Opts) {

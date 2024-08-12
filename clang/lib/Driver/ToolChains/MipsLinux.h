@@ -16,7 +16,7 @@ namespace clang {
 namespace driver {
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY MipsLLVMToolChain : public Linux {
+class MipsLLVMToolChain : public Linux {
 protected:
   Tool *buildLinker() const override;
 

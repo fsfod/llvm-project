@@ -24,7 +24,7 @@ namespace tools {
 
 /// Visual studio tools.
 namespace visualstudio {
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("visualstudio::Linker", "linker", TC) {}
 
@@ -42,7 +42,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY MSVCToolChain : public ToolChain {
+class MSVCToolChain : public ToolChain {
 public:
   MSVCToolChain(const Driver &D, const llvm::Triple &Triple,
                 const llvm::opt::ArgList &Args);

@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY AArch64TargetInfo : public TargetInfo {
+class AArch64TargetInfo : public TargetInfo {
   virtual void setDataLayout() = 0;
   static const TargetInfo::GCCRegAlias GCCRegAliases[];
   static const char *const GCCRegNames[];
@@ -207,7 +207,7 @@ public:
                                       bool &HasSizeMismatch) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY AArch64leTargetInfo : public AArch64TargetInfo {
+class AArch64leTargetInfo : public AArch64TargetInfo {
 public:
   AArch64leTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
 
@@ -217,7 +217,7 @@ private:
   void setDataLayout() override;
 };
 
-class LLVM_LIBRARY_VISIBILITY WindowsARM64TargetInfo
+class WindowsARM64TargetInfo
     : public WindowsTargetInfo<AArch64leTargetInfo> {
   const llvm::Triple Triple;
 
@@ -233,7 +233,7 @@ public:
 };
 
 // Windows ARM, MS (C++) ABI
-class LLVM_LIBRARY_VISIBILITY MicrosoftARM64TargetInfo
+class MicrosoftARM64TargetInfo
     : public WindowsARM64TargetInfo {
 public:
   MicrosoftARM64TargetInfo(const llvm::Triple &Triple,
@@ -249,13 +249,13 @@ public:
 };
 
 // ARM64 MinGW target
-class LLVM_LIBRARY_VISIBILITY MinGWARM64TargetInfo
+class MinGWARM64TargetInfo
     : public WindowsARM64TargetInfo {
 public:
   MinGWARM64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
 };
 
-class LLVM_LIBRARY_VISIBILITY AArch64beTargetInfo : public AArch64TargetInfo {
+class AArch64beTargetInfo : public AArch64TargetInfo {
 public:
   AArch64beTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
   void getTargetDefines(const LangOptions &Opts,
@@ -265,7 +265,7 @@ private:
   void setDataLayout() override;
 };
 
-class LLVM_LIBRARY_VISIBILITY DarwinAArch64TargetInfo
+class DarwinAArch64TargetInfo
     : public DarwinTargetInfo<AArch64leTargetInfo> {
 public:
   DarwinAArch64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
@@ -278,7 +278,7 @@ public:
 };
 
 // 64-bit RenderScript is aarch64
-class LLVM_LIBRARY_VISIBILITY RenderScript64TargetInfo
+class RenderScript64TargetInfo
     : public AArch64leTargetInfo {
 public:
   RenderScript64TargetInfo(const llvm::Triple &Triple,

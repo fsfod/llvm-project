@@ -18,7 +18,7 @@ namespace driver {
 namespace tools {
 namespace wasm {
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   explicit Linker(const ToolChain &TC) : Tool("wasm::Linker", "linker", TC) {}
   bool isLinkJob() const override { return true; }
@@ -35,7 +35,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY WebAssembly final : public ToolChain {
+class WebAssembly final : public ToolChain {
 public:
   WebAssembly(const Driver &D, const llvm::Triple &Triple,
               const llvm::opt::ArgList &Args);

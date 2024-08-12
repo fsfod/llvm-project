@@ -23,7 +23,7 @@ namespace tools {
 
 /// Directly call GNU Binutils assembler and linker
 namespace MinGW {
-class LLVM_LIBRARY_VISIBILITY Assembler : public Tool {
+class Assembler : public Tool {
 public:
   Assembler(const ToolChain &TC) : Tool("MinGW::Assemble", "assembler", TC) {}
 
@@ -35,7 +35,7 @@ public:
                     const char *LinkingOutput) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("MinGW::Linker", "linker", TC) {}
 
@@ -56,7 +56,7 @@ private:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY MinGW : public ToolChain {
+class MinGW : public ToolChain {
 public:
   MinGW(const Driver &D, const llvm::Triple &Triple,
         const llvm::opt::ArgList &Args);

@@ -18,7 +18,7 @@ namespace clang {
 namespace driver {
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY AVRToolChain : public Generic_ELF {
+class AVRToolChain : public Generic_ELF {
 public:
   AVRToolChain(const Driver &D, const llvm::Triple &Triple,
                const llvm::opt::ArgList &Args);
@@ -49,7 +49,7 @@ private:
 
 namespace tools {
 namespace AVR {
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const llvm::Triple &Triple, const ToolChain &TC)
       : Tool("AVR::Linker", "avr-ld", TC), Triple(Triple) {}

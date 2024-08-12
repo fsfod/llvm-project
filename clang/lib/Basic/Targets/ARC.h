@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY ARCTargetInfo : public TargetInfo {
+class ARCTargetInfo : public TargetInfo {
 public:
   ARCTargetInfo(const llvm::Triple &Triple, const TargetOptions &)
       : TargetInfo(Triple) {
