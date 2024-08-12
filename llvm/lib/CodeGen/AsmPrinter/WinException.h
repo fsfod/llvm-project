@@ -23,7 +23,7 @@ class MCExpr;
 class MCSection;
 struct WinEHFuncInfo;
 
-class LLVM_LIBRARY_VISIBILITY WinException : public EHStreamer {
+class WinException : public EHStreamer {
   /// Per-function flag to indicate if personality info should be emitted.
   bool shouldEmitPersonality = false;
 

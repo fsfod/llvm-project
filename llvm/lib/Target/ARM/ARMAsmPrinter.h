@@ -28,7 +28,7 @@ namespace ARM {
   };
 }
 
-class LLVM_LIBRARY_VISIBILITY ARMAsmPrinter : public AsmPrinter {
+class ARMAsmPrinter : public AsmPrinter {
 
   /// Subtarget - Keep a pointer to the ARMSubtarget around so that we can
   /// make the right decision when printing asm code for different targets.

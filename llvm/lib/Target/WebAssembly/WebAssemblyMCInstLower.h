@@ -27,7 +27,7 @@ class MachineInstr;
 class MachineOperand;
 
 /// This class is used to lower an MachineInstr into an MCInst.
-class LLVM_LIBRARY_VISIBILITY WebAssemblyMCInstLower {
+class WebAssemblyMCInstLower {
   MCContext &Ctx;
   WebAssemblyAsmPrinter &Printer;
 

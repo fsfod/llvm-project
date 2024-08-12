@@ -24,7 +24,7 @@ class MachineOperand;
 
 /// AArch64MCInstLower - This class is used to lower an MachineInstr
 /// into an MCInst.
-class LLVM_LIBRARY_VISIBILITY AArch64MCInstLower {
+class AArch64MCInstLower {
   MCContext &Ctx;
   AsmPrinter &Printer;
   Triple TargetTriple;

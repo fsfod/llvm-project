@@ -22,7 +22,7 @@ class MachineFunction;
 struct LandingPadInfo;
 template <typename T> class SmallVectorImpl;
 
-class LLVM_LIBRARY_VISIBILITY WasmException : public EHStreamer {
+class WasmException : public EHStreamer {
 public:
   WasmException(AsmPrinter *A) : EHStreamer(A) {}
 

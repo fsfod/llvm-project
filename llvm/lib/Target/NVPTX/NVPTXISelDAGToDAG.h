@@ -37,7 +37,7 @@ private:
   SmallMapVector<SyncScope::ID, NVPTX::Scope, 8> Scopes{};
 };
 
-class LLVM_LIBRARY_VISIBILITY NVPTXDAGToDAGISel : public SelectionDAGISel {
+class NVPTXDAGToDAGISel : public SelectionDAGISel {
   const NVPTXTargetMachine &TM;
 
   // If true, generate mul.wide from sext and mul

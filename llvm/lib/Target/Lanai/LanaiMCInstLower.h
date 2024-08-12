@@ -22,7 +22,7 @@ class MachineOperand;
 
 // LanaiMCInstLower - This class is used to lower an MachineInstr
 // into an MCInst.
-class LLVM_LIBRARY_VISIBILITY LanaiMCInstLower {
+class LanaiMCInstLower {
   MCContext &Ctx;
 
   AsmPrinter &Printer;

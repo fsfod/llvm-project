@@ -21,7 +21,7 @@ class MachineInstr;
 class MachineOperand;
 
 // BPFMCInstLower - This class is used to lower an MachineInstr into an MCInst.
-class LLVM_LIBRARY_VISIBILITY BPFMCInstLower {
+class BPFMCInstLower {
   MCContext &Ctx;
 
   AsmPrinter &Printer;

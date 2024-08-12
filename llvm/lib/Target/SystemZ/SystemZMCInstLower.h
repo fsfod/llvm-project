@@ -20,7 +20,7 @@ class MachineInstr;
 class MachineOperand;
 class SystemZAsmPrinter;
 
-class LLVM_LIBRARY_VISIBILITY SystemZMCInstLower {
+class SystemZMCInstLower {
   MCContext &Ctx;
   SystemZAsmPrinter &AsmPrinter;
 
