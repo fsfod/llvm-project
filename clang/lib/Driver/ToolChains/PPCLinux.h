@@ -15,7 +15,7 @@ namespace clang {
 namespace driver {
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY PPCLinuxToolChain : public Linux {
+class PPCLinuxToolChain : public Linux {
 public:
   PPCLinuxToolChain(const Driver &D, const llvm::Triple &Triple,
                     const llvm::opt::ArgList &Args);

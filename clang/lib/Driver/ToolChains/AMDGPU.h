@@ -26,7 +26,7 @@ namespace driver {
 namespace tools {
 namespace amdgpu {
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("amdgpu::Linker", "ld.lld", TC) {}
   bool isLinkJob() const override { return true; }
@@ -46,7 +46,7 @@ void getAMDGPUTargetFeatures(const Driver &D, const llvm::Triple &Triple,
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY AMDGPUToolChain : public Generic_ELF {
+class AMDGPUToolChain : public Generic_ELF {
 protected:
   const std::map<options::ID, const StringRef> OptionsDefault;
 
@@ -132,7 +132,7 @@ protected:
   void addClangWarningOptions(llvm::opt::ArgStringList &CC1Args) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY ROCMToolChain : public AMDGPUToolChain {
+class ROCMToolChain : public AMDGPUToolChain {
 public:
   ROCMToolChain(const Driver &D, const llvm::Triple &Triple,
                 const llvm::opt::ArgList &Args);

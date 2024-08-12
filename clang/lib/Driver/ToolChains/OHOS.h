@@ -17,7 +17,7 @@ namespace clang {
 namespace driver {
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY OHOS : public Generic_ELF {
+class OHOS : public Generic_ELF {
 public:
   OHOS(const Driver &D, const llvm::Triple &Triple,
           const llvm::opt::ArgList &Args);

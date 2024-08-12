@@ -19,7 +19,7 @@ namespace tools {
 /// Directly call system default assembler and linker.
 namespace zos {
 
-class LLVM_LIBRARY_VISIBILITY Assembler final : public Tool {
+class Assembler final : public Tool {
 public:
   Assembler(const ToolChain &TC) : Tool("zos::Assembler", "assembler", TC) {}
 
@@ -31,7 +31,7 @@ public:
                     const char *LinkingOutput) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("zos::Linker", "linker", TC) {}
 
@@ -49,7 +49,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY ZOS : public ToolChain {
+class ZOS : public ToolChain {
 public:
   ZOS(const Driver &D, const llvm::Triple &Triple,
       const llvm::opt::ArgList &Args);

@@ -18,7 +18,7 @@ namespace clang {
 namespace driver {
 namespace tools {
 namespace fuchsia {
-class LLVM_LIBRARY_VISIBILITY StaticLibTool : public Tool {
+class StaticLibTool : public Tool {
 public:
   StaticLibTool(const ToolChain &TC)
       : Tool("fuchsia::StaticLibTool", "llvm-ar", TC) {}
@@ -32,7 +32,7 @@ public:
                     const char *LinkingOutput) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("fuchsia::Linker", "ld.lld", TC) {}
 
@@ -49,7 +49,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY Fuchsia : public ToolChain {
+class Fuchsia : public ToolChain {
 public:
   Fuchsia(const Driver &D, const llvm::Triple &Triple,
           const llvm::opt::ArgList &Args);

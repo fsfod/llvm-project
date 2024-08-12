@@ -17,7 +17,7 @@ namespace clang {
 namespace driver {
 namespace tools {
 namespace nacltools {
-class LLVM_LIBRARY_VISIBILITY AssemblerARM : public gnutools::Assembler {
+class AssemblerARM : public gnutools::Assembler {
 public:
   AssemblerARM(const ToolChain &TC) : gnutools::Assembler(TC) {}
 
@@ -27,7 +27,7 @@ public:
                     const char *LinkingOutput) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY Linker final : public Tool {
+class Linker final : public Tool {
 public:
   Linker(const ToolChain &TC) : Tool("NaCl::Linker", "linker", TC) {}
 
@@ -44,7 +44,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY NaClToolChain : public Generic_ELF {
+class NaClToolChain : public Generic_ELF {
 public:
   NaClToolChain(const Driver &D, const llvm::Triple &Triple,
                 const llvm::opt::ArgList &Args);

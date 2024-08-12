@@ -18,7 +18,7 @@ namespace driver {
 namespace tools {
 
 namespace hlsl {
-class LLVM_LIBRARY_VISIBILITY Validator : public Tool {
+class Validator : public Tool {
 public:
   Validator(const ToolChain &TC) : Tool("hlsl::Validator", "dxv", TC) {}
 
@@ -34,7 +34,7 @@ public:
 
 namespace toolchains {
 
-class LLVM_LIBRARY_VISIBILITY HLSLToolChain : public ToolChain {
+class HLSLToolChain : public ToolChain {
 public:
   HLSLToolChain(const Driver &D, const llvm::Triple &Triple,
                 const llvm::opt::ArgList &Args);

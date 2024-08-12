@@ -22,7 +22,7 @@ namespace driver {
 namespace tools {
 
 /// Flang compiler tool.
-class LLVM_LIBRARY_VISIBILITY Flang : public Tool {
+class Flang : public Tool {
 private:
   /// Extract fortran dialect options from the driver arguments and add them to
   /// the list of arguments for the generated command/job.

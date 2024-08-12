@@ -157,7 +157,7 @@ public:
     return TargetInfo::checkCFBranchLabelSchemeSupported(Scheme, Diags);
   }
 };
-class LLVM_LIBRARY_VISIBILITY RISCV32TargetInfo : public RISCVTargetInfo {
+class RISCV32TargetInfo : public RISCVTargetInfo {
 public:
   RISCV32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : RISCVTargetInfo(Triple, Opts) {
@@ -188,7 +188,7 @@ public:
       MaxAtomicInlineWidth = 32;
   }
 };
-class LLVM_LIBRARY_VISIBILITY RISCV64TargetInfo : public RISCVTargetInfo {
+class RISCV64TargetInfo : public RISCVTargetInfo {
 public:
   RISCV64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : RISCVTargetInfo(Triple, Opts) {

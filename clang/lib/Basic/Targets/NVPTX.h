@@ -60,7 +60,7 @@ static const int NVPTXDWARFAddrSpaceMap[] = {
     4,  // opencl_constant or cuda_constant
 };
 
-class LLVM_LIBRARY_VISIBILITY NVPTXTargetInfo : public TargetInfo {
+class NVPTXTargetInfo : public TargetInfo {
   static const char *const GCCRegNames[];
   OffloadArch GPU;
   uint32_t PTXVersion;

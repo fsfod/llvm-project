@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY MSP430TargetInfo : public TargetInfo {
+class MSP430TargetInfo : public TargetInfo {
   static const char *const GCCRegNames[];
 
 public:

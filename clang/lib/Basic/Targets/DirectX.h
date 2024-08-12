@@ -47,7 +47,7 @@ static const unsigned DirectXAddrSpaceMap[] = {
     20, // wasm_funcref
 };
 
-class LLVM_LIBRARY_VISIBILITY DirectXTargetInfo : public TargetInfo {
+class DirectXTargetInfo : public TargetInfo {
 public:
   DirectXTargetInfo(const llvm::Triple &Triple, const TargetOptions &)
       : TargetInfo(Triple) {

@@ -25,7 +25,7 @@ namespace driver {
 namespace tools {
 
 /// Clang compiler tool.
-class LLVM_LIBRARY_VISIBILITY Clang : public Tool {
+class Clang : public Tool {
   // Indicates whether this instance has integrated backend using
   // internal LLVM infrastructure.
   bool HasBackend;
@@ -119,7 +119,7 @@ public:
 };
 
 /// Clang integrated assembler tool.
-class LLVM_LIBRARY_VISIBILITY ClangAs : public Tool {
+class ClangAs : public Tool {
 public:
   ClangAs(const ToolChain &TC)
       : Tool("clang::as", "clang integrated assembler", TC) {}
@@ -142,7 +142,7 @@ public:
 };
 
 /// Offload bundler tool.
-class LLVM_LIBRARY_VISIBILITY OffloadBundler final : public Tool {
+class OffloadBundler final : public Tool {
 public:
   OffloadBundler(const ToolChain &TC)
       : Tool("offload bundler", "clang-offload-bundler", TC) {}
@@ -160,7 +160,7 @@ public:
 };
 
 /// Offload binary tool.
-class LLVM_LIBRARY_VISIBILITY OffloadPackager final : public Tool {
+class OffloadPackager final : public Tool {
 public:
   OffloadPackager(const ToolChain &TC)
       : Tool("Offload::Packager", "clang-offload-packager", TC) {}
@@ -173,7 +173,7 @@ public:
 };
 
 /// Linker wrapper tool.
-class LLVM_LIBRARY_VISIBILITY LinkerWrapper final : public Tool {
+class LinkerWrapper final : public Tool {
   const Tool *Linker;
 
 public:

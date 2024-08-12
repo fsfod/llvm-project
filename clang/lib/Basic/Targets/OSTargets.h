@@ -18,7 +18,7 @@ namespace clang {
 namespace targets {
 
 template <typename TgtInfo>
-class LLVM_LIBRARY_VISIBILITY OSTargetInfo : public TgtInfo {
+class OSTargetInfo : public TgtInfo {
 protected:
   virtual void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                             MacroBuilder &Builder) const = 0;
@@ -39,7 +39,7 @@ void getDarwinDefines(MacroBuilder &Builder, const LangOptions &Opts,
                       VersionTuple &PlatformMinVersion);
 
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY DarwinTargetInfo : public OSTargetInfo<Target> {
+class DarwinTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -139,7 +139,7 @@ public:
 
 // DragonFlyBSD Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY DragonFlyBSDTargetInfo
+class DragonFlyBSDTargetInfo
     : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
@@ -174,7 +174,7 @@ public:
 
 // FreeBSD Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY FreeBSDTargetInfo : public OSTargetInfo<Target> {
+class FreeBSDTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -237,7 +237,7 @@ public:
 
 // GNU/kFreeBSD Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY KFreeBSDTargetInfo : public OSTargetInfo<Target> {
+class KFreeBSDTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -258,7 +258,7 @@ public:
 
 // Haiku Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY HaikuTargetInfo : public OSTargetInfo<Target> {
+class HaikuTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -289,7 +289,7 @@ public:
 
 // Hurd target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY HurdTargetInfo : public OSTargetInfo<Target> {
+class HurdTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -310,7 +310,7 @@ public:
 
 // Linux target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY LinuxTargetInfo : public OSTargetInfo<Target> {
+class LinuxTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -371,7 +371,7 @@ public:
 
 // NetBSD Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY NetBSDTargetInfo : public OSTargetInfo<Target> {
+class NetBSDTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -401,7 +401,7 @@ public:
 
 // OpenBSD Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY OpenBSDTargetInfo : public OSTargetInfo<Target> {
+class OpenBSDTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -449,7 +449,7 @@ public:
 
 // PS3 PPU Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY PS3PPUTargetInfo : public OSTargetInfo<Target> {
+class PS3PPUTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -475,7 +475,7 @@ public:
 
 // Common base class for PS4/PS5 targets.
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY PSOSTargetInfo : public OSTargetInfo<Target> {
+class PSOSTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -518,7 +518,7 @@ public:
 
 // PS4 Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY PS4OSTargetInfo : public PSOSTargetInfo<Target> {
+class PS4OSTargetInfo : public PSOSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -534,7 +534,7 @@ public:
 
 // PS5 Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY PS5OSTargetInfo : public PSOSTargetInfo<Target> {
+class PS5OSTargetInfo : public PSOSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -550,7 +550,7 @@ public:
 
 // RTEMS Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY RTEMSTargetInfo : public OSTargetInfo<Target> {
+class RTEMSTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -585,7 +585,7 @@ public:
 
 // Solaris target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY SolarisTargetInfo : public OSTargetInfo<Target> {
+class SolarisTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -730,7 +730,7 @@ public:
 
 // z/OS target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY ZOSTargetInfo : public OSTargetInfo<Target> {
+class ZOSTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -798,7 +798,7 @@ void addWindowsDefines(const llvm::Triple &Triple, const LangOptions &Opts,
 
 // Windows target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY WindowsTargetInfo : public OSTargetInfo<Target> {
+class WindowsTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -814,7 +814,7 @@ public:
 };
 
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY NaClTargetInfo : public OSTargetInfo<Target> {
+class NaClTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -862,7 +862,7 @@ public:
 
 // Fuchsia Target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY FuchsiaTargetInfo : public OSTargetInfo<Target> {
+class FuchsiaTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {
@@ -888,7 +888,7 @@ public:
 
 // WebAssembly target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY WebAssemblyOSTargetInfo
+class WebAssemblyOSTargetInfo
     : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
@@ -915,7 +915,7 @@ public:
 
 // WASI target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY WASITargetInfo
+class WASITargetInfo
     : public WebAssemblyOSTargetInfo<Target> {
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const final {
@@ -929,7 +929,7 @@ public:
 
 // Emscripten target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY EmscriptenTargetInfo
+class EmscriptenTargetInfo
     : public WebAssemblyOSTargetInfo<Target> {
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const final {
@@ -955,7 +955,7 @@ public:
 
 // OHOS target
 template <typename Target>
-class LLVM_LIBRARY_VISIBILITY OHOSTargetInfo : public OSTargetInfo<Target> {
+class OHOSTargetInfo : public OSTargetInfo<Target> {
 protected:
   void getOSDefines(const LangOptions &Opts, const llvm::Triple &Triple,
                     MacroBuilder &Builder) const override {

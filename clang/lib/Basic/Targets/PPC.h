@@ -24,7 +24,7 @@ namespace clang {
 namespace targets {
 
 // PPC abstract base class
-class LLVM_LIBRARY_VISIBILITY PPCTargetInfo : public TargetInfo {
+class PPCTargetInfo : public TargetInfo {
 
   /// Flags for architecture specific defines.
   typedef enum {
@@ -398,7 +398,7 @@ public:
   bool validateCpuIs(StringRef Name) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY PPC32TargetInfo : public PPCTargetInfo {
+class PPC32TargetInfo : public PPCTargetInfo {
 public:
   PPC32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : PPCTargetInfo(Triple, Opts) {
@@ -451,7 +451,7 @@ public:
 
 // Note: ABI differences may eventually require us to have a separate
 // TargetInfo for little endian.
-class LLVM_LIBRARY_VISIBILITY PPC64TargetInfo : public PPCTargetInfo {
+class PPC64TargetInfo : public PPCTargetInfo {
 public:
   PPC64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
       : PPCTargetInfo(Triple, Opts) {
@@ -533,7 +533,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY AIXPPC32TargetInfo :
+class AIXPPC32TargetInfo :
   public AIXTargetInfo<PPC32TargetInfo> {
 public:
   using AIXTargetInfo::AIXTargetInfo;
@@ -542,7 +542,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY AIXPPC64TargetInfo :
+class AIXPPC64TargetInfo :
   public AIXTargetInfo<PPC64TargetInfo> {
 public:
   using AIXTargetInfo::AIXTargetInfo;

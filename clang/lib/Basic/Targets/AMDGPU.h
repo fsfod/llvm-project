@@ -26,7 +26,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY AMDGPUTargetInfo final : public TargetInfo {
+class AMDGPUTargetInfo final : public TargetInfo {
 
   static const char *const GCCRegNames[];
 

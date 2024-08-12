@@ -21,7 +21,7 @@
 namespace clang {
 namespace targets {
 
-class LLVM_LIBRARY_VISIBILITY LoongArchTargetInfo : public TargetInfo {
+class LoongArchTargetInfo : public TargetInfo {
 protected:
   std::string ABI;
   std::string CPU;
@@ -102,7 +102,7 @@ public:
   void fillValidCPUList(SmallVectorImpl<StringRef> &Values) const override;
 };
 
-class LLVM_LIBRARY_VISIBILITY LoongArch32TargetInfo
+class LoongArch32TargetInfo
     : public LoongArchTargetInfo {
 public:
   LoongArch32TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
@@ -127,7 +127,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY LoongArch64TargetInfo
+class LoongArch64TargetInfo
     : public LoongArchTargetInfo {
 public:
   LoongArch64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts)
