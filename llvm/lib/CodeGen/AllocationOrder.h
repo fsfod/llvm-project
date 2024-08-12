@@ -27,7 +27,7 @@ class RegisterClassInfo;
 class VirtRegMap;
 class LiveRegMatrix;
 
-class LLVM_LIBRARY_VISIBILITY AllocationOrder {
+class AllocationOrder {
   const SmallVector<MCPhysReg, 16> Hints;
   ArrayRef<MCPhysReg> Order;
   // How far into the Order we can iterate. This is 0 if the AllocationOrder is

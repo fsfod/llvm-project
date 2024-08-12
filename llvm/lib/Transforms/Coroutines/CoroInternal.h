@@ -77,7 +77,7 @@ enum class ABI {
 
 // Holds structural Coroutine Intrinsics for a particular function and other
 // values used during CoroSplit pass.
-struct LLVM_LIBRARY_VISIBILITY Shape {
+struct Shape {
   CoroBeginInst *CoroBegin;
   SmallVector<AnyCoroEndInst *, 4> CoroEnds;
   SmallVector<CoroSizeInst *, 2> CoroSizes;

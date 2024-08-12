@@ -24,7 +24,7 @@ class MipsAsmPrinter;
 
 /// MipsMCInstLower - This class is used to lower an MachineInstr into an
 ///                   MCInst.
-class LLVM_LIBRARY_VISIBILITY MipsMCInstLower {
+class MipsMCInstLower {
   using MachineOperandType = MachineOperand::MachineOperandType;
 
   MCContext *Ctx;

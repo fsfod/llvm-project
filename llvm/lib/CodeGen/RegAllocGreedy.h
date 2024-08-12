@@ -56,7 +56,7 @@ class SlotIndexes;
 class TargetInstrInfo;
 class VirtRegMap;
 
-class LLVM_LIBRARY_VISIBILITY RAGreedy : public MachineFunctionPass,
+class RAGreedy : public MachineFunctionPass,
                                          public RegAllocBase,
                                          private LiveRangeEdit::Delegate {
   // Interface to eviction advisers

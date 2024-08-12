@@ -29,7 +29,7 @@ class SDDbgOperand;
 class TargetLowering;
 class TargetMachine;
 
-class LLVM_LIBRARY_VISIBILITY InstrEmitter {
+class InstrEmitter {
   MachineFunction *MF;
   MachineRegisterInfo *MRI;
   const TargetInstrInfo *TII;

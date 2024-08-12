@@ -28,7 +28,7 @@ namespace llvm {
 /// value types the target machine can handle are left. This involves promoting
 /// small sizes to large sizes or splitting up large values into small values.
 ///
-class LLVM_LIBRARY_VISIBILITY DAGTypeLegalizer {
+class DAGTypeLegalizer {
   const TargetLowering &TLI;
   SelectionDAG &DAG;
 public:

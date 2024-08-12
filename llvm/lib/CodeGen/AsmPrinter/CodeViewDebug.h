@@ -52,7 +52,7 @@ class MCSymbol;
 class MachineFunction;
 
 /// Collects and handles line tables information in a CodeView format.
-class LLVM_LIBRARY_VISIBILITY CodeViewDebug : public DebugHandlerBase {
+class CodeViewDebug : public DebugHandlerBase {
 public:
   struct LocalVarDef {
     /// Indicates that variable data is stored in memory relative to the

@@ -15,7 +15,7 @@
 #include "llvm/MC/MCDirectives.h"
 
 namespace llvm {
-class LLVM_LIBRARY_VISIBILITY CSKYAsmPrinter : public AsmPrinter {
+class CSKYAsmPrinter : public AsmPrinter {
   CSKYMCInstLower MCInstLowering;
 
   const MCSubtargetInfo *Subtarget;

@@ -20,7 +20,7 @@
 
 namespace llvm {
 
-class LLVM_LIBRARY_VISIBILITY LoongArchAsmPrinter : public AsmPrinter {
+class LoongArchAsmPrinter : public AsmPrinter {
   const MCSubtargetInfo *STI;
 
 public:

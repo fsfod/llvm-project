@@ -39,7 +39,7 @@ class Module;
 class raw_ostream;
 class TargetMachine;
 
-class LLVM_LIBRARY_VISIBILITY MipsAsmPrinter : public AsmPrinter {
+class MipsAsmPrinter : public AsmPrinter {
   MipsTargetStreamer &getTargetStreamer() const;
 
   void EmitInstrWithMacroNoAT(const MachineInstr *MI);

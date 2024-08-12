@@ -18,7 +18,7 @@
 namespace llvm {
 class WebAssemblyTargetStreamer;
 
-class LLVM_LIBRARY_VISIBILITY WebAssemblyAsmPrinter final : public AsmPrinter {
+class WebAssemblyAsmPrinter final : public AsmPrinter {
   const WebAssemblySubtarget *Subtarget;
   const MachineRegisterInfo *MRI;
   WebAssemblyFunctionInfo *MFI;

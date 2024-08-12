@@ -28,7 +28,7 @@ class ProfileSummaryInfo;
 class TargetInstrInfo;
 class TargetRegisterInfo;
 
-  class LLVM_LIBRARY_VISIBILITY BranchFolder {
+  class BranchFolder {
   public:
     explicit BranchFolder(bool DefaultEnableTailMerge, bool CommonHoist,
                           MBFIWrapper &FreqInfo,

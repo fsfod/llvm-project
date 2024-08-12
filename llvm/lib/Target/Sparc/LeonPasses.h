@@ -17,7 +17,7 @@
 namespace llvm {
 class SparcSubtarget;
 
-class LLVM_LIBRARY_VISIBILITY LEONMachineFunctionPass
+class LEONMachineFunctionPass
     : public MachineFunctionPass {
 protected:
   const SparcSubtarget *Subtarget = nullptr;
@@ -37,7 +37,7 @@ protected:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY ErrataWorkaround : public MachineFunctionPass {
+class ErrataWorkaround : public MachineFunctionPass {
 protected:
   const SparcSubtarget *ST;
   const TargetInstrInfo *TII;
@@ -64,7 +64,7 @@ public:
   StringRef getPassName() const override { return "Errata workaround pass"; };
 };
 
-class LLVM_LIBRARY_VISIBILITY InsertNOPLoad : public LEONMachineFunctionPass {
+class InsertNOPLoad : public LEONMachineFunctionPass {
 public:
   static char ID;
 
@@ -78,7 +78,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY DetectRoundChange
+class DetectRoundChange
     : public LEONMachineFunctionPass {
 public:
   static char ID;
@@ -92,7 +92,7 @@ public:
   }
 };
 
-class LLVM_LIBRARY_VISIBILITY FixAllFDIVSQRT : public LEONMachineFunctionPass {
+class FixAllFDIVSQRT : public LEONMachineFunctionPass {
 public:
   static char ID;
 

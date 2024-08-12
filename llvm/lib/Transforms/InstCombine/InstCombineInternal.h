@@ -56,7 +56,7 @@ class ProfileSummaryInfo;
 class TargetLibraryInfo;
 class User;
 
-class LLVM_LIBRARY_VISIBILITY InstCombinerImpl final
+class InstCombinerImpl final
     : public InstCombiner,
       public InstVisitor<InstCombinerImpl, Instruction *> {
 public:
