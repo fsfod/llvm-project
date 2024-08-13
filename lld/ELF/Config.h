@@ -661,7 +661,7 @@ struct Ctx {
   ArrayRef<uint8_t> aarch64PauthAbiCoreInfo;
 };
 
-LLVM_LIBRARY_VISIBILITY extern Ctx ctx;
+extern Ctx ctx;
 
 // The first two elements of versionDefinitions represent VER_NDX_LOCAL and
 // VER_NDX_GLOBAL. This helper returns other elements.
