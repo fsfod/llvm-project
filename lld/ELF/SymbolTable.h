@@ -104,7 +104,7 @@ private:
   std::optional<llvm::StringMap<SmallVector<Symbol *, 0>>> demangledSyms;
 };
 
-LLVM_LIBRARY_VISIBILITY extern SymbolTable symtab;
+extern SymbolTable symtab;
 
 } // namespace lld::elf
 

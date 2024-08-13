@@ -465,7 +465,7 @@ struct ConfigWrapper {
   Config *operator->() { return &c; }
 };
 
-LLVM_LIBRARY_VISIBILITY extern ConfigWrapper config;
+extern ConfigWrapper config;
 
 // Some index properties of a symbol are stored separately in this auxiliary
 // struct to decrease sizeof(SymbolUnion) in the majority of cases.
@@ -600,7 +600,7 @@ struct Ctx {
   ArrayRef<uint8_t> aarch64PauthAbiCoreInfo;
 };
 
-LLVM_LIBRARY_VISIBILITY extern Ctx ctx;
+extern Ctx ctx;
 
 // The first two elements of versionDefinitions represent VER_NDX_LOCAL and
 // VER_NDX_GLOBAL. This helper returns other elements.

@@ -1515,7 +1515,7 @@ struct InStruct {
   void reset();
 };
 
-LLVM_LIBRARY_VISIBILITY extern InStruct in;
+extern InStruct in;
 
 } // namespace lld::elf
 

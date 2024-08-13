@@ -33,7 +33,7 @@ class SyntheticSection;
 template <class ELFT> class ObjFile;
 class OutputSection;
 
-LLVM_LIBRARY_VISIBILITY extern std::vector<Partition> partitions;
+extern std::vector<Partition> partitions;
 
 // Returned by InputSectionBase::relsOrRelas. At most one member is empty.
 template <class ELFT> struct RelsOrRelas {
