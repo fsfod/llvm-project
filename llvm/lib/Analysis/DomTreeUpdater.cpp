@@ -32,6 +32,9 @@ template void LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<
 template bool LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<
     DomTreeUpdater, DominatorTree,
     PostDominatorTree>::isBBPendingDeletion(DominatorTree::NodeType *) const;
+
+template LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<
+  DomTreeUpdater, DominatorTree, PostDominatorTree>::~GenericDomTreeUpdater();
 #endif
 
 template class GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
