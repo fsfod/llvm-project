@@ -38,6 +38,7 @@
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/RecyclingAllocator.h"
 #include "llvm/Support/raw_ostream.h"
@@ -162,7 +163,7 @@ namespace {
 
 char MachineCSE::ID = 0;
 
-char &llvm::MachineCSEID = MachineCSE::ID;
+LLVM_ABI char &llvm::MachineCSEID = MachineCSE::ID;
 
 INITIALIZE_PASS_BEGIN(MachineCSE, DEBUG_TYPE,
                       "Machine Common Subexpression Elimination", false, false)

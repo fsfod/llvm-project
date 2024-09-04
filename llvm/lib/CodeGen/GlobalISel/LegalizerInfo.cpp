@@ -20,6 +20,7 @@
 #include "llvm/CodeGenTypes/LowLevelType.h"
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/MC/MCInstrInfo.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <algorithm>
@@ -29,7 +30,7 @@ using namespace LegalizeActions;
 
 #define DEBUG_TYPE "legalizer-info"
 
-cl::opt<bool> llvm::DisableGISelLegalityCheck(
+LLVM_ABI cl::opt<bool> llvm::DisableGISelLegalityCheck(
     "disable-gisel-legality-check",
     cl::desc("Don't verify that MIR is fully legal between GlobalISel passes"),
     cl::Hidden);

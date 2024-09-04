@@ -41,6 +41,7 @@
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/DebugCounter.h"
 #include "llvm/Support/FileSystem.h"
@@ -107,7 +108,7 @@ static cl::opt<unsigned, true> MaxInitializationChainLengthX(
     cl::desc(
         "Maximal number of chained initializations (to avoid stack overflows)"),
     cl::location(MaxInitializationChainLength), cl::init(1024));
-unsigned llvm::MaxInitializationChainLength;
+LLVM_ABI unsigned llvm::MaxInitializationChainLength;
 
 static cl::opt<bool> AnnotateDeclarationCallSites(
     "attributor-annotate-decl-cs", cl::Hidden,

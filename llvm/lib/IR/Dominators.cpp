@@ -25,6 +25,7 @@
 #include "llvm/PassRegistry.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTreeConstruction.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -37,7 +38,7 @@ class Value;
 } // namespace llvm
 using namespace llvm;
 
-bool llvm::VerifyDomInfo = false;
+LLVM_ABI bool llvm::VerifyDomInfo = false;
 static cl::opt<bool, true>
     VerifyDomInfoX("verify-dom-info", cl::location(VerifyDomInfo), cl::Hidden,
                    cl::desc("Verify dominator info (time consuming)"));
@@ -70,11 +71,11 @@ bool BasicBlockEdge::isSingleEdge() const {
 //
 //===----------------------------------------------------------------------===//
 
-template class llvm::DomTreeNodeBase<BasicBlock>;
-template class llvm::DominatorTreeBase<BasicBlock, false>; // DomTreeBase
-template class llvm::DominatorTreeBase<BasicBlock, true>; // PostDomTreeBase
+template class LLVM_EXPORT_TEMPLATE llvm::DomTreeNodeBase<BasicBlock>;
+template class LLVM_EXPORT_TEMPLATE llvm::DominatorTreeBase<BasicBlock, false>; // DomTreeBase
+template class LLVM_EXPORT_TEMPLATE llvm::DominatorTreeBase<BasicBlock, true>; // PostDomTreeBase
 
-template class llvm::cfg::Update<BasicBlock *>;
+template class LLVM_EXPORT_TEMPLATE llvm::cfg::Update<BasicBlock *>;
 
 template LLVM_EXPORT_TEMPLATE void
 llvm::DomTreeBuilder::Calculate<DomTreeBuilder::BBDomTree>(

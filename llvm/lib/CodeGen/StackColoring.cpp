@@ -513,7 +513,7 @@ private:
 
 char StackColoring::ID = 0;
 
-char &llvm::StackColoringID = StackColoring::ID;
+LLVM_ABI char &llvm::StackColoringID = StackColoring::ID;
 
 INITIALIZE_PASS_BEGIN(StackColoring, DEBUG_TYPE,
                       "Merge disjoint stack slots", false, false)

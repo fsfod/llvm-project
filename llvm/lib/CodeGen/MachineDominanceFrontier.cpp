@@ -12,13 +12,14 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 namespace llvm {
-template class DominanceFrontierBase<MachineBasicBlock, false>;
-template class DominanceFrontierBase<MachineBasicBlock, true>;
-template class ForwardDominanceFrontierBase<MachineBasicBlock>;
+template class LLVM_EXPORT_TEMPLATE DominanceFrontierBase<MachineBasicBlock, false>;
+template class LLVM_EXPORT_TEMPLATE DominanceFrontierBase<MachineBasicBlock, true>;
+template class LLVM_EXPORT_TEMPLATE ForwardDominanceFrontierBase<MachineBasicBlock>;
 }
 
 
@@ -34,7 +35,7 @@ MachineDominanceFrontier::MachineDominanceFrontier() : MachineFunctionPass(ID) {
   initializeMachineDominanceFrontierPass(*PassRegistry::getPassRegistry());
 }
 
-char &llvm::MachineDominanceFrontierID = MachineDominanceFrontier::ID;
+LLVM_ABI char &llvm::MachineDominanceFrontierID = MachineDominanceFrontier::ID;
 
 bool MachineDominanceFrontier::runOnMachineFunction(MachineFunction &) {
   releaseMemory();

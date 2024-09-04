@@ -49,6 +49,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
@@ -73,7 +74,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "loop-unroll"
 
-cl::opt<bool> llvm::ForgetSCEVInLoopUnroll(
+LLVM_ABI cl::opt<bool> llvm::ForgetSCEVInLoopUnroll(
     "forget-scev-loop-unroll", cl::init(false), cl::Hidden,
     cl::desc("Forget everything in SCEV when doing LoopUnroll, instead of just"
              " the current top-most loop. This is sometimes preferred to reduce"

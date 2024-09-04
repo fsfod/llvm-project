@@ -22,13 +22,14 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericLoopInfoImpl.h"
 
 using namespace llvm;
 
 // Explicitly instantiate methods in LoopInfoImpl.h for MI-level Loops.
-template class llvm::LoopBase<MachineBasicBlock, MachineLoop>;
-template class llvm::LoopInfoBase<MachineBasicBlock, MachineLoop>;
+template class LLVM_EXPORT_TEMPLATE llvm::LoopBase<MachineBasicBlock, MachineLoop>;
+template class LLVM_EXPORT_TEMPLATE llvm::LoopInfoBase<MachineBasicBlock, MachineLoop>;
 
 AnalysisKey MachineLoopAnalysis::Key;
 
@@ -57,7 +58,7 @@ INITIALIZE_PASS_DEPENDENCY(MachineDominatorTreeWrapperPass)
 INITIALIZE_PASS_END(MachineLoopInfoWrapperPass, "machine-loops",
                     "Machine Natural Loop Construction", true, true)
 
-char &llvm::MachineLoopInfoID = MachineLoopInfoWrapperPass::ID;
+LLVM_ABI char &llvm::MachineLoopInfoID = MachineLoopInfoWrapperPass::ID;
 
 bool MachineLoopInfoWrapperPass::runOnMachineFunction(MachineFunction &) {
   LI.calculate(getAnalysis<MachineDominatorTreeWrapperPass>().getDomTree());

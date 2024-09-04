@@ -17,6 +17,7 @@
 #include "llvm/IR/Attributes.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/InstrTypes.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -102,7 +103,7 @@ bool llvm::addAssumptions(CallBase &CB,
   return ::addAssumptionsImpl(CB, Assumptions);
 }
 
-StringSet<> llvm::KnownAssumptionStrings({
+LLVM_ABI StringSet<> llvm::KnownAssumptionStrings({
     "omp_no_openmp",          // OpenMP 5.1
     "omp_no_openmp_routines", // OpenMP 5.1
     "omp_no_parallelism",     // OpenMP 5.1

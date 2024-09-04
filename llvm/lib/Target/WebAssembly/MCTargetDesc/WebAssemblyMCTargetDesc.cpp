@@ -20,6 +20,7 @@
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 using namespace llvm;
 
@@ -38,27 +39,27 @@ using namespace llvm;
 // Exception handling & setjmp-longjmp handling related options.
 
 // Emscripten's asm.js-style exception handling
-cl::opt<bool> WebAssembly::WasmEnableEmEH(
+LLVM_ABI cl::opt<bool> WebAssembly::WasmEnableEmEH(
     "enable-emscripten-cxx-exceptions",
     cl::desc("WebAssembly Emscripten-style exception handling"),
     cl::init(false));
 // Emscripten's asm.js-style setjmp/longjmp handling
-cl::opt<bool> WebAssembly::WasmEnableEmSjLj(
+LLVM_ABI cl::opt<bool> WebAssembly::WasmEnableEmSjLj(
     "enable-emscripten-sjlj",
     cl::desc("WebAssembly Emscripten-style setjmp/longjmp handling"),
     cl::init(false));
 // Exception handling using wasm EH instructions
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     WebAssembly::WasmEnableEH("wasm-enable-eh",
                               cl::desc("WebAssembly exception handling"));
 // setjmp/longjmp handling using wasm EH instrutions
-cl::opt<bool> WebAssembly::WasmEnableSjLj(
+LLVM_ABI cl::opt<bool> WebAssembly::WasmEnableSjLj(
     "wasm-enable-sjlj", cl::desc("WebAssembly setjmp/longjmp handling"));
 // Whether we use the new exnref Wasm EH proposal adopted on Oct 2023.
 // Should be used with -wasm-enable-eh.
 // Currently set to false by default, but will later change to true and then
 // later can be removed after the legacy WAsm EH instructions are removed.
-cl::opt<bool> WebAssembly::WasmEnableExnref(
+LLVM_ABI cl::opt<bool> WebAssembly::WasmEnableExnref(
     "wasm-enable-exnref", cl::desc("WebAssembly exception handling (exnref)"),
     cl::init(false));
 

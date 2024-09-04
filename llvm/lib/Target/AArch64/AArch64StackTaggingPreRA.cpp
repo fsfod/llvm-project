@@ -6,10 +6,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 #include "AArch64.h"
-#include "AArch64MachineFunctionInfo.h"
 #include "AArch64InstrInfo.h"
+#include "AArch64MachineFunctionInfo.h"
 #include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/CodeGen/MachineBranchProbabilityInfo.h"
@@ -25,6 +24,7 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -34,7 +34,7 @@ using namespace llvm;
 
 enum UncheckedLdStMode { UncheckedNever, UncheckedSafe, UncheckedAlways };
 
-cl::opt<UncheckedLdStMode> ClUncheckedLdSt(
+LLVM_ABI cl::opt<UncheckedLdStMode> ClUncheckedLdSt(
     "stack-tagging-unchecked-ld-st", cl::Hidden,
     cl::init(UncheckedSafe),
     cl::desc(

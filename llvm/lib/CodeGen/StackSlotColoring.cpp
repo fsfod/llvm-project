@@ -36,6 +36,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include <algorithm>
@@ -181,7 +182,7 @@ namespace {
 
 char StackSlotColoring::ID = 0;
 
-char &llvm::StackSlotColoringID = StackSlotColoring::ID;
+LLVM_ABI char &llvm::StackSlotColoringID = StackSlotColoring::ID;
 
 INITIALIZE_PASS_BEGIN(StackSlotColoring, DEBUG_TYPE,
                 "Stack Slot Coloring", false, false)

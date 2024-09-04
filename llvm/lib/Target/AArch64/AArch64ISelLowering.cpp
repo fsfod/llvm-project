@@ -80,6 +80,7 @@
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CodeGen.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/InstructionCost.h"
@@ -115,7 +116,7 @@ STATISTIC(NumOptimizedImms, "Number of times immediates were optimized");
 // FIXME: The necessary dtprel relocations don't seem to be supported
 // well in the GNU bfd and gold linkers at the moment. Therefore, by
 // default, for now, fall back to GeneralDynamic code generation.
-cl::opt<bool> EnableAArch64ELFLocalDynamicTLSGeneration(
+LLVM_ABI cl::opt<bool> EnableAArch64ELFLocalDynamicTLSGeneration(
     "aarch64-elf-ldtls-generation", cl::Hidden,
     cl::desc("Allow AArch64 Local Dynamic TLS code generation"),
     cl::init(false));
@@ -150,7 +151,7 @@ static cl::opt<unsigned> MaxXors("aarch64-max-xors", cl::init(16), cl::Hidden,
 // scalable vector types for all instruction, even if SVE is not yet supported
 // with some instructions.
 // See [AArch64TargetLowering::fallbackToDAGISel] for implementation details.
-cl::opt<bool> EnableSVEGISel(
+LLVM_ABI cl::opt<bool> EnableSVEGISel(
     "aarch64-enable-gisel-sve", cl::Hidden,
     cl::desc("Enable / disable SVE scalable vectors in Global ISel"),
     cl::init(false));

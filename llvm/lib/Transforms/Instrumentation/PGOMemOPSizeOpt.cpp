@@ -34,6 +34,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/Type.h"
 #include "llvm/ProfileData/InstrProf.h"
+#include "llvm/Support/Compiler.h"
 #define INSTR_PROF_VALUE_PROF_MEMOP_API
 #include "llvm/ProfileData/InstrProfData.inc"
 #include "llvm/Support/Casting.h"
@@ -84,7 +85,7 @@ static cl::opt<bool>
                     cl::desc("Scale the memop size counts using the basic "
                              " block count value"));
 
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     MemOPOptMemcmpBcmp("pgo-memop-optimize-memcmp-bcmp", cl::init(true),
                        cl::Hidden,
                        cl::desc("Size-specialize memcmp and bcmp calls"));

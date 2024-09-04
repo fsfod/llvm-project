@@ -47,6 +47,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include <algorithm>
@@ -318,8 +319,8 @@ namespace {
 char MachineLICM::ID;
 char EarlyMachineLICM::ID;
 
-char &llvm::MachineLICMID = MachineLICM::ID;
-char &llvm::EarlyMachineLICMID = EarlyMachineLICM::ID;
+LLVM_ABI char &llvm::MachineLICMID = MachineLICM::ID;
+LLVM_ABI char &llvm::EarlyMachineLICMID = EarlyMachineLICM::ID;
 
 INITIALIZE_PASS_BEGIN(MachineLICM, DEBUG_TYPE,
                       "Machine Loop Invariant Code Motion", false, false)

@@ -81,7 +81,7 @@ static cl::opt<unsigned> MaxCheckLimit(
 #ifdef EXPENSIVE_CHECKS
 bool llvm::VerifyMemorySSA = true;
 #else
-bool llvm::VerifyMemorySSA = false;
+LLVM_ABI bool llvm::VerifyMemorySSA = false;
 #endif
 
 static cl::opt<bool, true>

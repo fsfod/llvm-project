@@ -65,6 +65,7 @@
 #include "llvm/Support/BlockFrequency.h"
 #include "llvm/Support/BranchProbability.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Support/Timer.h"
@@ -150,7 +151,7 @@ static RegisterRegAlloc greedyRegAlloc("greedy", "greedy register allocator",
                                        createGreedyRegisterAllocator);
 
 char RAGreedy::ID = 0;
-char &llvm::RAGreedyID = RAGreedy::ID;
+LLVM_ABI char &llvm::RAGreedyID = RAGreedy::ID;
 
 INITIALIZE_PASS_BEGIN(RAGreedy, "greedy",
                 "Greedy Register Allocator", false, false)

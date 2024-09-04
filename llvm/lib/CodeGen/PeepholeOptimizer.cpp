@@ -88,6 +88,7 @@
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include <cassert>
@@ -483,7 +484,7 @@ namespace {
 
 char PeepholeOptimizer::ID = 0;
 
-char &llvm::PeepholeOptimizerID = PeepholeOptimizer::ID;
+LLVM_ABI char &llvm::PeepholeOptimizerID = PeepholeOptimizer::ID;
 
 INITIALIZE_PASS_BEGIN(PeepholeOptimizer, DEBUG_TYPE,
                       "Peephole Optimizations", false, false)

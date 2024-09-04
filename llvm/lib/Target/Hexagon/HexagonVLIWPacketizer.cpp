@@ -44,6 +44,7 @@
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
@@ -75,7 +76,7 @@ static cl::opt<bool>
     DisableVecDblNVStores("disable-vecdbl-nv-stores", cl::Hidden,
                           cl::desc("Disable vector double new-value-stores"));
 
-extern cl::opt<bool> ScheduleInlineAsm;
+LLVM_ABI extern cl::opt<bool> ScheduleInlineAsm;
 
 namespace llvm {
 

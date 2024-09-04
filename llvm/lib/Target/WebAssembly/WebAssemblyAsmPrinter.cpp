@@ -46,6 +46,7 @@
 #include "llvm/MC/MCSymbol.h"
 #include "llvm/MC/MCSymbolWasm.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -53,7 +54,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "asm-printer"
 
-extern cl::opt<bool> WasmKeepRegisters;
+LLVM_ABI extern cl::opt<bool> WasmKeepRegisters;
 
 //===----------------------------------------------------------------------===//
 // Helpers.

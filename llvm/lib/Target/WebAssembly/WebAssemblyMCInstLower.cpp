@@ -27,6 +27,7 @@
 #include "llvm/MC/MCExpr.h"
 #include "llvm/MC/MCInst.h"
 #include "llvm/MC/MCSymbolWasm.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -34,7 +35,7 @@ using namespace llvm;
 
 // This disables the removal of registers when lowering into MC, as required
 // by some current tests.
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     WasmKeepRegisters("wasm-keep-registers", cl::Hidden,
                       cl::desc("WebAssembly: output stack registers in"
                                " instruction output for test purposes only."),

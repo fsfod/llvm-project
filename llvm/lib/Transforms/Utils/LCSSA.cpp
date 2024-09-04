@@ -46,6 +46,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils.h"
 #include "llvm/Transforms/Utils/LoopUtils.h"
 #include "llvm/Transforms/Utils/SSAUpdater.h"
@@ -539,7 +540,7 @@ INITIALIZE_PASS_END(LCSSAWrapperPass, "lcssa", "Loop-Closed SSA Form Pass",
                     false, false)
 
 Pass *llvm::createLCSSAPass() { return new LCSSAWrapperPass(); }
-char &llvm::LCSSAID = LCSSAWrapperPass::ID;
+LLVM_ABI char &llvm::LCSSAID = LCSSAWrapperPass::ID;
 
 /// Transform \p F into loop-closed SSA form.
 bool LCSSAWrapperPass::runOnFunction(Function &F) {

@@ -146,7 +146,7 @@ STATISTIC(NumBruteForceTripCountsComputed,
 #ifdef EXPENSIVE_CHECKS
 bool llvm::VerifySCEV = true;
 #else
-bool llvm::VerifySCEV = false;
+LLVM_ABI bool llvm::VerifySCEV = false;
 #endif
 
 static cl::opt<unsigned>

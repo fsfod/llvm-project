@@ -14,6 +14,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include <algorithm>
@@ -24,7 +25,7 @@
 using namespace llvm;
 
 namespace llvm {
-cl::opt<InlinerFunctionImportStatsOpts> InlinerFunctionImportStats(
+LLVM_ABI cl::opt<InlinerFunctionImportStatsOpts> InlinerFunctionImportStats(
     "inliner-function-import-stats",
     cl::init(InlinerFunctionImportStatsOpts::No),
     cl::values(clEnumValN(InlinerFunctionImportStatsOpts::Basic, "basic",

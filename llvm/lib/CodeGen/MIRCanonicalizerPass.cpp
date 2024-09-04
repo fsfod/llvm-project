@@ -30,6 +30,7 @@
 #include "llvm/CodeGen/MachineRegisterInfo.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -65,7 +66,7 @@ public:
 
 char MIRCanonicalizer::ID;
 
-char &llvm::MIRCanonicalizerID = MIRCanonicalizer::ID;
+LLVM_ABI char &llvm::MIRCanonicalizerID = MIRCanonicalizer::ID;
 
 INITIALIZE_PASS_BEGIN(MIRCanonicalizer, "mir-canonicalizer",
                       "Rename Register Operands Canonically", false, false)

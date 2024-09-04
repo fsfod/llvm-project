@@ -28,6 +28,7 @@
 #include "llvm/IR/Dominators.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Cloning.h"
@@ -75,7 +76,7 @@ INITIALIZE_PASS(BreakCriticalEdges, "break-crit-edges",
                 "Break critical edges in CFG", false, false)
 
 // Publicly exposed interface to pass...
-char &llvm::BreakCriticalEdgesID = BreakCriticalEdges::ID;
+LLVM_ABI char &llvm::BreakCriticalEdgesID = BreakCriticalEdges::ID;
 FunctionPass *llvm::createBreakCriticalEdgesPass() {
   return new BreakCriticalEdges();
 }

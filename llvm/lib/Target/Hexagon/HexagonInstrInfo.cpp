@@ -49,6 +49,7 @@
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/Support/BranchProbability.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/MathExtras.h"
@@ -73,7 +74,7 @@ using namespace llvm;
 #include "HexagonGenDFAPacketizer.inc"
 #include "HexagonGenInstrInfo.inc"
 
-cl::opt<bool> ScheduleInlineAsm("hexagon-sched-inline-asm", cl::Hidden,
+LLVM_ABI cl::opt<bool> ScheduleInlineAsm("hexagon-sched-inline-asm", cl::Hidden,
   cl::init(false), cl::desc("Do not consider inline-asm a scheduling/"
                             "packetization boundary."));
 

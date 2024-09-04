@@ -32,6 +32,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -107,7 +108,7 @@ static cl::opt<bool> KeepFPICache(
     cl::init(false));
 
 // clang-format off
-const std::vector<TensorSpec> llvm::FeatureMap{
+LLVM_ABI const std::vector<TensorSpec> llvm::FeatureMap{
 #define POPULATE_NAMES(DTYPE, SHAPE, NAME, __) TensorSpec::createSpec<DTYPE>(#NAME, SHAPE),
 // InlineCost features - these must come first
   INLINE_COST_FEATURE_ITERATOR(POPULATE_NAMES)
@@ -118,13 +119,13 @@ const std::vector<TensorSpec> llvm::FeatureMap{
 };
 // clang-format on
 
-const char *const llvm::DecisionName = "inlining_decision";
-const TensorSpec llvm::InlineDecisionSpec =
+LLVM_ABI const char *const llvm::DecisionName = "inlining_decision";
+LLVM_ABI const TensorSpec llvm::InlineDecisionSpec =
     TensorSpec::createSpec<int64_t>(DecisionName, {1});
-const char *const llvm::DefaultDecisionName = "inlining_default";
-const TensorSpec llvm::DefaultDecisionSpec =
+LLVM_ABI const char *const llvm::DefaultDecisionName = "inlining_default";
+LLVM_ABI const TensorSpec llvm::DefaultDecisionSpec =
     TensorSpec::createSpec<int64_t>(DefaultDecisionName, {1});
-const char *const llvm::RewardName = "delta_size";
+LLVM_ABI const char *const llvm::RewardName = "delta_size";
 
 CallBase *getInlinableCS(Instruction &I) {
   if (auto *CS = dyn_cast<CallBase>(&I))

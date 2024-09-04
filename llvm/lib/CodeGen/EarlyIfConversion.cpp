@@ -35,6 +35,7 @@
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -787,7 +788,7 @@ private:
 } // end anonymous namespace
 
 char EarlyIfConverter::ID = 0;
-char &llvm::EarlyIfConverterID = EarlyIfConverter::ID;
+LLVM_ABI char &llvm::EarlyIfConverterID = EarlyIfConverter::ID;
 
 INITIALIZE_PASS_BEGIN(EarlyIfConverter, DEBUG_TYPE,
                       "Early If Converter", false, false)
@@ -1143,7 +1144,7 @@ protected:
 #define DEBUG_TYPE "early-if-predicator"
 
 char EarlyIfPredicator::ID = 0;
-char &llvm::EarlyIfPredicatorID = EarlyIfPredicator::ID;
+LLVM_ABI char &llvm::EarlyIfPredicatorID = EarlyIfPredicator::ID;
 
 INITIALIZE_PASS_BEGIN(EarlyIfPredicator, DEBUG_TYPE, "Early If Predicator",
                       false, false)

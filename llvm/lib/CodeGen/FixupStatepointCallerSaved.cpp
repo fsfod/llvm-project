@@ -28,6 +28,7 @@
 #include "llvm/CodeGen/TargetInstrInfo.h"
 #include "llvm/IR/Statepoint.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 
 using namespace llvm;
@@ -81,7 +82,7 @@ public:
 } // End anonymous namespace.
 
 char FixupStatepointCallerSaved::ID = 0;
-char &llvm::FixupStatepointCallerSavedID = FixupStatepointCallerSaved::ID;
+LLVM_ABI char &llvm::FixupStatepointCallerSavedID = FixupStatepointCallerSaved::ID;
 
 INITIALIZE_PASS_BEGIN(FixupStatepointCallerSaved, DEBUG_TYPE,
                       "Fixup Statepoint Caller Saved", false, false)

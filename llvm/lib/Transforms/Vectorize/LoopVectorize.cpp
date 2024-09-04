@@ -293,7 +293,7 @@ static cl::opt<unsigned> ForceTargetMaxVectorInterleaveFactor(
     cl::desc("A flag that overrides the target's max interleave factor for "
              "vectorized loops."));
 
-cl::opt<unsigned> ForceTargetInstructionCost(
+LLVM_ABI cl::opt<unsigned> ForceTargetInstructionCost(
     "force-target-instruction-cost", cl::init(0), cl::Hidden,
     cl::desc("A flag that overrides the target's expected cost for "
              "an instruction to a single constant value. Mostly "
@@ -357,7 +357,7 @@ static cl::opt<bool> PreferPredicatedReductionSelect(
         "Prefer predicating a reduction operation over an after loop select."));
 
 namespace llvm {
-cl::opt<bool> EnableVPlanNativePath(
+LLVM_ABI cl::opt<bool> EnableVPlanNativePath(
     "enable-vplan-native-path", cl::Hidden,
     cl::desc("Enable VPlan-native vectorization path with "
              "support for outer loop vectorization."));
@@ -374,10 +374,10 @@ static cl::opt<bool> VPlanBuildStressTest(
         "out right after the build (stress test the VPlan H-CFG construction "
         "in the VPlan-native vectorization path)."));
 
-cl::opt<bool> llvm::EnableLoopInterleaving(
+LLVM_ABI cl::opt<bool> llvm::EnableLoopInterleaving(
     "interleave-loops", cl::init(true), cl::Hidden,
     cl::desc("Enable loop interleaving in Loop vectorization passes"));
-cl::opt<bool> llvm::EnableLoopVectorization(
+LLVM_ABI cl::opt<bool> llvm::EnableLoopVectorization(
     "vectorize-loops", cl::init(true), cl::Hidden,
     cl::desc("Run the Loop vectorization passes"));
 

@@ -23,6 +23,7 @@
 #include "llvm/IR/Mangler.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/IPO.h"
 #include <optional>
 #include <vector>
@@ -35,15 +36,15 @@ using namespace IRSimilarity;
 // A command flag to be used for debugging to exclude branches from similarity
 // matching and outlining.
 namespace llvm {
-extern cl::opt<bool> DisableBranches;
+LLVM_ABI extern cl::opt<bool> DisableBranches;
 
 // A command flag to be used for debugging to indirect calls from similarity
 // matching and outlining.
-extern cl::opt<bool> DisableIndirectCalls;
+LLVM_ABI extern cl::opt<bool> DisableIndirectCalls;
 
 // A command flag to be used for debugging to exclude intrinsics from similarity
 // matching and outlining.
-extern cl::opt<bool> DisableIntrinsics;
+LLVM_ABI extern cl::opt<bool> DisableIntrinsics;
 
 } // namespace llvm
 

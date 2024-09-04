@@ -21,6 +21,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -83,7 +84,7 @@ private:
 } // namespace
 
 char StackMapLiveness::ID = 0;
-char &llvm::StackMapLivenessID = StackMapLiveness::ID;
+LLVM_ABI char &llvm::StackMapLivenessID = StackMapLiveness::ID;
 INITIALIZE_PASS(StackMapLiveness, "stackmap-liveness",
                 "StackMap Liveness Analysis", false, false)
 

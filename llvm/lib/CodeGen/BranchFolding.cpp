@@ -51,6 +51,7 @@
 #include "llvm/Support/BlockFrequency.h"
 #include "llvm/Support/BranchProbability.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
@@ -114,7 +115,7 @@ namespace {
 
 char BranchFolderPass::ID = 0;
 
-char &llvm::BranchFolderPassID = BranchFolderPass::ID;
+LLVM_ABI char &llvm::BranchFolderPassID = BranchFolderPass::ID;
 
 INITIALIZE_PASS(BranchFolderPass, DEBUG_TYPE,
                 "Control Flow Optimizer", false, false)

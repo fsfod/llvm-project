@@ -26,6 +26,7 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include <optional>
 #include <sstream>
@@ -35,7 +36,7 @@ using namespace llvm;
 #define AARCH64_LOWER_HOMOGENEOUS_PROLOG_EPILOG_NAME                           \
   "AArch64 homogeneous prolog/epilog lowering pass"
 
-cl::opt<int> FrameHelperSizeThreshold(
+LLVM_ABI cl::opt<int> FrameHelperSizeThreshold(
     "frame-helper-size-threshold", cl::init(2), cl::Hidden,
     cl::desc("The minimum number of instructions that are outlined in a frame "
              "helper (default = 2)"));

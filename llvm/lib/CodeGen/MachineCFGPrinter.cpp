@@ -18,6 +18,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GraphWriter.h"
 
 using namespace llvm;
@@ -74,7 +75,7 @@ public:
 
 char MachineCFGPrinter::ID = 0;
 
-char &llvm::MachineCFGPrinterID = MachineCFGPrinter::ID;
+LLVM_ABI char &llvm::MachineCFGPrinterID = MachineCFGPrinter::ID;
 
 INITIALIZE_PASS(MachineCFGPrinter, DEBUG_TYPE, "Machine CFG Printer Pass",
                 false, true)

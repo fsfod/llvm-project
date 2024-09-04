@@ -34,6 +34,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Type.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/MathExtras.h"
@@ -91,7 +92,7 @@ ReportAccMoves("ppc-report-acc-moves",
                cl::Hidden, cl::init(false));
 #endif
 
-extern cl::opt<bool> DisableAutoPairedVecSt;
+LLVM_ABI extern cl::opt<bool> DisableAutoPairedVecSt;
 
 static unsigned offsetMinAlignForOpcode(unsigned OpC);
 

@@ -17,6 +17,7 @@
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -31,7 +32,7 @@ char EdgeBundles::ID = 0;
 INITIALIZE_PASS(EdgeBundles, "edge-bundles", "Bundle Machine CFG Edges",
                 /* cfg = */true, /* is_analysis = */ true)
 
-char &llvm::EdgeBundlesID = EdgeBundles::ID;
+LLVM_ABI char &llvm::EdgeBundlesID = EdgeBundles::ID;
 
 void EdgeBundles::getAnalysisUsage(AnalysisUsage &AU) const {
   AU.setPreservesAll();

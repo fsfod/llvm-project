@@ -15,11 +15,12 @@
 #include "llvm/ProfileData/ProfileCommon.h"
 #include "llvm/ProfileData/SampleProf.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 namespace llvm {
-cl::opt<bool> UseContextLessSummary(
+LLVM_ABI cl::opt<bool> UseContextLessSummary(
     "profile-summary-contextless", cl::Hidden,
     cl::desc("Merge context profiles before calculating thresholds."));
 
@@ -30,24 +31,24 @@ cl::opt<bool> UseContextLessSummary(
 // Similarly, the minimum count to reach ProfileSummaryCutoffCold gives the
 // threshold for determining cold count (everything <= this threshold is
 // considered cold).
-cl::opt<int> ProfileSummaryCutoffHot(
+LLVM_ABI cl::opt<int> ProfileSummaryCutoffHot(
     "profile-summary-cutoff-hot", cl::Hidden, cl::init(990000),
     cl::desc("A count is hot if it exceeds the minimum count to"
              " reach this percentile of total counts."));
 
-cl::opt<int> ProfileSummaryCutoffCold(
+LLVM_ABI cl::opt<int> ProfileSummaryCutoffCold(
     "profile-summary-cutoff-cold", cl::Hidden, cl::init(999999),
     cl::desc("A count is cold if it is below the minimum count"
              " to reach this percentile of total counts."));
 
-cl::opt<unsigned> ProfileSummaryHugeWorkingSetSizeThreshold(
+LLVM_ABI cl::opt<unsigned> ProfileSummaryHugeWorkingSetSizeThreshold(
     "profile-summary-huge-working-set-size-threshold", cl::Hidden,
     cl::init(15000),
     cl::desc("The code working set size is considered huge if the number of"
              " blocks required to reach the -profile-summary-cutoff-hot"
              " percentile exceeds this count."));
 
-cl::opt<unsigned> ProfileSummaryLargeWorkingSetSizeThreshold(
+LLVM_ABI cl::opt<unsigned> ProfileSummaryLargeWorkingSetSizeThreshold(
     "profile-summary-large-working-set-size-threshold", cl::Hidden,
     cl::init(12500),
     cl::desc("The code working set size is considered large if the number of"
@@ -56,12 +57,12 @@ cl::opt<unsigned> ProfileSummaryLargeWorkingSetSizeThreshold(
 
 // The next two options override the counts derived from summary computation and
 // are useful for debugging purposes.
-cl::opt<uint64_t> ProfileSummaryHotCount(
+LLVM_ABI cl::opt<uint64_t> ProfileSummaryHotCount(
     "profile-summary-hot-count", cl::ReallyHidden,
     cl::desc("A fixed hot count that overrides the count derived from"
              " profile-summary-cutoff-hot"));
 
-cl::opt<uint64_t> ProfileSummaryColdCount(
+LLVM_ABI cl::opt<uint64_t> ProfileSummaryColdCount(
     "profile-summary-cold-count", cl::ReallyHidden,
     cl::desc("A fixed cold count that overrides the count derived from"
              " profile-summary-cutoff-cold"));

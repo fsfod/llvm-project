@@ -68,6 +68,7 @@
 #include "llvm/MC/MCRegister.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/DebugCounter.h"
 #include "llvm/Support/raw_ostream.h"
@@ -443,7 +444,7 @@ private:
 
 char MachineCopyPropagation::ID = 0;
 
-char &llvm::MachineCopyPropagationID = MachineCopyPropagation::ID;
+LLVM_ABI char &llvm::MachineCopyPropagationID = MachineCopyPropagation::ID;
 
 INITIALIZE_PASS(MachineCopyPropagation, DEBUG_TYPE,
                 "Machine Copy Propagation Pass", false, false)

@@ -12,6 +12,7 @@
 #include "llvm/Config/llvm-config.h"
 #include "llvm/ExecutionEngine/Orc/DebugUtils.h"
 #include "llvm/ExecutionEngine/Orc/Shared/OrcError.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FormatVariadic.h"
 #include "llvm/Support/MSVCErrorWorkarounds.h"
 
@@ -34,7 +35,7 @@ char UnsatisfiedSymbolDependencies::ID = 0;
 char MaterializationTask::ID = 0;
 char LookupTask::ID = 0;
 
-RegisterDependenciesFunction NoDependenciesToRegister =
+LLVM_ABI RegisterDependenciesFunction NoDependenciesToRegister =
     RegisterDependenciesFunction();
 
 void MaterializationUnit::anchor() {}

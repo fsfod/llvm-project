@@ -75,7 +75,7 @@ LiveIntervalsPrinterPass::run(MachineFunction &MF,
 }
 
 char LiveIntervalsWrapperPass::ID = 0;
-char &llvm::LiveIntervalsID = LiveIntervalsWrapperPass::ID;
+LLVM_ABI char &llvm::LiveIntervalsID = LiveIntervalsWrapperPass::ID;
 INITIALIZE_PASS_BEGIN(LiveIntervalsWrapperPass, "liveintervals",
                       "Live Interval Analysis", false, false)
 INITIALIZE_PASS_DEPENDENCY(MachineDominatorTreeWrapperPass)
@@ -101,7 +101,7 @@ static bool EnablePrecomputePhysRegs = false;
 
 namespace llvm {
 
-cl::opt<bool> UseSegmentSetForPhysRegs(
+LLVM_ABI cl::opt<bool> UseSegmentSetForPhysRegs(
     "use-segment-set-for-physregs", cl::Hidden, cl::init(true),
     cl::desc(
         "Use segment set for the computation of the live ranges of physregs."));

@@ -51,7 +51,7 @@ static cl::opt<unsigned>
     RDFLimit("hexagon-rdf-limit",
              cl::init(std::numeric_limits<unsigned>::max()));
 
-extern cl::opt<unsigned> RDFFuncBlockLimit;
+LLVM_ABI extern cl::opt<unsigned> RDFFuncBlockLimit;
 
 static cl::opt<bool> RDFDump("hexagon-rdf-dump", cl::Hidden);
 static cl::opt<bool> RDFTrackReserved("hexagon-rdf-track-reserved", cl::Hidden);

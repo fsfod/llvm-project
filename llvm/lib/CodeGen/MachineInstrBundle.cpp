@@ -18,6 +18,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include <utility>
 using namespace llvm;
 
@@ -39,7 +40,7 @@ namespace {
 } // end anonymous namespace
 
 char UnpackMachineBundles::ID = 0;
-char &llvm::UnpackMachineBundlesID = UnpackMachineBundles::ID;
+LLVM_ABI char &llvm::UnpackMachineBundlesID = UnpackMachineBundles::ID;
 INITIALIZE_PASS(UnpackMachineBundles, "unpack-mi-bundles",
                 "Unpack machine instruction bundles", false, false)
 
@@ -95,7 +96,7 @@ namespace {
 } // end anonymous namespace
 
 char FinalizeMachineBundles::ID = 0;
-char &llvm::FinalizeMachineBundlesID = FinalizeMachineBundles::ID;
+LLVM_ABI char &llvm::FinalizeMachineBundlesID = FinalizeMachineBundles::ID;
 INITIALIZE_PASS(FinalizeMachineBundles, "finalize-mi-bundles",
                 "Finalize machine instruction bundles", false, false)
 

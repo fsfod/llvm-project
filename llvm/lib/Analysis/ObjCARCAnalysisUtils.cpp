@@ -15,12 +15,13 @@
 #include "llvm/Analysis/ObjCARCAnalysisUtils.h"
 #include "llvm/Analysis/AliasAnalysis.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 using namespace llvm::objcarc;
 
 /// A handy option to enable/disable all ARC Optimizations.
-bool llvm::objcarc::EnableARCOpts;
+LLVM_ABI bool llvm::objcarc::EnableARCOpts;
 static cl::opt<bool, true> EnableARCOptimizations(
     "enable-objc-arc-opts", cl::desc("enable/disable all ARC Optimizations"),
     cl::location(EnableARCOpts), cl::init(true), cl::Hidden);

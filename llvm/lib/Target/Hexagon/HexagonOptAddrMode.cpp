@@ -32,6 +32,7 @@
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
@@ -47,7 +48,7 @@ static cl::opt<int> CodeGrowthLimit("hexagon-amode-growth-limit",
   cl::Hidden, cl::init(0), cl::desc("Code growth limit for address mode "
   "optimization"));
 
-extern cl::opt<unsigned> RDFFuncBlockLimit;
+LLVM_ABI extern cl::opt<unsigned> RDFFuncBlockLimit;
 
 namespace llvm {
 

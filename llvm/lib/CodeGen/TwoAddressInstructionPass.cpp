@@ -55,6 +55,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/CodeGen.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
@@ -255,7 +256,7 @@ TwoAddressInstructionPass::run(MachineFunction &MF,
 
 char TwoAddressInstructionLegacyPass::ID = 0;
 
-char &llvm::TwoAddressInstructionPassID = TwoAddressInstructionLegacyPass::ID;
+LLVM_ABI char &llvm::TwoAddressInstructionPassID = TwoAddressInstructionLegacyPass::ID;
 
 INITIALIZE_PASS_BEGIN(TwoAddressInstructionLegacyPass, DEBUG_TYPE,
                       "Two-Address instruction pass", false, false)

@@ -46,6 +46,7 @@
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/CodeGen.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Target/TargetLoweringObjectFile.h"
 #include "llvm/Target/TargetOptions.h"
 #include "llvm/TargetParser/Triple.h"
@@ -202,7 +203,7 @@ static cl::opt<bool> ForceStreamingCompatible(
     cl::desc("Force the use of streaming-compatible code for all functions"),
     cl::init(false), cl::Hidden);
 
-extern cl::opt<bool> EnableHomogeneousPrologEpilog;
+LLVM_ABI extern cl::opt<bool> EnableHomogeneousPrologEpilog;
 
 static cl::opt<bool> EnableGISelLoadStoreOptPreLegal(
     "aarch64-enable-gisel-ldst-prelegal",

@@ -32,6 +32,7 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 using Scaled64 = ScaledNumber<uint64_t>;
@@ -40,7 +41,7 @@ using ProfileCount = Function::ProfileCount;
 #define DEBUG_TYPE "synthetic-counts-propagation"
 
 namespace llvm {
-cl::opt<int>
+LLVM_ABI cl::opt<int>
     InitialSyntheticCount("initial-synthetic-count", cl::Hidden, cl::init(10),
                           cl::desc("Initial value of synthetic entry count"));
 } // namespace llvm

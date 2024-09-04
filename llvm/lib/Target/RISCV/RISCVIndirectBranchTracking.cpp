@@ -20,10 +20,11 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachineInstrBuilder.h"
 #include "llvm/CodeGen/MachineModuleInfo.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
-cl::opt<uint32_t> PreferredLandingPadLabel(
+LLVM_ABI cl::opt<uint32_t> PreferredLandingPadLabel(
     "riscv-landing-pad-label", cl::ReallyHidden,
     cl::desc("Use preferred fixed label for all labels"));
 

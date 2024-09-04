@@ -52,6 +52,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/BranchProbability.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include <algorithm>
@@ -280,7 +281,7 @@ namespace {
 
 char MachineSinking::ID = 0;
 
-char &llvm::MachineSinkingID = MachineSinking::ID;
+LLVM_ABI char &llvm::MachineSinkingID = MachineSinking::ID;
 
 INITIALIZE_PASS_BEGIN(MachineSinking, DEBUG_TYPE,
                       "Machine code sinking", false, false)
@@ -1918,7 +1919,7 @@ private:
 } // namespace
 
 char PostRAMachineSinking::ID = 0;
-char &llvm::PostRAMachineSinkingID = PostRAMachineSinking::ID;
+LLVM_ABI char &llvm::PostRAMachineSinkingID = PostRAMachineSinking::ID;
 
 INITIALIZE_PASS(PostRAMachineSinking, "postra-machine-sink",
                 "PostRA Machine Sink", false, false)

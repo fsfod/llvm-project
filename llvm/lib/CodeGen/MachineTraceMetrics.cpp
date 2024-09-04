@@ -26,6 +26,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/Format.h"
@@ -42,7 +43,7 @@ using namespace llvm;
 
 char MachineTraceMetrics::ID = 0;
 
-char &llvm::MachineTraceMetricsID = MachineTraceMetrics::ID;
+LLVM_ABI char &llvm::MachineTraceMetricsID = MachineTraceMetrics::ID;
 
 INITIALIZE_PASS_BEGIN(MachineTraceMetrics, DEBUG_TYPE,
                       "Machine Trace Metrics", false, true)

@@ -106,14 +106,14 @@ static cl::opt<bool> ExpandConstantExprs(
 /// of debug intrinsics). UNSET is treated as FALSE, so the default action
 /// is to do nothing. Individual tools can override this to incrementally add
 /// support for the RemoveDIs format.
-cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat(
+LLVM_ABI cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat(
     "load-bitcode-into-experimental-debuginfo-iterators", cl::Hidden,
     cl::desc("Load bitcode directly into the new debug info format (regardless "
              "of input format)"));
-extern cl::opt<bool> UseNewDbgInfoFormat;
-extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
 extern bool WriteNewDbgInfoFormatToBitcode;
-extern cl::opt<bool> WriteNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<bool> WriteNewDbgInfoFormat;
 
 namespace {
 

@@ -47,6 +47,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/AtomicOrdering.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
@@ -165,7 +166,7 @@ struct ReplacementIRBuilder
 
 char AtomicExpandLegacy::ID = 0;
 
-char &llvm::AtomicExpandID = AtomicExpandLegacy::ID;
+LLVM_ABI char &llvm::AtomicExpandID = AtomicExpandLegacy::ID;
 
 INITIALIZE_PASS_BEGIN(AtomicExpandLegacy, DEBUG_TYPE,
                       "Expand Atomic instructions", false, false)

@@ -21,6 +21,7 @@
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 
 #include <numeric>
 #include <optional>
@@ -29,7 +30,7 @@ using namespace llvm;
 
 namespace llvm {
 // Use FS-AFDO discriminator.
-cl::opt<bool> EnableFSDiscriminator(
+LLVM_ABI cl::opt<bool> EnableFSDiscriminator(
     "enable-fs-discriminator", cl::Hidden,
     cl::desc("Enable adding flow sensitive discriminators"));
 } // namespace llvm

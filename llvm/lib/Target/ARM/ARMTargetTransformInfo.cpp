@@ -27,6 +27,7 @@
 #include "llvm/IR/PatternMatch.h"
 #include "llvm/IR/Type.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/KnownBits.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/TargetParser/SubtargetFeature.h"
@@ -56,11 +57,11 @@ static cl::opt<bool>
     AllowWLSLoops("allow-arm-wlsloops", cl::Hidden, cl::init(true),
                   cl::desc("Enable the generation of WLS loops"));
 
-extern cl::opt<TailPredication::Mode> EnableTailPredication;
+LLVM_ABI extern cl::opt<TailPredication::Mode> EnableTailPredication;
 
-extern cl::opt<bool> EnableMaskedGatherScatters;
+LLVM_ABI extern cl::opt<bool> EnableMaskedGatherScatters;
 
-extern cl::opt<unsigned> MVEMaxSupportedInterleaveFactor;
+LLVM_ABI extern cl::opt<unsigned> MVEMaxSupportedInterleaveFactor;
 
 /// Convert a vector load intrinsic into a simple llvm load instruction.
 /// This is beneficial when the underlying object being addressed comes

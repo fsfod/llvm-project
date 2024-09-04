@@ -17,6 +17,7 @@
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/TargetParser/Triple.h"
 
@@ -88,7 +89,7 @@ private:
 
 char LiveDebugValues::ID = 0;
 
-char &llvm::LiveDebugValuesID = LiveDebugValues::ID;
+LLVM_ABI char &llvm::LiveDebugValuesID = LiveDebugValues::ID;
 
 INITIALIZE_PASS(LiveDebugValues, DEBUG_TYPE, "Live DEBUG_VALUE analysis", false,
                 false)

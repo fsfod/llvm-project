@@ -19,6 +19,7 @@
 #include "llvm/Object/Error.h"
 #include "llvm/Support/ARMAttributeParser.h"
 #include "llvm/Support/ARMBuildAttributes.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/HexagonAttributeParser.h"
 #include "llvm/Support/MathExtras.h"
@@ -38,7 +39,7 @@
 using namespace llvm;
 using namespace object;
 
-const EnumEntry<unsigned> llvm::object::ElfSymbolTypes[NumElfSymbolTypes] = {
+LLVM_ABI const EnumEntry<unsigned> llvm::object::ElfSymbolTypes[NumElfSymbolTypes] = {
     {"None", "NOTYPE", ELF::STT_NOTYPE},
     {"Object", "OBJECT", ELF::STT_OBJECT},
     {"Function", "FUNC", ELF::STT_FUNC},

@@ -68,7 +68,7 @@ class MCInstrInfo;
 
 } // end namespace llvm
 
-extern cl::opt<bool> EmitJalrReloc;
+LLVM_ABI extern cl::opt<bool> EmitJalrReloc;
 
 namespace {
 

@@ -402,7 +402,7 @@ namespace {
 
 char RegisterCoalescer::ID = 0;
 
-char &llvm::RegisterCoalescerID = RegisterCoalescer::ID;
+LLVM_ABI char &llvm::RegisterCoalescerID = RegisterCoalescer::ID;
 
 INITIALIZE_PASS_BEGIN(RegisterCoalescer, "register-coalescer",
                       "Register Coalescer", false, false)

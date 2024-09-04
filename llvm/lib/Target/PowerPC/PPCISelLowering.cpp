@@ -133,7 +133,7 @@ static cl::opt<bool>
                           cl::desc("disable vector permute decomposition"),
                           cl::init(true), cl::Hidden);
 
-cl::opt<bool> DisableAutoPairedVecSt(
+LLVM_ABI cl::opt<bool> DisableAutoPairedVecSt(
     "disable-auto-paired-vec-st",
     cl::desc("disable automatically generated 32byte paired vector stores"),
     cl::init(true), cl::Hidden);
@@ -170,7 +170,7 @@ static const char AIXSSPCanaryWordName[] = "__ssp_canary_word";
 constexpr uint64_t AIXSmallTlsPolicySizeLimit = 32751;
 
 // FIXME: Remove this once the bug has been fixed!
-extern cl::opt<bool> ANDIGlueBug;
+LLVM_ABI extern cl::opt<bool> ANDIGlueBug;
 
 PPCTargetLowering::PPCTargetLowering(const PPCTargetMachine &TM,
                                      const PPCSubtarget &STI)

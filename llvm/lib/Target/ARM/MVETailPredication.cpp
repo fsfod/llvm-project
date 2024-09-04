@@ -46,6 +46,7 @@
 #include "llvm/IR/IntrinsicsARM.h"
 #include "llvm/IR/PatternMatch.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Local.h"
@@ -57,7 +58,7 @@ using namespace llvm;
 #define DEBUG_TYPE "mve-tail-predication"
 #define DESC "Transform predicated vector loops to use MVE tail predication"
 
-cl::opt<TailPredication::Mode> EnableTailPredication(
+LLVM_ABI cl::opt<TailPredication::Mode> EnableTailPredication(
    "tail-predication", cl::desc("MVE tail-predication pass options"),
    cl::init(TailPredication::Enabled),
    cl::values(clEnumValN(TailPredication::Disabled, "disabled",

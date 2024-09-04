@@ -20,6 +20,7 @@
 #include "llvm/IR/PassInstrumentation.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/FormatVariadic.h"
 #include "llvm/Support/ManagedStatic.h"
@@ -34,8 +35,8 @@ using namespace llvm;
 
 namespace llvm {
 
-bool TimePassesIsEnabled = false;
-bool TimePassesPerRun = false;
+LLVM_ABI bool TimePassesIsEnabled = false;
+LLVM_ABI bool TimePassesPerRun = false;
 
 static cl::opt<bool, true> EnableTiming(
     "time-passes", cl::location(TimePassesIsEnabled), cl::Hidden,

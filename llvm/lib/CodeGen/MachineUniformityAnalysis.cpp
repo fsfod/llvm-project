@@ -14,6 +14,7 @@
 #include "llvm/CodeGen/MachineSSAContext.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -149,8 +150,8 @@ bool llvm::GenericUniformityAnalysisImpl<MachineSSAContext>::isDivergentUse(
 
 // This ensures explicit instantiation of
 // GenericUniformityAnalysisImpl::ImplDeleter::operator()
-template class llvm::GenericUniformityInfo<MachineSSAContext>;
-template struct llvm::GenericUniformityAnalysisImplDeleter<
+template class LLVM_EXPORT_TEMPLATE llvm::GenericUniformityInfo<MachineSSAContext>;
+template struct LLVM_EXPORT_TEMPLATE llvm::GenericUniformityAnalysisImplDeleter<
     llvm::GenericUniformityAnalysisImpl<MachineSSAContext>>;
 
 MachineUniformityInfo llvm::computeMachineUniformityInfo(

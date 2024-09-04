@@ -8,6 +8,7 @@
 
 #include "llvm/IR/PrintPasses.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Errc.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/MemoryBuffer.h"
@@ -57,7 +58,7 @@ static cl::opt<bool> PrintAfterAll("print-after-all",
 // utility to do comparisons and insert the prefixes. For systems that do not
 // have the necessary facilities, the error message will be shown in place of
 // the expected output.
-cl::opt<ChangePrinter> llvm::PrintChanged(
+LLVM_ABI cl::opt<ChangePrinter> llvm::PrintChanged(
     "print-changed", cl::desc("Print changed IRs"), cl::Hidden,
     cl::ValueOptional, cl::init(ChangePrinter::None),
     cl::values(

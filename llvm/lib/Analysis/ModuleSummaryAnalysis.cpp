@@ -51,6 +51,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include <algorithm>
 #include <cassert>
@@ -81,11 +82,11 @@ static cl::opt<std::string> ModuleSummaryDotFile(
     "module-summary-dot-file", cl::Hidden, cl::value_desc("filename"),
     cl::desc("File to emit dot graph of new summary into"));
 
-extern cl::opt<bool> ScalePartialSampleProfileWorkingSetSize;
+LLVM_ABI extern cl::opt<bool> ScalePartialSampleProfileWorkingSetSize;
 
-extern cl::opt<unsigned> MaxNumVTableAnnotations;
+LLVM_ABI extern cl::opt<unsigned> MaxNumVTableAnnotations;
 
-extern cl::opt<bool> MemProfReportHintedSizes;
+LLVM_ABI extern cl::opt<bool> MemProfReportHintedSizes;
 
 // Walk through the operands of a given User via worklist iteration and populate
 // the set of GlobalValue references encountered. Invoked either on an

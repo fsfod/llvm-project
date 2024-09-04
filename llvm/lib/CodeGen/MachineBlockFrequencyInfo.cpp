@@ -21,6 +21,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GraphWriter.h"
 #include <optional>
 #include <string>
@@ -45,7 +46,7 @@ static cl::opt<GVDAGType> ViewMachineBlockFreqPropagationDAG(
                                                "profile count if available.")));
 
 // Similar option above, but used to control BFI display only after MBP pass
-cl::opt<GVDAGType> ViewBlockLayoutWithBFI(
+LLVM_ABI cl::opt<GVDAGType> ViewBlockLayoutWithBFI(
     "view-block-layout-with-bfi", cl::Hidden,
     cl::desc(
         "Pop up a window to show a dag displaying MBP layout and associated "
@@ -63,11 +64,11 @@ cl::opt<GVDAGType> ViewBlockLayoutWithBFI(
 
 // Command line option to specify the name of the function for CFG dump
 // Defined in Analysis/BlockFrequencyInfo.cpp:  -view-bfi-func-name=
-extern cl::opt<std::string> ViewBlockFreqFuncName;
+LLVM_ABI extern cl::opt<std::string> ViewBlockFreqFuncName;
 
 // Command line option to specify hot frequency threshold.
 // Defined in Analysis/BlockFrequencyInfo.cpp:  -view-hot-freq-perc=
-extern cl::opt<unsigned> ViewHotFreqPercent;
+LLVM_ABI extern cl::opt<unsigned> ViewHotFreqPercent;
 
 static cl::opt<bool> PrintMachineBlockFreq(
     "print-machine-bfi", cl::init(false), cl::Hidden,
@@ -75,7 +76,7 @@ static cl::opt<bool> PrintMachineBlockFreq(
 
 // Command line option to specify the name of the function for block frequency
 // dump. Defined in Analysis/BlockFrequencyInfo.cpp.
-extern cl::opt<std::string> PrintBFIFuncName;
+LLVM_ABI extern cl::opt<std::string> PrintBFIFuncName;
 } // namespace llvm
 
 static GVDAGType getGVDT() {

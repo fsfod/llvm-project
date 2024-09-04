@@ -53,6 +53,7 @@
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <iterator>
@@ -809,7 +810,7 @@ void ImplicitNullChecks::rewriteNullChecks(
 
 char ImplicitNullChecks::ID = 0;
 
-char &llvm::ImplicitNullChecksID = ImplicitNullChecks::ID;
+LLVM_ABI char &llvm::ImplicitNullChecksID = ImplicitNullChecks::ID;
 
 INITIALIZE_PASS_BEGIN(ImplicitNullChecks, DEBUG_TYPE,
                       "Implicit null checks", false, false)
