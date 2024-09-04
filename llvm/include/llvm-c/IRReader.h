@@ -16,6 +16,7 @@
 
 #include "llvm-c/ExternC.h"
 #include "llvm-c/Types.h"
+#include "llvm/Support/Compiler.h"
 
 LLVM_C_EXTERN_C_BEGIN
 
@@ -35,7 +36,7 @@ LLVM_C_EXTERN_C_BEGIN
  *
  * @see llvm::ParseIR()
  */
-LLVMBool LLVMParseIRInContext(LLVMContextRef ContextRef,
+LLVM_C_ABI LLVMBool LLVMParseIRInContext(LLVMContextRef ContextRef,
                               LLVMMemoryBufferRef MemBuf, LLVMModuleRef *OutM,
                               char **OutMessage);
 
