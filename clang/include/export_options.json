@@ -16,8 +16,10 @@
       ]
     },
     {
+      "name": "typeloc_members",
       "headerFiles": [ "clang/AST/TypeLoc.h" ],
       "exportMembers": true,
+      "comment":  "Its simpler to export individual members than solve the complex template errors from MSVC instantiating all members when the class is dll exported",
       "ignoredTypes": [
       ]
     },
