@@ -28,9 +28,10 @@
       "pathRoot": "../lib",
       "headerFiles": [
         "Format/MatchFilePath.h",
-        "AST/Interp/Program.h",
-        "AST/Interp/Pointer.h",
-        "AST/Interp/MemberPointer.h",
+        "AST/ByteCode/Program.h",
+        "AST/ByteCode/Pointer.h",
+        "AST/ByteCode/MemberPointer.h",
+        "AST/ByteCode/FunctionPointer.h",
         "Format/FormatTokenLexer.h",
         "Format/TokenAnnotator.h",
         "Format/Macros.h",
