@@ -175,7 +175,7 @@ public:
 
 TailFoldingOption TailFoldingOptionLoc;
 
-cl::opt<TailFoldingOption, true, cl::parser<std::string>> SVETailFolding(
+LLVM_ABI_NOT_EXPORTED cl::opt<TailFoldingOption, true, cl::parser<std::string>> SVETailFolding(
     "sve-tail-folding",
     cl::desc(
         "Control the use of vectorisation using tail-folding for SVE where the"
