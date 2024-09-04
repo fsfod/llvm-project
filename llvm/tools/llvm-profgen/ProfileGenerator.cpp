@@ -12,6 +12,7 @@
 #include "ProfiledBinary.h"
 #include "llvm/DebugInfo/Symbolize/SymbolizableModule.h"
 #include "llvm/ProfileData/ProfileCommon.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <float.h>
 #include <unordered_set>
@@ -108,8 +109,8 @@ using namespace llvm;
 using namespace sampleprof;
 
 namespace llvm {
-extern cl::opt<int> ProfileSummaryCutoffHot;
-extern cl::opt<bool> UseContextLessSummary;
+LLVM_ABI extern cl::opt<int> ProfileSummaryCutoffHot;
+LLVM_ABI extern cl::opt<bool> UseContextLessSummary;
 
 namespace sampleprof {
 
