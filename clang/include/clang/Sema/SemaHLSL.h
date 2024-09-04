@@ -17,6 +17,7 @@
 #include "clang/AST/Attr.h"
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/TargetParser/Triple.h"
 #include <initializer_list>
 
@@ -26,7 +27,7 @@ class IdentifierInfo;
 class ParsedAttr;
 class Scope;
 
-class SemaHLSL : public SemaBase {
+class CLANG_ABI SemaHLSL : public SemaBase {
 public:
   SemaHLSL(Sema &S);
 
