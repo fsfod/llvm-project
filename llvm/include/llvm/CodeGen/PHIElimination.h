@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_PHIELIMINATION_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class PHIEliminationPass : public PassInfoMixin<PHIEliminationPass> {
+class LLVM_ABI PHIEliminationPass : public PassInfoMixin<PHIEliminationPass> {
 public:
   PreservedAnalyses run(MachineFunction &MF,
                         MachineFunctionAnalysisManager &MFAM);

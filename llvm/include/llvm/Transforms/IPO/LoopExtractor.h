@@ -17,10 +17,11 @@
 #define LLVM_TRANSFORMS_IPO_LOOPEXTRACTOR_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct LoopExtractorPass : public PassInfoMixin<LoopExtractorPass> {
+struct LLVM_ABI LoopExtractorPass : public PassInfoMixin<LoopExtractorPass> {
   LoopExtractorPass(unsigned NumLoops = ~0) : NumLoops(NumLoops) {}
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
   void printPipeline(raw_ostream &OS,

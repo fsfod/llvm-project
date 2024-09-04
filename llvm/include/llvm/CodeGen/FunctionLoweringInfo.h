@@ -25,6 +25,7 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/KnownBits.h"
 #include <cassert>
 #include <utility>
@@ -54,7 +55,7 @@ using UniformityInfo = GenericUniformityInfo<SSAContext>;
 /// FunctionLoweringInfo - This contains information that is global to a
 /// function that is used when lowering a region of the function.
 ///
-class FunctionLoweringInfo {
+class LLVM_ABI FunctionLoweringInfo {
 public:
   const Function *Fn;
   MachineFunction *MF;

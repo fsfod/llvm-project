@@ -15,26 +15,27 @@
 #define LLVM_CODEGEN_MACHINEPOSTDOMINATORS_H
 
 #include "llvm/CodeGen/MachineDominators.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-extern template class DominatorTreeBase<MachineBasicBlock, true>; // PostDomTree
+extern template class LLVM_TEMPLATE_ABI DominatorTreeBase<MachineBasicBlock, true>; // PostDomTree
 
 namespace DomTreeBuilder {
 using MBBPostDomTree = PostDomTreeBase<MachineBasicBlock>;
 using MBBPostDomTreeGraphDiff = GraphDiff<MachineBasicBlock *, true>;
 
-extern template void Calculate<MBBPostDomTree>(MBBPostDomTree &DT);
+extern template LLVM_TEMPLATE_ABI LLVM_TEMPLATE_ABI void Calculate<MBBPostDomTree>(MBBPostDomTree &DT);
 extern template void InsertEdge<MBBPostDomTree>(MBBPostDomTree &DT,
                                                 MachineBasicBlock *From,
                                                 MachineBasicBlock *To);
-extern template void DeleteEdge<MBBPostDomTree>(MBBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void DeleteEdge<MBBPostDomTree>(MBBPostDomTree &DT,
                                                 MachineBasicBlock *From,
                                                 MachineBasicBlock *To);
-extern template void ApplyUpdates<MBBPostDomTree>(MBBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void ApplyUpdates<MBBPostDomTree>(MBBPostDomTree &DT,
                                                   MBBPostDomTreeGraphDiff &,
                                                   MBBPostDomTreeGraphDiff *);
-extern template bool
+extern template LLVM_TEMPLATE_ABI bool
 Verify<MBBPostDomTree>(const MBBPostDomTree &DT,
                        MBBPostDomTree::VerificationLevel VL);
 } // namespace DomTreeBuilder
@@ -43,7 +44,7 @@ Verify<MBBPostDomTree>(const MBBPostDomTree &DT,
 /// MachinePostDominatorTree - an analysis pass wrapper for DominatorTree
 /// used to compute the post-dominator tree for MachineFunctions.
 ///
-class MachinePostDominatorTree : public PostDomTreeBase<MachineBasicBlock> {
+class LLVM_ABI MachinePostDominatorTree : public PostDomTreeBase<MachineBasicBlock> {
   using Base = PostDomTreeBase<MachineBasicBlock>;
 
 public:
@@ -64,7 +65,7 @@ public:
   findNearestCommonDominator(ArrayRef<MachineBasicBlock *> Blocks) const;
 };
 
-class MachinePostDominatorTreeAnalysis
+class LLVM_ABI MachinePostDominatorTreeAnalysis
     : public AnalysisInfoMixin<MachinePostDominatorTreeAnalysis> {
   friend AnalysisInfoMixin<MachinePostDominatorTreeAnalysis>;
 
@@ -76,7 +77,7 @@ public:
   Result run(MachineFunction &MF, MachineFunctionAnalysisManager &MFAM);
 };
 
-class MachinePostDominatorTreePrinterPass
+class LLVM_ABI MachinePostDominatorTreePrinterPass
     : public PassInfoMixin<MachinePostDominatorTreePrinterPass> {
   raw_ostream &OS;
 
@@ -87,7 +88,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class MachinePostDominatorTreeWrapperPass : public MachineFunctionPass {
+class LLVM_ABI MachinePostDominatorTreeWrapperPass : public MachineFunctionPass {
   std::optional<MachinePostDominatorTree> PDT;
 
 public:

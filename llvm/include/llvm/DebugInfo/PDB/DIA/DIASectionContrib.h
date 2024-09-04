@@ -11,12 +11,13 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBSectionContrib.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIASectionContrib : public IPDBSectionContrib {
+class LLVM_ABI DIASectionContrib : public IPDBSectionContrib {
 public:
   explicit DIASectionContrib(const DIASession &PDBSession,
                              CComPtr<IDiaSectionContrib> DiaSection);

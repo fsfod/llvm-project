@@ -18,6 +18,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/BinaryFormat/DXContainer.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBufferRef.h"
 #include "llvm/TargetParser/Triple.h"
@@ -116,7 +117,7 @@ template <typename T> struct ViewArray {
 };
 
 namespace DirectX {
-class PSVRuntimeInfo {
+class LLVM_ABI PSVRuntimeInfo {
 
   using ResourceArray = ViewArray<dxbc::PSV::v2::ResourceBindInfo>;
   using SigElementArray = ViewArray<dxbc::PSV::v0::SignatureElement>;
@@ -241,7 +242,7 @@ public:
   }
 };
 
-class Signature {
+class LLVM_ABI Signature {
   ViewArray<dxbc::ProgramSignatureElement> Parameters;
   uint32_t StringTableOffset;
   StringRef StringTable;
@@ -273,7 +274,7 @@ public:
 
 } // namespace DirectX
 
-class DXContainer {
+class LLVM_ABI DXContainer {
 public:
   using DXILData = std::pair<dxbc::ProgramHeader, const char *>;
 
@@ -304,7 +305,7 @@ public:
   // The PartIterator is a wrapper around the iterator for the PartOffsets
   // member of the DXContainer. It contains a refernce to the container, and the
   // current iterator value, as well as storage for a parsed part header.
-  class PartIterator {
+  class LLVM_ABI PartIterator {
     const DXContainer &Container;
     SmallVectorImpl<uint32_t>::const_iterator OffsetIt;
     struct PartData {

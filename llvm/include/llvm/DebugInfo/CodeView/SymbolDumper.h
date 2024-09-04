@@ -12,6 +12,7 @@
 #include "llvm/DebugInfo/CodeView/CVRecord.h"
 #include "llvm/DebugInfo/CodeView/CodeView.h"
 #include "llvm/DebugInfo/CodeView/SymbolDumpDelegate.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include <memory>
@@ -24,7 +25,7 @@ namespace codeview {
 class TypeCollection;
 
 /// Dumper for CodeView symbol streams found in COFF object files and PDB files.
-class CVSymbolDumper {
+class LLVM_ABI CVSymbolDumper {
 public:
   CVSymbolDumper(ScopedPrinter &W, TypeCollection &Types,
                  CodeViewContainer Container,

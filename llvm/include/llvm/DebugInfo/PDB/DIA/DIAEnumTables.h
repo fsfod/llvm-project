@@ -12,12 +12,13 @@
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBEnumChildren.h"
 #include "llvm/DebugInfo/PDB/IPDBTable.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class IPDBTable;
 
-class DIAEnumTables : public IPDBEnumChildren<IPDBTable> {
+class LLVM_ABI DIAEnumTables : public IPDBEnumChildren<IPDBTable> {
 public:
   explicit DIAEnumTables(CComPtr<IDiaEnumTables> DiaEnumerator);
 

@@ -17,6 +17,7 @@
 #include "llvm/ExecutionEngine/Orc/Core.h"
 #include "llvm/ExecutionEngine/Orc/DebugUtils.h"
 #include "llvm/ExecutionEngine/Orc/IRCompileLayer.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include <mutex>
 #include <type_traits>
@@ -31,7 +32,7 @@ class Speculator;
 // trampolines are created. Operations are guarded by locks tp ensure that Imap
 // stays in consistent state after read/write
 
-class ImplSymbolMap {
+class LLVM_ABI ImplSymbolMap {
   friend class Speculator;
 
 public:
@@ -57,7 +58,7 @@ private:
 };
 
 // Defines Speculator Concept,
-class Speculator {
+class LLVM_ABI Speculator {
 public:
   using TargetFAddr = ExecutorAddr;
   using FunctionCandidatesMap = DenseMap<SymbolStringPtr, SymbolNameSet>;
@@ -168,7 +169,7 @@ private:
   StubAddrLikelies GlobalSpecMap;
 };
 
-class IRSpeculationLayer : public IRLayer {
+class LLVM_ABI IRSpeculationLayer : public IRLayer {
 public:
   using IRlikiesStrRef =
       std::optional<DenseMap<StringRef, DenseSet<StringRef>>>;

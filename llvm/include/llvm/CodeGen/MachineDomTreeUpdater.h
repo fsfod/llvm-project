@@ -16,12 +16,13 @@
 
 #include "llvm/Analysis/GenericDomTreeUpdater.h"
 #include "llvm/CodeGen/MachineDominators.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class MachinePostDominatorTree;
 
-class MachineDomTreeUpdater
+class LLVM_ABI MachineDomTreeUpdater
     : public GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
                                    MachinePostDominatorTree> {
   friend GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
@@ -62,7 +63,7 @@ private:
   bool forceFlushDeletedBB();
 };
 
-extern template class GenericDomTreeUpdater<
+extern template class LLVM_TEMPLATE_ABI GenericDomTreeUpdater<
     MachineDomTreeUpdater, MachineDominatorTree, MachinePostDominatorTree>;
 
 extern template void LLVM_TEMPLATE_ABI

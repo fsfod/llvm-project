@@ -22,6 +22,7 @@
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Target/TargetOptions.h"
 
 #include <functional>
@@ -38,7 +39,7 @@ namespace lto {
 
 /// LTO configuration. A linker can configure LTO by setting fields in this data
 /// structure and passing it to the lto::LTO constructor.
-struct Config {
+struct LLVM_ABI Config {
   enum VisScheme {
     FromPrevailing,
     ELF,

@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_EXPANDLARGEDIVREM_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class ExpandLargeDivRemPass : public PassInfoMixin<ExpandLargeDivRemPass> {
+class LLVM_ABI ExpandLargeDivRemPass : public PassInfoMixin<ExpandLargeDivRemPass> {
 private:
   const TargetMachine *TM;
 

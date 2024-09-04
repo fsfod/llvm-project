@@ -17,6 +17,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Bitstream/BitstreamReader.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <array>
 #include <cstdint>
@@ -26,7 +27,7 @@ namespace llvm {
 namespace remarks {
 
 /// Helper to parse a META_BLOCK for a bitstream remark container.
-struct BitstreamMetaParserHelper {
+struct LLVM_ABI BitstreamMetaParserHelper {
   /// The Bitstream reader.
   BitstreamCursor &Stream;
   /// Reference to the storage for the block info.
@@ -51,7 +52,7 @@ struct BitstreamMetaParserHelper {
 };
 
 /// Helper to parse a REMARK_BLOCK for a bitstream remark container.
-struct BitstreamRemarkParserHelper {
+struct LLVM_ABI BitstreamRemarkParserHelper {
   /// The Bitstream reader.
   BitstreamCursor &Stream;
   /// The parsed content: depending on the remark, some fields might be empty.
@@ -86,7 +87,7 @@ struct BitstreamRemarkParserHelper {
 };
 
 /// Helper to parse any bitstream remark container.
-struct BitstreamParserHelper {
+struct LLVM_ABI BitstreamParserHelper {
   /// The Bitstream reader.
   BitstreamCursor Stream;
   /// The block info block.

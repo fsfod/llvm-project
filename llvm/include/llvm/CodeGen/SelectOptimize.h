@@ -16,12 +16,13 @@
 #define LLVM_CODEGEN_SELECTOPTIMIZE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class SelectOptimizePass : public PassInfoMixin<SelectOptimizePass> {
+class LLVM_ABI SelectOptimizePass : public PassInfoMixin<SelectOptimizePass> {
   const TargetMachine *TM;
 
 public:

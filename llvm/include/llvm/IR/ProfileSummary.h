@@ -13,6 +13,7 @@
 #ifndef LLVM_IR_PROFILESUMMARY_H
 #define LLVM_IR_PROFILESUMMARY_H
 
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
@@ -42,7 +43,7 @@ struct ProfileSummaryEntry {
 
 using SummaryEntryVector = std::vector<ProfileSummaryEntry>;
 
-class ProfileSummary {
+class LLVM_ABI ProfileSummary {
 public:
   enum Kind { PSK_Instr, PSK_CSInstr, PSK_Sample };
 

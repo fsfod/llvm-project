@@ -15,12 +15,13 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPFUSE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-class LoopFusePass : public PassInfoMixin<LoopFusePass> {
+class LLVM_ABI LoopFusePass : public PassInfoMixin<LoopFusePass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

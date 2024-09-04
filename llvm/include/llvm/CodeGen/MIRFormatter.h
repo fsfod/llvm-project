@@ -14,6 +14,7 @@
 #define LLVM_CODEGEN_MIRFORMATTER_H
 
 #include "llvm/CodeGen/PseudoSourceValue.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
 #include <cstdint>
@@ -29,7 +30,7 @@ class Twine;
 class Value;
 
 /// MIRFormater - Interface to format MIR operand based on target
-class MIRFormatter {
+class LLVM_ABI MIRFormatter {
 public:
   typedef function_ref<bool(StringRef::iterator Loc, const Twine &)>
       ErrorCallbackType;

@@ -19,6 +19,7 @@
 #ifndef LLVM_CODEGEN_MACHINEJUMPTABLEINFO_H
 #define LLVM_CODEGEN_MACHINEJUMPTABLEINFO_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Printable.h"
 #include <cassert>
 #include <vector>
@@ -39,7 +40,7 @@ struct MachineJumpTableEntry {
   : MBBs(M) {}
 };
 
-class MachineJumpTableInfo {
+class LLVM_ABI MachineJumpTableInfo {
 public:
   /// JTEntryKind - This enum indicates how each entry of the jump table is
   /// represented and emitted.
@@ -142,7 +143,7 @@ public:
 ///   %jump-table.5       - a jump table entry with index == 5.
 ///
 /// Usage: OS << printJumpTableEntryReference(Idx) << '\n';
-Printable printJumpTableEntryReference(unsigned Idx);
+LLVM_ABI Printable printJumpTableEntryReference(unsigned Idx);
 
 } // End llvm namespace
 

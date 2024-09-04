@@ -21,6 +21,7 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/CodeGen/TileShapeInfo.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 
 namespace llvm {
@@ -30,7 +31,7 @@ class MachineRegisterInfo;
 class raw_ostream;
 class TargetInstrInfo;
 
-  class VirtRegMap : public MachineFunctionPass {
+  class LLVM_ABI VirtRegMap : public MachineFunctionPass {
   public:
     enum {
       NO_PHYS_REG = 0,

@@ -15,6 +15,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include <utility>
 
@@ -34,7 +35,7 @@ class IntrinsicInst;
 /// * first instruction of any basic block
 /// Interesting instructions are numbered in the depth-first walk of the CFG,
 /// and in the program order inside each basic block.
-class StackLifetime {
+class LLVM_ABI StackLifetime {
   /// A class representing liveness information for a single basic block.
   /// Each bit in the BitVector represents the liveness property
   /// for a different stack slot.
@@ -181,7 +182,7 @@ inline raw_ostream &operator<<(raw_ostream &OS,
 }
 
 /// Printer pass for testing.
-class StackLifetimePrinterPass
+class LLVM_ABI StackLifetimePrinterPass
     : public PassInfoMixin<StackLifetimePrinterPass> {
   StackLifetime::LivenessType Type;
   raw_ostream &OS;

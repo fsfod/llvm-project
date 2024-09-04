@@ -11,6 +11,7 @@
 
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class LPMUpdater;
@@ -18,7 +19,7 @@ class Loop;
 class raw_ostream;
 
 /// Printer pass for the \c IVUsers for a loop.
-class IVUsersPrinterPass : public PassInfoMixin<IVUsersPrinterPass> {
+class LLVM_ABI IVUsersPrinterPass : public PassInfoMixin<IVUsersPrinterPass> {
   raw_ostream &OS;
 
 public:

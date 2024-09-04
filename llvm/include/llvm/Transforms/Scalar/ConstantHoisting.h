@@ -44,6 +44,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <vector>
 
@@ -123,7 +124,7 @@ struct ConstantInfo {
 
 } // end namespace consthoist
 
-class ConstantHoistingPass : public PassInfoMixin<ConstantHoistingPass> {
+class LLVM_ABI ConstantHoistingPass : public PassInfoMixin<ConstantHoistingPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

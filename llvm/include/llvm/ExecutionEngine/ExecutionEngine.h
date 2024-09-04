@@ -25,6 +25,7 @@
 #include "llvm/Object/Binary.h"
 #include "llvm/Support/CBindingWrapping.h"
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/Mutex.h"
 #include "llvm/Target/TargetMachine.h"
@@ -61,7 +62,7 @@ class ObjectFile;
 
 /// Helper class for helping synchronize access to the global address map
 /// table.  Access to this class should be serialized under a mutex.
-class ExecutionEngineState {
+class LLVM_ABI ExecutionEngineState {
 public:
   using GlobalAddressMapTy = StringMap<uint64_t>;
 
@@ -96,7 +97,7 @@ using FunctionCreator = std::function<void *(const std::string &)>;
 /// Abstract interface for implementation execution of LLVM modules,
 /// designed to support both interpreter and just-in-time (JIT) compiler
 /// implementations.
-class ExecutionEngine {
+class LLVM_ABI ExecutionEngine {
   /// The state object holding the global address mapping, which must be
   /// accessed synchronously.
   //
@@ -531,7 +532,7 @@ namespace EngineKind {
 /// Builder class for ExecutionEngines. Use this by stack-allocating a builder,
 /// chaining the various set* methods, and terminating it with a .create()
 /// call.
-class EngineBuilder {
+class LLVM_ABI EngineBuilder {
 private:
   std::unique_ptr<Module> M;
   EngineKind::Kind WhichEngine;

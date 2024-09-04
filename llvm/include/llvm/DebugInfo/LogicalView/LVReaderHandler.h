@@ -19,6 +19,7 @@
 #include "llvm/Object/Archive.h"
 #include "llvm/Object/MachOUniversal.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Support/ScopedPrinter.h"
 #include <string>
@@ -38,7 +39,7 @@ using PdbOrObj = PointerUnion<object::ObjectFile *, pdb::PDBFile *>;
 // - Prints and compares the logical views.
 //
 // The supported binary formats are: ELF, Mach-O and CodeView.
-class LVReaderHandler {
+class LLVM_ABI LVReaderHandler {
   ArgVector &Objects;
   ScopedPrinter &W;
   raw_ostream &OS;

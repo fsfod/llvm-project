@@ -11,12 +11,13 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBInjectedSource.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAInjectedSource : public IPDBInjectedSource {
+class LLVM_ABI DIAInjectedSource : public IPDBInjectedSource {
 public:
   explicit DIAInjectedSource(CComPtr<IDiaInjectedSource> DiaSourceFile);
 

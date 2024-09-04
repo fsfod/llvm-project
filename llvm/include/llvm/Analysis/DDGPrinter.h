@@ -16,6 +16,7 @@
 #define LLVM_ANALYSIS_DDGPRINTER_H
 
 #include "llvm/Analysis/DDG.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DOTGraphTraits.h"
 
 namespace llvm {
@@ -25,7 +26,7 @@ class Loop;
 //===--------------------------------------------------------------------===//
 // Implementation of DDG DOT Printer for a loop.
 //===--------------------------------------------------------------------===//
-class DDGDotPrinterPass : public PassInfoMixin<DDGDotPrinterPass> {
+class LLVM_ABI DDGDotPrinterPass : public PassInfoMixin<DDGDotPrinterPass> {
 public:
   PreservedAnalyses run(Loop &L, LoopAnalysisManager &AM,
                         LoopStandardAnalysisResults &AR, LPMUpdater &U);
@@ -36,7 +37,7 @@ public:
 // Specialization of DOTGraphTraits.
 //===--------------------------------------------------------------------===//
 template <>
-struct DOTGraphTraits<const DataDependenceGraph *>
+struct LLVM_ABI DOTGraphTraits<const DataDependenceGraph *>
     : public DefaultDOTGraphTraits {
 
   DOTGraphTraits(bool IsSimple = false) : DefaultDOTGraphTraits(IsSimple) {}

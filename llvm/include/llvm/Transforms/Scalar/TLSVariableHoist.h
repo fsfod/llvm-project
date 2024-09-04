@@ -65,6 +65,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -100,7 +101,7 @@ struct TLSCandidate {
 
 } // end namespace tlshoist
 
-class TLSVariableHoistPass : public PassInfoMixin<TLSVariableHoistPass> {
+class LLVM_ABI TLSVariableHoistPass : public PassInfoMixin<TLSVariableHoistPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

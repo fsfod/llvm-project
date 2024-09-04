@@ -11,11 +11,12 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBRawSymbol.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class DIASession;
-class DIARawSymbol : public IPDBRawSymbol {
+class LLVM_ABI DIARawSymbol : public IPDBRawSymbol {
 public:
   DIARawSymbol(const DIASession &PDBSession, CComPtr<IDiaSymbol> DiaSymbol);
 

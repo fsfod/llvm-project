@@ -17,6 +17,7 @@
 #define LLVM_INCLUDE_LLVM_SUPPORT_WINDOWS_RESOURCE_SCRIPTTOKEN_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ namespace llvm {
 // RCToken does not claim ownership on its value. A memory buffer containing
 // the token value should be stored in a safe place and cannot be freed
 // nor reallocated.
-class RCToken {
+class LLVM_ABI RCToken {
 public:
   enum class Kind {
 #define TOKEN(Name) Name,

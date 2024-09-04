@@ -11,6 +11,7 @@
 
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/CodeGen/RegAllocCommon.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -20,7 +21,7 @@ struct RegAllocFastPassOptions {
   bool ClearVRegs = true;
 };
 
-class RegAllocFastPass : public PassInfoMixin<RegAllocFastPass> {
+class LLVM_ABI RegAllocFastPass : public PassInfoMixin<RegAllocFastPass> {
   RegAllocFastPassOptions Opts;
 
 public:

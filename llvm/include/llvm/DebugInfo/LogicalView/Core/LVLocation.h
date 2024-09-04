@@ -15,6 +15,7 @@
 #define LLVM_DEBUGINFO_LOGICALVIEW_CORE_LVLOCATION_H
 
 #include "llvm/DebugInfo/LogicalView/Core/LVObject.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace logicalview {
@@ -24,7 +25,7 @@ using LVLineRange = std::pair<LVLine *, LVLine *>;
 // The DW_AT_data_member_location attribute is a simple member offset.
 const LVSmall LVLocationMemberOffset = 0;
 
-class LVOperation final {
+class LLVM_ABI LVOperation final {
   // To describe an operation:
   // OpCode
   // Operands[0]: First operand.
@@ -54,7 +55,7 @@ public:
 #endif
 };
 
-class LVLocation : public LVObject {
+class LLVM_ABI LVLocation : public LVObject {
   enum class Property {
     IsAddressRange,
     IsBaseClassOffset,
@@ -164,7 +165,7 @@ public:
 #endif
 };
 
-class LVLocationSymbol final : public LVLocation {
+class LLVM_ABI LVLocationSymbol final : public LVLocation {
   // Location descriptors for the active range.
   std::unique_ptr<LVOperations> Entries;
 

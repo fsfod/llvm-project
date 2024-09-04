@@ -22,6 +22,7 @@
 #include "llvm/ADT/SetVector.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include <cassert>
 #include <utility>
@@ -120,7 +121,7 @@ public:
   const DomSetType &calculate(const DomTreeT &DT, const DomTreeNodeT *Node);
 };
 
-class DominanceFrontier : public ForwardDominanceFrontierBase<BasicBlock> {
+class LLVM_ABI DominanceFrontier : public ForwardDominanceFrontierBase<BasicBlock> {
 public:
   using DomTreeT = DomTreeBase<BasicBlock>;
   using DomTreeNodeT = DomTreeNodeBase<BasicBlock>;
@@ -134,7 +135,7 @@ public:
                   FunctionAnalysisManager::Invalidator &);
 };
 
-class DominanceFrontierWrapperPass : public FunctionPass {
+class LLVM_ABI DominanceFrontierWrapperPass : public FunctionPass {
   DominanceFrontier DF;
 
 public:
@@ -156,12 +157,12 @@ public:
   void dump() const;
 };
 
-extern template class DominanceFrontierBase<BasicBlock, false>;
-extern template class DominanceFrontierBase<BasicBlock, true>;
-extern template class ForwardDominanceFrontierBase<BasicBlock>;
+extern template class LLVM_TEMPLATE_ABI DominanceFrontierBase<BasicBlock, false>;
+extern template class LLVM_TEMPLATE_ABI DominanceFrontierBase<BasicBlock, true>;
+extern template class LLVM_TEMPLATE_ABI ForwardDominanceFrontierBase<BasicBlock>;
 
 /// Analysis pass which computes a \c DominanceFrontier.
-class DominanceFrontierAnalysis
+class LLVM_ABI DominanceFrontierAnalysis
     : public AnalysisInfoMixin<DominanceFrontierAnalysis> {
   friend AnalysisInfoMixin<DominanceFrontierAnalysis>;
 
@@ -176,7 +177,7 @@ public:
 };
 
 /// Printer pass for the \c DominanceFrontier.
-class DominanceFrontierPrinterPass
+class LLVM_ABI DominanceFrontierPrinterPass
     : public PassInfoMixin<DominanceFrontierPrinterPass> {
   raw_ostream &OS;
 

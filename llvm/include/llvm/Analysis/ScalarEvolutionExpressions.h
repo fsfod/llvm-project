@@ -20,6 +20,7 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <cstddef>
@@ -100,7 +101,7 @@ inline unsigned short computeExpressionSize(ArrayRef<const SCEV *> Args) {
 }
 
 /// This is the base class for unary cast operator classes.
-class SCEVCastExpr : public SCEV {
+class LLVM_ABI SCEVCastExpr : public SCEV {
 protected:
   const SCEV *Op;
   Type *Ty;
@@ -127,7 +128,7 @@ public:
 
 /// This class represents a cast from a pointer to a pointer-sized integer
 /// value.
-class SCEVPtrToIntExpr : public SCEVCastExpr {
+class LLVM_ABI SCEVPtrToIntExpr : public SCEVCastExpr {
   friend class ScalarEvolution;
 
   SCEVPtrToIntExpr(const FoldingSetNodeIDRef ID, const SCEV *Op, Type *ITy);
@@ -138,7 +139,7 @@ public:
 };
 
 /// This is the base class for unary integral cast operator classes.
-class SCEVIntegralCastExpr : public SCEVCastExpr {
+class LLVM_ABI SCEVIntegralCastExpr : public SCEVCastExpr {
 protected:
   SCEVIntegralCastExpr(const FoldingSetNodeIDRef ID, SCEVTypes SCEVTy,
                        const SCEV *op, Type *ty);
@@ -153,7 +154,7 @@ public:
 
 /// This class represents a truncation of an integer value to a
 /// smaller integer value.
-class SCEVTruncateExpr : public SCEVIntegralCastExpr {
+class LLVM_ABI SCEVTruncateExpr : public SCEVIntegralCastExpr {
   friend class ScalarEvolution;
 
   SCEVTruncateExpr(const FoldingSetNodeIDRef ID, const SCEV *op, Type *ty);
@@ -165,7 +166,7 @@ public:
 
 /// This class represents a zero extension of a small integer value
 /// to a larger integer value.
-class SCEVZeroExtendExpr : public SCEVIntegralCastExpr {
+class LLVM_ABI SCEVZeroExtendExpr : public SCEVIntegralCastExpr {
   friend class ScalarEvolution;
 
   SCEVZeroExtendExpr(const FoldingSetNodeIDRef ID, const SCEV *op, Type *ty);
@@ -179,7 +180,7 @@ public:
 
 /// This class represents a sign extension of a small integer value
 /// to a larger integer value.
-class SCEVSignExtendExpr : public SCEVIntegralCastExpr {
+class LLVM_ABI SCEVSignExtendExpr : public SCEVIntegralCastExpr {
   friend class ScalarEvolution;
 
   SCEVSignExtendExpr(const FoldingSetNodeIDRef ID, const SCEV *op, Type *ty);
@@ -344,7 +345,7 @@ public:
 ///
 /// All operands of an AddRec are required to be loop invariant.
 ///
-class SCEVAddRecExpr : public SCEVNAryExpr {
+class LLVM_ABI SCEVAddRecExpr : public SCEVNAryExpr {
   friend class ScalarEvolution;
 
   const Loop *L;
@@ -573,7 +574,7 @@ public:
 /// This means that we are dealing with an entirely unknown SCEV
 /// value, and only represent it as its LLVM Value.  This is the
 /// "bottom" value for the analysis.
-class SCEVUnknown final : public SCEV, private CallbackVH {
+class LLVM_ABI SCEVUnknown final : public SCEV, private CallbackVH {
   friend class ScalarEvolution;
 
   /// The parent ScalarEvolution value. This is used to update the

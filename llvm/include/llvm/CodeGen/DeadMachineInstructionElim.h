@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_DEADMACHINEINSTRUCTIONELIM_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class DeadMachineInstructionElimPass
+class LLVM_ABI DeadMachineInstructionElimPass
     : public PassInfoMixin<DeadMachineInstructionElimPass> {
 public:
   PreservedAnalyses run(MachineFunction &MF,

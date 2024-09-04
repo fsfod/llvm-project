@@ -23,6 +23,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <vector>
 
@@ -31,7 +32,7 @@ namespace llvm {
 class Function;
 class LLVMTargetMachine;
 
-class PhysicalRegisterUsageInfo : public ImmutablePass {
+class LLVM_ABI PhysicalRegisterUsageInfo : public ImmutablePass {
 public:
   static char ID;
 

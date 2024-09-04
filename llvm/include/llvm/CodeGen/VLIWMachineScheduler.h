@@ -15,6 +15,7 @@
 #include "llvm/ADT/Twine.h"
 #include "llvm/CodeGen/MachineScheduler.h"
 #include "llvm/CodeGen/TargetSchedule.h"
+#include "llvm/Support/Compiler.h"
 #include <limits>
 #include <memory>
 #include <utility>
@@ -28,7 +29,7 @@ class SUnit;
 class TargetInstrInfo;
 class TargetSubtargetInfo;
 
-class VLIWResourceModel {
+class LLVM_ABI VLIWResourceModel {
 protected:
   const TargetInstrInfo *TII;
 
@@ -67,7 +68,7 @@ protected:
 
 /// Extend the standard ScheduleDAGMILive to provide more context and override
 /// the top-level schedule() driver.
-class VLIWMachineScheduler : public ScheduleDAGMILive {
+class LLVM_ABI VLIWMachineScheduler : public ScheduleDAGMILive {
 public:
   VLIWMachineScheduler(MachineSchedContext *C,
                        std::unique_ptr<MachineSchedStrategy> S)
@@ -86,7 +87,7 @@ public:
 // MachineSchedStrategy.
 //===----------------------------------------------------------------------===//
 
-class ConvergingVLIWScheduler : public MachineSchedStrategy {
+class LLVM_ABI ConvergingVLIWScheduler : public MachineSchedStrategy {
 protected:
   /// Store the state used by ConvergingVLIWScheduler heuristics, required
   ///  for the lifetime of one invocation of pickNode().
@@ -124,7 +125,7 @@ protected:
   /// Each Scheduling boundary is associated with ready queues. It tracks the
   /// current cycle in whichever direction at has moved, and maintains the state
   /// of "hazards" and other interlocks at the current cycle.
-  struct VLIWSchedBoundary {
+  struct LLVM_ABI VLIWSchedBoundary {
     VLIWMachineScheduler *DAG = nullptr;
     const TargetSchedModel *SchedModel = nullptr;
 

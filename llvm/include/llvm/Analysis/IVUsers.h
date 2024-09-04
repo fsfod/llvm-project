@@ -19,6 +19,7 @@
 #include "llvm/Analysis/ScalarEvolutionNormalization.h"
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/ValueHandle.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -32,7 +33,7 @@ class IVUsers;
 /// The Expr member keeps track of the expression, User is the actual user
 /// instruction of the operand, and 'OperandValToReplace' is the operand of
 /// the User that is the use.
-class IVStrideUse final : public CallbackVH, public ilist_node<IVStrideUse> {
+class LLVM_ABI IVStrideUse final : public CallbackVH, public ilist_node<IVStrideUse> {
   friend class IVUsers;
 public:
   IVStrideUse(IVUsers *P, Instruction* U, Value *O)
@@ -88,7 +89,7 @@ private:
   void deleted() override;
 };
 
-class IVUsers {
+class LLVM_ABI IVUsers {
   friend class IVStrideUse;
   Loop *L;
   AssumptionCache *AC;
@@ -158,9 +159,9 @@ public:
   void dump() const;
 };
 
-Pass *createIVUsersPass();
+LLVM_ABI Pass *createIVUsersPass();
 
-class IVUsersWrapperPass : public LoopPass {
+class LLVM_ABI IVUsersWrapperPass : public LoopPass {
   std::unique_ptr<IVUsers> IU;
 
 public:
@@ -181,7 +182,7 @@ public:
 };
 
 /// Analysis pass that exposes the \c IVUsers for a loop.
-class IVUsersAnalysis : public AnalysisInfoMixin<IVUsersAnalysis> {
+class LLVM_ABI IVUsersAnalysis : public AnalysisInfoMixin<IVUsersAnalysis> {
   friend AnalysisInfoMixin<IVUsersAnalysis>;
   static AnalysisKey Key;
 

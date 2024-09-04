@@ -15,6 +15,7 @@
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/ProfileData/PGOCtxProfReader.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -28,7 +29,7 @@ using CtxProfFlatProfile =
     DenseMap<GlobalValue::GUID, SmallVector<uint64_t, 1>>;
 
 /// The instrumented contextual profile, produced by the CtxProfAnalysis.
-class PGOContextualProfile {
+class LLVM_ABI PGOContextualProfile {
   friend class CtxProfAnalysis;
   friend class CtxProfAnalysisPrinterPass;
   struct FunctionInfo {
@@ -101,7 +102,7 @@ public:
   }
 };
 
-class CtxProfAnalysis : public AnalysisInfoMixin<CtxProfAnalysis> {
+class LLVM_ABI CtxProfAnalysis : public AnalysisInfoMixin<CtxProfAnalysis> {
   const std::optional<StringRef> Profile;
 
 public:
@@ -120,7 +121,7 @@ public:
   static InstrProfIncrementInst *getBBInstrumentation(BasicBlock &BB);
 };
 
-class CtxProfAnalysisPrinterPass
+class LLVM_ABI CtxProfAnalysisPrinterPass
     : public PassInfoMixin<CtxProfAnalysisPrinterPass> {
 public:
   enum class PrintMode { Everything, JSON };
@@ -143,7 +144,7 @@ private:
 // the pass pipeline, associate it with any Global Value, and then use it for
 // PGO and ThinLTO.
 // At that point, this should be moved elsewhere.
-class AssignGUIDPass : public PassInfoMixin<AssignGUIDPass> {
+class LLVM_ABI AssignGUIDPass : public PassInfoMixin<AssignGUIDPass> {
 public:
   explicit AssignGUIDPass() = default;
 

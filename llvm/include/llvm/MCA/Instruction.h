@@ -19,6 +19,7 @@
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/MC/MCRegister.h" // definition of MCPhysReg.
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 
 #ifndef NDEBUG
@@ -194,7 +195,7 @@ struct CriticalDependency {
 /// this class. A WriteState object tracks the dependent users of a
 /// register write. It also tracks how many cycles are left before the write
 /// back stage.
-class WriteState {
+class LLVM_ABI WriteState {
   const WriteDescriptor *WD;
   // On instruction issue, this field is set equal to the write latency.
   // Before instruction issue, this field defaults to -512, a special
@@ -323,7 +324,7 @@ public:
 ///
 /// A read may be dependent on more than one write. This occurs when some
 /// writes only partially update the register associated to this read.
-class ReadState {
+class LLVM_ABI ReadState {
   const ReadDescriptor *RD;
   // Physical register identified associated to this read.
   MCPhysReg RegisterID;
@@ -597,7 +598,7 @@ public:
 ///
 /// This class is used to monitor changes to the internal state of instructions
 /// that are sent to the various components of the simulated hardware pipeline.
-class Instruction : public InstructionBase {
+class LLVM_ABI Instruction : public InstructionBase {
   enum InstrStage {
     IS_INVALID,    // Instruction in an invalid state.
     IS_DISPATCHED, // Instruction dispatched but operands are not ready.

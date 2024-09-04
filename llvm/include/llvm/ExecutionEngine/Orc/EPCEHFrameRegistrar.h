@@ -15,6 +15,7 @@
 
 #include "llvm/ExecutionEngine/JITLink/EHFrameSupport.h"
 #include "llvm/ExecutionEngine/Orc/Shared/ExecutorAddress.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace orc {
@@ -23,7 +24,7 @@ class ExecutionSession;
 
 /// Register/Deregisters EH frames in a remote process via a
 /// ExecutorProcessControl instance.
-class EPCEHFrameRegistrar : public jitlink::EHFrameRegistrar {
+class LLVM_ABI EPCEHFrameRegistrar : public jitlink::EHFrameRegistrar {
 public:
   /// Create from a ExecutorProcessControl instance alone. This will use
   /// the EPC's lookupSymbols method to find the registration/deregistration

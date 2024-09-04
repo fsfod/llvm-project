@@ -49,6 +49,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <map>
 #include <memory>
@@ -68,7 +69,7 @@ class raw_ostream;
 /// This class exposes both the interface to the call graph for a module of IR.
 ///
 /// The core call graph itself can also be updated to reflect changes to the IR.
-class CallGraph {
+class LLVM_ABI CallGraph {
   Module &M;
 
   using FunctionMapTy =
@@ -162,7 +163,7 @@ public:
 ///
 /// Typically represents a function in the call graph. There are also special
 /// "null" nodes used to represent theoretical entries in the call graph.
-class CallGraphNode {
+class LLVM_ABI CallGraphNode {
 public:
   /// A pair of the calling instruction (a call or invoke)
   /// and the call graph node being called.
@@ -298,7 +299,7 @@ private:
 /// This class implements the concept of an analysis pass used by the \c
 /// ModuleAnalysisManager to run an analysis over a module and cache the
 /// resulting data.
-class CallGraphAnalysis : public AnalysisInfoMixin<CallGraphAnalysis> {
+class LLVM_ABI CallGraphAnalysis : public AnalysisInfoMixin<CallGraphAnalysis> {
   friend AnalysisInfoMixin<CallGraphAnalysis>;
 
   static AnalysisKey Key;
@@ -314,7 +315,7 @@ public:
 };
 
 /// Printer pass for the \c CallGraphAnalysis results.
-class CallGraphPrinterPass : public PassInfoMixin<CallGraphPrinterPass> {
+class LLVM_ABI CallGraphPrinterPass : public PassInfoMixin<CallGraphPrinterPass> {
   raw_ostream &OS;
 
 public:
@@ -326,7 +327,7 @@ public:
 };
 
 /// Printer pass for the summarized \c CallGraphAnalysis results.
-class CallGraphSCCsPrinterPass
+class LLVM_ABI CallGraphSCCsPrinterPass
     : public PassInfoMixin<CallGraphSCCsPrinterPass> {
   raw_ostream &OS;
 
@@ -345,7 +346,7 @@ public:
 /// module pass which runs over a module of IR and produces the call graph. The
 /// call graph interface is entirelly a wrapper around a \c CallGraph object
 /// which is stored internally for each module.
-class CallGraphWrapperPass : public ModulePass {
+class LLVM_ABI CallGraphWrapperPass : public ModulePass {
   std::unique_ptr<CallGraph> G;
 
 public:

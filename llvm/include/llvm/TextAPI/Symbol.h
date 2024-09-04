@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/BitmaskEnum.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/TextAPI/ArchitectureSet.h"
 #include "llvm/TextAPI/Target.h"
@@ -93,7 +94,7 @@ typename C::iterator addEntry(C &Container, const Target &Targ) {
   return Container.insert(Iter, Targ);
 }
 
-class Symbol {
+class LLVM_ABI Symbol {
 public:
   Symbol(EncodeKind Kind, StringRef Name, TargetList Targets, SymbolFlags Flags)
       : Name(Name), Targets(std::move(Targets)), Kind(Kind), Flags(Flags) {}
@@ -189,7 +190,7 @@ struct SimpleSymbol {
 /// Get symbol classification by parsing the name of a symbol.
 ///
 /// \param SymName The name of symbol.
-SimpleSymbol parseSymbol(StringRef SymName);
+LLVM_ABI SimpleSymbol parseSymbol(StringRef SymName);
 
 } // end namespace MachO.
 } // end namespace llvm.

@@ -14,10 +14,11 @@
 #define LLVM_TRANSFORMS_SCALAR_REG2MEM_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class RegToMemPass : public PassInfoMixin<RegToMemPass> {
+class LLVM_ABI RegToMemPass : public PassInfoMixin<RegToMemPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

@@ -19,6 +19,7 @@
 #define LLVM_IRPRINTER_IRPRINTINGPASSES_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 
 namespace llvm {
@@ -29,7 +30,7 @@ class Pass;
 
 /// Pass (for the new pass manager) for printing a Module as
 /// LLVM's text IR assembly.
-class PrintModulePass : public PassInfoMixin<PrintModulePass> {
+class LLVM_ABI PrintModulePass : public PassInfoMixin<PrintModulePass> {
   raw_ostream &OS;
   std::string Banner;
   bool ShouldPreserveUseListOrder;
@@ -47,7 +48,7 @@ public:
 
 /// Pass (for the new pass manager) for printing a Function as
 /// LLVM's text IR assembly.
-class PrintFunctionPass : public PassInfoMixin<PrintFunctionPass> {
+class LLVM_ABI PrintFunctionPass : public PassInfoMixin<PrintFunctionPass> {
   raw_ostream &OS;
   std::string Banner;
 

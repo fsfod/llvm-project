@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/DebugInfo/CodeView/DebugStringTableSubsection.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 
@@ -31,7 +32,7 @@ namespace pdb {
 class PDBFileBuilder;
 class PDBStringTableBuilder;
 
-struct StringTableHashTraits {
+struct LLVM_ABI StringTableHashTraits {
   PDBStringTableBuilder *Table;
 
   explicit StringTableHashTraits(PDBStringTableBuilder &Table);
@@ -40,7 +41,7 @@ struct StringTableHashTraits {
   uint32_t lookupKeyToStorageKey(StringRef S);
 };
 
-class PDBStringTableBuilder {
+class LLVM_ABI PDBStringTableBuilder {
 public:
   // If string S does not exist in the string table, insert it.
   // Returns the ID for S.

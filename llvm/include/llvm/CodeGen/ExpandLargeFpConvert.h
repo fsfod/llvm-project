@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_EXPANDLARGEFPCONVERT_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class ExpandLargeFpConvertPass
+class LLVM_ABI ExpandLargeFpConvertPass
     : public PassInfoMixin<ExpandLargeFpConvertPass> {
 private:
   const TargetMachine *TM;

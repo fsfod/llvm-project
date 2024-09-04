@@ -20,6 +20,7 @@
 #include "llvm/Object/Error.h"
 #include "llvm/Object/ObjectFile.h"
 #include "llvm/Support/BinaryByteStream.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ConvertUTF.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/ErrorHandling.h"
@@ -867,7 +868,7 @@ struct coff_dynamic_relocation64_v2 {
   support::ulittle32_t Flags;
 };
 
-class COFFObjectFile : public ObjectFile {
+class LLVM_ABI COFFObjectFile : public ObjectFile {
 private:
   COFFObjectFile(MemoryBufferRef Object);
 
@@ -1214,7 +1215,7 @@ public:
 };
 
 // The iterator for the import directory table.
-class ImportDirectoryEntryRef {
+class LLVM_ABI ImportDirectoryEntryRef {
 public:
   ImportDirectoryEntryRef() = default;
   ImportDirectoryEntryRef(const coff_import_directory_table_entry *Table,
@@ -1245,7 +1246,7 @@ private:
   const COFFObjectFile *OwningObject = nullptr;
 };
 
-class DelayImportDirectoryEntryRef {
+class LLVM_ABI DelayImportDirectoryEntryRef {
 public:
   DelayImportDirectoryEntryRef() = default;
   DelayImportDirectoryEntryRef(const delay_import_directory_table_entry *T,
@@ -1271,7 +1272,7 @@ private:
 };
 
 // The iterator for the export directory table entry.
-class ExportDirectoryEntryRef {
+class LLVM_ABI ExportDirectoryEntryRef {
 public:
   ExportDirectoryEntryRef() = default;
   ExportDirectoryEntryRef(const export_directory_table_entry *Table, uint32_t I,
@@ -1296,7 +1297,7 @@ private:
   const COFFObjectFile *OwningObject = nullptr;
 };
 
-class ImportedSymbolRef {
+class LLVM_ABI ImportedSymbolRef {
 public:
   ImportedSymbolRef() = default;
   ImportedSymbolRef(const import_lookup_table_entry32 *Entry, uint32_t I,
@@ -1321,7 +1322,7 @@ private:
   const COFFObjectFile *OwningObject = nullptr;
 };
 
-class BaseRelocRef {
+class LLVM_ABI BaseRelocRef {
 public:
   BaseRelocRef() = default;
   BaseRelocRef(const coff_base_reloc_block_header *Header,
@@ -1339,7 +1340,7 @@ private:
   uint32_t Index;
 };
 
-class DynamicRelocRef {
+class LLVM_ABI DynamicRelocRef {
 public:
   DynamicRelocRef() = default;
   DynamicRelocRef(const void *Header, const COFFObjectFile *Owner)
@@ -1363,7 +1364,7 @@ private:
   friend class COFFObjectFile;
 };
 
-class Arm64XRelocRef {
+class LLVM_ABI Arm64XRelocRef {
 public:
   Arm64XRelocRef() = default;
   Arm64XRelocRef(const coff_base_reloc_block_header *Header, uint32_t Index = 0)
@@ -1395,7 +1396,7 @@ private:
   friend class DynamicRelocRef;
 };
 
-class ResourceSectionRef {
+class LLVM_ABI ResourceSectionRef {
 public:
   ResourceSectionRef() = default;
   explicit ResourceSectionRef(StringRef Ref)

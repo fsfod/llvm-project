@@ -69,13 +69,13 @@ enum class coveragemap_error {
   invalid_or_missing_arch_specifier
 };
 
-const std::error_category &coveragemap_category();
+LLVM_ABI const std::error_category &coveragemap_category();
 
 inline std::error_code make_error_code(coveragemap_error E) {
   return std::error_code(static_cast<int>(E), coveragemap_category());
 }
 
-class CoverageMapError : public ErrorInfo<CoverageMapError> {
+class LLVM_ABI CoverageMapError : public ErrorInfo<CoverageMapError> {
 public:
   CoverageMapError(coveragemap_error Err, const Twine &ErrStr = Twine())
       : Err(Err), Msg(ErrStr.str()) {
@@ -170,7 +170,7 @@ struct CounterExpression {
 
 /// A Counter expression builder is used to construct the counter expressions.
 /// It avoids unnecessary duplication and simplifies algebraic expressions.
-class CounterExpressionBuilder {
+class LLVM_ABI CounterExpressionBuilder {
   /// A list of all the counter expressions
   std::vector<CounterExpression> Expressions;
 
@@ -617,7 +617,7 @@ namespace mcdc {
 ///   latter TVIdx(s) (with Width=1) could be pruned and altered to
 ///   other simple branch conditions.
 ///
-class TVIdxBuilder {
+class LLVM_ABI TVIdxBuilder {
 public:
   struct MCDCNode {
     int InCount = 0; /// Reference count; temporary use
@@ -653,7 +653,7 @@ public:
 
 /// A Counter mapping context is used to connect the counters, expressions
 /// and the obtained counter values.
-class CounterMappingContext {
+class LLVM_ABI CounterMappingContext {
   ArrayRef<CounterExpression> Expressions;
   ArrayRef<uint64_t> CounterValues;
   BitVector Bitmap;
@@ -733,7 +733,7 @@ struct FunctionRecord {
 };
 
 /// Iterator over Functions, optionally filtered to a single file.
-class FunctionRecordIterator
+class LLVM_ABI FunctionRecordIterator
     : public iterator_facade_base<FunctionRecordIterator,
                                   std::forward_iterator_tag, FunctionRecord> {
   ArrayRef<FunctionRecord> Records;
@@ -925,7 +925,7 @@ public:
 ///
 /// This is the main interface to get coverage information, using a profile to
 /// fill out execution counts.
-class CoverageMapping {
+class LLVM_ABI CoverageMapping {
   DenseMap<size_t, DenseSet<size_t>> RecordProvenance;
   std::vector<FunctionRecord> Functions;
   DenseMap<size_t, SmallVector<unsigned, 0>> FilenameHash2RecordIndices;
@@ -1028,7 +1028,7 @@ public:
 };
 
 /// Coverage statistics for a single line.
-class LineCoverageStats {
+class LLVM_ABI LineCoverageStats {
   uint64_t ExecutionCount;
   bool HasMultipleRegions;
   bool Mapped;
@@ -1060,7 +1060,7 @@ public:
 
 /// An iterator over the \c LineCoverageStats objects for lines described by
 /// a \c CoverageData instance.
-class LineCoverageIterator
+class LLVM_ABI LineCoverageIterator
     : public iterator_facade_base<LineCoverageIterator,
                                   std::forward_iterator_tag,
                                   const LineCoverageStats> {

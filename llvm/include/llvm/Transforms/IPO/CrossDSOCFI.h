@@ -15,9 +15,10 @@
 #define LLVM_TRANSFORMS_IPO_CROSSDSOCFI_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
-class CrossDSOCFIPass : public PassInfoMixin<CrossDSOCFIPass> {
+class LLVM_ABI CrossDSOCFIPass : public PassInfoMixin<CrossDSOCFIPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };

@@ -12,10 +12,11 @@
 #define LLVM_TRANSFORMS_UTILS_LIBCALLSSHRINKWRAP_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class LibCallsShrinkWrapPass : public PassInfoMixin<LibCallsShrinkWrapPass> {
+class LLVM_ABI LibCallsShrinkWrapPass : public PassInfoMixin<LibCallsShrinkWrapPass> {
 public:
   static StringRef name() { return "LibCallsShrinkWrapPass"; }
 

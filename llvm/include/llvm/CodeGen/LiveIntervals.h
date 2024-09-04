@@ -39,7 +39,7 @@
 
 namespace llvm {
 
-extern cl::opt<bool> UseSegmentSetForPhysRegs;
+LLVM_ABI extern cl::opt<bool> UseSegmentSetForPhysRegs;
 
 class BitVector;
 class MachineBlockFrequencyInfo;
@@ -51,7 +51,7 @@ class raw_ostream;
 class TargetInstrInfo;
 class VirtRegMap;
 
-class LiveIntervals {
+class LLVM_ABI LiveIntervals {
   friend class LiveIntervalsAnalysis;
   friend class LiveIntervalsWrapperPass;
 
@@ -496,7 +496,7 @@ private:
   class HMEditor;
 };
 
-class LiveIntervalsAnalysis : public AnalysisInfoMixin<LiveIntervalsAnalysis> {
+class LLVM_ABI LiveIntervalsAnalysis : public AnalysisInfoMixin<LiveIntervalsAnalysis> {
   friend AnalysisInfoMixin<LiveIntervalsAnalysis>;
   static AnalysisKey Key;
 
@@ -505,7 +505,7 @@ public:
   Result run(MachineFunction &MF, MachineFunctionAnalysisManager &MFAM);
 };
 
-class LiveIntervalsPrinterPass
+class LLVM_ABI LiveIntervalsPrinterPass
     : public PassInfoMixin<LiveIntervalsPrinterPass> {
   raw_ostream &OS;
 
@@ -516,7 +516,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class LiveIntervalsWrapperPass : public MachineFunctionPass {
+class LLVM_ABI LiveIntervalsWrapperPass : public MachineFunctionPass {
   LiveIntervals LIS;
 
 public:

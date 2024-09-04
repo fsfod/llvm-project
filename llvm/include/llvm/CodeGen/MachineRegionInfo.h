@@ -18,6 +18,7 @@
 #include "llvm/CodeGen/MachineFunction.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachineLoopInfo.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 
 namespace llvm {
@@ -58,7 +59,7 @@ public:
   }
 };
 
-class MachineRegion : public RegionBase<RegionTraits<MachineFunction>> {
+class LLVM_ABI MachineRegion : public RegionBase<RegionTraits<MachineFunction>> {
 public:
   MachineRegion(MachineBasicBlock *Entry, MachineBasicBlock *Exit,
                 MachineRegionInfo *RI, MachineDominatorTree *DT,
@@ -70,7 +71,7 @@ public:
   }
 };
 
-class MachineRegionInfo : public RegionInfoBase<RegionTraits<MachineFunction>> {
+class LLVM_ABI MachineRegionInfo : public RegionInfoBase<RegionTraits<MachineFunction>> {
 public:
   explicit MachineRegionInfo();
   ~MachineRegionInfo() override;
@@ -82,7 +83,7 @@ public:
                    MachinePostDominatorTree *PDT, MachineDominanceFrontier *DF);
 };
 
-class MachineRegionInfoPass : public MachineFunctionPass {
+class LLVM_ABI MachineRegionInfoPass : public MachineFunctionPass {
   MachineRegionInfo RI;
 
 public:
@@ -172,9 +173,9 @@ struct GraphTraits<MachineRegionInfoPass *>
   }
 };
 
-extern template class RegionBase<RegionTraits<MachineFunction>>;
-extern template class RegionNodeBase<RegionTraits<MachineFunction>>;
-extern template class RegionInfoBase<RegionTraits<MachineFunction>>;
+extern template class LLVM_TEMPLATE_ABI RegionBase<RegionTraits<MachineFunction>>;
+extern template class LLVM_TEMPLATE_ABI RegionNodeBase<RegionTraits<MachineFunction>>;
+extern template class LLVM_TEMPLATE_ABI RegionInfoBase<RegionTraits<MachineFunction>>;
 
 } // end namespace llvm
 

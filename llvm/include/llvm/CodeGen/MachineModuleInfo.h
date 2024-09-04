@@ -36,6 +36,7 @@
 #include "llvm/MC/MCContext.h"
 #include "llvm/MC/MCSymbol.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 #include <utility>
 #include <vector>
@@ -53,7 +54,7 @@ class Module;
 /// accessed/created with MachineModuleInfo::getObjFileInfo and destroyed when
 /// the MachineModuleInfo is destroyed.
 ///
-class MachineModuleInfoImpl {
+class LLVM_ABI MachineModuleInfoImpl {
 public:
   using StubValueTy = PointerIntPair<MCSymbol *, 1, bool>;
   using SymbolListTy = std::vector<std::pair<MCSymbol *, StubValueTy>>;
@@ -79,7 +80,7 @@ protected:
 /// made by different debugging and exception handling schemes and reformated
 /// for specific use.
 ///
-class MachineModuleInfo {
+class LLVM_ABI MachineModuleInfo {
   friend class MachineModuleInfoWrapperPass;
   friend class MachineModuleAnalysis;
 
@@ -168,7 +169,7 @@ public:
   /// \}
 }; // End class MachineModuleInfo
 
-class MachineModuleInfoWrapperPass : public ImmutablePass {
+class LLVM_ABI MachineModuleInfoWrapperPass : public ImmutablePass {
   MachineModuleInfo MMI;
 
 public:
@@ -191,7 +192,7 @@ public:
 /// MachineModuleInfo to keep ownership of MachineFunctions regardless of
 /// analysis invalidation/clearing. So something outside the analysis
 /// infrastructure must own the MachineModuleInfo.
-class MachineModuleAnalysis : public AnalysisInfoMixin<MachineModuleAnalysis> {
+class LLVM_ABI MachineModuleAnalysis : public AnalysisInfoMixin<MachineModuleAnalysis> {
   friend AnalysisInfoMixin<MachineModuleAnalysis>;
   static AnalysisKey Key;
 

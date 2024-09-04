@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -94,7 +95,7 @@ class DomTreeUpdater;
 ///    for the caller to accomplish, since each specific use of this function
 ///    may have additional information which simplifies this fixup. For example,
 ///    see restoreSSA() in the UnifyLoopExits pass.
-struct ControlFlowHub {
+struct LLVM_ABI ControlFlowHub {
   struct BranchDescriptor {
     BasicBlock *BB;
     BasicBlock *Succ0;

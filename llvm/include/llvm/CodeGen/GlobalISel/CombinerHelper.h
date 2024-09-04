@@ -23,6 +23,7 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/CodeGenTypes/LowLevelType.h"
 #include "llvm/IR/InstrTypes.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 
 namespace llvm {
@@ -100,7 +101,7 @@ struct InstructionStepsMatchInfo {
       : InstrsToBuild(InstrsToBuild) {}
 };
 
-class CombinerHelper {
+class LLVM_ABI CombinerHelper {
 protected:
   MachineIRBuilder &Builder;
   MachineRegisterInfo &MRI;

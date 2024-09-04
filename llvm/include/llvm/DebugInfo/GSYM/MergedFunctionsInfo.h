@@ -10,6 +10,7 @@
 #define LLVM_DEBUGINFO_GSYM_MERGEDFUNCTIONSINFO_H
 
 #include "llvm/DebugInfo/GSYM/ExtractRanges.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <stdint.h>
 #include <vector>
@@ -21,7 +22,7 @@ namespace gsym {
 
 class GsymReader;
 struct FunctionInfo;
-struct MergedFunctionsInfo {
+struct LLVM_ABI MergedFunctionsInfo {
   std::vector<FunctionInfo> MergedFunctions;
 
   void clear();
@@ -53,7 +54,7 @@ struct MergedFunctionsInfo {
   llvm::Error encode(FileWriter &O) const;
 };
 
-bool operator==(const MergedFunctionsInfo &LHS, const MergedFunctionsInfo &RHS);
+LLVM_ABI bool operator==(const MergedFunctionsInfo &LHS, const MergedFunctionsInfo &RHS);
 
 } // namespace gsym
 } // namespace llvm

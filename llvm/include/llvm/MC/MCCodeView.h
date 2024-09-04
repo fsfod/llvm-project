@@ -18,6 +18,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <vector>
 
@@ -141,7 +142,7 @@ struct MCCVFunctionInfo {
 };
 
 /// Holds state from .cv_file and .cv_loc directives for later emission.
-class CodeViewContext {
+class LLVM_ABI CodeViewContext {
 public:
   CodeViewContext(MCContext *MCCtx) : MCCtx(MCCtx) {}
   ~CodeViewContext();

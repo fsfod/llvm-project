@@ -18,6 +18,7 @@
 #include "llvm/ADT/Bitset.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/VersionTuple.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/TargetParser/SubtargetFeature.h"
@@ -83,7 +84,7 @@ struct FMVInfo {
   }
 };
 
-const std::vector<FMVInfo> &getFMVInfo();
+LLVM_ABI const std::vector<FMVInfo> &getFMVInfo();
 
 // Represents a dependency between two architecture extensions. Later is the
 // feature which was added to the architecture after Earlier, and expands the
@@ -100,7 +101,7 @@ struct ExtensionDependency {
 enum ArchProfile { AProfile = 'A', RProfile = 'R', InvalidProfile = '?' };
 
 // Information about a specific architecture, e.g. V8.1-A
-struct ArchInfo {
+struct LLVM_ABI ArchInfo {
   VersionTuple Version;  // Architecture version, major + minor.
   ArchProfile Profile;   // Architecuture profile
   StringRef Name;        // Name as supplied to -march e.g. "armv8.1-a"
@@ -171,7 +172,7 @@ struct CpuInfo {
 #define EMIT_CPU_INFO
 #include "llvm/TargetParser/AArch64TargetParserDef.inc"
 
-struct ExtensionSet {
+struct LLVM_ABI ExtensionSet {
   // Set of extensions which are currently enabled.
   ExtensionBitset Enabled;
   // Set of extensions which have been enabled or disabled at any point. Used
@@ -243,45 +244,45 @@ struct Alias {
 #define EMIT_CPU_ALIAS
 #include "llvm/TargetParser/AArch64TargetParserDef.inc"
 
-const ExtensionInfo &getExtensionByID(ArchExtKind(ExtID));
+LLVM_ABI const ExtensionInfo &getExtensionByID(ArchExtKind(ExtID));
 
-bool getExtensionFeatures(
+LLVM_ABI bool getExtensionFeatures(
     const AArch64::ExtensionBitset &Extensions,
     std::vector<StringRef> &Features);
 
-StringRef getArchExtFeature(StringRef ArchExt);
-StringRef resolveCPUAlias(StringRef CPU);
+LLVM_ABI StringRef getArchExtFeature(StringRef ArchExt);
+LLVM_ABI StringRef resolveCPUAlias(StringRef CPU);
 
 // Information by Name
-const ArchInfo *getArchForCpu(StringRef CPU);
+LLVM_ABI const ArchInfo *getArchForCpu(StringRef CPU);
 
 // Parser
-const ArchInfo *parseArch(StringRef Arch);
+LLVM_ABI const ArchInfo *parseArch(StringRef Arch);
 
 // Return the extension which has the given -target-feature name.
-std::optional<ExtensionInfo> targetFeatureToExtension(StringRef TargetFeature);
+LLVM_ABI std::optional<ExtensionInfo> targetFeatureToExtension(StringRef TargetFeature);
 
 // Parse a name as defined by the Extension class in tablegen.
-std::optional<ExtensionInfo> parseArchExtension(StringRef Extension);
+LLVM_ABI std::optional<ExtensionInfo> parseArchExtension(StringRef Extension);
 
 // Parse a name as defined by the FMVInfo class in tablegen.
-std::optional<FMVInfo> parseFMVExtension(StringRef Extension);
+LLVM_ABI std::optional<FMVInfo> parseFMVExtension(StringRef Extension);
 
 // Given the name of a CPU or alias, return the correponding CpuInfo.
-std::optional<CpuInfo> parseCpu(StringRef Name);
+LLVM_ABI std::optional<CpuInfo> parseCpu(StringRef Name);
 // Used by target parser tests
-void fillValidCPUArchList(SmallVectorImpl<StringRef> &Values);
+LLVM_ABI void fillValidCPUArchList(SmallVectorImpl<StringRef> &Values);
 
-bool isX18ReservedByDefault(const Triple &TT);
+LLVM_ABI bool isX18ReservedByDefault(const Triple &TT);
 
 // For given feature names, return a bitmask corresponding to the entries of
 // AArch64::CPUFeatures. The values in CPUFeatures are not bitmasks
 // themselves, they are sequential (0, 1, 2, 3, ...).
-uint64_t getCpuSupportsMask(ArrayRef<StringRef> FeatureStrs);
+LLVM_ABI uint64_t getCpuSupportsMask(ArrayRef<StringRef> FeatureStrs);
 
-void PrintSupportedExtensions();
+LLVM_ABI void PrintSupportedExtensions();
 
-void printEnabledExtensions(const std::set<StringRef> &EnabledFeatureNames);
+LLVM_ABI void printEnabledExtensions(const std::set<StringRef> &EnabledFeatureNames);
 
 } // namespace AArch64
 } // namespace llvm

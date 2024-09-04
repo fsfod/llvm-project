@@ -12,12 +12,13 @@
 #define LLVM_TRANSFORMS_CFGUARD_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class FunctionPass;
 
-class CFGuardPass : public PassInfoMixin<CFGuardPass> {
+class LLVM_ABI CFGuardPass : public PassInfoMixin<CFGuardPass> {
 public:
   enum class Mechanism { Check, Dispatch };
 
@@ -29,10 +30,10 @@ private:
 };
 
 /// Insert Control FLow Guard checks on indirect function calls.
-FunctionPass *createCFGuardCheckPass();
+LLVM_ABI FunctionPass *createCFGuardCheckPass();
 
 /// Insert Control FLow Guard dispatches on indirect function calls.
-FunctionPass *createCFGuardDispatchPass();
+LLVM_ABI FunctionPass *createCFGuardDispatchPass();
 
 } // namespace llvm
 

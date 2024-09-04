@@ -16,12 +16,13 @@
 #define LLVM_CODEGEN_INTERLEAVEDACCESS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class InterleavedAccessPass : public PassInfoMixin<InterleavedAccessPass> {
+class LLVM_ABI InterleavedAccessPass : public PassInfoMixin<InterleavedAccessPass> {
   const TargetMachine *TM;
 
 public:

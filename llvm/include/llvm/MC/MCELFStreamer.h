@@ -12,6 +12,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/MC/MCDirectives.h"
 #include "llvm/MC/MCObjectStreamer.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -29,7 +30,7 @@ class MCCodeEmitter;
 class MCExpr;
 class MCInst;
 
-class MCELFStreamer : public MCObjectStreamer {
+class LLVM_ABI MCELFStreamer : public MCObjectStreamer {
 public:
   MCELFStreamer(MCContext &Context, std::unique_ptr<MCAsmBackend> TAB,
                 std::unique_ptr<MCObjectWriter> OW,
@@ -149,7 +150,7 @@ private:
   bool SeenIdent = false;
 };
 
-MCELFStreamer *createARMELFStreamer(MCContext &Context,
+LLVM_ABI MCELFStreamer *createARMELFStreamer(MCContext &Context,
                                     std::unique_ptr<MCAsmBackend> TAB,
                                     std::unique_ptr<MCObjectWriter> OW,
                                     std::unique_ptr<MCCodeEmitter> Emitter,

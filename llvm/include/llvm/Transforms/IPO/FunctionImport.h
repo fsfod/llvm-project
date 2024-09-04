@@ -15,6 +15,7 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <functional>
 #include <map>
@@ -29,7 +30,7 @@ class Module;
 
 /// The function importer is automatically importing function from other modules
 /// based on the provided summary informations.
-class FunctionImporter {
+class LLVM_ABI FunctionImporter {
 public:
   /// The different reasons selectCallee will chose not to import a
   /// candidate.
@@ -183,7 +184,7 @@ public:
   /// typically by the in-memory ModuleSummaryIndex the importing decisions are
   /// made from (the module path for each summary is owned by the index's module
   /// path string table).
-  class ImportMapTy {
+  class LLVM_ABI ImportMapTy {
   public:
     enum class AddDefinitionStatus {
       // No change was made to the list of imports or whether each import should
@@ -321,7 +322,7 @@ private:
 };
 
 /// The function importing pass
-class FunctionImportPass : public PassInfoMixin<FunctionImportPass> {
+class LLVM_ABI FunctionImportPass : public PassInfoMixin<FunctionImportPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };
@@ -347,7 +348,7 @@ public:
 /// are owned by the in-memory ModuleSummaryIndex the importing decisions
 /// are made from (the module path for each summary is owned by the index's
 /// module path string table).
-void ComputeCrossModuleImport(
+LLVM_ABI void ComputeCrossModuleImport(
     const ModuleSummaryIndex &Index,
     const DenseMap<StringRef, GVSummaryMapTy> &ModuleToDefinedGVSummaries,
     function_ref<bool(GlobalValue::GUID, const GlobalValueSummary *)>
@@ -364,7 +365,7 @@ enum class PrevailingType { Yes, No, Unknown };
 /// SamplePGO when needed. Normally this is done during
 /// computeDeadSymbolsAndUpdateIndirectCalls, but can be called standalone
 /// when that is not called (e.g. during testing).
-void updateIndirectCalls(ModuleSummaryIndex &Index);
+LLVM_ABI void updateIndirectCalls(ModuleSummaryIndex &Index);
 
 /// Compute all the symbols that are "dead": i.e these that can't be reached
 /// in the graph from any of the given symbols listed in
@@ -373,14 +374,14 @@ void updateIndirectCalls(ModuleSummaryIndex &Index);
 /// predicate returns status of symbol.
 /// Also update call edges for indirect calls to local functions added from
 /// SamplePGO when needed.
-void computeDeadSymbolsAndUpdateIndirectCalls(
+LLVM_ABI void computeDeadSymbolsAndUpdateIndirectCalls(
     ModuleSummaryIndex &Index,
     const DenseSet<GlobalValue::GUID> &GUIDPreservedSymbols,
     function_ref<PrevailingType(GlobalValue::GUID)> isPrevailing);
 
 /// Compute dead symbols and run constant propagation in combined index
 /// after that.
-void computeDeadSymbolsWithConstProp(
+LLVM_ABI void computeDeadSymbolsWithConstProp(
     ModuleSummaryIndex &Index,
     const DenseSet<GlobalValue::GUID> &GUIDPreservedSymbols,
     function_ref<PrevailingType(GlobalValue::GUID)> isPrevailing,
@@ -388,7 +389,7 @@ void computeDeadSymbolsWithConstProp(
 
 /// Converts value \p GV to declaration, or replaces with a declaration if
 /// it is an alias. Returns true if converted, false if replaced.
-bool convertToDeclaration(GlobalValue &GV);
+LLVM_ABI bool convertToDeclaration(GlobalValue &GV);
 
 /// Compute the set of summaries needed for a ThinLTO backend compilation of
 /// \p ModulePath.
@@ -403,7 +404,7 @@ bool convertToDeclaration(GlobalValue &GV);
 ///
 /// \p DecSummaries will be popluated with the subset of of summary pointers
 /// that have 'declaration' import type among all summaries the module need.
-void gatherImportedSummariesForModule(
+LLVM_ABI void gatherImportedSummariesForModule(
     StringRef ModulePath,
     const DenseMap<StringRef, GVSummaryMapTy> &ModuleToDefinedGVSummaries,
     const FunctionImporter::ImportMapTy &ImportList,
@@ -411,7 +412,7 @@ void gatherImportedSummariesForModule(
     GVSummaryPtrSet &DecSummaries);
 
 /// Emit into \p OutputFilename the files module \p ModulePath will import from.
-std::error_code
+LLVM_ABI std::error_code
 EmitImportsFiles(StringRef ModulePath, StringRef OutputFilename,
                  const ModuleToSummariesForIndexTy &ModuleToSummariesForIndex);
 
@@ -421,13 +422,13 @@ EmitImportsFiles(StringRef ModulePath, StringRef OutputFilename,
 ///    and consider visibility from other definitions for ELF) in \p TheModule
 /// 2. (optional) Apply propagated function attributes to \p TheModule if
 ///    PropagateAttrs is true
-void thinLTOFinalizeInModule(Module &TheModule,
+LLVM_ABI void thinLTOFinalizeInModule(Module &TheModule,
                              const GVSummaryMapTy &DefinedGlobals,
                              bool PropagateAttrs);
 
 /// Internalize \p TheModule based on the information recorded in the summaries
 /// during global summary-based analysis.
-void thinLTOInternalizeModule(Module &TheModule,
+LLVM_ABI void thinLTOInternalizeModule(Module &TheModule,
                               const GVSummaryMapTy &DefinedGlobals);
 
 } // end namespace llvm

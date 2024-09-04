@@ -10,6 +10,7 @@
 #define LLVM_CODEGEN_GLOBALMERGE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -38,7 +39,7 @@ struct GlobalMergeOptions {
 };
 
 // FIXME: This pass must run before AsmPrinterPass::doInitialization!
-class GlobalMergePass : public PassInfoMixin<GlobalMergePass> {
+class LLVM_ABI GlobalMergePass : public PassInfoMixin<GlobalMergePass> {
   const TargetMachine *TM;
   GlobalMergeOptions Options;
 

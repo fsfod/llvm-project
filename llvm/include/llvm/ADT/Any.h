@@ -35,7 +35,7 @@ class LLVM_ABI Any {
   // when lto is enabled, making any comparison return true.
   template <typename T> struct TypeId { static char Id; };
 
-  struct StorageBase {
+  struct LLVM_ABI StorageBase {
     virtual ~StorageBase() = default;
     virtual std::unique_ptr<StorageBase> clone() const = 0;
     virtual const void *id() const = 0;

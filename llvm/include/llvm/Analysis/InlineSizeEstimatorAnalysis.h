@@ -11,12 +11,13 @@
 #define LLVM_ANALYSIS_INLINESIZEESTIMATORANALYSIS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Function;
 
 class TFModelEvaluator;
-class InlineSizeEstimatorAnalysis
+class LLVM_ABI InlineSizeEstimatorAnalysis
     : public AnalysisInfoMixin<InlineSizeEstimatorAnalysis> {
 public:
   InlineSizeEstimatorAnalysis();
@@ -32,7 +33,7 @@ private:
   std::unique_ptr<TFModelEvaluator> Evaluator;
 };
 
-class InlineSizeEstimatorAnalysisPrinterPass
+class LLVM_ABI InlineSizeEstimatorAnalysisPrinterPass
     : public PassInfoMixin<InlineSizeEstimatorAnalysisPrinterPass> {
   raw_ostream &OS;
 

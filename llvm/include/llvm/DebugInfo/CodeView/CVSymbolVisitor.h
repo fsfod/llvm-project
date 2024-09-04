@@ -10,13 +10,14 @@
 #define LLVM_DEBUGINFO_CODEVIEW_CVSYMBOLVISITOR_H
 
 #include "llvm/DebugInfo/CodeView/CVRecord.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
 namespace codeview {
 class SymbolVisitorCallbacks;
 
-class CVSymbolVisitor {
+class LLVM_ABI CVSymbolVisitor {
 public:
   struct FilterOptions {
     std::optional<uint32_t> SymbolOffset;

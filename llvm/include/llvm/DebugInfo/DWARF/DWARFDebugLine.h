@@ -14,6 +14,7 @@
 #include "llvm/DebugInfo/DIContext.h"
 #include "llvm/DebugInfo/DWARF/DWARFFormValue.h"
 #include "llvm/DebugInfo/DWARF/DWARFUnit.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MD5.h"
 #include "llvm/Support/Path.h"
 #include <cstdint>
@@ -25,7 +26,7 @@ namespace llvm {
 
 class raw_ostream;
 
-class DWARFDebugLine {
+class LLVM_ABI DWARFDebugLine {
 public:
   struct FileNameEntry {
     FileNameEntry() = default;
@@ -40,7 +41,7 @@ public:
 
   /// Tracks which optional content types are present in a DWARF file name
   /// entry format.
-  struct ContentTypeTracker {
+  struct LLVM_ABI ContentTypeTracker {
     ContentTypeTracker() = default;
 
     /// Whether filename entries provide a modification timestamp.
@@ -56,7 +57,7 @@ public:
     void trackContentType(dwarf::LineNumberEntryFormat ContentType);
   };
 
-  struct Prologue {
+  struct LLVM_ABI Prologue {
     Prologue();
 
     /// The size in bytes of the statement information for this compilation unit
@@ -129,7 +130,7 @@ public:
   };
 
   /// Standard .debug_line state machine structure.
-  struct Row {
+  struct LLVM_ABI Row {
     explicit Row(bool DefaultIsStmt = false);
 
     /// Called after a row is appended to the matrix.
@@ -194,7 +195,7 @@ public:
   /// Represents a series of contiguous machine instructions. Line table for
   /// each compilation unit may consist of multiple sequences, which are not
   /// guaranteed to be in the order of ascending instruction address.
-  struct Sequence {
+  struct LLVM_ABI Sequence {
     Sequence();
 
     /// Sequence describes instructions at address range [LowPC, HighPC)
@@ -226,7 +227,7 @@ public:
     }
   };
 
-  struct LineTable {
+  struct LLVM_ABI LineTable {
     LineTable();
 
     /// Represents an invalid row
@@ -317,7 +318,7 @@ public:
   void clearLineTable(uint64_t Offset);
 
   /// Helper to allow for parsing of an entire .debug_line section in sequence.
-  class SectionParser {
+  class LLVM_ABI SectionParser {
   public:
     using LineToUnitMap = std::map<uint64_t, DWARFUnit *>;
 
@@ -372,7 +373,7 @@ public:
   };
 
 private:
-  struct ParsingState {
+  struct LLVM_ABI ParsingState {
     ParsingState(struct LineTable *LT, uint64_t TableOffset,
                  function_ref<void(Error)> ErrorHandler);
 

@@ -17,6 +17,7 @@
 #define LLVM_ADT_DYNAMICAPINT_H
 
 #include "llvm/ADT/SlowDynamicAPInt.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 #include <numeric>
 
@@ -43,7 +44,7 @@ class raw_ostream;
 /// use because we know that the memory layout of APInt is such that BitWidth
 /// doesn't overlap with ValSmall (see static_assert_layout). Using std::variant
 /// instead would lead to significantly worse performance.
-class DynamicAPInt {
+class LLVM_ABI DynamicAPInt {
   union {
     int64_t ValSmall;
     detail::SlowDynamicAPInt ValLarge;
@@ -211,7 +212,7 @@ public:
   friend DynamicAPInt operator/(int64_t A, const DynamicAPInt &B);
   friend DynamicAPInt operator%(int64_t A, const DynamicAPInt &B);
 
-  friend hash_code hash_value(const DynamicAPInt &x); // NOLINT
+  friend LLVM_ABI hash_code hash_value(const DynamicAPInt &x); // NOLINT
 
   void static_assert_layout(); // NOLINT
 
@@ -226,7 +227,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, const DynamicAPInt &X) {
 
 /// Redeclarations of friend declaration above to
 /// make it discoverable by lookups.
-hash_code hash_value(const DynamicAPInt &X); // NOLINT
+LLVM_ABI hash_code hash_value(const DynamicAPInt &X); // NOLINT
 
 /// This just calls through to the operator int64_t, but it's useful when a
 /// function pointer is required. (Although this is marked inline, it is still

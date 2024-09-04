@@ -17,12 +17,13 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 // This pass is responsible for removing optional traps, like llvm.ubsantrap
 // from the hot code.
-class LowerAllowCheckPass : public PassInfoMixin<LowerAllowCheckPass> {
+class LLVM_ABI LowerAllowCheckPass : public PassInfoMixin<LowerAllowCheckPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

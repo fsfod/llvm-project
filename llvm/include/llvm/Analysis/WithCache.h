@@ -16,12 +16,13 @@
 
 #include "llvm/ADT/PointerIntPair.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/KnownBits.h"
 #include <type_traits>
 
 namespace llvm {
 struct SimplifyQuery;
-KnownBits computeKnownBits(const Value *V, unsigned Depth,
+LLVM_ABI KnownBits computeKnownBits(const Value *V, unsigned Depth,
                            const SimplifyQuery &Q);
 
 template <typename Arg> class WithCache {

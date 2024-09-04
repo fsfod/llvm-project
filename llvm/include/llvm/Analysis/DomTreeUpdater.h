@@ -25,7 +25,7 @@ namespace llvm {
 
 class PostDominatorTree;
 
-class DomTreeUpdater
+class LLVM_ABI DomTreeUpdater
     : public GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                                    PostDominatorTree> {
   friend GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
@@ -114,7 +114,7 @@ private:
   LLVM_DUMP_METHOD void dump() const;
 };
 
-extern template class GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
+extern template class LLVM_TEMPLATE_ABI GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                                             PostDominatorTree>;
 
 extern template void LLVM_TEMPLATE_ABI

@@ -16,6 +16,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Bitstream/BitstreamReader.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <map>
 #include <optional>
@@ -49,7 +50,7 @@ struct BCDumpOptions {
   BCDumpOptions(raw_ostream &OS) : OS(OS) {}
 };
 
-class BitcodeAnalyzer {
+class LLVM_ABI BitcodeAnalyzer {
   BitstreamCursor Stream;
   BitstreamBlockInfo BlockInfo;
   CurStreamTypeType CurStreamType;

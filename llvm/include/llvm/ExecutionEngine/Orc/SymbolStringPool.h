@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/StringMap.h"
+#include "llvm/Support/Compiler.h"
 #include <atomic>
 #include <mutex>
 
@@ -35,7 +36,7 @@ class SymbolStringPool {
   friend class SymbolStringPoolEntryUnsafe;
 
   // Implemented in DebugUtils.h.
-  friend raw_ostream &operator<<(raw_ostream &OS, const SymbolStringPool &SSP);
+  friend LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const SymbolStringPool &SSP);
 
 public:
   /// Destroy a SymbolStringPool.

@@ -32,6 +32,7 @@
 #include "llvm/IR/OperandTraits.h"
 #include "llvm/IR/SymbolTableListTraits.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
@@ -1035,7 +1036,7 @@ private:
 /// Null pointer access in non-zero address space is not considered undefined.
 /// Return value: false => null pointer dereference is undefined.
 /// Return value: true =>  null pointer dereference is not undefined.
-bool NullPointerIsDefined(const Function *F, unsigned AS = 0);
+LLVM_ABI bool NullPointerIsDefined(const Function *F, unsigned AS = 0);
 
 template <> struct OperandTraits<Function> : public HungoffOperandTraits {};
 

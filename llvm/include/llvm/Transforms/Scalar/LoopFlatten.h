@@ -15,12 +15,13 @@
 
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class LPMUpdater;
 class LoopNest;
 
-class LoopFlattenPass : public PassInfoMixin<LoopFlattenPass> {
+class LLVM_ABI LoopFlattenPass : public PassInfoMixin<LoopFlattenPass> {
 public:
   LoopFlattenPass() = default;
 

@@ -15,12 +15,13 @@
 #define LLVM_TRANSFORMS_SCALAR_ANNOTATIONREMARKS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-struct AnnotationRemarksPass : public PassInfoMixin<AnnotationRemarksPass> {
+struct LLVM_ABI AnnotationRemarksPass : public PassInfoMixin<AnnotationRemarksPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
   static bool isRequired() { return true; }
 };

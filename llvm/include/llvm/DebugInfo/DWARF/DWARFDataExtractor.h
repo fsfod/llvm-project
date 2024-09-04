@@ -11,6 +11,7 @@
 
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/DebugInfo/DWARF/DWARFSection.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataExtractor.h"
 
 namespace llvm {
@@ -18,7 +19,7 @@ class DWARFObject;
 
 /// A DataExtractor (typically for an in-memory copy of an object-file section)
 /// plus a relocation map for that section, if there is one.
-class DWARFDataExtractor : public DataExtractor {
+class LLVM_ABI DWARFDataExtractor : public DataExtractor {
   const DWARFObject *Obj = nullptr;
   const DWARFSection *Section = nullptr;
 

@@ -15,6 +15,7 @@
 #define LLVM_ANALYSIS_CODEMETRICS_H
 
 #include "llvm/ADT/DenseMap.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/InstructionCost.h"
 
 namespace llvm {
@@ -30,7 +31,7 @@ enum struct ConvergenceKind { None, Controlled, ExtendedLoop, Uncontrolled };
 
 /// Utility to calculate the size and a few similar metrics for a set
 /// of basic blocks.
-struct CodeMetrics {
+struct LLVM_ABI CodeMetrics {
   /// True if this function contains a call to setjmp or other functions
   /// with attribute "returns twice" without having the attribute itself.
   bool exposesReturnsTwice = false;

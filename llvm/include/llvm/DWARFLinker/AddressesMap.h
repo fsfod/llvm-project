@@ -14,6 +14,7 @@
 #include "llvm/DebugInfo/DWARF/DWARFDie.h"
 #include "llvm/DebugInfo/DWARF/DWARFExpression.h"
 #include "llvm/DebugInfo/DWARF/DWARFUnit.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
@@ -27,7 +28,7 @@ using RangesTy = AddressRangesMap;
 /// by debug information. Valid addresses are those which points to
 /// live code sections. i.e. relocations for these addresses point
 /// into sections which would be/are placed into resulting binary.
-class AddressesMap {
+class LLVM_ABI AddressesMap {
 public:
   virtual ~AddressesMap() = default;
 

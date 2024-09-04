@@ -14,6 +14,7 @@
 #include "llvm/ADT/Twine.h"
 #include "llvm/DebugInfo/PDB/Native/FormatUtil.h"
 #include "llvm/Support/BinaryStreamRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FormatVariadic.h"
 #include "llvm/Support/Regex.h"
 #include "llvm/Support/raw_ostream.h"
@@ -47,7 +48,7 @@ class ClassLayout;
 class PDBFile;
 class SymbolGroup;
 
-class LinePrinter {
+class LLVM_ABI LinePrinter {
   friend class WithColor;
 
 public:
@@ -167,7 +168,7 @@ enum class PDB_ColorItem {
   Register,
 };
 
-class WithColor {
+class LLVM_ABI WithColor {
 public:
   WithColor(LinePrinter &P, PDB_ColorItem C);
   ~WithColor();

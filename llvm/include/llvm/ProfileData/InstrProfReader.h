@@ -21,6 +21,7 @@
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/ProfileData/InstrProfCorrelator.h"
 #include "llvm/ProfileData/MemProf.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/LineIterator.h"
@@ -88,7 +89,7 @@ public:
 
 /// Base class and interface for reading profiling data of any known instrprof
 /// format. Provides an iterator over NamedInstrProfRecords.
-class InstrProfReader {
+class LLVM_ABI InstrProfReader {
   instrprof_error LastError = instrprof_error::success;
   std::string LastErrorMsg;
 
@@ -230,7 +231,7 @@ public:
 ///
 /// Each record consists of a function name, a function hash, a number of
 /// counters, and then each counter value, in that order.
-class TextInstrProfReader : public InstrProfReader {
+class LLVM_ABI TextInstrProfReader : public InstrProfReader {
 private:
   /// The profile data file contents.
   std::unique_ptr<MemoryBuffer> DataBuffer;
@@ -477,7 +478,7 @@ enum class HashT : uint32_t;
 
 /// Trait for lookups into the on-disk hash table for the binary instrprof
 /// format.
-class InstrProfLookupTrait {
+class LLVM_ABI InstrProfLookupTrait {
   std::vector<NamedInstrProfRecord> DataBuffer;
   IndexedInstrProf::HashT HashType;
   unsigned FormatVersion;
@@ -528,7 +529,7 @@ public:
   }
 };
 
-struct InstrProfReaderIndexBase {
+struct LLVM_ABI InstrProfReaderIndexBase {
   virtual ~InstrProfReaderIndexBase() = default;
 
   // Read all the profile records with the same key pointed to the current
@@ -639,7 +640,7 @@ public:
 };
 
 /// Name matcher supporting fuzzy matching of symbol names to names in profiles.
-class InstrProfReaderRemapper {
+class LLVM_ABI InstrProfReaderRemapper {
 public:
   virtual ~InstrProfReaderRemapper() = default;
   virtual Error populateRemappings() { return Error::success(); }
@@ -647,7 +648,7 @@ public:
                            ArrayRef<NamedInstrProfRecord> &Data) = 0;
 };
 
-class IndexedMemProfReader {
+class LLVM_ABI IndexedMemProfReader {
 private:
   /// The MemProf version.
   memprof::IndexedVersion Version = memprof::Version0;
@@ -678,7 +679,7 @@ public:
 };
 
 /// Reader for the indexed binary instrprof format.
-class IndexedInstrProfReader : public InstrProfReader {
+class LLVM_ABI IndexedInstrProfReader : public InstrProfReader {
 private:
   /// The profile data file contents.
   std::unique_ptr<MemoryBuffer> DataBuffer;

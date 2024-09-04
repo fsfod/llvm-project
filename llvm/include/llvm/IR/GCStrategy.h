@@ -47,6 +47,7 @@
 #ifndef LLVM_IR_GCSTRATEGY_H
 #define LLVM_IR_GCSTRATEGY_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Registry.h"
 #include <optional>
 #include <string>
@@ -60,7 +61,7 @@ class Type;
 /// be abstractly described.  GCStrategy objects must be looked up through
 /// the Function.  The objects themselves are owned by the Context and must
 /// be immutable.
-class GCStrategy {
+class LLVM_ABI GCStrategy {
 private:
   friend class GCModuleInfo;
 
@@ -144,7 +145,7 @@ using GCRegistry = Registry<GCStrategy>;
 extern template class LLVM_TEMPLATE_ABI Registry<GCStrategy>;
 
 /// Lookup the GCStrategy object associated with the given gc name.
-std::unique_ptr<GCStrategy> getGCStrategy(const StringRef Name);
+LLVM_ABI std::unique_ptr<GCStrategy> getGCStrategy(const StringRef Name);
 
 } // end namespace llvm
 

@@ -34,6 +34,7 @@
 #include "llvm/IR/Use.h"
 #include "llvm/IR/User.h"
 #include "llvm/Support/AtomicOrdering.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <cstddef>
@@ -58,7 +59,7 @@ class UnreachableInst;
 //===----------------------------------------------------------------------===//
 
 /// an instruction to allocate memory on the stack
-class AllocaInst : public UnaryInstruction {
+class LLVM_ABI AllocaInst : public UnaryInstruction {
   Type *AllocatedType;
 
   using AlignmentField = AlignmentBitfieldElementT<0>;
@@ -171,7 +172,7 @@ private:
 
 /// An instruction for reading from memory. This uses the SubclassData field in
 /// Value to store whether or not the load is volatile.
-class LoadInst : public UnaryInstruction {
+class LLVM_ABI LoadInst : public UnaryInstruction {
   using VolatileField = BoolBitfieldElementT<0>;
   using AlignmentField = AlignmentBitfieldElementT<VolatileField::NextBit>;
   using OrderingField = AtomicOrderingBitfieldElementT<AlignmentField::NextBit>;
@@ -287,7 +288,7 @@ private:
 //===----------------------------------------------------------------------===//
 
 /// An instruction for storing to memory.
-class StoreInst : public Instruction {
+class LLVM_ABI StoreInst : public Instruction {
   using VolatileField = BoolBitfieldElementT<0>;
   using AlignmentField = AlignmentBitfieldElementT<VolatileField::NextBit>;
   using OrderingField = AtomicOrderingBitfieldElementT<AlignmentField::NextBit>;
@@ -417,7 +418,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(StoreInst, Value)
 //===----------------------------------------------------------------------===//
 
 /// An instruction for ordering other memory operations.
-class FenceInst : public Instruction {
+class LLVM_ABI FenceInst : public Instruction {
   using OrderingField = AtomicOrderingBitfieldElementT<0>;
 
   void Init(AtomicOrdering Ordering, SyncScope::ID SSID);
@@ -492,7 +493,7 @@ private:
 /// original value as first element, and an i1 indicating success (true) or
 /// failure (false) as second element.
 ///
-class AtomicCmpXchgInst : public Instruction {
+class LLVM_ABI AtomicCmpXchgInst : public Instruction {
   void Init(Value *Ptr, Value *Cmp, Value *NewVal, Align Align,
             AtomicOrdering SuccessOrdering, AtomicOrdering FailureOrdering,
             SyncScope::ID SSID);
@@ -693,7 +694,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(AtomicCmpXchgInst, Value)
 /// combines it with another value, and then stores the result back.  Returns
 /// the old value.
 ///
-class AtomicRMWInst : public Instruction {
+class LLVM_ABI AtomicRMWInst : public Instruction {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -912,7 +913,7 @@ inline Type *checkGEPType(Type *Ty) {
 /// an instruction for type-safe pointer arithmetic to
 /// access elements of arrays and structs
 ///
-class GetElementPtrInst : public Instruction {
+class LLVM_ABI GetElementPtrInst : public Instruction {
   Type *SourceElementType;
   Type *ResultElementType;
 
@@ -1137,7 +1138,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(GetElementPtrInst, Value)
 /// to the constructor. It only operates on integers or pointers. The operands
 /// must be identical types.
 /// Represent an integer comparison operator.
-class ICmpInst: public CmpInst {
+class LLVM_ABI ICmpInst: public CmpInst {
   void AssertOK() {
     assert(isIntPredicate() &&
            "Invalid ICmp predicate value");
@@ -1295,7 +1296,7 @@ public:
 /// to the constructor. It only operates on floating point values or packed
 /// vectors of floating point values. The operands must be identical types.
 /// Represents a floating point comparison operator.
-class FCmpInst: public CmpInst {
+class LLVM_ABI FCmpInst: public CmpInst {
   void AssertOK() {
     assert(isFPPredicate() && "Invalid FCmp predicate value");
     assert(getOperand(0)->getType() == getOperand(1)->getType() &&
@@ -1394,7 +1395,7 @@ public:
 /// field to indicate whether or not this is a tail call.  The rest of the bits
 /// hold the calling convention of the call.
 ///
-class CallInst : public CallBase {
+class LLVM_ABI CallInst : public CallBase {
   CallInst(const CallInst &CI);
 
   /// Construct a CallInst from a range of arguments
@@ -1568,7 +1569,7 @@ CallInst::CallInst(FunctionType *Ty, Value *Func, ArrayRef<Value *> Args,
 
 /// This class represents the LLVM 'select' instruction.
 ///
-class SelectInst : public Instruction {
+class LLVM_ABI SelectInst : public Instruction {
 
   SelectInst(Value *C, Value *S1, Value *S2, const Twine &NameStr,
              InsertPosition InsertBefore)
@@ -1650,7 +1651,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(SelectInst, Value)
 /// This class represents the va_arg llvm instruction, which returns
 /// an argument of the specified type given a va_list and increments that list
 ///
-class VAArgInst : public UnaryInstruction {
+class LLVM_ABI VAArgInst : public UnaryInstruction {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -1684,7 +1685,7 @@ public:
 /// This instruction extracts a single (scalar)
 /// element from a VectorType value
 ///
-class ExtractElementInst : public Instruction {
+class LLVM_ABI ExtractElementInst : public Instruction {
   ExtractElementInst(Value *Vec, Value *Idx, const Twine &NameStr = "",
                      InsertPosition InsertBefore = nullptr);
 
@@ -1740,7 +1741,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(ExtractElementInst, Value)
 /// This instruction inserts a single (scalar)
 /// element into a VectorType value
 ///
-class InsertElementInst : public Instruction {
+class LLVM_ABI InsertElementInst : public Instruction {
   InsertElementInst(Value *Vec, Value *NewElt, Value *Idx,
                     const Twine &NameStr = "",
                     InsertPosition InsertBefore = nullptr);
@@ -1804,7 +1805,7 @@ constexpr int PoisonMaskElem = -1;
 ///
 /// For scalable vectors, all the elements of the mask must be 0 or -1. This
 /// requirement may be relaxed in the future.
-class ShuffleVectorInst : public Instruction {
+class LLVM_ABI ShuffleVectorInst : public Instruction {
   SmallVector<int, 4> ShuffleMask;
   Constant *ShuffleMaskForBitcode;
 
@@ -2298,7 +2299,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(ShuffleVectorInst, Value)
 /// This instruction extracts a struct member or array
 /// element value from an aggregate value.
 ///
-class ExtractValueInst : public UnaryInstruction {
+class LLVM_ABI ExtractValueInst : public UnaryInstruction {
   SmallVector<unsigned, 4> Indices;
 
   ExtractValueInst(const ExtractValueInst &EVI);
@@ -2386,7 +2387,7 @@ ExtractValueInst::ExtractValueInst(Value *Agg, ArrayRef<unsigned> Idxs,
 /// This instruction inserts a struct field of array element
 /// value into an aggregate value.
 ///
-class InsertValueInst : public Instruction {
+class LLVM_ABI InsertValueInst : public Instruction {
   SmallVector<unsigned, 4> Indices;
 
   InsertValueInst(const InsertValueInst &IVI);
@@ -2501,7 +2502,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(InsertValueInst, Value)
 // node, that can not exist in nature, but can be synthesized in a computer
 // scientist's overactive imagination.
 //
-class PHINode : public Instruction {
+class LLVM_ABI PHINode : public Instruction {
   /// The number of operands actually allocated.  NumOperands is
   /// the number actually in use.
   unsigned ReservedSpace;
@@ -2738,7 +2739,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(PHINode, Value)
 /// SubclassData field in Value to store whether or not the landingpad is a
 /// cleanup.
 ///
-class LandingPadInst : public Instruction {
+class LLVM_ABI LandingPadInst : public Instruction {
   using CleanupField = BoolBitfieldElementT<0>;
 
   /// The number of operands actually allocated.  NumOperands is
@@ -2834,7 +2835,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(LandingPadInst, Value)
 /// Return a value (possibly void), from a function.  Execution
 /// does not continue in this function any longer.
 ///
-class ReturnInst : public Instruction {
+class LLVM_ABI ReturnInst : public Instruction {
   ReturnInst(const ReturnInst &RI);
 
 private:
@@ -2910,7 +2911,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(ReturnInst, Value)
 //===---------------------------------------------------------------------------
 /// Conditional or Unconditional Branch instruction.
 ///
-class BranchInst : public Instruction {
+class LLVM_ABI BranchInst : public Instruction {
   /// Ops list - Branches are strange.  The operands are ordered:
   ///  [Cond, FalseDest,] TrueDest.  This makes some accessors faster because
   /// they don't have to check for cond/uncond branchness. These are mostly
@@ -3045,7 +3046,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(BranchInst, Value)
 //===---------------------------------------------------------------------------
 /// Multiway switch
 ///
-class SwitchInst : public Instruction {
+class LLVM_ABI SwitchInst : public Instruction {
   unsigned ReservedSpace;
 
   // Operand[0]    = Value to switch on
@@ -3381,7 +3382,7 @@ public:
 
 /// A wrapper class to simplify modification of SwitchInst cases along with
 /// their prof branch_weights metadata.
-class SwitchInstProfUpdateWrapper {
+class LLVM_ABI SwitchInstProfUpdateWrapper {
   SwitchInst &SI;
   std::optional<SmallVector<uint32_t, 8>> Weights;
   bool Changed = false;
@@ -3433,7 +3434,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(SwitchInst, Value)
 //===---------------------------------------------------------------------------
 /// Indirect Branch Instruction.
 ///
-class IndirectBrInst : public Instruction {
+class LLVM_ABI IndirectBrInst : public Instruction {
   unsigned ReservedSpace;
 
   // Operand[0]   = Address to jump to
@@ -3557,7 +3558,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(IndirectBrInst, Value)
 /// Invoke instruction.  The SubclassData field is used to hold the
 /// calling convention of the call.
 ///
-class InvokeInst : public CallBase {
+class LLVM_ABI InvokeInst : public CallBase {
   /// The number of operands for this call beyond the called function,
   /// arguments, and operand bundles.
   static constexpr int NumExtraOperands = 2;
@@ -3717,7 +3718,7 @@ InvokeInst::InvokeInst(FunctionType *Ty, Value *Func, BasicBlock *IfNormal,
 /// instead transfer it to a third location. The SubclassData field is used to
 /// hold the calling convention of the call.
 ///
-class CallBrInst : public CallBase {
+class LLVM_ABI CallBrInst : public CallBase {
 
   unsigned NumIndirectDests;
 
@@ -3888,7 +3889,7 @@ CallBrInst::CallBrInst(FunctionType *Ty, Value *Func, BasicBlock *DefaultDest,
 //===---------------------------------------------------------------------------
 /// Resume the propagation of an exception.
 ///
-class ResumeInst : public Instruction {
+class LLVM_ABI ResumeInst : public Instruction {
   ResumeInst(const ResumeInst &RI);
 
   explicit ResumeInst(Value *Exn, InsertPosition InsertBefore = nullptr);
@@ -3940,7 +3941,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(ResumeInst, Value)
 //===----------------------------------------------------------------------===//
 //                         CatchSwitchInst Class
 //===----------------------------------------------------------------------===//
-class CatchSwitchInst : public Instruction {
+class LLVM_ABI CatchSwitchInst : public Instruction {
   using UnwindDestField = BoolBitfieldElementT<0>;
 
   /// The number of operands actually allocated.  NumOperands is
@@ -4172,7 +4173,7 @@ public:
 //                               CatchReturnInst Class
 //===----------------------------------------------------------------------===//
 
-class CatchReturnInst : public Instruction {
+class LLVM_ABI CatchReturnInst : public Instruction {
   CatchReturnInst(const CatchReturnInst &RI);
   CatchReturnInst(Value *CatchPad, BasicBlock *BB, InsertPosition InsertBefore);
 
@@ -4245,7 +4246,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(CatchReturnInst, Value)
 //                               CleanupReturnInst Class
 //===----------------------------------------------------------------------===//
 
-class CleanupReturnInst : public Instruction {
+class LLVM_ABI CleanupReturnInst : public Instruction {
   using UnwindDestField = BoolBitfieldElementT<0>;
 
 private:
@@ -4341,7 +4342,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(CleanupReturnInst, Value)
 /// presence of this instruction indicates some higher level knowledge that the
 /// end of the block cannot be reached.
 ///
-class UnreachableInst : public Instruction {
+class LLVM_ABI UnreachableInst : public Instruction {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4381,7 +4382,7 @@ private:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a truncation of integer types.
-class TruncInst : public CastInst {
+class LLVM_ABI TruncInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4447,7 +4448,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents zero extension of integer types.
-class ZExtInst : public CastInst {
+class LLVM_ABI ZExtInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4478,7 +4479,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a sign extension of integer types.
-class SExtInst : public CastInst {
+class LLVM_ABI SExtInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4509,7 +4510,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a truncation of floating point types.
-class FPTruncInst : public CastInst {
+class LLVM_ABI FPTruncInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4539,7 +4540,7 @@ public:                 /// Constructor with insert-before-instruction semantics
 //===----------------------------------------------------------------------===//
 
 /// This class represents an extension of floating point types.
-class FPExtInst : public CastInst {
+class LLVM_ABI FPExtInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4570,7 +4571,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a cast unsigned integer to floating point.
-class UIToFPInst : public CastInst {
+class LLVM_ABI UIToFPInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4601,7 +4602,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a cast from signed integer to floating point.
-class SIToFPInst : public CastInst {
+class LLVM_ABI SIToFPInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4632,7 +4633,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a cast from floating point to unsigned integer
-class FPToUIInst  : public CastInst {
+class LLVM_ABI FPToUIInst  : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4663,7 +4664,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a cast from floating point to signed integer.
-class FPToSIInst  : public CastInst {
+class LLVM_ABI FPToSIInst  : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4694,7 +4695,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a cast from an integer to a pointer.
-class IntToPtrInst : public CastInst {
+class LLVM_ABI IntToPtrInst : public CastInst {
 public:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4729,7 +4730,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a cast from a pointer to an integer.
-class PtrToIntInst : public CastInst {
+class LLVM_ABI PtrToIntInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4772,7 +4773,7 @@ public:
 //===----------------------------------------------------------------------===//
 
 /// This class represents a no-op cast from one type to another.
-class BitCastInst : public CastInst {
+class LLVM_ABI BitCastInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4804,7 +4805,7 @@ public:
 
 /// This class represents a conversion between pointers from one address space
 /// to another.
-class AddrSpaceCastInst : public CastInst {
+class LLVM_ABI AddrSpaceCastInst : public CastInst {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;
@@ -4956,7 +4957,7 @@ inline void setAtomicSyncScopeID(Instruction *I, SyncScope::ID SSID) {
 
 /// This class represents a freeze function that returns random concrete
 /// value if an operand is either a poison value or an undef value
-class FreezeInst : public UnaryInstruction {
+class LLVM_ABI FreezeInst : public UnaryInstruction {
 protected:
   // Note: Instruction needs to be a friend here to call cloneImpl.
   friend class Instruction;

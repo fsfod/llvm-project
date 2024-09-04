@@ -17,6 +17,7 @@
 
 #include "llvm/CodeGen/ScheduleHazardRecognizer.h"
 #include "llvm/MC/MCInstrItineraries.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <cstring>
@@ -26,7 +27,7 @@ namespace llvm {
 class ScheduleDAG;
 class SUnit;
 
-class ScoreboardHazardRecognizer : public ScheduleHazardRecognizer {
+class LLVM_ABI ScoreboardHazardRecognizer : public ScheduleHazardRecognizer {
   // Scoreboard to track function unit usage. Scoreboard[0] is a
   // mask of the FUs in use in the cycle currently being
   // schedule. Scoreboard[1] is a mask for the next cycle. The
@@ -36,7 +37,7 @@ class ScoreboardHazardRecognizer : public ScheduleHazardRecognizer {
   // Scoreboard always counts cycles in forward execution order. If used by a
   // bottom-up scheduler, then the scoreboard cycles are the inverse of the
   // scheduler's cycles.
-  class Scoreboard {
+  class LLVM_ABI Scoreboard {
     InstrStage::FuncUnits *Data = nullptr;
 
     // The maximum number of cycles monitored by the Scoreboard. This

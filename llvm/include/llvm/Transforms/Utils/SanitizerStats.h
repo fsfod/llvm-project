@@ -14,6 +14,7 @@
 #define LLVM_TRANSFORMS_UTILS_SANITIZERSTATS_H
 
 #include "llvm/IR/IRBuilder.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -29,7 +30,7 @@ enum SanitizerStatKind {
   SanStat_CFI_ICall,
 };
 
-struct SanitizerStatReport {
+struct LLVM_ABI SanitizerStatReport {
   SanitizerStatReport(Module *M);
 
   /// Generates code into B that increments a location-specific counter tagged

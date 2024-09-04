@@ -14,6 +14,7 @@
 #define LLVM_TRANSFORMS_UTILS_MATRIXUTILS_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class DomTreeUpdater;
@@ -28,7 +29,7 @@ class IRBuilderBase;
 ///   for ColumnLoop.Index = 0..NumColumns
 ///     for RowLoop.Index = 0..NumRows
 ///       for KLoop.Index = 0..NumInner
-struct TileInfo {
+struct LLVM_ABI TileInfo {
   /// Number of rows of the matrix.
   unsigned NumRows;
 

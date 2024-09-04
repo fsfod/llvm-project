@@ -19,6 +19,7 @@
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/BinaryFormat/MsgPackReader.h"
+#include "llvm/Support/Compiler.h"
 
 #include <cstddef>
 #include <optional>
@@ -41,7 +42,7 @@ namespace V3 {
 /// In strict mode, metadata must already be well-typed.
 ///
 /// In non-strict mode, metadata is coerced into expected types when possible.
-class MetadataVerifier {
+class LLVM_ABI MetadataVerifier {
   bool Strict;
 
   bool verifyScalar(msgpack::DocNode &Node, msgpack::Type SKind,

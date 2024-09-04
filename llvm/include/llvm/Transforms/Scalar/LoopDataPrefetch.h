@@ -14,13 +14,14 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPDATAPREFETCH_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
 /// An optimization pass inserting data prefetches in loops.
-class LoopDataPrefetchPass : public PassInfoMixin<LoopDataPrefetchPass> {
+class LLVM_ABI LoopDataPrefetchPass : public PassInfoMixin<LoopDataPrefetchPass> {
 public:
   LoopDataPrefetchPass() = default;
 

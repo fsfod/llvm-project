@@ -17,6 +17,7 @@
 #define LLVM_TRANSFORMS_SCALAR_REWRITESTATEPOINTSFORGC_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ class Module;
 class TargetTransformInfo;
 class TargetLibraryInfo;
 
-struct RewriteStatepointsForGC : public PassInfoMixin<RewriteStatepointsForGC> {
+struct LLVM_ABI RewriteStatepointsForGC : public PassInfoMixin<RewriteStatepointsForGC> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 
   bool runOnFunction(Function &F, DominatorTree &, TargetTransformInfo &,

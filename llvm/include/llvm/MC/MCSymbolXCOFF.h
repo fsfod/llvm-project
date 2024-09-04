@@ -12,12 +12,13 @@
 #include "llvm/BinaryFormat/XCOFF.h"
 #include "llvm/MC/MCSymbol.h"
 #include "llvm/MC/MCSymbolTableEntry.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class MCSectionXCOFF;
 
-class MCSymbolXCOFF : public MCSymbol {
+class LLVM_ABI MCSymbolXCOFF : public MCSymbol {
 
   enum XCOFFSymbolFlags : uint16_t { SF_EHInfo = 0x0001 };
 

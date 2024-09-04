@@ -15,6 +15,7 @@
 #define LLVM_TRANSFORMS_IPO_SAMPLEPROFILEMATCHER_H
 
 #include "llvm/ADT/StringSet.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/SampleProfileLoaderBaseImpl.h"
 
 namespace llvm {
@@ -23,7 +24,7 @@ using AnchorList = std::vector<std::pair<LineLocation, FunctionId>>;
 using AnchorMap = std::map<LineLocation, FunctionId>;
 
 // Sample profile matching - fuzzy match.
-class SampleProfileMatcher {
+class LLVM_ABI SampleProfileMatcher {
   Module &M;
   SampleProfileReader &Reader;
   LazyCallGraph &CG;

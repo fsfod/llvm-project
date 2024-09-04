@@ -52,13 +52,14 @@
 #define LLVM_TRANSFORMS_UTILS_RELLOOKUPTABLECONVERTER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Module;
 
 // Pass that converts lookup tables to relative lookup tables.
-class RelLookupTableConverterPass
+class LLVM_ABI RelLookupTableConverterPass
     : public PassInfoMixin<RelLookupTableConverterPass> {
 public:
   RelLookupTableConverterPass() = default;

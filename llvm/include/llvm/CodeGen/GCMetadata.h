@@ -40,6 +40,7 @@
 #include "llvm/IR/GCStrategy.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -75,7 +76,7 @@ struct GCRoot {
 
 /// Garbage collection metadata for a single function.  Currently, this
 /// information only applies to GCStrategies which use GCRoot.
-class GCFunctionInfo {
+class LLVM_ABI GCFunctionInfo {
 public:
   using iterator = std::vector<GCPoint>::iterator;
   using roots_iterator = std::vector<GCRoot>::iterator;
@@ -151,7 +152,7 @@ public:
   size_t live_size(const iterator &p) const { return roots_size(); }
 };
 
-struct GCStrategyMap {
+struct LLVM_ABI GCStrategyMap {
   StringMap<std::unique_ptr<GCStrategy>> StrategyMap;
 
   GCStrategyMap() = default;
@@ -164,7 +165,7 @@ struct GCStrategyMap {
 
 /// An analysis pass which caches information about the entire Module.
 /// Records a cache of the 'active' gc strategy objects for the current Module.
-class CollectorMetadataAnalysis
+class LLVM_ABI CollectorMetadataAnalysis
     : public AnalysisInfoMixin<CollectorMetadataAnalysis> {
   friend struct AnalysisInfoMixin<CollectorMetadataAnalysis>;
   static AnalysisKey Key;
@@ -177,7 +178,7 @@ public:
 /// An analysis pass which caches information about the Function.
 /// Records the function level information used by GCRoots.
 /// This pass depends on `CollectorMetadataAnalysis`.
-class GCFunctionAnalysis : public AnalysisInfoMixin<GCFunctionAnalysis> {
+class LLVM_ABI GCFunctionAnalysis : public AnalysisInfoMixin<GCFunctionAnalysis> {
   friend struct AnalysisInfoMixin<GCFunctionAnalysis>;
   static AnalysisKey Key;
 
@@ -192,7 +193,7 @@ public:
 /// and custom intrinsic lowering.
 ///
 /// This pass requires `CollectorMetadataAnalysis`.
-class GCLoweringPass : public PassInfoMixin<GCLoweringPass> {
+class LLVM_ABI GCLoweringPass : public PassInfoMixin<GCLoweringPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM);
 };
@@ -200,7 +201,7 @@ public:
 /// An analysis pass which caches information about the entire Module.
 /// Records both the function level information used by GCRoots and a
 /// cache of the 'active' gc strategy objects for the current Module.
-class GCModuleInfo : public ImmutablePass {
+class LLVM_ABI GCModuleInfo : public ImmutablePass {
   /// An owning list of all GCStrategies which have been created
   SmallVector<std::unique_ptr<GCStrategy>, 1> GCStrategyList;
   /// A helper map to speedup lookups into the above list

@@ -24,6 +24,7 @@
 #include "llvm/ExecutionEngine/Orc/Shared/ExecutorSymbolDef.h"
 #include "llvm/ExecutionEngine/Orc/Shared/WrapperFunctionUtils.h"
 #include "llvm/ExecutionEngine/Orc/TaskDispatch.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ExtensibleRTTI.h"
 
@@ -53,7 +54,7 @@ using JITDylibSP = IntrusiveRefCntPtr<JITDylib>;
 using ResourceKey = uintptr_t;
 
 /// API to remove / transfer ownership of JIT resources.
-class ResourceTracker : public ThreadSafeRefCountedBase<ResourceTracker> {
+class LLVM_ABI ResourceTracker : public ThreadSafeRefCountedBase<ResourceTracker> {
 private:
   friend class ExecutionSession;
   friend class JITDylib;
@@ -101,7 +102,7 @@ private:
 };
 
 /// Listens for ResourceTracker operations.
-class ResourceManager {
+class LLVM_ABI ResourceManager {
 public:
   virtual ~ResourceManager();
   virtual Error handleRemoveResources(JITDylib &JD, ResourceKey K) = 0;
@@ -404,9 +405,9 @@ using RegisterDependenciesFunction =
 
 /// This can be used as the value for a RegisterDependenciesFunction if there
 /// are no dependants to register with.
-extern RegisterDependenciesFunction NoDependenciesToRegister;
+LLVM_ABI extern RegisterDependenciesFunction NoDependenciesToRegister;
 
-class ResourceTrackerDefunct : public ErrorInfo<ResourceTrackerDefunct> {
+class LLVM_ABI ResourceTrackerDefunct : public ErrorInfo<ResourceTrackerDefunct> {
 public:
   static char ID;
 
@@ -420,7 +421,7 @@ private:
 
 /// Used to notify a JITDylib that the given set of symbols failed to
 /// materialize.
-class FailedToMaterialize : public ErrorInfo<FailedToMaterialize> {
+class LLVM_ABI FailedToMaterialize : public ErrorInfo<FailedToMaterialize> {
 public:
   static char ID;
 
@@ -437,7 +438,7 @@ private:
 };
 
 /// Used to report failure due to unsatisfiable symbol dependencies.
-class UnsatisfiedSymbolDependencies
+class LLVM_ABI UnsatisfiedSymbolDependencies
     : public ErrorInfo<UnsatisfiedSymbolDependencies> {
 public:
   static char ID;
@@ -458,7 +459,7 @@ private:
 };
 
 /// Used to notify clients when symbols can not be found during a lookup.
-class SymbolsNotFound : public ErrorInfo<SymbolsNotFound> {
+class LLVM_ABI SymbolsNotFound : public ErrorInfo<SymbolsNotFound> {
 public:
   static char ID;
 
@@ -476,7 +477,7 @@ private:
 };
 
 /// Used to notify clients that a set of symbols could not be removed.
-class SymbolsCouldNotBeRemoved : public ErrorInfo<SymbolsCouldNotBeRemoved> {
+class LLVM_ABI SymbolsCouldNotBeRemoved : public ErrorInfo<SymbolsCouldNotBeRemoved> {
 public:
   static char ID;
 
@@ -496,7 +497,7 @@ private:
 /// definitions that are claimed by the module's associated
 /// MaterializationResponsibility. If this error is returned it is indicative of
 /// a broken transformation / compiler / object cache.
-class MissingSymbolDefinitions : public ErrorInfo<MissingSymbolDefinitions> {
+class LLVM_ABI MissingSymbolDefinitions : public ErrorInfo<MissingSymbolDefinitions> {
 public:
   static char ID;
 
@@ -519,7 +520,7 @@ private:
 /// symbols that are not claimed by the module's associated
 /// MaterializationResponsibility. If this error is returned it is indicative of
 /// a broken transformation / compiler / object cache.
-class UnexpectedSymbolDefinitions : public ErrorInfo<UnexpectedSymbolDefinitions> {
+class LLVM_ABI UnexpectedSymbolDefinitions : public ErrorInfo<UnexpectedSymbolDefinitions> {
 public:
   static char ID;
 
@@ -690,7 +691,7 @@ private:
 /// JITDylibs. The JITDylib will call materialize when the address of a symbol
 /// is requested via the lookup method. The JITDylib will call discard if a
 /// stronger definition is added or already present.
-class MaterializationUnit {
+class LLVM_ABI MaterializationUnit {
   friend class ExecutionSession;
   friend class JITDylib;
 
@@ -763,7 +764,7 @@ private:
 ///
 /// All symbols will be resolved and marked ready as soon as the unit is
 /// materialized.
-class AbsoluteSymbolsMaterializationUnit : public MaterializationUnit {
+class LLVM_ABI AbsoluteSymbolsMaterializationUnit : public MaterializationUnit {
 public:
   AbsoluteSymbolsMaterializationUnit(SymbolMap Symbols);
 
@@ -795,7 +796,7 @@ absoluteSymbols(SymbolMap Symbols) {
 
 /// A materialization unit for symbol aliases. Allows existing symbols to be
 /// aliased with alternate flags.
-class ReExportsMaterializationUnit : public MaterializationUnit {
+class LLVM_ABI ReExportsMaterializationUnit : public MaterializationUnit {
 public:
   /// SourceJD is allowed to be nullptr, in which case the source JITDylib is
   /// taken to be whatever JITDylib these definitions are materialized in (and
@@ -852,7 +853,7 @@ reexports(JITDylib &SourceJD, SymbolAliasMap Aliases,
 
 /// Build a SymbolAliasMap for the common case where you want to re-export
 /// symbols from another JITDylib with the same linkage/flags.
-Expected<SymbolAliasMap>
+LLVM_ABI Expected<SymbolAliasMap>
 buildSimpleReexportsAliasMap(JITDylib &SourceJD, const SymbolNameSet &Symbols);
 
 /// Represents the state that a symbol has reached during materialization.
@@ -869,7 +870,7 @@ enum class SymbolState : uint8_t {
 ///        ready.
 ///
 /// makes a callback when all symbols are available.
-class AsynchronousSymbolQuery {
+class LLVM_ABI AsynchronousSymbolQuery {
   friend class ExecutionSession;
   friend class InProgressFullLookupState;
   friend class JITDylib;
@@ -918,7 +919,7 @@ private:
 /// Wraps state for a lookup-in-progress.
 /// DefinitionGenerators can optionally take ownership of a LookupState object
 /// to suspend a lookup-in-progress while they search for definitions.
-class LookupState {
+class LLVM_ABI LookupState {
   friend class OrcV2CAPIHelper;
   friend class ExecutionSession;
 
@@ -943,7 +944,7 @@ private:
 
 /// Definition generators can be attached to JITDylibs to generate new
 /// definitions for otherwise unresolved symbols during lookup.
-class DefinitionGenerator {
+class LLVM_ABI DefinitionGenerator {
   friend class ExecutionSession;
 
 public:
@@ -985,7 +986,7 @@ private:
 ///
 /// JITDylibs cannot be moved or copied. Their address is stable, and useful as
 /// a key in some JIT data structures.
-class JITDylib : public ThreadSafeRefCountedBase<JITDylib>,
+class LLVM_ABI JITDylib : public ThreadSafeRefCountedBase<JITDylib>,
                  public jitlink::JITLinkDylib {
   friend class AsynchronousSymbolQuery;
   friend class ExecutionSession;
@@ -1236,7 +1237,7 @@ private:
   //   waiting on this symbol.
   // * Pending queries holds any not-yet-completed queries that include this
   //   symbol.
-  struct MaterializingInfo {
+  struct LLVM_ABI MaterializingInfo {
     friend class ExecutionSession;
 
     std::shared_ptr<EmissionDepUnit> DefiningEDU;
@@ -1357,7 +1358,7 @@ private:
 /// initializers (e.g. C++ static constructors) and ExecutionSession state.
 /// Note that Platforms do not automatically run initializers: clients are still
 /// responsible for doing this.
-class Platform {
+class LLVM_ABI Platform {
 public:
   virtual ~Platform();
 
@@ -1397,7 +1398,7 @@ public:
 };
 
 /// A materialization task.
-class MaterializationTask : public RTTIExtends<MaterializationTask, Task> {
+class LLVM_ABI MaterializationTask : public RTTIExtends<MaterializationTask, Task> {
 public:
   static char ID;
 
@@ -1415,7 +1416,7 @@ private:
 /// Lookups are usually run on the current thread, but in some cases they may
 /// be run as tasks, e.g. if the lookup has been continued from a suspended
 /// state.
-class LookupTask : public RTTIExtends<LookupTask, Task> {
+class LLVM_ABI LookupTask : public RTTIExtends<LookupTask, Task> {
 public:
   static char ID;
 
@@ -1428,7 +1429,7 @@ private:
 };
 
 /// An ExecutionSession represents a running JIT program.
-class ExecutionSession {
+class LLVM_ABI ExecutionSession {
   friend class InProgressLookupFlagsState;
   friend class InProgressFullLookupState;
   friend class JITDylib;
@@ -1994,7 +1995,7 @@ Error JITDylib::define(std::unique_ptr<MaterializationUnitType> &MU,
 
 /// ReexportsGenerator can be used with JITDylib::addGenerator to automatically
 /// re-export a subset of the source JITDylib's symbols in the target.
-class ReexportsGenerator : public DefinitionGenerator {
+class LLVM_ABI ReexportsGenerator : public DefinitionGenerator {
 public:
   using SymbolPredicate = std::function<bool(SymbolStringPtr)>;
 

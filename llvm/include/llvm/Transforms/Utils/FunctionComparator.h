@@ -21,6 +21,7 @@
 #include "llvm/IR/ValueMap.h"
 #include "llvm/Support/AtomicOrdering.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <tuple>
 
@@ -90,7 +91,7 @@ public:
 /// they will generate machine code with the same behaviour. DataLayout is
 /// used if available. The comparator always fails conservatively (erring on the
 /// side of claiming that two functions are different).
-class FunctionComparator {
+class LLVM_ABI FunctionComparator {
 public:
   FunctionComparator(const Function *F1, const Function *F2,
                      GlobalNumberState* GN)

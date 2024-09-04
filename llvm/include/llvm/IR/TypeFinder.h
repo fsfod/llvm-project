@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/IR/Attributes.h"
+#include "llvm/Support/Compiler.h"
 #include <cstddef>
 #include <vector>
 
@@ -28,7 +29,7 @@ class Value;
 
 /// TypeFinder - Walk over a module, identifying all of the types that are
 /// used by the module.
-class TypeFinder {
+class LLVM_ABI TypeFinder {
   // To avoid walking constant expressions multiple times and other IR
   // objects, we keep several helper maps.
   DenseSet<const Value*> VisitedConstants;

@@ -18,10 +18,11 @@
 #include "llvm/Analysis/CGSCCPassManager.h"
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct CoroSplitPass : PassInfoMixin<CoroSplitPass> {
+struct LLVM_ABI CoroSplitPass : PassInfoMixin<CoroSplitPass> {
   const std::function<bool(Instruction &)> MaterializableCallback;
 
   CoroSplitPass(bool OptimizeFrame = false);

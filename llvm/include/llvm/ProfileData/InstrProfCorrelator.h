@@ -14,6 +14,7 @@
 
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ProfileData/InstrProf.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Support/YAMLTraits.h"
@@ -29,7 +30,7 @@ class ObjectFile;
 
 /// InstrProfCorrelator - A base class used to create raw instrumentation data
 /// to their functions.
-class InstrProfCorrelator {
+class LLVM_ABI InstrProfCorrelator {
 public:
   /// Indicate if we should use the debug info or profile metadata sections to
   /// correlate.
@@ -70,7 +71,7 @@ public:
   virtual ~InstrProfCorrelator() = default;
 
 protected:
-  struct Context {
+  struct LLVM_ABI Context {
     static llvm::Expected<std::unique_ptr<Context>>
     get(std::unique_ptr<MemoryBuffer> Buffer, const object::ObjectFile &Obj,
         ProfCorrelatorKind FileKind);

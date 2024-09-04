@@ -12,13 +12,14 @@
 #include "llvm/DebugInfo/PDB/Native/NativeRawSymbol.h"
 
 #include "llvm/DebugInfo/PDB/PDBTypes.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 
 class NativeSession;
 
-class NativeTypeBuiltin : public NativeRawSymbol {
+class LLVM_ABI NativeTypeBuiltin : public NativeRawSymbol {
 public:
   NativeTypeBuiltin(NativeSession &PDBSession, SymIndexId Id,
                     codeview::ModifierOptions Mods, PDB_BuiltinType T,

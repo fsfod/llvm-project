@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_TWOADDRESSINSTRUCTIONPASS_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class TwoAddressInstructionPass
+class LLVM_ABI TwoAddressInstructionPass
     : public PassInfoMixin<TwoAddressInstructionPass> {
 public:
   PreservedAnalyses run(MachineFunction &MF,

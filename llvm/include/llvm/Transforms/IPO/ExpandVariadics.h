@@ -9,6 +9,7 @@
 #define LLVM_TRANSFORMS_IPO_EXPANDVARIADICS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -23,7 +24,7 @@ enum class ExpandVariadicsMode {
   Lowering,    // Change variadic calling convention
 };
 
-class ExpandVariadicsPass : public PassInfoMixin<ExpandVariadicsPass> {
+class LLVM_ABI ExpandVariadicsPass : public PassInfoMixin<ExpandVariadicsPass> {
   const ExpandVariadicsMode Mode;
 
 public:
@@ -33,7 +34,7 @@ public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };
 
-ModulePass *createExpandVariadicsPass(ExpandVariadicsMode);
+LLVM_ABI ModulePass *createExpandVariadicsPass(ExpandVariadicsMode);
 
 } // end namespace llvm
 

@@ -18,6 +18,7 @@
 #include "llvm-c/Types.h"
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/Support/CBindingWrapping.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -30,7 +31,7 @@ template <typename ValueTy> class StringMapEntry;
 // independent object instead of just adding the name and the SelectionKind
 // to a GlobalObject is that it is invalid to have two Comdats with the same
 // name but different SelectionKind. This structure makes that unrepresentable.
-class Comdat {
+class LLVM_ABI Comdat {
 public:
   enum SelectionKind {
     Any,           ///< The linker may choose any COMDAT.

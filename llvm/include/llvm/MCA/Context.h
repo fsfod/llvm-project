@@ -23,6 +23,7 @@
 #include "llvm/MCA/HardwareUnits/HardwareUnit.h"
 #include "llvm/MCA/Pipeline.h"
 #include "llvm/MCA/SourceMgr.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -48,7 +49,7 @@ struct PipelineOptions {
   bool EnableBottleneckAnalysis;
 };
 
-class Context {
+class LLVM_ABI Context {
   SmallVector<std::unique_ptr<HardwareUnit>, 4> Hardware;
   const MCRegisterInfo &MRI;
   const MCSubtargetInfo &STI;

@@ -25,6 +25,7 @@
 
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/Analysis/LoopInfo.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -94,7 +95,7 @@ struct LoopBodyTraits {
 /// single loop.
 ///
 /// TODO: This could be generalized for any CFG region, or the entire CFG.
-class LoopBlocksDFS {
+class LLVM_ABI LoopBlocksDFS {
 public:
   /// Postorder list iterators.
   typedef std::vector<BasicBlock*>::const_iterator POIterator;

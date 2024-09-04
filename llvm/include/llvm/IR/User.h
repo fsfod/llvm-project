@@ -41,7 +41,7 @@ template <typename T> class MutableArrayRef;
 template <class>
 struct OperandTraits;
 
-class User : public Value {
+class LLVM_ABI User : public Value {
   friend struct HungoffOperandTraits;
 
   LLVM_ATTRIBUTE_ALWAYS_INLINE static void *

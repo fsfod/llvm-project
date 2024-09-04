@@ -40,7 +40,7 @@ class Value;
 /// all of the uses for a particular value definition. It also supports jumping
 /// directly to the used value when we arrive from the User's operands, and
 /// jumping directly to the User when we arrive from the Value's uses.
-class Use {
+class LLVM_ABI Use {
 public:
   Use(const Use &U) = delete;
 

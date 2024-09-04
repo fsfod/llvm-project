@@ -25,6 +25,7 @@
 #ifndef LLVM_WINDOWSMANIFEST_WINDOWSMANIFESTMERGER_H
 #define LLVM_WINDOWSMANIFEST_WINDOWSMANIFESTMERGER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -34,9 +35,9 @@ class MemoryBufferRef;
 
 namespace windows_manifest {
 
-bool isAvailable();
+LLVM_ABI bool isAvailable();
 
-class WindowsManifestError : public ErrorInfo<WindowsManifestError, ECError> {
+class LLVM_ABI WindowsManifestError : public ErrorInfo<WindowsManifestError, ECError> {
 public:
   static char ID;
   WindowsManifestError(const Twine &Msg);
@@ -46,7 +47,7 @@ private:
   std::string Msg;
 };
 
-class WindowsManifestMerger {
+class LLVM_ABI WindowsManifestMerger {
 public:
   WindowsManifestMerger();
   ~WindowsManifestMerger();

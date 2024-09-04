@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/APInt.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/SMLoc.h"
 #include <vector>
@@ -18,7 +19,7 @@
 namespace llvm {
 
 /// Target independent representation for an assembler token.
-class AsmToken {
+class LLVM_ABI AsmToken {
 public:
   enum TokenKind {
     // Markers
@@ -126,7 +127,7 @@ public:
   void dump(raw_ostream &OS) const;
 };
 
-struct MCAsmMacroParameter {
+struct LLVM_ABI MCAsmMacroParameter {
   StringRef Name;
   std::vector<AsmToken> Value;
   bool Required = false;
@@ -139,7 +140,7 @@ struct MCAsmMacroParameter {
 };
 
 typedef std::vector<MCAsmMacroParameter> MCAsmMacroParameters;
-struct MCAsmMacro {
+struct LLVM_ABI MCAsmMacro {
   StringRef Name;
   StringRef Body;
   MCAsmMacroParameters Parameters;

@@ -15,6 +15,7 @@
 #define LLVM_DEBUGINFO_LOGICALVIEW_CORE_LVCOMPARE_H
 
 #include "llvm/DebugInfo/LogicalView/Core/LVObject.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace logicalview {
@@ -25,7 +26,7 @@ class LVReader;
 using LVPassEntry = std::tuple<LVReader *, LVElement *, LVComparePass>;
 using LVPassTable = std::vector<LVPassEntry>;
 
-class LVCompare final {
+class LLVM_ABI LVCompare final {
   raw_ostream &OS;
   LVScopes ScopeStack;
 

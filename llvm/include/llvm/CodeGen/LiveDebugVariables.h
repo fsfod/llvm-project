@@ -29,7 +29,7 @@ template <typename T> class ArrayRef;
 class LiveIntervals;
 class VirtRegMap;
 
-class LiveDebugVariables : public MachineFunctionPass {
+class LLVM_ABI LiveDebugVariables : public MachineFunctionPass {
   void *pImpl = nullptr;
 
 public:

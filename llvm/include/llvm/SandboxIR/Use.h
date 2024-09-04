@@ -14,6 +14,7 @@
 #define LLVM_SANDBOXIR_USE_H
 
 #include "llvm/IR/Use.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm::sandboxir {
@@ -29,7 +30,7 @@ class PHINode;
 /// NOTE: Unlike llvm::Use, this is not an integral part of the use-def chains.
 /// It is also not uniqued and is currently passed by value, so you can have
 /// more than one sandboxir::Use objects for the same use-def edge.
-class Use {
+class LLVM_ABI Use {
   llvm::Use *LLVMUse;
   User *Usr;
   Context *Ctx;

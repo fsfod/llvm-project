@@ -19,6 +19,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <string>
@@ -31,7 +32,7 @@ class FunctionType;
 class PointerType;
 template <class ConstantClass> class ConstantUniqueMap;
 
-class InlineAsm final : public Value {
+class LLVM_ABI InlineAsm final : public Value {
 public:
   enum AsmDialect {
     AD_ATT,
@@ -120,7 +121,7 @@ public:
   struct ConstraintInfo;
   using ConstraintInfoVector = std::vector<ConstraintInfo>;
 
-  struct ConstraintInfo {
+  struct LLVM_ABI ConstraintInfo {
     /// Type - The basic type of the constraint: input/output/clobber/label
     ///
     ConstraintPrefix Type = isInput;

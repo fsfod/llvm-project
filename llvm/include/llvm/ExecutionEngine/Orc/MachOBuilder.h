@@ -14,6 +14,7 @@
 #define LLVM_EXECUTIONENGINE_ORC_MACHOBUILDER_H
 
 #include "llvm/BinaryFormat/MachO.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/MathExtras.h"
 
@@ -35,7 +36,7 @@ size_t writeMachOStruct(MutableArrayRef<char> Buf, size_t Offset, MachOStruct S,
 }
 
 /// Base type for MachOBuilder load command wrappers.
-struct MachOBuilderLoadCommandBase {
+struct LLVM_ABI MachOBuilderLoadCommandBase {
   virtual ~MachOBuilderLoadCommandBase() {}
   virtual size_t size() const = 0;
   virtual size_t write(MutableArrayRef<char> Buf, size_t Offset,

@@ -20,6 +20,7 @@
 #include "llvm/IR/Mangler.h"
 #include "llvm/Object/SymbolicFile.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <string>
 #include <utility>
@@ -30,7 +31,7 @@ namespace llvm {
 class GlobalValue;
 class Module;
 
-class ModuleSymbolTable {
+class LLVM_ABI ModuleSymbolTable {
 public:
   using AsmSymbol = std::pair<std::string, uint32_t>;
   using Symbol = PointerUnion<GlobalValue *, AsmSymbol *>;

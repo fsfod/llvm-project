@@ -23,6 +23,7 @@
 #include "llvm/ADT/Twine.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <set>
 #include <string>
@@ -35,7 +36,7 @@ class Use;
 class Value;
 
 /// Eliminate dead arguments (and return values) from functions.
-class DeadArgumentEliminationPass
+class LLVM_ABI DeadArgumentEliminationPass
     : public PassInfoMixin<DeadArgumentEliminationPass> {
 public:
   /// Struct that represents (part of) either a return value or a function

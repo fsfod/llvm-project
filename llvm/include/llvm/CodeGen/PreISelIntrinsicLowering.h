@@ -14,13 +14,14 @@
 #define LLVM_CODEGEN_PREISELINTRINSICLOWERING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Module;
 class TargetMachine;
 
-struct PreISelIntrinsicLoweringPass
+struct LLVM_ABI PreISelIntrinsicLoweringPass
     : PassInfoMixin<PreISelIntrinsicLoweringPass> {
   const TargetMachine *TM;
 

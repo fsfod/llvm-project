@@ -15,10 +15,11 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_CONTROLHEIGHTREDUCTION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class ControlHeightReductionPass :
+class LLVM_ABI ControlHeightReductionPass :
       public PassInfoMixin<ControlHeightReductionPass> {
 public:
   ControlHeightReductionPass();

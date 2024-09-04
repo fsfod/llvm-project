@@ -14,6 +14,7 @@
 #include "llvm/BinaryFormat/COFF.h"
 #include "llvm/Object/COFF.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include "llvm/DebugInfo/CodeView/DebugFrameDataSubsection.h"
@@ -37,7 +38,7 @@ struct MSFLayout;
 namespace pdb {
 class DbiModuleDescriptorBuilder;
 
-class DbiStreamBuilder {
+class LLVM_ABI DbiStreamBuilder {
 public:
   DbiStreamBuilder(msf::MSFBuilder &Msf);
   ~DbiStreamBuilder();

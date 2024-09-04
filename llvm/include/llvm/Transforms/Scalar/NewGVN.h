@@ -15,12 +15,13 @@
 #define LLVM_TRANSFORMS_SCALAR_NEWGVN_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-class NewGVNPass : public PassInfoMixin<NewGVNPass> {
+class LLVM_ABI NewGVNPass : public PassInfoMixin<NewGVNPass> {
 public:
   /// Run the pass over the function.
   PreservedAnalyses run(Function &F, AnalysisManager<Function> &AM);

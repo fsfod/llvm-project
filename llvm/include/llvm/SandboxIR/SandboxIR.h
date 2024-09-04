@@ -104,6 +104,7 @@
 #include "llvm/SandboxIR/Tracker.h"
 #include "llvm/SandboxIR/Type.h"
 #include "llvm/SandboxIR/Use.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include <iterator>
 
@@ -161,7 +162,7 @@ class AtomicCmpXchgInst;
 
 /// Iterator for the `Use` edges of a User's operands.
 /// \Returns the operand `Use` when dereferenced.
-class OperandUseIterator {
+class LLVM_ABI OperandUseIterator {
   sandboxir::Use Use;
   /// Don't let the user create a non-empty OperandUseIterator.
   OperandUseIterator(const class Use &Use) : Use(Use) {}
@@ -197,7 +198,7 @@ public:
 
 /// Iterator for the `Use` edges of a Value's users.
 /// \Returns a `Use` when dereferenced.
-class UserUseIterator {
+class LLVM_ABI UserUseIterator {
   sandboxir::Use Use;
   /// Don't let the user create a non-empty UserUseIterator.
   UserUseIterator(const class Use &Use) : Use(Use) {}
@@ -223,7 +224,7 @@ public:
 };
 
 /// A SandboxIR Value has users. This is the base class.
-class Value {
+class LLVM_ABI Value {
 public:
   enum class ClassID : unsigned {
 #define DEF_VALUE(ID, CLASS) ID,
@@ -440,7 +441,7 @@ public:
 };
 
 /// A sandboxir::User has operands.
-class User : public Value {
+class LLVM_ABI User : public Value {
 protected:
   User(ClassID ID, llvm::Value *V, Context &Ctx) : Value(ID, V, Ctx) {}
 
@@ -530,7 +531,7 @@ public:
 #endif
 };
 
-class Constant : public sandboxir::User {
+class LLVM_ABI Constant : public sandboxir::User {
 protected:
   Constant(llvm::Constant *C, sandboxir::Context &SBCtx)
       : sandboxir::User(ClassID::Constant, C, SBCtx) {}
@@ -567,7 +568,7 @@ public:
 };
 
 // TODO: This should inherit from ConstantData.
-class ConstantInt : public Constant {
+class LLVM_ABI ConstantInt : public Constant {
   ConstantInt(llvm::ConstantInt *C, Context &Ctx)
       : Constant(ClassID::ConstantInt, C, Ctx) {}
   friend class Context; // For constructor.
@@ -755,7 +756,7 @@ public:
 };
 
 // TODO: This should inherit from ConstantData.
-class ConstantFP final : public Constant {
+class LLVM_ABI ConstantFP final : public Constant {
   ConstantFP(llvm::ConstantFP *C, Context &Ctx)
       : Constant(ClassID::ConstantFP, C, Ctx) {}
   friend class Context; // For constructor.
@@ -857,7 +858,7 @@ public:
   }
 };
 
-class ConstantArray final : public ConstantAggregate {
+class LLVM_ABI ConstantArray final : public ConstantAggregate {
   ConstantArray(llvm::ConstantArray *C, Context &Ctx)
       : ConstantAggregate(ClassID::ConstantArray, C, Ctx) {}
   friend class Context; // For constructor.
@@ -874,7 +875,7 @@ public:
   }
 };
 
-class ConstantStruct final : public ConstantAggregate {
+class LLVM_ABI ConstantStruct final : public ConstantAggregate {
   ConstantStruct(llvm::ConstantStruct *C, Context &Ctx)
       : ConstantAggregate(ClassID::ConstantStruct, C, Ctx) {}
   friend class Context; // For constructor.
@@ -935,7 +936,7 @@ public:
 
 /// Iterator for `Instruction`s in a `BasicBlock.
 /// \Returns an sandboxir::Instruction & when derereferenced.
-class BBIterator {
+class LLVM_ABI BBIterator {
 public:
   using difference_type = std::ptrdiff_t;
   using value_type = Instruction;
@@ -977,7 +978,7 @@ public:
 };
 
 /// Contains a list of sandboxir::Instruction's.
-class BasicBlock : public Value {
+class LLVM_ABI BasicBlock : public Value {
   /// Builds a graph that contains all values in \p BB in their original form
   /// i.e., no vectorization is taking place here.
   void buildBasicBlockFromLLVMIR(llvm::BasicBlock *LLVMBB);
@@ -1024,7 +1025,7 @@ public:
 
 /// A sandboxir::User with operands, opcode and linked with previous/next
 /// instructions in an instruction list.
-class Instruction : public sandboxir::User {
+class LLVM_ABI Instruction : public sandboxir::User {
 public:
   enum class Opcode {
 #define OP(OPC) OPC,
@@ -1254,7 +1255,7 @@ public:
 #endif
 };
 
-class FenceInst : public SingleLLVMInstructionImpl<llvm::SelectInst> {
+class LLVM_ABI FenceInst : public SingleLLVMInstructionImpl<llvm::SelectInst> {
   FenceInst(llvm::FenceInst *FI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::Fence, Opcode::Fence, FI, Ctx) {}
   friend Context; // For constructor;
@@ -1281,7 +1282,7 @@ public:
   }
 };
 
-class SelectInst : public SingleLLVMInstructionImpl<llvm::SelectInst> {
+class LLVM_ABI SelectInst : public SingleLLVMInstructionImpl<llvm::SelectInst> {
   /// Use Context::createSelectInst(). Don't call the
   /// constructor directly.
   SelectInst(llvm::SelectInst *CI, Context &Ctx)
@@ -1310,7 +1311,7 @@ public:
   static bool classof(const Value *From);
 };
 
-class InsertElementInst final
+class LLVM_ABI InsertElementInst final
     : public SingleLLVMInstructionImpl<llvm::InsertElementInst> {
   /// Use Context::createInsertElementInst() instead.
   InsertElementInst(llvm::Instruction *I, Context &Ctx)
@@ -1335,7 +1336,7 @@ public:
   }
 };
 
-class ExtractElementInst final
+class LLVM_ABI ExtractElementInst final
     : public SingleLLVMInstructionImpl<llvm::ExtractElementInst> {
   /// Use Context::createExtractElementInst() instead.
   ExtractElementInst(llvm::Instruction *I, Context &Ctx)
@@ -1363,7 +1364,7 @@ public:
   VectorType *getVectorOperandType() const;
 };
 
-class ShuffleVectorInst final
+class LLVM_ABI ShuffleVectorInst final
     : public SingleLLVMInstructionImpl<llvm::ShuffleVectorInst> {
   /// Use Context::createShuffleVectorInst() instead.
   ShuffleVectorInst(llvm::Instruction *I, Context &Ctx)
@@ -1807,7 +1808,7 @@ public:
   }
 };
 
-class InsertValueInst
+class LLVM_ABI InsertValueInst
     : public SingleLLVMInstructionImpl<llvm::InsertValueInst> {
   /// Use Context::createInsertValueInst(). Don't call the constructor directly.
   InsertValueInst(llvm::InsertValueInst *IVI, Context &Ctx)
@@ -1868,7 +1869,7 @@ public:
   }
 };
 
-class BranchInst : public SingleLLVMInstructionImpl<llvm::BranchInst> {
+class LLVM_ABI BranchInst : public SingleLLVMInstructionImpl<llvm::BranchInst> {
   /// Use Context::createBranchInst(). Don't call the constructor directly.
   BranchInst(llvm::BranchInst *BI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::Br, Opcode::Br, BI, Ctx) {}
@@ -1900,13 +1901,13 @@ public:
   void swapSuccessors() { swapOperandsInternal(1, 2); }
 
 private:
-  struct LLVMBBToSBBB {
+  struct LLVM_ABI LLVMBBToSBBB {
     Context &Ctx;
     LLVMBBToSBBB(Context &Ctx) : Ctx(Ctx) {}
     BasicBlock *operator()(llvm::BasicBlock *BB) const;
   };
 
-  struct ConstLLVMBBToSBBB {
+  struct LLVM_ABI ConstLLVMBBToSBBB {
     Context &Ctx;
     ConstLLVMBBToSBBB(Context &Ctx) : Ctx(Ctx) {}
     const BasicBlock *operator()(const llvm::BasicBlock *BB) const;
@@ -1957,7 +1958,7 @@ public:
   }
 };
 
-class ExtractValueInst : public UnaryInstruction {
+class LLVM_ABI ExtractValueInst : public UnaryInstruction {
   /// Use Context::createExtractValueInst() instead.
   ExtractValueInst(llvm::ExtractValueInst *EVI, Context &Ctx)
       : UnaryInstruction(ClassID::ExtractValue, Opcode::ExtractValue, EVI,
@@ -2014,7 +2015,7 @@ public:
   }
 };
 
-class VAArgInst : public UnaryInstruction {
+class LLVM_ABI VAArgInst : public UnaryInstruction {
   VAArgInst(llvm::VAArgInst *FI, Context &Ctx)
       : UnaryInstruction(ClassID::VAArg, Opcode::VAArg, FI, Ctx) {}
   friend Context; // For constructor;
@@ -2035,7 +2036,7 @@ public:
   }
 };
 
-class FreezeInst : public UnaryInstruction {
+class LLVM_ABI FreezeInst : public UnaryInstruction {
   FreezeInst(llvm::FreezeInst *FI, Context &Ctx)
       : UnaryInstruction(ClassID::Freeze, Opcode::Freeze, FI, Ctx) {}
   friend Context; // For constructor;
@@ -2048,7 +2049,7 @@ public:
   }
 };
 
-class LoadInst final : public UnaryInstruction {
+class LLVM_ABI LoadInst final : public UnaryInstruction {
   /// Use LoadInst::create() instead of calling the constructor.
   LoadInst(llvm::LoadInst *LI, Context &Ctx)
       : UnaryInstruction(ClassID::Load, Opcode::Load, LI, Ctx) {}
@@ -2081,7 +2082,7 @@ public:
   bool isSimple() const { return cast<llvm::LoadInst>(Val)->isSimple(); }
 };
 
-class StoreInst final : public SingleLLVMInstructionImpl<llvm::StoreInst> {
+class LLVM_ABI StoreInst final : public SingleLLVMInstructionImpl<llvm::StoreInst> {
   /// Use StoreInst::create().
   StoreInst(llvm::StoreInst *SI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::Store, Opcode::Store, SI, Ctx) {}
@@ -2112,7 +2113,7 @@ public:
   bool isUnordered() const { return cast<llvm::StoreInst>(Val)->isUnordered(); }
 };
 
-class UnreachableInst final : public Instruction {
+class LLVM_ABI UnreachableInst final : public Instruction {
   /// Use UnreachableInst::create() instead of calling the constructor.
   UnreachableInst(llvm::UnreachableInst *I, Context &Ctx)
       : Instruction(ClassID::Unreachable, Opcode::Unreachable, I, Ctx) {}
@@ -2135,7 +2136,7 @@ public:
   unsigned getNumOfIRInstrs() const final { return 1u; }
 };
 
-class ReturnInst final : public SingleLLVMInstructionImpl<llvm::ReturnInst> {
+class LLVM_ABI ReturnInst final : public SingleLLVMInstructionImpl<llvm::ReturnInst> {
   /// Use ReturnInst::create() instead of calling the constructor.
   ReturnInst(llvm::Instruction *I, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::Ret, Opcode::Ret, I, Ctx) {}
@@ -2157,7 +2158,7 @@ public:
   Value *getReturnValue() const;
 };
 
-class CallBase : public SingleLLVMInstructionImpl<llvm::CallBase> {
+class LLVM_ABI CallBase : public SingleLLVMInstructionImpl<llvm::CallBase> {
   CallBase(ClassID ID, Opcode Opc, llvm::Instruction *I, Context &Ctx)
       : SingleLLVMInstructionImpl(ID, Opc, I, Ctx) {}
   friend class CallInst;   // For constructor.
@@ -2288,7 +2289,7 @@ public:
   bool isInlineAsm() const { return cast<llvm::CallBase>(Val)->isInlineAsm(); }
 };
 
-class CallInst final : public CallBase {
+class LLVM_ABI CallInst final : public CallBase {
   /// Use Context::createCallInst(). Don't call the
   /// constructor directly.
   CallInst(llvm::Instruction *I, Context &Ctx)
@@ -2313,7 +2314,7 @@ public:
   }
 };
 
-class InvokeInst final : public CallBase {
+class LLVM_ABI InvokeInst final : public CallBase {
   /// Use Context::createInvokeInst(). Don't call the
   /// constructor directly.
   InvokeInst(llvm::Instruction *I, Context &Ctx)
@@ -2357,7 +2358,7 @@ public:
   }
 };
 
-class CallBrInst final : public CallBase {
+class LLVM_ABI CallBrInst final : public CallBase {
   /// Use Context::createCallBrInst(). Don't call the
   /// constructor directly.
   CallBrInst(llvm::Instruction *I, Context &Ctx)
@@ -2401,7 +2402,7 @@ public:
   }
 };
 
-class LandingPadInst : public SingleLLVMInstructionImpl<llvm::LandingPadInst> {
+class LLVM_ABI LandingPadInst : public SingleLLVMInstructionImpl<llvm::LandingPadInst> {
   LandingPadInst(llvm::LandingPadInst *LP, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::LandingPad, Opcode::LandingPad, LP,
                                   Ctx) {}
@@ -2445,7 +2446,7 @@ public:
   }
 };
 
-class FuncletPadInst : public SingleLLVMInstructionImpl<llvm::FuncletPadInst> {
+class LLVM_ABI FuncletPadInst : public SingleLLVMInstructionImpl<llvm::FuncletPadInst> {
   FuncletPadInst(ClassID SubclassID, Opcode Opc, llvm::Instruction *I,
                  Context &Ctx)
       : SingleLLVMInstructionImpl(SubclassID, Opc, I, Ctx) {}
@@ -2475,7 +2476,7 @@ public:
   }
 };
 
-class CatchPadInst : public FuncletPadInst {
+class LLVM_ABI CatchPadInst : public FuncletPadInst {
   CatchPadInst(llvm::CatchPadInst *CPI, Context &Ctx)
       : FuncletPadInst(ClassID::CatchPad, Opcode::CatchPad, CPI, Ctx) {}
   friend class Context; // For constructor.
@@ -2493,7 +2494,7 @@ public:
   }
 };
 
-class CleanupPadInst : public FuncletPadInst {
+class LLVM_ABI CleanupPadInst : public FuncletPadInst {
   CleanupPadInst(llvm::CleanupPadInst *CPI, Context &Ctx)
       : FuncletPadInst(ClassID::CleanupPad, Opcode::CleanupPad, CPI, Ctx) {}
   friend class Context; // For constructor.
@@ -2507,7 +2508,7 @@ public:
   }
 };
 
-class CatchReturnInst
+class LLVM_ABI CatchReturnInst
     : public SingleLLVMInstructionImpl<llvm::CatchReturnInst> {
   CatchReturnInst(llvm::CatchReturnInst *CRI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::CatchRet, Opcode::CatchRet, CRI,
@@ -2531,7 +2532,7 @@ public:
   }
 };
 
-class CleanupReturnInst
+class LLVM_ABI CleanupReturnInst
     : public SingleLLVMInstructionImpl<llvm::CleanupReturnInst> {
   CleanupReturnInst(llvm::CleanupReturnInst *CRI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::CleanupRet, Opcode::CleanupRet, CRI,
@@ -2561,7 +2562,7 @@ public:
   }
 };
 
-class GetElementPtrInst final
+class LLVM_ABI GetElementPtrInst final
     : public SingleLLVMInstructionImpl<llvm::GetElementPtrInst> {
   /// Use Context::createGetElementPtrInst(). Don't call
   /// the constructor directly.
@@ -2645,7 +2646,7 @@ public:
   // TODO: Add missing member functions.
 };
 
-class CatchSwitchInst
+class LLVM_ABI CatchSwitchInst
     : public SingleLLVMInstructionImpl<llvm::CatchSwitchInst> {
 public:
   CatchSwitchInst(llvm::CatchSwitchInst *CSI, Context &Ctx)
@@ -2736,7 +2737,7 @@ public:
   }
 };
 
-class ResumeInst : public SingleLLVMInstructionImpl<llvm::ResumeInst> {
+class LLVM_ABI ResumeInst : public SingleLLVMInstructionImpl<llvm::ResumeInst> {
 public:
   ResumeInst(llvm::ResumeInst *CSI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::Resume, Opcode::Resume, CSI, Ctx) {}
@@ -2752,7 +2753,7 @@ public:
   }
 };
 
-class SwitchInst : public SingleLLVMInstructionImpl<llvm::SwitchInst> {
+class LLVM_ABI SwitchInst : public SingleLLVMInstructionImpl<llvm::SwitchInst> {
 public:
   SwitchInst(llvm::SwitchInst *SI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::Switch, Opcode::Switch, SI, Ctx) {}
@@ -2837,7 +2838,7 @@ public:
   }
 };
 
-class UnaryOperator : public UnaryInstruction {
+class LLVM_ABI UnaryOperator : public UnaryInstruction {
   static Opcode getUnaryOpcode(llvm::Instruction::UnaryOps UnOp) {
     switch (UnOp) {
     case llvm::Instruction::FNeg:
@@ -2878,7 +2879,7 @@ public:
   }
 };
 
-class BinaryOperator : public SingleLLVMInstructionImpl<llvm::BinaryOperator> {
+class LLVM_ABI BinaryOperator : public SingleLLVMInstructionImpl<llvm::BinaryOperator> {
 protected:
   static Opcode getBinOpOpcode(llvm::Instruction::BinaryOps BinOp) {
     switch (BinOp) {
@@ -2962,7 +2963,7 @@ public:
 /// An or instruction, which can be marked as "disjoint", indicating that the
 /// inputs don't have a 1 in the same bit position. Meaning this instruction
 /// can also be treated as an add.
-class PossiblyDisjointInst : public BinaryOperator {
+class LLVM_ABI PossiblyDisjointInst : public BinaryOperator {
 public:
   void setIsDisjoint(bool B);
   bool isDisjoint() const {
@@ -2975,7 +2976,7 @@ public:
   }
 };
 
-class AtomicRMWInst : public SingleLLVMInstructionImpl<llvm::AtomicRMWInst> {
+class LLVM_ABI AtomicRMWInst : public SingleLLVMInstructionImpl<llvm::AtomicRMWInst> {
   AtomicRMWInst(llvm::AtomicRMWInst *Atomic, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::AtomicRMW,
                                   Instruction::Opcode::AtomicRMW, Atomic, Ctx) {
@@ -3046,7 +3047,7 @@ public:
                                const Twine &Name = "");
 };
 
-class AtomicCmpXchgInst
+class LLVM_ABI AtomicCmpXchgInst
     : public SingleLLVMInstructionImpl<llvm::AtomicCmpXchgInst> {
   AtomicCmpXchgInst(llvm::AtomicCmpXchgInst *Atomic, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::AtomicCmpXchg,
@@ -3135,7 +3136,7 @@ public:
   }
 };
 
-class AllocaInst final : public UnaryInstruction {
+class LLVM_ABI AllocaInst final : public UnaryInstruction {
   AllocaInst(llvm::AllocaInst *AI, Context &Ctx)
       : UnaryInstruction(ClassID::Alloca, Instruction::Opcode::Alloca, AI,
                          Ctx) {}
@@ -3209,7 +3210,7 @@ public:
   }
 };
 
-class CastInst : public UnaryInstruction {
+class LLVM_ABI CastInst : public UnaryInstruction {
   static Opcode getCastOpcode(llvm::Instruction::CastOps CastOp) {
     switch (CastOp) {
     case llvm::Instruction::ZExt:
@@ -3267,7 +3268,7 @@ public:
 };
 
 /// Instruction that can have a nneg flag (zext/uitofp).
-class PossiblyNonNegInst : public CastInst {
+class LLVM_ABI PossiblyNonNegInst : public CastInst {
 public:
   bool hasNonNeg() const {
     return cast<llvm::PossiblyNonNegInst>(Val)->hasNonNeg();
@@ -3348,13 +3349,13 @@ public:
   }
 };
 
-class PHINode final : public SingleLLVMInstructionImpl<llvm::PHINode> {
+class LLVM_ABI PHINode final : public SingleLLVMInstructionImpl<llvm::PHINode> {
   /// Use Context::createPHINode(). Don't call the constructor directly.
   PHINode(llvm::PHINode *PHI, Context &Ctx)
       : SingleLLVMInstructionImpl(ClassID::PHI, Opcode::PHI, PHI, Ctx) {}
   friend Context; // for PHINode()
   /// Helper for mapped_iterator.
-  struct LLVMBBToBB {
+  struct LLVM_ABI LLVMBBToBB {
     Context &Ctx;
     LLVMBBToBB(Context &Ctx) : Ctx(Ctx) {}
     BasicBlock *operator()(llvm::BasicBlock *LLVMBB) const;
@@ -3440,7 +3441,7 @@ public:
   }
 };
 
-class Context {
+class LLVM_ABI Context {
 protected:
   LLVMContext &LLVMCtx;
   friend class Type;        // For LLVMCtx.

@@ -11,6 +11,7 @@
 
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/DebugInfo/DWARF/DWARFAbbreviationDeclaration.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
@@ -19,7 +20,7 @@ class DWARFUnit;
 class DWARFDataExtractor;
 
 /// DWARFDebugInfoEntry - A DIE with only the minimum required data.
-class DWARFDebugInfoEntry {
+class LLVM_ABI DWARFDebugInfoEntry {
   /// Offset within the .debug_info of the start of this entry.
   uint64_t Offset = 0;
 

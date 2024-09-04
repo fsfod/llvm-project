@@ -16,6 +16,7 @@
 
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/MCA/Instruction.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace mca {
@@ -26,7 +27,7 @@ typedef std::pair<unsigned, const Instruction &> SourceRef;
 
 /// Abstracting the input code sequence (a sequence of MCInst) and assigning
 /// unique identifiers to every instruction in the sequence.
-struct SourceMgr {
+struct LLVM_ABI SourceMgr {
   using UniqueInst = std::unique_ptr<Instruction>;
 
   /// Provides a fixed range of \a UniqueInst to iterate.

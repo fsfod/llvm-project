@@ -25,6 +25,7 @@
 
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Function;
@@ -39,7 +40,7 @@ struct MergedLoadStoreMotionOptions {
   }
 };
 
-class MergedLoadStoreMotionPass
+class LLVM_ABI MergedLoadStoreMotionPass
     : public PassInfoMixin<MergedLoadStoreMotionPass> {
   MergedLoadStoreMotionOptions Options;
 
