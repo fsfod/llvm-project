@@ -22,6 +22,7 @@
 #include "VPlanPatternMatch.h"
 #include "VPlanTransforms.h"
 #include "VPlanUtils.h"
+#include "VPlanDominatorTree.h "
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/SmallVector.h"
@@ -43,6 +44,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/LoopVersioning.h"
+#include "llvm/Support/GenericDomTreeConstruction.h"
 #include <cassert>
 #include <string>
 
@@ -51,6 +53,10 @@ using namespace llvm::VPlanPatternMatch;
 
 namespace llvm {
 extern cl::opt<bool> EnableVPlanNativePath;
+
+ template void LLVM_EXPORT_TEMPLATE
+DomTreeBuilder::Calculate<DomTreeBase<VPBlockBase>>(
+  DomTreeBase<VPBlockBase> &DT);
 }
 extern cl::opt<unsigned> ForceTargetInstructionCost;
 
