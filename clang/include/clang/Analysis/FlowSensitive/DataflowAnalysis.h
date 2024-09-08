@@ -398,7 +398,12 @@ public:
   virtual bool transfer(const CFGElement &Element, Environment &Env) = 0;
 };
 
+class NoopLattice;
 } // namespace dataflow
 } // namespace clang
+
+namespace llvm {
+extern template struct CLANG_TEMPLATE_ABI Any::TypeId<clang::dataflow::NoopLattice>;
+};
 
 #endif // LLVM_CLANG_ANALYSIS_FLOWSENSITIVE_DATAFLOWANALYSIS_H

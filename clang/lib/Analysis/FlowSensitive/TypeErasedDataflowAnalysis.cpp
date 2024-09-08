@@ -39,6 +39,16 @@
 
 namespace clang {
 namespace dataflow {
+class NoopLattice;
+}
+}
+
+namespace llvm {
+  template struct CLANG_EXPORT_TEMPLATE Any::TypeId<clang::dataflow::NoopLattice>;
+}
+
+namespace clang {
+namespace dataflow {
 
 /// Returns the index of `Block` in the successors of `Pred`.
 static int blockIndexInPredecessor(const CFGBlock &Pred,
