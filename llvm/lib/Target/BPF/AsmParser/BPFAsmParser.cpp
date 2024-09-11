@@ -532,7 +532,7 @@ bool BPFAsmParser::ParseInstruction(ParseInstructionInfo &Info, StringRef Name,
   return false;
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBPFAsmParser() {
+extern "C" LLVM_C_ABI void LLVMInitializeBPFAsmParser() {
   RegisterMCAsmParser<BPFAsmParser> X(getTheBPFTarget());
   RegisterMCAsmParser<BPFAsmParser> Y(getTheBPFleTarget());
   RegisterMCAsmParser<BPFAsmParser> Z(getTheBPFbeTarget());

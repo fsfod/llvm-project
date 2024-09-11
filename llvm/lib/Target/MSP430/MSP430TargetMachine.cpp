@@ -22,7 +22,7 @@
 #include <optional>
 using namespace llvm;
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeMSP430Target() {
+extern "C" LLVM_C_ABI void LLVMInitializeMSP430Target() {
   // Register the target.
   RegisterTargetMachine<MSP430TargetMachine> X(getTheMSP430Target());
   PassRegistry &PR = *PassRegistry::getPassRegistry();

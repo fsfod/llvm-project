@@ -36,7 +36,7 @@ static cl::opt<bool> EnableMachineCombinerPass(
     cl::init(true), cl::Hidden);
 
 // NOLINTNEXTLINE(readability-identifier-naming)
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSystemZTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeSystemZTarget() {
   // Register the target.
   RegisterTargetMachine<SystemZTargetMachine> X(getTheSystemZTarget());
   auto &PR = *PassRegistry::getPassRegistry();
