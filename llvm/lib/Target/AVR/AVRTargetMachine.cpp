@@ -88,7 +88,7 @@ void AVRPassConfig::addIRPasses() {
   TargetPassConfig::addIRPasses();
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAVRTarget() {
+extern "C" LLVM_C_ABI void LLVMInitializeAVRTarget() {
   // Register the target.
   RegisterTargetMachine<AVRTargetMachine> X(getTheAVRTarget());
 
