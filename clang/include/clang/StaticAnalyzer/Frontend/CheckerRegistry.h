@@ -20,6 +20,7 @@
 
 #include "clang/Basic/LLVM.h"
 #include "clang/StaticAnalyzer/Core/CheckerRegistryData.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 
 // FIXME: move this information to an HTML file in docs/.
@@ -195,5 +196,14 @@ private:
 
 } // namespace ento
 } // namespace clang
+
+extern "C" {
+CLANG_ABI_EXPORT void
+clang_registerCheckers(clang::ento::CheckerRegistry &registry);
+}
+
+#define EXPORT_ANALYZER_API_VERSION()                                          \
+  extern "C" const char CLANG_ABI_EXPORT clang_analyzerAPIVersionString[] =    \
+      CLANG_ANALYZER_API_VERSION_STRING
 
 #endif // LLVM_CLANG_STATICANALYZER_FRONTEND_CHECKERREGISTRY_H
