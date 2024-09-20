@@ -140,7 +140,7 @@ namespace llvm {
 /// strictly speaking that's not allowed by the C++ standard (we would need to
 /// have explicit specialization declarations in all translation units where the
 /// specialization is used) so we don't.
-#define LLVM_INSTANTIATE_REGISTRY(REGISTRY_CLASS)                              \
+#define LLVM_INSTANTIATE_REGISTRY(REGISTRY_CLASS, SYMBOL_VISIBILITY)           \
   namespace llvm {                                                             \
   template <typename T>                                                        \
   typename Registry<T>::node *Registry<T>::Head = nullptr;                     \
@@ -159,9 +159,9 @@ namespace llvm {
   }                                                                            \
   template REGISTRY_CLASS::node *Registry<REGISTRY_CLASS::type>::Head;         \
   template REGISTRY_CLASS::node *Registry<REGISTRY_CLASS::type>::Tail;         \
-  template LLVM_ABI_EXPORT void                                                \
+  template SYMBOL_VISIBILITY void                                              \
   Registry<REGISTRY_CLASS::type>::add_node(REGISTRY_CLASS::node *);            \
-  template LLVM_ABI_EXPORT REGISTRY_CLASS::iterator                            \
+  template SYMBOL_VISIBILITY REGISTRY_CLASS::iterator                          \
   Registry<REGISTRY_CLASS::type>::begin();                                     \
   }
 
