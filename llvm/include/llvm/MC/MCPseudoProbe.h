@@ -289,7 +289,7 @@ struct InlineSiteHash {
     return std::get<0>(Site) ^ std::get<1>(Site);
   }
 };
-class LLVM_ABI MCPseudoProbeInlineTree
+class MCPseudoProbeInlineTree
     : public MCPseudoProbeInlineTreeBase<
           std::vector<MCPseudoProbe>, MCPseudoProbeInlineTree,
           std::unordered_map<InlineSite,
@@ -339,7 +339,7 @@ public:
 
 /// Instances of this class represent the pseudo probes inserted into a compile
 /// unit.
-class LLVM_ABI MCPseudoProbeSections {
+class MCPseudoProbeSections {
 public:
   void addPseudoProbe(MCSymbol *FuncSym, const MCPseudoProbe &Probe,
                       const MCPseudoProbeInlineStack &InlineStack) {
@@ -364,7 +364,7 @@ public:
   LLVM_ABI void emit(MCObjectStreamer *MCOS);
 };
 
-class LLVM_ABI MCPseudoProbeTable {
+class MCPseudoProbeTable {
   // A collection of MCPseudoProbe in the current module grouped by
   // functions. MCPseudoProbes will be encoded into a corresponding
   // .pseudoprobe section. With functions emitted as separate comdats,
