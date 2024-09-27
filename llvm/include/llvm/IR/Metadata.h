@@ -22,6 +22,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/ilist_node.h"
+#include "llvm/ADT/ilist_iterator.h"
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/IR/Constant.h"
 #include "llvm/IR/LLVMContext.h"
