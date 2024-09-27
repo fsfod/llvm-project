@@ -411,7 +411,11 @@ public:
 #endif // NDEBUG
 
   explicit Tracker(Context &Ctx) : Ctx(Ctx) {}
+  Tracker(const Tracker &) = delete;
+  Tracker(Tracker &&) = default;
   ~Tracker();
+  Tracker &operator =(const Tracker &) = delete;
+
   Context &getContext() const { return Ctx; }
   /// Record \p Change and take ownership. This is the main function used to
   /// track Sandbox IR changes.
