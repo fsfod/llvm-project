@@ -143,6 +143,8 @@ public:
               std::unique_ptr<MCObjectWriter> Writer);
   MCAssembler(const MCAssembler &) = delete;
   MCAssembler &operator=(const MCAssembler &) = delete;
+  // Prevent dllexport using incomplete types
+  ~MCAssembler();
 
   /// Compute the effective fragment size.
   uint64_t computeFragmentSize(const MCFragment &F) const;
