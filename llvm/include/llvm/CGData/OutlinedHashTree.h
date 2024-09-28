@@ -50,6 +50,11 @@ class LLVM_ABI OutlinedHashTree {
   using HashSequencePair = std::pair<HashSequence, unsigned>;
 
 public:
+  OutlinedHashTree() = default;
+  OutlinedHashTree(const OutlinedHashTree &) = delete;
+  OutlinedHashTree(OutlinedHashTree &&) = default;
+  OutlinedHashTree &operator=(const OutlinedHashTree &) = delete;
+
   /// Walks every edge and node in the OutlinedHashTree and calls CallbackEdge
   /// for the edges and CallbackNode for the nodes with the stable_hash for
   /// the source and the stable_hash of the sink for an edge. These generic
