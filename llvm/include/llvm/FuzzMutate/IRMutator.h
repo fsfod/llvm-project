@@ -70,6 +70,9 @@ public:
             std::vector<std::unique_ptr<IRMutationStrategy>> &&Strategies)
       : AllowedTypes(std::move(AllowedTypes)),
         Strategies(std::move(Strategies)) {}
+  IRMutator(const IRMutator &) = delete;
+  IRMutator(IRMutator &&) = default;
+  IRMutator &operator =(const IRMutator &) = delete;
 
   /// Calculate the size of module as the number of objects in it, i.e.
   /// instructions, basic blocks, functions, and aliases.
