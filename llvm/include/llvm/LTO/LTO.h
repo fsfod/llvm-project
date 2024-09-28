@@ -308,8 +308,8 @@ public:
 private:
   Config Conf;
 
-  struct LLVM_ABI RegularLTOState {
-    RegularLTOState(unsigned ParallelCodeGenParallelismLevel,
+  struct RegularLTOState {
+    LLVM_ABI RegularLTOState(unsigned ParallelCodeGenParallelismLevel,
                     const Config &Conf);
     struct CommonResolution {
       uint64_t Size = 0;
