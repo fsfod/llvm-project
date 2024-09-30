@@ -27,6 +27,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/ADT/iterator_range.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/StringSaver.h"
 #include "llvm/Support/raw_ostream.h"
@@ -1510,11 +1511,17 @@ public:
       [](const typename ParserClass::parser_data_type &) {};
 };
 
-extern template class opt<unsigned>;
-extern template class opt<int>;
-extern template class opt<std::string>;
-extern template class opt<char>;
-extern template class opt<bool>;
+extern template class LLVM_TEMPLATE_ABI opt<unsigned>;
+extern template class LLVM_TEMPLATE_ABI opt<int>;
+extern template class LLVM_TEMPLATE_ABI opt<char>;
+extern template class LLVM_TEMPLATE_ABI opt<bool>;
+
+// The exported explicit instantiation for this causes  
+// std::string to be implicitly dllexported\imported because the storage type
+// derives directly from the template parameter
+#if !defined(_MSC_VER) || defined(__clang__) || !defined(LLVM_BUILD_LLVM_DYLIB)
+extern template class LLVM_TEMPLATE_ABI opt<std::string>;
+#endif
 
 //===----------------------------------------------------------------------===//
 // Default storage class definition: external storage.  This implementation
