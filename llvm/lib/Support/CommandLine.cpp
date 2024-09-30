@@ -2646,6 +2646,26 @@ struct CommandLineCommonOptions {
 };
 } // End anonymous namespace
 
+// FIXME: Workaround MSVC not creating exported vtable symbols for these
+#if defined(_MSC_VER) && !defined(__clang__)
+void dummyFunc() {
+  cl::opt<std::string> Dummy1{
+  "dummy1",
+  cl::init("") };
+
+  cl::opt<char> Dummy2{
+  "dummy2",
+  cl::init(0) };
+
+  cl::opt<int> Dummy3{
+  "dummy3",
+  cl::init(0) };
+  cl::opt<unsigned int> Dummy4{
+  "dummy4",
+  cl::init(0) };
+}
+#endif
+
 // Lazy-initialized global instance of options controlling the command-line
 // parser and general handling.
 static ManagedStatic<CommandLineCommonOptions> CommonOptions;
