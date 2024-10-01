@@ -587,12 +587,12 @@ namespace PBQP {
         Solver->handleRemoveNode(NId);
       NodeEntry &N = getNode(NId);
       // TODO: Can this be for-each'd?
-      for (AdjEdgeItr AEItr = N.adjEdgesBegin(),
-             AEEnd = N.adjEdgesEnd();
+      for (AdjEdgeItr AEItr = N.getAdjEdgeIds().begin(),
+             AEEnd = N.getAdjEdgeIds().end();
            AEItr != AEEnd;) {
         EdgeId EId = *AEItr;
         ++AEItr;
-        removeEdge(EId);
+        removeEdge(EId, NId);
       }
       FreeNodeIds.push_back(NId);
     }
@@ -643,20 +643,19 @@ namespace PBQP {
     /// adjacency set of the nodes that the edge connects.
     void reconnectEdge(EdgeId EId, NodeId NId) {
       EdgeEntry &E = getEdge(EId);
-      E.connectTo(*this, EId, NId);
+      E.connectToN(*this, EId, NId);
       if (Solver)
         Solver->handleReconnectEdge(EId, NId);
     }
 
     /// Remove an edge from the graph.
     /// @param EId Edge id.
-    void removeEdge(EdgeId EId) {
+    void removeEdge(EdgeId EId, NodeId NId) {
       if (Solver)
-        Solver->handleRemoveEdge(EId);
+        Solver->handleDisconnectEdge(EId, NId);
       EdgeEntry &E = getEdge(EId);
-      E.disconnect();
+      E.disconnectFrom(*this, NId);
       FreeEdgeIds.push_back(EId);
-      Edges[EId].invalidate();
     }
 
     /// Remove all nodes and edges from the graph.
