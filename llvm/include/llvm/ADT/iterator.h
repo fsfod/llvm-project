@@ -116,13 +116,11 @@ protected:
   class PointerProxy {
     friend iterator_facade_base;
 
-    ReferenceT R;
-
-    template <typename RefT>
-    PointerProxy(RefT &&R) : R(std::forward<RefT>(R)) {}
+    const T& R;
 
   public:
-    PointerT operator->() const { return &R; }
+    explicit PointerProxy(const T& R) : R(R) {}
+    const PointerT operator->() const { return const_cast<PointerT>(&R); }
   };
 
 public:
@@ -204,11 +202,11 @@ public:
   }
 
   template <int = 0> PointerProxy operator->() const {
-    return static_cast<const DerivedT *>(this)->operator*();
+    return PointerProxy(static_cast<const DerivedT *>(this)->operator*());
   }
-  ReferenceProxy operator[](DifferenceTypeT n) const {
-    static_assert(IsRandomAccess,
-                  "Subscripting is only defined for random access iterators.");
+
+  template<typename U = ReferenceProxy>
+  typename std::enable_if<IsRandomAccess, U>::type  operator[](DifferenceTypeT n) const {
     return static_cast<const DerivedT *>(this)->operator+(n);
   }
 };
