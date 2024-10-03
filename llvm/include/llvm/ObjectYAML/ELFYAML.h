@@ -720,7 +720,12 @@ struct ProgramHeader {
   std::vector<Chunk *> Chunks;
 };
 
-struct Object {
+struct LLVM_ABI Object {
+  Object() = default;
+  Object(const Object &) = delete;
+  Object(Object &&) = default;
+  Object &operator =(const Object &) = delete;
+
   FileHeader Header;
   std::vector<ProgramHeader> ProgramHeaders;
 
