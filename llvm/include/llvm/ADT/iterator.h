@@ -211,6 +211,50 @@ public:
   }
 };
 
+template <typename DerivedT, typename IteratorCategoryT, typename T,
+  typename DifferenceTypeT = std::ptrdiff_t, typename PointerT = T *,
+  typename ReferenceT = T &>
+class forward_iterator_facade_base {
+public:
+  using iterator_category = IteratorCategoryT;
+  using value_type = T;
+  using difference_type = DifferenceTypeT;
+  using pointer = PointerT;
+  using reference = ReferenceT;
+
+protected:
+  /// A proxy object for computing a pointer via indirecting a copy of a
+/// reference. This is used in APIs which need to produce a pointer but for
+/// which the reference might be a temporary. The proxy preserves the
+/// reference internally and exposes the pointer via a arrow operator.
+  class PointerProxy {
+    friend forward_iterator_facade_base;
+
+    const T& R;
+
+  public:
+    explicit PointerProxy(const T& R) : R(R) {}
+    const PointerT operator->() const { return const_cast<PointerT>(&R); }
+  };
+
+public:
+#ifndef __cpp_impl_three_way_comparison
+  bool operator!=(const DerivedT &RHS) const {
+    return !(static_cast<const DerivedT &>(*this) == RHS);
+  }
+#endif
+
+  DerivedT operator++(int) {
+    DerivedT tmp = *static_cast<DerivedT *>(this);
+    ++*static_cast<DerivedT *>(this);
+    return tmp;
+  }
+
+  PointerProxy operator->() const {
+    return PointerProxy(static_cast<const DerivedT *>(this)->operator*());
+  }
+};
+
 /// CRTP base class for adapting an iterator to a different type.
 ///
 /// This class can be used through CRTP to adapt one iterator into another.
