@@ -59,8 +59,7 @@
         "PassRegistry.h"
       ],
       "ignoredFiles": [
-        "OProfileWrapper.h",
-        "JITEventListener.h"
+        "OProfileWrapper.h"
       ]
     },
     {
