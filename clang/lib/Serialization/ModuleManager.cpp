@@ -330,6 +330,8 @@ ModuleManager::ModuleManager(FileManager &FileMgr,
     : FileMgr(FileMgr), ModuleCache(&ModuleCache),
       PCHContainerRdr(PCHContainerRdr), HeaderSearchInfo(HeaderSearchInfo) {}
 
+ModuleManager::~ModuleManager() = default;
+
 void ModuleManager::visit(llvm::function_ref<bool(ModuleFile &M)> Visitor,
                           llvm::SmallPtrSetImpl<ModuleFile *> *ModuleFilesHit) {
   // If the visitation order vector is the wrong size, recompute the order.
