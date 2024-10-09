@@ -17,12 +17,13 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPDISTRIBUTE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-class LoopDistributePass : public PassInfoMixin<LoopDistributePass> {
+class LLVM_ABI LoopDistributePass : public PassInfoMixin<LoopDistributePass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

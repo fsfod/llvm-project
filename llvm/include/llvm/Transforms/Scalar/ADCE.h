@@ -17,6 +17,7 @@
 #define LLVM_TRANSFORMS_SCALAR_ADCE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -28,7 +29,7 @@ class Function;
 /// instructions are dead until proven otherwise. This allows it to eliminate
 /// dead computations that other DCE passes do not catch, particularly involving
 /// loop computations.
-struct ADCEPass : PassInfoMixin<ADCEPass> {
+struct LLVM_ABI ADCEPass : PassInfoMixin<ADCEPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &);
 };
 

@@ -21,12 +21,13 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/MC/MCRegister.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <memory>
 
 namespace llvm {
 
-class RegisterClassInfo {
+class LLVM_ABI RegisterClassInfo {
   struct RCInfo {
     unsigned Tag = 0;
     unsigned NumRegs = 0;

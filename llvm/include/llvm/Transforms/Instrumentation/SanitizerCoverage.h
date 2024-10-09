@@ -16,6 +16,7 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_SANITIZERCOVERAGE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SpecialCaseList.h"
 #include "llvm/Support/VirtualFileSystem.h"
 #include "llvm/Transforms/Utils/Instrumentation.h"
@@ -27,7 +28,7 @@ class Module;
 /// pass instruments functions for coverage, adds initialization calls to the
 /// module for trace PC guards and 8bit counters if they are requested, and
 /// appends globals to llvm.compiler.used.
-class SanitizerCoveragePass : public PassInfoMixin<SanitizerCoveragePass> {
+class LLVM_ABI SanitizerCoveragePass : public PassInfoMixin<SanitizerCoveragePass> {
 public:
   explicit SanitizerCoveragePass(
       SanitizerCoverageOptions Options = SanitizerCoverageOptions(),

@@ -23,6 +23,7 @@
 #include "llvm/MC/MCSymbolWasm.h"
 #include "llvm/Object/Binary.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include <cstddef>
@@ -32,7 +33,7 @@
 namespace llvm {
 namespace object {
 
-class WasmSymbol {
+class LLVM_ABI WasmSymbol {
 public:
   WasmSymbol(const wasm::WasmSymbolInfo &Info,
              const wasm::WasmGlobalType *GlobalType,
@@ -123,7 +124,7 @@ struct WasmSegment {
   wasm::WasmDataSegment Data;
 };
 
-class WasmObjectFile : public ObjectFile {
+class LLVM_ABI WasmObjectFile : public ObjectFile {
 
 public:
   WasmObjectFile(MemoryBufferRef Object, Error &Err);
@@ -310,7 +311,7 @@ private:
   uint32_t TableSection = 0;
 };
 
-class WasmSectionOrderChecker {
+class LLVM_ABI WasmSectionOrderChecker {
 public:
   // We define orders for all core wasm sections and known custom sections.
   enum : int {

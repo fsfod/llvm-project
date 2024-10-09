@@ -16,13 +16,14 @@
 
 #include "llvm/ADT/SetVector.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
 
 /// Class to handle necessary GlobalValue changes required by ThinLTO
 /// function importing, including linkage changes and any necessary renaming.
-class FunctionImportGlobalProcessing {
+class LLVM_ABI FunctionImportGlobalProcessing {
   /// The Module which we are exporting or importing functions from.
   Module &M;
 
@@ -125,7 +126,7 @@ public:
 
 /// Perform in-place global value handling on the given Module for
 /// exported local functions renamed and promoted for ThinLTO.
-bool renameModuleForThinLTO(
+LLVM_ABI bool renameModuleForThinLTO(
     Module &M, const ModuleSummaryIndex &Index,
     bool ClearDSOLocalOnDeclarations,
     SetVector<GlobalValue *> *GlobalsToImport = nullptr);

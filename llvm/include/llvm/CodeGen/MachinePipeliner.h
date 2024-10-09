@@ -51,6 +51,7 @@
 #include "llvm/CodeGen/TargetInstrInfo.h"
 #include "llvm/CodeGen/WindowScheduler.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 
 #include <deque>
 
@@ -60,12 +61,12 @@ class AAResults;
 class NodeSet;
 class SMSchedule;
 
-extern cl::opt<bool> SwpEnableCopyToPhi;
-extern cl::opt<int> SwpForceIssueWidth;
+LLVM_ABI extern cl::opt<bool> SwpEnableCopyToPhi;
+LLVM_ABI extern cl::opt<int> SwpForceIssueWidth;
 
 /// The main class in the implementation of the target independent
 /// software pipeliner pass.
-class MachinePipeliner : public MachineFunctionPass {
+class LLVM_ABI MachinePipeliner : public MachineFunctionPass {
 public:
   MachineFunction *MF = nullptr;
   MachineOptimizationRemarkEmitter *ORE = nullptr;
@@ -116,7 +117,7 @@ private:
 
 /// This class builds the dependence graph for the instructions in a loop,
 /// and attempts to schedule the instructions using the SMS algorithm.
-class SwingSchedulerDAG : public ScheduleDAGInstrs {
+class LLVM_ABI SwingSchedulerDAG : public ScheduleDAGInstrs {
   MachinePipeliner &Pass;
   /// The minimum initiation interval between iterations for this schedule.
   unsigned MII = 0;
@@ -165,7 +166,7 @@ class SwingSchedulerDAG : public ScheduleDAGInstrs {
   std::vector<std::unique_ptr<ScheduleDAGMutation>> Mutations;
 
   /// Helper class to implement Johnson's circuit finding algorithm.
-  class Circuits {
+  class LLVM_ABI Circuits {
     std::vector<SUnit> &SUnits;
     SetVector<SUnit *> Stack;
     BitVector Blocked;
@@ -202,7 +203,7 @@ class SwingSchedulerDAG : public ScheduleDAGInstrs {
     void unblock(int U);
   };
 
-  struct CopyToPhiMutation : public ScheduleDAGMutation {
+  struct LLVM_ABI CopyToPhiMutation : public ScheduleDAGMutation {
     void apply(ScheduleDAGInstrs *DAG) override;
   };
 
@@ -327,7 +328,7 @@ private:
 
 /// A NodeSet contains a set of SUnit DAG nodes with additional information
 /// that assigns a priority to the set.
-class NodeSet {
+class LLVM_ABI NodeSet {
   SetVector<SUnit *> Nodes;
   bool HasRecurrence = false;
   unsigned RecMII = 0;
@@ -482,7 +483,7 @@ public:
 // existing Subtargets, so that SmallVector don't need to resize too often.
 static const int DefaultProcResSize = 16;
 
-class ResourceManager {
+class LLVM_ABI ResourceManager {
 private:
   const MCSubtargetInfo *STI;
   const MCSchedModel &SM;
@@ -570,7 +571,7 @@ public:
 ///
 /// The SMS algorithm allows negative values for cycles, so the first cycle
 /// in the schedule is the smallest cycle value.
-class SMSchedule {
+class LLVM_ABI SMSchedule {
 private:
   /// Map from execution cycle to instructions.
   DenseMap<int, std::deque<SUnit *>> ScheduledInstrs;

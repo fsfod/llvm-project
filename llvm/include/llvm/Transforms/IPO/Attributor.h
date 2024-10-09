@@ -129,6 +129,7 @@
 #include "llvm/Support/Alignment.h"
 #include "llvm/Support/Allocator.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DOTGraphTraits.h"
 #include "llvm/Support/DebugCounter.h"
 #include "llvm/Support/ErrorHandling.h"
@@ -172,7 +173,7 @@ enum class GPUAddressSpace : unsigned {
 };
 
 /// Return true iff \p M target a GPU (and we can use GPU AS reasoning).
-bool isGPU(const Module &M);
+LLVM_ABI bool isGPU(const Module &M);
 
 /// Flags to distinguish intra-procedural queries from *potentially*
 /// inter-procedural queries. Not that information can be valid for both and
@@ -195,7 +196,7 @@ struct ValueAndContext : public std::pair<Value *, const Instruction *> {
 
 /// Return true if \p I is a `nosync` instruction. Use generic reasoning and
 /// potentially the corresponding AANoSync.
-bool isNoSyncInst(Attributor &A, const Instruction &I,
+LLVM_ABI bool isNoSyncInst(Attributor &A, const Instruction &I,
                   const AbstractAttribute &QueryingAA);
 
 /// Return true if \p V is dynamically unique, that is, there are no two
@@ -203,22 +204,22 @@ bool isNoSyncInst(Attributor &A, const Instruction &I,
 /// Note: If \p ForAnalysisOnly is set we only check that the Attributor will
 /// never use \p V to represent two "instances" not that \p V could not
 /// technically represent them.
-bool isDynamicallyUnique(Attributor &A, const AbstractAttribute &QueryingAA,
+LLVM_ABI bool isDynamicallyUnique(Attributor &A, const AbstractAttribute &QueryingAA,
                          const Value &V, bool ForAnalysisOnly = true);
 
 /// Return true if \p V is a valid value in \p Scope, that is a constant or an
 /// instruction/argument of \p Scope.
-bool isValidInScope(const Value &V, const Function *Scope);
+LLVM_ABI bool isValidInScope(const Value &V, const Function *Scope);
 
 /// Return true if the value of \p VAC is a valid at the position of \p VAC,
 /// that is a constant, an argument of the same function, or an instruction in
 /// that function that dominates the position.
-bool isValidAtPosition(const ValueAndContext &VAC, InformationCache &InfoCache);
+LLVM_ABI bool isValidAtPosition(const ValueAndContext &VAC, InformationCache &InfoCache);
 
 /// Try to convert \p V to type \p Ty without introducing new instructions. If
 /// this is not possible return `nullptr`. Note: this function basically knows
 /// how to cast various constants.
-Value *getWithType(Value &V, Type &Ty);
+LLVM_ABI Value *getWithType(Value &V, Type &Ty);
 
 /// Return the combination of \p A and \p B such that the result is a possible
 /// value of both. \p B is potentially casted to match the type \p Ty or the
@@ -228,7 +229,7 @@ Value *getWithType(Value &V, Type &Ty);
 ///        X + none  => X
 /// not_none + undef => not_none
 ///          V1 + V2 => nullptr
-std::optional<Value *>
+LLVM_ABI std::optional<Value *>
 combineOptionalValuesInAAValueLatice(const std::optional<Value *> &A,
                                      const std::optional<Value *> &B, Type *Ty);
 
@@ -328,7 +329,7 @@ inline bool operator==(const RangeTy &A, const RangeTy &B) {
 inline bool operator!=(const RangeTy &A, const RangeTy &B) { return !(A == B); }
 
 /// Return the initial value of \p Obj with type \p Ty if that is a constant.
-Constant *getInitialValueForObj(Attributor &A,
+LLVM_ABI Constant *getInitialValueForObj(Attributor &A,
                                 const AbstractAttribute &QueryingAA, Value &Obj,
                                 Type &Ty, const TargetLibraryInfo *TLI,
                                 const DataLayout &DL,
@@ -345,7 +346,7 @@ Constant *getInitialValueForObj(Attributor &A,
 /// \returns True if the assumed potential copies are all in \p PotentialValues,
 ///          false if something went wrong and the copies could not be
 ///          determined.
-bool getPotentiallyLoadedValues(
+LLVM_ABI bool getPotentiallyLoadedValues(
     Attributor &A, LoadInst &LI, SmallSetVector<Value *, 4> &PotentialValues,
     SmallSetVector<Instruction *, 4> &PotentialValueOrigins,
     const AbstractAttribute &QueryingAA, bool &UsedAssumedInformation,
@@ -360,19 +361,19 @@ bool getPotentiallyLoadedValues(
 /// \returns True if the assumed potential copies are all in \p PotentialCopies,
 ///          false if something went wrong and the copies could not be
 ///          determined.
-bool getPotentialCopiesOfStoredValue(
+LLVM_ABI bool getPotentialCopiesOfStoredValue(
     Attributor &A, StoreInst &SI, SmallSetVector<Value *, 4> &PotentialCopies,
     const AbstractAttribute &QueryingAA, bool &UsedAssumedInformation,
     bool OnlyExact = false);
 
 /// Return true if \p IRP is readonly. This will query respective AAs that
 /// deduce the information and introduce dependences for \p QueryingAA.
-bool isAssumedReadOnly(Attributor &A, const IRPosition &IRP,
+LLVM_ABI bool isAssumedReadOnly(Attributor &A, const IRPosition &IRP,
                        const AbstractAttribute &QueryingAA, bool &IsKnown);
 
 /// Return true if \p IRP is readnone. This will query respective AAs that
 /// deduce the information and introduce dependences for \p QueryingAA.
-bool isAssumedReadNone(Attributor &A, const IRPosition &IRP,
+LLVM_ABI bool isAssumedReadNone(Attributor &A, const IRPosition &IRP,
                        const AbstractAttribute &QueryingAA, bool &IsKnown);
 
 /// Return true if \p ToI is potentially reachable from \p FromI without running
@@ -383,27 +384,27 @@ bool isAssumedReadNone(Attributor &A, const IRPosition &IRP,
 /// reached. If the query is not interested in callers beyond a certain point,
 /// e.g., a GPU kernel entry or the function containing an alloca, the
 /// \p GoBackwardsCB should return false.
-bool isPotentiallyReachable(
+LLVM_ABI bool isPotentiallyReachable(
     Attributor &A, const Instruction &FromI, const Instruction &ToI,
     const AbstractAttribute &QueryingAA,
     const AA::InstExclusionSetTy *ExclusionSet = nullptr,
     std::function<bool(const Function &F)> GoBackwardsCB = nullptr);
 
 /// Same as above but it is sufficient to reach any instruction in \p ToFn.
-bool isPotentiallyReachable(
+LLVM_ABI bool isPotentiallyReachable(
     Attributor &A, const Instruction &FromI, const Function &ToFn,
     const AbstractAttribute &QueryingAA,
     const AA::InstExclusionSetTy *ExclusionSet = nullptr,
     std::function<bool(const Function &F)> GoBackwardsCB = nullptr);
 
 /// Return true if \p Obj is assumed to be a thread local object.
-bool isAssumedThreadLocalObject(Attributor &A, Value &Obj,
+LLVM_ABI bool isAssumedThreadLocalObject(Attributor &A, Value &Obj,
                                 const AbstractAttribute &QueryingAA);
 
 /// Return true if \p I is potentially affected by a barrier.
-bool isPotentiallyAffectedByBarrier(Attributor &A, const Instruction &I,
+LLVM_ABI bool isPotentiallyAffectedByBarrier(Attributor &A, const Instruction &I,
                                     const AbstractAttribute &QueryingAA);
-bool isPotentiallyAffectedByBarrier(Attributor &A, ArrayRef<const Value *> Ptrs,
+LLVM_ABI bool isPotentiallyAffectedByBarrier(Attributor &A, ArrayRef<const Value *> Ptrs,
                                     const AbstractAttribute &QueryingAA,
                                     const Instruction *CtxI);
 } // namespace AA
@@ -483,7 +484,7 @@ struct DenseMapInfo<const AA::InstExclusionSetTy *>
 
 /// The value passed to the line option that defines the maximal initialization
 /// chain length.
-extern unsigned MaxInitializationChainLength;
+LLVM_ABI extern unsigned MaxInitializationChainLength;
 
 ///{
 enum class ChangeStatus {
@@ -491,10 +492,10 @@ enum class ChangeStatus {
   UNCHANGED,
 };
 
-ChangeStatus operator|(ChangeStatus l, ChangeStatus r);
-ChangeStatus &operator|=(ChangeStatus &l, ChangeStatus r);
-ChangeStatus operator&(ChangeStatus l, ChangeStatus r);
-ChangeStatus &operator&=(ChangeStatus &l, ChangeStatus r);
+LLVM_ABI ChangeStatus operator|(ChangeStatus l, ChangeStatus r);
+LLVM_ABI ChangeStatus &operator|=(ChangeStatus &l, ChangeStatus r);
+LLVM_ABI ChangeStatus operator&(ChangeStatus l, ChangeStatus r);
+LLVM_ABI ChangeStatus &operator&=(ChangeStatus &l, ChangeStatus r);
 
 enum class DepClassTy {
   REQUIRED, ///< The target cannot be valid if the source is not.
@@ -547,7 +548,7 @@ public:
 /// Note that in this graph if there is an edge from A to B (A -> B),
 /// then it means that B depends on A, and when the state of A is
 /// updated, node B should also be updated
-struct AADepGraph {
+struct LLVM_ABI AADepGraph {
   AADepGraph() = default;
   ~AADepGraph() = default;
 
@@ -583,7 +584,7 @@ struct AADepGraph {
 /// as well as a distinction between call sites and functions. Finally, there
 /// are floating values that do not have a corresponding attribute list
 /// position.
-struct IRPosition {
+struct LLVM_ABI IRPosition {
   // NOTE: In the future this definition can be changed to support recursive
   // functions.
   using CallBaseContext = CallBase;
@@ -1113,7 +1114,7 @@ template <> struct DenseMapInfo<IRPosition> {
 ///   - the position the call site argument is associated with if it is not
 ///     anchored to the call site, e.g., if it is an argument then the argument
 ///     (IRP_ARGUMENT)
-class SubsumingPositionIterator {
+class LLVM_ABI SubsumingPositionIterator {
   SmallVector<IRPosition, 4> IRPositions;
   using iterator = decltype(IRPositions)::iterator;
 
@@ -1200,7 +1201,7 @@ constexpr bool AnalysisGetter::HasLegacyWrapper<
 /// Attributor::registerAA(...), need more information, especially if it is not
 /// reusable, it is advised to inherit from the InformationCache and cast the
 /// instance down in the abstract attributes.
-struct InformationCache {
+struct LLVM_ABI InformationCache {
   InformationCache(const Module &M, AnalysisGetter &AG,
                    BumpPtrAllocator &Allocator, SetVector<Function *> *CGSCC,
                    bool UseExplorer = true)
@@ -1345,7 +1346,7 @@ struct InformationCache {
   std::optional<unsigned> getFlatAddressSpace() const;
 
 private:
-  struct FunctionInfo {
+  struct LLVM_ABI FunctionInfo {
     ~FunctionInfo();
 
     /// A nested map that remembers all instructions in a function with a
@@ -1513,7 +1514,7 @@ DEBUG_COUNTER(NumAbstractAttributes, "num-abstract-attributes",
 ///
 /// NOTE: The mechanics of adding a new "concrete" abstract attribute are
 ///       described in the file comment.
-struct Attributor {
+struct LLVM_ABI Attributor {
 
   /// Constructor
   ///
@@ -2601,7 +2602,7 @@ private:
 /// attribute can inherit from them to get the abstract state interface and
 /// additional methods to directly modify the state based if needed. See the
 /// class comments for help.
-struct AbstractState {
+struct LLVM_ABI AbstractState {
   virtual ~AbstractState() = default;
 
   /// Return if this abstract state is in a valid state. If false, no
@@ -3281,7 +3282,7 @@ struct IRAttribute : public BaseType {
 ///       both directions will be added in the future.
 /// NOTE: The mechanics of adding a new "concrete" abstract attribute are
 ///       described in the file comment.
-struct AbstractAttribute : public IRPosition, public AADepGraphNode {
+struct LLVM_ABI AbstractAttribute : public IRPosition, public AADepGraphNode {
   using StateType = AbstractState;
 
   AbstractAttribute(const IRPosition &IRP) : IRPosition(IRP) {}
@@ -3420,11 +3421,11 @@ protected:
 /// Forward declarations of output streams for debug purposes.
 ///
 ///{
-raw_ostream &operator<<(raw_ostream &OS, const AbstractAttribute &AA);
-raw_ostream &operator<<(raw_ostream &OS, ChangeStatus S);
-raw_ostream &operator<<(raw_ostream &OS, IRPosition::Kind);
-raw_ostream &operator<<(raw_ostream &OS, const IRPosition &);
-raw_ostream &operator<<(raw_ostream &OS, const AbstractState &State);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const AbstractAttribute &AA);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, ChangeStatus S);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, IRPosition::Kind);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const IRPosition &);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const AbstractState &State);
 template <typename base_ty, base_ty BestState, base_ty WorstState>
 raw_ostream &
 operator<<(raw_ostream &OS,
@@ -3432,26 +3433,26 @@ operator<<(raw_ostream &OS,
   return OS << "(" << S.getKnown() << "-" << S.getAssumed() << ")"
             << static_cast<const AbstractState &>(S);
 }
-raw_ostream &operator<<(raw_ostream &OS, const IntegerRangeState &State);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const IntegerRangeState &State);
 ///}
 
-struct AttributorPass : public PassInfoMixin<AttributorPass> {
+struct LLVM_ABI AttributorPass : public PassInfoMixin<AttributorPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };
-struct AttributorCGSCCPass : public PassInfoMixin<AttributorCGSCCPass> {
+struct LLVM_ABI AttributorCGSCCPass : public PassInfoMixin<AttributorCGSCCPass> {
   PreservedAnalyses run(LazyCallGraph::SCC &C, CGSCCAnalysisManager &AM,
                         LazyCallGraph &CG, CGSCCUpdateResult &UR);
 };
 
 /// A more lightweight version of the Attributor which only runs attribute
 /// inference but no simplifications.
-struct AttributorLightPass : public PassInfoMixin<AttributorLightPass> {
+struct LLVM_ABI AttributorLightPass : public PassInfoMixin<AttributorLightPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };
 
 /// A more lightweight version of the Attributor which only runs attribute
 /// inference but no simplifications.
-struct AttributorLightCGSCCPass
+struct LLVM_ABI AttributorLightCGSCCPass
     : public PassInfoMixin<AttributorLightCGSCCPass> {
   PreservedAnalyses run(LazyCallGraph::SCC &C, CGSCCAnalysisManager &AM,
                         LazyCallGraph &CG, CGSCCUpdateResult &UR);
@@ -3472,7 +3473,7 @@ ChangeStatus clampStateAndIndicateChange(StateType &S, const StateType &R) {
 ///                       Abstract Attribute Classes
 /// ----------------------------------------------------------------------------
 
-struct AANoUnwind
+struct LLVM_ABI AANoUnwind
     : public IRAttribute<Attribute::NoUnwind,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoUnwind> {
@@ -3502,7 +3503,7 @@ struct AANoUnwind
   static const char ID;
 };
 
-struct AANoSync
+struct LLVM_ABI AANoSync
     : public IRAttribute<Attribute::NoSync,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoSync> {
@@ -3586,7 +3587,7 @@ struct AANoSync
 };
 
 /// An abstract interface for all nonnull attributes.
-struct AAMustProgress
+struct LLVM_ABI AAMustProgress
     : public IRAttribute<Attribute::MustProgress,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AAMustProgress> {
@@ -3628,7 +3629,7 @@ struct AAMustProgress
 };
 
 /// An abstract interface for all nonnull attributes.
-struct AANonNull
+struct LLVM_ABI AANonNull
     : public IRAttribute<Attribute::NonNull,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANonNull> {
@@ -3679,7 +3680,7 @@ struct AANonNull
 };
 
 /// An abstract attribute for norecurse.
-struct AANoRecurse
+struct LLVM_ABI AANoRecurse
     : public IRAttribute<Attribute::NoRecurse,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoRecurse> {
@@ -3710,7 +3711,7 @@ struct AANoRecurse
 };
 
 /// An abstract attribute for willreturn.
-struct AAWillReturn
+struct LLVM_ABI AAWillReturn
     : public IRAttribute<Attribute::WillReturn,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AAWillReturn> {
@@ -3774,7 +3775,7 @@ struct AAWillReturn
 };
 
 /// An abstract attribute for undefined behavior.
-struct AAUndefinedBehavior
+struct LLVM_ABI AAUndefinedBehavior
     : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
   AAUndefinedBehavior(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -3812,7 +3813,7 @@ struct AAUndefinedBehavior
 };
 
 /// An abstract interface to determine reachability of point A to B.
-struct AAIntraFnReachability
+struct LLVM_ABI AAIntraFnReachability
     : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
   AAIntraFnReachability(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -3845,7 +3846,7 @@ struct AAIntraFnReachability
 };
 
 /// An abstract interface for all noalias attributes.
-struct AANoAlias
+struct LLVM_ABI AANoAlias
     : public IRAttribute<Attribute::NoAlias,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoAlias> {
@@ -3891,7 +3892,7 @@ struct AANoAlias
 };
 
 /// An AbstractAttribute for nofree.
-struct AANoFree
+struct LLVM_ABI AANoFree
     : public IRAttribute<Attribute::NoFree,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoFree> {
@@ -3941,7 +3942,7 @@ struct AANoFree
 };
 
 /// An AbstractAttribute for noreturn.
-struct AANoReturn
+struct LLVM_ABI AANoReturn
     : public IRAttribute<Attribute::NoReturn,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoReturn> {
@@ -3972,7 +3973,7 @@ struct AANoReturn
 };
 
 /// An abstract interface for liveness abstract attribute.
-struct AAIsDead
+struct LLVM_ABI AAIsDead
     : public StateWrapper<BitIntegerState<uint8_t, 3, 0>, AbstractAttribute> {
   using Base = StateWrapper<BitIntegerState<uint8_t, 3, 0>, AbstractAttribute>;
   AAIsDead(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -4212,7 +4213,7 @@ struct DerefState : AbstractState {
 };
 
 /// An abstract interface for all dereferenceable attribute.
-struct AADereferenceable
+struct LLVM_ABI AADereferenceable
     : public IRAttribute<Attribute::Dereferenceable,
                          StateWrapper<DerefState, AbstractAttribute>,
                          AADereferenceable> {
@@ -4266,7 +4267,7 @@ struct AADereferenceable
 using AAAlignmentStateType =
     IncIntegerState<uint64_t, Value::MaximumAlignment, 1>;
 /// An abstract interface for all align attributes.
-struct AAAlign
+struct LLVM_ABI AAAlign
     : public IRAttribute<Attribute::Alignment,
                          StateWrapper<AAAlignmentStateType, AbstractAttribute>,
                          AAAlign> {
@@ -4307,7 +4308,7 @@ struct AAAlign
 /// instance.
 /// TODO: We should make it a ternary AA tracking uniqueness, and uniqueness
 /// wrt. the Attributor analysis separately.
-struct AAInstanceInfo : public StateWrapper<BooleanState, AbstractAttribute> {
+struct LLVM_ABI AAInstanceInfo : public StateWrapper<BooleanState, AbstractAttribute> {
   AAInstanceInfo(const IRPosition &IRP, Attributor &A)
       : StateWrapper<BooleanState, AbstractAttribute>(IRP) {}
 
@@ -4344,7 +4345,7 @@ struct AAInstanceInfo : public StateWrapper<BooleanState, AbstractAttribute> {
 };
 
 /// An abstract interface for all nocapture attributes.
-struct AANoCapture
+struct LLVM_ABI AANoCapture
     : public IRAttribute<
           Attribute::NoCapture,
           StateWrapper<BitIntegerState<uint16_t, 7, 0>, AbstractAttribute>,
@@ -4424,7 +4425,7 @@ struct AANoCapture
   static const char ID;
 };
 
-struct ValueSimplifyStateType : public AbstractState {
+struct LLVM_ABI ValueSimplifyStateType : public AbstractState {
 
   ValueSimplifyStateType(Type *Ty) : Ty(Ty) {}
 
@@ -4499,7 +4500,7 @@ protected:
 };
 
 /// An abstract interface for value simplify abstract attribute.
-struct AAValueSimplify
+struct LLVM_ABI AAValueSimplify
     : public StateWrapper<ValueSimplifyStateType, AbstractAttribute, Type *> {
   using Base = StateWrapper<ValueSimplifyStateType, AbstractAttribute, Type *>;
   AAValueSimplify(const IRPosition &IRP, Attributor &A)
@@ -4536,7 +4537,7 @@ private:
   friend struct Attributor;
 };
 
-struct AAHeapToStack : public StateWrapper<BooleanState, AbstractAttribute> {
+struct LLVM_ABI AAHeapToStack : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
   AAHeapToStack(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
 
@@ -4575,7 +4576,7 @@ struct AAHeapToStack : public StateWrapper<BooleanState, AbstractAttribute> {
 /// (=nocapture), it is (for now) not written (=readonly & noalias), we know
 /// what values are necessary to make the private copy look like the original
 /// one, and the values we need can be loaded (=dereferenceable).
-struct AAPrivatizablePtr
+struct LLVM_ABI AAPrivatizablePtr
     : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
   AAPrivatizablePtr(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -4623,7 +4624,7 @@ struct AAPrivatizablePtr
 
 /// An abstract interface for memory access kind related attributes
 /// (readnone/readonly/writeonly).
-struct AAMemoryBehavior
+struct LLVM_ABI AAMemoryBehavior
     : public IRAttribute<
           Attribute::None,
           StateWrapper<BitIntegerState<uint8_t, 3>, AbstractAttribute>,
@@ -4698,7 +4699,7 @@ struct AAMemoryBehavior
 
 /// An abstract interface for all memory location attributes
 /// (readnone/argmemonly/inaccessiblememonly/inaccessibleorargmemonly).
-struct AAMemoryLocation
+struct LLVM_ABI AAMemoryLocation
     : public IRAttribute<
           Attribute::None,
           StateWrapper<BitIntegerState<uint32_t, 511>, AbstractAttribute>,
@@ -4882,7 +4883,7 @@ struct AAMemoryLocation
 };
 
 /// An abstract interface for range value analysis.
-struct AAValueConstantRange
+struct LLVM_ABI AAValueConstantRange
     : public StateWrapper<IntegerRangeState, AbstractAttribute, uint32_t> {
   using Base = StateWrapper<IntegerRangeState, AbstractAttribute, uint32_t>;
   AAValueConstantRange(const IRPosition &IRP, Attributor &A)
@@ -5224,9 +5225,9 @@ using PotentialConstantIntValuesState = PotentialValuesState<APInt>;
 using PotentialLLVMValuesState =
     PotentialValuesState<std::pair<AA::ValueAndContext, AA::ValueScope>>;
 
-raw_ostream &operator<<(raw_ostream &OS,
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS,
                         const PotentialConstantIntValuesState &R);
-raw_ostream &operator<<(raw_ostream &OS, const PotentialLLVMValuesState &R);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const PotentialLLVMValuesState &R);
 
 /// An abstract interface for potential values analysis.
 ///
@@ -5306,7 +5307,7 @@ struct AAPotentialConstantValues
   LLVM_ABI static const char ID;
 };
 
-struct AAPotentialValues
+struct LLVM_ABI AAPotentialValues
     : public StateWrapper<PotentialLLVMValuesState, AbstractAttribute> {
   using Base = StateWrapper<PotentialLLVMValuesState, AbstractAttribute>;
   AAPotentialValues(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -5351,7 +5352,7 @@ private:
 };
 
 /// An abstract interface for all noundef attributes.
-struct AANoUndef
+struct LLVM_ABI AANoUndef
     : public IRAttribute<Attribute::NoUndef,
                          StateWrapper<BooleanState, AbstractAttribute>,
                          AANoUndef> {
@@ -5392,7 +5393,7 @@ struct AANoUndef
   static const char ID;
 };
 
-struct AANoFPClass
+struct LLVM_ABI AANoFPClass
     : public IRAttribute<
           Attribute::NoFPClass,
           StateWrapper<BitIntegerState<uint32_t, fcAllFlags, fcNone>,
@@ -5449,7 +5450,7 @@ struct AACallEdges;
 /// An Iterator for call edges, creates AACallEdges attributes in a lazy way.
 /// This iterator becomes invalid if the underlying edge list changes.
 /// So This shouldn't outlive a iteration of Attributor.
-class AACallEdgeIterator
+class LLVM_ABI AACallEdgeIterator
     : public iterator_adaptor_base<AACallEdgeIterator,
                                    SetVector<Function *>::iterator> {
   AACallEdgeIterator(Attributor &A, SetVector<Function *>::iterator Begin)
@@ -5464,7 +5465,7 @@ private:
   friend AttributorCallGraph;
 };
 
-struct AACallGraphNode {
+struct LLVM_ABI AACallGraphNode {
   AACallGraphNode(Attributor &A) : A(A) {}
   virtual ~AACallGraphNode() = default;
 
@@ -5485,7 +5486,7 @@ protected:
 /// An abstract state for querying live call edges.
 /// This interface uses the Attributor's optimistic liveness
 /// information to compute the edges that are alive.
-struct AACallEdges : public StateWrapper<BooleanState, AbstractAttribute>,
+struct LLVM_ABI AACallEdges : public StateWrapper<BooleanState, AbstractAttribute>,
                      AACallGraphNode {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
 
@@ -5533,7 +5534,7 @@ struct AACallEdges : public StateWrapper<BooleanState, AbstractAttribute>,
 };
 
 // Synthetic root node for the Attributor's internal call graph.
-struct AttributorCallGraph : public AACallGraphNode {
+struct LLVM_ABI AttributorCallGraph : public AACallGraphNode {
   AttributorCallGraph(Attributor &A) : AACallGraphNode(A) {}
   virtual ~AttributorCallGraph() = default;
 
@@ -5604,7 +5605,7 @@ struct DOTGraphTraits<AttributorCallGraph *> : public DefaultDOTGraphTraits {
   }
 };
 
-struct AAExecutionDomain
+struct LLVM_ABI AAExecutionDomain
     : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
   AAExecutionDomain(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -5681,7 +5682,7 @@ struct AAExecutionDomain
 };
 
 /// An abstract Attribute for computing reachability between functions.
-struct AAInterFnReachability
+struct LLVM_ABI AAInterFnReachability
     : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
 
@@ -5722,7 +5723,7 @@ struct AAInterFnReachability
 
 /// An abstract Attribute for determining the necessity of the convergent
 /// attribute.
-struct AANonConvergent : public StateWrapper<BooleanState, AbstractAttribute> {
+struct LLVM_ABI AANonConvergent : public StateWrapper<BooleanState, AbstractAttribute> {
   using Base = StateWrapper<BooleanState, AbstractAttribute>;
 
   AANonConvergent(const IRPosition &IRP, Attributor &A) : Base(IRP) {}
@@ -5754,7 +5755,7 @@ struct AANonConvergent : public StateWrapper<BooleanState, AbstractAttribute> {
 };
 
 /// An abstract interface for struct information.
-struct AAPointerInfo : public AbstractAttribute {
+struct LLVM_ABI AAPointerInfo : public AbstractAttribute {
   AAPointerInfo(const IRPosition &IRP) : AbstractAttribute(IRP) {}
 
   /// See AbstractAttribute::isValidIRPositionForInit
@@ -6206,10 +6207,10 @@ struct AAPointerInfo : public AbstractAttribute {
   static const char ID;
 };
 
-raw_ostream &operator<<(raw_ostream &, const AAPointerInfo::Access &);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &, const AAPointerInfo::Access &);
 
 /// An abstract attribute for getting assumption information.
-struct AAAssumptionInfo
+struct LLVM_ABI AAAssumptionInfo
     : public StateWrapper<SetState<StringRef>, AbstractAttribute,
                           DenseSet<StringRef>> {
   using Base =
@@ -6243,7 +6244,7 @@ struct AAAssumptionInfo
 };
 
 /// An abstract attribute for getting all assumption underlying objects.
-struct AAUnderlyingObjects : AbstractAttribute {
+struct LLVM_ABI AAUnderlyingObjects : AbstractAttribute {
   AAUnderlyingObjects(const IRPosition &IRP) : AbstractAttribute(IRP) {}
 
   /// See AbstractAttribute::isValidIRPositionForInit
@@ -6285,7 +6286,7 @@ struct AAUnderlyingObjects : AbstractAttribute {
 };
 
 /// An abstract interface for address space information.
-struct AAAddressSpace : public StateWrapper<BooleanState, AbstractAttribute> {
+struct LLVM_ABI AAAddressSpace : public StateWrapper<BooleanState, AbstractAttribute> {
   AAAddressSpace(const IRPosition &IRP, Attributor &A)
       : StateWrapper<BooleanState, AbstractAttribute>(IRP) {}
 
@@ -6328,7 +6329,7 @@ protected:
   static const uint32_t InvalidAddressSpace = ~0U;
 };
 
-struct AAAllocationInfo : public StateWrapper<BooleanState, AbstractAttribute> {
+struct LLVM_ABI AAAllocationInfo : public StateWrapper<BooleanState, AbstractAttribute> {
   AAAllocationInfo(const IRPosition &IRP, Attributor &A)
       : StateWrapper<BooleanState, AbstractAttribute>(IRP) {}
 
@@ -6364,7 +6365,7 @@ struct AAAllocationInfo : public StateWrapper<BooleanState, AbstractAttribute> {
 };
 
 /// An abstract interface for llvm::GlobalValue information interference.
-struct AAGlobalValueInfo
+struct LLVM_ABI AAGlobalValueInfo
     : public StateWrapper<BooleanState, AbstractAttribute> {
   AAGlobalValueInfo(const IRPosition &IRP, Attributor &A)
       : StateWrapper<BooleanState, AbstractAttribute>(IRP) {}
@@ -6403,7 +6404,7 @@ struct AAGlobalValueInfo
 };
 
 /// An abstract interface for indirect call information interference.
-struct AAIndirectCallInfo
+struct LLVM_ABI AAIndirectCallInfo
     : public StateWrapper<BooleanState, AbstractAttribute> {
   AAIndirectCallInfo(const IRPosition &IRP, Attributor &A)
       : StateWrapper<BooleanState, AbstractAttribute>(IRP) {}
@@ -6445,7 +6446,7 @@ struct AAIndirectCallInfo
 
 /// An abstract Attribute for specializing "dynamic" components of
 /// "denormal-fp-math" and "denormal-fp-math-f32" to a known denormal mode.
-struct AADenormalFPMath
+struct LLVM_ABI AADenormalFPMath
     : public StateWrapper<DenormalFPMathState, AbstractAttribute> {
   using Base = StateWrapper<DenormalFPMathState, AbstractAttribute>;
 
@@ -6471,7 +6472,7 @@ struct AADenormalFPMath
   static const char ID;
 };
 
-raw_ostream &operator<<(raw_ostream &, const AAPointerInfo::Access &);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &, const AAPointerInfo::Access &);
 
 /// Run options, used by the pass manager.
 enum AttributorRunOption {

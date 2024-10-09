@@ -14,6 +14,7 @@
 #define LLVM_TARGET_TARGETINTRINSICINFO_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 
 namespace llvm {
@@ -26,7 +27,7 @@ class Type;
 ///
 /// TargetIntrinsicInfo - Interface to description of machine instruction set
 ///
-class TargetIntrinsicInfo {
+class LLVM_ABI TargetIntrinsicInfo {
   TargetIntrinsicInfo(const TargetIntrinsicInfo &) = delete;
   void operator=(const TargetIntrinsicInfo &) = delete;
 public:

@@ -15,6 +15,7 @@
 
 #include "llvm/CGData/CodeGenData.h"
 #include "llvm/CGData/OutlinedHashTreeRecord.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/EndianStream.h"
 #include "llvm/Support/Error.h"
 
@@ -29,7 +30,7 @@ struct CGDataPatchItem {
 
 /// A wrapper class to abstract writer stream with support of bytes
 /// back patching.
-class CGDataOStream {
+class LLVM_ABI CGDataOStream {
 public:
   CGDataOStream(raw_fd_ostream &FD)
       : IsFDOStream(true), OS(FD), LE(FD, llvm::endianness::little) {}
@@ -53,7 +54,7 @@ public:
   support::endian::Writer LE;
 };
 
-class CodeGenDataWriter {
+class LLVM_ABI CodeGenDataWriter {
   /// The outlined hash tree to be written.
   OutlinedHashTreeRecord HashTreeRecord;
 

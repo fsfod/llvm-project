@@ -14,6 +14,7 @@
 #define LLVM_ANALYSIS_INDIRECTCALLPROMOTIONANALYSIS_H
 
 #include "llvm/ProfileData/InstrProf.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -21,7 +22,7 @@ class Instruction;
 
 // Class for identifying profitable indirect call promotion candidates when
 // the indirect-call value profile metadata is available.
-class ICallPromotionAnalysis {
+class LLVM_ABI ICallPromotionAnalysis {
 private:
   // Allocate space to read the profile annotation.
   SmallVector<InstrProfValueData, 4> ValueDataArray;

@@ -15,13 +15,14 @@
 
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Loop;
 class LPMUpdater;
 
-class LoopDeletionPass : public PassInfoMixin<LoopDeletionPass> {
+class LLVM_ABI LoopDeletionPass : public PassInfoMixin<LoopDeletionPass> {
 public:
   LoopDeletionPass() = default;
 

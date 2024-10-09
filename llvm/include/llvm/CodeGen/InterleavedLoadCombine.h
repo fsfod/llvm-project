@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_INTERLEAVEDLOADCOMBINE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class InterleavedLoadCombinePass
+class LLVM_ABI InterleavedLoadCombinePass
     : public PassInfoMixin<InterleavedLoadCombinePass> {
   const TargetMachine *TM;
 

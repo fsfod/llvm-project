@@ -11,6 +11,7 @@
 
 #include "llvm/IR/Instructions.h"
 #include "llvm/Support/AtomicOrdering.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -22,12 +23,12 @@ class Value;
 /// Note that constants cannot be cyclic, so this test is pretty easy to
 /// implement recursively.
 ///
-bool isSafeToDestroyConstant(const Constant *C);
+LLVM_ABI bool isSafeToDestroyConstant(const Constant *C);
 
 /// As we analyze each global or thread-local variable, keep track of some
 /// information about it.  If we find out that the address of the global is
 /// taken, none of this info will be accurate.
-struct GlobalStatus {
+struct LLVM_ABI GlobalStatus {
   /// True if the global's address is used in a comparison.
   bool IsCompared = false;
 

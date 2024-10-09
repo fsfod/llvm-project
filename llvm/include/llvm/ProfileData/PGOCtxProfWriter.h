@@ -17,6 +17,7 @@
 #include "llvm/Bitstream/BitCodeEnums.h"
 #include "llvm/Bitstream/BitstreamWriter.h"
 #include "llvm/ProfileData/CtxInstrContextNode.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 enum PGOCtxProfileRecords { Invalid = 0, Version, Guid, CalleeIndex, Counters };
@@ -60,7 +61,7 @@ enum PGOCtxProfileBlockIDs {
 /// like value profiling - which would appear as additional records. For
 /// example, value profiling would produce a new record with a new record ID,
 /// containing the profiled values (much like the counters)
-class PGOCtxProfileWriter final {
+class LLVM_ABI PGOCtxProfileWriter final {
   BitstreamWriter Writer;
 
   void writeCounters(const ctx_profile::ContextNode &Node);
@@ -81,6 +82,6 @@ public:
   static constexpr StringRef ContainerMagic = "CTXP";
 };
 
-Error createCtxProfFromJSON(StringRef Profile, raw_ostream &Out);
+LLVM_ABI Error createCtxProfFromJSON(StringRef Profile, raw_ostream &Out);
 } // namespace llvm
 #endif

@@ -17,6 +17,7 @@
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/MC/StringTableBuilder.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MemoryBufferRef.h"
 #include <map>
 #include <memory>
@@ -29,7 +30,7 @@ class BitstreamWriter;
 class Module;
 class raw_ostream;
 
-class BitcodeWriter {
+class LLVM_ABI BitcodeWriter {
   std::unique_ptr<BitstreamWriter> Stream;
 
   StringTableBuilder StrtabBuilder{StringTableBuilder::RAW};
@@ -126,7 +127,7 @@ public:
 /// Can be used to produce the same module hash for a minimized bitcode
 /// used just for the thin link as in the regular full bitcode that will
 /// be used in the backend.
-void WriteBitcodeToFile(const Module &M, raw_ostream &Out,
+LLVM_ABI void WriteBitcodeToFile(const Module &M, raw_ostream &Out,
                         bool ShouldPreserveUseListOrder = false,
                         const ModuleSummaryIndex *Index = nullptr,
                         bool GenerateHash = false,
@@ -139,7 +140,7 @@ void WriteBitcodeToFile(const Module &M, raw_ostream &Out,
 ///
 /// ModHash is for use in ThinLTO incremental build, generated while the IR
 /// bitcode file writing.
-void writeThinLinkBitcodeToFile(const Module &M, raw_ostream &Out,
+LLVM_ABI void writeThinLinkBitcodeToFile(const Module &M, raw_ostream &Out,
                                 const ModuleSummaryIndex &Index,
                                 const ModuleHash &ModHash);
 
@@ -149,7 +150,7 @@ void writeThinLinkBitcodeToFile(const Module &M, raw_ostream &Out,
 /// index for a distributed backend, provide the \p ModuleToSummariesForIndex
 /// map. \p DecSummaries specifies the set of summaries for which the
 /// corresponding value should be imported as a declaration (prototype).
-void writeIndexToFile(
+LLVM_ABI void writeIndexToFile(
     const ModuleSummaryIndex &Index, raw_ostream &Out,
     const ModuleToSummariesForIndexTy *ModuleToSummariesForIndex = nullptr,
     const GVSummaryPtrSet *DecSummaries = nullptr);
@@ -163,7 +164,7 @@ void writeIndexToFile(
 /// If EmbedCmdline is set, the command line is also exported in
 /// the corresponding section (__LLVM,_cmdline / .llvmcmd) - even if CmdArgs
 /// were empty.
-void embedBitcodeInModule(Module &M, MemoryBufferRef Buf, bool EmbedBitcode,
+LLVM_ABI void embedBitcodeInModule(Module &M, MemoryBufferRef Buf, bool EmbedBitcode,
                           bool EmbedCmdline,
                           const std::vector<uint8_t> &CmdArgs);
 

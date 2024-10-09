@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/AddressRanges.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <inttypes.h>
 #include <vector>
 
@@ -31,11 +32,11 @@ inline bool operator==(const SourceLocation &LHS, const SourceLocation &RHS) {
          LHS.Line == RHS.Line && LHS.Offset == RHS.Offset;
 }
 
-raw_ostream &operator<<(raw_ostream &OS, const SourceLocation &R);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const SourceLocation &R);
 
 using SourceLocations = std::vector<SourceLocation>;
 
-struct LookupResult {
+struct LLVM_ABI LookupResult {
   uint64_t LookupAddr = 0; ///< The address that this lookup pertains to.
   AddressRange FuncRange;  ///< The concrete function address range.
   StringRef FuncName; ///< The concrete function name that contains LookupAddr.
@@ -62,7 +63,7 @@ inline bool operator==(const LookupResult &LHS, const LookupResult &RHS) {
   return LHS.Locations == RHS.Locations;
 }
 
-raw_ostream &operator<<(raw_ostream &OS, const LookupResult &R);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const LookupResult &R);
 
 } // namespace gsym
 } // namespace llvm

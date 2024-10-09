@@ -40,8 +40,9 @@
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/LoopNestAnalysis.h"
-#include "llvm/IR/PassManager.h"
 #include "llvm/IR/PassInstrumentation.h"
+#include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/LCSSA.h"
 #include "llvm/Transforms/Utils/LoopSimplify.h"
 #include "llvm/Transforms/Utils/LoopUtils.h"
@@ -67,7 +68,7 @@ using HasRunOnLoopT = decltype(std::declval<PassT>().run(
 // See the comments on the definition of the specialization for details on how
 // it differs from the primary template.
 template <>
-class PassManager<Loop, LoopAnalysisManager, LoopStandardAnalysisResults &,
+class LLVM_ABI PassManager<Loop, LoopAnalysisManager, LoopStandardAnalysisResults &,
                   LPMUpdater &>
     : public PassInfoMixin<
           PassManager<Loop, LoopAnalysisManager, LoopStandardAnalysisResults &,
@@ -398,7 +399,7 @@ std::optional<PreservedAnalyses> LoopPassManager::runSinglePass(
 /// processed in loop-nest mode. Please refer to the various specializations of
 /// \fn createLoopFunctionToLoopPassAdaptor to see when loop mode and loop-nest
 /// mode are used.
-class FunctionToLoopPassAdaptor
+class LLVM_ABI FunctionToLoopPassAdaptor
     : public PassInfoMixin<FunctionToLoopPassAdaptor> {
 public:
   using PassConceptT =
@@ -503,7 +504,7 @@ createFunctionToLoopPassAdaptor<LoopPassManager>(
 }
 
 /// Pass for printing a loop's contents as textual IR.
-class PrintLoopPass : public PassInfoMixin<PrintLoopPass> {
+class LLVM_ABI PrintLoopPass : public PassInfoMixin<PrintLoopPass> {
   raw_ostream &OS;
   std::string Banner;
 

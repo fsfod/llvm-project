@@ -27,6 +27,7 @@
 #include "llvm/IR/DataLayout.h"
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -40,37 +41,37 @@ class Module;
 
 /// Finds dbg.declare intrinsics declaring local variables as living in the
 /// memory that 'V' points to.
-TinyPtrVector<DbgDeclareInst *> findDbgDeclares(Value *V);
+LLVM_ABI TinyPtrVector<DbgDeclareInst *> findDbgDeclares(Value *V);
 /// As above, for DVRDeclares.
-TinyPtrVector<DbgVariableRecord *> findDVRDeclares(Value *V);
+LLVM_ABI TinyPtrVector<DbgVariableRecord *> findDVRDeclares(Value *V);
 /// As above, for DVRValues.
-TinyPtrVector<DbgVariableRecord *> findDVRValues(Value *V);
+LLVM_ABI TinyPtrVector<DbgVariableRecord *> findDVRValues(Value *V);
 
 /// Finds the llvm.dbg.value intrinsics describing a value.
-void findDbgValues(
+LLVM_ABI void findDbgValues(
     SmallVectorImpl<DbgValueInst *> &DbgValues, Value *V,
     SmallVectorImpl<DbgVariableRecord *> *DbgVariableRecords = nullptr);
 
 /// Finds the debug info intrinsics describing a value.
-void findDbgUsers(
+LLVM_ABI void findDbgUsers(
     SmallVectorImpl<DbgVariableIntrinsic *> &DbgInsts, Value *V,
     SmallVectorImpl<DbgVariableRecord *> *DbgVariableRecords = nullptr);
 
 /// Find subprogram that is enclosing this scope.
-DISubprogram *getDISubprogram(const MDNode *Scope);
+LLVM_ABI DISubprogram *getDISubprogram(const MDNode *Scope);
 
 /// Produce a DebugLoc to use for each dbg.declare that is promoted to a
 /// dbg.value.
-DebugLoc getDebugValueLoc(DbgVariableIntrinsic *DII);
-DebugLoc getDebugValueLoc(DbgVariableRecord *DVR);
+LLVM_ABI DebugLoc getDebugValueLoc(DbgVariableIntrinsic *DII);
+LLVM_ABI DebugLoc getDebugValueLoc(DbgVariableRecord *DVR);
 
 /// Strip debug info in the module if it exists.
 ///
 /// To do this, we remove all calls to the debugger intrinsics and any named
 /// metadata for debugging. We also remove debug locations for instructions.
 /// Return true if module is modified.
-bool StripDebugInfo(Module &M);
-bool stripDebugInfo(Function &F);
+LLVM_ABI bool StripDebugInfo(Module &M);
+LLVM_ABI bool stripDebugInfo(Function &F);
 
 /// Downgrade the debug info in a module to contain only line table information.
 ///
@@ -82,17 +83,17 @@ bool stripDebugInfo(Function &F);
 ///   4) Create a new CU debug info, and similarly for every metadata node
 ///      that's reachable from the CU debug info.
 ///   All debug type metadata nodes are unreachable and garbage collected.
-bool stripNonLineTableDebugInfo(Module &M);
+LLVM_ABI bool stripNonLineTableDebugInfo(Module &M);
 
 /// Update the debug locations contained within the MD_loop metadata attached
 /// to the instruction \p I, if one exists. \p Updater is applied to Metadata
 /// operand in the MD_loop metadata: the returned value is included in the
 /// updated loop metadata node if it is non-null.
-void updateLoopMetadataDebugLocations(
+LLVM_ABI void updateLoopMetadataDebugLocations(
     Instruction &I, function_ref<Metadata *(Metadata *)> Updater);
 
 /// Return Debug Info Metadata Version by checking module flags.
-unsigned getDebugMetadataVersionFromModule(const Module &M);
+LLVM_ABI unsigned getDebugMetadataVersionFromModule(const Module &M);
 
 /// Utility to find all debug info in a module.
 ///
@@ -102,7 +103,7 @@ unsigned getDebugMetadataVersionFromModule(const Module &M);
 /// DbgValueInst and DbgLoc attached to instructions. processModule will go
 /// through all DICompileUnits in llvm.dbg.cu and list debug info MDNodes
 /// used by the CUs.
-class DebugInfoFinder {
+class LLVM_ABI DebugInfoFinder {
 public:
   /// Process entire module and collect debug info anchors.
   void processModule(const Module &M);
@@ -189,7 +190,7 @@ using AssignmentInstRange =
 /// as an attachment.
 /// Iterators invalidated by adding or removing DIAssignID metadata to/from any
 /// instruction (including by deleting or cloning instructions).
-AssignmentInstRange getAssignmentInsts(DIAssignID *ID);
+LLVM_ABI AssignmentInstRange getAssignmentInsts(DIAssignID *ID);
 /// Return a range of instructions (typically just one) that perform the
 /// assignment that \p DAI encodes.
 /// Iterators invalidated by adding or removing DIAssignID metadata to/from any
@@ -225,7 +226,7 @@ public:
 using AssignmentMarkerRange = iterator_range<DbgAssignIt>;
 /// Return a range of dbg.assign intrinsics which use \ID as an operand.
 /// Iterators invalidated by deleting an intrinsic contained in this range.
-AssignmentMarkerRange getAssignmentMarkers(DIAssignID *ID);
+LLVM_ABI AssignmentMarkerRange getAssignmentMarkers(DIAssignID *ID);
 /// Return a range of dbg.assign intrinsics for which \p Inst performs the
 /// assignment they encode.
 /// Iterators invalidated by deleting an intrinsic contained in this range.
@@ -244,13 +245,13 @@ getDVRAssignmentMarkers(const Instruction *Inst) {
 }
 
 /// Delete the llvm.dbg.assign intrinsics linked to \p Inst.
-void deleteAssignmentMarkers(const Instruction *Inst);
+LLVM_ABI void deleteAssignmentMarkers(const Instruction *Inst);
 
 /// Replace all uses (and attachments) of \p Old with \p New.
-void RAUW(DIAssignID *Old, DIAssignID *New);
+LLVM_ABI void RAUW(DIAssignID *Old, DIAssignID *New);
 
 /// Remove all Assignment Tracking related intrinsics and metadata from \p F.
-void deleteAll(Function *F);
+LLVM_ABI void deleteAll(Function *F);
 
 /// Calculate the fragment of the variable in \p DAI covered
 /// from (Dest + SliceOffsetInBits) to
@@ -261,18 +262,18 @@ void deleteAll(Function *F);
 /// variable size) in DAI.
 ///
 /// Result contains a zero-sized fragment if there's no intersect.
-bool calculateFragmentIntersect(
+LLVM_ABI bool calculateFragmentIntersect(
     const DataLayout &DL, const Value *Dest, uint64_t SliceOffsetInBits,
     uint64_t SliceSizeInBits, const DbgAssignIntrinsic *DbgAssign,
     std::optional<DIExpression::FragmentInfo> &Result);
-bool calculateFragmentIntersect(
+LLVM_ABI bool calculateFragmentIntersect(
     const DataLayout &DL, const Value *Dest, uint64_t SliceOffsetInBits,
     uint64_t SliceSizeInBits, const DbgVariableRecord *DVRAssign,
     std::optional<DIExpression::FragmentInfo> &Result);
 
 /// Replace DIAssignID uses and attachments with IDs from \p Map.
 /// If an ID is unmapped a new ID is generated and added to \p Map.
-void remapAssignID(DenseMap<DIAssignID *, DIAssignID *> &Map, Instruction &I);
+LLVM_ABI void remapAssignID(DenseMap<DIAssignID *, DIAssignID *> &Map, Instruction &I);
 
 /// Helper struct for trackAssignments, below. We don't use the similar
 /// DebugVariable class because trackAssignments doesn't (yet?) understand
@@ -329,7 +330,7 @@ using StorageToVarsMap =
 
 /// Track assignments to \p Vars between \p Start and \p End.
 
-void trackAssignments(Function::iterator Start, Function::iterator End,
+LLVM_ABI void trackAssignments(Function::iterator Start, Function::iterator End,
                       const StorageToVarsMap &Vars, const DataLayout &DL,
                       bool DebugPrints = false);
 
@@ -349,11 +350,11 @@ struct AssignmentInfo {
             SizeInBits == DL.getTypeSizeInBits(Base->getAllocatedType())) {}
 };
 
-std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
+LLVM_ABI std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
                                                 const MemIntrinsic *I);
-std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
+LLVM_ABI std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
                                                 const StoreInst *SI);
-std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
+LLVM_ABI std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
                                                 const AllocaInst *AI);
 
 } // end namespace at
@@ -364,7 +365,7 @@ std::optional<AssignmentInfo> getAssignmentInfo(const DataLayout &DL,
 /// be left with their dbg.declare intrinsics.
 /// The pass sets the debug-info-assignment-tracking module flag to true to
 /// indicate assignment tracking has been enabled.
-class AssignmentTrackingPass : public PassInfoMixin<AssignmentTrackingPass> {
+class LLVM_ABI AssignmentTrackingPass : public PassInfoMixin<AssignmentTrackingPass> {
   /// Note: this method does not set the debug-info-assignment-tracking module
   /// flag.
   bool runOnFunction(Function &F);
@@ -375,7 +376,7 @@ public:
 };
 
 /// Return true if assignment tracking is enabled for module \p M.
-bool isAssignmentTrackingEnabled(const Module &M);
+LLVM_ABI bool isAssignmentTrackingEnabled(const Module &M);
 
 } // end namespace llvm
 

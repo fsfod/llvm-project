@@ -9,6 +9,7 @@
 #ifndef LLVM_SANDBOXIR_PASS_H
 #define LLVM_SANDBOXIR_PASS_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -47,7 +48,7 @@ public:
 };
 
 /// A pass that runs on a sandbox::Function.
-class FunctionPass : public Pass {
+class LLVM_ABI FunctionPass : public Pass {
 public:
   /// \p Name can't contain any spaces or start with '-'.
   FunctionPass(StringRef Name) : Pass(Name) {}
@@ -56,7 +57,7 @@ public:
 };
 
 /// A pass that runs on a sandbox::Region.
-class RegionPass : public Pass {
+class LLVM_ABI RegionPass : public Pass {
 public:
   /// \p Name can't contain any spaces or start with '-'.
   RegionPass(StringRef Name) : Pass(Name) {}

@@ -16,13 +16,14 @@
 #include "llvm/Analysis/BranchProbabilityInfo.h"
 #include "llvm/ExecutionEngine/Orc/Core.h"
 #include "llvm/ExecutionEngine/Orc/Speculation.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 namespace orc {
 
 // Provides common code.
-class SpeculateQuery {
+class LLVM_ABI SpeculateQuery {
 protected:
   void findCalles(const BasicBlock *, DenseSet<StringRef> &);
   bool isStraightLine(const Function &F);
@@ -32,7 +33,7 @@ public:
 };
 
 // Direct calls in high frequency basic blocks are extracted.
-class BlockFreqQuery : public SpeculateQuery {
+class LLVM_ABI BlockFreqQuery : public SpeculateQuery {
   size_t numBBToGet(size_t);
 
 public:
@@ -44,7 +45,7 @@ public:
 // execution.
 // A handful of BB with higher block frequencies are taken, then path to entry
 // and end BB are discovered by traversing up & down the CFG.
-class SequenceBBQuery : public SpeculateQuery {
+class LLVM_ABI SequenceBBQuery : public SpeculateQuery {
   struct WalkDirection {
     bool Upward = true, Downward = true;
     // the block associated contain a call

@@ -12,6 +12,7 @@
 #include "llvm/Analysis/CGSCCPassManager.h"
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -20,7 +21,7 @@ namespace llvm {
 /// This pass walks the functions in each SCC and for each one tries to
 /// transform it and all of its callers to replace indirect arguments with
 /// direct (by-value) arguments.
-class ArgumentPromotionPass : public PassInfoMixin<ArgumentPromotionPass> {
+class LLVM_ABI ArgumentPromotionPass : public PassInfoMixin<ArgumentPromotionPass> {
   unsigned MaxElements;
 
 public:

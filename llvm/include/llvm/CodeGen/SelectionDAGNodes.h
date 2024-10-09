@@ -42,6 +42,7 @@
 #include "llvm/Support/AlignOf.h"
 #include "llvm/Support/AtomicOrdering.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/TypeSize.h"
 #include <algorithm>
@@ -69,7 +70,7 @@ class SelectionDAG;
 class Type;
 class Value;
 
-void checkForCycles(const SDNode *N, const SelectionDAG *DAG = nullptr,
+LLVM_ABI void checkForCycles(const SDNode *N, const SelectionDAG *DAG = nullptr,
                     bool force = false);
 
 /// This represents a list of ValueType's that has been intern'd by
@@ -88,46 +89,46 @@ namespace ISD {
 /// If N is a BUILD_VECTOR or SPLAT_VECTOR node whose elements are all the
 /// same constant or undefined, return true and return the constant value in
 /// \p SplatValue.
-bool isConstantSplatVector(const SDNode *N, APInt &SplatValue);
+LLVM_ABI bool isConstantSplatVector(const SDNode *N, APInt &SplatValue);
 
 /// Return true if the specified node is a BUILD_VECTOR or SPLAT_VECTOR where
 /// all of the elements are ~0 or undef. If \p BuildVectorOnly is set to
 /// true, it only checks BUILD_VECTOR.
-bool isConstantSplatVectorAllOnes(const SDNode *N,
+LLVM_ABI bool isConstantSplatVectorAllOnes(const SDNode *N,
                                   bool BuildVectorOnly = false);
 
 /// Return true if the specified node is a BUILD_VECTOR or SPLAT_VECTOR where
 /// all of the elements are 0 or undef. If \p BuildVectorOnly is set to true, it
 /// only checks BUILD_VECTOR.
-bool isConstantSplatVectorAllZeros(const SDNode *N,
+LLVM_ABI bool isConstantSplatVectorAllZeros(const SDNode *N,
                                    bool BuildVectorOnly = false);
 
 /// Return true if the specified node is a BUILD_VECTOR where all of the
 /// elements are ~0 or undef.
-bool isBuildVectorAllOnes(const SDNode *N);
+LLVM_ABI bool isBuildVectorAllOnes(const SDNode *N);
 
 /// Return true if the specified node is a BUILD_VECTOR where all of the
 /// elements are 0 or undef.
-bool isBuildVectorAllZeros(const SDNode *N);
+LLVM_ABI bool isBuildVectorAllZeros(const SDNode *N);
 
 /// Return true if the specified node is a BUILD_VECTOR node of all
 /// ConstantSDNode or undef.
-bool isBuildVectorOfConstantSDNodes(const SDNode *N);
+LLVM_ABI bool isBuildVectorOfConstantSDNodes(const SDNode *N);
 
 /// Return true if the specified node is a BUILD_VECTOR node of all
 /// ConstantFPSDNode or undef.
-bool isBuildVectorOfConstantFPSDNodes(const SDNode *N);
+LLVM_ABI bool isBuildVectorOfConstantFPSDNodes(const SDNode *N);
 
 /// Returns true if the specified node is a vector where all elements can
 /// be truncated to the specified element size without a loss in meaning.
-bool isVectorShrinkable(const SDNode *N, unsigned NewEltSize, bool Signed);
+LLVM_ABI bool isVectorShrinkable(const SDNode *N, unsigned NewEltSize, bool Signed);
 
 /// Return true if the node has at least one operand and all operands of the
 /// specified node are ISD::UNDEF.
-bool allOperandsUndef(const SDNode *N);
+LLVM_ABI bool allOperandsUndef(const SDNode *N);
 
 /// Return true if the specified node is FREEZE(UNDEF).
-bool isFreezeUndef(const SDNode *N);
+LLVM_ABI bool isFreezeUndef(const SDNode *N);
 
 } // end namespace ISD
 
@@ -142,7 +143,7 @@ bool isFreezeUndef(const SDNode *N);
 /// computes it as well as which return value to use from that node.  This pair
 /// of information is represented with the SDValue value type.
 ///
-class SDValue {
+class LLVM_ABI SDValue {
   friend struct DenseMapInfo<SDValue>;
 
   SDNode *Node = nullptr; // The node defining the value we are using.
@@ -488,7 +489,7 @@ public:
 
 /// Represents one node in the SelectionDAG.
 ///
-class SDNode : public FoldingSetNode, public ilist_node<SDNode> {
+class LLVM_ABI SDNode : public FoldingSetNode, public ilist_node<SDNode> {
 private:
   /// The operation that this node performs.
   int32_t NodeType;
@@ -1289,7 +1290,7 @@ inline void SDUse::setNode(SDNode *N) {
 /// is persistent and is updated across invocations of replaceAllUsesWith on its
 /// operand.  This node should be directly created by end-users and not added to
 /// the AllNodes list.
-class HandleSDNode : public SDNode {
+class LLVM_ABI HandleSDNode : public SDNode {
   SDUse Op;
 
 public:
@@ -1333,7 +1334,7 @@ public:
 };
 
 /// This is an abstract virtual class for memory operations.
-class MemSDNode : public SDNode {
+class LLVM_ABI MemSDNode : public SDNode {
 private:
   // VT of in-memory value.
   EVT MemoryVT;
@@ -1609,7 +1610,7 @@ public:
 /// refer to elements from the LHS input, and indices from N to 2N-1 the RHS.
 /// An index of -1 is treated as undef, such that the code generator may put
 /// any value in the corresponding element of the result.
-class ShuffleVectorSDNode : public SDNode {
+class LLVM_ABI ShuffleVectorSDNode : public SDNode {
   // The memory for Mask is owned by the SelectionDAG's OperandAllocator, and
   // is freed when the SelectionDAG object is destroyed.
   const int *Mask;
@@ -1722,7 +1723,7 @@ const APInt &SDNode::getAsAPIntVal() const {
   return cast<ConstantSDNode>(this)->getAPIntValue();
 }
 
-class ConstantFPSDNode : public SDNode {
+class LLVM_ABI ConstantFPSDNode : public SDNode {
   friend class SelectionDAG;
 
   const ConstantFP *Value;
@@ -1770,94 +1771,94 @@ public:
 };
 
 /// Returns true if \p V is a constant integer zero.
-bool isNullConstant(SDValue V);
+LLVM_ABI bool isNullConstant(SDValue V);
 
 /// Returns true if \p V is a constant integer zero or an UNDEF node.
-bool isNullConstantOrUndef(SDValue V);
+LLVM_ABI bool isNullConstantOrUndef(SDValue V);
 
 /// Returns true if \p V is an FP constant with a value of positive zero.
-bool isNullFPConstant(SDValue V);
+LLVM_ABI bool isNullFPConstant(SDValue V);
 
 /// Returns true if \p V is an integer constant with all bits set.
-bool isAllOnesConstant(SDValue V);
+LLVM_ABI bool isAllOnesConstant(SDValue V);
 
 /// Returns true if \p V is a constant integer one.
-bool isOneConstant(SDValue V);
+LLVM_ABI bool isOneConstant(SDValue V);
 
 /// Returns true if \p V is a constant min signed integer value.
-bool isMinSignedConstant(SDValue V);
+LLVM_ABI bool isMinSignedConstant(SDValue V);
 
 /// Returns true if \p V is a neutral element of Opc with Flags.
 /// When OperandNo is 0, it checks that V is a left identity. Otherwise, it
 /// checks that V is a right identity.
-bool isNeutralConstant(unsigned Opc, SDNodeFlags Flags, SDValue V,
+LLVM_ABI bool isNeutralConstant(unsigned Opc, SDNodeFlags Flags, SDValue V,
                        unsigned OperandNo);
 
 /// Return the non-bitcasted source operand of \p V if it exists.
 /// If \p V is not a bitcasted value, it is returned as-is.
-SDValue peekThroughBitcasts(SDValue V);
+LLVM_ABI SDValue peekThroughBitcasts(SDValue V);
 
 /// Return the non-bitcasted and one-use source operand of \p V if it exists.
 /// If \p V is not a bitcasted one-use value, it is returned as-is.
-SDValue peekThroughOneUseBitcasts(SDValue V);
+LLVM_ABI SDValue peekThroughOneUseBitcasts(SDValue V);
 
 /// Return the non-extracted vector source operand of \p V if it exists.
 /// If \p V is not an extracted subvector, it is returned as-is.
-SDValue peekThroughExtractSubvectors(SDValue V);
+LLVM_ABI SDValue peekThroughExtractSubvectors(SDValue V);
 
 /// Return the non-truncated source operand of \p V if it exists.
 /// If \p V is not a truncation, it is returned as-is.
-SDValue peekThroughTruncates(SDValue V);
+LLVM_ABI SDValue peekThroughTruncates(SDValue V);
 
 /// Returns true if \p V is a bitwise not operation. Assumes that an all ones
 /// constant is canonicalized to be operand 1.
-bool isBitwiseNot(SDValue V, bool AllowUndefs = false);
+LLVM_ABI bool isBitwiseNot(SDValue V, bool AllowUndefs = false);
 
 /// If \p V is a bitwise not, returns the inverted operand. Otherwise returns
 /// an empty SDValue. Only bits set in \p Mask are required to be inverted,
 /// other bits may be arbitrary.
-SDValue getBitwiseNotOperand(SDValue V, SDValue Mask, bool AllowUndefs);
+LLVM_ABI SDValue getBitwiseNotOperand(SDValue V, SDValue Mask, bool AllowUndefs);
 
 /// Returns the SDNode if it is a constant splat BuildVector or constant int.
-ConstantSDNode *isConstOrConstSplat(SDValue N, bool AllowUndefs = false,
+LLVM_ABI ConstantSDNode *isConstOrConstSplat(SDValue N, bool AllowUndefs = false,
                                     bool AllowTruncation = false);
 
 /// Returns the SDNode if it is a demanded constant splat BuildVector or
 /// constant int.
-ConstantSDNode *isConstOrConstSplat(SDValue N, const APInt &DemandedElts,
+LLVM_ABI ConstantSDNode *isConstOrConstSplat(SDValue N, const APInt &DemandedElts,
                                     bool AllowUndefs = false,
                                     bool AllowTruncation = false);
 
 /// Returns the SDNode if it is a constant splat BuildVector or constant float.
-ConstantFPSDNode *isConstOrConstSplatFP(SDValue N, bool AllowUndefs = false);
+LLVM_ABI ConstantFPSDNode *isConstOrConstSplatFP(SDValue N, bool AllowUndefs = false);
 
 /// Returns the SDNode if it is a demanded constant splat BuildVector or
 /// constant float.
-ConstantFPSDNode *isConstOrConstSplatFP(SDValue N, const APInt &DemandedElts,
+LLVM_ABI ConstantFPSDNode *isConstOrConstSplatFP(SDValue N, const APInt &DemandedElts,
                                         bool AllowUndefs = false);
 
 /// Return true if the value is a constant 0 integer or a splatted vector of
 /// a constant 0 integer (with no undefs by default).
 /// Build vector implicit truncation is not an issue for null values.
-bool isNullOrNullSplat(SDValue V, bool AllowUndefs = false);
+LLVM_ABI bool isNullOrNullSplat(SDValue V, bool AllowUndefs = false);
 
 /// Return true if the value is a constant 1 integer or a splatted vector of a
 /// constant 1 integer (with no undefs).
 /// Build vector implicit truncation is allowed, but the truncated bits need to
 /// be zero.
-bool isOneOrOneSplat(SDValue V, bool AllowUndefs = false);
+LLVM_ABI bool isOneOrOneSplat(SDValue V, bool AllowUndefs = false);
 
 /// Return true if the value is a constant -1 integer or a splatted vector of a
 /// constant -1 integer (with no undefs).
 /// Does not permit build vector implicit truncation.
-bool isAllOnesOrAllOnesSplat(SDValue V, bool AllowUndefs = false);
+LLVM_ABI bool isAllOnesOrAllOnesSplat(SDValue V, bool AllowUndefs = false);
 
 /// Return true if \p V is either a integer or FP constant.
 inline bool isIntOrFPConstant(SDValue V) {
   return isa<ConstantSDNode>(V) || isa<ConstantFPSDNode>(V);
 }
 
-class GlobalAddressSDNode : public SDNode {
+class LLVM_ABI GlobalAddressSDNode : public SDNode {
   friend class SelectionDAG;
 
   const GlobalValue *TheGlobal;
@@ -1983,7 +1984,7 @@ public:
   }
 };
 
-class ConstantPoolSDNode : public SDNode {
+class LLVM_ABI ConstantPoolSDNode : public SDNode {
   friend class SelectionDAG;
 
   union {
@@ -2088,7 +2089,7 @@ public:
 };
 
 /// A "pseudo-class" with methods for operating on BUILD_VECTORs.
-class BuildVectorSDNode : public SDNode {
+class LLVM_ABI BuildVectorSDNode : public SDNode {
 public:
   // These are constructed as SDNodes and then cast to BuildVectorSDNodes.
   explicit BuildVectorSDNode() = delete;
@@ -3268,7 +3269,7 @@ namespace ISD {
   /// constants or every element of a pair of constant BUILD_VECTORs.
   /// If AllowUndef is true, then UNDEF elements will pass nullptr to Match.
   /// If AllowTypeMismatch is true then RetType + ArgTypes don't need to match.
-  bool matchBinaryPredicate(
+  LLVM_ABI bool matchBinaryPredicate(
       SDValue LHS, SDValue RHS,
       std::function<bool(ConstantSDNode *, ConstantSDNode *)> Match,
       bool AllowUndefs = false, bool AllowTypeMismatch = false);

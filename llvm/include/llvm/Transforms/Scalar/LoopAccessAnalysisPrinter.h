@@ -10,6 +10,7 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPACCESSANALYSISPRINTER_H
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -17,7 +18,7 @@ class Function;
 class raw_ostream;
 
 /// Printer pass for the \c LoopAccessInfo results.
-class LoopAccessInfoPrinterPass
+class LLVM_ABI LoopAccessInfoPrinterPass
     : public PassInfoMixin<LoopAccessInfoPrinterPass> {
   raw_ostream &OS;
 

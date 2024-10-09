@@ -16,6 +16,7 @@
 #include "llvm/ADT/DenseMapInfo.h"
 #include "llvm/CodeGen/Register.h"
 #include "llvm/IR/Intrinsics.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 
 namespace llvm {
@@ -45,7 +46,7 @@ class MCSymbol;
 /// MachineRegisterInfo::moveOperands(), and MF::DeleteMachineInstr() depend on
 /// not having to call the MachineOperand destructor.
 ///
-class MachineOperand {
+class LLVM_ABI MachineOperand {
 public:
   enum MachineOperandType : unsigned char {
     MO_Register,          ///< Register operand.
@@ -763,7 +764,7 @@ public:
   /// isIdenticalTo uses for comparison. It is thus suited for use in hash
   /// tables which use that function for equality comparisons only. This must
   /// stay exactly in sync with isIdenticalTo above.
-  friend hash_code hash_value(const MachineOperand &MO);
+  friend LLVM_ABI hash_code hash_value(const MachineOperand &MO);
 
   /// ChangeToImmediate - Replace this operand with a new immediate operand of
   /// the specified value.  If an operand is known to be an immediate already,
@@ -1045,7 +1046,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, const MachineOperand &MO) {
 
 // See friend declaration above. This additional declaration is required in
 // order to compile LLVM with IBM xlC compiler.
-hash_code hash_value(const MachineOperand &MO);
+LLVM_ABI hash_code hash_value(const MachineOperand &MO);
 } // namespace llvm
 
 #endif

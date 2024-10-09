@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/RISCVISAUtils.h"
 
@@ -21,7 +22,7 @@
 
 namespace llvm {
 
-class RISCVISAInfo {
+class LLVM_ABI RISCVISAInfo {
 public:
   RISCVISAInfo(const RISCVISAInfo &) = delete;
   RISCVISAInfo &operator=(const RISCVISAInfo &) = delete;

@@ -25,6 +25,7 @@
 
 #include "llvm/ADT/APFloat.h"
 #include "llvm/IR/Instructions.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -33,7 +34,7 @@ class raw_ostream;
 struct KnownFPClass;
 
 /// This class represents a range of floating-point values.
-class [[nodiscard]] ConstantFPRange {
+class LLVM_ABI [[nodiscard]] ConstantFPRange {
   APFloat Lower, Upper;
   bool MayBeQNaN : 1;
   bool MayBeSNaN : 1;

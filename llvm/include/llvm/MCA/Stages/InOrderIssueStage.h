@@ -18,13 +18,14 @@
 #include "llvm/MCA/HardwareUnits/ResourceManager.h"
 #include "llvm/MCA/SourceMgr.h"
 #include "llvm/MCA/Stages/Stage.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace mca {
 class LSUnitBase;
 class RegisterFile;
 
-struct StallInfo {
+struct LLVM_ABI StallInfo {
   enum class StallKind {
     DEFAULT,
     REGISTER_DEPS,
@@ -51,7 +52,7 @@ struct StallInfo {
   void cycleEnd();
 };
 
-class InOrderIssueStage final : public Stage {
+class LLVM_ABI InOrderIssueStage final : public Stage {
   const MCSubtargetInfo &STI;
   RegisterFile &PRF;
   ResourceManager RM;

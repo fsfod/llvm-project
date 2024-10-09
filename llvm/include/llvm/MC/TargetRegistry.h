@@ -65,7 +65,7 @@ class InstrumentManager;
 struct SourceMgr;
 } // namespace mca
 
-MCStreamer *createNullStreamer(MCContext &Ctx);
+LLVM_ABI MCStreamer *createNullStreamer(MCContext &Ctx);
 // Takes ownership of \p TAB and \p CE.
 
 /// Create a machine code streamer which will print out assembly for the native
@@ -84,53 +84,53 @@ MCStreamer *createNullStreamer(MCContext &Ctx);
 ///
 /// \param ShowInst - Whether to show the MCInst representation inline with
 /// the assembly.
-MCStreamer *
+LLVM_ABI MCStreamer *
 createAsmStreamer(MCContext &Ctx, std::unique_ptr<formatted_raw_ostream> OS,
                   MCInstPrinter *InstPrint, std::unique_ptr<MCCodeEmitter> &&CE,
                   std::unique_ptr<MCAsmBackend> &&TAB);
 
-MCStreamer *createELFStreamer(MCContext &Ctx,
+LLVM_ABI MCStreamer *createELFStreamer(MCContext &Ctx,
                               std::unique_ptr<MCAsmBackend> &&TAB,
                               std::unique_ptr<MCObjectWriter> &&OW,
                               std::unique_ptr<MCCodeEmitter> &&CE);
-MCStreamer *createGOFFStreamer(MCContext &Ctx,
+LLVM_ABI MCStreamer *createGOFFStreamer(MCContext &Ctx,
                                std::unique_ptr<MCAsmBackend> &&TAB,
                                std::unique_ptr<MCObjectWriter> &&OW,
                                std::unique_ptr<MCCodeEmitter> &&CE);
-MCStreamer *createMachOStreamer(MCContext &Ctx,
+LLVM_ABI MCStreamer *createMachOStreamer(MCContext &Ctx,
                                 std::unique_ptr<MCAsmBackend> &&TAB,
                                 std::unique_ptr<MCObjectWriter> &&OW,
                                 std::unique_ptr<MCCodeEmitter> &&CE,
                                 bool DWARFMustBeAtTheEnd,
                                 bool LabelSections = false);
-MCStreamer *createWasmStreamer(MCContext &Ctx,
+LLVM_ABI MCStreamer *createWasmStreamer(MCContext &Ctx,
                                std::unique_ptr<MCAsmBackend> &&TAB,
                                std::unique_ptr<MCObjectWriter> &&OW,
                                std::unique_ptr<MCCodeEmitter> &&CE);
-MCStreamer *createSPIRVStreamer(MCContext &Ctx,
+LLVM_ABI MCStreamer *createSPIRVStreamer(MCContext &Ctx,
                                 std::unique_ptr<MCAsmBackend> &&TAB,
                                 std::unique_ptr<MCObjectWriter> &&OW,
                                 std::unique_ptr<MCCodeEmitter> &&CE);
-MCStreamer *createDXContainerStreamer(MCContext &Ctx,
+LLVM_ABI MCStreamer *createDXContainerStreamer(MCContext &Ctx,
                                       std::unique_ptr<MCAsmBackend> &&TAB,
                                       std::unique_ptr<MCObjectWriter> &&OW,
                                       std::unique_ptr<MCCodeEmitter> &&CE);
 
-MCRelocationInfo *createMCRelocationInfo(const Triple &TT, MCContext &Ctx);
+LLVM_ABI MCRelocationInfo *createMCRelocationInfo(const Triple &TT, MCContext &Ctx);
 
-MCSymbolizer *createMCSymbolizer(const Triple &TT, LLVMOpInfoCallback GetOpInfo,
+LLVM_ABI MCSymbolizer *createMCSymbolizer(const Triple &TT, LLVMOpInfoCallback GetOpInfo,
                                  LLVMSymbolLookupCallback SymbolLookUp,
                                  void *DisInfo, MCContext *Ctx,
                                  std::unique_ptr<MCRelocationInfo> &&RelInfo);
 
-mca::CustomBehaviour *createCustomBehaviour(const MCSubtargetInfo &STI,
+LLVM_ABI mca::CustomBehaviour *createCustomBehaviour(const MCSubtargetInfo &STI,
                                             const mca::SourceMgr &SrcMgr,
                                             const MCInstrInfo &MCII);
 
-mca::InstrPostProcess *createInstrPostProcess(const MCSubtargetInfo &STI,
+LLVM_ABI mca::InstrPostProcess *createInstrPostProcess(const MCSubtargetInfo &STI,
                                               const MCInstrInfo &MCII);
 
-mca::InstrumentManager *createInstrumentManager(const MCSubtargetInfo &STI,
+LLVM_ABI mca::InstrumentManager *createInstrumentManager(const MCSubtargetInfo &STI,
                                                 const MCInstrInfo &MCII);
 
 /// Target - Wrapper for Target specific information.
@@ -141,7 +141,7 @@ mca::InstrumentManager *createInstrumentManager(const MCSubtargetInfo &STI,
 /// Targets should implement a single global instance of this class (which
 /// will be zero initialized), and pass that instance to the TargetRegistry as
 /// part of their initialization.
-class Target {
+class LLVM_ABI Target {
 public:
   friend struct TargetRegistry;
 
@@ -638,7 +638,7 @@ public:
 };
 
 /// TargetRegistry - Generic interface to target specific features.
-struct TargetRegistry {
+struct LLVM_ABI TargetRegistry {
   // FIXME: Make this a namespace, probably just move all the Register*
   // functions into Target (currently they all just set members on the Target
   // anyway, and Target friends this class so those functions can...

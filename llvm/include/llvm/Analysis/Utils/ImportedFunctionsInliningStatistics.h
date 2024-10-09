@@ -15,6 +15,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 #include <vector>
 
@@ -41,7 +42,7 @@ class Function;
 /// per each inlined function, sorted by the greatest inlines count like
 /// - number of performed inlines
 /// - number of performed inlines to importing module
-class ImportedFunctionsInliningStatistics {
+class LLVM_ABI ImportedFunctionsInliningStatistics {
 private:
   /// InlineGraphNode represents node in graph of inlined functions.
   struct InlineGraphNode {

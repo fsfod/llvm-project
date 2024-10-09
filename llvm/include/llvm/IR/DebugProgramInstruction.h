@@ -55,6 +55,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/SymbolTableListTraits.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -131,7 +132,7 @@ public:
 ///   isIdenticalToWhenDefined
 ///   both print methods
 ///   createDebugIntrinsic
-class DbgRecord : public ilist_node<DbgRecord> {
+class LLVM_ABI DbgRecord : public ilist_node<DbgRecord> {
 public:
   /// Marker that this DbgRecord is linked into.
   DbgMarker *Marker = nullptr;
@@ -220,7 +221,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, const DbgRecord &R) {
 
 /// Records a position in IR for a source label (DILabel). Corresponds to the
 /// llvm.dbg.label intrinsic.
-class DbgLabelRecord : public DbgRecord {
+class LLVM_ABI DbgLabelRecord : public DbgRecord {
   DbgRecordParamRef<DILabel> Label;
 
   /// This constructor intentionally left private, so that it is only called via
@@ -259,7 +260,7 @@ public:
 ///
 /// This class inherits from DebugValueUser to allow LLVM's metadata facilities
 /// to update our references to metadata beneath our feet.
-class DbgVariableRecord : public DbgRecord, protected DebugValueUser {
+class LLVM_ABI DbgVariableRecord : public DbgRecord, protected DebugValueUser {
   friend class DebugValueUser;
 
 public:
@@ -572,7 +573,7 @@ filterDbgVars(iterator_range<simple_ilist<DbgRecord>::iterator> R) {
 /// which we can improve in the future. Additionally, many improvements in the
 /// way that debug-info is stored can be achieved in this class, at a future
 /// date.
-class DbgMarker {
+class LLVM_ABI DbgMarker {
 public:
   DbgMarker() {}
   /// Link back to the Instruction that owns this marker. Can be null during

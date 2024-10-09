@@ -18,6 +18,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/BinaryFormat/DXContainer.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/YAMLTraits.h"
 #include <array>
 #include <cstdint>
@@ -57,14 +58,14 @@ struct DXILProgram {
 };
 
 #define SHADER_FEATURE_FLAG(Num, DxilModuleNum, Val, Str) bool Val = false;
-struct ShaderFeatureFlags {
+struct LLVM_ABI ShaderFeatureFlags {
   ShaderFeatureFlags() = default;
   ShaderFeatureFlags(uint64_t FlagData);
   uint64_t getEncodedFlags();
 #include "llvm/BinaryFormat/DXContainerConstants.def"
 };
 
-struct ShaderHash {
+struct LLVM_ABI ShaderHash {
   ShaderHash() = default;
   ShaderHash(const dxbc::ShaderHash &Data);
 
@@ -102,7 +103,7 @@ struct SignatureElement {
   uint8_t Stream;
 };
 
-struct PSVInfo {
+struct LLVM_ABI PSVInfo {
   // The version field isn't actually encoded in the file, but it is inferred by
   // the size of data regions. We include it in the yaml because it simplifies
   // the format.
@@ -189,55 +190,55 @@ class raw_ostream;
 
 namespace yaml {
 
-template <> struct MappingTraits<DXContainerYAML::VersionTuple> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::VersionTuple> {
   static void mapping(IO &IO, DXContainerYAML::VersionTuple &Version);
 };
 
-template <> struct MappingTraits<DXContainerYAML::FileHeader> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::FileHeader> {
   static void mapping(IO &IO, DXContainerYAML::FileHeader &Header);
 };
 
-template <> struct MappingTraits<DXContainerYAML::DXILProgram> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::DXILProgram> {
   static void mapping(IO &IO, DXContainerYAML::DXILProgram &Program);
 };
 
-template <> struct MappingTraits<DXContainerYAML::ShaderFeatureFlags> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::ShaderFeatureFlags> {
   static void mapping(IO &IO, DXContainerYAML::ShaderFeatureFlags &Flags);
 };
 
-template <> struct MappingTraits<DXContainerYAML::ShaderHash> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::ShaderHash> {
   static void mapping(IO &IO, DXContainerYAML::ShaderHash &Hash);
 };
 
-template <> struct MappingTraits<DXContainerYAML::PSVInfo> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::PSVInfo> {
   static void mapping(IO &IO, DXContainerYAML::PSVInfo &PSV);
 };
 
-template <> struct MappingTraits<DXContainerYAML::Part> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::Part> {
   static void mapping(IO &IO, DXContainerYAML::Part &Version);
 };
 
-template <> struct MappingTraits<DXContainerYAML::Object> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::Object> {
   static void mapping(IO &IO, DXContainerYAML::Object &Obj);
 };
 
-template <> struct MappingTraits<DXContainerYAML::ResourceFlags> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::ResourceFlags> {
   static void mapping(IO &IO, DXContainerYAML::ResourceFlags &Flags);
 };
 
-template <> struct MappingTraits<DXContainerYAML::ResourceBindInfo> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::ResourceBindInfo> {
   static void mapping(IO &IO, DXContainerYAML::ResourceBindInfo &Res);
 };
 
-template <> struct MappingTraits<DXContainerYAML::SignatureElement> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::SignatureElement> {
   static void mapping(IO &IO, llvm::DXContainerYAML::SignatureElement &El);
 };
 
-template <> struct MappingTraits<DXContainerYAML::SignatureParameter> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::SignatureParameter> {
   static void mapping(IO &IO, llvm::DXContainerYAML::SignatureParameter &El);
 };
 
-template <> struct MappingTraits<DXContainerYAML::Signature> {
+template <> struct LLVM_ABI MappingTraits<DXContainerYAML::Signature> {
   static void mapping(IO &IO, llvm::DXContainerYAML::Signature &El);
 };
 

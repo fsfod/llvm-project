@@ -24,6 +24,7 @@
 #include "llvm/CodeGen/StackMaps.h"
 #include "llvm/DebugInfo/CodeView/CodeView.h"
 #include "llvm/IR/InlineAsm.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cstdint>
 #include <memory>
@@ -83,7 +84,7 @@ class RemarkStreamer;
 }
 
 /// This class is intended to be used as a driving class for all asm writers.
-class AsmPrinter : public MachineFunctionPass {
+class LLVM_ABI AsmPrinter : public MachineFunctionPass {
 public:
   /// Target machine description.
   TargetMachine &TM;
@@ -345,7 +346,7 @@ public:
   // containing the sled, and what kind of sled (and whether they should always
   // be instrumented). We also use a version identifier that the runtime can use
   // to decide what to do with the sled, depending on the version of the sled.
-  struct XRayFunctionEntry {
+  struct LLVM_ABI XRayFunctionEntry {
     const MCSymbol *Sled;
     const MCSymbol *Function;
     SledKind Kind;

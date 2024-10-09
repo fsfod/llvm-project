@@ -11,11 +11,12 @@
 
 #include "llvm/ADT/SetVector.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class GlobalValue;
 
-class ExtractGVPass : public PassInfoMixin<ExtractGVPass> {
+class LLVM_ABI ExtractGVPass : public PassInfoMixin<ExtractGVPass> {
 private:
   SetVector<GlobalValue *> Named;
   bool deleteStuff;

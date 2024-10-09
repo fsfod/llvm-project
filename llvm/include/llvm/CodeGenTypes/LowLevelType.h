@@ -28,6 +28,7 @@
 
 #include "llvm/ADT/DenseMapInfo.h"
 #include "llvm/CodeGenTypes/MachineValueType.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include <cassert>
 
@@ -36,7 +37,7 @@ namespace llvm {
 class Type;
 class raw_ostream;
 
-class LLT {
+class LLVM_ABI LLT {
 public:
   /// Get a low-level scalar or aggregate "bag of bits".
   static constexpr LLT scalar(unsigned SizeInBits) {

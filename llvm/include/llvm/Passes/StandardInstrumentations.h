@@ -25,6 +25,7 @@
 #include "llvm/IR/PassTimingInfo.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/TimeProfiler.h"
 #include "llvm/Transforms/IPO/SampleProfileProbe.h"
 
@@ -42,7 +43,7 @@ class PassInstrumentationCallbacks;
 ///
 /// Needs state to be able to print module after pass that invalidates IR unit
 /// (typically Loop or SCC).
-class PrintIRInstrumentation {
+class LLVM_ABI PrintIRInstrumentation {
 public:
   ~PrintIRInstrumentation();
 
@@ -87,7 +88,7 @@ private:
   unsigned CurrentPassNumber = 0;
 };
 
-class OptNoneInstrumentation {
+class LLVM_ABI OptNoneInstrumentation {
 public:
   OptNoneInstrumentation(bool DebugLogging) : DebugLogging(DebugLogging) {}
   void registerCallbacks(PassInstrumentationCallbacks &PIC);
@@ -97,7 +98,7 @@ private:
   bool shouldRun(StringRef PassID, Any IR);
 };
 
-class OptPassGateInstrumentation {
+class LLVM_ABI OptPassGateInstrumentation {
   LLVMContext &Context;
   bool HasWrittenIR = false;
 public:
@@ -116,7 +117,7 @@ struct PrintPassOptions {
 };
 
 // Debug logging for transformation and analysis passes.
-class PrintPassInstrumentation {
+class LLVM_ABI PrintPassInstrumentation {
   raw_ostream &print();
 
 public:
@@ -130,7 +131,7 @@ private:
   int Indent = 0;
 };
 
-class PreservedCFGCheckerInstrumentation {
+class LLVM_ABI PreservedCFGCheckerInstrumentation {
 public:
   // Keeps sticky poisoned flag for the given basic block once it has been
   // deleted or RAUWed.
@@ -149,7 +150,7 @@ public:
   // reporting a CFG change. CFG can be guarded by basic block tracking pointers
   // in the Graph (BBGuard). That is if any of the block is deleted or RAUWed
   // then the CFG is treated poisoned and no block pointer of the Graph is used.
-  struct CFG {
+  struct LLVM_ABI CFG {
     std::optional<DenseMap<intptr_t, BBGuard>> BBGuards;
     DenseMap<const BasicBlock *, DenseMap<const BasicBlock *, unsigned>> Graph;
 
@@ -267,7 +268,7 @@ protected:
 // by unwrapAndPrint.  The string representation is stored in a std::string
 // to preserve it as the IR changes in each pass.  Note that the banner is
 // included in this representation but it is massaged before reporting.
-class IRChangedPrinter : public TextChangeReporter<std::string> {
+class LLVM_ABI IRChangedPrinter : public TextChangeReporter<std::string> {
 public:
   IRChangedPrinter(bool VerboseMode)
       : TextChangeReporter<std::string>(VerboseMode) {}
@@ -284,7 +285,7 @@ protected:
                    Any) override;
 };
 
-class IRChangedTester : public IRChangedPrinter {
+class LLVM_ABI IRChangedTester : public IRChangedPrinter {
 public:
   IRChangedTester() : IRChangedPrinter(true) {}
   ~IRChangedTester() override;
@@ -430,7 +431,7 @@ protected:
 // and added, respectively.  Changes to the IR that do not affect basic
 // blocks are not reported as having changed the IR.  The option
 // -print-module-scope does not affect this change reporter.
-class InLineChangePrinter : public TextChangeReporter<IRDataT<EmptyData>> {
+class LLVM_ABI InLineChangePrinter : public TextChangeReporter<IRDataT<EmptyData>> {
 public:
   InLineChangePrinter(bool VerboseMode, bool ColourMode)
       : TextChangeReporter<IRDataT<EmptyData>>(VerboseMode),
@@ -456,7 +457,7 @@ protected:
   bool UseColour;
 };
 
-class VerifyInstrumentation {
+class LLVM_ABI VerifyInstrumentation {
   bool DebugLogging;
 
 public:
@@ -468,7 +469,7 @@ public:
 /// This class implements --time-trace functionality for new pass manager.
 /// It provides the pass-instrumentation callbacks that measure the pass
 /// execution time. They collect time tracing info by TimeProfiler.
-class TimeProfilingPassesHandler {
+class LLVM_ABI TimeProfilingPassesHandler {
 public:
   TimeProfilingPassesHandler();
   // We intend this to be unique per-compilation, thus no copies.
@@ -485,7 +486,7 @@ private:
 
 // Class that holds transitions between basic blocks.  The transitions
 // are contained in a map of values to names of basic blocks.
-class DCData {
+class LLVM_ABI DCData {
 public:
   // Fill the map with the transitions from basic block \p B.
   DCData(const BasicBlock &B);
@@ -517,7 +518,7 @@ protected:
 
 // A change reporter that builds a website with links to pdf files showing
 // dot control flow graphs with changed instructions shown in colour.
-class DotCfgChangeReporter : public ChangeReporter<IRDataT<DCData>> {
+class LLVM_ABI DotCfgChangeReporter : public ChangeReporter<IRDataT<DCData>> {
 public:
   DotCfgChangeReporter(bool Verbose);
   ~DotCfgChangeReporter() override;
@@ -560,7 +561,7 @@ protected:
 };
 
 // Print IR on crash.
-class PrintCrashIRInstrumentation {
+class LLVM_ABI PrintCrashIRInstrumentation {
 public:
   PrintCrashIRInstrumentation()
       : SavedIR("*** Dump of IR Before Last Pass Unknown ***") {}
@@ -580,7 +581,7 @@ private:
 
 /// This class provides an interface to register all the standard pass
 /// instrumentations and manages their state (if any).
-class StandardInstrumentations {
+class LLVM_ABI StandardInstrumentations {
   PrintIRInstrumentation PrintIR;
   PrintPassInstrumentation PrintPass;
   TimePassesHandler TimePasses;
@@ -611,15 +612,15 @@ public:
   TimePassesHandler &getTimePasses() { return TimePasses; }
 };
 
-extern template class ChangeReporter<std::string>;
-extern template class TextChangeReporter<std::string>;
+extern template class LLVM_TEMPLATE_ABI ChangeReporter<std::string>;
+extern template class LLVM_TEMPLATE_ABI TextChangeReporter<std::string>;
 
-extern template class BlockDataT<EmptyData>;
-extern template class FuncDataT<EmptyData>;
-extern template class IRDataT<EmptyData>;
-extern template class ChangeReporter<IRDataT<EmptyData>>;
-extern template class TextChangeReporter<IRDataT<EmptyData>>;
-extern template class IRComparer<EmptyData>;
+extern template class LLVM_TEMPLATE_ABI BlockDataT<EmptyData>;
+extern template class LLVM_TEMPLATE_ABI FuncDataT<EmptyData>;
+extern template class LLVM_TEMPLATE_ABI IRDataT<EmptyData>;
+extern template class LLVM_TEMPLATE_ABI ChangeReporter<IRDataT<EmptyData>>;
+extern template class LLVM_TEMPLATE_ABI TextChangeReporter<IRDataT<EmptyData>>;
+extern template class LLVM_TEMPLATE_ABI IRComparer<EmptyData>;
 
 } // namespace llvm
 

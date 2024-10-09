@@ -11,6 +11,7 @@
 
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/SandboxIR/Value.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
@@ -20,7 +21,7 @@ class Instruction;
 
 /// Iterator for `Instruction`s in a `BasicBlock.
 /// \Returns an sandboxir::Instruction & when derereferenced.
-class BBIterator {
+class LLVM_ABI BBIterator {
 public:
   using difference_type = std::ptrdiff_t;
   using value_type = Instruction;
@@ -64,7 +65,7 @@ public:
 };
 
 /// Contains a list of sandboxir::Instruction's.
-class BasicBlock : public Value {
+class LLVM_ABI BasicBlock : public Value {
   /// Builds a graph that contains all values in \p BB in their original form
   /// i.e., no vectorization is taking place here.
   void buildBasicBlockFromLLVMIR(llvm::BasicBlock *LLVMBB);

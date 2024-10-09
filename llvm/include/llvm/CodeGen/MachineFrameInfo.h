@@ -17,6 +17,7 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/CodeGen/TargetFrameLowering.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <vector>
 
@@ -103,7 +104,7 @@ public:
 /// the program.
 ///
 /// Abstract Stack Frame Information
-class MachineFrameInfo {
+class LLVM_ABI MachineFrameInfo {
 public:
   /// Stack Smashing Protection (SSP) rules require that vulnerable stack
   /// allocations are located close the stack protector.

@@ -16,6 +16,7 @@
 
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/Analysis/TargetLibraryInfo.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class AssumptionCache;
@@ -38,7 +39,7 @@ class ProfileSummaryInfo;
 /// Other optimizations can also be done, but it's possible to disable them and
 /// only simplify needless use of the checking versions (when the object size
 /// is unknown) by passing true for OnlyLowerUnknownSize.
-class FortifiedLibCallSimplifier {
+class LLVM_ABI FortifiedLibCallSimplifier {
 private:
   const TargetLibraryInfo *TLI;
   bool OnlyLowerUnknownSize;
@@ -100,7 +101,7 @@ private:
 /// LibCallSimplifier - This class implements a collection of optimizations
 /// that replace well formed calls to library functions with a more optimal
 /// form.  For example, replacing 'printf("Hello!")' with 'puts("Hello!")'.
-class LibCallSimplifier {
+class LLVM_ABI LibCallSimplifier {
 private:
   FortifiedLibCallSimplifier FortifiedSimplifier;
   const DataLayout &DL;

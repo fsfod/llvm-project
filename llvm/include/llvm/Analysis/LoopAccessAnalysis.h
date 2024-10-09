@@ -17,6 +17,7 @@
 #include "llvm/ADT/EquivalenceClasses.h"
 #include "llvm/Analysis/ScalarEvolution.h"
 #include "llvm/IR/DiagnosticInfo.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 #include <variant>
 
@@ -30,7 +31,7 @@ class TargetTransformInfo;
 
 /// Collection of parameters shared beetween the Loop Vectorizer and the
 /// Loop Access Analysis.
-struct VectorizerParams {
+struct LLVM_ABI VectorizerParams {
   /// Maximum SIMD width.
   static const unsigned MaxVectorWidth;
 
@@ -87,7 +88,7 @@ struct VectorizerParams {
 ///
 ///  * Zero distances and all accesses have the same size.
 ///
-class MemoryDepChecker {
+class LLVM_ABI MemoryDepChecker {
 public:
   typedef PointerIntPair<Value *, 1, bool> MemAccessInfo;
   typedef SmallVector<MemAccessInfo, 8> MemAccessInfoList;
@@ -108,7 +109,7 @@ public:
   };
 
   /// Dependece between memory access instructions.
-  struct Dependence {
+  struct LLVM_ABI Dependence {
     /// The type of the dependence.
     enum DepType {
       // No dependence.
@@ -395,7 +396,7 @@ private:
 class RuntimePointerChecking;
 /// A grouping of pointers. A single memcheck is required between
 /// two groups.
-struct RuntimeCheckingPtrGroup {
+struct LLVM_ABI RuntimeCheckingPtrGroup {
   /// Create a new pointer checking group containing a single
   /// pointer, with index \p Index in RtCheck.
   RuntimeCheckingPtrGroup(unsigned Index,
@@ -444,7 +445,7 @@ struct PointerDiffInfo {
 
 /// Holds information about the memory runtime legality checks to verify
 /// that a group of pointers do not overlap.
-class RuntimePointerChecking {
+class LLVM_ABI RuntimePointerChecking {
   friend struct RuntimeCheckingPtrGroup;
 
 public:
@@ -623,7 +624,7 @@ private:
 ///
 /// Checks for both memory dependences and the SCEV predicates contained in the
 /// PSE must be emitted in order for the results of this analysis to be valid.
-class LoopAccessInfo {
+class LLVM_ABI LoopAccessInfo {
 public:
   LoopAccessInfo(Loop *L, ScalarEvolution *SE, const TargetTransformInfo *TTI,
                  const TargetLibraryInfo *TLI, AAResults *AA, DominatorTree *DT,
@@ -787,7 +788,7 @@ private:
 ///
 /// \p PtrToStride provides the mapping between the pointer value and its
 /// stride as collected by LoopVectorizationLegality::collectStridedAccess.
-const SCEV *
+LLVM_ABI const SCEV *
 replaceSymbolicStrideSCEV(PredicatedScalarEvolution &PSE,
                           const DenseMap<Value *, const SCEV *> &PtrToStride,
                           Value *Ptr);
@@ -807,7 +808,7 @@ replaceSymbolicStrideSCEV(PredicatedScalarEvolution &PSE,
 /// Note that the analysis results are defined if-and-only-if the original
 /// memory access was defined.  If that access was dead, or UB, then the
 /// result of this function is undefined.
-std::optional<int64_t>
+LLVM_ABI std::optional<int64_t>
 getPtrStride(PredicatedScalarEvolution &PSE, Type *AccessTy, Value *Ptr,
              const Loop *Lp,
              const DenseMap<Value *, const SCEV *> &StridesMap = DenseMap<Value *, const SCEV *>(),
@@ -818,7 +819,7 @@ getPtrStride(PredicatedScalarEvolution &PSE, Type *AccessTy, Value *Ptr,
 /// is a simple API that does not depend on the analysis pass.
 /// \param StrictCheck Ensure that the calculated distance matches the
 /// type-based one after all the bitcasts removal in the provided pointers.
-std::optional<int> getPointersDiff(Type *ElemTyA, Value *PtrA, Type *ElemTyB,
+LLVM_ABI std::optional<int> getPointersDiff(Type *ElemTyA, Value *PtrA, Type *ElemTyB,
                                    Value *PtrB, const DataLayout &DL,
                                    ScalarEvolution &SE,
                                    bool StrictCheck = false,
@@ -834,16 +835,16 @@ std::optional<int> getPointersDiff(Type *ElemTyA, Value *PtrA, Type *ElemTyB,
 /// sorted indices in \p SortedIndices as a[i+0], a[i+1], a[i+4], a[i+7] and
 /// saves the mask for actual memory accesses in program order in
 /// \p SortedIndices as <1,2,0,3>
-bool sortPtrAccesses(ArrayRef<Value *> VL, Type *ElemTy, const DataLayout &DL,
+LLVM_ABI bool sortPtrAccesses(ArrayRef<Value *> VL, Type *ElemTy, const DataLayout &DL,
                      ScalarEvolution &SE,
                      SmallVectorImpl<unsigned> &SortedIndices);
 
 /// Returns true if the memory operations \p A and \p B are consecutive.
 /// This is a simple API that does not depend on the analysis pass.
-bool isConsecutiveAccess(Value *A, Value *B, const DataLayout &DL,
+LLVM_ABI bool isConsecutiveAccess(Value *A, Value *B, const DataLayout &DL,
                          ScalarEvolution &SE, bool CheckType = true);
 
-class LoopAccessInfoManager {
+class LLVM_ABI LoopAccessInfoManager {
   /// The cache.
   DenseMap<Loop *, std::unique_ptr<LoopAccessInfo>> LoopAccessInfoMap;
 
@@ -876,7 +877,7 @@ public:
 /// querying the loop access info via AM.getResult<LoopAccessAnalysis>.
 /// getResult return a LoopAccessInfo object.  See this class for the
 /// specifics of what information is provided.
-class LoopAccessAnalysis
+class LLVM_ABI LoopAccessAnalysis
     : public AnalysisInfoMixin<LoopAccessAnalysis> {
   friend AnalysisInfoMixin<LoopAccessAnalysis>;
   static AnalysisKey Key;

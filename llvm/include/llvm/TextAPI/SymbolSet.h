@@ -15,6 +15,7 @@
 #include "llvm/ADT/iterator.h"
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TextAPI/Architecture.h"
 #include "llvm/TextAPI/ArchitectureSet.h"
 #include "llvm/TextAPI/Symbol.h"
@@ -73,7 +74,7 @@ bool operator!=(const DenseMapBase<DerivedT, SymbolsMapKey, MachO::Symbol *,
 
 namespace MachO {
 
-class SymbolSet {
+class LLVM_ABI SymbolSet {
 private:
   llvm::BumpPtrAllocator Allocator;
   StringRef copyString(StringRef String) {

@@ -20,13 +20,14 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Value;
 class BranchInst;
 
-class DomConditionCache {
+class LLVM_ABI DomConditionCache {
 private:
   /// A map of values about which a branch might be providing information.
   using AffectedValuesMap = DenseMap<Value *, SmallVector<BranchInst *, 1>>;

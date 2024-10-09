@@ -23,6 +23,7 @@
 #include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -55,7 +56,7 @@ class BoUpSLP;
 
 } // end namespace slpvectorizer
 
-struct SLPVectorizerPass : public PassInfoMixin<SLPVectorizerPass> {
+struct LLVM_ABI SLPVectorizerPass : public PassInfoMixin<SLPVectorizerPass> {
   using StoreList = SmallVector<StoreInst *, 8>;
   using StoreListMap = MapVector<Value *, StoreList>;
   using GEPList = SmallVector<GetElementPtrInst *, 8>;

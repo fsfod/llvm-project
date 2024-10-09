@@ -18,6 +18,7 @@
 #include "llvm/ExecutionEngine/JITSymbol.h"
 #include "llvm/ExecutionEngine/Orc/Core.h"
 #include "llvm/ExecutionEngine/Orc/OrcABISupport.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/Memory.h"
 #include "llvm/Support/Process.h"
@@ -60,7 +61,7 @@ namespace orc {
 /// before calling a supplied function to return the trampoline landing
 /// address, then restore all state before jumping to that address. They
 /// are used by various ORC APIs to support lazy compilation
-class TrampolinePool {
+class LLVM_ABI TrampolinePool {
 public:
   using NotifyLandingResolvedFunction =
       unique_function<void(ExecutorAddr) const>;
@@ -200,7 +201,7 @@ private:
 };
 
 /// Target-independent base class for compile callback management.
-class JITCompileCallbackManager {
+class LLVM_ABI JITCompileCallbackManager {
 public:
   using CompileFunction = std::function<ExecutorAddr()>;
 
@@ -278,7 +279,7 @@ private:
 };
 
 /// Base class for managing collections of named indirect stubs.
-class IndirectStubsManager {
+class LLVM_ABI IndirectStubsManager {
 public:
   /// Map type for initializing the manager. See init.
   using StubInitsMap = StringMap<std::pair<ExecutorAddr, JITSymbolFlags>>;
@@ -471,14 +472,14 @@ private:
 /// The given target triple will determine the ABI, and the given
 /// ErrorHandlerAddress will be used by the resulting compile callback
 /// manager if a compile callback fails.
-Expected<std::unique_ptr<JITCompileCallbackManager>>
+LLVM_ABI Expected<std::unique_ptr<JITCompileCallbackManager>>
 createLocalCompileCallbackManager(const Triple &T, ExecutionSession &ES,
                                   ExecutorAddr ErrorHandlerAddress);
 
 /// Create a local indirect stubs manager builder.
 ///
 /// The given target triple will determine the ABI.
-std::function<std::unique_ptr<IndirectStubsManager>()>
+LLVM_ABI std::function<std::unique_ptr<IndirectStubsManager>()>
 createLocalIndirectStubsManagerBuilder(const Triple &T);
 
 /// Build a function pointer of FunctionType with the given constant
@@ -486,21 +487,21 @@ createLocalIndirectStubsManagerBuilder(const Triple &T);
 ///
 ///   Usage example: Turn a trampoline address into a function pointer constant
 /// for use in a stub.
-Constant *createIRTypedAddress(FunctionType &FT, ExecutorAddr Addr);
+LLVM_ABI Constant *createIRTypedAddress(FunctionType &FT, ExecutorAddr Addr);
 
 /// Create a function pointer with the given type, name, and initializer
 ///        in the given Module.
-GlobalVariable *createImplPointer(PointerType &PT, Module &M, const Twine &Name,
+LLVM_ABI GlobalVariable *createImplPointer(PointerType &PT, Module &M, const Twine &Name,
                                   Constant *Initializer);
 
 /// Turn a function declaration into a stub function that makes an
 ///        indirect call using the given function pointer.
-void makeStub(Function &F, Value &ImplPointer);
+LLVM_ABI void makeStub(Function &F, Value &ImplPointer);
 
 /// Promotes private symbols to global hidden, and renames to prevent clashes
 /// with other promoted symbols. The same SymbolPromoter instance should be
 /// used for all symbols to be added to a single JITDylib.
-class SymbolLinkagePromoter {
+class LLVM_ABI SymbolLinkagePromoter {
 public:
   /// Promote symbols in the given module. Returns the set of global values
   /// that have been renamed/promoted.
@@ -522,15 +523,15 @@ private:
 /// modules with these utilities, all decls should be cloned (and added to a
 /// single VMap) before any bodies are moved. This will ensure that references
 /// between functions all refer to the versions in the new module.
-Function *cloneFunctionDecl(Module &Dst, const Function &F,
+LLVM_ABI Function *cloneFunctionDecl(Module &Dst, const Function &F,
                             ValueToValueMapTy *VMap = nullptr);
 
 /// Clone a global variable declaration into a new module.
-GlobalVariable *cloneGlobalVariableDecl(Module &Dst, const GlobalVariable &GV,
+LLVM_ABI GlobalVariable *cloneGlobalVariableDecl(Module &Dst, const GlobalVariable &GV,
                                         ValueToValueMapTy *VMap = nullptr);
 
 /// Clone a global alias declaration into a new module.
-GlobalAlias *cloneGlobalAliasDecl(Module &Dst, const GlobalAlias &OrigA,
+LLVM_ABI GlobalAlias *cloneGlobalAliasDecl(Module &Dst, const GlobalAlias &OrigA,
                                   ValueToValueMapTy &VMap);
 
 /// Introduce relocations to \p Sym in its own definition if there are any
@@ -555,7 +556,7 @@ GlobalAlias *cloneGlobalAliasDecl(Module &Dst, const GlobalAlias &OrigA,
 ///
 /// This is based on disassembly and should be considered "best effort". It may
 /// silently fail to add relocations.
-Error addFunctionPointerRelocationsToCurrentSymbol(jitlink::Symbol &Sym,
+LLVM_ABI Error addFunctionPointerRelocationsToCurrentSymbol(jitlink::Symbol &Sym,
                                                    jitlink::LinkGraph &G,
                                                    MCDisassembler &Disassembler,
                                                    MCInstrAnalysis &MIA);

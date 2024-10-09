@@ -15,6 +15,7 @@
 #define LLVM_IR_DEBUGLOC_H
 
 #include "llvm/IR/TrackingMDRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataTypes.h"
 
 namespace llvm {
@@ -30,7 +31,7 @@ namespace llvm {
   ///
   /// To avoid extra includes, \a DebugLoc doubles the \a DILocation API with a
   /// one based on relatively opaque \a MDNode pointers.
-  class DebugLoc {
+  class LLVM_ABI DebugLoc {
     TrackingMDNodeRef Loc;
 
   public:

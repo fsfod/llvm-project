@@ -10,9 +10,10 @@
 #define LLVM_ANALYSIS_MEMDEREFPRINTER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
-class MemDerefPrinterPass : public PassInfoMixin<MemDerefPrinterPass> {
+class LLVM_ABI MemDerefPrinterPass : public PassInfoMixin<MemDerefPrinterPass> {
   raw_ostream &OS;
 
 public:

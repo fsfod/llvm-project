@@ -18,6 +18,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/InstrTypes.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 
 namespace llvm {
@@ -47,7 +48,7 @@ class Use;
 /// to note that the mapping is often partial. Thus, some arguments of the
 /// call/invoke instruction are mapped to parameters of the callee while others
 /// are not.
-class AbstractCallSite {
+class LLVM_ABI AbstractCallSite {
 public:
 
   /// The encoding of a callback with regards to the underlying instruction.

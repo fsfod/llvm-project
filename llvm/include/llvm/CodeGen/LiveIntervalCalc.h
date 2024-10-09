@@ -18,6 +18,7 @@
 #define LLVM_CODEGEN_LIVEINTERVALCALC_H
 
 #include "llvm/CodeGen/LiveRangeCalc.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -25,7 +26,7 @@ template <class NodeT> class DomTreeNodeBase;
 
 using MachineDomTreeNode = DomTreeNodeBase<MachineBasicBlock>;
 
-class LiveIntervalCalc : public LiveRangeCalc {
+class LLVM_ABI LiveIntervalCalc : public LiveRangeCalc {
   /// Extend the live range of @p LR to reach all uses of Reg.
   ///
   /// If @p LR is a main range, or if @p LI is null, then all uses must be

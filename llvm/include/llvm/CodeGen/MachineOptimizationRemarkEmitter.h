@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/IR/DiagnosticInfo.h"
 #include "llvm/IR/Function.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -28,7 +29,7 @@ class MachineInstr;
 
 /// Common features for diagnostics dealing with optimization remarks
 /// that are used by machine passes.
-class DiagnosticInfoMIROptimization : public DiagnosticInfoOptimizationBase {
+class LLVM_ABI DiagnosticInfoMIROptimization : public DiagnosticInfoOptimizationBase {
 public:
   DiagnosticInfoMIROptimization(enum DiagnosticKind Kind, const char *PassName,
                                 StringRef RemarkName,
@@ -39,7 +40,7 @@ public:
         MBB(MBB) {}
 
   /// MI-specific kinds of diagnostic Arguments.
-  struct MachineArgument : public DiagnosticInfoOptimizationBase::Argument {
+  struct LLVM_ABI MachineArgument : public DiagnosticInfoOptimizationBase::Argument {
     /// Print an entire MachineInstr.
     MachineArgument(StringRef Key, const MachineInstr &MI);
   };
@@ -150,7 +151,7 @@ using MNV = DiagnosticInfoMIROptimization::MachineArgument;
 /// along with the reasons for it.  Hotness information of the corresponding
 /// code region can be included in the remark if DiagnosticsHotnessRequested is
 /// enabled in the LLVM context.
-class MachineOptimizationRemarkEmitter {
+class LLVM_ABI MachineOptimizationRemarkEmitter {
 public:
   MachineOptimizationRemarkEmitter(MachineFunction &MF,
                                    MachineBlockFrequencyInfo *MBFI)
@@ -221,7 +222,7 @@ private:
 };
 
 /// The analysis pass
-class MachineOptimizationRemarkEmitterAnalysis
+class LLVM_ABI MachineOptimizationRemarkEmitterAnalysis
     : public AnalysisInfoMixin<MachineOptimizationRemarkEmitterAnalysis> {
   friend AnalysisInfoMixin<MachineOptimizationRemarkEmitterAnalysis>;
   static AnalysisKey Key;
@@ -236,7 +237,7 @@ public:
 /// Note that this pass shouldn't generally be marked as preserved by other
 /// passes.  It's holding onto BFI, so if the pass does not preserve BFI, BFI
 /// could be freed.
-class MachineOptimizationRemarkEmitterPass : public MachineFunctionPass {
+class LLVM_ABI MachineOptimizationRemarkEmitterPass : public MachineFunctionPass {
   std::unique_ptr<MachineOptimizationRemarkEmitter> ORE;
 
 public:

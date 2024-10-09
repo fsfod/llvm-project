@@ -13,6 +13,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include <cstddef>
 #include <cstdint>
 
@@ -21,7 +22,7 @@ namespace llvm {
 class raw_ostream;
 
 /// Utility for building string tables with deduplicated suffixes.
-class StringTableBuilder {
+class LLVM_ABI StringTableBuilder {
 public:
   enum Kind {
     ELF,

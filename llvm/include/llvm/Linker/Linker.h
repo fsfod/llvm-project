@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/StringSet.h"
 #include "llvm/Linker/IRMover.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
@@ -19,7 +20,7 @@ class Module;
 /// pointer to the merged module so far. It doesn't take ownership of the
 /// module since it is assumed that the user of this class will want to do
 /// something with it after the linking.
-class Linker {
+class LLVM_ABI Linker {
   IRMover Mover;
 
 public:

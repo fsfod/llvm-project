@@ -24,6 +24,7 @@
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/IR/TrackingMDRef.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cstdint>
 #include <optional>
@@ -42,7 +43,7 @@ namespace llvm {
 
   using DbgInstPtr = PointerUnion<Instruction *, DbgRecord *>;
 
-  class DIBuilder {
+  class LLVM_ABI DIBuilder {
     Module &M;
     LLVMContext &VMContext;
 

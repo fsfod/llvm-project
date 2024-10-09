@@ -23,6 +23,7 @@
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <cstdint>
@@ -45,7 +46,7 @@ typedef unsigned ID;
 // Objective-C functions which commonly have :'s in their names.
 inline constexpr char GlobalIdentifierDelimiter = ';';
 
-class GlobalValue : public Constant {
+class LLVM_ABI GlobalValue : public Constant {
 public:
   /// An enumeration for the kinds of linkage for global values.
   enum LinkageTypes {

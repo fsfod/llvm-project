@@ -14,6 +14,7 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPSINK_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -30,7 +31,7 @@ class Function;
 /// We do this as a separate pass so that during normal optimization all
 /// invariant operations can be held outside the loop body to simplify
 /// fundamental analyses and transforms of the loop.
-class LoopSinkPass : public PassInfoMixin<LoopSinkPass> {
+class LLVM_ABI LoopSinkPass : public PassInfoMixin<LoopSinkPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM);
 };

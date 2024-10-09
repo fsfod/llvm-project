@@ -54,6 +54,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -111,7 +112,7 @@ enum InstrType { Legal, Illegal, Invisible };
 /// by \ref isSameOperationAs.
 /// TODO: Handle GetElementPtrInsts, as some of the operands have to be the
 /// exact same, and some do not.
-struct IRInstructionData
+struct LLVM_ABI IRInstructionData
     : ilist_node<IRInstructionData, ilist_sentinel_tracking<true>> {
 
   /// The source Instruction that is being wrapped.
@@ -311,7 +312,7 @@ struct IRInstructionDataList
 /// \param B - The second IRInstructionData class to compare
 /// \returns true if \p A and \p B are similar enough to be mapped to the same
 /// value.
-bool isClose(const IRInstructionData &A, const IRInstructionData &B);
+LLVM_ABI bool isClose(const IRInstructionData &A, const IRInstructionData &B);
 
 struct IRInstructionDataTraits : DenseMapInfo<IRInstructionData *> {
   static inline IRInstructionData *getEmptyKey() { return nullptr; }
@@ -377,7 +378,7 @@ struct IRInstructionDataTraits : DenseMapInfo<IRInstructionData *> {
 ///
 /// TODO: This is very similar to the MachineOutliner, and should be
 /// consolidated into the same interface.
-struct IRInstructionMapper {
+struct LLVM_ABI IRInstructionMapper {
   /// The starting illegal instruction number to map to.
   ///
   /// Set to -3 for compatibility with DenseMapInfo<unsigned>.
@@ -650,7 +651,7 @@ struct IRInstructionMapper {
 ///
 /// We cannot create the same mapping since the use of c4 is not used in the
 /// same way as %b or c2.
-class IRSimilarityCandidate {
+class LLVM_ABI IRSimilarityCandidate {
 private:
   /// The start index of this IRSimilarityCandidate in the instruction list.
   unsigned StartIdx = 0;
@@ -1041,7 +1042,7 @@ typedef std::vector<SimilarityGroup> SimilarityGroupList;
 ///
 /// A list of the different similarity groups is then returned after
 /// analyzing the module.
-class IRSimilarityIdentifier {
+class LLVM_ABI IRSimilarityIdentifier {
 public:
   IRSimilarityIdentifier(bool MatchBranches = true,
                          bool MatchIndirectCalls = true,
@@ -1158,7 +1159,7 @@ private:
 
 /// An analysis pass based on legacy pass manager that runs and returns
 /// IRSimilarityIdentifier run on the Module.
-class IRSimilarityIdentifierWrapperPass : public ModulePass {
+class LLVM_ABI IRSimilarityIdentifierWrapperPass : public ModulePass {
   std::unique_ptr<IRSimilarity::IRSimilarityIdentifier> IRSI;
 
 public:
@@ -1178,7 +1179,7 @@ public:
 
 /// An analysis pass that runs and returns the IRSimilarityIdentifier run on the
 /// Module.
-class IRSimilarityAnalysis : public AnalysisInfoMixin<IRSimilarityAnalysis> {
+class LLVM_ABI IRSimilarityAnalysis : public AnalysisInfoMixin<IRSimilarityAnalysis> {
 public:
   typedef IRSimilarity::IRSimilarityIdentifier Result;
 
@@ -1190,7 +1191,7 @@ private:
 };
 
 /// Printer pass that uses \c IRSimilarityAnalysis.
-class IRSimilarityAnalysisPrinterPass
+class LLVM_ABI IRSimilarityAnalysisPrinterPass
     : public PassInfoMixin<IRSimilarityAnalysisPrinterPass> {
   raw_ostream &OS;
 

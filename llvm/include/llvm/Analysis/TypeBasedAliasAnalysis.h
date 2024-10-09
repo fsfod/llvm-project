@@ -18,6 +18,7 @@
 #include "llvm/Analysis/AliasAnalysis.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -28,7 +29,7 @@ class MDNode;
 class MemoryLocation;
 
 /// A simple AA result that uses TBAA metadata to answer queries.
-class TypeBasedAAResult : public AAResultBase {
+class LLVM_ABI TypeBasedAAResult : public AAResultBase {
 public:
   /// Handle invalidation events from the new pass manager.
   ///
@@ -55,7 +56,7 @@ private:
 };
 
 /// Analysis pass providing a never-invalidated alias analysis result.
-class TypeBasedAA : public AnalysisInfoMixin<TypeBasedAA> {
+class LLVM_ABI TypeBasedAA : public AnalysisInfoMixin<TypeBasedAA> {
   friend AnalysisInfoMixin<TypeBasedAA>;
 
   static AnalysisKey Key;
@@ -67,7 +68,7 @@ public:
 };
 
 /// Legacy wrapper pass to provide the TypeBasedAAResult object.
-class TypeBasedAAWrapperPass : public ImmutablePass {
+class LLVM_ABI TypeBasedAAWrapperPass : public ImmutablePass {
   std::unique_ptr<TypeBasedAAResult> Result;
 
 public:
@@ -88,7 +89,7 @@ public:
 // createTypeBasedAAWrapperPass - This pass implements metadata-based
 // type-based alias analysis.
 //
-ImmutablePass *createTypeBasedAAWrapperPass();
+LLVM_ABI ImmutablePass *createTypeBasedAAWrapperPass();
 
 } // end namespace llvm
 

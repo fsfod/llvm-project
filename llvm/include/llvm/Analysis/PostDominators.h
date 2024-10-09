@@ -17,6 +17,7 @@
 #include "llvm/IR/Dominators.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -25,7 +26,7 @@ class raw_ostream;
 
 /// PostDominatorTree Class - Concrete subclass of DominatorTree that is used to
 /// compute the post-dominator tree.
-class PostDominatorTree : public PostDomTreeBase<BasicBlock> {
+class LLVM_ABI PostDominatorTree : public PostDomTreeBase<BasicBlock> {
 public:
   using Base = PostDomTreeBase<BasicBlock>;
 
@@ -44,7 +45,7 @@ public:
 };
 
 /// Analysis pass which computes a \c PostDominatorTree.
-class PostDominatorTreeAnalysis
+class LLVM_ABI PostDominatorTreeAnalysis
     : public AnalysisInfoMixin<PostDominatorTreeAnalysis> {
   friend AnalysisInfoMixin<PostDominatorTreeAnalysis>;
 
@@ -60,7 +61,7 @@ public:
 };
 
 /// Printer pass for the \c PostDominatorTree.
-class PostDominatorTreePrinterPass
+class LLVM_ABI PostDominatorTreePrinterPass
     : public PassInfoMixin<PostDominatorTreePrinterPass> {
   raw_ostream &OS;
 
@@ -72,7 +73,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-struct PostDominatorTreeWrapperPass : public FunctionPass {
+struct LLVM_ABI PostDominatorTreeWrapperPass : public FunctionPass {
   static char ID; // Pass identification, replacement for typeid
 
   PostDominatorTree DT;
@@ -95,7 +96,7 @@ struct PostDominatorTreeWrapperPass : public FunctionPass {
   void print(raw_ostream &OS, const Module*) const override;
 };
 
-FunctionPass* createPostDomTree();
+LLVM_ABI FunctionPass* createPostDomTree();
 
 template <> struct GraphTraits<PostDominatorTree*>
   : public GraphTraits<DomTreeNode*> {

@@ -20,6 +20,7 @@
 #include "llvm/DebugInfo/GSYM/FileEntry.h"
 #include "llvm/DebugInfo/GSYM/FunctionInfo.h"
 #include "llvm/MC/StringTableBuilder.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/Path.h"
@@ -131,7 +132,7 @@ class OutputAggregator;
 /// FunctionInfo objects. Each encoded FunctionInfo's data is pointed to by an
 /// entry in the Function Info Offsets Table. For details on the exact encoding
 /// of FunctionInfo objects, see "llvm/DebugInfo/GSYM/FunctionInfo.h".
-class GsymCreator {
+class LLVM_ABI GsymCreator {
   // Private member variables require Mutex protections
   mutable std::mutex Mutex;
   std::vector<FunctionInfo> Funcs;

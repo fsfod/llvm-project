@@ -21,11 +21,12 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/ProfileData/FunctionId.h"
+#include "llvm/ProfileData/HashKeyMap.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorOr.h"
 #include "llvm/Support/MathExtras.h"
-#include "llvm/ProfileData/HashKeyMap.h"
 #include <algorithm>
 #include <cstdint>
 #include <list>
@@ -42,7 +43,7 @@ namespace llvm {
 class DILocation;
 class raw_ostream;
 
-const std::error_category &sampleprof_category();
+LLVM_ABI const std::error_category &sampleprof_category();
 
 enum class sampleprof_error {
   success = 0,
@@ -277,7 +278,7 @@ static inline bool hasSecFlag(const SecHdrTableEntry &Entry, SecFlagType Flag) {
 /// The discriminator value is useful to distinguish instructions
 /// that are on the same line but belong to different basic blocks
 /// (e.g., the two post-increment instructions in "if (p) x++; else y++;").
-struct LineLocation {
+struct LLVM_ABI LineLocation {
   LineLocation(uint32_t L, uint32_t D) : LineOffset(L), Discriminator(D) {}
 
   void print(raw_ostream &OS) const;
@@ -310,7 +311,7 @@ struct LineLocationHash {
   }
 };
 
-raw_ostream &operator<<(raw_ostream &OS, const LineLocation &Loc);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const LineLocation &Loc);
 
 /// Representation of a single sample record.
 ///
@@ -322,7 +323,7 @@ raw_ostream &operator<<(raw_ostream &OS, const LineLocation &Loc);
 /// direct calls, this will be the exact function being invoked. For
 /// indirect calls (function pointers, virtual table dispatch), this
 /// will be a list of one or more functions.
-class SampleRecord {
+class LLVM_ABI SampleRecord {
 public:
   using CallTarget = std::pair<FunctionId, uint64_t>;
   struct CallTargetComparator {
@@ -441,7 +442,7 @@ private:
   CallTargetMap CallTargets;
 };
 
-raw_ostream &operator<<(raw_ostream &OS, const SampleRecord &Sample);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const SampleRecord &Sample);
 
 // State of context associated with FunctionSamples
 enum ContextStateMask {
@@ -742,7 +743,7 @@ using LocToLocMap =
 /// This data structure contains all the collected samples for the body
 /// of a function. Each sample corresponds to a LineLocation instance
 /// within the body of the function.
-class FunctionSamples {
+class LLVM_ABI FunctionSamples {
 public:
   FunctionSamples() = default;
 
@@ -1302,7 +1303,7 @@ static inline FunctionId getRepInFormat(StringRef Name) {
   return FunctionId(Function::getGUID(Name));
 }
 
-raw_ostream &operator<<(raw_ostream &OS, const FunctionSamples &FS);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const FunctionSamples &FS);
 
 /// This class provides operator overloads to the map container using MD5 as the
 /// key type, so that existing code can still work in most cases using
@@ -1343,7 +1344,7 @@ public:
 
 using NameFunctionSamples = std::pair<hash_code, const FunctionSamples *>;
 
-void sortFuncProfiles(const SampleProfileMap &ProfileMap,
+LLVM_ABI void sortFuncProfiles(const SampleProfileMap &ProfileMap,
                       std::vector<NameFunctionSamples> &SortedProfiles);
 
 /// Sort a LocationT->SampleT map by LocationT.
@@ -1372,7 +1373,7 @@ private:
 /// SampleContextTrimmer impelements helper functions to trim, merge cold
 /// context profiles. It also supports context profile canonicalization to make
 /// sure ProfileMap's key is consistent with FunctionSample's name/context.
-class SampleContextTrimmer {
+class LLVM_ABI SampleContextTrimmer {
 public:
   SampleContextTrimmer(SampleProfileMap &Profiles) : ProfileMap(Profiles){};
   // Trim and merge cold context profile when requested. TrimBaseProfileOnly
@@ -1396,13 +1397,13 @@ private:
 ///
 /// It supports full context-sensitive profile to nested profile conversion,
 /// nested profile to flatten profile conversion, etc.
-class ProfileConverter {
+class LLVM_ABI ProfileConverter {
 public:
   ProfileConverter(SampleProfileMap &Profiles);
   // Convert a full context-sensitive flat sample profile into a nested sample
   // profile.
   void convertCSProfiles();
-  struct FrameNode {
+  struct LLVM_ABI FrameNode {
     FrameNode(FunctionId FName = FunctionId(),
               FunctionSamples *FSamples = nullptr,
               LineLocation CallLoc = {0, 0})
@@ -1510,7 +1511,7 @@ private:
 /// in the binary used to generate the profile. It is useful to
 /// to discriminate a function being so cold as not to shown up
 /// in the profile and a function newly added.
-class ProfileSymbolList {
+class LLVM_ABI ProfileSymbolList {
 public:
   /// copy indicates whether we need to copy the underlying memory
   /// for the input Name.

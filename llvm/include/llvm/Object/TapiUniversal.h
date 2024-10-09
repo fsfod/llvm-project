@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Object/Binary.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBufferRef.h"
 #include "llvm/TextAPI/Architecture.h"
@@ -25,9 +26,9 @@ namespace object {
 
 class TapiFile;
 
-class TapiUniversal : public Binary {
+class LLVM_ABI TapiUniversal : public Binary {
 public:
-  class ObjectForArch {
+  class LLVM_ABI ObjectForArch {
     const TapiUniversal *Parent;
     int Index;
 

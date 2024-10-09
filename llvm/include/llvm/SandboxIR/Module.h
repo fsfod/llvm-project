@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/IR/Module.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 
 namespace llvm {
@@ -28,7 +29,7 @@ class GlobalAlias;
 class GlobalIFunc;
 
 /// In SandboxIR the Module is mainly used to access the list of global objects.
-class Module {
+class LLVM_ABI Module {
   llvm::Module &LLVMM;
   Context &Ctx;
 

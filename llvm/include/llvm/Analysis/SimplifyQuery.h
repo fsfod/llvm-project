@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/IR/Operator.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -67,7 +68,7 @@ struct CondContext {
   CondContext(Value *Cond) : Cond(Cond) {}
 };
 
-struct SimplifyQuery {
+struct LLVM_ABI SimplifyQuery {
   const DataLayout &DL;
   const TargetLibraryInfo *TLI = nullptr;
   const DominatorTree *DT = nullptr;

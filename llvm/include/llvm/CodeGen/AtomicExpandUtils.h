@@ -12,6 +12,7 @@
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Support/AtomicOrdering.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -57,7 +58,7 @@ using CreateCmpXchgInstFun =
 ///     [...]
 ///
 /// Returns true if the containing function was modified.
-bool expandAtomicRMWToCmpXchg(AtomicRMWInst *AI, CreateCmpXchgInstFun CreateCmpXchg);
+LLVM_ABI bool expandAtomicRMWToCmpXchg(AtomicRMWInst *AI, CreateCmpXchgInstFun CreateCmpXchg);
 
 } // end namespace llvm
 

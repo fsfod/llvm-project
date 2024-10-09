@@ -72,7 +72,7 @@ extern template struct LLVM_TEMPLATE_ABI Any::TypeId<const Loop *>;
 
 /// This class manages callbacks registration, as well as provides a way for
 /// PassInstrumentation to pass control to the registered callbacks.
-class PassInstrumentationCallbacks {
+class LLVM_ABI PassInstrumentationCallbacks {
 public:
   // Before/After callbacks accept IRUnits whenever appropriate, so they need
   // to take them as constant pointers, wrapped with llvm::Any.
@@ -349,11 +349,11 @@ public:
   }
 };
 
-bool isSpecialPass(StringRef PassID, const std::vector<StringRef> &Specials);
+LLVM_ABI bool isSpecialPass(StringRef PassID, const std::vector<StringRef> &Specials);
 
 /// Pseudo-analysis pass that exposes the \c PassInstrumentation to pass
 /// managers.
-class PassInstrumentationAnalysis
+class LLVM_ABI PassInstrumentationAnalysis
     : public AnalysisInfoMixin<PassInstrumentationAnalysis> {
   friend AnalysisInfoMixin<PassInstrumentationAnalysis>;
   static AnalysisKey Key;

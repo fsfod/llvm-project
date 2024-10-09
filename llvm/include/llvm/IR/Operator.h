@@ -22,6 +22,7 @@
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <cstddef>
 #include <optional>
 
@@ -29,7 +30,7 @@ namespace llvm {
 
 /// This is a utility class that provides an abstraction for the common
 /// functionality between Instructions and ConstantExprs.
-class Operator : public User {
+class LLVM_ABI Operator : public User {
 public:
   // The Operator class is intended to be used as a utility, and is never itself
   // instantiated.
@@ -199,7 +200,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(PossiblyExactOperator, Value)
 
 /// Utility class for floating point operations which can have
 /// information about relaxed accuracy requirements attached to them.
-class FPMathOperator : public Operator {
+class LLVM_ABI FPMathOperator : public Operator {
 private:
   friend class Instruction;
 
@@ -416,7 +417,7 @@ class LShrOperator
   : public ConcreteOperator<PossiblyExactOperator, Instruction::LShr> {
 };
 
-class GEPOperator
+class LLVM_ABI GEPOperator
     : public ConcreteOperator<Operator, Instruction::GetElementPtr> {
 public:
   /// Transparently provide more efficient getOperand methods.

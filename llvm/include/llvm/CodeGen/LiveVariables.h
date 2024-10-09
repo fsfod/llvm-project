@@ -39,13 +39,14 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class MachineBasicBlock;
 class MachineRegisterInfo;
 
-class LiveVariables {
+class LLVM_ABI LiveVariables {
   friend class LiveVariablesWrapperPass;
 
 public:
@@ -75,7 +76,7 @@ public:
   /// not live across any  blocks) and Kills is empty (phi nodes are not
   /// included). This is sensical because the value must be live to the end of
   /// the block, but is not live in any successor blocks.
-  struct VarInfo {
+  struct LLVM_ABI VarInfo {
     /// AliveBlocks - Set of blocks in which this value is alive completely
     /// through.  This is a bit set which uses the basic block number as an
     /// index.
@@ -301,7 +302,7 @@ public:
                    std::vector<SparseBitVector<>> &LiveInSets);
 };
 
-class LiveVariablesAnalysis : public AnalysisInfoMixin<LiveVariablesAnalysis> {
+class LLVM_ABI LiveVariablesAnalysis : public AnalysisInfoMixin<LiveVariablesAnalysis> {
   friend AnalysisInfoMixin<LiveVariablesAnalysis>;
   static AnalysisKey Key;
 
@@ -310,7 +311,7 @@ public:
   Result run(MachineFunction &MF, MachineFunctionAnalysisManager &);
 };
 
-class LiveVariablesPrinterPass
+class LLVM_ABI LiveVariablesPrinterPass
     : public PassInfoMixin<LiveVariablesPrinterPass> {
   raw_ostream &OS;
 
@@ -321,7 +322,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class LiveVariablesWrapperPass : public MachineFunctionPass {
+class LLVM_ABI LiveVariablesWrapperPass : public MachineFunctionPass {
   LiveVariables LV;
 
 public:

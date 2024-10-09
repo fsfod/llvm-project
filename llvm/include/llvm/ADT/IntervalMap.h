@@ -107,6 +107,7 @@
 #include "llvm/ADT/PointerIntPair.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/RecyclingAllocator.h"
 #include <algorithm>
 #include <cassert>
@@ -411,7 +412,7 @@ void adjustSiblingSizes(NodeT *Node[], unsigned Nodes,
 /// @param Position Insert position.
 /// @param Grow     Reserve space for a new element at Position.
 /// @return         (node, offset) for Position.
-IdxPair distribute(unsigned Nodes, unsigned Elements, unsigned Capacity,
+LLVM_ABI IdxPair distribute(unsigned Nodes, unsigned Elements, unsigned Capacity,
                    const unsigned *CurSize, unsigned NewSize[],
                    unsigned Position, bool Grow);
 
@@ -770,7 +771,7 @@ public:
 //
 //===----------------------------------------------------------------------===//
 
-class Path {
+class LLVM_ABI Path {
   /// Entry - Each step in the path is a node pointer and an offset into that
   /// node.
   struct Entry {

@@ -17,6 +17,7 @@
 
 #include "llvm/Object/OffloadBinary.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/YAMLTraits.h"
 #include <optional>
 
@@ -53,23 +54,23 @@ LLVM_YAML_IS_SEQUENCE_VECTOR(llvm::OffloadYAML::Binary::StringEntry)
 namespace llvm {
 namespace yaml {
 
-template <> struct ScalarEnumerationTraits<object::ImageKind> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<object::ImageKind> {
   static void enumeration(IO &IO, object::ImageKind &Value);
 };
 
-template <> struct ScalarEnumerationTraits<object::OffloadKind> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<object::OffloadKind> {
   static void enumeration(IO &IO, object::OffloadKind &Value);
 };
 
-template <> struct MappingTraits<OffloadYAML::Binary> {
+template <> struct LLVM_ABI MappingTraits<OffloadYAML::Binary> {
   static void mapping(IO &IO, OffloadYAML::Binary &O);
 };
 
-template <> struct MappingTraits<OffloadYAML::Binary::StringEntry> {
+template <> struct LLVM_ABI MappingTraits<OffloadYAML::Binary::StringEntry> {
   static void mapping(IO &IO, OffloadYAML::Binary::StringEntry &M);
 };
 
-template <> struct MappingTraits<OffloadYAML::Binary::Member> {
+template <> struct LLVM_ABI MappingTraits<OffloadYAML::Binary::Member> {
   static void mapping(IO &IO, OffloadYAML::Binary::Member &M);
 };
 

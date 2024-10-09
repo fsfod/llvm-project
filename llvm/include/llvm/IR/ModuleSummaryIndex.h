@@ -27,6 +27,7 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Support/ScaledNumber.h"
 #include "llvm/Support/StringSaver.h"
@@ -177,7 +178,7 @@ using GlobalValueSummaryMapTy =
 
 /// Struct that holds a reference to a particular GUID in a global value
 /// summary.
-struct ValueInfo {
+struct LLVM_ABI ValueInfo {
   enum Flags { HaveGV = 1, ReadOnly = 2, WriteOnly = 4 };
   PointerIntPair<const GlobalValueSummaryMapTy::value_type *, 3, int>
       RefAndFlags;
@@ -696,7 +697,7 @@ inline GlobalValueSummary *GlobalValueSummary::getBaseObject() {
 
 /// Function summary information to aid decisions and implementation of
 /// importing.
-class FunctionSummary : public GlobalValueSummary {
+class LLVM_ABI FunctionSummary : public GlobalValueSummary {
 public:
   /// <CalleeValueInfo, CalleeInfo> call edge pair.
   using EdgeTy = std::pair<ValueInfo, CalleeInfo>;
@@ -1321,7 +1322,7 @@ using TypeIdCompatibleVtableInfo = std::vector<TypeIdOffsetVtableInfo>;
 
 /// Class to hold module path string table and global value map,
 /// and encapsulate methods for operating on them.
-class ModuleSummaryIndex {
+class LLVM_ABI ModuleSummaryIndex {
 private:
   /// Map from value name to list of summary instances for values of that
   /// name (may be duplicates in the COMDAT case, e.g.).

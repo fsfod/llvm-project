@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -25,7 +26,7 @@ class Triple;
 class Twine;
 class raw_ostream;
 
-class Mangler {
+class LLVM_ABI Mangler {
   /// We need to give global values the same name every time they are mangled.
   /// This keeps track of the number we give to anonymous ones.
   mutable DenseMap<const GlobalValue*, unsigned> AnonGlobalIDs;
@@ -47,19 +48,19 @@ public:
                                 const Twine &GVName, const DataLayout &DL);
 };
 
-void emitLinkerFlagsForGlobalCOFF(raw_ostream &OS, const GlobalValue *GV,
+LLVM_ABI void emitLinkerFlagsForGlobalCOFF(raw_ostream &OS, const GlobalValue *GV,
                                   const Triple &TT, Mangler &Mangler);
 
-void emitLinkerFlagsForUsedCOFF(raw_ostream &OS, const GlobalValue *GV,
+LLVM_ABI void emitLinkerFlagsForUsedCOFF(raw_ostream &OS, const GlobalValue *GV,
                                 const Triple &T, Mangler &M);
 
 /// Returns the ARM64EC mangled function name unless the input is already
 /// mangled.
-std::optional<std::string> getArm64ECMangledFunctionName(StringRef Name);
+LLVM_ABI std::optional<std::string> getArm64ECMangledFunctionName(StringRef Name);
 
 /// Returns the ARM64EC demangled function name, unless the input is not
 /// mangled.
-std::optional<std::string> getArm64ECDemangledFunctionName(StringRef Name);
+LLVM_ABI std::optional<std::string> getArm64ECDemangledFunctionName(StringRef Name);
 
 } // End llvm namespace
 

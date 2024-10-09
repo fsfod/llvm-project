@@ -21,6 +21,7 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/CodeGen/RegisterBank.h"
 #include "llvm/CodeGenTypes/LowLevelType.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <initializer_list>
@@ -37,7 +38,7 @@ class TargetRegisterClass;
 class TargetRegisterInfo;
 
 /// Holds all the information related to register banks.
-class RegisterBankInfo {
+class LLVM_ABI RegisterBankInfo {
 public:
   /// Helper struct that represents how a value is partially mapped
   /// into a register.
@@ -46,7 +47,7 @@ public:
   /// This can be represented as a Mask of contiguous bit starting
   /// at StartIdx bit and spanning Length bits.
   /// StartIdx is the number of bits from the less significant bits.
-  struct PartialMapping {
+  struct LLVM_ABI PartialMapping {
     /// Number of bits at which this partial mapping starts in the
     /// original value.  The bits are counted from less significant
     /// bits to most significant bits.
@@ -143,7 +144,7 @@ public:
   /// impact is actually a degradation. Moreover the compile time will
   /// be hit by the additional indirection.
   /// If PartialMapping gets bigger we may reconsider.
-  struct ValueMapping {
+  struct LLVM_ABI ValueMapping {
     /// How the value is broken down between the different register banks.
     const PartialMapping *BreakDown;
 
@@ -188,7 +189,7 @@ public:
 
   /// Helper class that represents how the value of an instruction may be
   /// mapped and what is the related cost of such mapping.
-  class InstructionMapping {
+  class LLVM_ABI InstructionMapping {
     /// Identifier of the mapping.
     /// This is used to communicate between the target and the optimizers
     /// which mapping should be realized.
@@ -278,7 +279,7 @@ public:
 
   /// Helper class used to get/create the virtual registers that will be used
   /// to replace the MachineOperand when applying a mapping.
-  class OperandsMapper {
+  class LLVM_ABI OperandsMapper {
     /// The OpIdx-th cell contains the index in NewVRegs where the VRegs of the
     /// OpIdx-th operand starts. -1 means we do not have such mapping yet.
     /// Note: We use a SmallVector to avoid heap allocation for most cases.
@@ -789,7 +790,7 @@ operator<<(raw_ostream &OS, const RegisterBankInfo::OperandsMapper &OpdMapper) {
 
 /// Hashing function for PartialMapping.
 /// It is required for the hashing of ValueMapping.
-hash_code hash_value(const RegisterBankInfo::PartialMapping &PartMapping);
+LLVM_ABI hash_code hash_value(const RegisterBankInfo::PartialMapping &PartMapping);
 
 } // end namespace llvm
 

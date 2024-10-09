@@ -13,11 +13,12 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_GCOVPROFILER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/Instrumentation.h"
 
 namespace llvm {
 /// The gcov-style instrumentation pass
-class GCOVProfilerPass : public PassInfoMixin<GCOVProfilerPass> {
+class LLVM_ABI GCOVProfilerPass : public PassInfoMixin<GCOVProfilerPass> {
 public:
   GCOVProfilerPass(const GCOVOptions &Options = GCOVOptions::getDefault()) : GCOVOpts(Options) { }
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);

@@ -23,6 +23,7 @@
 #include "llvm/IR/User.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/AtomicOrdering.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <utility>
 
@@ -42,10 +43,10 @@ template <> struct ilist_alloc_traits<Instruction> {
   static inline void deleteNode(Instruction *V);
 };
 
-iterator_range<simple_ilist<DbgRecord>::iterator>
+LLVM_ABI iterator_range<simple_ilist<DbgRecord>::iterator>
 getDbgRecordRange(DbgMarker *);
 
-class InsertPosition {
+class LLVM_ABI InsertPosition {
   using InstListType = SymbolTableList<Instruction, ilist_iterator_bits<true>,
                                        ilist_parent<BasicBlock>>;
   InstListType::iterator InsertAt;
@@ -62,7 +63,7 @@ public:
   BasicBlock *getBasicBlock() { return InsertAt.getNodeParent(); }
 };
 
-class Instruction : public User,
+class LLVM_ABI Instruction : public User,
                     public ilist_node_with_parent<Instruction, BasicBlock,
                                                   ilist_iterator_bits<true>,
                                                   ilist_parent<BasicBlock>> {

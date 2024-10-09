@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/MapVector.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SMLoc.h"
 #include <cstdint>
 #include <map>
@@ -40,7 +41,7 @@ struct ConstantPoolEntry {
 
 // A class to keep track of assembler-generated constant pools that are use to
 // implement the ldr-pseudo.
-class ConstantPool {
+class LLVM_ABI ConstantPool {
   using EntryVecTy = SmallVector<ConstantPoolEntry, 4>;
   EntryVecTy Entries;
 
@@ -72,7 +73,7 @@ public:
   void clearCache();
 };
 
-class AssemblerConstantPools {
+class LLVM_ABI AssemblerConstantPools {
   // Map type used to keep track of per-Section constant pools used by the
   // ldr-pseudo opcode. The map associates a section to its constant pool. The
   // constant pool is a vector of (label, value) pairs. When the ldr

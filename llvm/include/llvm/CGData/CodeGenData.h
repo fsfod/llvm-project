@@ -20,6 +20,7 @@
 #include "llvm/CGData/OutlinedHashTreeRecord.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/TargetParser/Triple.h"
 #include <mutex>
@@ -31,7 +32,7 @@ enum CGDataSectKind {
 #include "llvm/CGData/CodeGenData.inc"
 };
 
-std::string getCodeGenDataSectionName(CGDataSectKind CGSK,
+LLVM_ABI std::string getCodeGenDataSectionName(CGDataSectKind CGSK,
                                       Triple::ObjectFormatType OF,
                                       bool AddSegmentInfo = true);
 
@@ -42,7 +43,7 @@ enum class CGDataKind {
   LLVM_MARK_AS_BITMASK_ENUM(/*LargestValue=*/FunctionOutlinedHashTree)
 };
 
-const std::error_category &cgdata_category();
+LLVM_ABI const std::error_category &cgdata_category();
 
 enum class cgdata_error {
   success = 0,
@@ -58,7 +59,7 @@ inline std::error_code make_error_code(cgdata_error E) {
   return std::error_code(static_cast<int>(E), cgdata_category());
 }
 
-class CGDataError : public ErrorInfo<CGDataError> {
+class LLVM_ABI CGDataError : public ErrorInfo<CGDataError> {
 public:
   CGDataError(cgdata_error Err, const Twine &ErrStr = Twine())
       : Err(Err), Msg(ErrStr.str()) {
@@ -103,7 +104,7 @@ enum CGDataMode {
   Write,
 };
 
-class CodeGenData {
+class LLVM_ABI CodeGenData {
   /// Global outlined hash tree that has oulined hash sequences across modules.
   std::unique_ptr<OutlinedHashTree> PublishedHashTree;
 
@@ -164,8 +165,8 @@ publishOutlinedHashTree(std::unique_ptr<OutlinedHashTree> HashTree) {
   CodeGenData::getInstance().publishOutlinedHashTree(std::move(HashTree));
 }
 
-void warn(Error E, StringRef Whence = "");
-void warn(Twine Message, std::string Whence = "", std::string Hint = "");
+LLVM_ABI void warn(Error E, StringRef Whence = "");
+LLVM_ABI void warn(Twine Message, std::string Whence = "", std::string Hint = "");
 
 } // end namespace cgdata
 
@@ -183,7 +184,7 @@ enum CGDataVersion {
 };
 const uint64_t Version = CGDataVersion::CurrentVersion;
 
-struct Header {
+struct LLVM_ABI Header {
   uint64_t Magic;
   uint32_t Version;
   uint32_t DataKind;

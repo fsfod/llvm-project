@@ -17,10 +17,11 @@
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/BranchProbability.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class MachineBranchProbabilityInfo {
+class LLVM_ABI MachineBranchProbabilityInfo {
   // Default weight value. Used when we don't have information about the edge.
   // TODO: DEFAULT_WEIGHT makes sense during static predication, when none of
   // the successors have a weight yet. But it doesn't make sense when providing
@@ -55,7 +56,7 @@ public:
                                     const MachineBasicBlock *Dst) const;
 };
 
-class MachineBranchProbabilityAnalysis
+class LLVM_ABI MachineBranchProbabilityAnalysis
     : public AnalysisInfoMixin<MachineBranchProbabilityAnalysis> {
   friend AnalysisInfoMixin<MachineBranchProbabilityAnalysis>;
 
@@ -67,7 +68,7 @@ public:
   Result run(MachineFunction &, MachineFunctionAnalysisManager &);
 };
 
-class MachineBranchProbabilityPrinterPass
+class LLVM_ABI MachineBranchProbabilityPrinterPass
     : public PassInfoMixin<MachineBranchProbabilityPrinterPass> {
   raw_ostream &OS;
 
@@ -77,7 +78,7 @@ public:
                         MachineFunctionAnalysisManager &MFAM);
 };
 
-class MachineBranchProbabilityInfoWrapperPass : public ImmutablePass {
+class LLVM_ABI MachineBranchProbabilityInfoWrapperPass : public ImmutablePass {
   virtual void anchor();
 
   MachineBranchProbabilityInfo MBPI;

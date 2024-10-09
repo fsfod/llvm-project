@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_WINEHPREPARE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class WinEHPreparePass : public PassInfoMixin<WinEHPreparePass> {
+class LLVM_ABI WinEHPreparePass : public PassInfoMixin<WinEHPreparePass> {
   bool DemoteCatchSwitchPHIOnly;
 
 public:

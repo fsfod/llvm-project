@@ -24,6 +24,7 @@
 #include "llvm/CodeGen/PBQP/Solution.h"
 #include "llvm/CodeGen/Register.h"
 #include "llvm/MC/MCRegister.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <algorithm>
 #include <cassert>
@@ -498,7 +499,7 @@ private:
   NodeSet NotProvablyAllocatableNodes;
 };
 
-class PBQPRAGraph : public PBQP::Graph<RegAllocSolverImpl> {
+class LLVM_ABI PBQPRAGraph : public PBQP::Graph<RegAllocSolverImpl> {
 private:
   using BaseT = PBQP::Graph<RegAllocSolverImpl>;
 
@@ -528,7 +529,7 @@ inline Solution solve(PBQPRAGraph& G) {
 } // end namespace PBQP
 
 /// Create a PBQP register allocator instance.
-FunctionPass *
+LLVM_ABI FunctionPass *
 createPBQPRegisterAllocator(char *customPassID = nullptr);
 
 } // end namespace llvm

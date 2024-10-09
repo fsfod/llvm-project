@@ -16,6 +16,7 @@
 
 #include "llvm/ADT/FloatingPointMode.h"
 #include "llvm/MC/MCTargetOptions.h"
+#include "llvm/Support/Compiler.h"
 
 #include <memory>
 
@@ -129,7 +130,7 @@ namespace llvm {
     COV_6 = 600,
   };
 
-  class TargetOptions {
+  class LLVM_ABI TargetOptions {
   public:
     TargetOptions()
         : UnsafeFPMath(false), NoInfsFPMath(false), NoNaNsFPMath(false),

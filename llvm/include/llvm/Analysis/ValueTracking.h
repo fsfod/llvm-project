@@ -19,9 +19,10 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DataLayout.h"
 #include "llvm/IR/FMF.h"
-#include "llvm/IR/Instructions.h"
 #include "llvm/IR/InstrTypes.h"
+#include "llvm/IR/Instructions.h"
 #include "llvm/IR/Intrinsics.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 
@@ -51,59 +52,59 @@ constexpr unsigned MaxAnalysisRecursionDepth = 6;
 /// where V is a vector, the known zero and known one values are the
 /// same width as the vector element, and the bit is set only if it is true
 /// for all of the elements in the vector.
-void computeKnownBits(const Value *V, KnownBits &Known, const DataLayout &DL,
+LLVM_ABI void computeKnownBits(const Value *V, KnownBits &Known, const DataLayout &DL,
                       unsigned Depth = 0, AssumptionCache *AC = nullptr,
                       const Instruction *CxtI = nullptr,
                       const DominatorTree *DT = nullptr,
                       bool UseInstrInfo = true);
 
 /// Returns the known bits rather than passing by reference.
-KnownBits computeKnownBits(const Value *V, const DataLayout &DL,
+LLVM_ABI KnownBits computeKnownBits(const Value *V, const DataLayout &DL,
                            unsigned Depth = 0, AssumptionCache *AC = nullptr,
                            const Instruction *CxtI = nullptr,
                            const DominatorTree *DT = nullptr,
                            bool UseInstrInfo = true);
 
 /// Returns the known bits rather than passing by reference.
-KnownBits computeKnownBits(const Value *V, const APInt &DemandedElts,
+LLVM_ABI KnownBits computeKnownBits(const Value *V, const APInt &DemandedElts,
                            const DataLayout &DL, unsigned Depth = 0,
                            AssumptionCache *AC = nullptr,
                            const Instruction *CxtI = nullptr,
                            const DominatorTree *DT = nullptr,
                            bool UseInstrInfo = true);
 
-KnownBits computeKnownBits(const Value *V, const APInt &DemandedElts,
+LLVM_ABI KnownBits computeKnownBits(const Value *V, const APInt &DemandedElts,
                            unsigned Depth, const SimplifyQuery &Q);
 
-KnownBits computeKnownBits(const Value *V, unsigned Depth,
+LLVM_ABI KnownBits computeKnownBits(const Value *V, unsigned Depth,
                            const SimplifyQuery &Q);
 
-void computeKnownBits(const Value *V, KnownBits &Known, unsigned Depth,
+LLVM_ABI void computeKnownBits(const Value *V, KnownBits &Known, unsigned Depth,
                       const SimplifyQuery &Q);
 
 /// Compute known bits from the range metadata.
 /// \p KnownZero the set of bits that are known to be zero
 /// \p KnownOne the set of bits that are known to be one
-void computeKnownBitsFromRangeMetadata(const MDNode &Ranges, KnownBits &Known);
+LLVM_ABI void computeKnownBitsFromRangeMetadata(const MDNode &Ranges, KnownBits &Known);
 
 /// Merge bits known from context-dependent facts into Known.
-void computeKnownBitsFromContext(const Value *V, KnownBits &Known,
+LLVM_ABI void computeKnownBitsFromContext(const Value *V, KnownBits &Known,
                                  unsigned Depth, const SimplifyQuery &Q);
 
 /// Using KnownBits LHS/RHS produce the known bits for logic op (and/xor/or).
-KnownBits analyzeKnownBitsFromAndXorOr(const Operator *I,
+LLVM_ABI KnownBits analyzeKnownBitsFromAndXorOr(const Operator *I,
                                        const KnownBits &KnownLHS,
                                        const KnownBits &KnownRHS,
                                        unsigned Depth, const SimplifyQuery &SQ);
 
 /// Adjust \p Known for the given select \p Arm to include information from the
 /// select \p Cond.
-void adjustKnownBitsForSelectArm(KnownBits &Known, Value *Cond, Value *Arm,
+LLVM_ABI void adjustKnownBitsForSelectArm(KnownBits &Known, Value *Cond, Value *Arm,
                                  bool Invert, unsigned Depth,
                                  const SimplifyQuery &Q);
 
 /// Return true if LHS and RHS have no common bits set.
-bool haveNoCommonBitsSet(const WithCache<const Value *> &LHSCache,
+LLVM_ABI bool haveNoCommonBitsSet(const WithCache<const Value *> &LHSCache,
                          const WithCache<const Value *> &RHSCache,
                          const SimplifyQuery &SQ);
 
@@ -112,19 +113,19 @@ bool haveNoCommonBitsSet(const WithCache<const Value *> &LHSCache,
 /// of two when defined. Supports values with integer or pointer type and
 /// vectors of integers. If 'OrZero' is set, then return true if the given
 /// value is either a power of two or zero.
-bool isKnownToBeAPowerOfTwo(const Value *V, const DataLayout &DL,
+LLVM_ABI bool isKnownToBeAPowerOfTwo(const Value *V, const DataLayout &DL,
                             bool OrZero = false, unsigned Depth = 0,
                             AssumptionCache *AC = nullptr,
                             const Instruction *CxtI = nullptr,
                             const DominatorTree *DT = nullptr,
                             bool UseInstrInfo = true);
 
-bool isKnownToBeAPowerOfTwo(const Value *V, bool OrZero, unsigned Depth,
+LLVM_ABI bool isKnownToBeAPowerOfTwo(const Value *V, bool OrZero, unsigned Depth,
                             const SimplifyQuery &Q);
 
-bool isOnlyUsedInZeroComparison(const Instruction *CxtI);
+LLVM_ABI bool isOnlyUsedInZeroComparison(const Instruction *CxtI);
 
-bool isOnlyUsedInZeroEqualityComparison(const Instruction *CxtI);
+LLVM_ABI bool isOnlyUsedInZeroEqualityComparison(const Instruction *CxtI);
 
 /// Return true if the given value is known to be non-zero when defined. For
 /// vectors, return true if every element is known to be non-zero when
@@ -132,13 +133,13 @@ bool isOnlyUsedInZeroEqualityComparison(const Instruction *CxtI);
 /// specified, perform context-sensitive analysis and return true if the
 /// pointer couldn't possibly be null at the specified instruction.
 /// Supports values with integer or pointer type and vectors of integers.
-bool isKnownNonZero(const Value *V, const SimplifyQuery &Q, unsigned Depth = 0);
+LLVM_ABI bool isKnownNonZero(const Value *V, const SimplifyQuery &Q, unsigned Depth = 0);
 
 /// Return true if the two given values are negation.
 /// Currently can recoginze Value pair:
 /// 1: <X, Y> if X = sub (0, Y) or Y = sub (0, X)
 /// 2: <X, Y> if X = sub (A, B) and Y = sub (B, A)
-bool isKnownNegation(const Value *X, const Value *Y, bool NeedNSW = false,
+LLVM_ABI bool isKnownNegation(const Value *X, const Value *Y, bool NeedNSW = false,
                      bool AllowPoison = true);
 
 /// Return true iff:
@@ -146,25 +147,25 @@ bool isKnownNegation(const Value *X, const Value *Y, bool NeedNSW = false,
 /// 2. X is true implies Y is false.
 /// 3. X is false implies Y is true.
 /// Otherwise, return false.
-bool isKnownInversion(const Value *X, const Value *Y);
+LLVM_ABI bool isKnownInversion(const Value *X, const Value *Y);
 
 /// Returns true if the give value is known to be non-negative.
-bool isKnownNonNegative(const Value *V, const SimplifyQuery &SQ,
+LLVM_ABI bool isKnownNonNegative(const Value *V, const SimplifyQuery &SQ,
                         unsigned Depth = 0);
 
 /// Returns true if the given value is known be positive (i.e. non-negative
 /// and non-zero).
-bool isKnownPositive(const Value *V, const SimplifyQuery &SQ,
+LLVM_ABI bool isKnownPositive(const Value *V, const SimplifyQuery &SQ,
                      unsigned Depth = 0);
 
 /// Returns true if the given value is known be negative (i.e. non-positive
 /// and non-zero).
-bool isKnownNegative(const Value *V, const SimplifyQuery &DL,
+LLVM_ABI bool isKnownNegative(const Value *V, const SimplifyQuery &DL,
                      unsigned Depth = 0);
 
 /// Return true if the given values are known to be non-equal when defined.
 /// Supports scalar integer types only.
-bool isKnownNonEqual(const Value *V1, const Value *V2, const DataLayout &DL,
+LLVM_ABI bool isKnownNonEqual(const Value *V1, const Value *V2, const DataLayout &DL,
                      AssumptionCache *AC = nullptr,
                      const Instruction *CxtI = nullptr,
                      const DominatorTree *DT = nullptr,
@@ -179,7 +180,7 @@ bool isKnownNonEqual(const Value *V1, const Value *V2, const DataLayout &DL,
 /// where V is a vector, the mask, known zero, and known one values are the
 /// same width as the vector element, and the bit is set only if it is true
 /// for all of the elements in the vector.
-bool MaskedValueIsZero(const Value *V, const APInt &Mask,
+LLVM_ABI bool MaskedValueIsZero(const Value *V, const APInt &Mask,
                        const SimplifyQuery &DL, unsigned Depth = 0);
 
 /// Return the number of times the sign bit of the register is replicated into
@@ -189,7 +190,7 @@ bool MaskedValueIsZero(const Value *V, const APInt &Mask,
 /// equal to each other, so we return 3. For vectors, return the number of
 /// sign bits for the vector element with the mininum number of known sign
 /// bits.
-unsigned ComputeNumSignBits(const Value *Op, const DataLayout &DL,
+LLVM_ABI unsigned ComputeNumSignBits(const Value *Op, const DataLayout &DL,
                             unsigned Depth = 0, AssumptionCache *AC = nullptr,
                             const Instruction *CxtI = nullptr,
                             const DominatorTree *DT = nullptr,
@@ -198,7 +199,7 @@ unsigned ComputeNumSignBits(const Value *Op, const DataLayout &DL,
 /// Get the upper bound on bit size for this Value \p Op as a signed integer.
 /// i.e.  x == sext(trunc(x to MaxSignificantBits) to bitwidth(x)).
 /// Similar to the APInt::getSignificantBits function.
-unsigned ComputeMaxSignificantBits(const Value *Op, const DataLayout &DL,
+LLVM_ABI unsigned ComputeMaxSignificantBits(const Value *Op, const DataLayout &DL,
                                    unsigned Depth = 0,
                                    AssumptionCache *AC = nullptr,
                                    const Instruction *CxtI = nullptr,
@@ -206,13 +207,13 @@ unsigned ComputeMaxSignificantBits(const Value *Op, const DataLayout &DL,
 
 /// Map a call instruction to an intrinsic ID.  Libcalls which have equivalent
 /// intrinsics are treated as-if they were intrinsics.
-Intrinsic::ID getIntrinsicForCallSite(const CallBase &CB,
+LLVM_ABI Intrinsic::ID getIntrinsicForCallSite(const CallBase &CB,
                                       const TargetLibraryInfo *TLI);
 
 /// Given an exploded icmp instruction, return true if the comparison only
 /// checks the sign bit. If it only checks the sign bit, set TrueIfSigned if
 /// the result of the comparison is true when the input value is signed.
-bool isSignBitCheck(ICmpInst::Predicate Pred, const APInt &RHS,
+LLVM_ABI bool isSignBitCheck(ICmpInst::Predicate Pred, const APInt &RHS,
                     bool &TrueIfSigned);
 
 /// Returns a pair of values, which if passed to llvm.is.fpclass, returns the
@@ -223,11 +224,11 @@ bool isSignBitCheck(ICmpInst::Predicate Pred, const APInt &RHS,
 ///
 /// If \p LookThroughSrc is false, ignore the source value (i.e. the first pair
 /// element will always be LHS.
-std::pair<Value *, FPClassTest> fcmpToClassTest(CmpInst::Predicate Pred,
+LLVM_ABI std::pair<Value *, FPClassTest> fcmpToClassTest(CmpInst::Predicate Pred,
                                                 const Function &F, Value *LHS,
                                                 Value *RHS,
                                                 bool LookThroughSrc = true);
-std::pair<Value *, FPClassTest> fcmpToClassTest(CmpInst::Predicate Pred,
+LLVM_ABI std::pair<Value *, FPClassTest> fcmpToClassTest(CmpInst::Predicate Pred,
                                                 const Function &F, Value *LHS,
                                                 const APFloat *ConstRHS,
                                                 bool LookThroughSrc = true);
@@ -248,17 +249,17 @@ std::pair<Value *, FPClassTest> fcmpToClassTest(CmpInst::Predicate Pred,
 /// If \p LookThroughSrc is false, ignore the source value (i.e. the first pair
 /// element will always be LHS.
 ///
-std::tuple<Value *, FPClassTest, FPClassTest>
+LLVM_ABI std::tuple<Value *, FPClassTest, FPClassTest>
 fcmpImpliesClass(CmpInst::Predicate Pred, const Function &F, Value *LHS,
                  Value *RHS, bool LookThroughSrc = true);
-std::tuple<Value *, FPClassTest, FPClassTest>
+LLVM_ABI std::tuple<Value *, FPClassTest, FPClassTest>
 fcmpImpliesClass(CmpInst::Predicate Pred, const Function &F, Value *LHS,
                  FPClassTest RHS, bool LookThroughSrc = true);
-std::tuple<Value *, FPClassTest, FPClassTest>
+LLVM_ABI std::tuple<Value *, FPClassTest, FPClassTest>
 fcmpImpliesClass(CmpInst::Predicate Pred, const Function &F, Value *LHS,
                  const APFloat &RHS, bool LookThroughSrc = true);
 
-struct KnownFPClass {
+struct LLVM_ABI KnownFPClass {
   /// Floating-point classes the value could be one of.
   FPClassTest KnownFPClasses = fcAllFlags;
 
@@ -506,11 +507,11 @@ inline KnownFPClass operator|(const KnownFPClass &LHS, KnownFPClass &&RHS) {
 /// point classes should be queried. Queries not specified in \p
 /// InterestedClasses should be reliable if they are determined during the
 /// query.
-KnownFPClass computeKnownFPClass(const Value *V, const APInt &DemandedElts,
+LLVM_ABI KnownFPClass computeKnownFPClass(const Value *V, const APInt &DemandedElts,
                                  FPClassTest InterestedClasses, unsigned Depth,
                                  const SimplifyQuery &SQ);
 
-KnownFPClass computeKnownFPClass(const Value *V, FPClassTest InterestedClasses,
+LLVM_ABI KnownFPClass computeKnownFPClass(const Value *V, FPClassTest InterestedClasses,
                                  unsigned Depth, const SimplifyQuery &SQ);
 
 inline KnownFPClass computeKnownFPClass(
@@ -619,7 +620,7 @@ inline std::optional<bool> computeKnownFPSignBit(const Value *V, unsigned Depth,
 /// 0.0 etc. If the value can't be handled with a repeated byte store (e.g.
 /// i16 0x1234), return null. If the value is entirely undef and padding,
 /// return undef.
-Value *isBytewiseValue(Value *V, const DataLayout &DL);
+LLVM_ABI Value *isBytewiseValue(Value *V, const DataLayout &DL);
 
 /// Given an aggregate and an sequence of indices, see if the scalar value
 /// indexed is already around as a register, for example if it were inserted
@@ -627,7 +628,7 @@ Value *isBytewiseValue(Value *V, const DataLayout &DL);
 ///
 /// If InsertBefore is not empty, this function will duplicate (modified)
 /// insertvalues when a part of a nested struct is extracted.
-Value *FindInsertedValue(
+LLVM_ABI Value *FindInsertedValue(
     Value *V, ArrayRef<unsigned> idx_range,
     std::optional<BasicBlock::iterator> InsertBefore = std::nullopt);
 
@@ -656,7 +657,7 @@ GetPointerBaseWithConstantOffset(const Value *Ptr, int64_t &Offset,
 
 /// Returns true if the GEP is based on a pointer to a string (array of
 // \p CharSize integers) and is indexing into this string.
-bool isGEPBasedOnPointerToString(const GEPOperator *GEP, unsigned CharSize = 8);
+LLVM_ABI bool isGEPBasedOnPointerToString(const GEPOperator *GEP, unsigned CharSize = 8);
 
 /// Represents offset+length into a ConstantDataArray.
 struct ConstantDataArraySlice {
@@ -686,7 +687,7 @@ struct ConstantDataArraySlice {
 /// Returns true if the value \p V is a pointer into a ConstantDataArray.
 /// If successful \p Slice will point to a ConstantDataArray info object
 /// with an appropriate offset.
-bool getConstantDataArrayInfo(const Value *V, ConstantDataArraySlice &Slice,
+LLVM_ABI bool getConstantDataArrayInfo(const Value *V, ConstantDataArraySlice &Slice,
                               unsigned ElementSize, uint64_t Offset = 0);
 
 /// This function computes the length of a null-terminated C string pointed to
@@ -695,18 +696,18 @@ bool getConstantDataArrayInfo(const Value *V, ConstantDataArraySlice &Slice,
 /// character by default. If TrimAtNul is set to false, then this returns any
 /// trailing null characters as well as any other characters that come after
 /// it.
-bool getConstantStringInfo(const Value *V, StringRef &Str,
+LLVM_ABI bool getConstantStringInfo(const Value *V, StringRef &Str,
                            bool TrimAtNul = true);
 
 /// If we can compute the length of the string pointed to by the specified
 /// pointer, return 'len+1'.  If we can't, return 0.
-uint64_t GetStringLength(const Value *V, unsigned CharSize = 8);
+LLVM_ABI uint64_t GetStringLength(const Value *V, unsigned CharSize = 8);
 
 /// This function returns call pointer argument that is considered the same by
 /// aliasing rules. You CAN'T use it to replace one value with another. If
 /// \p MustPreserveNullness is true, the call must preserve the nullness of
 /// the pointer.
-const Value *getArgumentAliasingToReturnedPointer(const CallBase *Call,
+LLVM_ABI const Value *getArgumentAliasingToReturnedPointer(const CallBase *Call,
                                                   bool MustPreserveNullness);
 inline Value *getArgumentAliasingToReturnedPointer(CallBase *Call,
                                                    bool MustPreserveNullness) {
@@ -720,7 +721,7 @@ inline Value *getArgumentAliasingToReturnedPointer(CallBase *Call,
 /// considered as capture. The arguments are not marked as returned neither,
 /// because it would make it useless. If \p MustPreserveNullness is true,
 /// the intrinsic must preserve the nullness of the pointer.
-bool isIntrinsicReturningPointerAliasingArgumentWithoutCapturing(
+LLVM_ABI bool isIntrinsicReturningPointerAliasingArgumentWithoutCapturing(
     const CallBase *Call, bool MustPreserveNullness);
 
 /// This method strips off any GEP address adjustments, pointer casts
@@ -728,7 +729,7 @@ bool isIntrinsicReturningPointerAliasingArgumentWithoutCapturing(
 /// original object being addressed. Note that the returned value has pointer
 /// type if the specified value does. If the \p MaxLookup value is non-zero, it
 /// limits the number of instructions to be stripped off.
-const Value *getUnderlyingObject(const Value *V, unsigned MaxLookup = 6);
+LLVM_ABI const Value *getUnderlyingObject(const Value *V, unsigned MaxLookup = 6);
 inline Value *getUnderlyingObject(Value *V, unsigned MaxLookup = 6) {
   // Force const to avoid infinite recursion.
   const Value *VConst = V;
@@ -737,7 +738,7 @@ inline Value *getUnderlyingObject(Value *V, unsigned MaxLookup = 6) {
 
 /// Like getUnderlyingObject(), but will try harder to find a single underlying
 /// object. In particular, this function also looks through selects and phis.
-const Value *getUnderlyingObjectAggressive(const Value *V);
+LLVM_ABI const Value *getUnderlyingObjectAggressive(const Value *V);
 
 /// This method is similar to getUnderlyingObject except that it can
 /// look through phi and select instructions and return multiple objects.
@@ -767,29 +768,29 @@ const Value *getUnderlyingObjectAggressive(const Value *V);
 /// Since A[i] and A[i-1] are independent pointers, getUnderlyingObjects
 /// should not assume that Curr and Prev share the same underlying object thus
 /// it shouldn't look through the phi above.
-void getUnderlyingObjects(const Value *V,
+LLVM_ABI void getUnderlyingObjects(const Value *V,
                           SmallVectorImpl<const Value *> &Objects,
                           const LoopInfo *LI = nullptr, unsigned MaxLookup = 6);
 
 /// This is a wrapper around getUnderlyingObjects and adds support for basic
 /// ptrtoint+arithmetic+inttoptr sequences.
-bool getUnderlyingObjectsForCodeGen(const Value *V,
+LLVM_ABI bool getUnderlyingObjectsForCodeGen(const Value *V,
                                     SmallVectorImpl<Value *> &Objects);
 
 /// Returns unique alloca where the value comes from, or nullptr.
 /// If OffsetZero is true check that V points to the begining of the alloca.
-AllocaInst *findAllocaForValue(Value *V, bool OffsetZero = false);
+LLVM_ABI AllocaInst *findAllocaForValue(Value *V, bool OffsetZero = false);
 inline const AllocaInst *findAllocaForValue(const Value *V,
                                             bool OffsetZero = false) {
   return findAllocaForValue(const_cast<Value *>(V), OffsetZero);
 }
 
 /// Return true if the only users of this pointer are lifetime markers.
-bool onlyUsedByLifetimeMarkers(const Value *V);
+LLVM_ABI bool onlyUsedByLifetimeMarkers(const Value *V);
 
 /// Return true if the only users of this pointer are lifetime markers or
 /// droppable instructions.
-bool onlyUsedByLifetimeMarkersOrDroppableInsts(const Value *V);
+LLVM_ABI bool onlyUsedByLifetimeMarkersOrDroppableInsts(const Value *V);
 
 /// Return true if the instruction does not have any effects besides
 /// calculating the result and does not have undefined behavior.
@@ -816,7 +817,7 @@ bool onlyUsedByLifetimeMarkersOrDroppableInsts(const Value *V);
 ///
 /// This method can return true for instructions that read memory;
 /// for such instructions, moving them may change the resulting value.
-bool isSafeToSpeculativelyExecute(const Instruction *I,
+LLVM_ABI bool isSafeToSpeculativelyExecute(const Instruction *I,
                                   const Instruction *CtxI = nullptr,
                                   AssumptionCache *AC = nullptr,
                                   const DominatorTree *DT = nullptr,
@@ -858,7 +859,7 @@ isSafeToSpeculativelyExecuteWithVariableReplaced(const Instruction *I) {
 ///   function may have said that the instruction wouldn't be speculatable.
 ///   This behavior is a shortcoming in the current implementation and not
 ///   intentional.
-bool isSafeToSpeculativelyExecuteWithOpcode(
+LLVM_ABI bool isSafeToSpeculativelyExecuteWithOpcode(
     unsigned Opcode, const Instruction *Inst, const Instruction *CtxI = nullptr,
     AssumptionCache *AC = nullptr, const DominatorTree *DT = nullptr,
     const TargetLibraryInfo *TLI = nullptr, bool UseVariableInfo = true);
@@ -871,11 +872,11 @@ bool isSafeToSpeculativelyExecuteWithOpcode(
 ///   dependent instructions.
 /// * Control dependence arises for example if the instruction may fault
 ///   if lifted above a throwing call or infinite loop.
-bool mayHaveNonDefUseDependency(const Instruction &I);
+LLVM_ABI bool mayHaveNonDefUseDependency(const Instruction &I);
 
 /// Return true if it is an intrinsic that cannot be speculated but also
 /// cannot trap.
-bool isAssumeLikeIntrinsic(const Instruction *I);
+LLVM_ABI bool isAssumeLikeIntrinsic(const Instruction *I);
 
 /// Return true if it is valid to use the assumptions provided by an
 /// assume intrinsic, I, at the point in the control-flow identified by the
@@ -884,7 +885,7 @@ bool isAssumeLikeIntrinsic(const Instruction *I);
 /// to optimize away its argument. If the caller can ensure that this won't
 /// happen, it can call with AllowEphemerals set to true to get more valid
 /// assumptions.
-bool isValidAssumeForContext(const Instruction *I, const Instruction *CxtI,
+LLVM_ABI bool isValidAssumeForContext(const Instruction *I, const Instruction *CxtI,
                              const DominatorTree *DT = nullptr,
                              bool AllowEphemerals = false);
 
@@ -899,39 +900,39 @@ enum class OverflowResult {
   NeverOverflows,
 };
 
-OverflowResult computeOverflowForUnsignedMul(const Value *LHS, const Value *RHS,
+LLVM_ABI OverflowResult computeOverflowForUnsignedMul(const Value *LHS, const Value *RHS,
                                              const SimplifyQuery &SQ,
                                              bool IsNSW = false);
-OverflowResult computeOverflowForSignedMul(const Value *LHS, const Value *RHS,
+LLVM_ABI OverflowResult computeOverflowForSignedMul(const Value *LHS, const Value *RHS,
                                            const SimplifyQuery &SQ);
-OverflowResult
+LLVM_ABI OverflowResult
 computeOverflowForUnsignedAdd(const WithCache<const Value *> &LHS,
                               const WithCache<const Value *> &RHS,
                               const SimplifyQuery &SQ);
-OverflowResult computeOverflowForSignedAdd(const WithCache<const Value *> &LHS,
+LLVM_ABI OverflowResult computeOverflowForSignedAdd(const WithCache<const Value *> &LHS,
                                            const WithCache<const Value *> &RHS,
                                            const SimplifyQuery &SQ);
 /// This version also leverages the sign bit of Add if known.
-OverflowResult computeOverflowForSignedAdd(const AddOperator *Add,
+LLVM_ABI OverflowResult computeOverflowForSignedAdd(const AddOperator *Add,
                                            const SimplifyQuery &SQ);
-OverflowResult computeOverflowForUnsignedSub(const Value *LHS, const Value *RHS,
+LLVM_ABI OverflowResult computeOverflowForUnsignedSub(const Value *LHS, const Value *RHS,
                                              const SimplifyQuery &SQ);
-OverflowResult computeOverflowForSignedSub(const Value *LHS, const Value *RHS,
+LLVM_ABI OverflowResult computeOverflowForSignedSub(const Value *LHS, const Value *RHS,
                                            const SimplifyQuery &SQ);
 
 /// Returns true if the arithmetic part of the \p WO 's result is
 /// used only along the paths control dependent on the computation
 /// not overflowing, \p WO being an <op>.with.overflow intrinsic.
-bool isOverflowIntrinsicNoWrap(const WithOverflowInst *WO,
+LLVM_ABI bool isOverflowIntrinsicNoWrap(const WithOverflowInst *WO,
                                const DominatorTree &DT);
 
 /// Determine the possible constant range of vscale with the given bit width,
 /// based on the vscale_range function attribute.
-ConstantRange getVScaleRange(const Function *F, unsigned BitWidth);
+LLVM_ABI ConstantRange getVScaleRange(const Function *F, unsigned BitWidth);
 
 /// Determine the possible constant range of an integer or vector of integer
 /// value. This is intended as a cheap, non-recursive check.
-ConstantRange computeConstantRange(const Value *V, bool ForSigned,
+LLVM_ABI ConstantRange computeConstantRange(const Value *V, bool ForSigned,
                                    bool UseInstrInfo = true,
                                    AssumptionCache *AC = nullptr,
                                    const Instruction *CtxI = nullptr,
@@ -939,7 +940,7 @@ ConstantRange computeConstantRange(const Value *V, bool ForSigned,
                                    unsigned Depth = 0);
 
 /// Combine constant ranges from computeConstantRange() and computeKnownBits().
-ConstantRange
+LLVM_ABI ConstantRange
 computeConstantRangeIncludingKnownBits(const WithCache<const Value *> &V,
                                        bool ForSigned, const SimplifyQuery &SQ);
 
@@ -956,31 +957,31 @@ computeConstantRangeIncludingKnownBits(const WithCache<const Value *> &V,
 /// Undefined behavior is assumed not to happen, so e.g. division is
 /// guaranteed to transfer execution to the following instruction even
 /// though division by zero might cause undefined behavior.
-bool isGuaranteedToTransferExecutionToSuccessor(const Instruction *I);
+LLVM_ABI bool isGuaranteedToTransferExecutionToSuccessor(const Instruction *I);
 
 /// Returns true if this block does not contain a potential implicit exit.
 /// This is equivelent to saying that all instructions within the basic block
 /// are guaranteed to transfer execution to their successor within the basic
 /// block. This has the same assumptions w.r.t. undefined behavior as the
 /// instruction variant of this function.
-bool isGuaranteedToTransferExecutionToSuccessor(const BasicBlock *BB);
+LLVM_ABI bool isGuaranteedToTransferExecutionToSuccessor(const BasicBlock *BB);
 
 /// Return true if every instruction in the range (Begin, End) is
 /// guaranteed to transfer execution to its static successor. \p ScanLimit
 /// bounds the search to avoid scanning huge blocks.
-bool isGuaranteedToTransferExecutionToSuccessor(
+LLVM_ABI bool isGuaranteedToTransferExecutionToSuccessor(
     BasicBlock::const_iterator Begin, BasicBlock::const_iterator End,
     unsigned ScanLimit = 32);
 
 /// Same as previous, but with range expressed via iterator_range.
-bool isGuaranteedToTransferExecutionToSuccessor(
+LLVM_ABI bool isGuaranteedToTransferExecutionToSuccessor(
     iterator_range<BasicBlock::const_iterator> Range, unsigned ScanLimit = 32);
 
 /// Return true if this function can prove that the instruction I
 /// is executed for every iteration of the loop L.
 ///
 /// Note that this currently only considers the loop header.
-bool isGuaranteedToExecuteForEveryIteration(const Instruction *I,
+LLVM_ABI bool isGuaranteedToExecuteForEveryIteration(const Instruction *I,
                                             const Loop *L);
 
 /// Return true if \p PoisonOp's user yields poison or raises UB if its
@@ -992,23 +993,23 @@ bool isGuaranteedToExecuteForEveryIteration(const Instruction *I,
 ///
 /// To filter out operands that raise UB on poison, you can use
 /// getGuaranteedNonPoisonOp.
-bool propagatesPoison(const Use &PoisonOp);
+LLVM_ABI bool propagatesPoison(const Use &PoisonOp);
 
 /// Insert operands of I into Ops such that I will trigger undefined behavior
 /// if I is executed and that operand has a poison value.
-void getGuaranteedNonPoisonOps(const Instruction *I,
+LLVM_ABI void getGuaranteedNonPoisonOps(const Instruction *I,
                                SmallVectorImpl<const Value *> &Ops);
 
 /// Insert operands of I into Ops such that I will trigger undefined behavior
 /// if I is executed and that operand is not a well-defined value
 /// (i.e. has undef bits or poison).
-void getGuaranteedWellDefinedOps(const Instruction *I,
+LLVM_ABI void getGuaranteedWellDefinedOps(const Instruction *I,
                                  SmallVectorImpl<const Value *> &Ops);
 
 /// Return true if the given instruction must trigger undefined behavior
 /// when I is executed with any operands which appear in KnownPoison holding
 /// a poison value at the point of execution.
-bool mustTriggerUB(const Instruction *I,
+LLVM_ABI bool mustTriggerUB(const Instruction *I,
                    const SmallPtrSetImpl<const Value *> &KnownPoison);
 
 /// Return true if this function can prove that if Inst is executed
@@ -1017,8 +1018,8 @@ bool mustTriggerUB(const Instruction *I,
 ///
 /// Note that this currently only considers the basic block that is
 /// the parent of Inst.
-bool programUndefinedIfUndefOrPoison(const Instruction *Inst);
-bool programUndefinedIfPoison(const Instruction *Inst);
+LLVM_ABI bool programUndefinedIfUndefOrPoison(const Instruction *Inst);
+LLVM_ABI bool programUndefinedIfPoison(const Instruction *Inst);
 
 /// canCreateUndefOrPoison returns true if Op can create undef or poison from
 /// non-undef & non-poison operands.
@@ -1038,14 +1039,14 @@ bool programUndefinedIfPoison(const Instruction *Inst);
 ///
 /// canCreatePoison returns true if Op can create poison from non-poison
 /// operands.
-bool canCreateUndefOrPoison(const Operator *Op,
+LLVM_ABI bool canCreateUndefOrPoison(const Operator *Op,
                             bool ConsiderFlagsAndMetadata = true);
-bool canCreatePoison(const Operator *Op, bool ConsiderFlagsAndMetadata = true);
+LLVM_ABI bool canCreatePoison(const Operator *Op, bool ConsiderFlagsAndMetadata = true);
 
 /// Return true if V is poison given that ValAssumedPoison is already poison.
 /// For example, if ValAssumedPoison is `icmp X, 10` and V is `icmp X, 5`,
 /// impliesPoison returns true.
-bool impliesPoison(const Value *ValAssumedPoison, const Value *V);
+LLVM_ABI bool impliesPoison(const Value *ValAssumedPoison, const Value *V);
 
 /// Return true if this function can prove that V does not have undef bits
 /// and is never poison. If V is an aggregate value or vector, check whether
@@ -1056,14 +1057,14 @@ bool impliesPoison(const Value *ValAssumedPoison, const Value *V);
 /// If CtxI and DT are specified this method performs flow-sensitive analysis
 /// and returns true if it is guaranteed to be never undef or poison
 /// immediately before the CtxI.
-bool isGuaranteedNotToBeUndefOrPoison(const Value *V,
+LLVM_ABI bool isGuaranteedNotToBeUndefOrPoison(const Value *V,
                                       AssumptionCache *AC = nullptr,
                                       const Instruction *CtxI = nullptr,
                                       const DominatorTree *DT = nullptr,
                                       unsigned Depth = 0);
 
 /// Returns true if V cannot be poison, but may be undef.
-bool isGuaranteedNotToBePoison(const Value *V, AssumptionCache *AC = nullptr,
+LLVM_ABI bool isGuaranteedNotToBePoison(const Value *V, AssumptionCache *AC = nullptr,
                                const Instruction *CtxI = nullptr,
                                const DominatorTree *DT = nullptr,
                                unsigned Depth = 0);
@@ -1078,7 +1079,7 @@ inline bool isGuaranteedNotToBePoison(const Value *V, AssumptionCache *AC,
 }
 
 /// Returns true if V cannot be undef, but may be poison.
-bool isGuaranteedNotToBeUndef(const Value *V, AssumptionCache *AC = nullptr,
+LLVM_ABI bool isGuaranteedNotToBeUndef(const Value *V, AssumptionCache *AC = nullptr,
                               const Instruction *CtxI = nullptr,
                               const DominatorTree *DT = nullptr,
                               unsigned Depth = 0);
@@ -1090,7 +1091,7 @@ bool isGuaranteedNotToBeUndef(const Value *V, AssumptionCache *AC = nullptr,
 /// be added at a location which is control equivalent with OnPathTo (such as
 /// immediately before it) without introducing UB which didn't previously
 /// exist.  Note that a false result conveys no information.
-bool mustExecuteUBIfPoisonOnPathTo(Instruction *Root,
+LLVM_ABI bool mustExecuteUBIfPoisonOnPathTo(Instruction *Root,
                                    Instruction *OnPathTo,
                                    DominatorTree *DT);
 
@@ -1150,7 +1151,7 @@ struct SelectPatternResult {
 ///
 /// -> LHS = %a, RHS = i32 4, *CastOp = Instruction::SExt
 ///
-SelectPatternResult matchSelectPattern(Value *V, Value *&LHS, Value *&RHS,
+LLVM_ABI SelectPatternResult matchSelectPattern(Value *V, Value *&LHS, Value *&RHS,
                                        Instruction::CastOps *CastOp = nullptr,
                                        unsigned Depth = 0);
 
@@ -1166,30 +1167,30 @@ inline SelectPatternResult matchSelectPattern(const Value *V, const Value *&LHS,
 
 /// Determine the pattern that a select with the given compare as its
 /// predicate and given values as its true/false operands would match.
-SelectPatternResult matchDecomposedSelectPattern(
+LLVM_ABI SelectPatternResult matchDecomposedSelectPattern(
     CmpInst *CmpI, Value *TrueVal, Value *FalseVal, Value *&LHS, Value *&RHS,
     Instruction::CastOps *CastOp = nullptr, unsigned Depth = 0);
 
 /// Return the canonical comparison predicate for the specified
 /// minimum/maximum flavor.
-CmpInst::Predicate getMinMaxPred(SelectPatternFlavor SPF, bool Ordered = false);
+LLVM_ABI CmpInst::Predicate getMinMaxPred(SelectPatternFlavor SPF, bool Ordered = false);
 
 /// Return the inverse minimum/maximum flavor of the specified flavor.
 /// For example, signed minimum is the inverse of signed maximum.
-SelectPatternFlavor getInverseMinMaxFlavor(SelectPatternFlavor SPF);
+LLVM_ABI SelectPatternFlavor getInverseMinMaxFlavor(SelectPatternFlavor SPF);
 
-Intrinsic::ID getInverseMinMaxIntrinsic(Intrinsic::ID MinMaxID);
+LLVM_ABI Intrinsic::ID getInverseMinMaxIntrinsic(Intrinsic::ID MinMaxID);
 
 /// Return the minimum or maximum constant value for the specified integer
 /// min/max flavor and type.
-APInt getMinMaxLimit(SelectPatternFlavor SPF, unsigned BitWidth);
+LLVM_ABI APInt getMinMaxLimit(SelectPatternFlavor SPF, unsigned BitWidth);
 
 /// Check if the values in \p VL are select instructions that can be converted
 /// to a min or max (vector) intrinsic. Returns the intrinsic ID, if such a
 /// conversion is possible, together with a bool indicating whether all select
 /// conditions are only used by the selects. Otherwise return
 /// Intrinsic::not_intrinsic.
-std::pair<Intrinsic::ID, bool>
+LLVM_ABI std::pair<Intrinsic::ID, bool>
 canConvertToMinOrMaxIntrinsic(ArrayRef<Value *> VL);
 
 /// Attempt to match a simple first order recurrence cycle of the form:
@@ -1216,11 +1217,11 @@ canConvertToMinOrMaxIntrinsic(ArrayRef<Value *> VL);
 ///
 /// NOTE: This is intentional simple.  If you want the ability to analyze
 /// non-trivial loop conditons, see ScalarEvolution instead.
-bool matchSimpleRecurrence(const PHINode *P, BinaryOperator *&BO, Value *&Start,
+LLVM_ABI bool matchSimpleRecurrence(const PHINode *P, BinaryOperator *&BO, Value *&Start,
                            Value *&Step);
 
 /// Analogous to the above, but starting from the binary operator
-bool matchSimpleRecurrence(const BinaryOperator *I, PHINode *&P, Value *&Start,
+LLVM_ABI bool matchSimpleRecurrence(const BinaryOperator *I, PHINode *&P, Value *&Start,
                            Value *&Step);
 
 /// Return true if RHS is known to be implied true by LHS.  Return false if
@@ -1233,11 +1234,11 @@ bool matchSimpleRecurrence(const BinaryOperator *I, PHINode *&P, Value *&Start,
 ///  T | T | F
 ///  F | T | T
 /// (A)
-std::optional<bool> isImpliedCondition(const Value *LHS, const Value *RHS,
+LLVM_ABI std::optional<bool> isImpliedCondition(const Value *LHS, const Value *RHS,
                                        const DataLayout &DL,
                                        bool LHSIsTrue = true,
                                        unsigned Depth = 0);
-std::optional<bool> isImpliedCondition(const Value *LHS,
+LLVM_ABI std::optional<bool> isImpliedCondition(const Value *LHS,
                                        CmpInst::Predicate RHSPred,
                                        const Value *RHSOp0, const Value *RHSOp1,
                                        const DataLayout &DL,
@@ -1246,10 +1247,10 @@ std::optional<bool> isImpliedCondition(const Value *LHS,
 
 /// Return the boolean condition value in the context of the given instruction
 /// if it is known based on dominating conditions.
-std::optional<bool> isImpliedByDomCondition(const Value *Cond,
+LLVM_ABI std::optional<bool> isImpliedByDomCondition(const Value *Cond,
                                             const Instruction *ContextI,
                                             const DataLayout &DL);
-std::optional<bool> isImpliedByDomCondition(CmpInst::Predicate Pred,
+LLVM_ABI std::optional<bool> isImpliedByDomCondition(CmpInst::Predicate Pred,
                                             const Value *LHS, const Value *RHS,
                                             const Instruction *ContextI,
                                             const DataLayout &DL);
@@ -1257,7 +1258,7 @@ std::optional<bool> isImpliedByDomCondition(CmpInst::Predicate Pred,
 /// Call \p InsertAffected on all Values whose known bits / value may be
 /// affected by the condition \p Cond. Used by AssumptionCache and
 /// DomConditionCache.
-void findValuesAffectedByCondition(Value *Cond, bool IsAssume,
+LLVM_ABI void findValuesAffectedByCondition(Value *Cond, bool IsAssume,
                                    function_ref<void(Value *)> InsertAffected);
 
 } // end namespace llvm

@@ -10,6 +10,7 @@
 #define LLVM_DEMANGLE_MICROSOFTDEMANGLE_H
 
 #include "llvm/Demangle/MicrosoftDemangleNodes.h"
+#include "llvm/Support/Compiler.h"
 
 #include <cassert>
 #include <string_view>
@@ -140,7 +141,7 @@ enum class FunctionIdentifierCodeGroup { Basic, Under, DoubleUnder };
 // Demangler class takes the main role in demangling symbols.
 // It has a set of functions to parse mangled symbols into Type instances.
 // It also has a set of functions to convert Type instances to strings.
-class Demangler {
+class LLVM_ABI Demangler {
 public:
   Demangler() = default;
   virtual ~Demangler() = default;

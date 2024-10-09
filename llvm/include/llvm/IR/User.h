@@ -41,7 +41,7 @@ template <typename T> class MutableArrayRef;
 template <class>
 struct OperandTraits;
 
-class User : public Value {
+class LLVM_ABI User : public Value {
   friend struct HungoffOperandTraits;
   template <class ConstantClass> friend struct ConstantAggrKeyType;
 

@@ -14,6 +14,7 @@
 
 #include "llvm/BinaryFormat/XCOFF.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 #include <vector>
 
@@ -94,7 +95,7 @@ enum AuxSymbolType : uint8_t {
   AUX_STAT = 249
 };
 
-struct AuxSymbolEnt {
+struct LLVM_ABI AuxSymbolEnt {
   AuxSymbolType Type;
 
   explicit AuxSymbolEnt(AuxSymbolType T) : Type(T) {}
@@ -210,7 +211,7 @@ struct StringTable {
   std::optional<yaml::BinaryRef> RawContent;
 };
 
-struct Object {
+struct LLVM_ABI Object {
   FileHeader Header;
   std::optional<AuxiliaryHeader> AuxHeader;
   std::vector<Section> Sections;
@@ -229,63 +230,63 @@ LLVM_YAML_IS_SEQUENCE_VECTOR(std::unique_ptr<llvm::XCOFFYAML::AuxSymbolEnt>)
 namespace llvm {
 namespace yaml {
 
-template <> struct ScalarBitSetTraits<XCOFF::SectionTypeFlags> {
+template <> struct LLVM_ABI ScalarBitSetTraits<XCOFF::SectionTypeFlags> {
   static void bitset(IO &IO, XCOFF::SectionTypeFlags &Value);
 };
 
-template <> struct ScalarEnumerationTraits<XCOFF::DwarfSectionSubtypeFlags> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<XCOFF::DwarfSectionSubtypeFlags> {
   static void enumeration(IO &IO, XCOFF::DwarfSectionSubtypeFlags &Value);
 };
 
-template <> struct ScalarEnumerationTraits<XCOFF::StorageClass> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<XCOFF::StorageClass> {
   static void enumeration(IO &IO, XCOFF::StorageClass &Value);
 };
 
-template <> struct ScalarEnumerationTraits<XCOFF::StorageMappingClass> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<XCOFF::StorageMappingClass> {
   static void enumeration(IO &IO, XCOFF::StorageMappingClass &Value);
 };
 
-template <> struct ScalarEnumerationTraits<XCOFF::SymbolType> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<XCOFF::SymbolType> {
   static void enumeration(IO &IO, XCOFF::SymbolType &Value);
 };
 
-template <> struct ScalarEnumerationTraits<XCOFF::CFileStringType> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<XCOFF::CFileStringType> {
   static void enumeration(IO &IO, XCOFF::CFileStringType &Type);
 };
 
-template <> struct ScalarEnumerationTraits<XCOFFYAML::AuxSymbolType> {
+template <> struct LLVM_ABI ScalarEnumerationTraits<XCOFFYAML::AuxSymbolType> {
   static void enumeration(IO &IO, XCOFFYAML::AuxSymbolType &Type);
 };
 
-template <> struct MappingTraits<XCOFFYAML::FileHeader> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::FileHeader> {
   static void mapping(IO &IO, XCOFFYAML::FileHeader &H);
 };
 
-template <> struct MappingTraits<XCOFFYAML::AuxiliaryHeader> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::AuxiliaryHeader> {
   static void mapping(IO &IO, XCOFFYAML::AuxiliaryHeader &AuxHdr);
 };
 
-template <> struct MappingTraits<std::unique_ptr<XCOFFYAML::AuxSymbolEnt>> {
+template <> struct LLVM_ABI MappingTraits<std::unique_ptr<XCOFFYAML::AuxSymbolEnt>> {
   static void mapping(IO &IO, std::unique_ptr<XCOFFYAML::AuxSymbolEnt> &AuxSym);
 };
 
-template <> struct MappingTraits<XCOFFYAML::Symbol> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::Symbol> {
   static void mapping(IO &IO, XCOFFYAML::Symbol &S);
 };
 
-template <> struct MappingTraits<XCOFFYAML::Relocation> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::Relocation> {
   static void mapping(IO &IO, XCOFFYAML::Relocation &R);
 };
 
-template <> struct MappingTraits<XCOFFYAML::Section> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::Section> {
   static void mapping(IO &IO, XCOFFYAML::Section &Sec);
 };
 
-template <> struct MappingTraits<XCOFFYAML::StringTable> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::StringTable> {
   static void mapping(IO &IO, XCOFFYAML::StringTable &Str);
 };
 
-template <> struct MappingTraits<XCOFFYAML::Object> {
+template <> struct LLVM_ABI MappingTraits<XCOFFYAML::Object> {
   static void mapping(IO &IO, XCOFFYAML::Object &Obj);
 };
 

@@ -98,6 +98,7 @@
 #include "llvm/IR/Type.h"
 #include "llvm/IR/User.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -136,7 +137,7 @@ using const_memoryaccess_def_iterator =
 
 // The base for all memory accesses. All memory accesses in a block are
 // linked together using an intrusive list.
-class MemoryAccess
+class LLVM_ABI MemoryAccess
     : public DerivedUser,
       public ilist_node<MemoryAccess, ilist_tag<MSSAHelpers::AllAccessTag>>,
       public ilist_node<MemoryAccess, ilist_tag<MSSAHelpers::DefsOnlyTag>> {
@@ -306,7 +307,7 @@ private:
 /// In particular, the set of Instructions that will be represented by
 /// MemoryUse's is exactly the set of Instructions for which
 /// AliasAnalysis::getModRefInfo returns "Ref".
-class MemoryUse final : public MemoryUseOrDef {
+class LLVM_ABI MemoryUse final : public MemoryUseOrDef {
   constexpr static IntrusiveOperandsAllocMarker AllocMarker{1};
 
 public:
@@ -367,7 +368,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(MemoryUse, MemoryAccess)
 /// Note that, in order to provide def-def chains, all defs also have a use
 /// associated with them. This use points to the nearest reaching
 /// MemoryDef/MemoryPhi.
-class MemoryDef final : public MemoryUseOrDef {
+class LLVM_ABI MemoryDef final : public MemoryUseOrDef {
   constexpr static IntrusiveOperandsAllocMarker AllocMarker{2};
 
 public:
@@ -475,7 +476,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(MemoryUseOrDef, MemoryAccess)
 /// disconnected completely from the SSA graph below that point.
 /// Because MemoryUse's do not generate new definitions, they do not have this
 /// issue.
-class MemoryPhi final : public MemoryAccess {
+class LLVM_ABI MemoryPhi final : public MemoryAccess {
   constexpr static HungOffOperandsAllocMarker AllocMarker{};
 
   // allocate space for exactly zero operands
@@ -698,7 +699,7 @@ DEFINE_TRANSPARENT_OPERAND_ACCESSORS(MemoryPhi, MemoryAccess)
 
 /// Encapsulates MemorySSA, including all data associated with memory
 /// accesses.
-class MemorySSA {
+class LLVM_ABI MemorySSA {
 public:
   MemorySSA(Function &, AliasAnalysis *, DominatorTree *);
   MemorySSA(Loop &, AliasAnalysis *, DominatorTree *);
@@ -910,10 +911,10 @@ private:
 /// The checks which this flag enables is exensive and disabled by default
 /// unless `EXPENSIVE_CHECKS` is defined.  The flag `-verify-memoryssa` can be
 /// used to selectively enable the verification without re-compilation.
-extern bool VerifyMemorySSA;
+LLVM_ABI extern bool VerifyMemorySSA;
 
 // Internal MemorySSA utils, for use by MemorySSA classes and walkers
-class MemorySSAUtil {
+class LLVM_ABI MemorySSAUtil {
 protected:
   friend class GVNHoist;
   friend class MemorySSAWalker;
@@ -925,7 +926,7 @@ protected:
 
 /// An analysis that produces \c MemorySSA for a function.
 ///
-class MemorySSAAnalysis : public AnalysisInfoMixin<MemorySSAAnalysis> {
+class LLVM_ABI MemorySSAAnalysis : public AnalysisInfoMixin<MemorySSAAnalysis> {
   friend AnalysisInfoMixin<MemorySSAAnalysis>;
 
   static AnalysisKey Key;
@@ -934,7 +935,7 @@ public:
   // Wrap MemorySSA result to ensure address stability of internal MemorySSA
   // pointers after construction.  Use a wrapper class instead of plain
   // unique_ptr<MemorySSA> to avoid build breakage on MSVC.
-  struct Result {
+  struct LLVM_ABI Result {
     Result(std::unique_ptr<MemorySSA> &&MSSA) : MSSA(std::move(MSSA)) {}
 
     MemorySSA &getMSSA() { return *MSSA; }
@@ -949,7 +950,7 @@ public:
 };
 
 /// Printer pass for \c MemorySSA.
-class MemorySSAPrinterPass : public PassInfoMixin<MemorySSAPrinterPass> {
+class LLVM_ABI MemorySSAPrinterPass : public PassInfoMixin<MemorySSAPrinterPass> {
   raw_ostream &OS;
   bool EnsureOptimizedUses;
 
@@ -963,7 +964,7 @@ public:
 };
 
 /// Printer pass for \c MemorySSA via the walker.
-class MemorySSAWalkerPrinterPass
+class LLVM_ABI MemorySSAWalkerPrinterPass
     : public PassInfoMixin<MemorySSAWalkerPrinterPass> {
   raw_ostream &OS;
 
@@ -976,13 +977,13 @@ public:
 };
 
 /// Verifier pass for \c MemorySSA.
-struct MemorySSAVerifierPass : PassInfoMixin<MemorySSAVerifierPass> {
+struct LLVM_ABI MemorySSAVerifierPass : PassInfoMixin<MemorySSAVerifierPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
   static bool isRequired() { return true; }
 };
 
 /// Legacy analysis pass which computes \c MemorySSA.
-class MemorySSAWrapperPass : public FunctionPass {
+class LLVM_ABI MemorySSAWrapperPass : public FunctionPass {
 public:
   MemorySSAWrapperPass();
 
@@ -1013,7 +1014,7 @@ private:
 /// disambiguate memory accesses, or they may want the nearest dominating
 /// may-aliasing MemoryDef for a call or a store. This API enables a
 /// standardized interface to getting and using that info.
-class MemorySSAWalker {
+class LLVM_ABI MemorySSAWalker {
 public:
   MemorySSAWalker(MemorySSA *);
   virtual ~MemorySSAWalker() = default;
@@ -1100,7 +1101,7 @@ protected:
 
 /// A MemorySSAWalker that does no alias queries, or anything else. It
 /// simply returns the links as they were constructed by the builder.
-class DoNothingMemorySSAWalker final : public MemorySSAWalker {
+class LLVM_ABI DoNothingMemorySSAWalker final : public MemorySSAWalker {
 public:
   // Keep the overrides below from hiding the Instruction overload of
   // getClobberingMemoryAccess.
@@ -1217,7 +1218,7 @@ template <> struct GraphTraits<Inverse<MemoryAccess *>> {
 /// want when walking upwards through MemorySSA def chains. It takes a pair of
 /// <MemoryAccess,MemoryLocation>, and walks defs, properly translating the
 /// memory location through phi nodes for the user.
-class upward_defs_iterator
+class LLVM_ABI upward_defs_iterator
     : public iterator_facade_base<upward_defs_iterator,
                                   std::forward_iterator_tag,
                                   const MemoryAccessPair> {

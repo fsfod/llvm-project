@@ -18,6 +18,7 @@
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/CodeGen/SelectionDAG.h"
 #include "llvm/IR/BasicBlock.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -41,7 +42,7 @@ class ScheduleDAGSDNodes;
 
 /// SelectionDAGISel - This is the common base class used for SelectionDAG-based
 /// pattern-matching instruction selectors.
-class SelectionDAGISel {
+class LLVM_ABI SelectionDAGISel {
 public:
   TargetMachine &TM;
   const TargetLibraryInfo *LibInfo;
@@ -528,7 +529,7 @@ private:
                     bool isMorphNodeTo);
 };
 
-class SelectionDAGISelLegacy : public MachineFunctionPass {
+class LLVM_ABI SelectionDAGISelLegacy : public MachineFunctionPass {
   std::unique_ptr<SelectionDAGISel> Selector;
 
 public:
@@ -541,7 +542,7 @@ public:
   bool runOnMachineFunction(MachineFunction &MF) override;
 };
 
-class SelectionDAGISelPass : public PassInfoMixin<SelectionDAGISelPass> {
+class LLVM_ABI SelectionDAGISelPass : public PassInfoMixin<SelectionDAGISelPass> {
   std::unique_ptr<SelectionDAGISel> Selector;
 
 protected:

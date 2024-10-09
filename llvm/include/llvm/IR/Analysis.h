@@ -13,6 +13,7 @@
 #define LLVM_IR_ANALYSIS_H
 
 #include "llvm/ADT/SmallPtrSet.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -56,8 +57,8 @@ private:
 
 template <typename IRUnitT> AnalysisSetKey AllAnalysesOn<IRUnitT>::SetKey;
 
-extern template class AllAnalysesOn<Module>;
-extern template class AllAnalysesOn<Function>;
+extern template class LLVM_TEMPLATE_ABI AllAnalysesOn<Module>;
+extern template class LLVM_TEMPLATE_ABI AllAnalysesOn<Function>;
 
 /// Represents analyses that only rely on functions' control flow.
 ///
@@ -69,7 +70,7 @@ extern template class AllAnalysesOn<Function>;
 /// mutate the CFG. Mutating the condition of a branch or argument of an
 /// invoked function does not mutate the CFG, but changing the successor labels
 /// of those instructions does.
-class CFGAnalyses {
+class LLVM_ABI CFGAnalyses {
 public:
   static AnalysisSetKey *ID() { return &SetKey; }
 
@@ -108,7 +109,7 @@ private:
 ///     // The analysis has been successfully preserved ...
 ///   }
 /// ```
-class PreservedAnalyses {
+class LLVM_ABI PreservedAnalyses {
 public:
   /// Convenience factory function for the empty preserved set.
   static PreservedAnalyses none() { return PreservedAnalyses(); }

@@ -72,7 +72,7 @@ inline uint64_t getInstrMaxCountValue() {
 /// The name of the section depends on the object format type \p OF. If
 /// \p AddSegmentInfo is true, a segment prefix and additional linker hints may
 /// be added to the section name (this is the default).
-std::string getInstrProfSectionName(InstrProfSectKind IPSK,
+LLVM_ABI std::string getInstrProfSectionName(InstrProfSectKind IPSK,
                                     Triple::ObjectFormatType OF,
                                     bool AddSegmentInfo = true);
 
@@ -183,21 +183,21 @@ inline StringRef getInstrProfNameSeparator() { return "\01"; }
 
 /// Determines whether module targets a GPU eligable for PGO
 /// instrumentation
-bool isGPUProfTarget(const Module &M);
+LLVM_ABI bool isGPUProfTarget(const Module &M);
 
 /// Please use getIRPGOFuncName for LLVM IR instrumentation. This function is
 /// for front-end (Clang, etc) instrumentation.
 /// Return the modified name for function \c F suitable to be
 /// used the key for profile lookup. Variable \c InLTO indicates if this
 /// is called in LTO optimization passes.
-std::string getPGOFuncName(const Function &F, bool InLTO = false,
+LLVM_ABI std::string getPGOFuncName(const Function &F, bool InLTO = false,
                            uint64_t Version = INSTR_PROF_INDEX_VERSION);
 
 /// Return the modified name for a function suitable to be
 /// used the key for profile lookup. The function's original
 /// name is \c RawFuncName and has linkage of type \c Linkage.
 /// The function is defined in module \c FileName.
-std::string getPGOFuncName(StringRef RawFuncName,
+LLVM_ABI std::string getPGOFuncName(StringRef RawFuncName,
                            GlobalValue::LinkageTypes Linkage,
                            StringRef FileName,
                            uint64_t Version = INSTR_PROF_INDEX_VERSION);
@@ -205,39 +205,39 @@ std::string getPGOFuncName(StringRef RawFuncName,
 /// \return the modified name for function \c F suitable to be
 /// used as the key for IRPGO profile lookup. \c InLTO indicates if this is
 /// called from LTO optimization passes.
-std::string getIRPGOFuncName(const Function &F, bool InLTO = false);
+LLVM_ABI std::string getIRPGOFuncName(const Function &F, bool InLTO = false);
 
 /// \return the filename and the function name parsed from the output of
 /// \c getIRPGOFuncName()
-std::pair<StringRef, StringRef> getParsedIRPGOName(StringRef IRPGOName);
+LLVM_ABI std::pair<StringRef, StringRef> getParsedIRPGOName(StringRef IRPGOName);
 
 /// Return the name of the global variable used to store a function
 /// name in PGO instrumentation. \c FuncName is the IRPGO function name
 /// (returned by \c getIRPGOFuncName) for LLVM IR instrumentation and PGO
 /// function name (returned by \c getPGOFuncName) for front-end instrumentation.
-std::string getPGOFuncNameVarName(StringRef FuncName,
+LLVM_ABI std::string getPGOFuncNameVarName(StringRef FuncName,
                                   GlobalValue::LinkageTypes Linkage);
 
 /// Create and return the global variable for function name used in PGO
 /// instrumentation. \c FuncName is the IRPGO function name (returned by
 /// \c getIRPGOFuncName) for LLVM IR instrumentation and PGO function name
 /// (returned by \c getPGOFuncName) for front-end instrumentation.
-GlobalVariable *createPGOFuncNameVar(Function &F, StringRef PGOFuncName);
+LLVM_ABI GlobalVariable *createPGOFuncNameVar(Function &F, StringRef PGOFuncName);
 
 /// Create and return the global variable for function name used in PGO
 /// instrumentation. \c FuncName is the IRPGO function name (returned by
 /// \c getIRPGOFuncName) for LLVM IR instrumentation and PGO function name
 /// (returned by \c getPGOFuncName) for front-end instrumentation.
-GlobalVariable *createPGOFuncNameVar(Module &M,
+LLVM_ABI GlobalVariable *createPGOFuncNameVar(Module &M,
                                      GlobalValue::LinkageTypes Linkage,
                                      StringRef PGOFuncName);
 
 /// Return the initializer in string of the PGO name var \c NameVar.
-StringRef getPGOFuncNameVarInitializer(GlobalVariable *NameVar);
+LLVM_ABI StringRef getPGOFuncNameVarInitializer(GlobalVariable *NameVar);
 
 /// Given a PGO function name, remove the filename prefix and return
 /// the original (static) function name.
-StringRef getFuncNameWithoutPrefix(StringRef PGOFuncName,
+LLVM_ABI StringRef getFuncNameWithoutPrefix(StringRef PGOFuncName,
                                    StringRef FileName = "<unknown>");
 
 /// Given a vector of strings (names of global objects like functions or,
@@ -249,7 +249,7 @@ StringRef getFuncNameWithoutPrefix(StringRef PGOFuncName,
 ///  third field is the uncompressed strings; otherwise it is the
 /// compressed string. When the string compression is off, the
 /// second field will have value zero.
-Error collectGlobalObjectNameStrings(ArrayRef<std::string> NameStrs,
+LLVM_ABI Error collectGlobalObjectNameStrings(ArrayRef<std::string> NameStrs,
                                      bool doCompression, std::string &Result);
 
 /// Produce \c Result string with the same format described above. The input
@@ -257,20 +257,20 @@ Error collectGlobalObjectNameStrings(ArrayRef<std::string> NameStrs,
 /// The global variable element in 'NameVars' is a string containing the pgo
 /// name of a function. See `createPGOFuncNameVar` that creates these global
 /// variables.
-Error collectPGOFuncNameStrings(ArrayRef<GlobalVariable *> NameVars,
+LLVM_ABI Error collectPGOFuncNameStrings(ArrayRef<GlobalVariable *> NameVars,
                                 std::string &Result, bool doCompression = true);
 
-Error collectVTableStrings(ArrayRef<GlobalVariable *> VTables,
+LLVM_ABI Error collectVTableStrings(ArrayRef<GlobalVariable *> VTables,
                            std::string &Result, bool doCompression);
 
 /// Check if INSTR_PROF_RAW_VERSION_VAR is defined. This global is only being
 /// set in IR PGO compilation.
-bool isIRPGOFlagSet(const Module *M);
+LLVM_ABI bool isIRPGOFlagSet(const Module *M);
 
 /// Check if we can safely rename this Comdat function. Instances of the same
 /// comdat function may have different control flows thus can not share the
 /// same counter variable.
-bool canRenameComdatFunc(const Function &F, bool CheckAddressTaken = false);
+LLVM_ABI bool canRenameComdatFunc(const Function &F, bool CheckAddressTaken = false);
 
 enum InstrProfValueKind : uint32_t {
 #define VALUE_PROF_KIND(Enumerator, Value, Descr) Enumerator = Value,
@@ -280,7 +280,7 @@ enum InstrProfValueKind : uint32_t {
 /// Get the value profile data for value site \p SiteIdx from \p InstrProfR
 /// and annotate the instruction \p Inst with the value profile meta data.
 /// Annotate up to \p MaxMDCount (default 3) number of records per value site.
-void annotateValueSite(Module &M, Instruction &Inst,
+LLVM_ABI void annotateValueSite(Module &M, Instruction &Inst,
                        const InstrProfRecord &InstrProfR,
                        InstrProfValueKind ValueKind, uint32_t SiteIndx,
                        uint32_t MaxMDCount = 3);
@@ -288,7 +288,7 @@ void annotateValueSite(Module &M, Instruction &Inst,
 /// Same as the above interface but using an ArrayRef, as well as \p Sum.
 /// This function will not annotate !prof metadata on the instruction if the
 /// referenced array is empty.
-void annotateValueSite(Module &M, Instruction &Inst,
+LLVM_ABI void annotateValueSite(Module &M, Instruction &Inst,
                        ArrayRef<InstrProfValueData> VDs, uint64_t Sum,
                        InstrProfValueKind ValueKind, uint32_t MaxMDCount);
 
@@ -296,7 +296,7 @@ void annotateValueSite(Module &M, Instruction &Inst,
 // of this metadata for backward compatibility and generating 'PGOName' only.
 /// Extract the value profile data from \p Inst and returns them if \p Inst is
 /// annotated with value profile data. Returns an empty vector otherwise.
-SmallVector<InstrProfValueData, 4>
+LLVM_ABI SmallVector<InstrProfValueData, 4>
 getValueProfDataFromInst(const Instruction &Inst, InstrProfValueKind ValueKind,
                          uint32_t MaxNumValueData, uint64_t &TotalC,
                          bool GetNoICPValue = false);
@@ -306,24 +306,24 @@ inline StringRef getPGOFuncNameMetadataName() { return "PGOFuncName"; }
 inline StringRef getPGONameMetadataName() { return "PGOName"; }
 
 /// Return the PGOFuncName meta data associated with a function.
-MDNode *getPGOFuncNameMetadata(const Function &F);
+LLVM_ABI MDNode *getPGOFuncNameMetadata(const Function &F);
 
-std::string getPGOName(const GlobalVariable &V, bool InLTO = false);
+LLVM_ABI std::string getPGOName(const GlobalVariable &V, bool InLTO = false);
 
 /// Create the PGOFuncName meta data if PGOFuncName is different from
 /// function's raw name. This should only apply to internal linkage functions
 /// declared by users only.
 /// TODO: Update all callers to 'createPGONameMetadata' and deprecate this
 /// function.
-void createPGOFuncNameMetadata(Function &F, StringRef PGOFuncName);
+LLVM_ABI void createPGOFuncNameMetadata(Function &F, StringRef PGOFuncName);
 
 /// Create the PGOName metadata if a global object's PGO name is different from
 /// its mangled name. This should apply to local-linkage global objects only.
-void createPGONameMetadata(GlobalObject &GO, StringRef PGOName);
+LLVM_ABI void createPGONameMetadata(GlobalObject &GO, StringRef PGOName);
 
 /// Check if we can use Comdat for profile variables. This will eliminate
 /// the duplicated profile variables for Comdat functions.
-bool needsComdatForCounter(const GlobalObject &GV, const Module &M);
+LLVM_ABI bool needsComdatForCounter(const GlobalObject &GV, const Module &M);
 
 /// An enum describing the attributes of an instrumented profile.
 enum class InstrProfKind {
@@ -347,7 +347,7 @@ enum class InstrProfKind {
   LLVM_MARK_AS_BITMASK_ENUM(/*LargestValue=*/TemporalProfile)
 };
 
-const std::error_category &instrprof_category();
+LLVM_ABI const std::error_category &instrprof_category();
 
 enum class instrprof_error {
   success = 0,
@@ -380,7 +380,7 @@ enum class instrprof_error {
 
 /// An ordered list of functions identified by their NameRef found in
 /// INSTR_PROF_DATA
-struct TemporalProfTraceTy {
+struct LLVM_ABI TemporalProfTraceTy {
   std::vector<uint64_t> FunctionNameRefs;
   uint64_t Weight;
   TemporalProfTraceTy(std::initializer_list<uint64_t> Trace = {},
@@ -399,7 +399,7 @@ inline std::error_code make_error_code(instrprof_error E) {
   return std::error_code(static_cast<int>(E), instrprof_category());
 }
 
-class InstrProfError : public ErrorInfo<InstrProfError> {
+class LLVM_ABI InstrProfError : public ErrorInfo<InstrProfError> {
 public:
   InstrProfError(instrprof_error Err, const Twine &ErrStr = Twine())
       : Err(Err), Msg(ErrStr.str()) {
@@ -455,7 +455,7 @@ uint64_t ComputeHash(StringRef K);
 /// [IR]PGO name or name's md5hash are used in retrieving the profile
 /// data of the function. See \c getIRPGOFuncName() and \c getPGOFuncName
 /// methods for details how [IR]PGO name is formed.
-class InstrProfSymtab {
+class LLVM_ABI InstrProfSymtab {
 public:
   using AddrHashMap = std::vector<std::pair<uint64_t, uint64_t>>;
 
@@ -751,7 +751,7 @@ struct CountSumOrPercent {
 };
 
 // Function level or program level overlap information.
-struct OverlapStats {
+struct LLVM_ABI OverlapStats {
   enum OverlapStatsLevel { ProgramLevel, FunctionLevel };
   // Sum of the total count values for the base profile.
   CountSumOrPercent Base;
@@ -797,7 +797,7 @@ struct OverlapFuncFilters {
   const std::string NameFilter;
 };
 
-struct InstrProfValueSiteRecord {
+struct LLVM_ABI InstrProfValueSiteRecord {
   /// Value profiling data pairs at a given value site.
   std::vector<InstrProfValueData> ValueData;
 
@@ -828,7 +828,7 @@ struct InstrProfValueSiteRecord {
 };
 
 /// Profiling information for a single function.
-struct InstrProfRecord {
+struct LLVM_ABI InstrProfRecord {
   std::vector<uint64_t> Counts;
   std::vector<uint8_t> BitmapBytes;
 
@@ -1121,7 +1121,7 @@ inline uint64_t ComputeHash(StringRef K) { return ComputeHash(HashType, K); }
 // This structure defines the file header of the LLVM profile
 // data file in indexed-format. Please update llvm/docs/InstrProfileFormat.rst
 // as appropriate when updating the indexed profile format.
-struct Header {
+struct LLVM_ABI Header {
   uint64_t Magic = IndexedInstrProf::Magic;
   // The lower 32 bits specify the version of the indexed profile.
   // The most significant 32 bits are reserved to specify the variant types of
@@ -1296,11 +1296,11 @@ struct Header {
 } // end namespace RawInstrProf
 
 // Create the variable for the profile file name.
-void createProfileFileNameVar(Module &M, StringRef InstrProfileOutput);
+LLVM_ABI void createProfileFileNameVar(Module &M, StringRef InstrProfileOutput);
 
 // Whether to compress function names in profile records, and filenames in
 // code coverage mappings. Used by the Instrumentation library and unit tests.
-extern cl::opt<bool> DoInstrProfNameCompression;
+LLVM_ABI extern cl::opt<bool> DoInstrProfNameCompression;
 
 } // end namespace llvm
 #endif // LLVM_PROFILEDATA_INSTRPROF_H

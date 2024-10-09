@@ -12,6 +12,7 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/SandboxIR/Tracker.h"
 #include "llvm/SandboxIR/Type.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
@@ -20,7 +21,7 @@ class Value;
 class Argument;
 class Constant;
 
-class Context {
+class LLVM_ABI Context {
 protected:
   LLVMContext &LLVMCtx;
   friend class Type;        // For LLVMCtx.

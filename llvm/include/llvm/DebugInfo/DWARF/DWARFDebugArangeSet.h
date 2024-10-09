@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/BinaryFormat/Dwarf.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 #include <vector>
@@ -20,7 +21,7 @@ namespace llvm {
 class raw_ostream;
 class DWARFDataExtractor;
 
-class DWARFDebugArangeSet {
+class LLVM_ABI DWARFDebugArangeSet {
 public:
   struct Header {
     /// The total length of the entries for that set, not including the length
@@ -41,7 +42,7 @@ public:
     uint8_t SegSize;
   };
 
-  struct Descriptor {
+  struct LLVM_ABI Descriptor {
     uint64_t Address;
     uint64_t Length;
 

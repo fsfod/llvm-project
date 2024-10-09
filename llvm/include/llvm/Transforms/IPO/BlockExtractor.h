@@ -17,11 +17,12 @@
 #include <vector>
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class BasicBlock;
 
-struct BlockExtractorPass : PassInfoMixin<BlockExtractorPass> {
+struct LLVM_ABI BlockExtractorPass : PassInfoMixin<BlockExtractorPass> {
   BlockExtractorPass(std::vector<std::vector<BasicBlock *>> &&GroupsOfBlocks,
                      bool EraseFunctions);
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);

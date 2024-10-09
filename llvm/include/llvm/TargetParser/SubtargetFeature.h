@@ -20,6 +20,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 #include <array>
 #include <initializer_list>
@@ -171,7 +172,7 @@ public:
 /// Each of the remaining features is prefixed with + or - indicating whether
 /// that feature should be enabled or disabled contrary to the cpu
 /// specification.
-class SubtargetFeatures {
+class LLVM_ABI SubtargetFeatures {
   std::vector<std::string> Features;    ///< Subtarget features as a vector
 
 public:

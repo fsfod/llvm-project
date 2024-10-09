@@ -10,6 +10,7 @@
 #define LLVM_DEBUGINFO_CODEVIEW_TYPEINDEX_H
 
 #include "llvm/ADT/DenseMapInfo.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include <cassert>
 #include <cinttypes>
@@ -93,7 +94,7 @@ enum class SimpleTypeMode : uint32_t {
 /// A 32-bit type reference. Types are indexed by their order of appearance in
 /// .debug$T plus 0x1000. Type indices less than 0x1000 are "simple" types,
 /// composed of a SimpleTypeMode byte followed by a SimpleTypeKind byte.
-class TypeIndex {
+class LLVM_ABI TypeIndex {
 public:
   static const uint32_t FirstNonSimpleIndex = 0x1000;
   static const uint32_t SimpleKindMask = 0x000000ff;
@@ -284,7 +285,7 @@ struct TypeIndexOffset {
   support::ulittle32_t Offset;
 };
 
-void printTypeIndex(ScopedPrinter &Printer, StringRef FieldName, TypeIndex TI,
+LLVM_ABI void printTypeIndex(ScopedPrinter &Printer, StringRef FieldName, TypeIndex TI,
                     TypeCollection &Types);
 }
 

@@ -17,6 +17,7 @@
 #include "llvm/ADT/GenericCycleInfo.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachineSSAContext.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -24,7 +25,7 @@ using MachineCycleInfo = GenericCycleInfo<MachineSSAContext>;
 using MachineCycle = MachineCycleInfo::CycleT;
 
 /// Legacy analysis pass which computes a \ref MachineCycleInfo.
-class MachineCycleInfoWrapperPass : public MachineFunctionPass {
+class LLVM_ABI MachineCycleInfoWrapperPass : public MachineFunctionPass {
   MachineFunction *F = nullptr;
   MachineCycleInfo CI;
 
@@ -44,7 +45,7 @@ public:
 
 // TODO: add this function to GenericCycle template after implementing IR
 //       version.
-bool isCycleInvariant(const MachineCycle *Cycle, MachineInstr &I);
+LLVM_ABI bool isCycleInvariant(const MachineCycle *Cycle, MachineInstr &I);
 
 } // end namespace llvm
 

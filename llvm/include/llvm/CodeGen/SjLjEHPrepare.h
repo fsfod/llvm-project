@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_SJLJEHPREPARE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class SjLjEHPreparePass : public PassInfoMixin<SjLjEHPreparePass> {
+class LLVM_ABI SjLjEHPreparePass : public PassInfoMixin<SjLjEHPreparePass> {
   const TargetMachine *TM;
 
 public:

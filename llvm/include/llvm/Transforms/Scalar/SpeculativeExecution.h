@@ -63,12 +63,13 @@
 #define LLVM_TRANSFORMS_SCALAR_SPECULATIVEEXECUTION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class BasicBlock;
 class TargetTransformInfo;
 
-class SpeculativeExecutionPass
+class LLVM_ABI SpeculativeExecutionPass
     : public PassInfoMixin<SpeculativeExecutionPass> {
 public:
   SpeculativeExecutionPass(bool OnlyIfDivergentTarget = false);

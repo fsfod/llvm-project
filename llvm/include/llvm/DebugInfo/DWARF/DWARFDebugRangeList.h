@@ -10,6 +10,7 @@
 #define LLVM_DEBUGINFO_DWARF_DWARFDEBUGRANGELIST_H
 
 #include "llvm/DebugInfo/DWARF/DWARFAddressRange.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <vector>
 
@@ -21,9 +22,9 @@ namespace object {
 struct SectionedAddress;
 }
 
-class DWARFDebugRangeList {
+class LLVM_ABI DWARFDebugRangeList {
 public:
-  struct RangeListEntry {
+  struct LLVM_ABI RangeListEntry {
     /// A beginning address offset. This address offset has the size of an
     /// address and is relative to the applicable base address of the
     /// compilation unit referencing this range list. It marks the beginning

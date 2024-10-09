@@ -17,6 +17,7 @@
 #define LLVM_CGDATA_OUTLINEDHASHTREERECORD_H
 
 #include "llvm/CGData/OutlinedHashTree.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -32,7 +33,7 @@ using IdHashNodeStableMapTy = std::map<unsigned, HashNodeStable>;
 using IdHashNodeMapTy = DenseMap<unsigned, HashNode *>;
 using HashNodeIdMapTy = DenseMap<const HashNode *, unsigned>;
 
-struct OutlinedHashTreeRecord {
+struct LLVM_ABI OutlinedHashTreeRecord {
   std::unique_ptr<OutlinedHashTree> HashTree;
 
   OutlinedHashTreeRecord() { HashTree = std::make_unique<OutlinedHashTree>(); }

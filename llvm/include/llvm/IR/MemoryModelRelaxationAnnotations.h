@@ -20,6 +20,7 @@
 
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <tuple> // for std::pair
 
 namespace llvm {
@@ -43,7 +44,7 @@ class Instruction;
 /// about the exact nature of the tags and the properties they
 /// imply. It just sees the metadata as a collection of tags, which
 /// are a prefix/suffix pair of strings.
-class MMRAMetadata {
+class LLVM_ABI MMRAMetadata {
 public:
   using TagT = std::pair<StringRef, StringRef>;
   using SetT = DenseSet<TagT>;
@@ -125,7 +126,7 @@ private:
 };
 
 /// \returns true if \p I can have !mmra metadata.
-bool canInstructionHaveMMRAs(const Instruction &I);
+LLVM_ABI bool canInstructionHaveMMRAs(const Instruction &I);
 
 } // namespace llvm
 

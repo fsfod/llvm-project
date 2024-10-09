@@ -17,13 +17,14 @@
 #define LLVM_TRANSFORMS_SCALAR_BDCE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
 // The Bit-Tracking Dead Code Elimination pass.
-struct BDCEPass : PassInfoMixin<BDCEPass> {
+struct LLVM_ABI BDCEPass : PassInfoMixin<BDCEPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 }

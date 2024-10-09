@@ -20,12 +20,13 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_REALTIMESANITIZER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 struct RealtimeSanitizerOptions {};
 
-class RealtimeSanitizerPass : public PassInfoMixin<RealtimeSanitizerPass> {
+class LLVM_ABI RealtimeSanitizerPass : public PassInfoMixin<RealtimeSanitizerPass> {
 public:
   RealtimeSanitizerPass(const RealtimeSanitizerOptions &Options);
   PreservedAnalyses run(Function &F, AnalysisManager<Function> &AM);

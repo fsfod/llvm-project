@@ -17,6 +17,7 @@
 #include "llvm/Bitstream/BitstreamWriter.h"
 #include "llvm/Remarks/BitstreamRemarkContainer.h"
 #include "llvm/Remarks/RemarkSerializer.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -48,7 +49,7 @@ struct Remarks;
 ///                         | Remark2
 ///                         | ...
 ///
-struct BitstreamRemarkSerializerHelper {
+struct LLVM_ABI BitstreamRemarkSerializerHelper {
   /// Buffer used for encoding the bitstream before writing it to the final
   /// stream.
   SmallVector<char, 1024> Encoded;
@@ -121,7 +122,7 @@ struct BitstreamRemarkSerializerHelper {
 };
 
 /// Implementation of the remark serializer using LLVM bitstream.
-struct BitstreamRemarkSerializer : public RemarkSerializer {
+struct LLVM_ABI BitstreamRemarkSerializer : public RemarkSerializer {
   /// The file should contain:
   /// 1) The block info block that describes how to read the blocks.
   /// 2) The metadata block that contains various information about the remarks
@@ -157,7 +158,7 @@ struct BitstreamRemarkSerializer : public RemarkSerializer {
 };
 
 /// Serializer of metadata for bitstream remarks.
-struct BitstreamMetaSerializer : public MetaSerializer {
+struct LLVM_ABI BitstreamMetaSerializer : public MetaSerializer {
   /// This class can be used with [1] a pre-constructed
   /// BitstreamRemarkSerializerHelper, or with [2] one that is owned by the meta
   /// serializer. In case of [1], we need to be able to store a reference to the

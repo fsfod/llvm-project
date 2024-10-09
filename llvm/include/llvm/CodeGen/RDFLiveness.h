@@ -16,6 +16,7 @@
 #include "RDFRegisters.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/MC/LaneBitmask.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <set>
 #include <unordered_map>
@@ -52,7 +53,7 @@ template <> struct hash<llvm::rdf::detail::NodeRef> {
 
 namespace llvm::rdf {
 
-struct Liveness {
+struct LLVM_ABI Liveness {
 public:
   using LiveMapType = RegisterAggrMap<MachineBasicBlock *>;
   using NodeRef = detail::NodeRef;
@@ -153,7 +154,7 @@ private:
                             unsigned Nest, unsigned MaxNest);
 };
 
-raw_ostream &operator<<(raw_ostream &OS, const Print<Liveness::RefMap> &P);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const Print<Liveness::RefMap> &P);
 
 } // end namespace llvm::rdf
 

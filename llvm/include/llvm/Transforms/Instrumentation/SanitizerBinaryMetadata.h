@@ -16,6 +16,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/Instrumentation.h"
 
 namespace llvm {
@@ -47,7 +48,7 @@ inline constexpr char kSanitizerBinaryMetadataAtomicsSection[] =
 /// metadata for binary analysis sanitizers.
 //
 /// The pass should be inserted after optimizations.
-class SanitizerBinaryMetadataPass
+class LLVM_ABI SanitizerBinaryMetadataPass
     : public PassInfoMixin<SanitizerBinaryMetadataPass> {
 public:
   explicit SanitizerBinaryMetadataPass(

@@ -17,6 +17,7 @@
 #ifndef LLVM_ANALYSIS_TRACE_H
 #define LLVM_ANALYSIS_TRACE_H
 
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <vector>
 
@@ -27,7 +28,7 @@ class Function;
 class Module;
 class raw_ostream;
 
-class Trace {
+class LLVM_ABI Trace {
   using BasicBlockListType = std::vector<BasicBlock *>;
 
   BasicBlockListType BasicBlocks;

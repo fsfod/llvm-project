@@ -19,6 +19,7 @@
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/GlobalVariable.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <deque>
 #include <memory>
@@ -34,13 +35,13 @@ class TargetLibraryInfo;
 /// instruction.  Changes to global variables are stored in a mapping that can
 /// be iterated over after the evaluation is complete.  Once an evaluation call
 /// fails, the evaluation object should not be reused.
-class Evaluator {
+class LLVM_ABI Evaluator {
   struct MutableAggregate;
 
   /// The evaluator represents values either as a Constant*, or as a
   /// MutableAggregate, which allows changing individual aggregate elements
   /// without creating a new interned Constant.
-  class MutableValue {
+  class LLVM_ABI MutableValue {
     PointerUnion<Constant *, MutableAggregate *> Val;
     void clear();
     bool makeMutable();
@@ -70,7 +71,7 @@ class Evaluator {
     bool write(Constant *V, APInt Offset, const DataLayout &DL);
   };
 
-  struct MutableAggregate {
+  struct LLVM_ABI MutableAggregate {
     Type *Ty;
     SmallVector<MutableValue> Elements;
 

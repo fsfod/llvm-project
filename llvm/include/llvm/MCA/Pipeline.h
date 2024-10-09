@@ -16,6 +16,7 @@
 #define LLVM_MCA_PIPELINE_H
 
 #include "llvm/MCA/Stages/Stage.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -47,7 +48,7 @@ class HWEventListener;
 /// Internally, the Pipeline collects statistical information in the form of
 /// histograms. For example, it tracks how the dispatch group size changes
 /// over time.
-class Pipeline {
+class LLVM_ABI Pipeline {
   Pipeline(const Pipeline &P) = delete;
   Pipeline &operator=(const Pipeline &P) = delete;
 

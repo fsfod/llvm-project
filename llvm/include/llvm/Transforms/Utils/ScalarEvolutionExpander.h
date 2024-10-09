@@ -23,10 +23,11 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/InstructionCost.h"
 
 namespace llvm {
-extern cl::opt<unsigned> SCEVCheapExpansionBudget;
+LLVM_ABI extern cl::opt<unsigned> SCEVCheapExpansionBudget;
 
 /// struct for holding enough information to help calculate the cost of the
 /// given SCEV when expanded into IR.
@@ -41,7 +42,7 @@ struct SCEVOperand {
   const SCEV* S;
 };
 
-struct PoisonFlags {
+struct LLVM_ABI PoisonFlags {
   unsigned NUW : 1;
   unsigned NSW : 1;
   unsigned Exact : 1;
@@ -59,7 +60,7 @@ struct PoisonFlags {
 /// Clients should create an instance of this class when rewriting is needed,
 /// and destroy it when finished to allow the release of the associated
 /// memory.
-class SCEVExpander : public SCEVVisitor<SCEVExpander, Value *> {
+class LLVM_ABI SCEVExpander : public SCEVVisitor<SCEVExpander, Value *> {
   friend class SCEVExpanderCleaner;
 
   ScalarEvolution &SE;
@@ -539,7 +540,7 @@ private:
 
 /// Helper to remove instructions inserted during SCEV expansion, unless they
 /// are marked as used.
-class SCEVExpanderCleaner {
+class LLVM_ABI SCEVExpanderCleaner {
   SCEVExpander &Expander;
 
   /// Indicates whether the result of the expansion is used. If false, the

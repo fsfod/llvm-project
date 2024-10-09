@@ -38,7 +38,7 @@ template <typename T> class Expected;
 /// represent the built-in integer types: Int1Ty, Int8Ty, Int16Ty, Int32Ty and
 /// Int64Ty.
 /// Integer representation type
-class IntegerType : public Type {
+class LLVM_ABI IntegerType : public Type {
   friend class LLVMContextImpl;
 
 protected:
@@ -101,7 +101,7 @@ unsigned Type::getIntegerBitWidth() const {
 
 /// Class to represent function types
 ///
-class FunctionType : public Type {
+class LLVM_ABI FunctionType : public Type {
   FunctionType(Type *Result, ArrayRef<Type*> Params, bool IsVarArgs);
 
 public:
@@ -214,7 +214,7 @@ private:
 /// elements as defined by DataLayout (which is required to match what the code
 /// generator for a target expects).
 ///
-class StructType : public Type {
+class LLVM_ABI StructType : public Type {
   StructType(LLVMContext &C) : Type(C, StructTyID) {}
 
   enum {
@@ -373,7 +373,7 @@ Type *Type::getStructElementType(unsigned N) const {
 }
 
 /// Class to represent array types.
-class ArrayType : public Type {
+class LLVM_ABI ArrayType : public Type {
   /// The element type of the array.
   Type *ContainedType;
   /// Number of elements in the array.
@@ -405,7 +405,7 @@ uint64_t Type::getArrayNumElements() const {
 }
 
 /// Base class of all SIMD vector types
-class VectorType : public Type {
+class LLVM_ABI VectorType : public Type {
   /// A fully specified VectorType is of the form <vscale x n x Ty>. 'n' is the
   /// minimum number of elements of type Ty contained within the vector, and
   /// 'vscale x' indicates that the total element count is an integer multiple
@@ -541,7 +541,7 @@ public:
 };
 
 /// Class to represent fixed width SIMD vectors
-class FixedVectorType : public VectorType {
+class LLVM_ABI FixedVectorType : public VectorType {
 protected:
   FixedVectorType(Type *ElTy, unsigned NumElts)
       : VectorType(ElTy, NumElts, FixedVectorTyID) {}
@@ -588,7 +588,7 @@ public:
 };
 
 /// Class to represent scalable SIMD vectors
-class ScalableVectorType : public VectorType {
+class LLVM_ABI ScalableVectorType : public VectorType {
 protected:
   ScalableVectorType(Type *ElTy, unsigned MinNumElts)
       : VectorType(ElTy, MinNumElts, ScalableVectorTyID) {}
@@ -648,7 +648,7 @@ inline ElementCount VectorType::getElementCount() const {
 }
 
 /// Class to represent pointers.
-class PointerType : public Type {
+class LLVM_ABI PointerType : public Type {
   explicit PointerType(LLVMContext &C, unsigned AddrSpace);
 
 public:
@@ -722,7 +722,7 @@ unsigned Type::getPointerAddressSpace() const {
 /// Target extension types have a string name, and optionally have type and/or
 /// integer parameters. The exact meaning of any parameters is dependent on the
 /// target.
-class TargetExtType : public Type {
+class LLVM_ABI TargetExtType : public Type {
   TargetExtType(LLVMContext &C, StringRef Name, ArrayRef<Type *> Types,
                 ArrayRef<unsigned> Ints);
 

@@ -17,6 +17,7 @@
 #include "llvm/MC/MCFixup.h"
 #include "llvm/MC/MCInst.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SMLoc.h"
 #include <cstdint>
 #include <utility>
@@ -29,7 +30,7 @@ class MCSection;
 class MCSubtargetInfo;
 class MCSymbol;
 
-class MCFragment {
+class LLVM_ABI MCFragment {
   friend class MCAssembler;
   friend class MCObjectStreamer;
   friend class MCSection;

@@ -15,6 +15,7 @@
 #define LLVM_TEXTAPI_RECORDSLICE_H
 
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TextAPI/FileTypes.h"
 #include "llvm/TextAPI/PackedVersion.h"
 #include "llvm/TextAPI/Record.h"
@@ -25,7 +26,7 @@ namespace MachO {
 
 // Define collection of records for a library that are tied to a darwin target
 // triple.
-class RecordsSlice {
+class LLVM_ABI RecordsSlice {
 public:
   RecordsSlice(const llvm::Triple &T) : TargetTriple(T), TAPITarget(T) {}
   /// Get target triple.
@@ -196,7 +197,7 @@ private:
 
 using Records = llvm::SmallVector<std::shared_ptr<RecordsSlice>, 4>;
 class InterfaceFile;
-std::unique_ptr<InterfaceFile> convertToInterfaceFile(const Records &Slices);
+LLVM_ABI std::unique_ptr<InterfaceFile> convertToInterfaceFile(const Records &Slices);
 
 } // namespace MachO
 } // namespace llvm

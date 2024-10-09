@@ -35,6 +35,7 @@
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/IR/ValueMap.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <memory>
@@ -63,12 +64,12 @@ class TargetLibraryInfo;
 class Type;
 enum SCEVTypes : unsigned short;
 
-extern bool VerifySCEV;
+LLVM_ABI extern bool VerifySCEV;
 
 /// This class represents an analyzed expression in the program.  These are
 /// opaque objects that the client is not allowed to do much with directly.
 ///
-class SCEV : public FoldingSetNode {
+class LLVM_ABI SCEV : public FoldingSetNode {
   friend struct FoldingSetTrait<SCEV>;
 
   /// A reference to an Interned FoldingSetNodeID for this node.  The
@@ -202,7 +203,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, const SCEV &S) {
 /// For example, if you ask for the number of iterations of a linked-list
 /// traversal loop, you will get one of these.  None of the standard SCEV
 /// operations are valid on this class, it is just a marker.
-struct SCEVCouldNotCompute : public SCEV {
+struct LLVM_ABI SCEVCouldNotCompute : public SCEV {
   SCEVCouldNotCompute();
 
   /// Methods for support type inquiry through isa, cast, and dyn_cast:
@@ -211,7 +212,7 @@ struct SCEVCouldNotCompute : public SCEV {
 
 /// This class represents an assumption made using SCEV expressions which can
 /// be checked at run-time.
-class SCEVPredicate : public FoldingSetNode {
+class LLVM_ABI SCEVPredicate : public FoldingSetNode {
   friend struct FoldingSetTrait<SCEVPredicate>;
 
   /// A reference to an Interned FoldingSetNodeID for this node.  The
@@ -274,7 +275,7 @@ struct FoldingSetTrait<SCEVPredicate> : DefaultFoldingSetTrait<SCEVPredicate> {
 
 /// This class represents an assumption that the expression LHS Pred RHS
 /// evaluates to true, and this can be checked at run-time.
-class SCEVComparePredicate final : public SCEVPredicate {
+class LLVM_ABI SCEVComparePredicate final : public SCEVPredicate {
   /// We assume that LHS Pred RHS is true.
   const ICmpInst::Predicate Pred;
   const SCEV *LHS;
@@ -314,7 +315,7 @@ public:
 /// predicated backedge taken count of X, we only guarantee that {0,+,1} has
 /// nusw in the first X iterations. {0,+,1} may still wrap in the loop if we
 /// have more than X iterations.
-class SCEVWrapPredicate final : public SCEVPredicate {
+class LLVM_ABI SCEVWrapPredicate final : public SCEVPredicate {
 public:
   /// Similar to SCEV::NoWrapFlags, but with slightly different semantics
   /// for FlagNUSW. The increment is considered to be signed, and a + b
@@ -409,7 +410,7 @@ public:
 ///
 /// NB! Unlike other SCEVPredicate sub-classes this class does not live in the
 /// ScalarEvolution::Preds folding set.  This is why the \c add function is sound.
-class SCEVUnionPredicate final : public SCEVPredicate {
+class LLVM_ABI SCEVUnionPredicate final : public SCEVPredicate {
 private:
   using PredicateMap =
       DenseMap<const SCEV *, SmallVector<const SCEVPredicate *, 4>>;
@@ -443,7 +444,7 @@ public:
 /// The main scalar evolution driver. Because client code (intentionally)
 /// can't do much with the SCEV objects directly, they must ask this class
 /// for services.
-class ScalarEvolution {
+class LLVM_ABI ScalarEvolution {
   friend class ScalarEvolutionsTest;
 
 public:
@@ -1116,7 +1117,7 @@ public:
   /// branch condition evaluates to the not-taken path.  This is a temporary
   /// pair of exact and max expressions that are eventually summarized in
   /// ExitNotTakenInfo and BackedgeTakenInfo.
-  struct ExitLimit {
+  struct LLVM_ABI ExitLimit {
     const SCEV *ExactNotTaken; // The exit is not taken exactly this many times
     const SCEV *ConstantMaxNotTaken; // The exit is not taken at most this many
                                      // times
@@ -1308,7 +1309,7 @@ public:
   /// sharpen it.
   void setNoWrapFlags(SCEVAddRecExpr *AddRec, SCEV::NoWrapFlags Flags);
 
-  class LoopGuards {
+  class LLVM_ABI LoopGuards {
     DenseMap<const SCEV *, const SCEV *> RewriteMap;
     bool PreserveNUW = false;
     bool PreserveNSW = false;
@@ -1381,7 +1382,7 @@ public:
 private:
   /// A CallbackVH to arrange for ScalarEvolution to be notified whenever a
   /// Value is deleted.
-  class SCEVCallbackVH final : public CallbackVH {
+  class LLVM_ABI SCEVCallbackVH final : public CallbackVH {
     ScalarEvolution *SE;
 
     void deleted() override;
@@ -1502,7 +1503,7 @@ private:
   /// Information about the backedge-taken count of a loop. This currently
   /// includes an exact count and a maximum count.
   ///
-  class BackedgeTakenInfo {
+  class LLVM_ABI BackedgeTakenInfo {
     friend class ScalarEvolution;
 
     /// A list of computable exits and their not-taken counts.  Loops almost
@@ -1826,7 +1827,7 @@ private:
   // Helper functions for computeExitLimitFromCond to avoid exponential time
   // complexity.
 
-  class ExitLimitCache {
+  class LLVM_ABI ExitLimitCache {
     // It may look like we need key on the whole (L, ExitIfTrue,
     // ControlsOnlyExit, AllowPredicates) tuple, but recursive calls to
     // computeExitLimitFromCondCached from computeExitLimitFromCondImpl only
@@ -2294,7 +2295,7 @@ private:
 };
 
 /// Analysis pass that exposes the \c ScalarEvolution for a function.
-class ScalarEvolutionAnalysis
+class LLVM_ABI ScalarEvolutionAnalysis
     : public AnalysisInfoMixin<ScalarEvolutionAnalysis> {
   friend AnalysisInfoMixin<ScalarEvolutionAnalysis>;
 
@@ -2307,7 +2308,7 @@ public:
 };
 
 /// Verifier pass for the \c ScalarEvolutionAnalysis results.
-class ScalarEvolutionVerifierPass
+class LLVM_ABI ScalarEvolutionVerifierPass
     : public PassInfoMixin<ScalarEvolutionVerifierPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
@@ -2315,7 +2316,7 @@ public:
 };
 
 /// Printer pass for the \c ScalarEvolutionAnalysis results.
-class ScalarEvolutionPrinterPass
+class LLVM_ABI ScalarEvolutionPrinterPass
     : public PassInfoMixin<ScalarEvolutionPrinterPass> {
   raw_ostream &OS;
 
@@ -2327,7 +2328,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class ScalarEvolutionWrapperPass : public FunctionPass {
+class LLVM_ABI ScalarEvolutionWrapperPass : public FunctionPass {
   std::unique_ptr<ScalarEvolution> SE;
 
 public:
@@ -2358,7 +2359,7 @@ public:
 ///     rewriting, we will continue to get an AddRec expression for that
 ///     Value.
 ///   - lowers the number of expression rewrites.
-class PredicatedScalarEvolution {
+class LLVM_ABI PredicatedScalarEvolution {
 public:
   PredicatedScalarEvolution(ScalarEvolution &SE, Loop &L);
 

@@ -24,6 +24,7 @@
 #include "llvm/CodeGen/DwarfStringPoolEntry.h"
 #include "llvm/Support/AlignOf.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
@@ -46,7 +47,7 @@ class raw_ostream;
 
 //===--------------------------------------------------------------------===//
 /// Dwarf abbreviation data, describes one attribute of a Dwarf abbreviation.
-class DIEAbbrevData {
+class LLVM_ABI DIEAbbrevData {
   /// Dwarf attribute code.
   dwarf::Attribute Attribute;
 
@@ -76,7 +77,7 @@ public:
 //===--------------------------------------------------------------------===//
 /// Dwarf abbreviation, describes the organization of a debug information
 /// object.
-class DIEAbbrev : public FoldingSetNode {
+class LLVM_ABI DIEAbbrev : public FoldingSetNode {
   /// Unique number for node.
   unsigned Number = 0;
 
@@ -137,7 +138,7 @@ public:
 /// assign a unique abbreviation number to each unique DIEAbbrev object it
 /// finds. The resulting collection of DIEAbbrev objects can then be emitted
 /// into the .debug_abbrev section.
-class DIEAbbrevSet {
+class LLVM_ABI DIEAbbrevSet {
   /// The bump allocator to use when creating DIEAbbrev objects in the uniqued
   /// storage container.
   BumpPtrAllocator &Alloc;
@@ -165,7 +166,7 @@ public:
 //===--------------------------------------------------------------------===//
 /// An integer value DIE.
 ///
-class DIEInteger {
+class LLVM_ABI DIEInteger {
   uint64_t Integer;
 
 public:
@@ -203,7 +204,7 @@ public:
 
 //===--------------------------------------------------------------------===//
 /// An expression DIE.
-class DIEExpr {
+class LLVM_ABI DIEExpr {
   const MCExpr *Expr;
 
 public:
@@ -220,7 +221,7 @@ public:
 
 //===--------------------------------------------------------------------===//
 /// A label DIE.
-class DIELabel {
+class LLVM_ABI DIELabel {
   const MCSymbol *Label;
 
 public:
@@ -237,7 +238,7 @@ public:
 
 //===--------------------------------------------------------------------===//
 /// A BaseTypeRef DIE.
-class DIEBaseTypeRef {
+class LLVM_ABI DIEBaseTypeRef {
   const DwarfCompileUnit *CU;
   const uint64_t Index;
   static constexpr unsigned ULEB128PadSize = 4;
@@ -258,7 +259,7 @@ public:
 //===--------------------------------------------------------------------===//
 /// A simple label difference DIE.
 ///
-class DIEDelta {
+class LLVM_ABI DIEDelta {
   const MCSymbol *LabelHi;
   const MCSymbol *LabelLo;
 
@@ -275,7 +276,7 @@ public:
 /// A container for string pool string values.
 ///
 /// This class is used with the DW_FORM_strp and DW_FORM_GNU_str_index forms.
-class DIEString {
+class LLVM_ABI DIEString {
   DwarfStringPoolEntryRef S;
 
 public:
@@ -294,7 +295,7 @@ public:
 /// A container for inline string values.
 ///
 /// This class is used with the DW_FORM_string form.
-class DIEInlineString {
+class LLVM_ABI DIEInlineString {
   StringRef S;
 
 public:
@@ -316,7 +317,7 @@ public:
 /// A pointer to another debug information entry.  An instance of this class can
 /// also be used as a proxy for a debug information entry not yet defined
 /// (ie. types.)
-class DIEEntry {
+class LLVM_ABI DIEEntry {
   DIE *Entry;
 
 public:
@@ -334,7 +335,7 @@ public:
 //===--------------------------------------------------------------------===//
 /// Represents a pointer to a location list in the debug_loc
 /// section.
-class DIELocList {
+class LLVM_ABI DIELocList {
   /// Index into the .debug_loc vector.
   size_t Index;
 
@@ -352,7 +353,7 @@ public:
 
 //===--------------------------------------------------------------------===//
 /// A BaseTypeRef DIE.
-class DIEAddrOffset {
+class LLVM_ABI DIEAddrOffset {
   DIEInteger Addr;
   DIEDelta Offset;
 
@@ -371,7 +372,7 @@ public:
 /// to DWARF attribute classes.
 class DIEBlock;
 class DIELoc;
-class DIEValue {
+class LLVM_ABI DIEValue {
 public:
   enum Type {
     isNone,
@@ -816,7 +817,7 @@ public:
 //===--------------------------------------------------------------------===//
 /// A structured debug information entry.  Has an abbreviation which
 /// describes its organization.
-class DIE : IntrusiveBackListNode, public DIEValueList {
+class LLVM_ABI DIE : IntrusiveBackListNode, public DIEValueList {
   friend class IntrusiveBackList<DIE>;
   friend class DIEUnit;
 
@@ -957,7 +958,7 @@ public:
 
 //===--------------------------------------------------------------------===//
 /// Represents a compile or type unit.
-class DIEUnit {
+class LLVM_ABI DIEUnit {
   /// The compile unit or type unit DIE. This variable must be an instance of
   /// DIE so that we can calculate the DIEUnit from any DIE by traversing the
   /// parent backchain and getting the Unit DIE, and then casting itself to a
@@ -1007,7 +1008,7 @@ struct BasicDIEUnit final : DIEUnit {
 //===--------------------------------------------------------------------===//
 /// DIELoc - Represents an expression location.
 //
-class DIELoc : public DIEValueList {
+class LLVM_ABI DIELoc : public DIEValueList {
   mutable unsigned Size = 0; // Size in bytes excluding size header.
 
 public:
@@ -1043,7 +1044,7 @@ public:
 //===--------------------------------------------------------------------===//
 /// DIEBlock - Represents a block of values.
 //
-class DIEBlock : public DIEValueList {
+class LLVM_ABI DIEBlock : public DIEValueList {
   mutable unsigned Size = 0; // Size in bytes excluding size header.
 
 public:

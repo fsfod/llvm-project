@@ -15,6 +15,7 @@
 
 #include "llvm/CodeGen/MachineRegisterInfo.h"
 #include "llvm/CodeGen/Register.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -32,7 +33,7 @@ template<typename T> class SSAUpdaterTraits;
 /// registers defined in multiple blocks.  This is used when code duplication
 /// or another unstructured transformation wants to rewrite a set of uses of one
 /// vreg with uses of a set of vregs.
-class MachineSSAUpdater {
+class LLVM_ABI MachineSSAUpdater {
   friend class SSAUpdaterTraits<MachineSSAUpdater>;
 
 private:

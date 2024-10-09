@@ -16,6 +16,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/IR/ProfileSummary.h"
 #include "llvm/ProfileData/SampleProf.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorOr.h"
 #include "llvm/Support/raw_ostream.h"
 #include <cstdint>
@@ -39,7 +40,7 @@ enum SectionLayout {
 /// strategy to reduce function count other than dropping functions with fewest
 /// samples first. In this case a class implementing the same interfaces should
 /// be provided to SampleProfileWriter::writeWithSizeLimit().
-class FunctionPruningStrategy {
+class LLVM_ABI FunctionPruningStrategy {
 protected:
   SampleProfileMap &ProfileMap;
   size_t OutputSizeLimit;
@@ -65,7 +66,7 @@ public:
   virtual void Erase(size_t CurrentOutputSize) = 0;
 };
 
-class DefaultFunctionPruningStrategy : public FunctionPruningStrategy {
+class LLVM_ABI DefaultFunctionPruningStrategy : public FunctionPruningStrategy {
   std::vector<NameFunctionSamples> SortedFunctions;
 
 public:
@@ -86,7 +87,7 @@ public:
 };
 
 /// Sample-based profile writer. Base class.
-class SampleProfileWriter {
+class LLVM_ABI SampleProfileWriter {
 public:
   virtual ~SampleProfileWriter() = default;
 
@@ -163,7 +164,7 @@ protected:
 };
 
 /// Sample-based profile writer (text format).
-class SampleProfileWriterText : public SampleProfileWriter {
+class LLVM_ABI SampleProfileWriterText : public SampleProfileWriter {
 public:
   std::error_code writeSample(const FunctionSamples &S) override;
 
@@ -198,7 +199,7 @@ private:
 };
 
 /// Sample-based profile writer (binary format).
-class SampleProfileWriterBinary : public SampleProfileWriter {
+class LLVM_ABI SampleProfileWriterBinary : public SampleProfileWriter {
 public:
   SampleProfileWriterBinary(std::unique_ptr<raw_ostream> &OS)
       : SampleProfileWriter(OS) {}
@@ -264,7 +265,7 @@ const std::array<SmallVector<SecHdrTableEntry, 8>, NumOfLayout>
                                           {SecFuncMetadata, 0, 0, 0, 0}}),
 };
 
-class SampleProfileWriterExtBinaryBase : public SampleProfileWriterBinary {
+class LLVM_ABI SampleProfileWriterExtBinaryBase : public SampleProfileWriterBinary {
   using SampleProfileWriterBinary::SampleProfileWriterBinary;
 public:
   std::error_code write(const SampleProfileMap &ProfileMap) override;
@@ -407,7 +408,7 @@ private:
   ProfileSymbolList *ProfSymList = nullptr;
 };
 
-class SampleProfileWriterExtBinary : public SampleProfileWriterExtBinaryBase {
+class LLVM_ABI SampleProfileWriterExtBinary : public SampleProfileWriterExtBinaryBase {
 public:
   SampleProfileWriterExtBinary(std::unique_ptr<raw_ostream> &OS)
       : SampleProfileWriterExtBinaryBase(OS) {}

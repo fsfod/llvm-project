@@ -16,6 +16,7 @@
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/Support/BlockFrequency.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -23,7 +24,7 @@ namespace llvm {
 class MachineBasicBlock;
 class MachineBlockFrequencyInfo;
 
-class MBFIWrapper {
+class LLVM_ABI MBFIWrapper {
  public:
   MBFIWrapper(const MachineBlockFrequencyInfo &I) : MBFI(I) {}
 

@@ -15,13 +15,14 @@
 
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Loop;
 class LPMUpdater;
 
 /// A pass that canonicalizes freeze instructions in a loop.
-class CanonicalizeFreezeInLoopsPass
+class LLVM_ABI CanonicalizeFreezeInLoopsPass
     : public PassInfoMixin<CanonicalizeFreezeInLoopsPass> {
 public:
   PreservedAnalyses run(Loop &L, LoopAnalysisManager &AM,

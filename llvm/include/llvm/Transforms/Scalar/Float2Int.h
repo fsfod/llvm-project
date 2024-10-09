@@ -19,6 +19,7 @@
 #include "llvm/ADT/SetVector.h"
 #include "llvm/IR/ConstantRange.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class DominatorTree;
@@ -28,7 +29,7 @@ class LLVMContext;
 class Type;
 class Value;
 
-class Float2IntPass : public PassInfoMixin<Float2IntPass> {
+class LLVM_ABI Float2IntPass : public PassInfoMixin<Float2IntPass> {
 public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 

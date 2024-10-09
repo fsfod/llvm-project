@@ -18,10 +18,11 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/IntEqClasses.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class EdgeBundles : public MachineFunctionPass {
+class LLVM_ABI EdgeBundles : public MachineFunctionPass {
   const MachineFunction *MF = nullptr;
 
   /// EC - Each edge bundle is an equivalence class. The keys are:

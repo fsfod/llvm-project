@@ -17,6 +17,7 @@
 #include "llvm/DebugInfo/CodeView/TypeCollection.h"
 #include "llvm/DebugInfo/CodeView/TypeIndex.h"
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FormatProviders.h"
 
 #include <type_traits>
@@ -31,7 +32,7 @@ namespace codeview {
 /// records within a single sequence of types, because if two records both have
 /// a back-reference to the same type in the same stream, they will both have
 /// the same numeric value for the TypeIndex of the back reference.
-struct LocallyHashedType {
+struct LLVM_ABI LocallyHashedType {
   hash_code Hash;
   ArrayRef<uint8_t> RecordData;
 
@@ -77,7 +78,7 @@ enum class GlobalTypeHashAlg : uint16_t {
 /// is considered "as good as" the original type.  Since type records can be
 /// quite large, this makes the equality comparison of the hash much faster than
 /// equality comparison of a full record.
-struct GloballyHashedType {
+struct LLVM_ABI GloballyHashedType {
   GloballyHashedType() = default;
   GloballyHashedType(StringRef H)
       : GloballyHashedType(ArrayRef<uint8_t>(H.bytes_begin(), H.bytes_end())) {}
@@ -180,7 +181,7 @@ static_assert(std::is_trivially_copyable<GloballyHashedType>::value,
               "GloballyHashedType");
 } // namespace codeview
 
-template <> struct DenseMapInfo<codeview::LocallyHashedType> {
+template <> struct LLVM_ABI DenseMapInfo<codeview::LocallyHashedType> {
   static codeview::LocallyHashedType Empty;
   static codeview::LocallyHashedType Tombstone;
 
@@ -200,7 +201,7 @@ template <> struct DenseMapInfo<codeview::LocallyHashedType> {
   }
 };
 
-template <> struct DenseMapInfo<codeview::GloballyHashedType> {
+template <> struct LLVM_ABI DenseMapInfo<codeview::GloballyHashedType> {
   static codeview::GloballyHashedType Empty;
   static codeview::GloballyHashedType Tombstone;
 
