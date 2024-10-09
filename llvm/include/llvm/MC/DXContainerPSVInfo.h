@@ -14,6 +14,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/BinaryFormat/DXContainer.h"
 #include "llvm/MC/StringTableBuilder.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TargetParser/Triple.h"
 
 #include <array>
@@ -46,7 +47,7 @@ struct PSVSignatureElement {
 // This structure is used to represent the extracted data in an inspectable and
 // modifiable format, and can be used to serialize the data back into valid PSV
 // RuntimeInfo.
-struct PSVRuntimeInfo {
+struct LLVM_ABI PSVRuntimeInfo {
   PSVRuntimeInfo() : DXConStrTabBuilder(StringTableBuilder::DXContainer) {
     memset((void *)&BaseData, 0, sizeof(dxbc::PSV::v3::RuntimeInfo));
   }
@@ -85,7 +86,7 @@ private:
   StringTableBuilder DXConStrTabBuilder;
 };
 
-class Signature {
+class LLVM_ABI Signature {
   struct Parameter {
     uint32_t Stream;
     StringRef Name;

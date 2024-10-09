@@ -18,6 +18,7 @@
 #include "llvm/Analysis/CGSCCPassManager.h"
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ class BaseABI;
 struct Shape;
 } // namespace coro
 
-struct CoroSplitPass : PassInfoMixin<CoroSplitPass> {
+struct LLVM_ABI CoroSplitPass : PassInfoMixin<CoroSplitPass> {
 
   CoroSplitPass(bool OptimizeFrame = false);
   CoroSplitPass(std::function<bool(Instruction &)> MaterializableCallback,

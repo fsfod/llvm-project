@@ -11,13 +11,14 @@
 
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class LPMUpdater;
 class LoopNest;
 
 /// A simple loop rotation transformation.
-class LoopUnrollAndJamPass : public PassInfoMixin<LoopUnrollAndJamPass> {
+class LLVM_ABI LoopUnrollAndJamPass : public PassInfoMixin<LoopUnrollAndJamPass> {
   const int OptLevel;
 
 public:

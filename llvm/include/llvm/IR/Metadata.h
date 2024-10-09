@@ -28,6 +28,7 @@
 #include "llvm/IR/Value.h"
 #include "llvm/Support/CBindingWrapping.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <cstddef>
@@ -59,7 +60,7 @@ const uint64_t NOMORE_ICP_MAGICNUM = -1;
 /// Root of the metadata hierarchy.
 ///
 /// This is a root class for typeless data in the IR.
-class Metadata {
+class LLVM_ABI Metadata {
   friend class ReplaceableMetadataImpl;
 
   /// RTTI.
@@ -173,7 +174,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, const Metadata &MD) {
 ///
 /// Notably, this is the only thing in either hierarchy that is allowed to
 /// reference \a LocalAsMetadata.
-class MetadataAsValue : public Value {
+class LLVM_ABI MetadataAsValue : public Value {
   friend class ReplaceableMetadataImpl;
   friend class LLVMContextImpl;
 
@@ -209,7 +210,7 @@ private:
 /// it, then a SubclassID will need to be added (either as a new field or by
 /// making DebugValue into a PointerIntUnion) to discriminate between the
 /// subclasses in lookup and callback handling.
-class DebugValueUser {
+class LLVM_ABI DebugValueUser {
 protected:
   // Capacity to store 3 debug values.
   // TODO: Not all DebugValueUser instances need all 3 elements, if we
@@ -301,7 +302,7 @@ private:
 ///
 /// This API is not meant to be used directly.  See \a TrackingMDRef for a
 /// user-friendly tracking reference.
-class MetadataTracking {
+class LLVM_ABI MetadataTracking {
 public:
   /// Track the reference to metadata.
   ///
@@ -379,7 +380,7 @@ private:
 /// Most metadata cannot be RAUW'ed.  This is a shared implementation of
 /// use-lists and associated API for the three that support it (
 /// \a ValueAsMetadata, \a TempMDNode, and \a DIArgList).
-class ReplaceableMetadataImpl {
+class LLVM_ABI ReplaceableMetadataImpl {
   friend class MetadataTracking;
 
 public:
@@ -447,7 +448,7 @@ private:
 /// Because of full uniquing support, each value is only wrapped by a single \a
 /// ValueAsMetadata object, so the lookup maps are far more efficient than
 /// those using ValueHandleBase.
-class ValueAsMetadata : public Metadata, ReplaceableMetadataImpl {
+class LLVM_ABI ValueAsMetadata : public Metadata, ReplaceableMetadataImpl {
   friend class ReplaceableMetadataImpl;
   friend class LLVMContextImpl;
 
@@ -717,7 +718,7 @@ dyn_extract_or_null(Y &&MD) {
 ///
 /// These are used to efficiently contain a byte sequence for metadata.
 /// MDString is always unnamed.
-class MDString : public Metadata {
+class LLVM_ABI MDString : public Metadata {
   friend class StringMapEntryStorage<MDString>;
 
   StringMapEntry<MDString> *Entry = nullptr;
@@ -757,7 +758,7 @@ public:
 
 /// A collection of metadata nodes that might be associated with a
 /// memory access used by the alias-analysis infrastructure.
-struct AAMDNodes {
+struct LLVM_ABI AAMDNodes {
   explicit AAMDNodes() = default;
   explicit AAMDNodes(MDNode *T, MDNode *TS, MDNode *S, MDNode *N)
       : TBAA(T), TBAAStruct(TS), Scope(S), NoAlias(N) {}
@@ -1066,7 +1067,7 @@ struct TempMDNodeDeleter {
 /// MDnodes are resizable, but only MDTuples support this capability.
 ///
 /// Clients can add operands to resizable MDNodes using push_back().
-class MDNode : public Metadata {
+class LLVM_ABI MDNode : public Metadata {
   friend class ReplaceableMetadataImpl;
   friend class LLVMContextImpl;
   friend class DIAssignID;
@@ -1078,7 +1079,7 @@ class MDNode : public Metadata {
   /// immediately before the header, overlapping with the operands.
   /// Explicity set alignment because bitfields by default have an
   /// alignment of 1 on z/OS.
-  struct alignas(alignof(size_t)) Header {
+  struct LLVM_ABI alignas(alignof(size_t)) Header {
     bool IsResizable : 1;
     bool IsLarge : 1;
     size_t SmallSize : 4;
@@ -1469,7 +1470,7 @@ public:
 ///
 /// This is the simple \a MDNode arbitrary tuple.  Nodes are uniqued by
 /// default based on their operands.
-class MDTuple : public MDNode {
+class LLVM_ABI MDTuple : public MDNode {
   friend class LLVMContextImpl;
   friend class MDNode;
 
@@ -1727,7 +1728,7 @@ public:
 /// NamedMDNodes are named module-level entities that contain lists of MDNodes.
 ///
 /// It is illegal for a NamedMDNode to appear as an operand of an MDNode.
-class NamedMDNode : public ilist_node<NamedMDNode> {
+class LLVM_ABI NamedMDNode : public ilist_node<NamedMDNode> {
   friend class LLVMContextImpl;
   friend class Module;
 

@@ -12,12 +12,13 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_INSTRORDERFILE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
 
 /// The instrumentation pass for recording function order.
-class InstrOrderFilePass : public PassInfoMixin<InstrOrderFilePass> {
+class LLVM_ABI InstrOrderFilePass : public PassInfoMixin<InstrOrderFilePass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };

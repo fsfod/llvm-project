@@ -16,6 +16,7 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/Support/BlockFrequency.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <memory>
 #include <optional>
@@ -31,7 +32,7 @@ class raw_ostream;
 
 /// MachineBlockFrequencyInfo pass uses BlockFrequencyInfoImpl implementation
 /// to estimate machine basic block frequencies.
-class MachineBlockFrequencyInfo {
+class LLVM_ABI MachineBlockFrequencyInfo {
   using ImplType = BlockFrequencyInfoImpl<MachineBasicBlock>;
   std::unique_ptr<ImplType> MBFI;
 
@@ -101,15 +102,15 @@ public:
 /// Print the block frequency @p Freq relative to the current functions entry
 /// frequency. Returns a Printable object that can be piped via `<<` to a
 /// `raw_ostream`.
-Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
+LLVM_ABI Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
                          BlockFrequency Freq);
 
 /// Convenience function equivalent to calling
 /// `printBlockFreq(MBFI, MBFI.getBlockFreq(&MBB))`.
-Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
+LLVM_ABI Printable printBlockFreq(const MachineBlockFrequencyInfo &MBFI,
                          const MachineBasicBlock &MBB);
 
-class MachineBlockFrequencyAnalysis
+class LLVM_ABI MachineBlockFrequencyAnalysis
     : public AnalysisInfoMixin<MachineBlockFrequencyAnalysis> {
   friend AnalysisInfoMixin<MachineBlockFrequencyAnalysis>;
   static AnalysisKey Key;
@@ -121,7 +122,7 @@ public:
 };
 
 /// Printer pass for the \c MachineBlockFrequencyInfo results.
-class MachineBlockFrequencyPrinterPass
+class LLVM_ABI MachineBlockFrequencyPrinterPass
     : public PassInfoMixin<MachineBlockFrequencyPrinterPass> {
   raw_ostream &OS;
 
@@ -134,7 +135,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class MachineBlockFrequencyInfoWrapperPass : public MachineFunctionPass {
+class LLVM_ABI MachineBlockFrequencyInfoWrapperPass : public MachineFunctionPass {
   MachineBlockFrequencyInfo MBFI;
 
 public:

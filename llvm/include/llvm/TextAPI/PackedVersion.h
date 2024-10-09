@@ -13,6 +13,7 @@
 #ifndef LLVM_TEXTAPI_PACKEDVERSION_H
 #define LLVM_TEXTAPI_PACKEDVERSION_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/VersionTuple.h"
 #include <cstdint>
 #include <string>
@@ -24,7 +25,7 @@ class StringRef;
 
 namespace MachO {
 
-class PackedVersion {
+class LLVM_ABI PackedVersion {
   uint32_t Version{0};
 
 public:

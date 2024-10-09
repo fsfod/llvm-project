@@ -14,6 +14,7 @@
 #define LLVM_MC_MCVALUE_H
 
 #include "llvm/MC/MCExpr.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataTypes.h"
 
 namespace llvm {
@@ -33,7 +34,7 @@ class raw_ostream;
 ///
 /// Note that this class must remain a simple POD value class, because we need
 /// it to live in unions etc.
-class MCValue {
+class LLVM_ABI MCValue {
   const MCSymbolRefExpr *SymA = nullptr, *SymB = nullptr;
   int64_t Cst = 0;
   uint32_t RefKind = 0;

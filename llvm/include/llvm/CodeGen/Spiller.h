@@ -11,6 +11,7 @@
 
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/CodeGen/Register.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -24,7 +25,7 @@ class VirtRegAuxInfo;
 ///
 /// Implementations are utility classes which insert spill or remat code on
 /// demand.
-class Spiller {
+class LLVM_ABI Spiller {
   virtual void anchor();
 
 public:
@@ -45,7 +46,7 @@ public:
 
 /// Create and return a spiller that will insert spill code directly instead
 /// of deferring though VirtRegMap.
-Spiller *createInlineSpiller(MachineFunctionPass &Pass, MachineFunction &MF,
+LLVM_ABI Spiller *createInlineSpiller(MachineFunctionPass &Pass, MachineFunction &MF,
                              VirtRegMap &VRM, VirtRegAuxInfo &VRAI);
 
 } // end namespace llvm

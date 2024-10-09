@@ -10,11 +10,12 @@
 #define LLVM_ANALYSIS_STRUCTURALHASH_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 /// Printer pass for  StructuralHashes
-class StructuralHashPrinterPass
+class LLVM_ABI StructuralHashPrinterPass
     : public PassInfoMixin<StructuralHashPrinterPass> {
   raw_ostream &OS;
   bool EnableDetailedStructuralHash;

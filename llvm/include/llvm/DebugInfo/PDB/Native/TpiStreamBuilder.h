@@ -14,6 +14,7 @@
 #include "llvm/DebugInfo/PDB/Native/RawConstants.h"
 #include "llvm/Support/Allocator.h"
 #include "llvm/Support/BinaryStreamRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include <vector>
@@ -36,7 +37,7 @@ struct MSFLayout;
 namespace pdb {
 struct TpiStreamHeader;
 
-class TpiStreamBuilder {
+class LLVM_ABI TpiStreamBuilder {
 public:
   explicit TpiStreamBuilder(msf::MSFBuilder &Msf, uint32_t StreamIdx);
   ~TpiStreamBuilder();

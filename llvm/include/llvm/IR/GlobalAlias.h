@@ -18,6 +18,7 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/IR/OperandTraits.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -25,7 +26,7 @@ class Twine;
 class Module;
 template <typename ValueSubClass, typename... Args> class SymbolTableListTraits;
 
-class GlobalAlias : public GlobalValue, public ilist_node<GlobalAlias> {
+class LLVM_ABI GlobalAlias : public GlobalValue, public ilist_node<GlobalAlias> {
   friend class SymbolTableListTraits<GlobalAlias>;
 
   constexpr static IntrusiveOperandsAllocMarker AllocMarker{1};

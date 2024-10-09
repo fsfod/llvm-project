@@ -11,13 +11,14 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBFrameData.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 
 class DIASession;
 
-class DIAFrameData : public IPDBFrameData {
+class LLVM_ABI DIAFrameData : public IPDBFrameData {
 public:
   explicit DIAFrameData(CComPtr<IDiaFrameData> DiaFrameData);
 

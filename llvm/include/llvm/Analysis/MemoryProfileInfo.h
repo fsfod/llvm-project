@@ -15,41 +15,42 @@
 
 #include "llvm/IR/Metadata.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 
 namespace llvm {
 namespace memprof {
 
 /// Return the allocation type for a given set of memory profile values.
-AllocationType getAllocType(uint64_t TotalLifetimeAccessDensity,
+LLVM_ABI AllocationType getAllocType(uint64_t TotalLifetimeAccessDensity,
                             uint64_t AllocCount, uint64_t TotalLifetime);
 
 /// Build callstack metadata from the provided list of call stack ids. Returns
 /// the resulting metadata node.
-MDNode *buildCallstackMetadata(ArrayRef<uint64_t> CallStack, LLVMContext &Ctx);
+LLVM_ABI MDNode *buildCallstackMetadata(ArrayRef<uint64_t> CallStack, LLVMContext &Ctx);
 
 /// Returns the stack node from an MIB metadata node.
-MDNode *getMIBStackNode(const MDNode *MIB);
+LLVM_ABI MDNode *getMIBStackNode(const MDNode *MIB);
 
 /// Returns the allocation type from an MIB metadata node.
-AllocationType getMIBAllocType(const MDNode *MIB);
+LLVM_ABI AllocationType getMIBAllocType(const MDNode *MIB);
 
 /// Returns the total size from an MIB metadata node, or 0 if it was not
 /// recorded.
-uint64_t getMIBTotalSize(const MDNode *MIB);
+LLVM_ABI uint64_t getMIBTotalSize(const MDNode *MIB);
 
 /// Returns the string to use in attributes with the given type.
-std::string getAllocTypeAttributeString(AllocationType Type);
+LLVM_ABI std::string getAllocTypeAttributeString(AllocationType Type);
 
 /// True if the AllocTypes bitmask contains just a single type.
-bool hasSingleAllocType(uint8_t AllocTypes);
+LLVM_ABI bool hasSingleAllocType(uint8_t AllocTypes);
 
 /// Class to build a trie of call stack contexts for a particular profiled
 /// allocation call, along with their associated allocation types.
 /// The allocation will be at the root of the trie, which is then used to
 /// compute the minimum lists of context ids needed to associate a call context
 /// with a single allocation type.
-class CallStackTrie {
+class LLVM_ABI CallStackTrie {
 private:
   struct CallStackTrieNode {
     // Allocation types for call context sharing the context prefix at this
@@ -184,11 +185,11 @@ CallStack<NodeT, IteratorT>::beginAfterSharedPrefix(CallStack &Other) {
 
 /// Specializations for iterating through IR metadata stack contexts.
 template <>
-CallStack<MDNode, MDNode::op_iterator>::CallStackIterator::CallStackIterator(
+LLVM_ABI LLVM_ABI CallStack<MDNode, MDNode::op_iterator>::CallStackIterator::CallStackIterator(
     const MDNode *N, bool End);
 template <>
-uint64_t CallStack<MDNode, MDNode::op_iterator>::CallStackIterator::operator*();
-template <> uint64_t CallStack<MDNode, MDNode::op_iterator>::back() const;
+LLVM_ABI LLVM_ABI uint64_t CallStack<MDNode, MDNode::op_iterator>::CallStackIterator::operator*();
+template <> LLVM_ABI LLVM_ABI uint64_t CallStack<MDNode, MDNode::op_iterator>::back() const;
 
 } // end namespace memprof
 } // end namespace llvm

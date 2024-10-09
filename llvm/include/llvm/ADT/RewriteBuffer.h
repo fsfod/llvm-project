@@ -12,6 +12,7 @@
 #include "llvm/ADT/DeltaTree.h"
 #include "llvm/ADT/RewriteRope.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 
 namespace clang {
 class Rewriter;
@@ -27,7 +28,7 @@ class raw_ostream;
 /// to map between SourceLocation's in the original input and offsets in the
 /// RewriteBuffer.  For example, if text is inserted into the buffer, any
 /// locations after the insertion point have to be mapped.
-class RewriteBuffer {
+class LLVM_ABI RewriteBuffer {
   friend class clang::Rewriter;
 
   /// Deltas - Keep track of all the deltas in the source code due to insertions

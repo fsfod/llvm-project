@@ -10,12 +10,13 @@
 #define LLVM_TRANSFORMS_SCALAR_CORRELATEDVALUEPROPAGATION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-struct CorrelatedValuePropagationPass
+struct LLVM_ABI CorrelatedValuePropagationPass
     : PassInfoMixin<CorrelatedValuePropagationPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

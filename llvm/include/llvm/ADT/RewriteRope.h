@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/IntrusiveRefCntPtr.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstddef>
 #include <iterator>
@@ -83,7 +84,7 @@ struct RopePiece {
 /// over bytes that are in a RopePieceBTree.  This first iterates over bytes
 /// in a RopePiece, then iterates over RopePiece's in a RopePieceBTreeLeaf,
 /// then iterates over RopePieceBTreeLeaf's in a RopePieceBTree.
-class RopePieceBTreeIterator {
+class LLVM_ABI RopePieceBTreeIterator {
   /// CurNode - The current B+Tree node that we are inspecting.
   const void /*RopePieceBTreeLeaf*/ *CurNode = nullptr;
 
@@ -138,7 +139,7 @@ public:
 // RopePieceBTree Class
 //===--------------------------------------------------------------------===//
 
-class RopePieceBTree {
+class LLVM_ABI RopePieceBTree {
   void /*RopePieceBTreeNode*/ *Root;
 
 public:
@@ -168,7 +169,7 @@ public:
 /// RewriteRope - A powerful string class.  This class supports extremely
 /// efficient insertions and deletions into the middle of it, even for
 /// ridiculously long strings.
-class RewriteRope {
+class LLVM_ABI RewriteRope {
   RopePieceBTree Chunks;
 
   /// We allocate space for string data out of a buffer of size AllocChunkSize.

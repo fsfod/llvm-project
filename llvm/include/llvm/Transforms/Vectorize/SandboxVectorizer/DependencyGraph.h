@@ -26,6 +26,7 @@
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/SandboxIR/Instruction.h"
 #include "llvm/SandboxIR/IntrinsicInst.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Interval.h"
 
 namespace llvm::sandboxir {
@@ -143,7 +144,7 @@ public:
 };
 
 /// Convenience builders for a MemDGNode interval.
-class MemDGNodeIntervalBuilder {
+class LLVM_ABI MemDGNodeIntervalBuilder {
 public:
   /// Given \p Instrs it finds their closest mem nodes in the interval and
   /// returns the corresponding mem range. Note: BotN (or its neighboring mem
@@ -153,7 +154,7 @@ public:
   static Interval<MemDGNode> makeEmpty() { return {}; }
 };
 
-class DependencyGraph {
+class LLVM_ABI DependencyGraph {
 private:
   DenseMap<Instruction *, std::unique_ptr<DGNode>> InstrToNodeMap;
   /// The DAG spans across all instructions in this interval.

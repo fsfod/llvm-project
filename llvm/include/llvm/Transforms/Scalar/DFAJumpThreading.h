@@ -14,12 +14,13 @@
 #define LLVM_TRANSFORMS_SCALAR_DFAJUMPTHREADING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-struct DFAJumpThreadingPass : PassInfoMixin<DFAJumpThreadingPass> {
+struct LLVM_ABI DFAJumpThreadingPass : PassInfoMixin<DFAJumpThreadingPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 

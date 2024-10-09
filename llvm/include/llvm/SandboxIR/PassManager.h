@@ -21,6 +21,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/SandboxIR/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 
 namespace llvm::sandboxir {
@@ -66,21 +67,21 @@ public:
   }
 };
 
-class FunctionPassManager final
+class LLVM_ABI FunctionPassManager final
     : public PassManager<FunctionPass, FunctionPass> {
 public:
   FunctionPassManager(StringRef Name) : PassManager(Name) {}
   bool runOnFunction(Function &F) final;
 };
 
-class RegionPassManager final : public PassManager<RegionPass, RegionPass> {
+class LLVM_ABI RegionPassManager final : public PassManager<RegionPass, RegionPass> {
 public:
   RegionPassManager(StringRef Name) : PassManager(Name) {}
   bool runOnRegion(Region &R) final;
 };
 
 /// Owns the passes and provides an API to get a pass by its name.
-class PassRegistry {
+class LLVM_ABI PassRegistry {
   SmallVector<std::unique_ptr<Pass>, 8> Passes;
   DenseMap<StringRef, Pass *> NameToPassMap;
 

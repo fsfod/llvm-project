@@ -15,6 +15,7 @@
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/DebugInfo/DWARF/DWARFDataExtractor.h"
 #include "llvm/DebugInfo/DWARF/DWARFFormValue.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <utility>
 
@@ -29,14 +30,14 @@ class ScopedPrinter;
 /// DWARF 5 accelerator tables.
 /// TODO: Generalize the rest of the AppleAcceleratorTable interface and move it
 /// to this class.
-class DWARFAcceleratorTable {
+class LLVM_ABI DWARFAcceleratorTable {
 protected:
   DWARFDataExtractor AccelSection;
   DataExtractor StringSection;
 
 public:
   /// An abstract class representing a single entry in the accelerator tables.
-  class Entry {
+  class LLVM_ABI Entry {
   protected:
     SmallVector<DWARFFormValue, 3> Values;
 
@@ -97,8 +98,8 @@ public:
 
 /// This implements the Apple accelerator table format, a precursor of the
 /// DWARF 5 accelerator table format.
-class AppleAcceleratorTable : public DWARFAcceleratorTable {
-  struct Header {
+class LLVM_ABI AppleAcceleratorTable : public DWARFAcceleratorTable {
+  struct LLVM_ABI Header {
     uint32_t Magic;
     uint16_t Version;
     uint16_t HashFunction;
@@ -109,7 +110,7 @@ class AppleAcceleratorTable : public DWARFAcceleratorTable {
     void dump(ScopedPrinter &W) const;
   };
 
-  struct HeaderData {
+  struct LLVM_ABI HeaderData {
     using AtomType = uint16_t;
     using Form = dwarf::Form;
 
@@ -210,7 +211,7 @@ class AppleAcceleratorTable : public DWARFAcceleratorTable {
 
 public:
   /// Apple-specific implementation of an Accelerator Entry.
-  class Entry final : public DWARFAcceleratorTable::Entry {
+  class LLVM_ABI Entry final : public DWARFAcceleratorTable::Entry {
     const AppleAcceleratorTable &Table;
 
     Entry(const AppleAcceleratorTable &Table);
@@ -236,7 +237,7 @@ public:
   };
 
   /// An iterator for Entries all having the same string as key.
-  class SameNameIterator
+  class LLVM_ABI SameNameIterator
       : public iterator_facade_base<SameNameIterator, std::forward_iterator_tag,
                                     Entry> {
     Entry Current;
@@ -275,7 +276,7 @@ public:
   };
 
   /// An iterator for all entries in the table.
-  class Iterator
+  class LLVM_ABI Iterator
       : public iterator_facade_base<Iterator, std::forward_iterator_tag,
                                     EntryWithName> {
     constexpr static auto EndMarker = std::numeric_limits<uint64_t>::max();
@@ -380,14 +381,14 @@ public:
 /// The last segment consists of a list of entries, which is a 0-terminated list
 /// referenced by the name table and interpreted with the help of the
 /// abbreviation table.
-class DWARFDebugNames : public DWARFAcceleratorTable {
+class LLVM_ABI DWARFDebugNames : public DWARFAcceleratorTable {
 public:
   class NameIndex;
   class NameIterator;
   class ValueIterator;
 
   /// DWARF v5 Name Index header.
-  struct Header {
+  struct LLVM_ABI Header {
     uint64_t UnitLength;
     dwarf::DwarfFormat Format;
     uint16_t Version;
@@ -419,7 +420,7 @@ public:
   };
 
   /// Abbreviation describing the encoding of Name Index entries.
-  struct Abbrev {
+  struct LLVM_ABI Abbrev {
     uint64_t AbbrevOffset; /// < Abbreviation offset in the .debug_names section
     uint32_t Code;         ///< Abbreviation code
     dwarf::Tag Tag; ///< Dwarf Tag of the described entity.
@@ -434,7 +435,7 @@ public:
   };
 
   /// DWARF v5-specific implementation of an Accelerator Entry.
-  class Entry final : public DWARFAcceleratorTable::Entry {
+  class LLVM_ABI Entry final : public DWARFAcceleratorTable::Entry {
     const NameIndex *NameIdx;
     const Abbrev *Abbr;
 
@@ -509,7 +510,7 @@ public:
 
   /// Error returned by NameIndex::getEntry to report it has reached the end of
   /// the entry list.
-  class SentinelError : public ErrorInfo<SentinelError> {
+  class LLVM_ABI SentinelError : public ErrorInfo<SentinelError> {
   public:
     static char ID;
 
@@ -519,7 +520,7 @@ public:
 
 private:
   /// DenseMapInfo for struct Abbrev.
-  struct AbbrevMapInfo {
+  struct LLVM_ABI AbbrevMapInfo {
     static Abbrev getEmptyKey();
     static Abbrev getTombstoneKey();
     static unsigned getHashValue(uint32_t Code) {
@@ -595,7 +596,7 @@ public:
 
   /// Represents a single accelerator table within the DWARF v5 .debug_names
   /// section.
-  class NameIndex {
+  class LLVM_ABI NameIndex {
     DenseSet<Abbrev, AbbrevMapInfo> Abbrevs;
     struct Header Hdr;
     const DWARFDebugNames &Section;
@@ -691,7 +692,7 @@ public:
     friend class DWARFDebugNames;
   };
 
-  class ValueIterator {
+  class LLVM_ABI ValueIterator {
   public:
     using iterator_category = std::input_iterator_tag;
     using value_type = Entry;
@@ -828,7 +829,7 @@ public:
 /// Calculates the starting offsets for various sections within the
 /// .debug_names section.
 namespace dwarf {
-DWARFDebugNames::DWARFDebugNamesOffsets
+LLVM_ABI DWARFDebugNames::DWARFDebugNamesOffsets
 findDebugNamesOffsets(uint64_t EndOfHeaderOffset,
                       const DWARFDebugNames::Header &Hdr);
 }
@@ -837,7 +838,7 @@ findDebugNamesOffsets(uint64_t EndOfHeaderOffset,
 /// parameters, returns a substring of `Name` containing no template
 /// parameters.
 /// E.g.: StripTemplateParameters("foo<int>") = "foo".
-std::optional<StringRef> StripTemplateParameters(StringRef Name);
+LLVM_ABI std::optional<StringRef> StripTemplateParameters(StringRef Name);
 
 struct ObjCSelectorNames {
   /// For "-[A(Category) method:]", this would be "method:"
@@ -853,7 +854,7 @@ struct ObjCSelectorNames {
 /// If `Name` is the AT_name of a DIE which refers to an Objective-C selector,
 /// returns an instance of ObjCSelectorNames. The Selector and ClassName fields
 /// are guaranteed to be non-empty in the result.
-std::optional<ObjCSelectorNames> getObjCNamesIfSelector(StringRef Name);
+LLVM_ABI std::optional<ObjCSelectorNames> getObjCNamesIfSelector(StringRef Name);
 
 } // end namespace llvm
 

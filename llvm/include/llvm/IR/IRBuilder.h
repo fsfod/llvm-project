@@ -41,6 +41,7 @@
 #include "llvm/Support/AtomicOrdering.h"
 #include "llvm/Support/CBindingWrapping.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <functional>
@@ -57,7 +58,7 @@ class Use;
 /// IRBuilder and needs to be inserted.
 ///
 /// By default, this inserts the instruction at the insertion point.
-class IRBuilderDefaultInserter {
+class LLVM_ABI IRBuilderDefaultInserter {
 public:
   virtual ~IRBuilderDefaultInserter();
 
@@ -71,7 +72,7 @@ public:
 
 /// Provides an 'InsertHelper' that calls a user-provided callback after
 /// performing the default insertion.
-class IRBuilderCallbackInserter : public IRBuilderDefaultInserter {
+class LLVM_ABI IRBuilderCallbackInserter : public IRBuilderDefaultInserter {
   std::function<void(Instruction *)> Callback;
 
 public:
@@ -88,7 +89,7 @@ public:
 };
 
 /// Common base class shared among various IRBuilders.
-class IRBuilderBase {
+class LLVM_ABI IRBuilderBase {
   /// Pairs of (metadata kind, MDNode *) that should be added to all newly
   /// created instructions, like !dbg metadata.
   SmallVector<std::pair<unsigned, MDNode *>, 2> MetadataToCopy;
@@ -2756,16 +2757,16 @@ public:
 template <typename FolderTy, typename InserterTy>
 IRBuilder(LLVMContext &, FolderTy, InserterTy, MDNode *,
           ArrayRef<OperandBundleDef>) -> IRBuilder<FolderTy, InserterTy>;
-IRBuilder(LLVMContext &, MDNode *, ArrayRef<OperandBundleDef>) -> IRBuilder<>;
+LLVM_ABI IRBuilder(LLVMContext &, MDNode *, ArrayRef<OperandBundleDef>) -> IRBuilder<>;
 template <typename FolderTy>
 IRBuilder(BasicBlock *, FolderTy, MDNode *, ArrayRef<OperandBundleDef>)
     -> IRBuilder<FolderTy>;
-IRBuilder(BasicBlock *, MDNode *, ArrayRef<OperandBundleDef>) -> IRBuilder<>;
-IRBuilder(Instruction *, MDNode *, ArrayRef<OperandBundleDef>) -> IRBuilder<>;
+LLVM_ABI IRBuilder(BasicBlock *, MDNode *, ArrayRef<OperandBundleDef>) -> IRBuilder<>;
+LLVM_ABI IRBuilder(Instruction *, MDNode *, ArrayRef<OperandBundleDef>) -> IRBuilder<>;
 template <typename FolderTy>
 IRBuilder(BasicBlock *, BasicBlock::iterator, FolderTy, MDNode *,
           ArrayRef<OperandBundleDef>) -> IRBuilder<FolderTy>;
-IRBuilder(BasicBlock *, BasicBlock::iterator, MDNode *,
+LLVM_ABI IRBuilder(BasicBlock *, BasicBlock::iterator, MDNode *,
           ArrayRef<OperandBundleDef>) -> IRBuilder<>;
 
 

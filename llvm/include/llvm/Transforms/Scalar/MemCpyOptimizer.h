@@ -16,6 +16,7 @@
 
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -41,7 +42,7 @@ class TargetLibraryInfo;
 class TypeSize;
 class Value;
 
-class MemCpyOptPass : public PassInfoMixin<MemCpyOptPass> {
+class LLVM_ABI MemCpyOptPass : public PassInfoMixin<MemCpyOptPass> {
   TargetLibraryInfo *TLI = nullptr;
   AAResults *AA = nullptr;
   AssumptionCache *AC = nullptr;

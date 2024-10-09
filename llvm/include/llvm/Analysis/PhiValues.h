@@ -25,6 +25,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -37,7 +38,7 @@ class Function;
 ///
 /// Initially the PhiValues is empty, and gets incrementally populated whenever
 /// it is queried.
-class PhiValues {
+class LLVM_ABI PhiValues {
 public:
   using ValueSet = SmallSetVector<Value *, 4>;
 
@@ -87,7 +88,7 @@ private:
   /// A CallbackVH to notify PhiValues when a value is deleted or replaced, so
   /// that the cached information for that value can be cleared to avoid
   /// dangling pointers to invalid values.
-  class PhiValuesCallbackVH final : public CallbackVH {
+  class LLVM_ABI PhiValuesCallbackVH final : public CallbackVH {
     PhiValues *PV;
     void deleted() override;
     void allUsesReplacedWith(Value *New) override;
@@ -112,7 +113,7 @@ private:
 ///
 /// The analysis does nothing by itself, and just returns an empty PhiValues
 /// which will get filled in as it's used.
-class PhiValuesAnalysis : public AnalysisInfoMixin<PhiValuesAnalysis> {
+class LLVM_ABI PhiValuesAnalysis : public AnalysisInfoMixin<PhiValuesAnalysis> {
   friend AnalysisInfoMixin<PhiValuesAnalysis>;
   static AnalysisKey Key;
 
@@ -126,7 +127,7 @@ public:
 /// This pass doesn't print whatever information the PhiValues happens to hold,
 /// but instead first uses the PhiValues to analyze all the phis in the function
 /// so the complete information is printed.
-class PhiValuesPrinterPass : public PassInfoMixin<PhiValuesPrinterPass> {
+class LLVM_ABI PhiValuesPrinterPass : public PassInfoMixin<PhiValuesPrinterPass> {
   raw_ostream &OS;
 
 public:
@@ -136,7 +137,7 @@ public:
 };
 
 /// Wrapper pass for the legacy pass manager
-class PhiValuesWrapperPass : public FunctionPass {
+class LLVM_ABI PhiValuesWrapperPass : public FunctionPass {
   std::unique_ptr<PhiValues> Result;
 
 public:

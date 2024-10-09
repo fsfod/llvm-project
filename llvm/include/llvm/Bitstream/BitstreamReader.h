@@ -17,6 +17,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Bitstream/BitCodes.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBufferRef.h"
@@ -354,7 +355,7 @@ struct BitstreamEntry {
 ///
 /// Unlike iterators, BitstreamCursors are heavy-weight objects that should not
 /// be passed by value.
-class BitstreamCursor : SimpleBitstreamCursor {
+class LLVM_ABI BitstreamCursor : SimpleBitstreamCursor {
   // This is the declared size of code values used for the current block, in
   // bits.
   unsigned CurCodeSize = 2;

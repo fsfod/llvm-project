@@ -14,6 +14,7 @@
 #define LLVM_CODEGEN_MACHINEFUNCTIONANALYSIS
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -22,7 +23,7 @@ class LLVMTargetMachine;
 
 /// This analysis create MachineFunction for given Function.
 /// To release the MachineFunction, users should invalidate it explicitly.
-class MachineFunctionAnalysis
+class LLVM_ABI MachineFunctionAnalysis
     : public AnalysisInfoMixin<MachineFunctionAnalysis> {
   friend AnalysisInfoMixin<MachineFunctionAnalysis>;
 
@@ -31,7 +32,7 @@ class MachineFunctionAnalysis
   const LLVMTargetMachine *TM;
 
 public:
-  class Result {
+  class LLVM_ABI Result {
     std::unique_ptr<MachineFunction> MF;
 
   public:

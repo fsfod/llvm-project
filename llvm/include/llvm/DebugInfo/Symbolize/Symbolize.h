@@ -19,6 +19,7 @@
 #include "llvm/DebugInfo/DIContext.h"
 #include "llvm/Object/Binary.h"
 #include "llvm/Object/BuildID.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <algorithm>
 #include <cstdint>
@@ -47,7 +48,7 @@ using FileLineInfoKind = DILineInfoSpecifier::FileLineInfoKind;
 
 class CachedBinary;
 
-class LLVMSymbolizer {
+class LLVM_ABI LLVMSymbolizer {
 public:
   struct Options {
     FunctionNameKind PrintFunctions = FunctionNameKind::LinkageName;
@@ -228,7 +229,7 @@ private:
 // A binary intrusively linked into a LRU cache list. If the binary is empty,
 // then the entry marks that an error occurred, and it is not part of the LRU
 // list.
-class CachedBinary : public ilist_node<CachedBinary> {
+class LLVM_ABI CachedBinary : public ilist_node<CachedBinary> {
 public:
   CachedBinary() = default;
   CachedBinary(OwningBinary<Binary> Bin) : Bin(std::move(Bin)) {}

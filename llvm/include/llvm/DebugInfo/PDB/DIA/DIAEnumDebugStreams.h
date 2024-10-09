@@ -12,13 +12,14 @@
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBDataStream.h"
 #include "llvm/DebugInfo/PDB/IPDBEnumChildren.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 
 class IPDBDataStream;
 
-class DIAEnumDebugStreams : public IPDBEnumChildren<IPDBDataStream> {
+class LLVM_ABI DIAEnumDebugStreams : public IPDBEnumChildren<IPDBDataStream> {
 public:
   explicit DIAEnumDebugStreams(CComPtr<IDiaEnumDebugStreams> DiaEnumerator);
 

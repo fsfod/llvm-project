@@ -12,12 +12,13 @@
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBEnumChildren.h"
 #include "llvm/DebugInfo/PDB/IPDBSectionContrib.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAEnumSectionContribs : public IPDBEnumChildren<IPDBSectionContrib> {
+class LLVM_ABI DIAEnumSectionContribs : public IPDBEnumChildren<IPDBSectionContrib> {
 public:
   explicit DIAEnumSectionContribs(
       const DIASession &PDBSession,

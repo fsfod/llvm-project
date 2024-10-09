@@ -10,12 +10,13 @@
 #define LLVM_CODEGEN_INDIRECTBREXPAND_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetMachine;
 
-class IndirectBrExpandPass : public PassInfoMixin<IndirectBrExpandPass> {
+class LLVM_ABI IndirectBrExpandPass : public PassInfoMixin<IndirectBrExpandPass> {
   const TargetMachine *TM;
 
 public:

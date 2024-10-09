@@ -19,6 +19,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/StringSwitch.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 
@@ -99,7 +100,7 @@ static inline int MCLOHIdToNbArgs(MCLOHType Kind) {
 }
 
 /// Store Linker Optimization Hint information (LOH).
-class MCLOHDirective {
+class LLVM_ABI MCLOHDirective {
   MCLOHType Kind;
 
   /// Arguments of this directive. Order matters.

@@ -15,11 +15,12 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/SandboxIR/Constant.h"
 #include "llvm/SandboxIR/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Legality.h"
 
 namespace llvm::sandboxir {
 
-class BottomUpVec final : public FunctionPass {
+class LLVM_ABI BottomUpVec final : public FunctionPass {
   bool Change = false;
   LegalityAnalysis Legality;
   void vectorizeRec(ArrayRef<Value *> Bndl);

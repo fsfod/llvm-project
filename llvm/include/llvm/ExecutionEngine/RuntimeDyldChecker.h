@@ -10,6 +10,7 @@
 #define LLVM_EXECUTIONENGINE_RUNTIMEDYLDCHECKER_H
 
 #include "llvm/ExecutionEngine/JITSymbol.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/TargetParser/SubtargetFeature.h"
 #include "llvm/TargetParser/Triple.h"
@@ -76,7 +77,7 @@ using TargetFlagsType = uint8_t;
 ///             | expr '<<' expr
 ///             | expr '>>' expr
 ///
-class RuntimeDyldChecker {
+class LLVM_ABI RuntimeDyldChecker {
 public:
   class MemoryRegionInfo {
   public:

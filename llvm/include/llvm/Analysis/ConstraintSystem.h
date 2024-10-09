@@ -12,6 +12,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 
 #include <string>
@@ -19,7 +20,7 @@
 namespace llvm {
 
 class Value;
-class ConstraintSystem {
+class LLVM_ABI ConstraintSystem {
   struct Entry {
     int64_t Coefficient;
     uint16_t Id;

@@ -14,10 +14,11 @@
 #define LLVM_OBJECT_ARCHIVEWRITER_H
 
 #include "llvm/Object/Archive.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct NewArchiveMember {
+struct LLVM_ABI NewArchiveMember {
   std::unique_ptr<MemoryBuffer> Buf;
   StringRef MemberName;
   sys::TimePoint<std::chrono::seconds> ModTime;
@@ -38,7 +39,7 @@ struct NewArchiveMember {
                                             bool Deterministic);
 };
 
-Expected<std::string> computeArchiveRelativePath(StringRef From, StringRef To);
+LLVM_ABI Expected<std::string> computeArchiveRelativePath(StringRef From, StringRef To);
 
 enum class SymtabWritingMode {
   NoSymtab,     // Do not write symbol table.
@@ -48,17 +49,17 @@ enum class SymtabWritingMode {
   BigArchive64  // Only write the 64-bit symbol table.
 };
 
-void warnToStderr(Error Err);
+LLVM_ABI void warnToStderr(Error Err);
 
 // Write an archive directly to an output stream.
-Error writeArchiveToStream(raw_ostream &Out,
+LLVM_ABI Error writeArchiveToStream(raw_ostream &Out,
                            ArrayRef<NewArchiveMember> NewMembers,
                            SymtabWritingMode WriteSymtab,
                            object::Archive::Kind Kind, bool Deterministic,
                            bool Thin, std::optional<bool> IsEC = std::nullopt,
                            function_ref<void(Error)> Warn = warnToStderr);
 
-Error writeArchive(StringRef ArcName, ArrayRef<NewArchiveMember> NewMembers,
+LLVM_ABI Error writeArchive(StringRef ArcName, ArrayRef<NewArchiveMember> NewMembers,
                    SymtabWritingMode WriteSymtab, object::Archive::Kind Kind,
                    bool Deterministic, bool Thin,
                    std::unique_ptr<MemoryBuffer> OldArchiveBuf = nullptr,
@@ -67,7 +68,7 @@ Error writeArchive(StringRef ArcName, ArrayRef<NewArchiveMember> NewMembers,
 
 // writeArchiveToBuffer is similar to writeArchive but returns the Archive in a
 // buffer instead of writing it out to a file.
-Expected<std::unique_ptr<MemoryBuffer>>
+LLVM_ABI Expected<std::unique_ptr<MemoryBuffer>>
 writeArchiveToBuffer(ArrayRef<NewArchiveMember> NewMembers,
                      SymtabWritingMode WriteSymtab, object::Archive::Kind Kind,
                      bool Deterministic, bool Thin,

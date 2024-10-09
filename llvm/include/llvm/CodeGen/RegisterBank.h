@@ -13,6 +13,7 @@
 #ifndef LLVM_CODEGEN_REGISTERBANK_H
 #define LLVM_CODEGEN_REGISTERBANK_H
 
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
@@ -25,7 +26,7 @@ class TargetRegisterInfo;
 /// This class implements the register bank concept.
 /// Two instances of RegisterBank must have different ID.
 /// This property is enforced by the RegisterBankInfo class.
-class RegisterBank {
+class LLVM_ABI RegisterBank {
 private:
   unsigned ID;
   unsigned NumRegClasses;

@@ -18,6 +18,7 @@
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
+#include "llvm/Support/Compiler.h"
 #include <utility>
 #include <vector>
 
@@ -36,7 +37,7 @@ class ProfileSummaryInfo;
 class TargetRegisterInfo;
 
 /// Utility class to perform tail duplication.
-class TailDuplicator {
+class LLVM_ABI TailDuplicator {
   const TargetInstrInfo *TII;
   const TargetRegisterInfo *TRI;
   const MachineBranchProbabilityInfo *MBPI;

@@ -10,6 +10,7 @@
 #define LLVM_CODEGEN_MACHINELICM_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -27,8 +28,8 @@ class MachineLICMPass : public MachineLICMBasePass<MachineLICMPass, false> {};
 
 } // namespace llvm
 
-extern template class llvm::MachineLICMBasePass<llvm::EarlyMachineLICMPass,
+extern template class LLVM_TEMPLATE_ABI llvm::MachineLICMBasePass<llvm::EarlyMachineLICMPass,
                                                 true>;
-extern template class llvm::MachineLICMBasePass<llvm::MachineLICMPass, false>;
+extern template class LLVM_TEMPLATE_ABI llvm::MachineLICMBasePass<llvm::MachineLICMPass, false>;
 
 #endif // LLVM_CODEGEN_MACHINELICM_H

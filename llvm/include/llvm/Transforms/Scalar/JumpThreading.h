@@ -22,6 +22,7 @@
 #include "llvm/Analysis/BranchProbabilityInfo.h"
 #include "llvm/Analysis/DomTreeUpdater.h"
 #include "llvm/IR/ValueHandle.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
 #include <optional>
 #include <utility>
@@ -76,7 +77,7 @@ enum ConstantPreference { WantInteger, WantBlockAddress };
 ///
 /// In this case, the unconditional branch at the end of the first if can be
 /// revectored to the false side of the second if.
-class JumpThreadingPass : public PassInfoMixin<JumpThreadingPass> {
+class LLVM_ABI JumpThreadingPass : public PassInfoMixin<JumpThreadingPass> {
   Function *F = nullptr;
   FunctionAnalysisManager *FAM = nullptr;
   TargetLibraryInfo *TLI = nullptr;

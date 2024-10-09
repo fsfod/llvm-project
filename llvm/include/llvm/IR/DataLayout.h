@@ -60,10 +60,10 @@ class Value;
 /// The target data layout string is specified *by the target* - a frontend
 /// generating LLVM IR is required to generate the right target data for the
 /// target being codegen'd to.
-class DataLayout {
+class LLVM_ABI DataLayout {
 public:
   /// Primitive type specification.
-  struct PrimitiveSpec {
+  struct LLVM_ABI PrimitiveSpec {
     uint32_t BitWidth;
     Align ABIAlign;
     Align PrefAlign;
@@ -72,7 +72,7 @@ public:
   };
 
   /// Pointer type specification.
-  struct PointerSpec {
+  struct LLVM_ABI PointerSpec {
     uint32_t AddrSpace;
     uint32_t BitWidth;
     Align ABIAlign;
@@ -566,7 +566,7 @@ inline LLVMTargetDataRef wrap(const DataLayout *P) {
 
 /// Used to lazily calculate structure layout information for a target machine,
 /// based on the DataLayout structure.
-class StructLayout final : public TrailingObjects<StructLayout, TypeSize> {
+class LLVM_ABI StructLayout final : public TrailingObjects<StructLayout, TypeSize> {
   TypeSize StructSize;
   Align StructAlignment;
   unsigned IsPadded : 1;

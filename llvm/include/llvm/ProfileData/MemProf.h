@@ -8,6 +8,7 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/ProfileData/MemProfData.inc"
 #include "llvm/Support/BLAKE3.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/EndianStream.h"
 #include "llvm/Support/HashBuilder.h"
@@ -52,10 +53,10 @@ enum class Meta : uint64_t {
 using MemProfSchema = llvm::SmallVector<Meta, static_cast<int>(Meta::Size)>;
 
 // Returns the full schema currently in use.
-MemProfSchema getFullSchema();
+LLVM_ABI MemProfSchema getFullSchema();
 
 // Returns the schema consisting of the fields used for hot cold memory hinting.
-MemProfSchema getHotColdSchema();
+LLVM_ABI MemProfSchema getHotColdSchema();
 
 // Holds the actual MemInfoBlock data with all fields. Contents may be read or
 // written partially by providing an appropriate schema to the serialize and
@@ -334,7 +335,7 @@ using LinearCallStackId = uint32_t;
 
 // Holds allocation information in a space efficient format where frames are
 // represented using unique identifiers.
-struct IndexedAllocationInfo {
+struct LLVM_ABI IndexedAllocationInfo {
   // The dynamic calling context for the allocation in bottom-up (leaf-to-root)
   // order. Frame contents are stored out-of-line.
   // TODO: Remove once we fully transition to CSId.
@@ -402,7 +403,7 @@ struct AllocationInfo {
 // Holds the memprof profile information for a function. The internal
 // representation stores frame ids for efficiency. This representation should
 // be used in the profile conversion and manipulation tools.
-struct IndexedMemProfRecord {
+struct LLVM_ABI IndexedMemProfRecord {
   // Memory allocation sites in this function for which we have memory
   // profiling data.
   llvm::SmallVector<IndexedAllocationInfo> AllocSites;
@@ -513,7 +514,7 @@ struct MemProfRecord {
 // ids in the schema. Subsequent entries are integers which map to memprof::Meta
 // enum class entries. After successfully reading the schema, the pointer is one
 // byte past the schema contents.
-Expected<MemProfSchema> readMemProfSchema(const unsigned char *&Buffer);
+LLVM_ABI Expected<MemProfSchema> readMemProfSchema(const unsigned char *&Buffer);
 
 // Trait for reading IndexedMemProfRecord data from the on-disk hash table.
 class RecordLookupTrait {
@@ -794,7 +795,7 @@ public:
 };
 
 // Compute a CallStackId for a given call stack.
-CallStackId hashCallStack(ArrayRef<FrameId> CS);
+LLVM_ABI CallStackId hashCallStack(ArrayRef<FrameId> CS);
 
 namespace detail {
 // "Dereference" the iterator from DenseMap or OnDiskChainedHashTable.  We have
@@ -944,7 +945,7 @@ struct FrameStat {
 };
 
 // Compute a histogram of Frames in call stacks.
-llvm::DenseMap<FrameId, FrameStat>
+LLVM_ABI llvm::DenseMap<FrameId, FrameStat>
 computeFrameHistogram(llvm::MapVector<CallStackId, llvm::SmallVector<FrameId>>
                           &MemProfCallStackData);
 
@@ -1003,7 +1004,7 @@ computeFrameHistogram(llvm::MapVector<CallStackId, llvm::SmallVector<FrameId>>
 // On-disk IndexedMemProfRecord will refer to call stacks by their indexes into
 // the radix tree array, so we do not explicitly encode mappings like:
 // "CallStackId 1 -> 11".
-class CallStackRadixTreeBuilder {
+class LLVM_ABI CallStackRadixTreeBuilder {
   // The radix tree array.
   std::vector<LinearFrameId> RadixArray;
 
@@ -1058,12 +1059,12 @@ public:
 // Verify that each CallStackId is computed with hashCallStack.  This function
 // is intended to help transition from CallStack to CSId in
 // IndexedAllocationInfo.
-void verifyIndexedMemProfRecord(const IndexedMemProfRecord &Record);
+LLVM_ABI void verifyIndexedMemProfRecord(const IndexedMemProfRecord &Record);
 
 // Verify that each CallStackId is computed with hashCallStack.  This function
 // is intended to help transition from CallStack to CSId in
 // IndexedAllocationInfo.
-void verifyFunctionProfileData(
+LLVM_ABI void verifyFunctionProfileData(
     const llvm::MapVector<GlobalValue::GUID, IndexedMemProfRecord>
         &FunctionProfileData);
 } // namespace memprof

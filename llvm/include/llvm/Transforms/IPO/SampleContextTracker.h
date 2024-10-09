@@ -18,6 +18,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/iterator.h"
 #include "llvm/ProfileData/SampleProf.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <queue>
 #include <vector>
@@ -31,7 +32,7 @@ class Instruction;
 // Internal trie tree representation used for tracking context tree and sample
 // profiles. The path from root node to a given node represents the context of
 // that nodes' profile.
-class ContextTrieNode {
+class LLVM_ABI ContextTrieNode {
 public:
   ContextTrieNode(ContextTrieNode *Parent = nullptr,
                   FunctionId FName = FunctionId(),
@@ -86,7 +87,7 @@ private:
 // accurate post-inline profile for functions. Internally context profiles
 // are organized in a trie, with each node representing profile for specific
 // calling context and the context is identified by path from root to the node.
-class SampleContextTracker {
+class LLVM_ABI SampleContextTracker {
 public:
   using ContextSamplesTy = std::vector<FunctionSamples *>;
 

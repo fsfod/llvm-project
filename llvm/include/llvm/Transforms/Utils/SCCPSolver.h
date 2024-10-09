@@ -18,6 +18,7 @@
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Analysis/DomTreeUpdater.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/PredicateInfo.h"
 #include <vector>
 
@@ -62,7 +63,7 @@ class SCCPInstVisitor;
 /// SCCPSolver - This interface class is a general purpose solver for Sparse
 /// Conditional Constant Propagation (SCCP).
 ///
-class SCCPSolver {
+class LLVM_ABI SCCPSolver {
   std::unique_ptr<SCCPInstVisitor> Visitor;
 
 public:

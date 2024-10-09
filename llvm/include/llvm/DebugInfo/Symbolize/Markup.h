@@ -19,6 +19,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/StringSet.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Regex.h"
 
 namespace llvm {
@@ -48,7 +49,7 @@ struct MarkupNode {
 };
 
 /// Parses a log containing symbolizer markup into a sequence of nodes.
-class MarkupParser {
+class LLVM_ABI MarkupParser {
 public:
   MarkupParser(StringSet<> MultilineTags = {});
 

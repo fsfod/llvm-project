@@ -15,11 +15,12 @@
 #ifndef LLVM_CODEGEN_INTRINSICLOWERING_H
 #define LLVM_CODEGEN_INTRINSICLOWERING_H
 
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 class CallInst;
 class DataLayout;
 
-class IntrinsicLowering {
+class LLVM_ABI IntrinsicLowering {
   const DataLayout &DL;
 
   bool Warned = false;

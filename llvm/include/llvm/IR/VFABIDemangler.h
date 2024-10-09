@@ -17,6 +17,7 @@
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/TypeSize.h"
 
 namespace llvm {
@@ -79,7 +80,7 @@ struct VFParameter {
 /// This object in independent on the paradigm used to
 /// represent vector functions. in particular, it is not attached to
 /// any target-specific ABI.
-struct VFShape {
+struct LLVM_ABI VFShape {
   ElementCount VF;                        // Vectorization factor.
   SmallVector<VFParameter, 8> Parameters; // List of parameter information.
   // Comparison operator.
@@ -179,11 +180,11 @@ static constexpr char const *_LLVM_Scalarize_ = "_LLVM_Scalarize_";
 /// factor for scalable vectors, since the mangled name doesn't encode that;
 /// it needs to be derived from the widest element types of vector arguments
 /// or return values.
-std::optional<VFInfo> tryDemangleForVFABI(StringRef MangledName,
+LLVM_ABI std::optional<VFInfo> tryDemangleForVFABI(StringRef MangledName,
                                           const FunctionType *FTy);
 
 /// Retrieve the `VFParamKind` from a string token.
-VFParamKind getVFParamKindFromString(const StringRef Token);
+LLVM_ABI VFParamKind getVFParamKindFromString(const StringRef Token);
 
 // Name of the attribute where the variant mappings are stored.
 static constexpr char const *MappingsAttrName = "vector-function-abi-variant";
@@ -193,7 +194,7 @@ static constexpr char const *MappingsAttrName = "vector-function-abi-variant";
 /// vector-function-abi-variant attribute, we return without populating
 /// VariantMappings, i.e. callers of getVectorVariantNames need not check for
 /// the presence of the attribute (see InjectTLIMappings).
-void getVectorVariantNames(const CallInst &CI,
+LLVM_ABI void getVectorVariantNames(const CallInst &CI,
                            SmallVectorImpl<std::string> &VariantMappings);
 
 /// Constructs a FunctionType by applying vector function information to the
@@ -203,12 +204,12 @@ void getVectorVariantNames(const CallInst &CI,
 /// \param ScalarFTy gets the Type information of parameters, as it is not
 /// stored in \p Info.
 /// \returns a pointer to a newly created vector FunctionType
-FunctionType *createFunctionType(const VFInfo &Info,
+LLVM_ABI FunctionType *createFunctionType(const VFInfo &Info,
                                  const FunctionType *ScalarFTy);
 
 /// Overwrite the Vector Function ABI variants attribute with the names provide
 /// in \p VariantMappings.
-void setVectorVariantNames(CallInst *CI, ArrayRef<std::string> VariantMappings);
+LLVM_ABI void setVectorVariantNames(CallInst *CI, ArrayRef<std::string> VariantMappings);
 
 } // end namespace VFABI
 

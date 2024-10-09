@@ -19,6 +19,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/Module.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -54,7 +55,7 @@ public:
 };
 
 // Get AddressSanitizer parameters.
-void getAddressSanitizerParams(const Triple &TargetTriple, int LongSize,
+LLVM_ABI void getAddressSanitizerParams(const Triple &TargetTriple, int LongSize,
                                bool IsKasan, uint64_t *ShadowBase,
                                int *MappingScale, bool *OrShadowOffset);
 

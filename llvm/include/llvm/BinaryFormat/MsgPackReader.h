@@ -38,6 +38,7 @@
 #ifndef LLVM_BINARYFORMAT_MSGPACKREADER_H
 #define LLVM_BINARYFORMAT_MSGPACKREADER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBufferRef.h"
 #include <cstdint>
@@ -101,7 +102,7 @@ struct Object {
 };
 
 /// Reads MessagePack objects from memory, one at a time.
-class Reader {
+class LLVM_ABI Reader {
 public:
   /// Construct a reader, keeping a reference to the \p InputBuffer.
   Reader(MemoryBufferRef InputBuffer);

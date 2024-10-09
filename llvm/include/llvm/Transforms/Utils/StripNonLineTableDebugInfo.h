@@ -10,12 +10,13 @@
 #define LLVM_TRANSFORMS_UTILS_STRIPNONLINETABLEDEBUGINFO_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Module;
 
-class StripNonLineTableDebugInfoPass
+class LLVM_ABI StripNonLineTableDebugInfoPass
     : public PassInfoMixin<StripNonLineTableDebugInfoPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);

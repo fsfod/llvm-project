@@ -35,6 +35,7 @@
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -42,8 +43,8 @@ class LPMUpdater;
 class Loop;
 class LoopNest;
 
-extern cl::opt<unsigned> SetLicmMssaOptCap;
-extern cl::opt<unsigned> SetLicmMssaNoAccForPromotionCap;
+LLVM_ABI extern cl::opt<unsigned> SetLicmMssaOptCap;
+LLVM_ABI extern cl::opt<unsigned> SetLicmMssaNoAccForPromotionCap;
 
 struct LICMOptions {
   unsigned MssaOptCap;
@@ -63,7 +64,7 @@ struct LICMOptions {
 };
 
 /// Performs Loop Invariant Code Motion Pass.
-class LICMPass : public PassInfoMixin<LICMPass> {
+class LLVM_ABI LICMPass : public PassInfoMixin<LICMPass> {
   LICMOptions Opts;
 
 public:
@@ -81,7 +82,7 @@ public:
 };
 
 /// Performs LoopNest Invariant Code Motion Pass.
-class LNICMPass : public PassInfoMixin<LNICMPass> {
+class LLVM_ABI LNICMPass : public PassInfoMixin<LNICMPass> {
   LICMOptions Opts;
 
 public:

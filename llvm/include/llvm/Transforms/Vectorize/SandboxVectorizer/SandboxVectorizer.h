@@ -9,12 +9,13 @@
 #define LLVM_TRANSFORMS_VECTORIZE_SANDBOXVECTORIZER_SANDBOXVECTORIZER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetTransformInfo;
 
-class SandboxVectorizerPass : public PassInfoMixin<SandboxVectorizerPass> {
+class LLVM_ABI SandboxVectorizerPass : public PassInfoMixin<SandboxVectorizerPass> {
   TargetTransformInfo *TTI = nullptr;
 
 public:

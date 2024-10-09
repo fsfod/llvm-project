@@ -11,6 +11,7 @@
 
 #include "llvm/IR/Value.h"
 #include "llvm/SandboxIR/Use.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
@@ -31,7 +32,7 @@ class IntrinsicInst;
 
 /// Iterator for the `Use` edges of a Value's users.
 /// \Returns a `Use` when dereferenced.
-class UserUseIterator {
+class LLVM_ABI UserUseIterator {
   sandboxir::Use Use;
   /// Don't let the user create a non-empty UserUseIterator.
   UserUseIterator(const class Use &Use) : Use(Use) {}
@@ -57,7 +58,7 @@ public:
 };
 
 /// A SandboxIR Value has users. This is the base class.
-class Value {
+class LLVM_ABI Value {
 public:
   enum class ClassID : unsigned {
 #define DEF_VALUE(ID, CLASS) ID,

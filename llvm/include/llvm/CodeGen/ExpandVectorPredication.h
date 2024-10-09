@@ -10,6 +10,7 @@
 #define LLVM_CODEGEN_EXPANDVECTORPREDICATION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -28,7 +29,7 @@ enum class VPExpansionDetails {
 
 /// Expand a vector predication intrinsic. Returns the kind of expansion
 /// that was applied to the intrinsic.
-VPExpansionDetails
+LLVM_ABI VPExpansionDetails
 expandVectorPredicationIntrinsic(VPIntrinsic &VPI,
                                  const TargetTransformInfo &TTI);
 

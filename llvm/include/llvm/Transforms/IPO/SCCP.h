@@ -21,6 +21,7 @@
 #define LLVM_TRANSFORMS_IPO_SCCP_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -45,7 +46,7 @@ struct IPSCCPOptions {
 };
 
 /// Pass to perform interprocedural constant propagation.
-class IPSCCPPass : public PassInfoMixin<IPSCCPPass> {
+class LLVM_ABI IPSCCPPass : public PassInfoMixin<IPSCCPPass> {
   IPSCCPOptions Options;
 
 public:

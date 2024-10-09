@@ -13,11 +13,12 @@
 #ifndef LLVM_IR_FMF_H
 #define LLVM_IR_FMF_H
 
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 class raw_ostream;
 
 /// Convenience struct for specifying and reasoning about fast-math flags.
-class FastMathFlags {
+class LLVM_ABI FastMathFlags {
 private:
   friend class FPMathOperator;
 

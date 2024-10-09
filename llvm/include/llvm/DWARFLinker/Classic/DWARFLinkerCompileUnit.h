@@ -13,6 +13,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/CodeGen/DIE.h"
 #include "llvm/DebugInfo/DWARF/DWARFUnit.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -60,7 +61,7 @@ using LocListAttributesTy = SmallVector<PatchLocation>;
 
 /// Stores all information relating to a compile unit, be it in its original
 /// instance in the object file to its brand new cloned and generated DIE tree.
-class CompileUnit {
+class LLVM_ABI CompileUnit {
 public:
   /// Information gathered about a DIE in the object file.
   struct DIEInfo {

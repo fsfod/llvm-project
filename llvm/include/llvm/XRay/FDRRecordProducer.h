@@ -8,6 +8,7 @@
 #ifndef LLVM_XRAY_FDRRECORDPRODUCER_H
 #define LLVM_XRAY_FDRRECORDPRODUCER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/XRay/FDRRecords.h"
 #include "llvm/XRay/XRayRecord.h"
@@ -16,7 +17,7 @@
 namespace llvm {
 namespace xray {
 
-class RecordProducer {
+class LLVM_ABI RecordProducer {
 public:
   /// All producer implementations must yield either an Error or a non-nullptr
   /// unique_ptr<Record>.
@@ -24,7 +25,7 @@ public:
   virtual ~RecordProducer() = default;
 };
 
-class FileBasedRecordProducer : public RecordProducer {
+class LLVM_ABI FileBasedRecordProducer : public RecordProducer {
   const XRayFileHeader &Header;
   DataExtractor &E;
   uint64_t &OffsetPtr;

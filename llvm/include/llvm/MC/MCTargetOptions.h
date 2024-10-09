@@ -10,6 +10,7 @@
 #define LLVM_MC_MCTARGETOPTIONS_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Compression.h"
 #include <string>
 #include <vector>
@@ -36,7 +37,7 @@ enum class EmitDwarfUnwindType {
 
 class StringRef;
 
-class MCTargetOptions {
+class LLVM_ABI MCTargetOptions {
 public:
   enum AsmInstrumentation {
     AsmInstrumentationNone,

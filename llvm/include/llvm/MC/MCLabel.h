@@ -13,6 +13,7 @@
 #ifndef LLVM_MC_MCLABEL_H
 #define LLVM_MC_MCLABEL_H
 
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 
 class raw_ostream;
@@ -20,7 +21,7 @@ class raw_ostream;
 /// Instances of this class represent a label name in the MC file,
 /// and MCLabel are created and uniqued by the MCContext class.  MCLabel
 /// should only be constructed for valid instances in the object file.
-class MCLabel {
+class LLVM_ABI MCLabel {
   // The instance number of this Directional Local Label.
   unsigned Instance;
 

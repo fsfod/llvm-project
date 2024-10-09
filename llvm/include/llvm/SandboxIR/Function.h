@@ -11,10 +11,11 @@
 
 #include "llvm/IR/Function.h"
 #include "llvm/SandboxIR/Constant.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
-class Function : public GlobalWithNodeAPI<Function, llvm::Function,
+class LLVM_ABI Function : public GlobalWithNodeAPI<Function, llvm::Function,
                                           GlobalObject, llvm::GlobalObject> {
   /// Helper for mapped_iterator.
   struct LLVMBBToBB {

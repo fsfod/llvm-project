@@ -18,12 +18,13 @@
 #define LLVM_TRANSFORMS_COROUTINES_COROANNOTATIONELIDE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-struct CoroAnnotationElidePass : PassInfoMixin<CoroAnnotationElidePass> {
+struct LLVM_ABI CoroAnnotationElidePass : PassInfoMixin<CoroAnnotationElidePass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM);
   static bool isRequired() { return false; }
 };

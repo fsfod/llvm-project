@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_MACHINEVERIFIER_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 
 namespace llvm {
-class MachineVerifierPass : public PassInfoMixin<MachineVerifierPass> {
+class LLVM_ABI MachineVerifierPass : public PassInfoMixin<MachineVerifierPass> {
   std::string Banner;
 
 public:

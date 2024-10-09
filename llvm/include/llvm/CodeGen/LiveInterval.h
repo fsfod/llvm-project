@@ -29,6 +29,7 @@
 #include "llvm/CodeGen/SlotIndexes.h"
 #include "llvm/MC/LaneBitmask.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 #include <algorithm>
 #include <cassert>
@@ -154,12 +155,12 @@ namespace llvm {
   /// The Segments are organized in a static single assignment form: At places
   /// where a new value is defined or different values reach a CFG join a new
   /// segment with a new value number is used.
-  class LiveRange {
+  class LLVM_ABI LiveRange {
   public:
     /// This represents a simple continuous liveness interval for a value.
     /// The start point is inclusive, the end point exclusive. These intervals
     /// are rendered as [start,end).
-    struct Segment {
+    struct LLVM_ABI Segment {
       SlotIndex start;  // Start point of the interval (inclusive)
       SlotIndex end;    // End point of the interval (exclusive)
       VNInfo *valno = nullptr; // identifier for the value contained in this
@@ -684,14 +685,14 @@ namespace llvm {
 
   /// LiveInterval - This class represents the liveness of a register,
   /// or stack slot.
-  class LiveInterval : public LiveRange {
+  class LLVM_ABI LiveInterval : public LiveRange {
   public:
     using super = LiveRange;
 
     /// A live range for subregisters. The LaneMask specifies which parts of the
     /// super register are covered by the interval.
     /// (@sa TargetRegisterInfo::getSubRegIndexLaneMask()).
-    class SubRange : public LiveRange {
+    class LLVM_ABI SubRange : public LiveRange {
     public:
       SubRange *Next = nullptr;
       LaneBitmask LaneMask;
@@ -922,7 +923,7 @@ namespace llvm {
     return OS;
   }
 
-  raw_ostream &operator<<(raw_ostream &OS, const LiveRange::Segment &S);
+  LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const LiveRange::Segment &S);
 
   inline bool operator<(SlotIndex V, const LiveRange::Segment &S) {
     return V < S.start;
@@ -940,7 +941,7 @@ namespace llvm {
   /// many segments in order.
   ///
   /// The LiveRange will be in an invalid state until flush() is called.
-  class LiveRangeUpdater {
+  class LLVM_ABI LiveRangeUpdater {
     LiveRange *LR;
     SlotIndex LastStart;
     LiveRange::iterator WriteI;
@@ -1004,7 +1005,7 @@ namespace llvm {
   ///     ConEQ.Distribute(LIS);
   /// }
 
-  class ConnectedVNInfoEqClasses {
+  class LLVM_ABI ConnectedVNInfoEqClasses {
     LiveIntervals &LIS;
     IntEqClasses EqClass;
 

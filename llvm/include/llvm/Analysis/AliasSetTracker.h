@@ -25,6 +25,7 @@
 #include "llvm/Analysis/MemoryLocation.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/ValueHandle.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <vector>
 
@@ -45,7 +46,7 @@ class raw_ostream;
 class VAArgInst;
 class Value;
 
-class AliasSet : public ilist_node<AliasSet> {
+class LLVM_ABI AliasSet : public ilist_node<AliasSet> {
   friend class AliasSetTracker;
 
   // Forwarding pointer.
@@ -158,7 +159,7 @@ inline raw_ostream& operator<<(raw_ostream &OS, const AliasSet &AS) {
   return OS;
 }
 
-class AliasSetTracker {
+class LLVM_ABI AliasSetTracker {
   BatchAAResults &AA;
   ilist<AliasSet> AliasSets;
 
@@ -266,7 +267,7 @@ inline raw_ostream& operator<<(raw_ostream &OS, const AliasSetTracker &AST) {
   return OS;
 }
 
-class AliasSetsPrinterPass : public PassInfoMixin<AliasSetsPrinterPass> {
+class LLVM_ABI AliasSetsPrinterPass : public PassInfoMixin<AliasSetsPrinterPass> {
   raw_ostream &OS;
 
 public:

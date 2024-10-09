@@ -12,6 +12,7 @@
 #include "llvm/Analysis/CGSCCPassManager.h"
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -24,22 +25,22 @@ using Kernel = Function *;
 using KernelSet = SetVector<Kernel>;
 
 /// Helper to determine if \p M contains OpenMP.
-bool containsOpenMP(Module &M);
+LLVM_ABI bool containsOpenMP(Module &M);
 
 /// Helper to determine if \p M is a OpenMP target offloading device module.
-bool isOpenMPDevice(Module &M);
+LLVM_ABI bool isOpenMPDevice(Module &M);
 
 /// Return true iff \p Fn is an OpenMP GPU kernel; \p Fn has the "kernel"
 /// attribute.
-bool isOpenMPKernel(Function &Fn);
+LLVM_ABI bool isOpenMPKernel(Function &Fn);
 
 /// Get OpenMP device kernels in \p M.
-KernelSet getDeviceKernels(Module &M);
+LLVM_ABI KernelSet getDeviceKernels(Module &M);
 
 } // namespace omp
 
 /// OpenMP optimizations pass.
-class OpenMPOptPass : public PassInfoMixin<OpenMPOptPass> {
+class LLVM_ABI OpenMPOptPass : public PassInfoMixin<OpenMPOptPass> {
 public:
   OpenMPOptPass() = default;
   OpenMPOptPass(ThinOrFullLTOPhase LTOPhase) : LTOPhase(LTOPhase) {}
@@ -50,7 +51,7 @@ private:
   const ThinOrFullLTOPhase LTOPhase = ThinOrFullLTOPhase::None;
 };
 
-class OpenMPOptCGSCCPass : public PassInfoMixin<OpenMPOptCGSCCPass> {
+class LLVM_ABI OpenMPOptCGSCCPass : public PassInfoMixin<OpenMPOptCGSCCPass> {
 public:
   OpenMPOptCGSCCPass() = default;
   OpenMPOptCGSCCPass(ThinOrFullLTOPhase LTOPhase) : LTOPhase(LTOPhase) {}

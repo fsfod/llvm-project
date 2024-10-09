@@ -74,11 +74,11 @@ class TargetSubtargetInfo;
 struct WasmEHFuncInfo;
 struct WinEHFuncInfo;
 
-template <> struct ilist_alloc_traits<MachineBasicBlock> {
+template <> struct LLVM_ABI ilist_alloc_traits<MachineBasicBlock> {
   void deleteNode(MachineBasicBlock *MBB);
 };
 
-template <> struct ilist_callback_traits<MachineBasicBlock> {
+template <> struct LLVM_ABI ilist_callback_traits<MachineBasicBlock> {
   void addNodeToList(MachineBasicBlock* N);
   void removeNodeFromList(MachineBasicBlock* N);
 
@@ -92,7 +92,7 @@ template <> struct ilist_callback_traits<MachineBasicBlock> {
 /// hold private target-specific information for each MachineFunction.  Objects
 /// of type are accessed/created with MF::getInfo and destroyed when the
 /// MachineFunction is destroyed.
-struct MachineFunctionInfo {
+struct LLVM_ABI MachineFunctionInfo {
   virtual ~MachineFunctionInfo();
 
   /// Factory function: default behavior is to call new using the
@@ -125,7 +125,7 @@ struct MachineFunctionInfo {
 /// Properties which a MachineFunction may have at a given point in time.
 /// Each of these has checking code in the MachineVerifier, and passes can
 /// require that a property be set.
-class MachineFunctionProperties {
+class LLVM_ABI MachineFunctionProperties {
   // Possible TODO: Allow targets to extend this (perhaps by allowing the
   // constructor to specify the size of the bit vector)
   // Possible TODO: Allow requiring the negative (e.g. VRegsAllocated could be
@@ -455,7 +455,7 @@ public:
     }
   };
 
-  class Delegate {
+  class LLVM_ABI Delegate {
     virtual void anchor();
 
   public:
@@ -1476,7 +1476,7 @@ template <> struct GraphTraits<Inverse<const MachineFunction*>> :
   }
 };
 
-void verifyMachineFunction(const std::string &Banner,
+LLVM_ABI void verifyMachineFunction(const std::string &Banner,
                            const MachineFunction &MF);
 
 } // end namespace llvm

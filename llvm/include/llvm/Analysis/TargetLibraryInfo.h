@@ -13,6 +13,7 @@
 #include "llvm/IR/InstrTypes.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TargetParser/Triple.h"
 #include <bitset>
 #include <optional>
@@ -37,7 +38,7 @@ template <typename T> class ArrayRef;
 /// <vparams> = "v", as many as are the numArgs.
 /// <scalarname> = the name of the scalar function.
 /// <vectorname> = the name of the vector function.
-class VecDesc {
+class LLVM_ABI VecDesc {
   StringRef ScalarFnName;
   StringRef VectorFnName;
   ElementCount VectorizationFactor;
@@ -77,7 +78,7 @@ public:
 /// make it available. However, it is somewhat expensive to compute and only
 /// depends on the triple. So users typically interact with the \c
 /// TargetLibraryInfo wrapper below.
-class TargetLibraryInfoImpl {
+class LLVM_ABI TargetLibraryInfoImpl {
   friend class TargetLibraryInfo;
 
   unsigned char AvailableArray[(NumLibFuncs+3)/4];
@@ -597,7 +598,7 @@ public:
 ///
 /// Note that this pass's result cannot be invalidated, it is immutable for the
 /// life of the module.
-class TargetLibraryAnalysis : public AnalysisInfoMixin<TargetLibraryAnalysis> {
+class LLVM_ABI TargetLibraryAnalysis : public AnalysisInfoMixin<TargetLibraryAnalysis> {
 public:
   typedef TargetLibraryInfo Result;
 
@@ -622,7 +623,7 @@ private:
   std::optional<TargetLibraryInfoImpl> BaselineInfoImpl;
 };
 
-class TargetLibraryInfoWrapperPass : public ImmutablePass {
+class LLVM_ABI TargetLibraryInfoWrapperPass : public ImmutablePass {
   TargetLibraryAnalysis TLA;
   std::optional<TargetLibraryInfo> TLI;
 

@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_SHADOWSTACKGCLOWERING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class ShadowStackGCLoweringPass
+class LLVM_ABI ShadowStackGCLoweringPass
     : public PassInfoMixin<ShadowStackGCLoweringPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);

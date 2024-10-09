@@ -13,6 +13,7 @@
 
 #include "llvm/ADT/StringMap.h"
 #include "llvm/IR/LLVMContext.h"
+#include "llvm/Support/Compiler.h"
 
 #include <memory>
 #include <optional>
@@ -59,7 +60,7 @@ enum class TensorType {
       Total
 };
 
-class TensorSpec final {
+class LLVM_ABI TensorSpec final {
 public:
   template <typename T>
   static TensorSpec createSpec(const std::string &Name,
@@ -112,7 +113,7 @@ private:
 };
 
 /// For debugging.
-std::string tensorValueToString(const char *Buffer, const TensorSpec &Spec);
+LLVM_ABI std::string tensorValueToString(const char *Buffer, const TensorSpec &Spec);
 
 /// Construct a TensorSpec from a JSON dictionary of the form:
 /// { "name": <string>,
@@ -121,7 +122,7 @@ std::string tensorValueToString(const char *Buffer, const TensorSpec &Spec);
 ///   "shape": <array of ints> }
 /// For the "type" field, see the C++ primitive types used in
 /// TFUTILS_SUPPORTED_TYPES.
-std::optional<TensorSpec> getTensorSpecFromJSON(LLVMContext &Ctx,
+LLVM_ABI std::optional<TensorSpec> getTensorSpecFromJSON(LLVMContext &Ctx,
                                                 const json::Value &Value);
 
 #define TFUTILS_GETDATATYPE_DEF(T, Name)                                       \

@@ -31,6 +31,7 @@
 #define LLVM_REMARKS_REMARKSTREAMER_H
 
 #include "llvm/Remarks/RemarkSerializer.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/Regex.h"
 #include <memory>
@@ -41,7 +42,7 @@ namespace llvm {
 class raw_ostream;
 
 namespace remarks {
-class RemarkStreamer final {
+class LLVM_ABI RemarkStreamer final {
   /// The regex used to filter remarks based on the passes that emit them.
   std::optional<Regex> PassFilter;
   /// The object used to serialize the remarks to a specific format.

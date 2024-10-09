@@ -22,6 +22,7 @@
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/BranchProbability.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <memory>
@@ -109,7 +110,7 @@ class Value;
 /// estimated as PH_TAKEN_WEIGHT/(PH_TAKEN_WEIGHT + PH_NONTAKEN_WEIGHT). If
 /// no local heuristic has been matched then branch is left with no explicit
 /// probability set and assumed to have default probability.
-class BranchProbabilityInfo {
+class LLVM_ABI BranchProbabilityInfo {
 public:
   BranchProbabilityInfo() = default;
 
@@ -211,7 +212,7 @@ public:
   void eraseBlock(const BasicBlock *BB);
 
   // Data structure to track SCCs for handling irreducible loops.
-  class SccInfo {
+  class LLVM_ABI SccInfo {
     // Enum of types to classify basic blocks in SCC. Basic block belonging to
     // SCC is 'Inner' until it is either 'Header' or 'Exiting'. Note that a
     // basic block can be 'Header' and 'Exiting' at the same time.
@@ -295,7 +296,7 @@ private:
   /// SCC based loop representations.
   using LoopData = std::pair<Loop *, int>;
   /// Helper class to keep basic block along with its loop data information.
-  class LoopBlock {
+  class LLVM_ABI LoopBlock {
   public:
     explicit LoopBlock(const BasicBlock *BB, const LoopInfo &LI,
                        const SccInfo &SccI);
@@ -421,7 +422,7 @@ private:
 };
 
 /// Analysis pass which computes \c BranchProbabilityInfo.
-class BranchProbabilityAnalysis
+class LLVM_ABI BranchProbabilityAnalysis
     : public AnalysisInfoMixin<BranchProbabilityAnalysis> {
   friend AnalysisInfoMixin<BranchProbabilityAnalysis>;
 
@@ -436,7 +437,7 @@ public:
 };
 
 /// Printer pass for the \c BranchProbabilityAnalysis results.
-class BranchProbabilityPrinterPass
+class LLVM_ABI BranchProbabilityPrinterPass
     : public PassInfoMixin<BranchProbabilityPrinterPass> {
   raw_ostream &OS;
 
@@ -449,7 +450,7 @@ public:
 };
 
 /// Legacy analysis pass which computes \c BranchProbabilityInfo.
-class BranchProbabilityInfoWrapperPass : public FunctionPass {
+class LLVM_ABI BranchProbabilityInfoWrapperPass : public FunctionPass {
   BranchProbabilityInfo BPI;
 
 public:

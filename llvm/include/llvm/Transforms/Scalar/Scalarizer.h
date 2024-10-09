@@ -19,6 +19,7 @@
 #define LLVM_TRANSFORMS_SCALAR_SCALARIZER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -48,7 +49,7 @@ struct ScalarizerPassOptions {
   bool ScalarizeLoadStore = false;
 };
 
-class ScalarizerPass : public PassInfoMixin<ScalarizerPass> {
+class LLVM_ABI ScalarizerPass : public PassInfoMixin<ScalarizerPass> {
   ScalarizerPassOptions Options;
 
 public:
@@ -65,7 +66,7 @@ public:
 };
 
 /// Create a legacy pass manager instance of the Scalarizer pass
-FunctionPass *createScalarizerPass(
+LLVM_ABI FunctionPass *createScalarizerPass(
     const ScalarizerPassOptions &Options = ScalarizerPassOptions());
 }
 

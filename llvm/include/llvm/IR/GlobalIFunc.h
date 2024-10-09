@@ -22,6 +22,7 @@
 #include "llvm/IR/GlobalObject.h"
 #include "llvm/IR/OperandTraits.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -31,7 +32,7 @@ class Module;
 // Traits class for using GlobalIFunc in symbol table in Module.
 template <typename ValueSubClass, typename... Args> class SymbolTableListTraits;
 
-class GlobalIFunc final : public GlobalObject, public ilist_node<GlobalIFunc> {
+class LLVM_ABI GlobalIFunc final : public GlobalObject, public ilist_node<GlobalIFunc> {
   friend class SymbolTableListTraits<GlobalIFunc>;
 
   constexpr static IntrusiveOperandsAllocMarker AllocMarker{1};

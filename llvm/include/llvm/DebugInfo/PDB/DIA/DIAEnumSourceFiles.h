@@ -12,12 +12,13 @@
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBEnumChildren.h"
 #include "llvm/DebugInfo/PDB/IPDBSourceFile.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIAEnumSourceFiles : public IPDBEnumChildren<IPDBSourceFile> {
+class LLVM_ABI DIAEnumSourceFiles : public IPDBEnumChildren<IPDBSourceFile> {
 public:
   explicit DIAEnumSourceFiles(const DIASession &PDBSession,
                               CComPtr<IDiaEnumSourceFiles> DiaEnumerator);

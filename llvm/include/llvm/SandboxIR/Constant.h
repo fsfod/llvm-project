@@ -22,6 +22,7 @@
 #include "llvm/SandboxIR/Context.h"
 #include "llvm/SandboxIR/Type.h"
 #include "llvm/SandboxIR/User.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
@@ -65,7 +66,7 @@ public:
 };
 
 // TODO: This should inherit from ConstantData.
-class ConstantInt : public Constant {
+class LLVM_ABI ConstantInt : public Constant {
   ConstantInt(llvm::ConstantInt *C, Context &Ctx)
       : Constant(ClassID::ConstantInt, C, Ctx) {}
   friend class Context; // For constructor.
@@ -253,7 +254,7 @@ public:
 };
 
 // TODO: This should inherit from ConstantData.
-class ConstantFP final : public Constant {
+class LLVM_ABI ConstantFP final : public Constant {
   ConstantFP(llvm::ConstantFP *C, Context &Ctx)
       : Constant(ClassID::ConstantFP, C, Ctx) {}
   friend class Context; // For constructor.
@@ -355,7 +356,7 @@ public:
   }
 };
 
-class ConstantArray final : public ConstantAggregate {
+class LLVM_ABI ConstantArray final : public ConstantAggregate {
   ConstantArray(llvm::ConstantArray *C, Context &Ctx)
       : ConstantAggregate(ClassID::ConstantArray, C, Ctx) {}
   friend class Context; // For constructor.
@@ -372,7 +373,7 @@ public:
   }
 };
 
-class ConstantStruct final : public ConstantAggregate {
+class LLVM_ABI ConstantStruct final : public ConstantAggregate {
   ConstantStruct(llvm::ConstantStruct *C, Context &Ctx)
       : ConstantAggregate(ClassID::ConstantStruct, C, Ctx) {}
   friend class Context; // For constructor.
@@ -432,7 +433,7 @@ public:
 };
 
 // TODO: Inherit from ConstantData.
-class ConstantAggregateZero final : public Constant {
+class LLVM_ABI ConstantAggregateZero final : public Constant {
   ConstantAggregateZero(llvm::ConstantAggregateZero *C, Context &Ctx)
       : Constant(ClassID::ConstantAggregateZero, C, Ctx) {}
   friend class Context; // For constructor.
@@ -474,7 +475,7 @@ public:
 };
 
 // TODO: Inherit from ConstantData.
-class ConstantPointerNull final : public Constant {
+class LLVM_ABI ConstantPointerNull final : public Constant {
   ConstantPointerNull(llvm::ConstantPointerNull *C, Context &Ctx)
       : Constant(ClassID::ConstantPointerNull, C, Ctx) {}
   friend class Context; // For constructor.
@@ -503,7 +504,7 @@ public:
 };
 
 // TODO: Inherit from ConstantData.
-class UndefValue : public Constant {
+class LLVM_ABI UndefValue : public Constant {
 protected:
   UndefValue(llvm::UndefValue *C, Context &Ctx)
       : Constant(ClassID::UndefValue, C, Ctx) {}
@@ -554,7 +555,7 @@ public:
 #endif
 };
 
-class PoisonValue final : public UndefValue {
+class LLVM_ABI PoisonValue final : public UndefValue {
   PoisonValue(llvm::PoisonValue *C, Context &Ctx)
       : UndefValue(ClassID::PoisonValue, C, Ctx) {}
   friend class Context; // For constructor.
@@ -593,7 +594,7 @@ public:
 #endif
 };
 
-class GlobalValue : public Constant {
+class LLVM_ABI GlobalValue : public Constant {
 protected:
   GlobalValue(ClassID ID, llvm::GlobalValue *C, Context &Ctx)
       : Constant(ID, C, Ctx) {}
@@ -662,7 +663,7 @@ public:
   // TODO: Add missing functions.
 };
 
-class GlobalObject : public GlobalValue {
+class LLVM_ABI GlobalObject : public GlobalValue {
 protected:
   GlobalObject(ClassID ID, llvm::GlobalObject *C, Context &Ctx)
       : GlobalValue(ID, C, Ctx) {}
@@ -797,7 +798,7 @@ public:
   }
 };
 
-class GlobalIFunc final
+class LLVM_ABI GlobalIFunc final
     : public GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
                                llvm::GlobalObject> {
   GlobalIFunc(llvm::GlobalObject *C, Context &Ctx)
@@ -843,7 +844,7 @@ public:
 #endif
 };
 
-class GlobalVariable final
+class LLVM_ABI GlobalVariable final
     : public GlobalWithNodeAPI<GlobalVariable, llvm::GlobalVariable,
                                GlobalObject, llvm::GlobalObject> {
   GlobalVariable(llvm::GlobalObject *C, Context &Ctx)
@@ -851,7 +852,7 @@ class GlobalVariable final
   friend class Context; // For constructor.
 
   /// Helper for mapped_iterator.
-  struct LLVMGVToGV {
+  struct LLVM_ABI LLVMGVToGV {
     Context &Ctx;
     LLVMGVToGV(Context &Ctx) : Ctx(Ctx) {}
     GlobalVariable &operator()(llvm::GlobalVariable &LLVMGV) const;
@@ -999,7 +1000,7 @@ public:
 #endif
 };
 
-class GlobalAlias final
+class LLVM_ABI GlobalAlias final
     : public GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
                                llvm::GlobalValue> {
   GlobalAlias(llvm::GlobalAlias *C, Context &Ctx)
@@ -1031,7 +1032,7 @@ public:
   }
 };
 
-class NoCFIValue final : public Constant {
+class LLVM_ABI NoCFIValue final : public Constant {
   NoCFIValue(llvm::NoCFIValue *C, Context &Ctx)
       : Constant(ClassID::NoCFIValue, C, Ctx) {}
   friend class Context; // For constructor.
@@ -1068,7 +1069,7 @@ public:
 #endif
 };
 
-class ConstantPtrAuth final : public Constant {
+class LLVM_ABI ConstantPtrAuth final : public Constant {
   ConstantPtrAuth(llvm::ConstantPtrAuth *C, Context &Ctx)
       : Constant(ClassID::ConstantPtrAuth, C, Ctx) {}
   friend class Context; // For constructor.
@@ -1137,7 +1138,7 @@ public:
   // TODO: Missing functions.
 };
 
-class BlockAddress final : public Constant {
+class LLVM_ABI BlockAddress final : public Constant {
   BlockAddress(llvm::BlockAddress *C, Context &Ctx)
       : Constant(ClassID::BlockAddress, C, Ctx) {}
   friend class Context; // For constructor.
@@ -1164,7 +1165,7 @@ public:
   }
 };
 
-class DSOLocalEquivalent final : public Constant {
+class LLVM_ABI DSOLocalEquivalent final : public Constant {
   DSOLocalEquivalent(llvm::DSOLocalEquivalent *C, Context &Ctx)
       : Constant(ClassID::DSOLocalEquivalent, C, Ctx) {}
   friend class Context; // For constructor.
@@ -1197,7 +1198,7 @@ public:
 };
 
 // TODO: This should inherit from ConstantData.
-class ConstantTokenNone final : public Constant {
+class LLVM_ABI ConstantTokenNone final : public Constant {
   ConstantTokenNone(llvm::ConstantTokenNone *C, Context &Ctx)
       : Constant(ClassID::ConstantTokenNone, C, Ctx) {}
   friend class Context; // For constructor.

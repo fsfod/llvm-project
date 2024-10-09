@@ -11,14 +11,15 @@
 
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseMap.h"
-#include "llvm/ADT/iterator_range.h"
 #include "llvm/ADT/SmallString.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/Twine.h"
+#include "llvm/ADT/iterator_range.h"
 #include "llvm/Option/Arg.h"
 #include "llvm/Option/OptSpecifier.h"
 #include "llvm/Option/Option.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cstddef>
 #include <initializer_list>
@@ -113,7 +114,7 @@ public:
 /// auxiliary data and convenience methods to allow Tools to quickly
 /// check for the presence of Arg instances for a particular Option
 /// and to iterate over groups of arguments.
-class ArgList {
+class LLVM_ABI ArgList {
 public:
   using arglist_type = SmallVector<Arg *, 16>;
   using iterator = arg_iterator<arglist_type::iterator>;
@@ -390,7 +391,7 @@ public:
   /// @}
 };
 
-class InputArgList final : public ArgList {
+class LLVM_ABI InputArgList final : public ArgList {
 private:
   /// List of argument strings used by the contained Args.
   ///
@@ -463,7 +464,7 @@ public:
 
 /// DerivedArgList - An ordered collection of driver arguments,
 /// whose storage may be in another argument list.
-class DerivedArgList final : public ArgList {
+class LLVM_ABI DerivedArgList final : public ArgList {
   const InputArgList &BaseArgs;
 
   /// The list of arguments we synthesized.

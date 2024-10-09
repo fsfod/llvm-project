@@ -18,6 +18,7 @@
 #include "llvm/ExecutionEngine/Orc/ExecutorProcessControl.h"
 #include "llvm/ExecutionEngine/Orc/ObjectLinkingLayer.h"
 #include "llvm/ExecutionEngine/Orc/Shared/ExecutorAddress.h"
+#include "llvm/Support/Compiler.h"
 
 #include <future>
 #include <thread>
@@ -27,7 +28,7 @@ namespace llvm {
 namespace orc {
 
 /// Mediates between MachO initialization and ExecutionSession state.
-class MachOPlatform : public Platform {
+class LLVM_ABI MachOPlatform : public Platform {
 public:
   // Used internally by MachOPlatform, but made public to enable serialization.
   struct MachOJITDylibDepInfo {
@@ -58,7 +59,7 @@ public:
       uint32_t CompatibilityVersion;
     };
 
-    struct BuildVersionOpts {
+    struct LLVM_ABI BuildVersionOpts {
 
       // Derive platform from triple if possible.
       static std::optional<BuildVersionOpts>
@@ -194,7 +195,7 @@ private:
   // The MachOPlatformPlugin scans/modifies LinkGraphs to support MachO
   // platform features including initializers, exceptions, TLV, and language
   // runtime registration.
-  class MachOPlatformPlugin : public ObjectLinkingLayer::Plugin {
+  class LLVM_ABI MachOPlatformPlugin : public ObjectLinkingLayer::Plugin {
   public:
     MachOPlatformPlugin(MachOPlatform &MP) : MP(MP) {}
 
@@ -373,7 +374,7 @@ private:
 };
 
 // Generates a MachO header.
-class SimpleMachOHeaderMU : public MaterializationUnit {
+class LLVM_ABI SimpleMachOHeaderMU : public MaterializationUnit {
 public:
   SimpleMachOHeaderMU(MachOPlatform &MOP, SymbolStringPtr HeaderStartSymbol,
                       MachOPlatform::HeaderOptions Opts);
@@ -417,7 +418,7 @@ struct MachOHeaderInfo {
   uint32_t CPUType = 0;
   uint32_t CPUSubType = 0;
 };
-MachOHeaderInfo getMachOHeaderInfoFromTriple(const Triple &TT);
+LLVM_ABI MachOHeaderInfo getMachOHeaderInfoFromTriple(const Triple &TT);
 
 } // end namespace orc
 } // end namespace llvm

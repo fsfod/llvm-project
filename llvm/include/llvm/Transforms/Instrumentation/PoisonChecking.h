@@ -10,10 +10,11 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_POISONCHECKING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct PoisonCheckingPass : public PassInfoMixin<PoisonCheckingPass> {
+struct LLVM_ABI PoisonCheckingPass : public PassInfoMixin<PoisonCheckingPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

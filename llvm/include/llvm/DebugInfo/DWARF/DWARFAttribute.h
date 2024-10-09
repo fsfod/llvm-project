@@ -11,6 +11,7 @@
 
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/DebugInfo/DWARF/DWARFFormValue.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
@@ -21,7 +22,7 @@ namespace llvm {
 ///
 /// This class is designed to be used by clients that want to iterate across all
 /// attributes in a DWARFDie.
-struct DWARFAttribute {
+struct LLVM_ABI DWARFAttribute {
   /// The debug info/types offset for this attribute.
   uint64_t Offset = 0;
   /// The debug info/types section byte size of the data for this attribute.

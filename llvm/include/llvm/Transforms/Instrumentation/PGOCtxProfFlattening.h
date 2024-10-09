@@ -13,9 +13,10 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_PGOCTXPROFFLATTENING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 
-class PGOCtxProfFlatteningPass
+class LLVM_ABI PGOCtxProfFlatteningPass
     : public PassInfoMixin<PGOCtxProfFlatteningPass> {
 public:
   explicit PGOCtxProfFlatteningPass() = default;

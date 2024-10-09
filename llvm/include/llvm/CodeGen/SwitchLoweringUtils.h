@@ -14,6 +14,7 @@
 #include "llvm/CodeGen/SelectionDAGNodes.h"
 #include "llvm/IR/InstrTypes.h"
 #include "llvm/Support/BranchProbability.h"
+#include "llvm/Support/Compiler.h"
 #include <vector>
 
 namespace llvm {
@@ -87,7 +88,7 @@ using CaseClusterVector = std::vector<CaseCluster>;
 using CaseClusterIt = CaseClusterVector::iterator;
 
 /// Sort Clusters and merge adjacent cases.
-void sortAndRangeify(CaseClusterVector &Clusters);
+LLVM_ABI void sortAndRangeify(CaseClusterVector &Clusters);
 
 struct CaseBits {
   uint64_t Mask = 0;
@@ -238,11 +239,11 @@ struct BitTestBlock {
 };
 
 /// Return the range of values within a range.
-uint64_t getJumpTableRange(const CaseClusterVector &Clusters, unsigned First,
+LLVM_ABI uint64_t getJumpTableRange(const CaseClusterVector &Clusters, unsigned First,
                            unsigned Last);
 
 /// Return the number of cases within a range.
-uint64_t getJumpTableNumCases(const SmallVectorImpl<unsigned> &TotalCases,
+LLVM_ABI uint64_t getJumpTableNumCases(const SmallVectorImpl<unsigned> &TotalCases,
                               unsigned First, unsigned Last);
 
 struct SwitchWorkListItem {
@@ -255,7 +256,7 @@ struct SwitchWorkListItem {
 };
 using SwitchWorkList = SmallVector<SwitchWorkListItem, 4>;
 
-class SwitchLowering {
+class LLVM_ABI SwitchLowering {
 public:
   SwitchLowering(FunctionLoweringInfo &funcinfo) : FuncInfo(funcinfo) {}
 

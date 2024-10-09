@@ -14,6 +14,7 @@
 #include "llvm/ADT/SetVector.h"
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/SandboxIR/Instruction.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm::sandboxir {
@@ -51,7 +52,7 @@ namespace llvm::sandboxir {
 //  |Rgn3| -> Transform1 ->  ... -> TransformN -> Check Cost
 //  +----+
 
-class Region {
+class LLVM_ABI Region {
   /// All the instructions in the Region. Only new instructions generated during
   /// vectorization are part of the Region.
   SetVector<Instruction *> Insts;

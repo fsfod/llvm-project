@@ -17,6 +17,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Option/Option.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 
 namespace llvm {
@@ -31,7 +32,7 @@ class ArgList;
 ///
 /// The Arg class encodes just enough information to be able to
 /// derive the argument values efficiently.
-class Arg {
+class LLVM_ABI Arg {
 private:
   /// The option this argument is an instance of.
   const Option Opt;

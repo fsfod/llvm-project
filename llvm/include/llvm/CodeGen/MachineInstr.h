@@ -29,6 +29,7 @@
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/MC/MCSymbol.h"
 #include "llvm/Support/ArrayRecycler.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Support/TrailingObjects.h"
 #include <algorithm>
@@ -64,7 +65,7 @@ class TargetRegisterInfo;
 /// MachineFunction is deleted, all the contained MachineInstrs are deallocated
 /// without having their destructor called.
 ///
-class MachineInstr
+class LLVM_ABI MachineInstr
     : public ilist_node_with_parent<MachineInstr, MachineBasicBlock,
                                     ilist_sentinel_tracking<true>> {
 public:
@@ -2062,7 +2063,7 @@ private:
 /// instruction rather than by pointer value.
 /// The hashing and equality testing functions ignore definitions so this is
 /// useful for CSE, etc.
-struct MachineInstrExpressionTrait : DenseMapInfo<MachineInstr*> {
+struct LLVM_ABI MachineInstrExpressionTrait : DenseMapInfo<MachineInstr*> {
   static inline MachineInstr *getEmptyKey() {
     return nullptr;
   }

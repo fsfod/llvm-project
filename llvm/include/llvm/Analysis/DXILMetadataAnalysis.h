@@ -12,6 +12,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/VersionTuple.h"
 #include "llvm/TargetParser/Triple.h"
 
@@ -31,7 +32,7 @@ struct EntryProperties {
   EntryProperties(const Function *Fn = nullptr) : Entry(Fn) {};
 };
 
-struct ModuleMetadataInfo {
+struct LLVM_ABI ModuleMetadataInfo {
   VersionTuple DXILVersion{};
   VersionTuple ShaderModelVersion{};
   Triple::EnvironmentType ShaderProfile{Triple::UnknownEnvironment};
@@ -43,7 +44,7 @@ struct ModuleMetadataInfo {
 } // namespace dxil
 
 // Module metadata analysis pass for new pass manager
-class DXILMetadataAnalysis : public AnalysisInfoMixin<DXILMetadataAnalysis> {
+class LLVM_ABI DXILMetadataAnalysis : public AnalysisInfoMixin<DXILMetadataAnalysis> {
   friend AnalysisInfoMixin<DXILMetadataAnalysis>;
 
   static AnalysisKey Key;
@@ -55,7 +56,7 @@ public:
 };
 
 /// Printer pass for the \c DXILMetadataAnalysis results.
-class DXILMetadataAnalysisPrinterPass
+class LLVM_ABI DXILMetadataAnalysisPrinterPass
     : public PassInfoMixin<DXILMetadataAnalysisPrinterPass> {
   raw_ostream &OS;
 
@@ -68,7 +69,7 @@ public:
 };
 
 /// Legacy pass
-class DXILMetadataAnalysisWrapperPass : public ModulePass {
+class LLVM_ABI DXILMetadataAnalysisWrapperPass : public ModulePass {
   std::unique_ptr<dxil::ModuleMetadataInfo> MetadataInfo;
 
 public:

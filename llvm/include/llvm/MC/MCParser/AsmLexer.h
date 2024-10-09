@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/MC/MCParser/MCAsmLexer.h"
+#include "llvm/Support/Compiler.h"
 #include <string>
 
 namespace llvm {
@@ -22,7 +23,7 @@ namespace llvm {
 class MCAsmInfo;
 
 /// AsmLexer - Lexer class for assembly files.
-class AsmLexer : public MCAsmLexer {
+class LLVM_ABI AsmLexer : public MCAsmLexer {
   const MCAsmInfo &MAI;
 
   const char *CurPtr = nullptr;

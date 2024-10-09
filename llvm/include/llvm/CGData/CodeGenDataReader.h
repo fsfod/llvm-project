@@ -15,12 +15,13 @@
 
 #include "llvm/CGData/CodeGenData.h"
 #include "llvm/CGData/OutlinedHashTreeRecord.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/LineIterator.h"
 #include "llvm/Support/VirtualFileSystem.h"
 
 namespace llvm {
 
-class CodeGenDataReader {
+class LLVM_ABI CodeGenDataReader {
   cgdata_error LastError = cgdata_error::success;
   std::string LastErrorMsg;
 
@@ -83,7 +84,7 @@ protected:
   Error success() { return error(cgdata_error::success); }
 };
 
-class IndexedCodeGenDataReader : public CodeGenDataReader {
+class LLVM_ABI IndexedCodeGenDataReader : public CodeGenDataReader {
   /// The codegen data file contents.
   std::unique_ptr<MemoryBuffer> DataBuffer;
   /// The header
@@ -119,7 +120,7 @@ public:
 /// codegen data is recorded. `#` is used to indicate a comment.
 /// The subsequent data is a YAML format per each codegen data in order.
 /// Currently, it only has a function outlined hash tree.
-class TextCodeGenDataReader : public CodeGenDataReader {
+class LLVM_ABI TextCodeGenDataReader : public CodeGenDataReader {
   /// The codegen data file contents.
   std::unique_ptr<MemoryBuffer> DataBuffer;
   /// Iterator over the profile data.

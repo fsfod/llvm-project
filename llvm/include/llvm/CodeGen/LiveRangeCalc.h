@@ -31,6 +31,7 @@
 #include "llvm/CodeGen/LiveInterval.h"
 #include "llvm/CodeGen/MachineBasicBlock.h"
 #include "llvm/CodeGen/SlotIndexes.h"
+#include "llvm/Support/Compiler.h"
 #include <utility>
 
 namespace llvm {
@@ -42,7 +43,7 @@ class MachineRegisterInfo;
 
 using MachineDomTreeNode = DomTreeNodeBase<MachineBasicBlock>;
 
-class LiveRangeCalc {
+class LLVM_ABI LiveRangeCalc {
   const MachineFunction *MF = nullptr;
   const MachineRegisterInfo *MRI = nullptr;
   SlotIndexes *Indexes = nullptr;

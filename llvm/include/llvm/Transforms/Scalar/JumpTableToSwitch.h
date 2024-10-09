@@ -10,12 +10,13 @@
 #define LLVM_TRANSFORMS_SCALAR_JUMP_TABLE_TO_SWITCH_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-struct JumpTableToSwitchPass : PassInfoMixin<JumpTableToSwitchPass> {
+struct LLVM_ABI JumpTableToSwitchPass : PassInfoMixin<JumpTableToSwitchPass> {
   /// Run the pass over the function.
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

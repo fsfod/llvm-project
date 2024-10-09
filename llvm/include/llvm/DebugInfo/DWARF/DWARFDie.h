@@ -18,6 +18,7 @@
 #include "llvm/DebugInfo/DWARF/DWARFAttribute.h"
 #include "llvm/DebugInfo/DWARF/DWARFDebugInfoEntry.h"
 #include "llvm/DebugInfo/DWARF/DWARFLocationExpression.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <iterator>
@@ -39,7 +40,7 @@ class raw_ostream;
 /// relative offset. This class helps to ensure that this doesn't happen and
 /// also simplifies the attribute extraction calls by not having to specify the
 /// DWARFUnit for each call.
-class DWARFDie {
+class LLVM_ABI DWARFDie {
   DWARFUnit *U = nullptr;
   const DWARFDebugInfoEntry *Die = nullptr;
 
@@ -297,7 +298,7 @@ public:
   iterator_range<iterator> children() const;
 };
 
-class DWARFDie::attribute_iterator
+class LLVM_ABI DWARFDie::attribute_iterator
     : public iterator_facade_base<attribute_iterator, std::forward_iterator_tag,
                                   const DWARFAttribute> {
   /// The DWARF DIE we are extracting attributes from.
@@ -476,8 +477,8 @@ inline std::reverse_iterator<DWARFDie::iterator> DWARFDie::rend() const {
   return std::make_reverse_iterator(begin());
 }
 
-void dumpTypeQualifiedName(const DWARFDie &DIE, raw_ostream &OS);
-void dumpTypeUnqualifiedName(const DWARFDie &DIE, raw_ostream &OS,
+LLVM_ABI void dumpTypeQualifiedName(const DWARFDie &DIE, raw_ostream &OS);
+LLVM_ABI void dumpTypeUnqualifiedName(const DWARFDie &DIE, raw_ostream &OS,
                              std::string *OriginalFullName = nullptr);
 
 } // end namespace llvm

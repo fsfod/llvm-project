@@ -46,6 +46,7 @@
 #include "llvm/Analysis/TargetLibraryInfo.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include <cassert>
 #include <iterator>
@@ -176,7 +177,7 @@ public:
   ///
   /// The sequence itself both iterable and indexable. The indexes remain
   /// stable even as the sequence mutates (including removal).
-  class EdgeSequence {
+  class LLVM_ABI EdgeSequence {
     friend class LazyCallGraph;
     friend class LazyCallGraph::Node;
     friend class LazyCallGraph::RefSCC;
@@ -309,7 +310,7 @@ public:
   /// edges of each node. Until populated, there are no edges. Once populated,
   /// you can access the edges by dereferencing the node or using the `->`
   /// operator as if the node was an `std::optional<EdgeSequence>`.
-  class Node {
+  class LLVM_ABI Node {
     friend class LazyCallGraph;
     friend class LazyCallGraph::RefSCC;
 
@@ -538,7 +539,7 @@ public:
   /// this is deleting a dead function/node, otherwise the dead ref edges are
   /// automatically removed when visiting the function/node no longer containing
   /// the ref edge.
-  class RefSCC {
+  class LLVM_ABI RefSCC {
     friend class LazyCallGraph;
     friend class LazyCallGraph::Node;
 
@@ -934,24 +935,24 @@ public:
   /// This sets up the graph and computes all of the entry points of the graph.
   /// No function definitions are scanned until their nodes in the graph are
   /// requested during traversal.
-  LazyCallGraph(Module &M,
+  LLVM_ABI LazyCallGraph(Module &M,
                 function_ref<TargetLibraryInfo &(Function &)> GetTLI);
 
-  LazyCallGraph(LazyCallGraph &&G);
-  LazyCallGraph &operator=(LazyCallGraph &&RHS);
+  LLVM_ABI LazyCallGraph(LazyCallGraph &&G);
+  LLVM_ABI LazyCallGraph &operator=(LazyCallGraph &&RHS);
 
 #if !defined(NDEBUG) || defined(EXPENSIVE_CHECKS)
   /// Verify that every RefSCC is valid.
   void verify();
 #endif
 
-  bool invalidate(Module &, const PreservedAnalyses &PA,
+  LLVM_ABI bool invalidate(Module &, const PreservedAnalyses &PA,
                   ModuleAnalysisManager::Invalidator &);
 
   EdgeSequence::iterator begin() { return EntryEdges.begin(); }
   EdgeSequence::iterator end() { return EntryEdges.end(); }
 
-  void buildRefSCCs();
+  LLVM_ABI void buildRefSCCs();
 
   postorder_ref_scc_iterator postorder_ref_scc_begin() {
     if (!EntryEdges.empty())
@@ -1029,7 +1030,7 @@ public:
   /// below.
 
   /// Update the call graph after inserting a new edge.
-  void insertEdge(Node &SourceN, Node &TargetN, Edge::Kind EK);
+  LLVM_ABI void insertEdge(Node &SourceN, Node &TargetN, Edge::Kind EK);
 
   /// Update the call graph after inserting a new edge.
   void insertEdge(Function &Source, Function &Target, Edge::Kind EK) {
@@ -1037,7 +1038,7 @@ public:
   }
 
   /// Update the call graph after deleting an edge.
-  void removeEdge(Node &SourceN, Node &TargetN);
+  LLVM_ABI void removeEdge(Node &SourceN, Node &TargetN);
 
   /// Update the call graph after deleting an edge.
   void removeEdge(Function &Source, Function &Target) {
@@ -1058,13 +1059,13 @@ public:
   /// These functions should have already been passed to markDeadFunction().
   /// This is done as a batch to prevent compile time blowup as a result of
   /// handling a single function at a time.
-  void removeDeadFunctions(ArrayRef<Function *> DeadFs);
+  LLVM_ABI void removeDeadFunctions(ArrayRef<Function *> DeadFs);
 
   /// Mark a function as dead to be removed later by removeDeadFunctions().
   ///
   /// The function body should have no incoming or outgoing call or ref edges.
   /// For example, a function with a single "unreachable" instruction.
-  void markDeadFunction(Function &F);
+  LLVM_ABI void markDeadFunction(Function &F);
 
   /// Add a new function split/outlined from an existing function.
   ///
@@ -1077,7 +1078,7 @@ public:
   /// The new function may also reference the original function.
   /// It may end up in a parent SCC in the case that the original function's
   /// edge to the new function is a ref edge, and the edge back is a call edge.
-  void addSplitFunction(Function &OriginalFunction, Function &NewFunction);
+  LLVM_ABI void addSplitFunction(Function &OriginalFunction, Function &NewFunction);
 
   /// Add new ref-recursive functions split/outlined from an existing function.
   ///
@@ -1087,7 +1088,7 @@ public:
   ///
   /// The original function must reference (not call) all new functions.
   /// All new functions must reference (not call) each other.
-  void addSplitRefRecursiveFunctions(Function &OriginalFunction,
+  LLVM_ABI void addSplitRefRecursiveFunctions(Function &OriginalFunction,
                                      ArrayRef<Function *> NewFunctions);
 
   ///@}
@@ -1106,7 +1107,7 @@ public:
   /// updates that set with every constant visited.
   ///
   /// For each defined function, calls \p Callback with that function.
-  static void visitReferences(SmallVectorImpl<Constant *> &Worklist,
+  LLVM_ABI static void visitReferences(SmallVectorImpl<Constant *> &Worklist,
                               SmallPtrSetImpl<Constant *> &Visited,
                               function_ref<void(Function &)> Callback);
 
@@ -1153,15 +1154,15 @@ private:
 
   /// Helper to insert a new function, with an already looked-up entry in
   /// the NodeMap.
-  Node &insertInto(Function &F, Node *&MappedN);
+  LLVM_ABI Node &insertInto(Function &F, Node *&MappedN);
 
   /// Helper to initialize a new node created outside of creating SCCs and add
   /// it to the NodeMap if necessary. For example, useful when a function is
   /// split.
-  Node &initNode(Function &F);
+  LLVM_ABI Node &initNode(Function &F);
 
   /// Helper to update pointers back to the graph object during moves.
-  void updateGraphPtrs();
+  LLVM_ABI void updateGraphPtrs();
 
   /// Allocates an SCC and constructs it using the graph allocator.
   ///
@@ -1195,7 +1196,7 @@ private:
                                FormSCCCallbackT &&FormSCC);
 
   /// Build the SCCs for a RefSCC out of a list of nodes.
-  void buildSCCs(RefSCC &RC, node_stack_range Nodes);
+  LLVM_ABI void buildSCCs(RefSCC &RC, node_stack_range Nodes);
 
   /// Get the index of a RefSCC within the postorder traversal.
   ///
@@ -1256,7 +1257,7 @@ template <> struct GraphTraits<LazyCallGraph *> {
 };
 
 /// An analysis pass which computes the call graph for a module.
-class LazyCallGraphAnalysis : public AnalysisInfoMixin<LazyCallGraphAnalysis> {
+class LLVM_ABI LazyCallGraphAnalysis : public AnalysisInfoMixin<LazyCallGraphAnalysis> {
   friend AnalysisInfoMixin<LazyCallGraphAnalysis>;
 
   static AnalysisKey Key;
@@ -1282,7 +1283,7 @@ public:
 /// A pass which prints the call graph to a \c raw_ostream.
 ///
 /// This is primarily useful for testing the analysis.
-class LazyCallGraphPrinterPass
+class LLVM_ABI LazyCallGraphPrinterPass
     : public PassInfoMixin<LazyCallGraphPrinterPass> {
   raw_ostream &OS;
 
@@ -1297,7 +1298,7 @@ public:
 /// A pass which prints the call graph as a DOT file to a \c raw_ostream.
 ///
 /// This is primarily useful for visualization purposes.
-class LazyCallGraphDOTPrinterPass
+class LLVM_ABI LazyCallGraphDOTPrinterPass
     : public PassInfoMixin<LazyCallGraphDOTPrinterPass> {
   raw_ostream &OS;
 

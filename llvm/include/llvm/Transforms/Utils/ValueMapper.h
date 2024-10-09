@@ -18,6 +18,7 @@
 #include "llvm/ADT/simple_ilist.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/IR/ValueMap.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -38,7 +39,7 @@ using DbgRecordIterator = simple_ilist<DbgRecord>::iterator;
 
 /// This is a class that can be implemented by clients to remap types when
 /// cloning constants and instructions.
-class ValueMapTypeRemapper {
+class LLVM_ABI ValueMapTypeRemapper {
   virtual void anchor(); // Out of line method.
 
 public:
@@ -51,7 +52,7 @@ public:
 
 /// This is a class that can be implemented by clients to materialize Values on
 /// demand.
-class ValueMaterializer {
+class LLVM_ABI ValueMaterializer {
   virtual void anchor(); // Out of line method.
 
 protected:
@@ -146,7 +147,7 @@ inline RemapFlags operator|(RemapFlags LHS, RemapFlags RHS) {
 ///
 /// TODO: Update callers of \a RemapInstruction() and \a MapValue() (etc.) to
 /// use \a ValueMapper directly.
-class ValueMapper {
+class LLVM_ABI ValueMapper {
   void *pImpl;
 
 public:

@@ -10,12 +10,13 @@
 #define LLVM_LIB_TRANSFORMS_VECTORIZE_LOOPIDIOMVECTORIZE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Scalar/LoopPassManager.h"
 
 namespace llvm {
 enum class LoopIdiomVectorizeStyle { Masked, Predicated };
 
-class LoopIdiomVectorizePass : public PassInfoMixin<LoopIdiomVectorizePass> {
+class LLVM_ABI LoopIdiomVectorizePass : public PassInfoMixin<LoopIdiomVectorizePass> {
   LoopIdiomVectorizeStyle VectorizeStyle = LoopIdiomVectorizeStyle::Masked;
 
   // The VF used in vectorizing the byte compare pattern.

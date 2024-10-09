@@ -17,6 +17,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ProfileData/Coverage/CoverageMapping.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -26,7 +27,7 @@ namespace coverage {
 
 /// Writer of the filenames section for the instrumentation
 /// based code coverage.
-class CoverageFilenamesSectionWriter {
+class LLVM_ABI CoverageFilenamesSectionWriter {
   ArrayRef<std::string> Filenames;
 
 public:
@@ -38,7 +39,7 @@ public:
 };
 
 /// Writer for instrumentation based coverage mapping data.
-class CoverageMappingWriter {
+class LLVM_ABI CoverageMappingWriter {
   ArrayRef<unsigned> VirtualFileMapping;
   ArrayRef<CounterExpression> Expressions;
   MutableArrayRef<CounterMappingRegion> MappingRegions;
@@ -55,7 +56,7 @@ public:
 };
 
 /// Writer for the coverage mapping testing format.
-class TestingFormatWriter {
+class LLVM_ABI TestingFormatWriter {
   uint64_t ProfileNamesAddr;
   StringRef ProfileNamesData;
   StringRef CoverageMappingData;

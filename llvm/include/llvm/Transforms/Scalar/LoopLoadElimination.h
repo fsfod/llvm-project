@@ -17,6 +17,7 @@
 #define LLVM_TRANSFORMS_SCALAR_LOOPLOADELIMINATION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -24,7 +25,7 @@ class Function;
 
 /// Pass to forward loads in a loop around the backedge to subsequent
 /// iterations.
-struct LoopLoadEliminationPass : public PassInfoMixin<LoopLoadEliminationPass> {
+struct LLVM_ABI LoopLoadEliminationPass : public PassInfoMixin<LoopLoadEliminationPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 

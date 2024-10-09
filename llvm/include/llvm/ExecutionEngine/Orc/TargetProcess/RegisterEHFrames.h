@@ -17,17 +17,18 @@
 #define LLVM_EXECUTIONENGINE_ORC_TARGETPROCESS_REGISTEREHFRAMES_H
 
 #include "llvm/ExecutionEngine/Orc/Shared/WrapperFunctionUtils.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
 namespace orc {
 
 /// Register frames in the given eh-frame section with libunwind.
-Error registerEHFrameSection(const void *EHFrameSectionAddr,
+LLVM_ABI Error registerEHFrameSection(const void *EHFrameSectionAddr,
                              size_t EHFrameSectionSize);
 
 /// Unregister frames in the given eh-frame section with libunwind.
-Error deregisterEHFrameSection(const void *EHFrameSectionAddr,
+LLVM_ABI Error deregisterEHFrameSection(const void *EHFrameSectionAddr,
                                size_t EHFrameSectionSize);
 
 } // end namespace orc

@@ -16,6 +16,7 @@
 #define LLVM_TRANSFORMS_SCALAR_LOWERCONSTANTINTRINSICS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -23,10 +24,10 @@ class DominatorTree;
 class Function;
 class TargetLibraryInfo;
 
-bool lowerConstantIntrinsics(Function &F, const TargetLibraryInfo &TLI,
+LLVM_ABI bool lowerConstantIntrinsics(Function &F, const TargetLibraryInfo &TLI,
                              DominatorTree *DT);
 
-struct LowerConstantIntrinsicsPass :
+struct LLVM_ABI LowerConstantIntrinsicsPass :
     PassInfoMixin<LowerConstantIntrinsicsPass> {
 public:
   explicit LowerConstantIntrinsicsPass() = default;

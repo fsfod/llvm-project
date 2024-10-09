@@ -25,6 +25,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/DebugInfo/BTF/BTF.h"
 #include "llvm/Object/ObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataExtractor.h"
 
 namespace llvm {
@@ -32,7 +33,7 @@ using object::ObjectFile;
 using object::SectionedAddress;
 using object::SectionRef;
 
-class BTFParser {
+class LLVM_ABI BTFParser {
   using BTFLinesVector = SmallVector<BTF::BPFLineInfo, 0>;
   using BTFRelocVector = SmallVector<BTF::BPFFieldReloc, 0>;
 

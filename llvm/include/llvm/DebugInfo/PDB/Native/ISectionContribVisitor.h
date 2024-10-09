@@ -9,13 +9,14 @@
 #ifndef LLVM_DEBUGINFO_PDB_NATIVE_ISECTIONCONTRIBVISITOR_H
 #define LLVM_DEBUGINFO_PDB_NATIVE_ISECTIONCONTRIBVISITOR_H
 
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 namespace pdb {
 
 struct SectionContrib;
 struct SectionContrib2;
 
-class ISectionContribVisitor {
+class LLVM_ABI ISectionContribVisitor {
 public:
   virtual ~ISectionContribVisitor() = default;
 

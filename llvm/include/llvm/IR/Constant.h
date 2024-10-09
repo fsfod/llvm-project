@@ -16,6 +16,7 @@
 #include "llvm/IR/User.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -39,7 +40,7 @@ class APInt;
 /// Constants are created on demand as needed and never deleted: thus clients
 /// don't have to worry about the lifetime of the objects.
 /// LLVM Constant Representation
-class Constant : public User {
+class LLVM_ABI Constant : public User {
 protected:
   Constant(Type *ty, ValueTy vty, AllocInfo AllocInfo)
       : User(ty, vty, AllocInfo) {}

@@ -17,6 +17,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/ValueHandle.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -67,7 +68,7 @@ enum class RecurKind {
 /// references.
 
 /// This struct holds information about recurrence variables.
-class RecurrenceDescriptor {
+class LLVM_ABI RecurrenceDescriptor {
 public:
   RecurrenceDescriptor() = default;
 
@@ -299,7 +300,7 @@ private:
 };
 
 /// A struct for saving information about induction variables.
-class InductionDescriptor {
+class LLVM_ABI InductionDescriptor {
 public:
   /// This enum represents the kinds of inductions that we support.
   enum InductionKind {

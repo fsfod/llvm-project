@@ -75,7 +75,7 @@ inline APInt operator-(APInt);
 ///     shifts are defined, but sign extension and ashr is not.  Zero bit values
 ///     compare and hash equal to themselves, and countLeadingZeros returns 0.
 ///
-class [[nodiscard]] APInt {
+class LLVM_ABI [[nodiscard]] APInt {
 public:
   typedef uint64_t WordType;
 
@@ -554,7 +554,7 @@ public:
   }
 
   /// Overload to compute a hash_code for an APInt value.
-  friend hash_code hash_value(const APInt &Arg);
+  friend LLVM_ABI hash_code hash_value(const APInt &Arg);
 
   /// This function returns a pointer to the internal storage of the APInt.
   /// This is useful for writing out the APInt in binary form without any
@@ -2237,24 +2237,24 @@ inline const APInt abdu(const APInt &A, const APInt &B) {
 }
 
 /// Compute the floor of the signed average of C1 and C2
-APInt avgFloorS(const APInt &C1, const APInt &C2);
+LLVM_ABI APInt avgFloorS(const APInt &C1, const APInt &C2);
 
 /// Compute the floor of the unsigned average of C1 and C2
-APInt avgFloorU(const APInt &C1, const APInt &C2);
+LLVM_ABI APInt avgFloorU(const APInt &C1, const APInt &C2);
 
 /// Compute the ceil of the signed average of C1 and C2
-APInt avgCeilS(const APInt &C1, const APInt &C2);
+LLVM_ABI APInt avgCeilS(const APInt &C1, const APInt &C2);
 
 /// Compute the ceil of the unsigned average of C1 and C2
-APInt avgCeilU(const APInt &C1, const APInt &C2);
+LLVM_ABI APInt avgCeilU(const APInt &C1, const APInt &C2);
 
 /// Performs (2*N)-bit multiplication on sign-extended operands.
 /// Returns the high N bits of the multiplication result.
-APInt mulhs(const APInt &C1, const APInt &C2);
+LLVM_ABI APInt mulhs(const APInt &C1, const APInt &C2);
 
 /// Performs (2*N)-bit multiplication on zero-extended operands.
 /// Returns the high N bits of the multiplication result.
-APInt mulhu(const APInt &C1, const APInt &C2);
+LLVM_ABI APInt mulhu(const APInt &C1, const APInt &C2);
 
 /// Compute GCD of two unsigned APInt values.
 ///
@@ -2262,7 +2262,7 @@ APInt mulhu(const APInt &C1, const APInt &C2);
 /// using Stein's algorithm.
 ///
 /// \returns the greatest common divisor of A and B.
-APInt GreatestCommonDivisor(APInt A, APInt B);
+LLVM_ABI APInt GreatestCommonDivisor(APInt A, APInt B);
 
 /// Converts the given APInt to a double value.
 ///
@@ -2293,7 +2293,7 @@ inline float RoundSignedAPIntToFloat(const APInt &APIVal) {
 /// Converts the given double value into a APInt.
 ///
 /// This function convert a double value to an APInt value.
-APInt RoundDoubleToAPInt(double Double, unsigned width);
+LLVM_ABI APInt RoundDoubleToAPInt(double Double, unsigned width);
 
 /// Converts a float value into a APInt.
 ///
@@ -2303,10 +2303,10 @@ inline APInt RoundFloatToAPInt(float Float, unsigned width) {
 }
 
 /// Return A unsign-divided by B, rounded by the given rounding mode.
-APInt RoundingUDiv(const APInt &A, const APInt &B, APInt::Rounding RM);
+LLVM_ABI APInt RoundingUDiv(const APInt &A, const APInt &B, APInt::Rounding RM);
 
 /// Return A sign-divided by B, rounded by the given rounding mode.
-APInt RoundingSDiv(const APInt &A, const APInt &B, APInt::Rounding RM);
+LLVM_ABI APInt RoundingSDiv(const APInt &A, const APInt &B, APInt::Rounding RM);
 
 /// Let q(n) = An^2 + Bn + C, and BW = bit width of the value range
 /// (e.g. 32 for i32).
@@ -2341,12 +2341,12 @@ APInt RoundingSDiv(const APInt &A, const APInt &B, APInt::Rounding RM);
 ///
 /// The returned value may have a different bit width from the input
 /// coefficients.
-std::optional<APInt> SolveQuadraticEquationWrap(APInt A, APInt B, APInt C,
+LLVM_ABI std::optional<APInt> SolveQuadraticEquationWrap(APInt A, APInt B, APInt C,
                                                 unsigned RangeWidth);
 
 /// Compare two values, and if they are different, return the position of the
 /// most significant bit that is different in the values.
-std::optional<unsigned> GetMostSignificantDifferentBit(const APInt &A,
+LLVM_ABI std::optional<unsigned> GetMostSignificantDifferentBit(const APInt &A,
                                                        const APInt &B);
 
 /// Splat/Merge neighboring bits to widen/narrow the bitmask represented
@@ -2360,24 +2360,24 @@ std::optional<unsigned> GetMostSignificantDifferentBit(const APInt &A,
 /// e.g. ScaleBitMask(0b0101, 8) -> 0b00110011
 /// e.g. ScaleBitMask(0b00011011, 4) -> 0b0001
 /// A.getBitwidth() or NewBitWidth must be a whole multiples of the other.
-APInt ScaleBitMask(const APInt &A, unsigned NewBitWidth,
+LLVM_ABI APInt ScaleBitMask(const APInt &A, unsigned NewBitWidth,
                    bool MatchAllBits = false);
 } // namespace APIntOps
 
 // See friend declaration above. This additional declaration is required in
 // order to compile LLVM with IBM xlC compiler.
-hash_code hash_value(const APInt &Arg);
+LLVM_ABI hash_code hash_value(const APInt &Arg);
 
 /// StoreIntToMemory - Fills the StoreBytes bytes of memory starting from Dst
 /// with the integer held in IntVal.
-void StoreIntToMemory(const APInt &IntVal, uint8_t *Dst, unsigned StoreBytes);
+LLVM_ABI void StoreIntToMemory(const APInt &IntVal, uint8_t *Dst, unsigned StoreBytes);
 
 /// LoadIntFromMemory - Loads the integer stored in the LoadBytes bytes starting
 /// from Src into IntVal, which is assumed to be wide enough and to hold zero.
-void LoadIntFromMemory(APInt &IntVal, const uint8_t *Src, unsigned LoadBytes);
+LLVM_ABI void LoadIntFromMemory(APInt &IntVal, const uint8_t *Src, unsigned LoadBytes);
 
 /// Provide DenseMapInfo for APInt.
-template <> struct DenseMapInfo<APInt, void> {
+template <> struct LLVM_ABI DenseMapInfo<APInt, void> {
   static inline APInt getEmptyKey() {
     APInt V(nullptr, 0);
     V.U.VAL = ~0ULL;
