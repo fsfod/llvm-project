@@ -19,13 +19,14 @@
 #ifndef LLVM_EXECUTIONENGINE_OPROFILEWRAPPER_H
 #define LLVM_EXECUTIONENGINE_OPROFILEWRAPPER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataTypes.h"
 #include <opagent.h>
 
 namespace llvm {
 
 
-class OProfileWrapper {
+class LLVM_ABI OProfileWrapper {
   typedef  op_agent_t    (*op_open_agent_ptr_t)();
   typedef  int           (*op_close_agent_ptr_t)(op_agent_t);
   typedef  int           (*op_write_native_code_ptr_t)(op_agent_t,
