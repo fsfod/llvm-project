@@ -230,6 +230,10 @@ class EraseFromParent : public IRChangeBase {
 
 public:
   EraseFromParent(std::unique_ptr<sandboxir::Value> &&IPtr);
+  ~EraseFromParent();
+  EraseFromParent(const EraseFromParent &) = delete;
+  EraseFromParent(EraseFromParent &&);
+
   void revert(Tracker &Tracker) final;
   void accept() final;
 #ifndef NDEBUG
