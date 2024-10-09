@@ -25,6 +25,7 @@
 #endif
 
 #ifdef __cplusplus
+#include "llvm/Support/Compiler.h"
 #define LLVM_C_EXTERN_C_BEGIN                                                  \
   extern "C" {                                                                 \
   LLVM_C_STRICT_PROTOTYPES_BEGIN
@@ -34,6 +35,10 @@
 #else
 #define LLVM_C_EXTERN_C_BEGIN LLVM_C_STRICT_PROTOTYPES_BEGIN
 #define LLVM_C_EXTERN_C_END LLVM_C_STRICT_PROTOTYPES_END
+
+#ifndef LLVM_C_ABI
+#define LLVM_C_ABI
+#endif
 #endif
 
 #endif
