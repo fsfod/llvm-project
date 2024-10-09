@@ -45,6 +45,11 @@ class CLANG_ABI InMemoryModuleCache : public llvm::RefCountedBase<InMemoryModule
   llvm::StringMap<PCM> PCMs;
 
 public:
+  InMemoryModuleCache() = default;
+  InMemoryModuleCache(const InMemoryModuleCache &) = delete;
+  InMemoryModuleCache(InMemoryModuleCache &&) = default;
+  InMemoryModuleCache &operator=(const InMemoryModuleCache &) = delete;
+
   /// There are four states for a PCM.  It must monotonically increase.
   ///
   ///  1. Unknown: the PCM has neither been read from disk nor built.

@@ -404,6 +404,9 @@ public:
 
   /// Destroy the module map.
   ~ModuleMap();
+  ModuleMap(const ModuleMap &) = delete;
+  ModuleMap(ModuleMap &&) = default;
+  ModuleMap &operator =(const ModuleMap &) = delete;
 
   /// Set the target information.
   void setTarget(const TargetInfo &Target);

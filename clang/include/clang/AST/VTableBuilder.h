@@ -408,6 +408,9 @@ public:
   ItaniumVTableContext(ASTContext &Context,
                        VTableComponentLayout ComponentLayout = Pointer);
   ~ItaniumVTableContext() override;
+  ItaniumVTableContext(const ItaniumVTableContext &) = delete;
+  ItaniumVTableContext(ItaniumVTableContext &&) = default;
+  ItaniumVTableContext &operator =(const ItaniumVTableContext &) = delete;
 
   const VTableLayout &getVTableLayout(const CXXRecordDecl *RD) {
     computeVTableRelatedInformation(RD);
@@ -610,6 +613,9 @@ public:
       : VTableContextBase(/*MS=*/true), Context(Context) {}
 
   ~MicrosoftVTableContext() override;
+  MicrosoftVTableContext(const MicrosoftVTableContext &) = delete;
+  MicrosoftVTableContext(MicrosoftVTableContext &&) = default;
+  MicrosoftVTableContext &operator =(const MicrosoftVTableContext &) = delete;
 
   const VPtrInfoVector &getVFPtrOffsets(const CXXRecordDecl *RD);
 

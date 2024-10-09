@@ -674,6 +674,9 @@ public:
   void setExternalIdentifierLookup(IdentifierInfoLookup *IILookup) {
     ExternalLookup = IILookup;
   }
+  IdentifierTable(const IdentifierTable &) = delete;
+  IdentifierTable(IdentifierTable &&) = default;
+  IdentifierTable &operator =(const IdentifierTable &) = delete;
 
   /// Retrieve the external identifier lookup object, if any.
   IdentifierInfoLookup *getExternalIdentifierLookup() const {

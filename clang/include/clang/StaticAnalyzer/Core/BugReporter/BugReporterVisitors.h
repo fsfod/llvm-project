@@ -186,6 +186,9 @@ protected:
 
 public:
   virtual ~Tracker() = default;
+  Tracker(const Tracker &) = delete;
+  Tracker(Tracker &&) = default;
+  Tracker &operator=(const Tracker &) = delete;
 
   static TrackerRef create(PathSensitiveBugReport &Report) {
     return new Tracker(Report);

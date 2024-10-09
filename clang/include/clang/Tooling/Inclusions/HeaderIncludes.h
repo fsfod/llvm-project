@@ -29,6 +29,9 @@ namespace tooling {
 class CLANG_ABI IncludeCategoryManager {
 public:
   IncludeCategoryManager(const IncludeStyle &Style, StringRef FileName);
+  IncludeCategoryManager(const IncludeCategoryManager &) = delete;
+  IncludeCategoryManager(IncludeCategoryManager &&) = default;
+  IncludeCategoryManager &operator=(const IncludeCategoryManager &) = delete;
 
   /// Returns the priority of the category which \p IncludeName belongs to.
   /// If \p CheckMainHeader is true and \p IncludeName is a main header, returns

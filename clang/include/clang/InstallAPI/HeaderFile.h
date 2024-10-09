@@ -123,6 +123,9 @@ private:
 
 public:
   HeaderGlob(StringRef GlobString, llvm::Regex &&, HeaderType Type);
+  HeaderGlob(const HeaderGlob &) = delete;
+  HeaderGlob(HeaderGlob &&) = default;
+  HeaderGlob &operator=(const HeaderGlob &) = delete;
 
   /// Create a header glob from string for the header access level.
   static llvm::Expected<std::unique_ptr<HeaderGlob>>

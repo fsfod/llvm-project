@@ -100,6 +100,9 @@ public:
                 llvm::SpecificBumpPtrAllocator<FormatToken> &Allocator,
                 IdentifierTable &IdentTable);
   ~MacroExpander();
+  MacroExpander(const MacroExpander &) = delete;
+  MacroExpander(MacroExpander &&);
+  MacroExpander &operator =(const MacroExpander &) = delete;
 
   /// Returns whether any macro \p Name is defined, regardless of overloads.
   bool defined(StringRef Name) const;
@@ -180,6 +183,9 @@ public:
       unsigned Level,
       const llvm::DenseMap<FormatToken *, std::unique_ptr<UnwrappedLine>>
           &ActiveExpansions);
+  ~MacroCallReconstructor();
+  MacroCallReconstructor(const MacroCallReconstructor &) = delete;
+  MacroCallReconstructor &operator=(const MacroCallReconstructor &) = delete;
 
   /// For the given \p Line, match all occurences of tokens expanded from a
   /// macro to unwrapped lines in the spelled macro call so that the resulting

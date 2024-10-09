@@ -127,6 +127,9 @@ public:
   ModuleFile(ModuleKind Kind, FileEntryRef File, unsigned Generation)
       : Kind(Kind), File(File), Generation(Generation) {}
   ~ModuleFile();
+  ModuleFile(const ModuleFile &) = delete;
+  ModuleFile(ModuleFile &&) = default;
+  ModuleFile &operator=(const ModuleFile &) = delete;
 
   // === General information ===
 

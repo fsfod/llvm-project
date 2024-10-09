@@ -235,6 +235,14 @@ class DependencyScanningFilesystemLocalCache {
       Cache;
 
 public:
+  DependencyScanningFilesystemLocalCache() = default;
+  DependencyScanningFilesystemLocalCache(
+      const DependencyScanningFilesystemLocalCache &) = delete;
+  DependencyScanningFilesystemLocalCache(
+      DependencyScanningFilesystemLocalCache &&) = default;
+  DependencyScanningFilesystemLocalCache &
+  operator=(const DependencyScanningFilesystemLocalCache &) = delete;
+
   /// Returns entry associated with the filename or nullptr if none is found.
   const CachedFileSystemEntry *findEntryByFilename(StringRef Filename) const {
     assert(llvm::sys::path::is_absolute_gnu(Filename));

@@ -271,6 +271,11 @@ private:
   list_type Jobs;
 
 public:
+  JobList() = default;
+  JobList(const JobList &) = delete;
+  JobList(JobList &&) = default;
+  JobList &operator=(const JobList &) = delete;
+
   void Print(llvm::raw_ostream &OS, const char *Terminator,
              bool Quote, CrashReportInfo *CrashInfo = nullptr) const;
 

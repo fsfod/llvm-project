@@ -129,6 +129,9 @@ class CLANG_ABI CrossTranslationUnitContext {
 public:
   CrossTranslationUnitContext(CompilerInstance &CI);
   ~CrossTranslationUnitContext();
+  CrossTranslationUnitContext(const CrossTranslationUnitContext &) = delete;
+  CrossTranslationUnitContext(CrossTranslationUnitContext &&) = default;
+  CrossTranslationUnitContext &operator =(const CrossTranslationUnitContext &) = delete;
 
   /// This function loads a function or variable definition from an
   ///        external AST file and merges it into the original AST.
@@ -292,6 +295,10 @@ private:
   class CLANG_ABI ASTUnitStorage {
   public:
     ASTUnitStorage(CompilerInstance &CI);
+    ASTUnitStorage(const ASTUnitStorage &) = delete;
+    ASTUnitStorage(ASTUnitStorage &&) = default;
+    ASTUnitStorage &operator =(const ASTUnitStorage &) = delete;
+
     /// Loads an ASTUnit for a function.
     ///
     /// \param FunctionName USR name of the function.

@@ -93,6 +93,11 @@ class CLANG_ABI LineTableInfo {
   std::map<FileID, std::vector<LineEntry>> LineEntries;
 
 public:
+  LineTableInfo() = default;
+  LineTableInfo(const LineTableInfo &) = delete;
+  LineTableInfo(LineTableInfo &&) = default;
+  LineTableInfo &operator =(const LineTableInfo &) = delete;
+
   void clear() {
     FilenameIDs.clear();
     FilenamesByID.clear();

@@ -94,6 +94,10 @@ public:
   /// Automatically registers a RawPCHContainerWriter and
   /// RawPCHContainerReader.
   PCHContainerOperations();
+  PCHContainerOperations(const PCHContainerOperations &) = delete;
+  PCHContainerOperations(PCHContainerOperations &&) = default;
+  PCHContainerOperations &operator =(const PCHContainerOperations &) = delete;
+
   void registerWriter(std::unique_ptr<PCHContainerWriter> Writer) {
     Writers[Writer->getFormat()] = std::move(Writer);
   }

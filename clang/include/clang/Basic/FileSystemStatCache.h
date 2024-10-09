@@ -75,6 +75,9 @@ public:
   using iterator =
       llvm::StringMap<llvm::vfs::Status,
                       llvm::BumpPtrAllocator>::const_iterator;
+  MemorizeStatCalls(const MemorizeStatCalls &) = delete;
+  MemorizeStatCalls(MemorizeStatCalls &&) = default;
+  MemorizeStatCalls &operator =(const MemorizeStatCalls &) = delete;
 
   iterator begin() const { return StatCalls.begin(); }
   iterator end() const { return StatCalls.end(); }

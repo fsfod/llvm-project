@@ -49,6 +49,8 @@ MacroCallReconstructor::MacroCallReconstructor(
   ActiveReconstructedLines.push_back(&Result);
 }
 
+MacroCallReconstructor::~MacroCallReconstructor() = default;
+
 void MacroCallReconstructor::addLine(const UnwrappedLine &Line) {
   assert(State != Finalized);
   LLVM_DEBUG(llvm::dbgs() << "MCR: new line...\n");
