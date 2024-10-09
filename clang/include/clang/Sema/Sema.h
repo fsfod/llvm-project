@@ -65,6 +65,7 @@
 #include "clang/Sema/SemaBase.h"
 #include "clang/Sema/TypoCorrection.h"
 #include "clang/Sema/Weak.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/APInt.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/BitmaskEnum.h"
@@ -224,7 +225,7 @@ inline const StreamingDiagnostic &operator<<(const StreamingDiagnostic &DB,
 
 namespace threadSafety {
 class BeforeSet;
-void threadSafetyCleanup(BeforeSet *Cache);
+CLANG_ABI void threadSafetyCleanup(BeforeSet *Cache);
 } // namespace threadSafety
 
 // FIXME: No way to easily map from TemplateTypeParmTypes to
@@ -285,7 +286,7 @@ public:
 /// The type is tied to a particular token, all functions that update or consume
 /// the type take a start location of the token they are looking at as a
 /// parameter. This avoids updating the type on hot paths in the parser.
-class PreferredTypeBuilder {
+class CLANG_ABI PreferredTypeBuilder {
 public:
   PreferredTypeBuilder(bool Enabled) : Enabled(Enabled) {}
 
@@ -459,7 +460,7 @@ enum class FunctionEffectMode : uint8_t {
 
 /// Sema - This implements semantic analysis and AST building for C.
 /// \nosubgrouping
-class Sema final : public SemaBase {
+class CLANG_ABI Sema final : public SemaBase {
   // Table of Contents
   // -----------------
   // 1. Semantic Analysis (Sema.cpp)
@@ -661,7 +662,7 @@ public:
 
   /// Custom deleter to allow FunctionScopeInfos to be kept alive for a short
   /// time after they've been popped.
-  class PoppedFunctionScopeDeleter {
+  class CLANG_ABI PoppedFunctionScopeDeleter {
     Sema *Self;
 
   public:
@@ -985,7 +986,7 @@ public:
 
   /// A class which encapsulates the logic for delaying diagnostics
   /// during parsing and other processing.
-  class DelayedDiagnostics {
+  class CLANG_ABI DelayedDiagnostics {
     /// The current pool of diagnostics into which delayed
     /// diagnostics should go.
     sema::DelayedDiagnosticPool *CurPool = nullptr;
@@ -1676,7 +1677,7 @@ public:
 
   // RAII object to push / pop sentinel slots for all MS #pragma stacks.
   // Actions should be performed only if we enter / exit a C++ method body.
-  class PragmaStackSentinelRAII {
+  class CLANG_ABI PragmaStackSentinelRAII {
   public:
     PragmaStackSentinelRAII(Sema &S, StringRef SlotLabel, bool ShouldAct);
     ~PragmaStackSentinelRAII();
@@ -4956,7 +4957,7 @@ public:
 
   /// Helper class that collects exception specifications for
   /// implicitly-declared special member functions.
-  class ImplicitExceptionSpecification {
+  class CLANG_ABI ImplicitExceptionSpecification {
     // Pointer to allow copying
     Sema *Self;
     // We order exception specifications thus:
@@ -7191,7 +7192,7 @@ public:
 
   /// Abstract base class used for diagnosing integer constant
   /// expression violations.
-  class VerifyICEDiagnoser {
+  class CLANG_ABI VerifyICEDiagnoser {
   public:
     bool Suppress;
 
@@ -7820,7 +7821,7 @@ public:
   }
 
   /// Abstract class used to diagnose incomplete types.
-  struct TypeDiagnoser {
+  struct CLANG_ABI TypeDiagnoser {
     TypeDiagnoser() {}
 
     virtual void diagnose(Sema &S, SourceLocation Loc, QualType T) = 0;
@@ -8010,7 +8011,7 @@ public:
 
   /// RAII object used to temporarily allow the C++ 'this' expression
   /// to be used, with the given qualifiers on the current class type.
-  class CXXThisScopeRAII {
+  class CLANG_ABI CXXThisScopeRAII {
     Sema &S;
     QualType OldCXXThisTypeOverride;
     bool Enabled;
@@ -8829,7 +8830,7 @@ public:
                                            SourceLocation ConvLocation,
                                            CXXConversionDecl *Conv, Expr *Src);
 
-  class LambdaScopeForCallOperatorInstantiationRAII
+  class CLANG_ABI LambdaScopeForCallOperatorInstantiationRAII
       : private FunctionScopeRAII {
   public:
     LambdaScopeForCallOperatorInstantiationRAII(
@@ -9452,7 +9453,7 @@ public:
                              SourceLocation DeclLoc, ArrayRef<Module *> Modules,
                              MissingImportKind MIK, bool Recover);
 
-  struct TypoExprState {
+  struct CLANG_ABI TypoExprState {
     std::unique_ptr<TypoCorrectionConsumer> Consumer;
     TypoDiagnosticGenerator DiagHandler;
     TypoRecoveryCallback RecoveryHandler;
@@ -9993,7 +9994,7 @@ public:
 
   /// Abstract base class used to perform a contextual implicit
   /// conversion from an expression to any type passing a filter.
-  class ContextualImplicitConverter {
+  class CLANG_ABI ContextualImplicitConverter {
   public:
     bool Suppress;
     bool SuppressConversion;
@@ -10045,7 +10046,7 @@ public:
     virtual ~ContextualImplicitConverter() {}
   };
 
-  class ICEConvertDiagnoser : public ContextualImplicitConverter {
+  class CLANG_ABI ICEConvertDiagnoser : public ContextualImplicitConverter {
     bool AllowScopedEnumerations;
 
   public:
@@ -12616,7 +12617,7 @@ public:
   /// A context in which code is being synthesized (where a source location
   /// alone is not sufficient to identify the context). This covers template
   /// instantiation and various forms of implicitly-generated functions.
-  struct CodeSynthesisContext {
+  struct CLANG_ABI CodeSynthesisContext {
     /// The kind of template instantiation we are performing
     enum SynthesisKind {
       /// We are instantiating a template declaration. The entity is
@@ -12804,7 +12805,7 @@ public:
   ///
   /// Destruction of this object will pop the named instantiation off
   /// the stack.
-  struct InstantiatingTemplate {
+  struct CLANG_ABI InstantiatingTemplate {
     /// Note that we are instantiating a class template,
     /// function template, variable template, alias template,
     /// or a member thereof.
@@ -13526,7 +13527,7 @@ public:
 
   /// Records and restores the CurFPFeatures state on entry/exit of compound
   /// statements.
-  class FPFeaturesStateRAII {
+  class CLANG_ABI FPFeaturesStateRAII {
   public:
     FPFeaturesStateRAII(Sema &S);
     ~FPFeaturesStateRAII();
@@ -15041,7 +15042,7 @@ public:
   /// Implementations are in SemaFunctionEffects.cpp
   ///@{
 public:
-  struct FunctionEffectDiff {
+  struct CLANG_ABI FunctionEffectDiff {
     enum class Kind { Added, Removed, ConditionMismatch };
 
     FunctionEffect::Kind EffectKind;
@@ -15086,7 +15087,7 @@ public:
         const CXXMethodDecl &NewMethod, const FunctionEffectsRef &NewFX) const;
   };
 
-  struct FunctionEffectDiffVector : public SmallVector<FunctionEffectDiff> {
+  struct CLANG_ABI FunctionEffectDiffVector : public SmallVector<FunctionEffectDiff> {
     /// Caller should short-circuit by checking for equality first.
     FunctionEffectDiffVector(const FunctionEffectsRef &Old,
                              const FunctionEffectsRef &New);
@@ -15134,7 +15135,7 @@ public:
   ///@}
 };
 
-DeductionFailureInfo
+CLANG_ABI DeductionFailureInfo
 MakeDeductionFailureInfo(ASTContext &Context, TemplateDeductionResult TDK,
                          sema::TemplateDeductionInfo &Info);
 
@@ -15149,7 +15150,7 @@ struct LateParsedTemplate {
 };
 
 template <>
-void Sema::PragmaStack<Sema::AlignPackInfo>::Act(SourceLocation PragmaLocation,
+CLANG_ABI CLANG_ABI void Sema::PragmaStack<Sema::AlignPackInfo>::Act(SourceLocation PragmaLocation,
                                                  PragmaMsStackAction Action,
                                                  llvm::StringRef StackSlotLabel,
                                                  AlignPackInfo Value);
