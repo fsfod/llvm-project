@@ -43,6 +43,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
@@ -53,7 +54,7 @@
 using namespace llvm;
 using namespace AArch64GISelUtils;
 
-extern cl::opt<bool> EnableSVEGISel;
+LLVM_ABI extern cl::opt<bool> EnableSVEGISel;
 
 AArch64CallLowering::AArch64CallLowering(const AArch64TargetLowering &TLI)
   : CallLowering(&TLI) {}

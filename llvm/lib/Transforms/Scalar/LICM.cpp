@@ -75,6 +75,7 @@
 #include "llvm/IR/PredIteratorCache.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Target/TargetOptions.h"
@@ -141,7 +142,7 @@ static cl::opt<unsigned> FPAssociationUpperLimit(
         "Set upper limit for the number of transformations performed "
         "during a single round of hoisting the reassociated expressions."));
 
-cl::opt<unsigned> IntAssociationUpperLimit(
+LLVM_ABI cl::opt<unsigned> IntAssociationUpperLimit(
     "licm-max-num-int-reassociations", cl::init(5U), cl::Hidden,
     cl::desc(
         "Set upper limit for the number of transformations performed "
@@ -155,7 +156,7 @@ cl::opt<unsigned> IntAssociationUpperLimit(
 // which may not be precise, since optimizeUses is capped. The result is
 // correct, but we may not get as "far up" as possible to get which access is
 // clobbering the one queried.
-cl::opt<unsigned> llvm::SetLicmMssaOptCap(
+LLVM_ABI cl::opt<unsigned> llvm::SetLicmMssaOptCap(
     "licm-mssa-optimization-cap", cl::init(100), cl::Hidden,
     cl::desc("Enable imprecision in LICM in pathological cases, in exchange "
              "for faster compile. Caps the MemorySSA clobbering calls."));
@@ -163,7 +164,7 @@ cl::opt<unsigned> llvm::SetLicmMssaOptCap(
 // Experimentally, memory promotion carries less importance than sinking and
 // hoisting. Limit when we do promotion when using MemorySSA, in order to save
 // compile time.
-cl::opt<unsigned> llvm::SetLicmMssaNoAccForPromotionCap(
+LLVM_ABI cl::opt<unsigned> llvm::SetLicmMssaNoAccForPromotionCap(
     "licm-mssa-max-acc-promotion", cl::init(250), cl::Hidden,
     cl::desc("[LICM & MemorySSA] When MSSA in LICM is disabled, this has no "
              "effect. When MSSA in LICM is enabled, then this is the maximum "

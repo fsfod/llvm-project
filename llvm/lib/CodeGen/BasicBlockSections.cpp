@@ -79,6 +79,7 @@
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Target/TargetMachine.h"
 #include <optional>
 
@@ -88,7 +89,7 @@ using namespace llvm;
 // profiles and allows optimizations such as hugepage mapping to be applied at a
 // section granularity. Defaults to ".text.split." which is recognized by lld
 // via the `-z keep-text-section-prefix` flag.
-cl::opt<std::string> llvm::BBSectionsColdTextPrefix(
+LLVM_ABI cl::opt<std::string> llvm::BBSectionsColdTextPrefix(
     "bbsections-cold-text-prefix",
     cl::desc("The text prefix to use for cold basic block clusters"),
     cl::init(".text.split."), cl::Hidden);

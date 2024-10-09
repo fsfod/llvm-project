@@ -11,6 +11,7 @@
 #include "llvm/SandboxIR/Constant.h"
 #include "llvm/SandboxIR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Passes/BottomUpVec.h"
 
 using namespace llvm;
@@ -18,14 +19,14 @@ using namespace llvm;
 #define SV_NAME "sandbox-vectorizer"
 #define DEBUG_TYPE SV_NAME
 
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     PrintPassPipeline("sbvec-print-pass-pipeline", cl::init(false), cl::Hidden,
                       cl::desc("Prints the pass pipeline and returns."));
 
 /// A magic string for the default pass pipeline.
 const char *DefaultPipelineMagicStr = "*";
 
-cl::opt<std::string> UserDefinedPassPipeline(
+LLVM_ABI cl::opt<std::string> UserDefinedPassPipeline(
     "sbvec-passes", cl::init(DefaultPipelineMagicStr), cl::Hidden,
     cl::desc("Comma-separated list of vectorizer passes. If not set "
              "we run the predefined pipeline."));

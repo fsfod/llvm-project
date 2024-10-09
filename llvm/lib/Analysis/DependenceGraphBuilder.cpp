@@ -16,6 +16,7 @@
 #include "llvm/ADT/SCCIterator.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Analysis/DDG.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -505,5 +506,5 @@ void AbstractDependenceGraphBuilder<G>::sortNodesTopologically() {
            "Expected the number of nodes to stay the same after the sort");
 }
 
-template class llvm::AbstractDependenceGraphBuilder<DataDependenceGraph>;
-template class llvm::DependenceGraphInfo<DDGNode>;
+template class LLVM_EXPORT_TEMPLATE llvm::AbstractDependenceGraphBuilder<DataDependenceGraph>;
+template class LLVM_EXPORT_TEMPLATE llvm::DependenceGraphInfo<DDGNode>;

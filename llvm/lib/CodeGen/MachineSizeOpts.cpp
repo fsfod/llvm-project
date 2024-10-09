@@ -12,17 +12,18 @@
 //===----------------------------------------------------------------------===//
 
 #include "llvm/CodeGen/MachineSizeOpts.h"
-#include "llvm/CodeGen/MBFIWrapper.h"
 #include "llvm/Analysis/ProfileSummaryInfo.h"
+#include "llvm/CodeGen/MBFIWrapper.h"
 #include "llvm/CodeGen/MachineBlockFrequencyInfo.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
-extern cl::opt<bool> EnablePGSO;
-extern cl::opt<bool> PGSOLargeWorkingSetSizeOnly;
-extern cl::opt<bool> ForcePGSO;
-extern cl::opt<int> PgsoCutoffInstrProf;
-extern cl::opt<int> PgsoCutoffSampleProf;
+LLVM_ABI extern cl::opt<bool> EnablePGSO;
+LLVM_ABI extern cl::opt<bool> PGSOLargeWorkingSetSizeOnly;
+LLVM_ABI extern cl::opt<bool> ForcePGSO;
+LLVM_ABI extern cl::opt<int> PgsoCutoffInstrProf;
+LLVM_ABI extern cl::opt<int> PgsoCutoffSampleProf;
 
 bool llvm::shouldOptimizeForSize(const MachineFunction *MF,
                                  ProfileSummaryInfo *PSI,

@@ -37,6 +37,7 @@
 #include "llvm/IR/Verifier.h"
 #include "llvm/IRReader/IRReader.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/FileSystem.h"
@@ -68,7 +69,7 @@ static cl::opt<unsigned>
                 cl::desc("Number of times to shuffle and verify use-lists"),
                 cl::init(1), cl::cat(Cat));
 
-extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
 
 namespace {
 

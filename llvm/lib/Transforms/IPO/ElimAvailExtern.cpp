@@ -23,6 +23,7 @@
 #include "llvm/IR/MDBuilder.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/IPO.h"
 #include "llvm/Transforms/Utils/GlobalStatus.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
@@ -31,7 +32,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "elim-avail-extern"
 
-cl::opt<bool> ConvertToLocal(
+LLVM_ABI cl::opt<bool> ConvertToLocal(
     "avail-extern-to-local", cl::Hidden,
     cl::desc("Convert available_externally into locals, renaming them "
              "to avoid link-time clashes."));

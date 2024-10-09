@@ -20,6 +20,7 @@
 #include "llvm/Bitcode/BitcodeReader.h"
 #include "llvm/CodeGen/CommandFlags.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/InitLLVM.h"
 #include "llvm/Support/MemoryBufferRef.h"
 #include "llvm/Support/Process.h"
@@ -100,7 +101,7 @@ static cl::opt<int>
                                "of delta passes (default=5)"),
                       cl::init(5), cl::cat(LLVMReduceOptions));
 
-extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
 
 static codegen::RegisterCodeGenFlags CGF;
 

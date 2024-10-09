@@ -17,6 +17,7 @@
 #include "llvm/Analysis/PostDominators.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/Instructions.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include <algorithm>
 #include <functional>
@@ -37,7 +38,7 @@ template LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<
   DomTreeUpdater, DominatorTree, PostDominatorTree>::~GenericDomTreeUpdater();
 #endif
 
-template class GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
+template class LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<DomTreeUpdater, DominatorTree,
                                      PostDominatorTree>;
 
 template void LLVM_EXPORT_TEMPLATE

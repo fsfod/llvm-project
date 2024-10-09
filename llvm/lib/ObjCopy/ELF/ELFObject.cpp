@@ -17,6 +17,7 @@
 #include "llvm/MC/MCTargetOptions.h"
 #include "llvm/Object/ELF.h"
 #include "llvm/Object/ELFObjectFile.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Compression.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/ErrorHandling.h"
@@ -3063,15 +3064,15 @@ namespace llvm {
 namespace objcopy {
 namespace elf {
 
-template class ELFBuilder<ELF64LE>;
-template class ELFBuilder<ELF64BE>;
-template class ELFBuilder<ELF32LE>;
-template class ELFBuilder<ELF32BE>;
+template class LLVM_EXPORT_TEMPLATE ELFBuilder<ELF64LE>;
+template class LLVM_EXPORT_TEMPLATE ELFBuilder<ELF64BE>;
+template class LLVM_EXPORT_TEMPLATE ELFBuilder<ELF32LE>;
+template class LLVM_EXPORT_TEMPLATE ELFBuilder<ELF32BE>;
 
-template class ELFWriter<ELF64LE>;
-template class ELFWriter<ELF64BE>;
-template class ELFWriter<ELF32LE>;
-template class ELFWriter<ELF32BE>;
+template class LLVM_EXPORT_TEMPLATE ELFWriter<ELF64LE>;
+template class LLVM_EXPORT_TEMPLATE ELFWriter<ELF64BE>;
+template class LLVM_EXPORT_TEMPLATE ELFWriter<ELF32LE>;
+template class LLVM_EXPORT_TEMPLATE ELFWriter<ELF32BE>;
 
 } // end namespace elf
 } // end namespace objcopy

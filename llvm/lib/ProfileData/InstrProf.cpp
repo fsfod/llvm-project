@@ -217,17 +217,17 @@ const char *InstrProfSectNamePrefix[] = {
 
 namespace llvm {
 
-cl::opt<bool> DoInstrProfNameCompression(
+LLVM_ABI cl::opt<bool> DoInstrProfNameCompression(
     "enable-name-compression",
     cl::desc("Enable name/filename string compression"), cl::init(true));
 
-cl::opt<bool> EnableVTableValueProfiling(
+LLVM_ABI cl::opt<bool> EnableVTableValueProfiling(
     "enable-vtable-value-profiling", cl::init(false),
     cl::desc("If true, the virtual table address will be instrumented to know "
              "the types of a C++ pointer. The information is used in indirect "
              "call promotion to do selective vtable-based comparison."));
 
-cl::opt<bool> EnableVTableProfileUse(
+LLVM_ABI cl::opt<bool> EnableVTableProfileUse(
     "enable-vtable-profile-use", cl::init(false),
     cl::desc("If ThinLTO and WPD is enabled and this option is true, vtable "
              "profiles will be used by ICP pass for more efficient indirect "

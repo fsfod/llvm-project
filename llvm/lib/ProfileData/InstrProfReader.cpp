@@ -21,6 +21,7 @@
 #include "llvm/ProfileData/MemProf.h"
 #include "llvm/ProfileData/ProfileCommon.h"
 #include "llvm/ProfileData/SymbolRemappingReader.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/ErrorOr.h"
@@ -902,8 +903,8 @@ Error RawInstrProfReader<IntPtrT>::printBinaryIds(raw_ostream &OS) {
 
 namespace llvm {
 
-template class RawInstrProfReader<uint32_t>;
-template class RawInstrProfReader<uint64_t>;
+template class LLVM_EXPORT_TEMPLATE RawInstrProfReader<uint32_t>;
+template class LLVM_EXPORT_TEMPLATE RawInstrProfReader<uint64_t>;
 
 } // end namespace llvm
 

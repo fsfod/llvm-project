@@ -25,6 +25,7 @@
 #define LLVM_TRANSFORMS_VECTORIZE_VPLAN_VPLANHCFGBUILDER_H
 
 #include "VPlanDominatorTree.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -35,7 +36,7 @@ class VPlan;
 class VPlanTestBase;
 
 /// Main class to build the VPlan H-CFG for an incoming IR.
-class VPlanHCFGBuilder {
+class LLVM_ABI VPlanHCFGBuilder {
   friend VPlanTestBase;
 
 private:

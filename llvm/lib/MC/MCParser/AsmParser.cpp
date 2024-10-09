@@ -49,6 +49,7 @@
 #include "llvm/MC/MCValue.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/MD5.h"
 #include "llvm/Support/MathExtras.h"
@@ -759,7 +760,7 @@ public:
 
 namespace llvm {
 
-extern cl::opt<unsigned> AsmMacroMaxNestingDepth;
+LLVM_ABI extern cl::opt<unsigned> AsmMacroMaxNestingDepth;
 
 extern MCAsmParserExtension *createDarwinAsmParser();
 extern MCAsmParserExtension *createELFAsmParser();

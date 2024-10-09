@@ -13,6 +13,7 @@
 #include "llvm/CodeGen/MachineRegisterInfo.h"
 #include "llvm/CodeGen/MachineSSAContext.h"
 #include "llvm/IR/GenericConvergenceVerifierImpl.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -96,4 +97,4 @@ bool GenericConvergenceVerifier<MachineSSAContext>::isConvergent(
   return MI.isConvergent();
 }
 
-template class llvm::GenericConvergenceVerifier<MachineSSAContext>;
+template class LLVM_EXPORT_TEMPLATE llvm::GenericConvergenceVerifier<MachineSSAContext>;

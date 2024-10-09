@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/CodeGen/DIE.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MD5.h"
 
 namespace llvm {
@@ -23,7 +24,7 @@ class AsmPrinter;
 
 /// An object containing the capability of hashing and adding hash
 /// attributes onto a DIE.
-class DIEHash {
+class LLVM_ABI DIEHash {
   // Collection of all attributes used in hashing a particular DIE.
   struct DIEAttrs {
 #define HANDLE_DIE_HASH_ATTR(NAME) DIEValue NAME;

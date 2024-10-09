@@ -13,11 +13,12 @@
 #include "llvm/CodeGen/TargetInstrInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
-template class llvm::GenericCycleInfo<llvm::MachineSSAContext>;
-template class llvm::GenericCycle<llvm::MachineSSAContext>;
+template class LLVM_EXPORT_TEMPLATE llvm::GenericCycleInfo<llvm::MachineSSAContext>;
+template class LLVM_EXPORT_TEMPLATE llvm::GenericCycle<llvm::MachineSSAContext>;
 
 char MachineCycleInfoWrapperPass::ID = 0;
 

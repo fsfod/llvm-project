@@ -200,19 +200,19 @@ static cl::opt<bool>
 namespace llvm {
 
 // A command line option to enable the CopyToPhi DAG mutation.
-cl::opt<bool> SwpEnableCopyToPhi("pipeliner-enable-copytophi", cl::ReallyHidden,
+LLVM_ABI cl::opt<bool> SwpEnableCopyToPhi("pipeliner-enable-copytophi", cl::ReallyHidden,
                                  cl::init(true),
                                  cl::desc("Enable CopyToPhi DAG Mutation"));
 
 /// A command line argument to force pipeliner to use specified issue
 /// width.
-cl::opt<int> SwpForceIssueWidth(
+LLVM_ABI cl::opt<int> SwpForceIssueWidth(
     "pipeliner-force-issue-width",
     cl::desc("Force pipeliner to use specified issue width."), cl::Hidden,
     cl::init(-1));
 
 /// A command line argument to set the window scheduling option.
-cl::opt<WindowSchedulingFlag> WindowSchedulingOption(
+LLVM_ABI cl::opt<WindowSchedulingFlag> WindowSchedulingOption(
     "window-sched", cl::Hidden, cl::init(WindowSchedulingFlag::WS_On),
     cl::desc("Set how to use window scheduling algorithm."),
     cl::values(clEnumValN(WindowSchedulingFlag::WS_Off, "off",

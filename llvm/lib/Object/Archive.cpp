@@ -17,6 +17,7 @@
 #include "llvm/Object/Binary.h"
 #include "llvm/Object/Error.h"
 #include "llvm/Support/Chrono.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/EndianStream.h"
 #include "llvm/Support/Error.h"
@@ -89,8 +90,8 @@ template <class T> uint64_t CommonArchiveMemberHeader<T>::getOffset() const {
   return reinterpret_cast<const char *>(ArMemHdr) - Parent->getData().data();
 }
 
-template class object::CommonArchiveMemberHeader<UnixArMemHdrType>;
-template class object::CommonArchiveMemberHeader<BigArMemHdrType>;
+template class LLVM_EXPORT_TEMPLATE object::CommonArchiveMemberHeader<UnixArMemHdrType>;
+template class LLVM_EXPORT_TEMPLATE object::CommonArchiveMemberHeader<BigArMemHdrType>;
 
 ArchiveMemberHeader::ArchiveMemberHeader(const Archive *Parent,
                                          const char *RawHeaderPtr,

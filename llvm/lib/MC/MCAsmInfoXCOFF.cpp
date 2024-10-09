@@ -9,11 +9,12 @@
 #include "llvm/MC/MCAsmInfoXCOFF.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 namespace llvm {
-extern cl::opt<cl::boolOrDefault> UseLEB128Directives;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> UseLEB128Directives;
 }
 
 void MCAsmInfoXCOFF::anchor() {}

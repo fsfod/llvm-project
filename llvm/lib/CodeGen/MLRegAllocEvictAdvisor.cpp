@@ -16,6 +16,7 @@
 #include "llvm/Analysis/InteractiveModelRunner.h"
 #include "llvm/Analysis/MLModelRunner.h"
 #include "llvm/Analysis/TensorSpec.h"
+#include "llvm/Support/Compiler.h"
 #if defined(LLVM_HAVE_TF_AOT_REGALLOCEVICTMODEL) || defined(LLVM_HAVE_TFLITE)
 #include "llvm/Analysis/ModelUnderTrainingRunner.h"
 #include "llvm/Analysis/NoInferenceModelRunner.h"
@@ -89,7 +90,7 @@ static const bool EnableDevelopmentFeatures = false;
 /// This pass calculates the score for a function and inserts it in the log, but
 /// this happens only in development mode. It's a no-op otherwise.
 namespace llvm {
-extern cl::opt<unsigned> EvictInterferenceCutoff;
+LLVM_ABI extern cl::opt<unsigned> EvictInterferenceCutoff;
 
 class RegAllocScoring : public MachineFunctionPass {
 public:

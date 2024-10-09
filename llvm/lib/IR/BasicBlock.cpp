@@ -22,6 +22,7 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Type.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 #include "LLVMContextImpl.h"
 
@@ -30,13 +31,13 @@ using namespace llvm;
 #define DEBUG_TYPE "ir"
 STATISTIC(NumInstrRenumberings, "Number of renumberings across all blocks");
 
-cl::opt<bool> UseNewDbgInfoFormat(
+LLVM_ABI cl::opt<bool> UseNewDbgInfoFormat(
     "experimental-debuginfo-iterators",
     cl::desc("Enable communicating debuginfo positions through iterators, "
              "eliminating intrinsics. Has no effect if "
              "--preserve-input-debuginfo-format=true."),
     cl::init(true));
-cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
+LLVM_ABI cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
     "preserve-input-debuginfo-format", cl::Hidden,
     cl::desc("When set to true, IR files will be processed and printed in "
              "their current debug info format, regardless of default behaviour "
@@ -45,7 +46,7 @@ cl::opt<cl::boolOrDefault> PreserveInputDbgFormat(
              "llvm-lto, and llvm-lto2."));
 
 LLVM_ABI bool WriteNewDbgInfoFormatToBitcode /*set default value in cl::init() below*/;
-cl::opt<bool, true> WriteNewDbgInfoFormatToBitcode2(
+LLVM_ABI cl::opt<bool, true> WriteNewDbgInfoFormatToBitcode2(
     "write-experimental-debuginfo-iterators-to-bitcode", cl::Hidden,
     cl::location(WriteNewDbgInfoFormatToBitcode), cl::init(true));
 
@@ -175,7 +176,7 @@ template <> void llvm::invalidateParentIListOrdering(BasicBlock *BB) {
 
 // Explicit instantiation of SymbolTableListTraits since some of the methods
 // are not in the public header file...
-template class llvm::SymbolTableListTraits<
+template class LLVM_EXPORT_TEMPLATE llvm::SymbolTableListTraits<
     Instruction, ilist_iterator_bits<true>, ilist_parent<BasicBlock>>;
 
 BasicBlock::BasicBlock(LLVMContext &C, const Twine &Name, Function *NewParent,

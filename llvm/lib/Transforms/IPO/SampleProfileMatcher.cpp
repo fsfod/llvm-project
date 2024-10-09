@@ -15,6 +15,7 @@
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/MDBuilder.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 using namespace sampleprof;
@@ -43,10 +44,10 @@ static cl::opt<bool> LoadFuncProfileforCGMatching(
         "the call-graph matching (only meaningful for extended binary "
         "format)"));
 
-extern cl::opt<bool> SalvageStaleProfile;
-extern cl::opt<bool> SalvageUnusedProfile;
-extern cl::opt<bool> PersistProfileStaleness;
-extern cl::opt<bool> ReportProfileStaleness;
+LLVM_ABI extern cl::opt<bool> SalvageStaleProfile;
+LLVM_ABI extern cl::opt<bool> SalvageUnusedProfile;
+LLVM_ABI extern cl::opt<bool> PersistProfileStaleness;
+LLVM_ABI extern cl::opt<bool> ReportProfileStaleness;
 
 static cl::opt<unsigned> SalvageStaleProfileMaxCallsites(
     "salvage-stale-profile-max-callsites", cl::Hidden, cl::init(UINT_MAX),

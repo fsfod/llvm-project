@@ -21,6 +21,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Target/TargetMachine.h"
 
@@ -45,7 +46,7 @@ static cl::opt<bool> EnableLocalReassignment(
     cl::init(false));
 
 namespace llvm {
-cl::opt<unsigned> EvictInterferenceCutoff(
+LLVM_ABI cl::opt<unsigned> EvictInterferenceCutoff(
     "regalloc-eviction-max-interference-cutoff", cl::Hidden,
     cl::desc("Number of interferences after which we declare "
              "an interference unevictable and bail out. This "

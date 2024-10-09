@@ -34,6 +34,7 @@
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/raw_ostream.h"
@@ -56,10 +57,10 @@ using namespace llvm;
 STATISTIC(NumOfPGOICallPromotion, "Number of indirect call promotions.");
 STATISTIC(NumOfPGOICallsites, "Number of indirect call candidate sites.");
 
-extern cl::opt<unsigned> MaxNumVTableAnnotations;
+LLVM_ABI extern cl::opt<unsigned> MaxNumVTableAnnotations;
 
 namespace llvm {
-extern cl::opt<bool> EnableVTableProfileUse;
+LLVM_ABI extern cl::opt<bool> EnableVTableProfileUse;
 }
 
 // Command line option to disable indirect-call promotion with the default as
