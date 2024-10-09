@@ -55,6 +55,9 @@ class CallGraph : public DynamicRecursiveASTVisitor {
 public:
   CallGraph();
   ~CallGraph();
+  CallGraph(const CallGraph &) = delete;
+  CallGraph(CallGraph &&) = default;
+  CallGraph &operator=(const CallGraph &) = delete;
 
   /// Populate the call graph with the functions in the given
   /// declaration.

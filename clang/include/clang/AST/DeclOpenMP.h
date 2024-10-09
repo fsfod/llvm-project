@@ -115,6 +115,8 @@ class OMPThreadPrivateDecl final : public OMPDeclarativeDirective<Decl> {
   OMPThreadPrivateDecl(DeclContext *DC = nullptr,
                        SourceLocation L = SourceLocation())
       : OMPDeclarativeDirective<Decl>(OMPThreadPrivate, DC, L) {}
+  OMPThreadPrivateDecl(const OMPThreadPrivateDecl &) = delete;
+  OMPThreadPrivateDecl &operator =(const OMPThreadPrivateDecl &) = delete;
 
   ArrayRef<const Expr *> getVars() const {
     auto **Storage = reinterpret_cast<Expr **>(Data->getChildren().data());
@@ -305,6 +307,8 @@ class OMPDeclareMapperDecl final : public OMPDeclarativeDirective<ValueDecl>,
       : OMPDeclarativeDirective<ValueDecl>(OMPDeclareMapper, DC, L, Name, Ty),
         DeclContext(OMPDeclareMapper), VarName(VarName),
         PrevDeclInScope(PrevDeclInScope) {}
+  OMPDeclareMapperDecl(const OMPDeclareMapperDecl &) = delete;
+  OMPDeclareMapperDecl &operator =(const OMPDeclareMapperDecl &) = delete;
 
   void setPrevDeclInScope(OMPDeclareMapperDecl *Prev) {
     PrevDeclInScope = Prev;
@@ -422,6 +426,8 @@ class OMPRequiresDecl final : public OMPDeclarativeDirective<Decl> {
 
   OMPRequiresDecl(DeclContext *DC, SourceLocation L)
       : OMPDeclarativeDirective<Decl>(OMPRequires, DC, L) {}
+  OMPRequiresDecl(const OMPRequiresDecl &) = delete;
+  OMPRequiresDecl &operator =(const OMPRequiresDecl &) = delete;
 
 public:
   /// Create requires node.
@@ -479,6 +485,8 @@ class OMPAllocateDecl final : public OMPDeclarativeDirective<Decl> {
 
   OMPAllocateDecl(DeclContext *DC, SourceLocation L)
       : OMPDeclarativeDirective<Decl>(OMPAllocate, DC, L) {}
+  OMPAllocateDecl(const OMPAllocateDecl &) = delete;
+  OMPAllocateDecl &operator =(const OMPAllocateDecl &) = delete;
 
   ArrayRef<const Expr *> getVars() const {
     auto **Storage = reinterpret_cast<Expr **>(Data->getChildren().data());

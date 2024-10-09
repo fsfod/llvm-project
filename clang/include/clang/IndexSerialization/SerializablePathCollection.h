@@ -98,6 +98,10 @@ public:
   SerializablePathCollection(llvm::StringRef CurrentWorkDir,
                              llvm::StringRef SysRoot,
                              llvm::StringRef OutputFile);
+  SerializablePathCollection(const SerializablePathCollection &) = delete;
+  SerializablePathCollection(SerializablePathCollection &&) = default;
+  SerializablePathCollection &
+  operator=(const SerializablePathCollection &) = delete;
 
   /// \returns buffer containing all the paths.
   llvm::StringRef getPathsBuffer() const { return Paths.getPaths(); }

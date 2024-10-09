@@ -654,6 +654,9 @@ public:
             bool IncludeTimestamps = true, bool BuildingImplicitModule = false,
             bool GeneratingReducedBMI = false);
   ~ASTWriter() override;
+  ASTWriter(const ASTWriter &) = delete;
+  ASTWriter(ASTWriter &&);
+  ASTWriter &operator =(const ASTWriter &) = delete;
 
   const LangOptions &getLangOpts() const;
 

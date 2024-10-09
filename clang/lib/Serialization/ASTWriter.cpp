@@ -4903,6 +4903,7 @@ ASTWriter::ASTWriter(llvm::BitstreamWriter &Stream,
 }
 
 ASTWriter::~ASTWriter() = default;
+ASTWriter::ASTWriter(ASTWriter &&) = default;
 
 const LangOptions &ASTWriter::getLangOpts() const {
   assert(WritingAST && "can't determine lang opts when not writing AST");
