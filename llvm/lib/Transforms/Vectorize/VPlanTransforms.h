@@ -15,6 +15,7 @@
 
 #include "VPlan.h"
 #include "llvm/ADT/STLFunctionalExtras.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -27,7 +28,7 @@ class TargetLibraryInfo;
 class VPBuilder;
 class VPRecipeBuilder;
 
-struct VPlanTransforms {
+struct LLVM_ABI VPlanTransforms {
   /// Replaces the VPInstructions in \p Plan with corresponding
   /// widen recipes.
   static void

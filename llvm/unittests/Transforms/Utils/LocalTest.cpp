@@ -23,15 +23,16 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Verifier.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SourceMgr.h"
 #include "gtest/gtest.h"
 
 using namespace llvm;
 
-extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
-extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+LLVM_ABI extern llvm::cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
 LLVM_ABI extern bool WriteNewDbgInfoFormatToBitcode;
-extern cl::opt<bool> WriteNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<bool> WriteNewDbgInfoFormat;
 
 // Backup all of the existing settings that may be modified when
 // PreserveInputDbgFormat=true, so that when the test is finished we return them

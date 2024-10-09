@@ -47,6 +47,7 @@
 #include "llvm/Support/AtomicOrdering.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <functional>
@@ -63,7 +64,7 @@ STATISTIC(NumMustAlias, "Number of MustAlias results");
 namespace llvm {
 /// Allow disabling BasicAA from the AA results. This is particularly useful
 /// when testing to isolate a single AA implementation.
-cl::opt<bool> DisableBasicAA("disable-basic-aa", cl::Hidden, cl::init(false));
+LLVM_ABI cl::opt<bool> DisableBasicAA("disable-basic-aa", cl::Hidden, cl::init(false));
 } // namespace llvm
 
 #ifndef NDEBUG

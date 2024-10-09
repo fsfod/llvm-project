@@ -22,6 +22,7 @@
 #include "llvm/IR/PseudoProbe.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Support/xxhash.h"
@@ -36,7 +37,7 @@ using namespace sampleprofutil;
 // TODO(xur): Remove this option and related code once we make true as the
 // default.
 namespace llvm {
-cl::opt<bool> ImprovedFSDiscriminator(
+LLVM_ABI cl::opt<bool> ImprovedFSDiscriminator(
     "improved-fs-discriminator", cl::Hidden, cl::init(false),
     cl::desc("New FS discriminators encoding (incompatible with the original "
              "encoding)"));

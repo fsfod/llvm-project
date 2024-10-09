@@ -39,6 +39,7 @@
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/Support/raw_ostream.h"
@@ -123,18 +124,18 @@ static cl::opt<unsigned>
                                  "frames through tail calls."));
 
 namespace llvm {
-cl::opt<bool> EnableMemProfContextDisambiguation(
+LLVM_ABI cl::opt<bool> EnableMemProfContextDisambiguation(
     "enable-memprof-context-disambiguation", cl::init(false), cl::Hidden,
     cl::ZeroOrMore, cl::desc("Enable MemProf context disambiguation"));
 
 // Indicate we are linking with an allocator that supports hot/cold operator
 // new interfaces.
-cl::opt<bool> SupportsHotColdNew(
+LLVM_ABI cl::opt<bool> SupportsHotColdNew(
     "supports-hot-cold-new", cl::init(false), cl::Hidden,
     cl::desc("Linking with hot/cold operator new interfaces"));
 } // namespace llvm
 
-extern cl::opt<bool> MemProfReportHintedSizes;
+LLVM_ABI extern cl::opt<bool> MemProfReportHintedSizes;
 
 namespace {
 /// CRTP base for graphs built from either IR or ThinLTO summary index.

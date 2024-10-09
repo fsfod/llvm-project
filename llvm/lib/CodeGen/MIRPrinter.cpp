@@ -46,6 +46,7 @@
 #include "llvm/Support/BranchProbability.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/Format.h"
 #include "llvm/Support/YAMLTraits.h"
@@ -69,7 +70,7 @@ static cl::opt<bool> SimplifyMIR(
 static cl::opt<bool> PrintLocations("mir-debug-loc", cl::Hidden, cl::init(true),
                                     cl::desc("Print MIR debug-locations"));
 
-extern cl::opt<bool> WriteNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<bool> WriteNewDbgInfoFormat;
 
 namespace {
 

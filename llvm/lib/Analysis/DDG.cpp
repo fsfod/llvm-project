@@ -13,6 +13,7 @@
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/LoopIterator.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -26,9 +27,9 @@ static cl::opt<bool> CreatePiBlocks("ddg-pi-blocks", cl::init(true), cl::Hidden,
 
 #define DEBUG_TYPE "ddg"
 
-template class llvm::DGEdge<DDGNode, DDGEdge>;
-template class llvm::DGNode<DDGNode, DDGEdge>;
-template class llvm::DirectedGraph<DDGNode, DDGEdge>;
+template class LLVM_EXPORT_TEMPLATE llvm::DGEdge<DDGNode, DDGEdge>;
+template class LLVM_EXPORT_TEMPLATE llvm::DGNode<DDGNode, DDGEdge>;
+template class LLVM_EXPORT_TEMPLATE llvm::DirectedGraph<DDGNode, DDGEdge>;
 
 //===--------------------------------------------------------------------===//
 // DDGNode implementation

@@ -12,12 +12,13 @@
 #include "llvm/CodeGenTypes/LowLevelType.h"
 #include "llvm/MC/MCTargetOptions.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 // Note: this option is defined here to be visible from libLLVMMipsAsmParser
 //       and libLLVMMipsCodeGen
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
 EmitJalrReloc("mips-jalr-reloc", cl::Hidden,
               cl::desc("MIPS: Emit R_{MICRO}MIPS_JALR relocation with jalr"),
               cl::init(true));

@@ -18,6 +18,7 @@
 #include "llvm/MC/MCExpr.h"
 #include "llvm/MC/MCStreamer.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -32,7 +33,7 @@ static cl::opt<DefaultOnOff> DwarfExtendedLoc(
     cl::init(Default));
 
 namespace llvm {
-cl::opt<cl::boolOrDefault> UseLEB128Directives(
+LLVM_ABI cl::opt<cl::boolOrDefault> UseLEB128Directives(
     "use-leb128-directives", cl::Hidden,
     cl::desc(
         "Disable the usage of LEB128 directives, and generate .byte instead."),

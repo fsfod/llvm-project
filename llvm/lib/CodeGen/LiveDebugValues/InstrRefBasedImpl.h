@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/MachineInstr.h"
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/IR/DebugInfoMetadata.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 #include "LiveDebugValues.h"
@@ -142,7 +143,7 @@ struct SpillLoc {
 /// The obvious limits of a 1M block function or 1M instruction blocks are
 /// problematic; but by that point we should probably have bailed out of
 /// trying to analyse the function.
-class ValueIDNum {
+class LLVM_ABI ValueIDNum {
   union {
     struct {
       uint64_t BlockNo : 20; /// The block where the def happens.
@@ -408,7 +409,7 @@ struct ResolvedDbgOp {
 /// should be equal for all equal DbgOps, and also encodes whether the mapped
 /// DbgOp is a constant, meaning that for simple equality or const-ness checks
 /// it is not necessary to lookup this ID.
-struct DbgOpID {
+struct LLVM_ABI DbgOpID {
   struct IsConstIndexPair {
     uint32_t IsConst : 1;
     uint32_t Index : 31;
@@ -689,7 +690,7 @@ public:
 /// Register mask operands cause trouble by technically defining every register;
 /// various hacks are used to avoid tracking registers that are never read and
 /// only written by regmasks.
-class MLocTracker {
+class LLVM_ABI MLocTracker {
 public:
   MachineFunction &MF;
   const TargetInstrInfo &TII;
@@ -1110,7 +1111,7 @@ public:
 };
 
 // XXX XXX docs
-class InstrRefBasedLDV : public LDVImpl {
+class LLVM_ABI InstrRefBasedLDV : public LDVImpl {
 public:
   friend class ::InstrRefLDVTest;
 

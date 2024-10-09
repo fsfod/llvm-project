@@ -25,6 +25,7 @@
 #include "llvm/Analysis/VectorUtils.h"
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/PatternMatch.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/SizeOpts.h"
 #include "llvm/Transforms/Vectorize/LoopVectorize.h"
 
@@ -44,7 +45,7 @@ AllowStridedPointerIVs("lv-strided-pointer-ivs", cl::init(false), cl::Hidden,
                                 "pointer induction variables."));
 
 namespace llvm {
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     HintsAllowReordering("hints-allow-reordering", cl::init(true), cl::Hidden,
                          cl::desc("Allow enabling loop hints to reorder "
                                   "FP operations during vectorization."));

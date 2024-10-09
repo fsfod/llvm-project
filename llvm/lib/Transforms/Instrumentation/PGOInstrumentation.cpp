@@ -99,6 +99,7 @@
 #include "llvm/Support/CRC.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DOTGraphTraits.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Error.h"
@@ -199,7 +200,7 @@ static cl::opt<bool> DoComdatRenaming(
 namespace llvm {
 // Command line option to enable/disable the warning about missing profile
 // information.
-cl::opt<bool> PGOWarnMissing("pgo-warn-missing-function", cl::init(false),
+LLVM_ABI cl::opt<bool> PGOWarnMissing("pgo-warn-missing-function", cl::init(false),
                              cl::Hidden,
                              cl::desc("Use this option to turn on/off "
                                       "warnings about missing profile data for "
@@ -207,7 +208,7 @@ cl::opt<bool> PGOWarnMissing("pgo-warn-missing-function", cl::init(false),
 
 // Command line option to enable/disable the warning about a hash mismatch in
 // the profile data.
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     NoPGOWarnMismatch("no-pgo-warn-mismatch", cl::init(false), cl::Hidden,
                       cl::desc("Use this option to turn off/on "
                                "warnings about profile cfg mismatch."));
@@ -215,7 +216,7 @@ cl::opt<bool>
 // Command line option to enable/disable the warning about a hash mismatch in
 // the profile data for Comdat functions, which often turns out to be false
 // positive due to the pre-instrumentation inline.
-cl::opt<bool> NoPGOWarnMismatchComdatWeak(
+LLVM_ABI cl::opt<bool> NoPGOWarnMismatchComdatWeak(
     "no-pgo-warn-mismatch-comdat-weak", cl::init(true), cl::Hidden,
     cl::desc("The option is used to turn on/off "
              "warnings about hash mismatch for comdat "
@@ -319,22 +320,22 @@ static cl::opt<unsigned> PGOFunctionCriticalEdgeThreshold(
     cl::desc("Do not instrument functions with the number of critical edges "
              " greater than this threshold."));
 
-extern cl::opt<unsigned> MaxNumVTableAnnotations;
+LLVM_ABI extern cl::opt<unsigned> MaxNumVTableAnnotations;
 
 namespace llvm {
 // Command line option to turn on CFG dot dump after profile annotation.
 // Defined in Analysis/BlockFrequencyInfo.cpp:  -pgo-view-counts
-extern cl::opt<PGOViewCountsType> PGOViewCounts;
+LLVM_ABI extern cl::opt<PGOViewCountsType> PGOViewCounts;
 
 // Command line option to specify the name of the function for CFG dump
 // Defined in Analysis/BlockFrequencyInfo.cpp:  -view-bfi-func-name=
-extern cl::opt<std::string> ViewBlockFreqFuncName;
+LLVM_ABI extern cl::opt<std::string> ViewBlockFreqFuncName;
 
 // Command line option to enable vtable value profiling. Defined in
 // ProfileData/InstrProf.cpp: -enable-vtable-value-profiling=
-extern cl::opt<bool> EnableVTableValueProfiling;
-extern cl::opt<bool> EnableVTableProfileUse;
-extern cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate;
+LLVM_ABI extern cl::opt<bool> EnableVTableValueProfiling;
+LLVM_ABI extern cl::opt<bool> EnableVTableProfileUse;
+LLVM_ABI extern cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate;
 } // namespace llvm
 
 namespace {

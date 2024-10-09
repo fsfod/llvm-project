@@ -18,13 +18,14 @@
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "llvm/IR/Function.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Target/TargetMachine.h"
 
 using namespace llvm;
 
 // This flag is used by the template base class for BasicTTIImpl, and here to
 // provide a definition.
-cl::opt<unsigned>
+LLVM_ABI cl::opt<unsigned>
 llvm::PartialUnrollingThreshold("partial-unrolling-threshold", cl::init(0),
                                 cl::desc("Threshold for partial unrolling"),
                                 cl::Hidden);

@@ -16,6 +16,7 @@
 #include "ProfiledBinary.h"
 #include "llvm/DebugInfo/Symbolize/SymbolizableModule.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/InitLLVM.h"
 #include "llvm/Support/TargetSelect.h"
@@ -67,9 +68,9 @@ static cl::opt<std::string> DebugBinPath(
              "from it instead of the executable binary."),
     cl::cat(ProfGenCategory));
 
-extern cl::opt<bool> ShowDisassemblyOnly;
-extern cl::opt<bool> ShowSourceLocations;
-extern cl::opt<bool> SkipSymbolization;
+LLVM_ABI extern cl::opt<bool> ShowDisassemblyOnly;
+LLVM_ABI extern cl::opt<bool> ShowSourceLocations;
+LLVM_ABI extern cl::opt<bool> SkipSymbolization;
 
 using namespace llvm;
 using namespace sampleprof;

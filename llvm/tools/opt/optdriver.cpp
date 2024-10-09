@@ -39,6 +39,7 @@
 #include "llvm/MC/TargetRegistry.h"
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Remarks/HotnessThresholdParser.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/FileSystem.h"
@@ -285,7 +286,7 @@ static cl::opt<bool> TryUseNewDbgInfoFormat(
     cl::desc("Enable debuginfo iterator positions, if they're built in"),
     cl::init(false), cl::Hidden);
 
-extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
 
 //===----------------------------------------------------------------------===//
 // CodeGen-related helper functions.

@@ -23,6 +23,7 @@
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Operator.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -486,7 +487,7 @@ bool llvm::isSafeToLoadUnconditionally(Value *V, Type *Ty, Align Alignment,
 /// threading in part by eliminating partially redundant loads.
 /// At that point, the value of MaxInstsToScan was already set to '6'
 /// without documented explanation.
-cl::opt<unsigned>
+LLVM_ABI cl::opt<unsigned>
 llvm::DefMaxInstsToScan("available-load-scan-limit", cl::init(6), cl::Hidden,
   cl::desc("Use this to specify the default maximum number of instructions "
            "to scan backward from a given instruction, when searching for "

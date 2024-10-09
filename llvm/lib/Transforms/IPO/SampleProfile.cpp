@@ -64,6 +64,7 @@
 #include "llvm/ProfileData/SampleProfReader.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorOr.h"
 #include "llvm/Support/VirtualFileSystem.h"
@@ -130,20 +131,20 @@ static cl::opt<std::string> SampleProfileRemappingFile(
     "sample-profile-remapping-file", cl::init(""), cl::value_desc("filename"),
     cl::desc("Profile remapping file loaded by -sample-profile"), cl::Hidden);
 
-cl::opt<bool> SalvageStaleProfile(
+LLVM_ABI cl::opt<bool> SalvageStaleProfile(
     "salvage-stale-profile", cl::Hidden, cl::init(false),
     cl::desc("Salvage stale profile by fuzzy matching and use the remapped "
              "location for sample profile query."));
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     SalvageUnusedProfile("salvage-unused-profile", cl::Hidden, cl::init(false),
                          cl::desc("Salvage unused profile by matching with new "
                                   "functions on call graph."));
 
-cl::opt<bool> ReportProfileStaleness(
+LLVM_ABI cl::opt<bool> ReportProfileStaleness(
     "report-profile-staleness", cl::Hidden, cl::init(false),
     cl::desc("Compute and report stale profile statistical metrics."));
 
-cl::opt<bool> PersistProfileStaleness(
+LLVM_ABI cl::opt<bool> PersistProfileStaleness(
     "persist-profile-staleness", cl::Hidden, cl::init(false),
     cl::desc("Compute stale profile statistical metrics and write it into the "
              "native object file(.llvm_stats section)."));
@@ -199,31 +200,31 @@ static cl::opt<bool> DisableSampleLoaderInlining(
              "--sample-profile-merge-inlinee)."));
 
 namespace llvm {
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     SortProfiledSCC("sort-profiled-scc-member", cl::init(true), cl::Hidden,
                     cl::desc("Sort profiled recursion by edge weights."));
 
-cl::opt<int> ProfileInlineGrowthLimit(
+LLVM_ABI cl::opt<int> ProfileInlineGrowthLimit(
     "sample-profile-inline-growth-limit", cl::Hidden, cl::init(12),
     cl::desc("The size growth ratio limit for proirity-based sample profile "
              "loader inlining."));
 
-cl::opt<int> ProfileInlineLimitMin(
+LLVM_ABI cl::opt<int> ProfileInlineLimitMin(
     "sample-profile-inline-limit-min", cl::Hidden, cl::init(100),
     cl::desc("The lower bound of size growth limit for "
              "proirity-based sample profile loader inlining."));
 
-cl::opt<int> ProfileInlineLimitMax(
+LLVM_ABI cl::opt<int> ProfileInlineLimitMax(
     "sample-profile-inline-limit-max", cl::Hidden, cl::init(10000),
     cl::desc("The upper bound of size growth limit for "
              "proirity-based sample profile loader inlining."));
 
-cl::opt<int> SampleHotCallSiteThreshold(
+LLVM_ABI cl::opt<int> SampleHotCallSiteThreshold(
     "sample-profile-hot-inline-threshold", cl::Hidden, cl::init(3000),
     cl::desc("Hot callsite threshold for proirity-based sample profile loader "
              "inlining."));
 
-cl::opt<int> SampleColdCallSiteThreshold(
+LLVM_ABI cl::opt<int> SampleColdCallSiteThreshold(
     "sample-profile-cold-inline-threshold", cl::Hidden, cl::init(45),
     cl::desc("Threshold for inlining cold callsites"));
 } // namespace llvm
@@ -337,7 +338,7 @@ static cl::opt<bool> AnnotateSampleProfileInlinePhase(
              "sample-profile inline pass name."));
 
 namespace llvm {
-extern cl::opt<bool> EnableExtTspBlockPlacement;
+LLVM_ABI extern cl::opt<bool> EnableExtTspBlockPlacement;
 }
 
 namespace {

@@ -33,7 +33,7 @@ template LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<MachineDomTreeUpdater, Machi
   MachinePostDominatorTree>::~GenericDomTreeUpdater();
 #endif
 
-template class GenericDomTreeUpdater<
+template class LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<
     MachineDomTreeUpdater, MachineDominatorTree, MachinePostDominatorTree>;
 
 template void LLVM_EXPORT_TEMPLATE

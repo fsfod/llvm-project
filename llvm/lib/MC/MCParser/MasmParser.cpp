@@ -48,6 +48,7 @@
 #include "llvm/MC/MCTargetOptions.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/Format.h"
 #include "llvm/Support/MD5.h"
@@ -1079,7 +1080,7 @@ private:
 
 namespace llvm {
 
-extern cl::opt<unsigned> AsmMacroMaxNestingDepth;
+LLVM_ABI extern cl::opt<unsigned> AsmMacroMaxNestingDepth;
 
 extern MCAsmParserExtension *createCOFFMasmParser();
 

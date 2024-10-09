@@ -24,12 +24,13 @@
 #include "llvm/CodeGen/MachineInstrBuilder.h"
 #include "llvm/CodeGen/MachineModuleInfo.h"
 #include "llvm/IR/Module.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 #define DEBUG_TYPE "x86-indirect-branch-tracking"
 
-cl::opt<bool> IndirectBranchTracking(
+LLVM_ABI cl::opt<bool> IndirectBranchTracking(
     "x86-indirect-branch-tracking", cl::init(false), cl::Hidden,
     cl::desc("Enable X86 indirect branch tracking pass."));
 

@@ -22,6 +22,7 @@
 #include "llvm/IR/IntrinsicInst.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/PatternMatch.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/InstCombine/InstCombiner.h"
 #include "llvm/Transforms/Utils/Local.h"
 using namespace llvm;
@@ -38,7 +39,7 @@ static cl::opt<unsigned> MaxCopiedFromConstantUsers(
     cl::Hidden);
 
 namespace llvm {
-cl::opt<bool> EnableInferAlignmentPass(
+LLVM_ABI cl::opt<bool> EnableInferAlignmentPass(
     "enable-infer-alignment-pass", cl::init(true), cl::Hidden, cl::ZeroOrMore,
     cl::desc("Enable the InferAlignment pass, disabling alignment inference in "
              "InstCombine"));

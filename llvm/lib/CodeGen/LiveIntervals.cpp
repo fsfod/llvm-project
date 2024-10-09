@@ -101,7 +101,7 @@ static bool EnablePrecomputePhysRegs = false;
 
 namespace llvm {
 
-cl::opt<bool> UseSegmentSetForPhysRegs(
+LLVM_ABI cl::opt<bool> UseSegmentSetForPhysRegs(
     "use-segment-set-for-physregs", cl::Hidden, cl::init(true),
     cl::desc(
         "Use segment set for the computation of the live ranges of physregs."));

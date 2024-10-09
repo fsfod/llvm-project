@@ -16,6 +16,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include <memory>
 
@@ -45,7 +46,7 @@ static cl::opt<unsigned>
                      cl::desc("Max number of promotions for a single indirect "
                               "call callsite"));
 
-cl::opt<unsigned> MaxNumVTableAnnotations(
+LLVM_ABI cl::opt<unsigned> MaxNumVTableAnnotations(
     "icp-max-num-vtables", cl::init(6), cl::Hidden,
     cl::desc("Max number of vtables annotated for a vtable load instruction."));
 

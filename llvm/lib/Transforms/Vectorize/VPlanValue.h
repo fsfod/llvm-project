@@ -26,6 +26,7 @@
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/TinyPtrVector.h"
 #include "llvm/ADT/iterator_range.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -41,7 +42,7 @@ class VPRecipeBase;
 // flow into, within and out of the VPlan. VPValues can stand for live-ins
 // coming from the input IR, instructions which VPlan will generate if executed
 // and live-outs which the VPlan will need to fix accordingly.
-class VPValue {
+class LLVM_ABI VPValue {
   friend class VPBuilder;
   friend class VPDef;
   friend class VPInstruction;
@@ -193,7 +194,7 @@ public:
 typedef DenseMap<Value *, VPValue *> Value2VPValueTy;
 typedef DenseMap<VPValue *, Value *> VPValue2ValueTy;
 
-raw_ostream &operator<<(raw_ostream &OS, const VPValue &V);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const VPValue &V);
 
 /// This class augments VPValue with operands which provide the inverse def-use
 /// edges from VPValue's users to their defs.
@@ -447,7 +448,7 @@ class VPBasicBlock;
 /// ir<>), appending a .V version number if there are multiple uses of the same
 /// name. Allows querying names for VPValues for printing, similar to the
 /// ModuleSlotTracker for IR values.
-class VPSlotTracker {
+class LLVM_ABI VPSlotTracker {
   /// Keep track of versioned names assigned to VPValues with underlying IR
   /// values.
   DenseMap<const VPValue *, std::string> VPValue2Name;

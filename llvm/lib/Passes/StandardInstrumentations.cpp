@@ -31,6 +31,7 @@
 #include "llvm/IR/StructuralHash.h"
 #include "llvm/IR/Verifier.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/CrashRecoveryContext.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Error.h"
@@ -2541,14 +2542,14 @@ void StandardInstrumentations::registerCallbacks(
   TimeProfilingPasses.registerCallbacks(PIC);
 }
 
-template class ChangeReporter<std::string>;
-template class TextChangeReporter<std::string>;
+template class LLVM_EXPORT_TEMPLATE ChangeReporter<std::string>;
+template class LLVM_EXPORT_TEMPLATE TextChangeReporter<std::string>;
 
-template class BlockDataT<EmptyData>;
-template class FuncDataT<EmptyData>;
-template class IRDataT<EmptyData>;
-template class ChangeReporter<IRDataT<EmptyData>>;
-template class TextChangeReporter<IRDataT<EmptyData>>;
-template class IRComparer<EmptyData>;
+template class LLVM_EXPORT_TEMPLATE BlockDataT<EmptyData>;
+template class LLVM_EXPORT_TEMPLATE FuncDataT<EmptyData>;
+template class LLVM_EXPORT_TEMPLATE IRDataT<EmptyData>;
+template class LLVM_EXPORT_TEMPLATE ChangeReporter<IRDataT<EmptyData>>;
+template class LLVM_EXPORT_TEMPLATE TextChangeReporter<IRDataT<EmptyData>>;
+template class LLVM_EXPORT_TEMPLATE IRComparer<EmptyData>;
 
 } // namespace llvm
