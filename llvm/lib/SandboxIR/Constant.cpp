@@ -291,6 +291,26 @@ GlobalT &GlobalWithNodeAPI<GlobalT, LLVMGlobalT, ParentT, LLVMParentT>::
   return cast<GlobalT>(*Ctx.getValue(&LLVMGV));
 }
 
+#if defined(__clang__) && __clang_major__  < 19 && defined(_MSC_VER) 
+template LLVM_EXPORT_TEMPLATE GlobalIFunc &
+GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
+                  llvm::GlobalObject>::LLVMGVToGV::operator()(llvm::GlobalIFunc
+                                                                  &LLVMGV)
+    const;
+template LLVM_EXPORT_TEMPLATE Function &
+GlobalWithNodeAPI<Function, llvm::Function, GlobalObject, llvm::GlobalObject>::
+    LLVMGVToGV::operator()(llvm::Function &LLVMGV) const;
+
+template LLVM_EXPORT_TEMPLATE GlobalVariable &GlobalWithNodeAPI<
+    GlobalVariable, llvm::GlobalVariable, GlobalObject,
+    llvm::GlobalObject>::LLVMGVToGV::operator()(llvm::GlobalVariable &LLVMGV)
+    const;
+template LLVM_EXPORT_TEMPLATE GlobalAlias &
+GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
+                  llvm::GlobalValue>::LLVMGVToGV::operator()(llvm::GlobalAlias
+                                                                 &LLVMGV) const;
+#endif
+
 // Explicit instantiations.
 template class GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
                                  llvm::GlobalObject>;
