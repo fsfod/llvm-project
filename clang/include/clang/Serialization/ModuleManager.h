@@ -136,6 +136,7 @@ public:
   explicit ModuleManager(FileManager &FileMgr, InMemoryModuleCache &ModuleCache,
                          const PCHContainerReader &PCHContainerRdr,
                          const HeaderSearch &HeaderSearchInfo);
+  ~ModuleManager();
 
   /// Forward iterator to traverse all loaded modules.
   ModuleIterator begin() { return Chain.begin(); }
