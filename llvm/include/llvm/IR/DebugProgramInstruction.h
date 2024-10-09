@@ -299,6 +299,7 @@ public:
                     DIExpression *Expression, DIAssignID *AssignID,
                     Metadata *Address, DIExpression *AddressExpression,
                     const DILocation *DI);
+  DbgVariableRecord &operator =(const DbgVariableRecord &) = default;
 
 private:
   /// Private constructor for creating new instances during parsing only. Only
