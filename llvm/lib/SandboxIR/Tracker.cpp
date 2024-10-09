@@ -103,6 +103,9 @@ EraseFromParent::EraseFromParent(std::unique_ptr<sandboxir::Value> &&ErasedIPtr)
     NextLLVMIOrBB = BotLLVMI->getParent();
 }
 
+EraseFromParent::EraseFromParent(EraseFromParent &&) = default;
+EraseFromParent::~EraseFromParent() = default;
+
 void EraseFromParent::accept() {
   for (const auto &IData : InstrData)
     IData.LLVMI->deleteValue();
