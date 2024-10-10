@@ -243,6 +243,8 @@ Driver::Driver(StringRef ClangExecutable, StringRef TargetTriple,
   ResourceDir = GetResourcesPath(ClangExecutable);
 }
 
+Driver::~Driver() = default;
+
 void Driver::setDriverMode(StringRef Value) {
   static StringRef OptName =
       getOpts().getOption(options::OPT_driver_mode).getPrefixedName();
