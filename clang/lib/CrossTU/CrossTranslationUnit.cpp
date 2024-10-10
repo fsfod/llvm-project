@@ -240,6 +240,7 @@ CrossTranslationUnitContext::CrossTranslationUnitContext(CompilerInstance &CI)
     : Context(CI.getASTContext()), ASTStorage(CI) {}
 
 CrossTranslationUnitContext::~CrossTranslationUnitContext() {}
+CrossTranslationUnitContext::CrossTranslationUnitContext(CrossTranslationUnitContext &&) = default;
 
 std::optional<std::string>
 CrossTranslationUnitContext::getLookupName(const NamedDecl *ND) {
