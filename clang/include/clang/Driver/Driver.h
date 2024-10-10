@@ -384,6 +384,7 @@ public:
   Driver(StringRef ClangExecutable, StringRef TargetTriple,
          DiagnosticsEngine &Diags, std::string Title = "clang LLVM compiler",
          IntrusiveRefCntPtr<llvm::vfs::FileSystem> VFS = nullptr);
+  ~Driver();
 
   /// @name Accessors
   /// @{
