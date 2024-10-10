@@ -130,7 +130,7 @@ public:
   CrossTranslationUnitContext(CompilerInstance &CI);
   ~CrossTranslationUnitContext();
   CrossTranslationUnitContext(const CrossTranslationUnitContext &) = delete;
-  CrossTranslationUnitContext(CrossTranslationUnitContext &&) = default;
+  CrossTranslationUnitContext(CrossTranslationUnitContext &&);
   CrossTranslationUnitContext &operator =(const CrossTranslationUnitContext &) = delete;
 
   /// This function loads a function or variable definition from an
