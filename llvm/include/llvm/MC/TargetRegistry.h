@@ -574,7 +574,7 @@ public:
   ///
   /// \param TT The target triple.
   /// \param Ctx The target context.
-  MCRelocationInfo *createMCRelocationInfo(StringRef TT, MCContext &Ctx) const {
+  template<int = 0> MCRelocationInfo *createMCRelocationInfo(StringRef TT, MCContext &Ctx) const {
     MCRelocationInfoCtorTy Fn = MCRelocationInfoCtorFn
                                     ? MCRelocationInfoCtorFn
                                     : llvm::createMCRelocationInfo;
@@ -593,7 +593,7 @@ public:
   /// \param Ctx The target context.
   /// \param RelInfo The relocation information for this target. Takes
   /// ownership.
-  MCSymbolizer *
+  template<int = 0>  MCSymbolizer *
   createMCSymbolizer(StringRef TT, LLVMOpInfoCallback GetOpInfo,
                      LLVMSymbolLookupCallback SymbolLookUp, void *DisInfo,
                      MCContext *Ctx,
