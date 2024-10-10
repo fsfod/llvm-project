@@ -31,7 +31,7 @@ class SarifDocumentWriter;
 class CLANG_ABI SARIFDiagnosticPrinter : public DiagnosticConsumer {
 public:
   SARIFDiagnosticPrinter(raw_ostream &OS, DiagnosticOptions *Diags);
-  ~SARIFDiagnosticPrinter() = default;
+  ~SARIFDiagnosticPrinter();
 
   SARIFDiagnosticPrinter &operator=(const SARIFDiagnosticPrinter &&) = delete;
   SARIFDiagnosticPrinter(SARIFDiagnosticPrinter &&) = delete;
