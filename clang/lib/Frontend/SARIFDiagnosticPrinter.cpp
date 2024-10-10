@@ -29,6 +29,8 @@ SARIFDiagnosticPrinter::SARIFDiagnosticPrinter(raw_ostream &OS,
                                                DiagnosticOptions *Diags)
     : OS(OS), DiagOpts(Diags) {}
 
+SARIFDiagnosticPrinter::~SARIFDiagnosticPrinter() = default;
+
 void SARIFDiagnosticPrinter::BeginSourceFile(const LangOptions &LO,
                                              const Preprocessor *PP) {
   // Build the SARIFDiagnostic utility.
