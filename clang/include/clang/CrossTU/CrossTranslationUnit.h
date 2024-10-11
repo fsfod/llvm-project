@@ -296,7 +296,8 @@ private:
   public:
     ASTUnitStorage(CompilerInstance &CI);
     ASTUnitStorage(const ASTUnitStorage &) = delete;
-    ASTUnitStorage(ASTUnitStorage &&) = default;
+    ASTUnitStorage(ASTUnitStorage &&);
+    ~ASTUnitStorage();
     ASTUnitStorage &operator =(const ASTUnitStorage &) = delete;
 
     /// Loads an ASTUnit for a function.

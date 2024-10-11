@@ -399,6 +399,9 @@ CrossTranslationUnitContext::ASTUnitStorage::ASTUnitStorage(
                     ? CI.getAnalyzerOpts().CTUImportCppThreshold
                     : CI.getAnalyzerOpts().CTUImportThreshold) {}
 
+CrossTranslationUnitContext::ASTUnitStorage::ASTUnitStorage(ASTUnitStorage&&) = default;
+CrossTranslationUnitContext::ASTUnitStorage::~ASTUnitStorage() = default;
+
 llvm::Expected<ASTUnit *>
 CrossTranslationUnitContext::ASTUnitStorage::getASTUnitForFile(
     StringRef FileName, bool DisplayCTUProgress) {
