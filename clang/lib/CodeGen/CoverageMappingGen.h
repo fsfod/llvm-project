@@ -23,7 +23,7 @@
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm::coverage {
-extern cl::opt<bool> SystemHeadersCoverage;
+extern CLANG_ABI cl::opt<bool> SystemHeadersCoverage;
 }
 
 namespace clang {
