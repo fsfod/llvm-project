@@ -79,6 +79,12 @@
 
 using namespace llvm;
 
+PerTargetMIParsingState::PerTargetMIParsingState(const TargetSubtargetInfo &STI)
+  : Subtarget(STI) {
+  initNames2RegClasses();
+  initNames2RegBanks();
+}
+
 void PerTargetMIParsingState::setTarget(
   const TargetSubtargetInfo &NewSubtarget) {
 

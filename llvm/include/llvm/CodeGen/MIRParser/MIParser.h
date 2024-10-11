@@ -151,11 +151,7 @@ public:
   /// Return null if the name isn't a register bank.
   const RegisterBank *getRegBank(StringRef Name);
 
-  PerTargetMIParsingState(const TargetSubtargetInfo &STI)
-    : Subtarget(STI) {
-    initNames2RegClasses();
-    initNames2RegBanks();
-  }
+  PerTargetMIParsingState(const TargetSubtargetInfo &STI);
 
   ~PerTargetMIParsingState() = default;
 
