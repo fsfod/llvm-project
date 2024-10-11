@@ -151,12 +151,7 @@ public:
 
   bool getVRegFlagValue(StringRef FlagName, uint8_t &FlagValue) const;
 
-  PerTargetMIParsingState(const TargetSubtargetInfo &STI)
-    : Subtarget(STI) {
-    initNames2RegClasses();
-    initNames2RegBanks();
-  }
-
+  PerTargetMIParsingState(const TargetSubtargetInfo &STI);
   ~PerTargetMIParsingState() = default;
 
   void setTarget(const TargetSubtargetInfo &NewSubtarget);
