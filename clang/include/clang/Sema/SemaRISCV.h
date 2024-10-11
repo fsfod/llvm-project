@@ -33,6 +33,7 @@ class TargetInfo;
 class CLANG_ABI SemaRISCV : public SemaBase {
 public:
   SemaRISCV(Sema &S);
+  ~SemaRISCV();
 
   bool CheckLMUL(CallExpr *TheCall, unsigned ArgNum);
   bool CheckBuiltinFunctionCall(const TargetInfo &TI, unsigned BuiltinID,

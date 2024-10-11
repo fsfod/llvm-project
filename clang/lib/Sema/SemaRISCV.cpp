@@ -1505,4 +1505,6 @@ bool SemaRISCV::isValidFMVExtension(StringRef Ext) {
 
 SemaRISCV::SemaRISCV(Sema &S) : SemaBase(S) {}
 
+SemaRISCV::~SemaRISCV() = default;
+
 } // namespace clang
