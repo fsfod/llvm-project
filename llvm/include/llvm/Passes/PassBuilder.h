@@ -21,6 +21,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/Passes/OptimizationLevel.h"
 #include "llvm/Support/Error.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/PGOOptions.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/IPO/Inliner.h"
@@ -945,7 +946,7 @@ public:
 };
 
 /// Common option used by multiple tools to print pipeline passes
-extern cl::opt<bool> PrintPipelinePasses;
+LLVM_ABI extern cl::opt<bool> PrintPipelinePasses;
 
 }
 
