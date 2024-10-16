@@ -1181,15 +1181,7 @@ template <typename Enum> struct EnumTraits : public std::false_type {};
 
 typedef StringRef(*ElfFormatFn)(unsigned);
 
-static ElfFormatFn DwarfFormatProviders[] = {
-  nullptr,
-  &AttributeString,
-  &FormEncodingString,
-  &IndexString,
-  &TagString,
-  &LNStandardString,
-  &OperationEncodingString
-};
+LLVM_ABI extern const ElfFormatFn DwarfFormatProviders[7];
 
 template <> struct EnumTraits<Attribute> : public std::true_type {
   static constexpr char Type[3] = "AT";
