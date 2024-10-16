@@ -23,6 +23,11 @@ namespace Fortran::frontend {
 /// The frontend plugin registry.
 using FrontendPluginRegistry = llvm::Registry<PluginParseTreeAction>;
 
+namespace llvm {
+extern template class LLVM_TEMPLATE_ABI
+    Registry<Fortran::frontend::PluginParseTreeAction>;
+}
+
 } // namespace Fortran::frontend
 
 #endif // FORTRAN_FRONTEND_FRONTENDPLUGINREGISTRY_H
