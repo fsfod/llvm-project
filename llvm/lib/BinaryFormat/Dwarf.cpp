@@ -13,10 +13,23 @@
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/ADT/StringSwitch.h"
 #include "llvm/Support/ErrorHandling.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TargetParser/Triple.h"
 
 using namespace llvm;
 using namespace dwarf;
+
+namespace llvm::dwarf {
+const ElfFormatFn DwarfFormatProviders[] = {
+  nullptr,
+  &AttributeString,
+  &FormEncodingString,
+  &IndexString,
+  &TagString,
+  &LNStandardString,
+  &OperationEncodingString
+};
+};
 
 StringRef llvm::dwarf::TagString(unsigned Tag) {
   switch (Tag) {
