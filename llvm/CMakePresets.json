@@ -1,0 +1,101 @@
+{
+  "version": 8,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "build/${presetName}",
+      "installDir": "install/${presetName}",
+      "cacheVariables": {
+        "LLVM_ENABLE_PROJECTS": "clang",
+        "LLVM_LINK_LLVM_DYLIB": true,
+        "LLVM_BUILD_LLVM_DYLIB": true,
+        "LLVM_BUILD_LLVM_DYLIB_VIS": true,
+        "CLANG_LINK_CLANG_DYLIB": true,
+        "CLANG_BUILD_EXAMPLES": true,
+        "LLVM_TARGETS_TO_BUILD": "all"
+      }
+    },
+    {
+      "name": "Release",
+      "inherits": [ "base" ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "clang-cl.exe",
+        "CMAKE_CXX_COMPILER": "clang-cl.exe",
+        "LLVM_ENABLE_ABI_BREAKING_CHECKS": false
+      }
+    },
+    {
+      "name": "Debug",
+      "inherits": [ "base" ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "LLVM_ENABLE_ABI_BREAKING_CHECKS": true,
+        "CMAKE_C_COMPILER": "clang-cl.exe",
+        "CMAKE_CXX_COMPILER": "clang-cl.exe"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "BasePreset",
+      "hidden": true,
+      "targets": [
+        "vt_gen",
+        "omp_gen",
+        "acc_gen",
+        "intrinsics_gen",
+        "X86CommonTableGen",
+        "ARMTargetParserTableGen",
+        "AArch64TargetParserTableGen",
+        "RISCVTargetParserTableGen",
+        "clang-tablegen-targets"
+      ]
+    },
+    {
+      "name": "Release",
+      "jobs": 14,
+      "configurePreset": "Release",
+      "inherits": "BasePreset"
+    },
+    {
+      "name": "Debug",
+      "jobs": 14,
+      "configurePreset": "Debug",
+      "inherits": "BasePreset"
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "Release",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "Release"
+        },
+        {
+          "type": "build",
+          "name": "Release"
+        }
+      ]
+    },
+    {
+      "name": "Debug",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "Debug"
+        },
+        {
+          "type": "build",
+          "name": "Debug"
+        }
+      ]
+    }
+  ]
+}
