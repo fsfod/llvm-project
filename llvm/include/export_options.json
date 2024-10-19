@@ -1,0 +1,34 @@
+{
+  "version": "1",
+  "groups": [
+    {
+      "name": "public_headers",
+      "pathRoot": "llvm",
+      "headerDirectories": [
+        "Support"
+      ],
+      "ignoredFiles": [
+        "BLAKE3.h"
+      ]
+    },
+    {
+      "name": "sources",
+      "pathRoot": "../lib",
+      "sourceDirectories": [
+        "Support"
+      ],
+      "exportGlobalVariableDefs": true
+    }
+  ],
+  "exportMacroHeader": "llvm/Support/Compiler.h",
+  "exportMacro": "LLVM_ABI",
+  "exportTemplateMacro": "LLVM_EXPORT_TEMPLATE",
+  "externTemplateMacro": "LLVM_TEMPLATE_ABI",
+  "externCMacro": "LLVM_C_ABI",
+  "otherExportMacros": [
+    "LLVM_ABI_EXPORT",
+    "LLVM_ABI_NOT_EXPORTED"
+  ],
+  "isGeneratingMacro": "LLVM_ABI_GENERATING_ANNOTATIONS",
+  "clangFormatFile": "../.clang-format"
+}
