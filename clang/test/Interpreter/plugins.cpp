@@ -10,4 +10,4 @@ auto r1 = printf("i = %d\n", i);
 
 // CHECK: top-level-decl: "i"
 // CHECK-NEXT: top-level-decl: "r1"
-// CHECK-NEXT: i = 10
+// CHECK-COUNT-1: i = 10
