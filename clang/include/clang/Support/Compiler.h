@@ -39,6 +39,7 @@
 #define CLANG_ABI
 #define CLANG_TEMPLATE_ABI
 #define CLANG_EXPORT_TEMPLATE
+#define CLANG_ABI_EXPORT
 #elif defined(_WIN32) && !defined(__MINGW32__)
 #if defined(CLANG_EXPORTS)
 #define CLANG_ABI __declspec(dllexport)
