@@ -816,7 +816,7 @@ public:
 
 /// Floating point control options
 class FPOptionsOverride;
-class CLANG_ABI FPOptions {
+class FPOptions {
 public:
   // We start by defining the layout.
   using storage_type = uint32_t;
