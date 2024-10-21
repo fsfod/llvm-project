@@ -263,7 +263,7 @@ private:
   // of debug prints can cause the function to be too large for inlining.  So
   // it's important that we define this function out of line so that it can't be
   // inlined.
-  [[noreturn]] void fatalUncheckedError() const;
+  [[noreturn]] LLVM_ABI void fatalUncheckedError() const;
 #endif
 
   void assertIsChecked() {
