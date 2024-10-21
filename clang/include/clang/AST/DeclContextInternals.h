@@ -307,7 +307,7 @@ class StoredDeclsMap
 
   llvm::PointerIntPair<StoredDeclsMap*, 1> Previous;
 public:
-  static void DestroyAll(StoredDeclsMap *Map, bool Dependent);
+  CLANG_ABI static void DestroyAll(StoredDeclsMap *Map, bool Dependent);
 };
 
 class DependentStoredDeclsMap : public StoredDeclsMap {
