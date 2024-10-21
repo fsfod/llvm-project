@@ -44,20 +44,20 @@ struct CLANG_ABI IgnoresFileNotFound : public llvm::ErrorInfo<IgnoresFileNotFoun
 
 /// A type that provides access to a new line separated list of symbol names to
 /// ignore when extracting API information.
-struct CLANG_ABI APIIgnoresList {
+struct APIIgnoresList {
   using FilePathList = std::vector<std::string>;
 
   /// The API to use for generating from the files at \p IgnoresFilePathList.
   ///
   /// \returns an initialized APIIgnoresList or an Error.
-  static llvm::Expected<APIIgnoresList>
+  CLANG_ABI static llvm::Expected<APIIgnoresList>
   create(const FilePathList &IgnoresFilePathList, FileManager &FM);
 
   APIIgnoresList() = default;
 
   /// Check if \p SymbolName is specified in the APIIgnoresList and if it should
   /// therefore be ignored.
-  bool shouldIgnore(llvm::StringRef SymbolName) const;
+  CLANG_ABI bool shouldIgnore(llvm::StringRef SymbolName) const;
 
 private:
   using SymbolNameList = llvm::SmallVector<llvm::StringRef, 32>;
