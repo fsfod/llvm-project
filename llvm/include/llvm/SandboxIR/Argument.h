@@ -15,7 +15,7 @@
 namespace llvm::sandboxir {
 
 /// Argument of a sandboxir::Function.
-class Argument : public sandboxir::Value {
+class LLVM_ABI Argument : public sandboxir::Value {
   Argument(llvm::Argument *Arg, sandboxir::Context &Ctx)
       : Value(ClassID::Argument, Arg, Ctx) {}
   friend class Context; // For constructor.

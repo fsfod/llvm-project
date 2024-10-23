@@ -39,7 +39,7 @@ public:
 };
 
 /// The base class of a Sandbox IR Pass.
-class Pass {
+class LLVM_ABI Pass {
 protected:
   /// The pass name. This is also used as a command-line flag and should not
   /// contain whitespaces.
