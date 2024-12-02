@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_EARLYIFCONVERSION_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class EarlyIfConverterPass : public PassInfoMixin<EarlyIfConverterPass> {
+class LLVM_ABI EarlyIfConverterPass : public PassInfoMixin<EarlyIfConverterPass> {
 public:
   PreservedAnalyses run(MachineFunction &MF,
                         MachineFunctionAnalysisManager &MFAM);

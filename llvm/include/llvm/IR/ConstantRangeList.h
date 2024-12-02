@@ -18,6 +18,7 @@
 
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/ConstantRange.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include <cstddef>
 #include <cstdint>
@@ -27,7 +28,7 @@ namespace llvm {
 class raw_ostream;
 
 /// This class represents a list of constant ranges.
-class [[nodiscard]] ConstantRangeList {
+class LLVM_ABI [[nodiscard]] ConstantRangeList {
   SmallVector<ConstantRange, 2> Ranges;
 
 public:

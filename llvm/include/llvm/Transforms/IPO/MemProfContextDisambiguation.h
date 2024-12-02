@@ -19,6 +19,7 @@
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
 #include <functional>
 
@@ -27,7 +28,7 @@ class GlobalValueSummary;
 class Module;
 class OptimizationRemarkEmitter;
 
-class MemProfContextDisambiguation
+class LLVM_ABI MemProfContextDisambiguation
     : public PassInfoMixin<MemProfContextDisambiguation> {
   /// Run the context disambiguator on \p M, returns true if any changes made.
   bool processModule(

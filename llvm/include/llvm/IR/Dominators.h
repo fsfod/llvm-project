@@ -30,6 +30,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/CFGDiff.h"
 #include "llvm/Support/CFGUpdate.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericDomTree.h"
 #include <algorithm>
 #include <utility>
@@ -43,11 +44,11 @@ class Value;
 class raw_ostream;
 template <class GraphType> struct GraphTraits;
 
-extern template class DomTreeNodeBase<BasicBlock>;
-extern template class DominatorTreeBase<BasicBlock, false>; // DomTree
-extern template class DominatorTreeBase<BasicBlock, true>; // PostDomTree
+extern template class LLVM_TEMPLATE_ABI DomTreeNodeBase<BasicBlock>;
+extern template class LLVM_TEMPLATE_ABI DominatorTreeBase<BasicBlock, false>; // DomTree
+extern template class LLVM_TEMPLATE_ABI DominatorTreeBase<BasicBlock, true>; // PostDomTree
 
-extern template class cfg::Update<BasicBlock *>;
+extern template class LLVM_TEMPLATE_ABI cfg::Update<BasicBlock *>;
 
 namespace DomTreeBuilder {
 using BBDomTree = DomTreeBase<BasicBlock>;
@@ -58,40 +59,40 @@ using BBUpdates = ArrayRef<llvm::cfg::Update<BasicBlock *>>;
 using BBDomTreeGraphDiff = GraphDiff<BasicBlock *, false>;
 using BBPostDomTreeGraphDiff = GraphDiff<BasicBlock *, true>;
 
-extern template void Calculate<BBDomTree>(BBDomTree &DT);
+extern template LLVM_TEMPLATE_ABI LLVM_TEMPLATE_ABI void Calculate<BBDomTree>(BBDomTree &DT);
 extern template void CalculateWithUpdates<BBDomTree>(BBDomTree &DT,
                                                      BBUpdates U);
 
-extern template void Calculate<BBPostDomTree>(BBPostDomTree &DT);
+extern template LLVM_TEMPLATE_ABI void Calculate<BBPostDomTree>(BBPostDomTree &DT);
 
-extern template void InsertEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
+extern template LLVM_TEMPLATE_ABI void InsertEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
                                            BasicBlock *To);
-extern template void InsertEdge<BBPostDomTree>(BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void InsertEdge<BBPostDomTree>(BBPostDomTree &DT,
                                                BasicBlock *From,
                                                BasicBlock *To);
 
-extern template void DeleteEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
+extern template LLVM_TEMPLATE_ABI void DeleteEdge<BBDomTree>(BBDomTree &DT, BasicBlock *From,
                                            BasicBlock *To);
-extern template void DeleteEdge<BBPostDomTree>(BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void DeleteEdge<BBPostDomTree>(BBPostDomTree &DT,
                                                BasicBlock *From,
                                                BasicBlock *To);
 
-extern template void ApplyUpdates<BBDomTree>(BBDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void ApplyUpdates<BBDomTree>(BBDomTree &DT,
                                              BBDomTreeGraphDiff &,
                                              BBDomTreeGraphDiff *);
-extern template void ApplyUpdates<BBPostDomTree>(BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI void ApplyUpdates<BBPostDomTree>(BBPostDomTree &DT,
                                                  BBPostDomTreeGraphDiff &,
                                                  BBPostDomTreeGraphDiff *);
 
-extern template bool Verify<BBDomTree>(const BBDomTree &DT,
+extern template LLVM_TEMPLATE_ABI bool Verify<BBDomTree>(const BBDomTree &DT,
                                        BBDomTree::VerificationLevel VL);
-extern template bool Verify<BBPostDomTree>(const BBPostDomTree &DT,
+extern template LLVM_TEMPLATE_ABI bool Verify<BBPostDomTree>(const BBPostDomTree &DT,
                                            BBPostDomTree::VerificationLevel VL);
 }  // namespace DomTreeBuilder
 
 using DomTreeNode = DomTreeNodeBase<BasicBlock>;
 
-class BasicBlockEdge {
+class LLVM_ABI BasicBlockEdge {
   const BasicBlock *Start;
   const BasicBlock *End;
 
@@ -117,7 +118,7 @@ public:
   bool isSingleEdge() const;
 };
 
-template <> struct DenseMapInfo<BasicBlockEdge> {
+template <> struct LLVM_ABI DenseMapInfo<BasicBlockEdge> {
   using BBInfo = DenseMapInfo<const BasicBlock *>;
 
   static unsigned getHashValue(const BasicBlockEdge *V);
@@ -159,7 +160,7 @@ template <> struct DenseMapInfo<BasicBlockEdge> {
 /// the dominator tree is initially constructed may still exist in the tree,
 /// even if the tree is properly updated. Calling code should not rely on the
 /// preceding statements; this is stated only to assist human understanding.
-class DominatorTree : public DominatorTreeBase<BasicBlock, false> {
+class LLVM_ABI DominatorTree : public DominatorTreeBase<BasicBlock, false> {
  public:
   using Base = DominatorTreeBase<BasicBlock, false>;
 
@@ -276,7 +277,7 @@ template <> struct GraphTraits<DominatorTree*>
 };
 
 /// Analysis pass which computes a \c DominatorTree.
-class DominatorTreeAnalysis : public AnalysisInfoMixin<DominatorTreeAnalysis> {
+class LLVM_ABI DominatorTreeAnalysis : public AnalysisInfoMixin<DominatorTreeAnalysis> {
   friend AnalysisInfoMixin<DominatorTreeAnalysis>;
   static AnalysisKey Key;
 
@@ -289,7 +290,7 @@ public:
 };
 
 /// Printer pass for the \c DominatorTree.
-class DominatorTreePrinterPass
+class LLVM_ABI DominatorTreePrinterPass
     : public PassInfoMixin<DominatorTreePrinterPass> {
   raw_ostream &OS;
 
@@ -302,7 +303,7 @@ public:
 };
 
 /// Verifier pass for the \c DominatorTree.
-struct DominatorTreeVerifierPass : PassInfoMixin<DominatorTreeVerifierPass> {
+struct LLVM_ABI DominatorTreeVerifierPass : PassInfoMixin<DominatorTreeVerifierPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
   static bool isRequired() { return true; }
 };
@@ -311,10 +312,10 @@ struct DominatorTreeVerifierPass : PassInfoMixin<DominatorTreeVerifierPass> {
 ///
 /// This check is expensive and is disabled by default.  `-verify-dom-info`
 /// allows selectively enabling the check without needing to recompile.
-extern bool VerifyDomInfo;
+LLVM_ABI extern bool VerifyDomInfo;
 
 /// Legacy analysis pass which computes a \c DominatorTree.
-class DominatorTreeWrapperPass : public FunctionPass {
+class LLVM_ABI DominatorTreeWrapperPass : public FunctionPass {
   DominatorTree DT;
 
 public:

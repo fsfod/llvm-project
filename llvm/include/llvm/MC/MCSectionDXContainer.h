@@ -15,12 +15,13 @@
 
 #include "llvm/MC/MCSection.h"
 #include "llvm/MC/SectionKind.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class MCSymbol;
 
-class MCSectionDXContainer final : public MCSection {
+class LLVM_ABI MCSectionDXContainer final : public MCSection {
   friend class MCContext;
 
   MCSectionDXContainer(StringRef Name, SectionKind K, MCSymbol *Begin)

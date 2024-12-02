@@ -13,6 +13,7 @@
 #include "llvm/IR/Value.h"
 #include "llvm/SandboxIR/Use.h"
 #include "llvm/SandboxIR/Value.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
@@ -20,7 +21,7 @@ class Context;
 
 /// Iterator for the `Use` edges of a User's operands.
 /// \Returns the operand `Use` when dereferenced.
-class OperandUseIterator {
+class LLVM_ABI OperandUseIterator {
   sandboxir::Use Use;
   /// Don't let the user create a non-empty OperandUseIterator.
   OperandUseIterator(const class Use &Use) : Use(Use) {}
@@ -55,7 +56,7 @@ public:
 };
 
 /// A sandboxir::User has operands.
-class User : public Value {
+class LLVM_ABI User : public Value {
 protected:
   User(ClassID ID, llvm::Value *V, Context &Ctx) : Value(ID, V, Ctx) {}
 

@@ -9,6 +9,7 @@
 #ifndef LLVM_DEBUGINFO_PDB_GENERICERROR_H
 #define LLVM_DEBUGINFO_PDB_GENERICERROR_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -32,14 +33,14 @@ struct is_error_code_enum<llvm::pdb::pdb_error_code> : std::true_type {};
 
 namespace llvm {
 namespace pdb {
-const std::error_category &PDBErrCategory();
+LLVM_ABI const std::error_category &PDBErrCategory();
 
 inline std::error_code make_error_code(pdb_error_code E) {
   return std::error_code(static_cast<int>(E), PDBErrCategory());
 }
 
 /// Base class for errors originating when parsing raw PDB files
-class PDBError : public ErrorInfo<PDBError, StringError> {
+class LLVM_ABI PDBError : public ErrorInfo<PDBError, StringError> {
 public:
   using ErrorInfo<PDBError, StringError>::ErrorInfo; // inherit constructors
   PDBError(const Twine &S) : ErrorInfo(S, pdb_error_code::unspecified) {}

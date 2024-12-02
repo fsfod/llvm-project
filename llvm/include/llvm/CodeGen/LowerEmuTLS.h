@@ -16,10 +16,11 @@
 #define LLVM_CODEGEN_LOWEREMUTLS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class LowerEmuTLSPass : public PassInfoMixin<LowerEmuTLSPass> {
+class LLVM_ABI LowerEmuTLSPass : public PassInfoMixin<LowerEmuTLSPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM);
 };

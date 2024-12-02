@@ -27,6 +27,7 @@
 #include "llvm/Analysis/AliasAnalysis.h"
 #include "llvm/SandboxIR/Instruction.h"
 #include "llvm/SandboxIR/IntrinsicInst.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Interval.h"
 
 namespace llvm::sandboxir {
@@ -55,7 +56,7 @@ class DependencyGraph;
 }
 
 /// Iterate over both def-use and mem dependencies.
-class PredIterator {
+class LLVM_ABI PredIterator {
   User::op_iterator OpIt;
   User::op_iterator OpItE;
   DenseSet<MemDGNode *>::iterator MemIt;
@@ -91,7 +92,7 @@ public:
 
 /// A DependencyGraph Node that points to an Instruction and contains memory
 /// dependency edges.
-class DGNode {
+class LLVM_ABI DGNode {
 protected:
   Instruction *I;
   // TODO: Use a PointerIntPair for SubclassID and I.
@@ -210,7 +211,7 @@ public:
 /// A DependencyGraph Node for instructions that may read/write memory, or have
 /// some ordering constraints, like with stacksave/stackrestore and
 /// alloca/inalloca.
-class MemDGNode final : public DGNode {
+class LLVM_ABI MemDGNode final : public DGNode {
   MemDGNode *PrevMemN = nullptr;
   MemDGNode *NextMemN = nullptr;
   /// Memory predecessors.
@@ -266,7 +267,7 @@ public:
 };
 
 /// Convenience builders for a MemDGNode interval.
-class MemDGNodeIntervalBuilder {
+class LLVM_ABI MemDGNodeIntervalBuilder {
 public:
   /// Scans the instruction chain in \p Intvl top-down, returning the top-most
   /// MemDGNode, or nullptr.
@@ -284,7 +285,7 @@ public:
   static Interval<MemDGNode> makeEmpty() { return {}; }
 };
 
-class DependencyGraph {
+class LLVM_ABI DependencyGraph {
 private:
   DenseMap<Instruction *, std::unique_ptr<DGNode>> InstrToNodeMap;
   /// The DAG spans across all instructions in this interval.

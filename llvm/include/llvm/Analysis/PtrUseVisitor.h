@@ -29,6 +29,7 @@
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/InstVisitor.h"
 #include "llvm/IR/IntrinsicInst.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <type_traits>
 
@@ -43,7 +44,7 @@ namespace detail {
 /// usage. This class is just a helper base class which is not templated and
 /// contains all common code to be shared between different instantiations of
 /// PtrUseVisitor.
-class PtrUseVisitorBase {
+class LLVM_ABI PtrUseVisitorBase {
 public:
   /// This class provides information about the result of a visit.
   ///

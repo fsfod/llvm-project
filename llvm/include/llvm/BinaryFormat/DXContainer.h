@@ -14,6 +14,7 @@
 #define LLVM_BINARYFORMAT_DXCONTAINER_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SwapByteOrder.h"
 #include "llvm/TargetParser/Triple.h"
 
@@ -54,7 +55,7 @@ enum class HashFlags : uint32_t {
                       // taking into account source information (-Zss)
 };
 
-struct ShaderHash {
+struct LLVM_ABI ShaderHash {
   uint32_t Flags; // dxbc::HashFlags
   uint8_t Digest[16];
 
@@ -152,7 +153,7 @@ enum class FeatureFlags : uint64_t {
 static_assert((uint64_t)FeatureFlags::NextUnusedBit <= 1ull << 63,
               "Shader flag bits exceed enum size.");
 
-PartType parsePartType(StringRef S);
+LLVM_ABI PartType parsePartType(StringRef S);
 
 struct VertexPSVInfo {
   uint8_t OutputPositionPresent;
@@ -283,35 +284,35 @@ enum class SemanticKind : uint8_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<SemanticKind>> getSemanticKinds();
+LLVM_ABI ArrayRef<EnumEntry<SemanticKind>> getSemanticKinds();
 
 #define COMPONENT_TYPE(Val, Enum) Enum = Val,
 enum class ComponentType : uint8_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<ComponentType>> getComponentTypes();
+LLVM_ABI ArrayRef<EnumEntry<ComponentType>> getComponentTypes();
 
 #define INTERPOLATION_MODE(Val, Enum) Enum = Val,
 enum class InterpolationMode : uint8_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<InterpolationMode>> getInterpolationModes();
+LLVM_ABI ArrayRef<EnumEntry<InterpolationMode>> getInterpolationModes();
 
 #define RESOURCE_TYPE(Val, Enum) Enum = Val,
 enum class ResourceType : uint32_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<ResourceType>> getResourceTypes();
+LLVM_ABI ArrayRef<EnumEntry<ResourceType>> getResourceTypes();
 
 #define RESOURCE_KIND(Val, Enum) Enum = Val,
 enum class ResourceKind : uint32_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<ResourceKind>> getResourceKinds();
+LLVM_ABI ArrayRef<EnumEntry<ResourceKind>> getResourceKinds();
 
 #define RESOURCE_FLAG(Index, Enum) bool Enum = false;
 struct ResourceFlags {
@@ -478,21 +479,21 @@ enum class SigMinPrecision : uint32_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<SigMinPrecision>> getSigMinPrecisions();
+LLVM_ABI ArrayRef<EnumEntry<SigMinPrecision>> getSigMinPrecisions();
 
 #define D3D_SYSTEM_VALUE(Val, Enum) Enum = Val,
 enum class D3DSystemValue : uint32_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<D3DSystemValue>> getD3DSystemValues();
+LLVM_ABI ArrayRef<EnumEntry<D3DSystemValue>> getD3DSystemValues();
 
 #define COMPONENT_TYPE(Val, Enum) Enum = Val,
 enum class SigComponentType : uint32_t {
 #include "DXContainerConstants.def"
 };
 
-ArrayRef<EnumEntry<SigComponentType>> getSigComponentTypes();
+LLVM_ABI ArrayRef<EnumEntry<SigComponentType>> getSigComponentTypes();
 
 struct ProgramSignatureHeader {
   uint32_t ParamCount;

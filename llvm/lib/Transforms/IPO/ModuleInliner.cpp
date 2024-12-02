@@ -36,6 +36,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/CallPromotionUtils.h"
@@ -49,7 +50,7 @@ using namespace llvm;
 STATISTIC(NumInlined, "Number of functions inlined");
 STATISTIC(NumDeleted, "Number of functions deleted because all callers found");
 
-cl::opt<bool> CtxProfPromoteAlwaysInline(
+LLVM_ABI cl::opt<bool> CtxProfPromoteAlwaysInline(
     "ctx-prof-promote-alwaysinline", cl::init(false), cl::Hidden,
     cl::desc("If using a contextual profile in this module, and an indirect "
              "call target is marked as alwaysinline, perform indirect call "

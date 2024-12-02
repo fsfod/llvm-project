@@ -16,6 +16,7 @@
 #define LLVM_TRANSFORMS_SCALAR_SROA_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -23,7 +24,7 @@ class Function;
 
 enum class SROAOptions : bool { ModifyCFG, PreserveCFG };
 
-class SROAPass : public PassInfoMixin<SROAPass> {
+class LLVM_ABI SROAPass : public PassInfoMixin<SROAPass> {
   const SROAOptions PreserveCFG;
 
 public:

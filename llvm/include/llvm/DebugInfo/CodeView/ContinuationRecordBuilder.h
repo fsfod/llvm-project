@@ -15,6 +15,7 @@
 #include "llvm/DebugInfo/CodeView/TypeRecordMapping.h"
 #include "llvm/Support/BinaryByteStream.h"
 #include "llvm/Support/BinaryStreamWriter.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <vector>
 
@@ -23,7 +24,7 @@ namespace codeview {
 class TypeIndex;
 enum class ContinuationRecordKind { FieldList, MethodOverloadList };
 
-class ContinuationRecordBuilder {
+class LLVM_ABI ContinuationRecordBuilder {
   SmallVector<uint32_t, 4> SegmentOffsets;
   std::optional<ContinuationRecordKind> Kind;
   AppendingBinaryByteStream Buffer;

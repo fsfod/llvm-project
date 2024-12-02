@@ -54,6 +54,7 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/CodeGen/TargetSchedule.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -94,7 +95,7 @@ enum class MachineTraceStrategy {
   TS_NumStrategies
 };
 
-class MachineTraceMetrics {
+class LLVM_ABI MachineTraceMetrics {
   const MachineFunction *MF = nullptr;
   const TargetInstrInfo *TII = nullptr;
   const TargetRegisterInfo *TRI = nullptr;
@@ -168,7 +169,7 @@ public:
   /// Per-basic block information that relates to a specific trace through the
   /// block. Convergent traces means that only one of these is required per
   /// block in a trace ensemble.
-  struct TraceBlockInfo {
+  struct LLVM_ABI TraceBlockInfo {
     /// Trace predecessor, or NULL for the first block in the trace.
     /// Valid when hasValidDepth().
     const MachineBasicBlock *Pred = nullptr;
@@ -269,7 +270,7 @@ public:
   /// A trace represents a plausible sequence of executed basic blocks that
   /// passes through the current basic block one. The Trace class serves as a
   /// handle to internal cached data structures.
-  class Trace {
+  class LLVM_ABI Trace {
     Ensemble &TE;
     TraceBlockInfo &TBI;
 
@@ -336,7 +337,7 @@ public:
   /// A trace ensemble is a collection of traces selected using the same
   /// strategy, for example 'minimum resource height'. There is one trace for
   /// every block in the function.
-  class Ensemble {
+  class LLVM_ABI Ensemble {
     friend class Trace;
 
     SmallVector<TraceBlockInfo, 4> BlockInfo;
@@ -448,7 +449,7 @@ inline raw_ostream &operator<<(raw_ostream &OS,
   return OS;
 }
 
-class MachineTraceMetricsAnalysis
+class LLVM_ABI MachineTraceMetricsAnalysis
     : public AnalysisInfoMixin<MachineTraceMetricsAnalysis> {
   friend AnalysisInfoMixin<MachineTraceMetricsAnalysis>;
   static AnalysisKey Key;
@@ -459,14 +460,14 @@ public:
 };
 
 /// Verifier pass for \c MachineTraceMetrics.
-struct MachineTraceMetricsVerifierPass
+struct LLVM_ABI MachineTraceMetricsVerifierPass
     : PassInfoMixin<MachineTraceMetricsVerifierPass> {
   PreservedAnalyses run(MachineFunction &MF,
                         MachineFunctionAnalysisManager &MFAM);
   static bool isRequired() { return true; }
 };
 
-class MachineTraceMetricsWrapperPass : public MachineFunctionPass {
+class LLVM_ABI MachineTraceMetricsWrapperPass : public MachineFunctionPass {
 public:
   static char ID;
   MachineTraceMetrics MTM;

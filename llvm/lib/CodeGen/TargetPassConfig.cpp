@@ -386,7 +386,7 @@ struct InsertedPass {
 
 namespace llvm {
 
-extern cl::opt<bool> EnableFSDiscriminator;
+LLVM_ABI extern cl::opt<bool> EnableFSDiscriminator;
 
 class PassConfigImpl {
 public:

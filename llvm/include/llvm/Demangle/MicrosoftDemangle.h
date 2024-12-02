@@ -11,6 +11,7 @@
 
 #include "llvm/Demangle/Demangle.h"
 #include "llvm/Demangle/MicrosoftDemangleNodes.h"
+#include "llvm/Support/Compiler.h"
 
 #include <cassert>
 #include <string_view>
@@ -141,8 +142,8 @@ enum class FunctionIdentifierCodeGroup { Basic, Under, DoubleUnder };
 // Demangler class takes the main role in demangling symbols.
 // It has a set of functions to parse mangled symbols into Type instances.
 // It also has a set of functions to convert Type instances to strings.
-class Demangler {
-  friend std::optional<size_t>
+class LLVM_ABI Demangler {
+  friend LLVM_ABI std::optional<size_t>
   llvm::getArm64ECInsertionPointInMangledName(std::string_view MangledName);
 
 public:

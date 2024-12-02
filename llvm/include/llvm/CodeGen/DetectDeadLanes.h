@@ -30,6 +30,7 @@
 
 #include "llvm/ADT/BitVector.h"
 #include "llvm/MC/LaneBitmask.h"
+#include "llvm/Support/Compiler.h"
 #include <deque>
 
 namespace llvm {
@@ -39,7 +40,7 @@ class MachineOperand;
 class MachineRegisterInfo;
 class TargetRegisterInfo;
 
-class DeadLaneDetector {
+class LLVM_ABI DeadLaneDetector {
 public:
   /// Contains a bitmask of which lanes of a given virtual register are
   /// defined and which ones are actually used.

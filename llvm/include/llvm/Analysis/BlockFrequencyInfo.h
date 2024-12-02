@@ -16,6 +16,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/BlockFrequency.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Printable.h"
 #include <cstdint>
 #include <memory>
@@ -34,7 +35,7 @@ enum PGOViewCountsType { PGOVCT_None, PGOVCT_Graph, PGOVCT_Text };
 
 /// BlockFrequencyInfo pass uses BlockFrequencyInfoImpl implementation to
 /// estimate IR basic block frequencies.
-class BlockFrequencyInfo {
+class LLVM_ABI BlockFrequencyInfo {
   using ImplType = BlockFrequencyInfoImpl<BasicBlock>;
 
   std::unique_ptr<ImplType> BFI;
@@ -103,14 +104,14 @@ public:
 /// Print the block frequency @p Freq relative to the current functions entry
 /// frequency. Returns a Printable object that can be piped via `<<` to a
 /// `raw_ostream`.
-Printable printBlockFreq(const BlockFrequencyInfo &BFI, BlockFrequency Freq);
+LLVM_ABI Printable printBlockFreq(const BlockFrequencyInfo &BFI, BlockFrequency Freq);
 
 /// Convenience function equivalent to calling
 /// `printBlockFreq(BFI, BFI.getBlocakFreq(&BB))`.
-Printable printBlockFreq(const BlockFrequencyInfo &BFI, const BasicBlock &BB);
+LLVM_ABI Printable printBlockFreq(const BlockFrequencyInfo &BFI, const BasicBlock &BB);
 
 /// Analysis pass which computes \c BlockFrequencyInfo.
-class BlockFrequencyAnalysis
+class LLVM_ABI BlockFrequencyAnalysis
     : public AnalysisInfoMixin<BlockFrequencyAnalysis> {
   friend AnalysisInfoMixin<BlockFrequencyAnalysis>;
 
@@ -125,7 +126,7 @@ public:
 };
 
 /// Printer pass for the \c BlockFrequencyInfo results.
-class BlockFrequencyPrinterPass
+class LLVM_ABI BlockFrequencyPrinterPass
     : public PassInfoMixin<BlockFrequencyPrinterPass> {
   raw_ostream &OS;
 
@@ -138,7 +139,7 @@ public:
 };
 
 /// Legacy analysis pass which computes \c BlockFrequencyInfo.
-class BlockFrequencyInfoWrapperPass : public FunctionPass {
+class LLVM_ABI BlockFrequencyInfoWrapperPass : public FunctionPass {
   BlockFrequencyInfo BFI;
 
 public:

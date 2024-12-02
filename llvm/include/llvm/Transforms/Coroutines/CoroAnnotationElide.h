@@ -20,10 +20,11 @@
 #include "llvm/Analysis/CGSCCPassManager.h"
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-struct CoroAnnotationElidePass : PassInfoMixin<CoroAnnotationElidePass> {
+struct LLVM_ABI CoroAnnotationElidePass : PassInfoMixin<CoroAnnotationElidePass> {
   CoroAnnotationElidePass() {}
 
   PreservedAnalyses run(LazyCallGraph::SCC &C, CGSCCAnalysisManager &AM,

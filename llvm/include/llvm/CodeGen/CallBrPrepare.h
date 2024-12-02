@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_CALLBRPREPARE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class CallBrPreparePass : public PassInfoMixin<CallBrPreparePass> {
+class LLVM_ABI CallBrPreparePass : public PassInfoMixin<CallBrPreparePass> {
 public:
   PreservedAnalyses run(Function &Fn, FunctionAnalysisManager &FAM);
 };

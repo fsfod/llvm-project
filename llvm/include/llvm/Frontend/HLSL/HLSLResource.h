@@ -14,6 +14,7 @@
 #define LLVM_FRONTEND_HLSL_HLSLRESOURCE_H
 
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DXILABI.h"
 
 namespace llvm {
@@ -27,7 +28,7 @@ using dxil::ResourceClass;
 using dxil::ElementType;
 using dxil::ResourceKind;
 
-class FrontendResource {
+class LLVM_ABI FrontendResource {
   MDNode *Entry;
 
 public:

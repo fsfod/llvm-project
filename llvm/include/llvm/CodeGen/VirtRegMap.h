@@ -22,6 +22,7 @@
 #include "llvm/CodeGen/TileShapeInfo.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 
 namespace llvm {
@@ -31,7 +32,7 @@ class MachineRegisterInfo;
 class raw_ostream;
 class TargetInstrInfo;
 
-class VirtRegMap {
+class LLVM_ABI VirtRegMap {
   MachineRegisterInfo *MRI = nullptr;
   const TargetInstrInfo *TII = nullptr;
   const TargetRegisterInfo *TRI = nullptr;
@@ -190,7 +191,7 @@ inline raw_ostream &operator<<(raw_ostream &OS, const VirtRegMap &VRM) {
   return OS;
 }
 
-class VirtRegMapWrapperLegacy : public MachineFunctionPass {
+class LLVM_ABI VirtRegMapWrapperLegacy : public MachineFunctionPass {
   VirtRegMap VRM;
 
 public:
@@ -216,7 +217,7 @@ public:
   }
 };
 
-class VirtRegMapAnalysis : public AnalysisInfoMixin<VirtRegMapAnalysis> {
+class LLVM_ABI VirtRegMapAnalysis : public AnalysisInfoMixin<VirtRegMapAnalysis> {
   friend AnalysisInfoMixin<VirtRegMapAnalysis>;
   static AnalysisKey Key;
 
@@ -226,7 +227,7 @@ public:
   VirtRegMap run(MachineFunction &MF, MachineFunctionAnalysisManager &MAM);
 };
 
-class VirtRegMapPrinterPass : public PassInfoMixin<VirtRegMapPrinterPass> {
+class LLVM_ABI VirtRegMapPrinterPass : public PassInfoMixin<VirtRegMapPrinterPass> {
   raw_ostream &OS;
 
 public:

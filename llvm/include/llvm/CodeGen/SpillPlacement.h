@@ -32,6 +32,7 @@
 #include "llvm/CodeGen/MachineFunctionAnalysis.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/Support/BlockFrequency.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -42,7 +43,7 @@ class MachineFunction;
 class SpillPlacementWrapperLegacy;
 class SpillPlacementAnalysis;
 
-class SpillPlacement {
+class LLVM_ABI SpillPlacement {
   friend class SpillPlacementWrapperLegacy;
   friend class SpillPlacementAnalysis;
 
@@ -87,7 +88,7 @@ public:
   };
 
   /// BlockConstraint - Entry and exit constraints for a basic block.
-  struct BlockConstraint {
+  struct LLVM_ABI BlockConstraint {
     unsigned Number;            ///< Basic block number (from MBB::getNumber()).
     BorderConstraint Entry : 8; ///< Constraint on block entry.
     BorderConstraint Exit : 8;  ///< Constraint on block exit.
@@ -176,7 +177,7 @@ private:
   bool update(unsigned n);
 };
 
-class SpillPlacementWrapperLegacy : public MachineFunctionPass {
+class LLVM_ABI SpillPlacementWrapperLegacy : public MachineFunctionPass {
 public:
   static char ID;
   SpillPlacementWrapperLegacy() : MachineFunctionPass(ID) {}
@@ -191,7 +192,7 @@ private:
   void releaseMemory() override { Impl.releaseMemory(); }
 };
 
-class SpillPlacementAnalysis
+class LLVM_ABI SpillPlacementAnalysis
     : public AnalysisInfoMixin<SpillPlacementAnalysis> {
   friend AnalysisInfoMixin<SpillPlacementAnalysis>;
   static AnalysisKey Key;

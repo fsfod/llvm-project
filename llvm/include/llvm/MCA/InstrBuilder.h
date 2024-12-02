@@ -23,12 +23,13 @@
 #include "llvm/MCA/CustomBehaviour.h"
 #include "llvm/MCA/Instruction.h"
 #include "llvm/MCA/Support.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
 namespace mca {
 
-class RecycledInstErr : public ErrorInfo<RecycledInstErr> {
+class LLVM_ABI RecycledInstErr : public ErrorInfo<RecycledInstErr> {
   Instruction *RecycledInst;
 
 public:
@@ -59,7 +60,7 @@ public:
 /// descriptors (i.e. InstrDesc objects).
 /// Information from the machine scheduling model is used to identify processor
 /// resources that are consumed by an instruction.
-class InstrBuilder {
+class LLVM_ABI InstrBuilder {
   const MCSubtargetInfo &STI;
   const MCInstrInfo &MCII;
   const MCRegisterInfo &MRI;

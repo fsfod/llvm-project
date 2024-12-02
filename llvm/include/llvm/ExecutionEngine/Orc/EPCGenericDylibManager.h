@@ -21,13 +21,14 @@
 #include "llvm/ExecutionEngine/Orc/ExecutorProcessControl.h"
 #include "llvm/ExecutionEngine/Orc/Shared/ExecutorSymbolDef.h"
 #include "llvm/ExecutionEngine/Orc/Shared/SimpleRemoteEPCUtils.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace orc {
 
 class SymbolLookupSet;
 
-class EPCGenericDylibManager {
+class LLVM_ABI EPCGenericDylibManager {
 public:
   /// Function addresses for memory access.
   struct SymbolAddrs {

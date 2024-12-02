@@ -10,10 +10,11 @@
 #define LLVM_ANALYSIS_CFGSCCPRINTER_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class CFGSCCPrinterPass : public PassInfoMixin<CFGSCCPrinterPass> {
+class LLVM_ABI CFGSCCPrinterPass : public PassInfoMixin<CFGSCCPrinterPass> {
   raw_ostream &OS;
 
 public:

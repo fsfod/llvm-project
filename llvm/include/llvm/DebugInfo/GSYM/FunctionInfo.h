@@ -17,6 +17,7 @@
 #include "llvm/DebugInfo/GSYM/LookupResult.h"
 #include "llvm/DebugInfo/GSYM/MergedFunctionsInfo.h"
 #include "llvm/DebugInfo/GSYM/StringTable.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
@@ -89,7 +90,7 @@ class GsymReader;
 /// }
 ///
 /// Where "N" is the number of tuples.
-struct FunctionInfo {
+struct LLVM_ABI FunctionInfo {
   AddressRange Range;
   uint32_t Name; ///< String table offset in the string table.
   std::optional<LineTable> OptLineTable;
@@ -237,7 +238,7 @@ inline bool operator<(const FunctionInfo &LHS, const FunctionInfo &RHS) {
   return LHS.Inline < RHS.Inline;
 }
 
-raw_ostream &operator<<(raw_ostream &OS, const FunctionInfo &R);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const FunctionInfo &R);
 
 } // namespace gsym
 } // namespace llvm

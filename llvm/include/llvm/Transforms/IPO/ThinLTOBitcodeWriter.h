@@ -16,13 +16,14 @@
 #ifndef LLVM_TRANSFORMS_IPO_THINLTOBITCODEWRITER_H
 #define LLVM_TRANSFORMS_IPO_THINLTOBITCODEWRITER_H
 
+#include "llvm/Support/Compiler.h"
 #include <llvm/IR/PassManager.h>
 
 namespace llvm {
 class Module;
 class raw_ostream;
 
-class ThinLTOBitcodeWriterPass
+class LLVM_ABI ThinLTOBitcodeWriterPass
     : public PassInfoMixin<ThinLTOBitcodeWriterPass> {
   raw_ostream &OS;
   raw_ostream *ThinLinkOS;

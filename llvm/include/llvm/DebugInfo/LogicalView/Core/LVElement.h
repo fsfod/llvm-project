@@ -16,6 +16,7 @@
 
 #include "llvm/DebugInfo/LogicalView/Core/LVObject.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <map>
 #include <set>
 #include <vector>
@@ -64,7 +65,7 @@ using LVElementKindSet = std::set<LVElementKind>;
 using LVElementDispatch = std::map<LVElementKind, LVElementGetFunction>;
 using LVElementRequest = std::vector<LVElementGetFunction>;
 
-class LVElement : public LVObject {
+class LLVM_ABI LVElement : public LVObject {
   enum class Property {
     IsLine,   // A logical line.
     IsScope,  // A logical scope.

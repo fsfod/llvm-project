@@ -18,13 +18,14 @@
 #include "llvm/SandboxIR/Instruction.h"
 #include "llvm/SandboxIR/Utils.h"
 #include "llvm/SandboxIR/Value.h"
+#include "llvm/Support/Compiler.h"
 #include <iterator>
 #include <memory>
 
 namespace llvm::sandboxir {
 
 /// A set of candidate Instructions for vectorizing together.
-class SeedBundle {
+class LLVM_ABI SeedBundle {
 public:
   /// Initialize a bundle with \p I.
   explicit SeedBundle(Instruction *I) { insertAt(begin(), I); }
@@ -171,7 +172,7 @@ using LoadSeedBundle = MemSeedBundle<sandboxir::LoadInst>;
 /// seeds in the proper bundle. Supports constant-time removal, as seeds and
 /// entire bundles are vectorized and marked used to signify removal. Iterators
 /// skip bundles that are completely used.
-class SeedContainer {
+class LLVM_ABI SeedContainer {
   // Use the same key for different seeds if they are the same type and
   // reference the same pointer, even if at different offsets. This directs
   // potentially vectorizable seeds into the same bundle.
@@ -288,7 +289,7 @@ public:
 #endif // NDEBUG
 };
 
-class SeedCollector {
+class LLVM_ABI SeedCollector {
   SeedContainer StoreSeeds;
   SeedContainer LoadSeeds;
   Context &Ctx;

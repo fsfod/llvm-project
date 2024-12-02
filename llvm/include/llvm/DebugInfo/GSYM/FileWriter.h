@@ -10,6 +10,7 @@
 #define LLVM_DEBUGINFO_GSYM_FILEWRITER_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 
 #include <stddef.h>
@@ -26,7 +27,7 @@ namespace gsym {
 /// libraries to be enabled via the build process. This class needs the ability
 /// to seek to different spots in the binary stream that is produces to fixup
 /// offsets and sizes.
-class FileWriter {
+class LLVM_ABI FileWriter {
   llvm::raw_pwrite_stream &OS;
   llvm::endianness ByteOrder;
 

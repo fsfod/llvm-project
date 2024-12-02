@@ -12,21 +12,22 @@
 #include "llvm/IR/Type.h"
 #include "llvm/SandboxIR/Instruction.h"
 #include "llvm/SandboxIR/Utils.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 
 using namespace llvm;
 namespace llvm::sandboxir {
 
-cl::opt<unsigned> SeedBundleSizeLimit(
+LLVM_ABI cl::opt<unsigned> SeedBundleSizeLimit(
     "sbvec-seed-bundle-size-limit", cl::init(32), cl::Hidden,
     cl::desc("Limit the size of the seed bundle to cap compilation time."));
 #define LoadSeedsDef "loads"
 #define StoreSeedsDef "stores"
-cl::opt<std::string> CollectSeeds(
+LLVM_ABI cl::opt<std::string> CollectSeeds(
     "sbvec-collect-seeds", cl::init(LoadSeedsDef "," StoreSeedsDef), cl::Hidden,
     cl::desc("Collect these seeds. Use empty for none or a comma-separated "
              "list of '" LoadSeedsDef "' and '" StoreSeedsDef "'."));
-cl::opt<unsigned> SeedGroupsLimit(
+LLVM_ABI cl::opt<unsigned> SeedGroupsLimit(
     "sbvec-seed-groups-limit", cl::init(256), cl::Hidden,
     cl::desc("Limit the number of collected seeds groups in a BB to "
              "cap compilation time."));

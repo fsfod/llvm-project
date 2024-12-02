@@ -10,12 +10,13 @@
 #define LLVM_TRANSFORMS_SCALAR_MERGEICMPS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 
-struct MergeICmpsPass
+struct LLVM_ABI MergeICmpsPass
     : PassInfoMixin<MergeICmpsPass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

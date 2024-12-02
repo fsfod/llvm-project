@@ -19,7 +19,7 @@
 using namespace llvm;
 
 namespace llvm {
-template class DominatorTreeBase<MachineBasicBlock, true>; // PostDomTreeBase
+template class LLVM_EXPORT_TEMPLATE DominatorTreeBase<MachineBasicBlock, true>; // PostDomTreeBase
 
 namespace DomTreeBuilder {
 

@@ -11,12 +11,13 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBSourceFile.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 class DIASession;
 
-class DIASourceFile : public IPDBSourceFile {
+class LLVM_ABI DIASourceFile : public IPDBSourceFile {
 public:
   explicit DIASourceFile(const DIASession &Session,
                          CComPtr<IDiaSourceFile> DiaSourceFile);

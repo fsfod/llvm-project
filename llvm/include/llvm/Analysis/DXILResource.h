@@ -14,6 +14,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/Alignment.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DXILABI.h"
 
 namespace llvm {
@@ -24,7 +25,7 @@ class Value;
 
 namespace dxil {
 
-class ResourceInfo {
+class LLVM_ABI ResourceInfo {
 public:
   struct ResourceBinding {
     uint32_t RecordID;
@@ -261,7 +262,7 @@ public:
 
 } // namespace dxil
 
-class DXILResourceMap {
+class LLVM_ABI DXILResourceMap {
   SmallVector<dxil::ResourceInfo> Resources;
   DenseMap<CallInst *, unsigned> CallMap;
   unsigned FirstUAV = 0;
@@ -337,7 +338,7 @@ public:
   void print(raw_ostream &OS) const;
 };
 
-class DXILResourceAnalysis : public AnalysisInfoMixin<DXILResourceAnalysis> {
+class LLVM_ABI DXILResourceAnalysis : public AnalysisInfoMixin<DXILResourceAnalysis> {
   friend AnalysisInfoMixin<DXILResourceAnalysis>;
 
   static AnalysisKey Key;
@@ -350,7 +351,7 @@ public:
 };
 
 /// Printer pass for the \c DXILResourceAnalysis results.
-class DXILResourcePrinterPass : public PassInfoMixin<DXILResourcePrinterPass> {
+class LLVM_ABI DXILResourcePrinterPass : public PassInfoMixin<DXILResourcePrinterPass> {
   raw_ostream &OS;
 
 public:
@@ -361,7 +362,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class DXILResourceWrapperPass : public ModulePass {
+class LLVM_ABI DXILResourceWrapperPass : public ModulePass {
   std::unique_ptr<DXILResourceMap> ResourceMap;
 
 public:
@@ -381,7 +382,7 @@ public:
   void dump() const;
 };
 
-ModulePass *createDXILResourceWrapperPassPass();
+LLVM_ABI ModulePass *createDXILResourceWrapperPassPass();
 
 } // namespace llvm
 

@@ -15,13 +15,14 @@
 #define LLVM_CODEGEN_COMPLEXDEINTERLEAVING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 class TargetMachine;
 
-struct ComplexDeinterleavingPass
+struct LLVM_ABI ComplexDeinterleavingPass
     : public PassInfoMixin<ComplexDeinterleavingPass> {
 private:
   TargetMachine *TM;

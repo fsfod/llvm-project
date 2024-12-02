@@ -21,6 +21,7 @@
 #include "llvm/IR/ProfileSummary.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/BlockFrequency.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 #include <optional>
 
@@ -38,7 +39,7 @@ class MachineFunction;
 
 // FIXME: Provide convenience methods to determine hotness/coldness of other IR
 // units. This would require making this depend on BFI.
-class ProfileSummaryInfo {
+class LLVM_ABI ProfileSummaryInfo {
 private:
   const Module *M;
   std::unique_ptr<ProfileSummary> Summary;
@@ -345,12 +346,12 @@ ProfileSummaryInfo::getTotalCallCount<Function>(const Function *F) const {
 // here, because we cannot include MachineFunction header here, that would break
 // dependency rules.
 template <>
-std::optional<Function::ProfileCount>
+LLVM_ABI std::optional<Function::ProfileCount>
 ProfileSummaryInfo::getEntryCount<MachineFunction>(
     const MachineFunction *F) const;
 
 /// An analysis pass based on legacy pass manager to deliver ProfileSummaryInfo.
-class ProfileSummaryInfoWrapperPass : public ImmutablePass {
+class LLVM_ABI ProfileSummaryInfoWrapperPass : public ImmutablePass {
   std::unique_ptr<ProfileSummaryInfo> PSI;
 
 public:
@@ -368,7 +369,7 @@ public:
 };
 
 /// An analysis pass based on the new PM to deliver ProfileSummaryInfo.
-class ProfileSummaryAnalysis
+class LLVM_ABI ProfileSummaryAnalysis
     : public AnalysisInfoMixin<ProfileSummaryAnalysis> {
 public:
   typedef ProfileSummaryInfo Result;
@@ -381,7 +382,7 @@ private:
 };
 
 /// Printer pass that uses \c ProfileSummaryAnalysis.
-class ProfileSummaryPrinterPass
+class LLVM_ABI ProfileSummaryPrinterPass
     : public PassInfoMixin<ProfileSummaryPrinterPass> {
   raw_ostream &OS;
 

@@ -16,6 +16,7 @@
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Object/ELFTypes.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Compression.h"
 #include "llvm/Support/GlobPattern.h"
 #include "llvm/Support/MemoryBuffer.h"
@@ -89,7 +90,7 @@ enum class MatchStyle {
   Regex,    // Enabled with --regex.
 };
 
-class NameOrPattern {
+class LLVM_ABI NameOrPattern {
   StringRef Name;
   // Regex is shared between multiple CommonConfig instances.
   std::shared_ptr<Regex> R;

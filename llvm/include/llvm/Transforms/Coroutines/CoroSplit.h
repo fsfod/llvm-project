@@ -18,6 +18,7 @@
 #include "llvm/Analysis/CGSCCPassManager.h"
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Coroutines/ABI.h"
 
 namespace llvm {
@@ -27,7 +28,7 @@ class BaseABI;
 struct Shape;
 } // namespace coro
 
-struct CoroSplitPass : PassInfoMixin<CoroSplitPass> {
+struct LLVM_ABI CoroSplitPass : PassInfoMixin<CoroSplitPass> {
   using BaseABITy =
       std::function<std::unique_ptr<coro::BaseABI>(Function &, coro::Shape &)>;
 

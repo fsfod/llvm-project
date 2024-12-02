@@ -16,6 +16,7 @@
 
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -25,7 +26,7 @@ namespace llvm {
 /// higher-precision type.
 /// This pass inserts calls to runtime library functions. If the
 /// functions aren't declared yet, the pass inserts the declarations.
-struct NumericalStabilitySanitizerPass
+struct LLVM_ABI NumericalStabilitySanitizerPass
     : public PassInfoMixin<NumericalStabilitySanitizerPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
   static bool isRequired() { return true; }

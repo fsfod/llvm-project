@@ -15,11 +15,12 @@
 #define LLVM_TRANSFORMS_UTILS_NAMEANONGLOBALS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 /// Simple pass that provides a name to every anonymous globals.
-class NameAnonGlobalPass : public PassInfoMixin<NameAnonGlobalPass> {
+class LLVM_ABI NameAnonGlobalPass : public PassInfoMixin<NameAnonGlobalPass> {
 public:
   NameAnonGlobalPass() = default;
 

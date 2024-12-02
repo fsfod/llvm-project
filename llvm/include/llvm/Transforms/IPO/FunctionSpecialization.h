@@ -86,6 +86,7 @@
 #include "llvm/Analysis/InlineCost.h"
 #include "llvm/Analysis/TargetTransformInfo.h"
 #include "llvm/IR/InstVisitor.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Scalar/SCCP.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/Transforms/Utils/SCCPSolver.h"
@@ -150,7 +151,7 @@ struct Spec {
       : F(F), Sig(S), Score(Score), CodeSize(CodeSize) {}
 };
 
-class InstCostVisitor : public InstVisitor<InstCostVisitor, Constant *> {
+class LLVM_ABI InstCostVisitor : public InstVisitor<InstCostVisitor, Constant *> {
   std::function<BlockFrequencyInfo &(Function &)> GetBFI;
   Function *F;
   const DataLayout &DL;
@@ -229,7 +230,7 @@ private:
   Constant *visitBinaryOperator(BinaryOperator &I);
 };
 
-class FunctionSpecializer {
+class LLVM_ABI FunctionSpecializer {
 
   /// The IPSCCP Solver.
   SCCPSolver &Solver;

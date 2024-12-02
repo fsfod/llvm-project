@@ -10,6 +10,7 @@
 #define LLVM_ADT_TRIERAWHASHMAP_H
 
 #include "llvm/ADT/ArrayRef.h"
+#include "llvm/Support/Compiler.h"
 #include <atomic>
 #include <optional>
 
@@ -63,7 +64,7 @@ class raw_ostream;
 /// It currently does not support iteration and deletion.
 
 /// Base class for a lock-free thread-safe hash-mapped trie.
-class ThreadSafeTrieRawHashMapBase {
+class LLVM_ABI ThreadSafeTrieRawHashMapBase {
 public:
   static constexpr size_t TrieContentBaseSize = 4;
   static constexpr size_t DefaultNumRootBits = 6;

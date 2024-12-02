@@ -23,13 +23,14 @@
 #include "llvm/Linker/Linker.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileUtilities.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 
 using namespace llvm;
 
 namespace llvm {
-extern cl::opt<std::string> OutputPrefix;
+LLVM_ABI extern cl::opt<std::string> OutputPrefix;
 extern cl::list<std::string> InputArgv;
 } // end namespace llvm
 

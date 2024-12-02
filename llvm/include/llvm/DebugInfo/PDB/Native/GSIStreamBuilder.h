@@ -15,6 +15,7 @@
 #include "llvm/DebugInfo/PDB/Native/GlobalsStream.h"
 #include "llvm/DebugInfo/PDB/Native/RawConstants.h"
 #include "llvm/Support/BinaryStreamRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -43,7 +44,7 @@ struct GSIHashStreamBuilder;
 struct BulkPublic;
 struct SymbolDenseMapInfo;
 
-class GSIStreamBuilder {
+class LLVM_ABI GSIStreamBuilder {
 
 public:
   explicit GSIStreamBuilder(msf::MSFBuilder &Msf);

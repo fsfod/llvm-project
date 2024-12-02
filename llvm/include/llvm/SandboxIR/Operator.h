@@ -12,10 +12,11 @@
 #include "llvm/IR/Operator.h"
 #include "llvm/SandboxIR/Instruction.h"
 #include "llvm/SandboxIR/User.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::sandboxir {
 
-class Operator : public User {
+class LLVM_ABI Operator : public User {
 public:
   // The Operator class is intended to be used as a utility, and is never itself
   // instantiated.
@@ -32,7 +33,7 @@ public:
   }
 };
 
-class OverflowingBinaryOperator : public Operator {
+class LLVM_ABI OverflowingBinaryOperator : public Operator {
 public:
   bool hasNoUnsignedWrap() const {
     return cast<llvm::OverflowingBinaryOperator>(Val)->hasNoUnsignedWrap();
@@ -56,7 +57,7 @@ public:
   }
 };
 
-class FPMathOperator : public Operator {
+class LLVM_ABI FPMathOperator : public Operator {
 public:
   bool isFast() const { return cast<llvm::FPMathOperator>(Val)->isFast(); }
   bool hasAllowReassoc() const {

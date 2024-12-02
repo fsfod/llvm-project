@@ -27,6 +27,7 @@
 
 #include "llvm/IR/GlobalVariable.h"
 #include "llvm/IR/IntrinsicInst.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm {
@@ -233,7 +234,7 @@ public:
 
 /// This represents either the llvm.coro.id.retcon or
 /// llvm.coro.id.retcon.once instruction.
-class AnyCoroIdRetconInst : public AnyCoroIdInst {
+class LLVM_ABI AnyCoroIdRetconInst : public AnyCoroIdInst {
   enum { SizeArg, AlignArg, StorageArg, PrototypeArg, AllocArg, DeallocArg };
 
 public:
@@ -302,7 +303,7 @@ public:
 };
 
 /// This represents the llvm.coro.id.async instruction.
-class CoroIdAsyncInst : public AnyCoroIdInst {
+class LLVM_ABI CoroIdAsyncInst : public AnyCoroIdInst {
   enum { SizeArg, AlignArg, StorageArg, AsyncFuncPtrArg };
 
 public:
@@ -559,7 +560,7 @@ inline CoroSaveInst *AnyCoroSuspendInst::getCoroSave() const {
 }
 
 /// This represents the llvm.coro.suspend.async instruction.
-class CoroSuspendAsyncInst : public AnyCoroSuspendInst {
+class LLVM_ABI CoroSuspendAsyncInst : public AnyCoroSuspendInst {
 public:
   enum {
     StorageArgNoArg,
@@ -718,7 +719,7 @@ public:
 };
 
 /// This represents the llvm.coro.end instruction.
-class CoroAsyncEndInst : public AnyCoroEndInst {
+class LLVM_ABI CoroAsyncEndInst : public AnyCoroEndInst {
   enum { FrameArg, UnwindArg, MustTailCallFuncArg };
 
 public:

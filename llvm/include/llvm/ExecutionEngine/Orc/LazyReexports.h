@@ -21,6 +21,7 @@
 #include "llvm/ExecutionEngine/Orc/IndirectionUtils.h"
 #include "llvm/ExecutionEngine/Orc/RedirectionManager.h"
 #include "llvm/ExecutionEngine/Orc/Speculation.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -36,7 +37,7 @@ namespace orc {
 ///
 /// The easiest way to construct these call-throughs is using the lazyReexport
 /// function.
-class LazyCallThroughManager {
+class LLVM_ABI LazyCallThroughManager {
 public:
   using NotifyResolvedFunction =
       unique_function<Error(ExecutorAddr ResolvedAddr)>;
@@ -129,7 +130,7 @@ public:
 
 /// Create a LocalLazyCallThroughManager from the given triple and execution
 /// session.
-Expected<std::unique_ptr<LazyCallThroughManager>>
+LLVM_ABI Expected<std::unique_ptr<LazyCallThroughManager>>
 createLocalLazyCallThroughManager(const Triple &T, ExecutionSession &ES,
                                   ExecutorAddr ErrorHandlerAddr);
 
@@ -138,7 +139,7 @@ createLocalLazyCallThroughManager(const Triple &T, ExecutionSession &ES,
 /// Unlike a 'true' re-export, the address of the lazy re-export will not
 /// match the address of the re-exported symbol, but calling it will behave
 /// the same as calling the re-exported symbol.
-class LazyReexportsMaterializationUnit : public MaterializationUnit {
+class LLVM_ABI LazyReexportsMaterializationUnit : public MaterializationUnit {
 public:
   LazyReexportsMaterializationUnit(LazyCallThroughManager &LCTManager,
                                    RedirectableSymbolManager &RSManager,

@@ -38,6 +38,7 @@
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/IR/ValueMap.h"
 #include "llvm/Support/CFGDiff.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -51,7 +52,7 @@ using ValueToValueMapTy = ValueMap<const Value *, WeakTrackingVH>;
 using PhiToDefMap = SmallDenseMap<MemoryPhi *, MemoryAccess *>;
 using CFGUpdate = cfg::Update<BasicBlock *>;
 
-class MemorySSAUpdater {
+class LLVM_ABI MemorySSAUpdater {
 private:
   MemorySSA *MSSA;
 

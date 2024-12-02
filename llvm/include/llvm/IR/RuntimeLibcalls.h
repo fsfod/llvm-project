@@ -17,6 +17,7 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/IR/CallingConv.h"
 #include "llvm/Support/AtomicOrdering.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TargetParser/Triple.h"
 
 namespace llvm {
@@ -37,7 +38,7 @@ enum Libcall {
 };
 
 /// A simple container for information about the supported runtime calls.
-struct RuntimeLibcallsInfo {
+struct LLVM_ABI RuntimeLibcallsInfo {
   explicit RuntimeLibcallsInfo(const Triple &TT) {
     initLibcalls(TT);
   }

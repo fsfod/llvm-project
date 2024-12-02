@@ -14,6 +14,7 @@
 
 #include "llvm/IR/PassManager.h"
 #include "llvm/Support/BranchProbability.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -33,7 +34,7 @@ class CodeExtractorAnalysisCache;
 /// A 0-sized SmallVector is slightly cheaper to move than a std::vector.
 using BlockSequence = SmallVector<BasicBlock *, 0>;
 
-class HotColdSplitting {
+class LLVM_ABI HotColdSplitting {
 public:
   HotColdSplitting(ProfileSummaryInfo *ProfSI,
                    function_ref<BlockFrequencyInfo *(Function &)> GBFI,
@@ -64,7 +65,7 @@ private:
 };
 
 /// Pass to outline cold regions.
-class HotColdSplittingPass : public PassInfoMixin<HotColdSplittingPass> {
+class LLVM_ABI HotColdSplittingPass : public PassInfoMixin<HotColdSplittingPass> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };

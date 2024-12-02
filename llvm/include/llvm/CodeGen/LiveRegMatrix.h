@@ -26,6 +26,7 @@
 #include "llvm/ADT/BitVector.h"
 #include "llvm/CodeGen/LiveIntervalUnion.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -37,7 +38,7 @@ class MachineFunction;
 class TargetRegisterInfo;
 class VirtRegMap;
 
-class LiveRegMatrix {
+class LLVM_ABI LiveRegMatrix {
   friend class LiveRegMatrixWrapperLegacy;
   friend class LiveRegMatrixAnalysis;
   const TargetRegisterInfo *TRI = nullptr;
@@ -173,7 +174,7 @@ public:
   Register getOneVReg(unsigned PhysReg) const;
 };
 
-class LiveRegMatrixWrapperLegacy : public MachineFunctionPass {
+class LLVM_ABI LiveRegMatrixWrapperLegacy : public MachineFunctionPass {
   LiveRegMatrix LRM;
 
 public:
@@ -189,7 +190,7 @@ public:
   void releaseMemory() override;
 };
 
-class LiveRegMatrixAnalysis : public AnalysisInfoMixin<LiveRegMatrixAnalysis> {
+class LLVM_ABI LiveRegMatrixAnalysis : public AnalysisInfoMixin<LiveRegMatrixAnalysis> {
   friend AnalysisInfoMixin<LiveRegMatrixAnalysis>;
   static AnalysisKey Key;
 

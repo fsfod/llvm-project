@@ -10,9 +10,10 @@
 
 #include "llvm/MC/MCSymbol.h"
 #include "llvm/MC/MCSymbolTableEntry.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
-class MCSymbolELF : public MCSymbol {
+class LLVM_ABI MCSymbolELF : public MCSymbol {
   /// An expression describing how to calculate the size of a symbol. If a
   /// symbol has no size this field will be NULL.
   const MCExpr *SymbolSize = nullptr;

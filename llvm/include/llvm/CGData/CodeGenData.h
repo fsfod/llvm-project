@@ -23,6 +23,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/Object/ObjectFile.h"
 #include "llvm/Support/Caching.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/TargetParser/Triple.h"
 #include <mutex>
@@ -34,7 +35,7 @@ enum CGDataSectKind {
 #include "llvm/CGData/CodeGenData.inc"
 };
 
-std::string getCodeGenDataSectionName(CGDataSectKind CGSK,
+LLVM_ABI std::string getCodeGenDataSectionName(CGDataSectKind CGSK,
                                       Triple::ObjectFormatType OF,
                                       bool AddSegmentInfo = true);
 
@@ -47,7 +48,7 @@ enum class CGDataKind {
   LLVM_MARK_AS_BITMASK_ENUM(/*LargestValue=*/StableFunctionMergingMap)
 };
 
-const std::error_category &cgdata_category();
+LLVM_ABI const std::error_category &cgdata_category();
 
 enum class cgdata_error {
   success = 0,
@@ -63,7 +64,7 @@ inline std::error_code make_error_code(cgdata_error E) {
   return std::error_code(static_cast<int>(E), cgdata_category());
 }
 
-class CGDataError : public ErrorInfo<CGDataError> {
+class LLVM_ABI CGDataError : public ErrorInfo<CGDataError> {
 public:
   CGDataError(cgdata_error Err, const Twine &ErrStr = Twine())
       : Err(Err), Msg(ErrStr.str()) {
@@ -108,7 +109,7 @@ enum CGDataMode {
   Write,
 };
 
-class CodeGenData {
+class LLVM_ABI CodeGenData {
   /// Global outlined hash tree that has oulined hash sequences across modules.
   std::unique_ptr<OutlinedHashTree> PublishedHashTree;
   /// Global stable function map that has stable function info across modules.
@@ -245,7 +246,7 @@ struct StreamCacheData {
 /// \p Task represents the partition number in the parallel code generation
 /// process. \p AddStream is the callback used to add the serialized module to
 /// the stream.
-void saveModuleForTwoRounds(const Module &TheModule, unsigned Task,
+LLVM_ABI void saveModuleForTwoRounds(const Module &TheModule, unsigned Task,
                             AddStreamFn AddStream);
 
 /// Load the optimized bitcode module for the second codegen round.
@@ -254,7 +255,7 @@ void saveModuleForTwoRounds(const Module &TheModule, unsigned Task,
 /// process. \p Context provides the environment settings for module operations.
 /// \p IRFiles contains optimized bitcode module files needed for loading.
 /// \return A unique_ptr to the loaded Module, or nullptr if loading fails.
-std::unique_ptr<Module> loadModuleForTwoRounds(BitcodeModule &OrigModule,
+LLVM_ABI std::unique_ptr<Module> loadModuleForTwoRounds(BitcodeModule &OrigModule,
                                                unsigned Task,
                                                LLVMContext &Context,
                                                ArrayRef<StringRef> IRFiles);
@@ -262,10 +263,10 @@ std::unique_ptr<Module> loadModuleForTwoRounds(BitcodeModule &OrigModule,
 /// Merge the codegen data from the scratch objects \p ObjectFiles from the
 /// first codegen round.
 /// \return the combined hash of the merged codegen data.
-Expected<stable_hash> mergeCodeGenData(ArrayRef<StringRef> ObjectFiles);
+LLVM_ABI Expected<stable_hash> mergeCodeGenData(ArrayRef<StringRef> ObjectFiles);
 
-void warn(Error E, StringRef Whence = "");
-void warn(Twine Message, std::string Whence = "", std::string Hint = "");
+LLVM_ABI void warn(Error E, StringRef Whence = "");
+LLVM_ABI void warn(Twine Message, std::string Whence = "", std::string Hint = "");
 
 } // end namespace cgdata
 
@@ -285,7 +286,7 @@ enum CGDataVersion {
 };
 const uint64_t Version = CGDataVersion::CurrentVersion;
 
-struct Header {
+struct LLVM_ABI Header {
   uint64_t Magic;
   uint32_t Version;
   uint32_t DataKind;

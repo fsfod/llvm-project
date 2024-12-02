@@ -24,6 +24,7 @@
 #include "llvm/LTO/Config.h"
 #include "llvm/Object/IRSymtab.h"
 #include "llvm/Support/Caching.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/StringSaver.h"
 #include "llvm/Support/ThreadPool.h"
@@ -47,7 +48,7 @@ class ToolOutputFile;
 ///
 /// This is done for correctness (if value exported, ensure we always
 /// emit a copy), and compile-time optimization (allow drop of duplicates).
-void thinLTOResolvePrevailingInIndex(
+LLVM_ABI void thinLTOResolvePrevailingInIndex(
     const lto::Config &C, ModuleSummaryIndex &Index,
     function_ref<bool(GlobalValue::GUID, const GlobalValueSummary *)>
         isPrevailing,
@@ -58,7 +59,7 @@ void thinLTOResolvePrevailingInIndex(
 /// Update the linkages in the given \p Index to mark exported values
 /// as external and non-exported values as internal. The ThinLTO backends
 /// must apply the changes to the Module via thinLTOInternalizeModule.
-void thinLTOInternalizeAndPromoteInIndex(
+LLVM_ABI void thinLTOInternalizeAndPromoteInIndex(
     ModuleSummaryIndex &Index,
     function_ref<bool(StringRef, ValueInfo)> isExported,
     function_ref<bool(GlobalValue::GUID, const GlobalValueSummary *)>
@@ -66,7 +67,7 @@ void thinLTOInternalizeAndPromoteInIndex(
 
 /// Computes a unique hash for the Module considering the current list of
 /// export/import and other global analysis results.
-std::string computeLTOCacheKey(
+LLVM_ABI std::string computeLTOCacheKey(
     const lto::Config &Conf, const ModuleSummaryIndex &Index,
     StringRef ModuleID, const FunctionImporter::ImportMapTy &ImportList,
     const FunctionImporter::ExportSetTy &ExportList,
@@ -76,43 +77,43 @@ std::string computeLTOCacheKey(
     const DenseSet<GlobalValue::GUID> &CfiFunctionDecls = {});
 
 /// Recomputes the LTO cache key for a given key with an extra identifier.
-std::string recomputeLTOCacheKey(const std::string &Key, StringRef ExtraID);
+LLVM_ABI std::string recomputeLTOCacheKey(const std::string &Key, StringRef ExtraID);
 
 namespace lto {
 
-StringLiteral getThinLTODefaultCPU(const Triple &TheTriple);
+LLVM_ABI StringLiteral getThinLTODefaultCPU(const Triple &TheTriple);
 
 /// Given the original \p Path to an output file, replace any path
 /// prefix matching \p OldPrefix with \p NewPrefix. Also, create the
 /// resulting directory if it does not yet exist.
-std::string getThinLTOOutputFile(StringRef Path, StringRef OldPrefix,
+LLVM_ABI std::string getThinLTOOutputFile(StringRef Path, StringRef OldPrefix,
                                  StringRef NewPrefix);
 
 /// Setup optimization remarks.
-Expected<std::unique_ptr<ToolOutputFile>> setupLLVMOptimizationRemarks(
+LLVM_ABI Expected<std::unique_ptr<ToolOutputFile>> setupLLVMOptimizationRemarks(
     LLVMContext &Context, StringRef RemarksFilename, StringRef RemarksPasses,
     StringRef RemarksFormat, bool RemarksWithHotness,
     std::optional<uint64_t> RemarksHotnessThreshold = 0, int Count = -1);
 
 /// Setups the output file for saving statistics.
-Expected<std::unique_ptr<ToolOutputFile>>
+LLVM_ABI Expected<std::unique_ptr<ToolOutputFile>>
 setupStatsFile(StringRef StatsFilename);
 
 /// Produces a container ordering for optimal multi-threaded processing. Returns
 /// ordered indices to elements in the input array.
-std::vector<int> generateModulesOrdering(ArrayRef<BitcodeModule *> R);
+LLVM_ABI std::vector<int> generateModulesOrdering(ArrayRef<BitcodeModule *> R);
 
 /// Updates MemProf attributes (and metadata) based on whether the index
 /// has recorded that we are linking with allocation libraries containing
 /// the necessary APIs for downstream transformations.
-void updateMemProfAttributes(Module &Mod, const ModuleSummaryIndex &Index);
+LLVM_ABI void updateMemProfAttributes(Module &Mod, const ModuleSummaryIndex &Index);
 
 class LTO;
 struct SymbolResolution;
 
 /// An input file. This is a symbol table wrapper that only exposes the
 /// information that an LTO client should need in order to do symbol resolution.
-class InputFile {
+class LLVM_ABI InputFile {
 public:
   struct Symbol;
 
@@ -200,7 +201,7 @@ private:
 using IndexWriteCallback = std::function<void(const std::string &)>;
 
 /// This class defines the interface to the ThinLTO backend.
-class ThinBackendProc {
+class LLVM_ABI ThinBackendProc {
 protected:
   const Config &Conf;
   ModuleSummaryIndex &CombinedIndex;
@@ -289,7 +290,7 @@ private:
 /// to the same path as the input module, with suffix ".thinlto.bc"
 /// ShouldEmitImportsFiles is true it also writes a list of imported files to a
 /// similar path with ".imports" appended instead.
-ThinBackend createInProcessThinBackend(ThreadPoolStrategy Parallelism,
+LLVM_ABI ThinBackend createInProcessThinBackend(ThreadPoolStrategy Parallelism,
                                        IndexWriteCallback OnWrite = nullptr,
                                        bool ShouldEmitIndexFiles = false,
                                        bool ShouldEmitImportsFiles = false);
@@ -309,7 +310,7 @@ ThinBackend createInProcessThinBackend(ThreadPoolStrategy Parallelism,
 /// the objects with NativeObjectPrefix instead of NewPrefix. OnWrite is
 /// callback which receives module identifier and notifies LTO user that index
 /// file for the module (and optionally imports file) was created.
-ThinBackend createWriteIndexesThinBackend(ThreadPoolStrategy Parallelism,
+LLVM_ABI ThinBackend createWriteIndexesThinBackend(ThreadPoolStrategy Parallelism,
                                           std::string OldPrefix,
                                           std::string NewPrefix,
                                           std::string NativeObjectPrefix,
@@ -333,7 +334,7 @@ ThinBackend createWriteIndexesThinBackend(ThreadPoolStrategy Parallelism,
 /// - Call the run() function. This function will use the supplied AddStream
 ///   and Cache functions to add up to getMaxTasks() native object files to
 ///   the link.
-class LTO {
+class LLVM_ABI LTO {
   friend InputFile;
 
 public:
@@ -416,7 +417,7 @@ private:
 
   using ModuleMapType = MapVector<StringRef, BitcodeModule>;
 
-  struct ThinLTOState {
+  struct LLVM_ABI ThinLTOState {
     ThinLTOState(ThinBackend Backend);
 
     ThinBackend Backend;

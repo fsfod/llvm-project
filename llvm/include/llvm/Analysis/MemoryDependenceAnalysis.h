@@ -24,6 +24,7 @@
 #include "llvm/IR/PredIteratorCache.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -268,7 +269,7 @@ public:
 /// b) they load from *must-aliased* pointers.  Returning a dependence on
 /// must-alias'd pointers instead of all pointers interacts well with the
 /// internal caching mechanism.
-class MemoryDependenceResults {
+class LLVM_ABI MemoryDependenceResults {
   // A map from instructions to their dependency.
   using LocalDepMapType = DenseMap<Instruction *, MemDepResult>;
   LocalDepMapType LocalDeps;
@@ -510,7 +511,7 @@ private:
 ///
 /// This is essentially a no-op because the results are computed entirely
 /// lazily.
-class MemoryDependenceAnalysis
+class LLVM_ABI MemoryDependenceAnalysis
     : public AnalysisInfoMixin<MemoryDependenceAnalysis> {
   friend AnalysisInfoMixin<MemoryDependenceAnalysis>;
 
@@ -529,7 +530,7 @@ public:
 
 /// A wrapper analysis pass for the legacy pass manager that exposes a \c
 /// MemoryDepnedenceResults instance.
-class MemoryDependenceWrapperPass : public FunctionPass {
+class LLVM_ABI MemoryDependenceWrapperPass : public FunctionPass {
   std::optional<MemoryDependenceResults> MemDep;
 
 public:

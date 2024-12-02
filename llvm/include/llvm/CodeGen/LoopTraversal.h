@@ -19,6 +19,7 @@
 #define LLVM_CODEGEN_LOOPTRAVERSAL_H
 
 #include "llvm/ADT/SmallVector.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -62,7 +63,7 @@ class MachineFunction;
 ///
 /// In the optimized approach we avoid processing D twice, because we
 /// can entirely process the predecessors before getting to D.
-class LoopTraversal {
+class LLVM_ABI LoopTraversal {
 private:
   struct MBBInfo {
     /// Whether we have gotten to this block in primary processing yet.

@@ -12,6 +12,7 @@
 #include "llvm/BinaryFormat/Dwarf.h"
 #include "llvm/DebugInfo/DIContext.h"
 #include "llvm/DebugInfo/DWARF/DWARFDataExtractor.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Errc.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/raw_ostream.h"
@@ -52,7 +53,7 @@ public:
 
 /// A class representing the header of a list table such as the range list
 /// table in the .debug_rnglists section.
-class DWARFListTableHeader {
+class LLVM_ABI DWARFListTableHeader {
   struct Header {
     /// The total length of the entries for this table, not including the length
     /// field itself.

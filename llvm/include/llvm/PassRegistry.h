@@ -19,6 +19,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/RWMutex.h"
 #include <memory>
 #include <vector>
@@ -34,7 +35,7 @@ struct PassRegistrationListener;
 /// NOTE: PassRegistry is NOT thread-safe.  If you want to use LLVM on multiple
 /// threads simultaneously, you will need to use a separate PassRegistry on
 /// each thread.
-class PassRegistry {
+class LLVM_ABI PassRegistry {
   mutable sys::SmartRWMutex<true> Lock;
 
   /// PassInfoMap - Keep track of the PassInfo object for each registered pass.

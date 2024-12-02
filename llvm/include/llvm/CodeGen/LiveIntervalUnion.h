@@ -20,6 +20,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/CodeGen/LiveInterval.h"
 #include "llvm/CodeGen/SlotIndexes.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <limits>
 
@@ -39,7 +40,7 @@ using LiveVirtRegBitSet = SparseBitVector<128>;
 /// single register (either physical or virtual depending on the context).  We
 /// expect the constituent live intervals to be disjoint, although we may
 /// eventually make exceptions to handle value-based interference.
-class LiveIntervalUnion {
+class LLVM_ABI LiveIntervalUnion {
   // A set of live virtual register segments that supports fast insertion,
   // intersection, and removal.
   // Mapping SlotIndex intervals to virtual register numbers.
@@ -109,7 +110,7 @@ public:
 
   /// Query interferences between a single live virtual register and a live
   /// interval union.
-  class Query {
+  class LLVM_ABI Query {
     const LiveIntervalUnion *LiveUnion = nullptr;
     const LiveRange *LR = nullptr;
     LiveRange::const_iterator LRI;  ///< current position in LR
@@ -168,7 +169,7 @@ public:
   };
 
   // Array of LiveIntervalUnions.
-  class Array {
+  class LLVM_ABI Array {
     unsigned Size = 0;
     LiveIntervalUnion *LIUs = nullptr;
 

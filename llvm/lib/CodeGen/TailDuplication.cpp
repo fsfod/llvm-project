@@ -25,6 +25,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -132,5 +133,5 @@ PreservedAnalyses TailDuplicatePassBase<DerivedT, PreRegAlloc>::run(
   return getMachineFunctionPassPreservedAnalyses();
 }
 
-template class llvm::TailDuplicatePassBase<TailDuplicatePass, false>;
-template class llvm::TailDuplicatePassBase<EarlyTailDuplicatePass, true>;
+template class LLVM_EXPORT_TEMPLATE llvm::TailDuplicatePassBase<TailDuplicatePass, false>;
+template class LLVM_EXPORT_TEMPLATE llvm::TailDuplicatePassBase<EarlyTailDuplicatePass, true>;

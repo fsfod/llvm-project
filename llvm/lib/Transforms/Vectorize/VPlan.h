@@ -42,6 +42,7 @@
 #include "llvm/IR/DebugLoc.h"
 #include "llvm/IR/FMF.h"
 #include "llvm/IR/Operator.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/InstructionCost.h"
 #include <algorithm>
 #include <cassert>
@@ -77,10 +78,10 @@ typedef unsigned ID;
 /// Returns a calculation for the total number of elements for a given \p VF.
 /// For fixed width vectors this value is a constant, whereas for scalable
 /// vectors it is an expression determined at runtime.
-Value *getRuntimeVF(IRBuilderBase &B, Type *Ty, ElementCount VF);
+LLVM_ABI Value *getRuntimeVF(IRBuilderBase &B, Type *Ty, ElementCount VF);
 
 /// Return a value for Step multiplied by VF.
-Value *createStepForVF(IRBuilderBase &B, Type *Ty, ElementCount VF,
+LLVM_ABI Value *createStepForVF(IRBuilderBase &B, Type *Ty, ElementCount VF,
                        int64_t Step);
 
 /// A helper function that returns the reciprocal of the block probability of
@@ -150,7 +151,7 @@ using VPlanPtr = std::unique_ptr<VPlan>;
 /// VPLane provides a way to access lanes in both fixed width and scalable
 /// vectors, where for the latter the lane index sometimes needs calculating
 /// as a runtime expression.
-class VPLane {
+class LLVM_ABI VPLane {
 public:
   /// Kind describes how to interpret Lane.
   enum class Kind : uint8_t {
@@ -233,7 +234,7 @@ public:
 
 /// VPTransformState holds information passed down when "executing" a VPlan,
 /// needed for generating the output IR.
-struct VPTransformState {
+struct LLVM_ABI VPTransformState {
   VPTransformState(const TargetTransformInfo *TTI, ElementCount VF, unsigned UF,
                    LoopInfo *LI, DominatorTree *DT, IRBuilderBase &Builder,
                    InnerLoopVectorizer *ILV, VPlan *Plan);
@@ -334,7 +335,7 @@ struct VPTransformState {
 
   /// Hold state information used when constructing the CFG of the output IR,
   /// traversing the VPBasicBlocks and generating corresponding IR BasicBlocks.
-  struct CFGState {
+  struct LLVM_ABI CFGState {
     /// The previous VPBasicBlock visited. Initially set to null.
     VPBasicBlock *PrevVPBB = nullptr;
 
@@ -393,7 +394,7 @@ struct VPTransformState {
 
 /// VPBlockBase is the building block of the Hierarchical Control-Flow Graph.
 /// A VPBlockBase can be either a VPBasicBlock or a VPRegionBlock.
-class VPBlockBase {
+class LLVM_ABI VPBlockBase {
   friend class VPBlockUtils;
 
   const unsigned char SubclassID; ///< Subclass identifier (for isa/dyn_cast).
@@ -677,7 +678,7 @@ public:
 };
 
 /// Struct to hold various analysis needed for cost computations.
-struct VPCostContext {
+struct LLVM_ABI VPCostContext {
   const TargetTransformInfo &TTI;
   const TargetLibraryInfo &TLI;
   VPTypeAnalysis Types;
@@ -707,7 +708,7 @@ struct VPCostContext {
 /// and is responsible for deleting its defined values. Single-value
 /// recipes must inherit from VPSingleDef instead of inheriting from both
 /// VPRecipeBase and VPValue separately.
-class VPRecipeBase : public ilist_node_with_parent<VPRecipeBase, VPBasicBlock>,
+class LLVM_ABI VPRecipeBase : public ilist_node_with_parent<VPRecipeBase, VPBasicBlock>,
                      public VPDef,
                      public VPUser {
   friend VPBasicBlock;
@@ -836,7 +837,7 @@ protected:
 /// VPSingleDef is a base class for recipes for modeling a sequence of one or
 /// more output IR that define a single result VPValue.
 /// Note that VPRecipeBase must be inherited from before VPValue.
-class VPSingleDefRecipe : public VPRecipeBase, public VPValue {
+class LLVM_ABI VPSingleDefRecipe : public VPRecipeBase, public VPValue {
 public:
   template <typename IterT>
   VPSingleDefRecipe(const unsigned char SC, IterT Operands, DebugLoc DL = {})
@@ -919,7 +920,7 @@ public:
 };
 
 /// Class to record LLVM IR flag for a recipe along with it.
-class VPRecipeWithIRFlags : public VPSingleDefRecipe {
+class LLVM_ABI VPRecipeWithIRFlags : public VPSingleDefRecipe {
   enum class OperationType : unsigned char {
     Cmp,
     OverflowingBinOp,
@@ -956,7 +957,7 @@ private:
   struct NonNegFlagsTy {
     char NonNeg : 1;
   };
-  struct FastMathFlagsTy {
+  struct LLVM_ABI FastMathFlagsTy {
     char AllowReassoc : 1;
     char NoNaNs : 1;
     char NoInfs : 1;
@@ -1197,7 +1198,7 @@ protected:
 /// While as any Recipe it may generate a sequence of IR instructions when
 /// executed, these instructions would always form a single-def expression as
 /// the VPInstruction is also a single def-use vertex.
-class VPInstruction : public VPRecipeWithIRFlags,
+class LLVM_ABI VPInstruction : public VPRecipeWithIRFlags,
                       public VPUnrollPartAccessor<1> {
   friend class VPlanSlp;
 
@@ -1388,7 +1389,7 @@ public:
 /// execution, execept for PHIs. For PHIs, a single VPValue operand is allowed,
 /// and it is used to add a new incoming value for the single predecessor VPBB.
 /// Expect PHIs, VPIRInstructions cannot have any operands.
-class VPIRInstruction : public VPRecipeBase {
+class LLVM_ABI VPIRInstruction : public VPRecipeBase {
   Instruction &I;
 
 public:
@@ -1437,7 +1438,7 @@ public:
 /// opcode and operands of the recipe. This recipe covers most of the
 /// traditional vectorization cases where each recipe transforms into a
 /// vectorized version of itself.
-class VPWidenRecipe : public VPRecipeWithIRFlags {
+class LLVM_ABI VPWidenRecipe : public VPRecipeWithIRFlags {
   unsigned Opcode;
 
 protected:
@@ -1488,7 +1489,7 @@ public:
 
 /// A recipe for widening operations with vector-predication intrinsics with
 /// explicit vector length (EVL).
-class VPWidenEVLRecipe : public VPWidenRecipe {
+class LLVM_ABI VPWidenEVLRecipe : public VPWidenRecipe {
   using VPRecipeWithIRFlags::transferFlags;
 
 public:
@@ -1535,7 +1536,7 @@ public:
 };
 
 /// VPWidenCastRecipe is a recipe to create vector cast instructions.
-class VPWidenCastRecipe : public VPRecipeWithIRFlags {
+class LLVM_ABI VPWidenCastRecipe : public VPRecipeWithIRFlags {
   /// Cast instruction opcode.
   Instruction::CastOps Opcode;
 
@@ -1587,7 +1588,7 @@ public:
 };
 
 /// VPScalarCastRecipe is a recipe to create scalar cast instructions.
-class VPScalarCastRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPScalarCastRecipe : public VPSingleDefRecipe {
   Instruction::CastOps Opcode;
 
   Type *ResultTy;
@@ -1633,7 +1634,7 @@ public:
 };
 
 /// A recipe for widening vector intrinsics.
-class VPWidenIntrinsicRecipe : public VPRecipeWithIRFlags {
+class LLVM_ABI VPWidenIntrinsicRecipe : public VPRecipeWithIRFlags {
   /// ID of the vector intrinsic to widen.
   Intrinsic::ID VectorIntrinsicID;
 
@@ -1722,7 +1723,7 @@ public:
 };
 
 /// A recipe for widening Call instructions using library calls.
-class VPWidenCallRecipe : public VPRecipeWithIRFlags {
+class LLVM_ABI VPWidenCallRecipe : public VPRecipeWithIRFlags {
   /// Variant stores a pointer to the chosen function. There is a 1:1 mapping
   /// between a given VF and the chosen vectorized variant, so there will be a
   /// different VPlan for each VF with a valid variant.
@@ -1778,7 +1779,7 @@ public:
 /// lanes, which is handled by the llvm.experimental.vector.histogram family
 /// of intrinsics. The only update operations currently supported are
 /// 'add' and 'sub' where the other term is loop-invariant.
-class VPHistogramRecipe : public VPRecipeBase {
+class LLVM_ABI VPHistogramRecipe : public VPRecipeBase {
   /// Opcode of the update operation, currently either add or sub.
   unsigned Opcode;
 
@@ -1819,7 +1820,7 @@ public:
 };
 
 /// A recipe for widening select instructions.
-struct VPWidenSelectRecipe : public VPSingleDefRecipe {
+struct LLVM_ABI VPWidenSelectRecipe : public VPSingleDefRecipe {
   template <typename IterT>
   VPWidenSelectRecipe(SelectInst &I, iterator_range<IterT> Operands)
       : VPSingleDefRecipe(VPDef::VPWidenSelectSC, Operands, &I,
@@ -1857,7 +1858,7 @@ struct VPWidenSelectRecipe : public VPSingleDefRecipe {
 };
 
 /// A recipe for handling GEP instructions.
-class VPWidenGEPRecipe : public VPRecipeWithIRFlags {
+class LLVM_ABI VPWidenGEPRecipe : public VPRecipeWithIRFlags {
   bool isPointerLoopInvariant() const {
     return getOperand(0)->isDefinedOutsideLoopRegions();
   }
@@ -1905,7 +1906,7 @@ public:
 
 /// A recipe to compute the pointers for widened memory accesses of IndexTy
 /// in reverse order.
-class VPReverseVectorPointerRecipe : public VPRecipeWithIRFlags,
+class LLVM_ABI VPReverseVectorPointerRecipe : public VPRecipeWithIRFlags,
                                      public VPUnrollPartAccessor<2> {
   Type *IndexedTy;
 
@@ -1958,7 +1959,7 @@ public:
 };
 
 /// A recipe to compute the pointers for widened memory accesses of IndexTy.
-class VPVectorPointerRecipe : public VPRecipeWithIRFlags,
+class LLVM_ABI VPVectorPointerRecipe : public VPRecipeWithIRFlags,
                               public VPUnrollPartAccessor<1> {
   Type *IndexedTy;
 
@@ -2029,7 +2030,7 @@ public:
 ///  * VPWidenPointerInductionRecipe: Generate vector and scalar values for a
 ///    pointer induction. Produces either a vector PHI per-part or scalar values
 ///    per-lane based on the canonical induction.
-class VPHeaderPHIRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPHeaderPHIRecipe : public VPSingleDefRecipe {
 protected:
   VPHeaderPHIRecipe(unsigned char VPDefID, Instruction *UnderlyingInstr,
                     VPValue *Start = nullptr, DebugLoc DL = {})
@@ -2090,7 +2091,7 @@ public:
 
 /// A recipe for handling phi nodes of integer and floating-point inductions,
 /// producing their vector values.
-class VPWidenIntOrFpInductionRecipe : public VPHeaderPHIRecipe {
+class LLVM_ABI VPWidenIntOrFpInductionRecipe : public VPHeaderPHIRecipe {
   PHINode *IV;
   TruncInst *Trunc;
   const InductionDescriptor &IndDesc;
@@ -2187,7 +2188,7 @@ public:
   }
 };
 
-class VPWidenPointerInductionRecipe : public VPHeaderPHIRecipe,
+class LLVM_ABI VPWidenPointerInductionRecipe : public VPHeaderPHIRecipe,
                                       public VPUnrollPartAccessor<3> {
   const InductionDescriptor &IndDesc;
 
@@ -2242,7 +2243,7 @@ public:
 /// A recipe for handling phis that are widened in the vector loop.
 /// In the VPlan native path, all incoming VPValues & VPBasicBlock pairs are
 /// managed in the recipe directly.
-class VPWidenPHIRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPWidenPHIRecipe : public VPSingleDefRecipe {
   /// List of incoming blocks. Only used in the VPlan native path.
   SmallVector<VPBasicBlock *, 2> IncomingBlocks;
 
@@ -2287,7 +2288,7 @@ public:
 /// A recipe for handling first-order recurrence phis. The start value is the
 /// first operand of the recipe and the incoming value from the backedge is the
 /// second operand.
-struct VPFirstOrderRecurrencePHIRecipe : public VPHeaderPHIRecipe {
+struct LLVM_ABI VPFirstOrderRecurrencePHIRecipe : public VPHeaderPHIRecipe {
   VPFirstOrderRecurrencePHIRecipe(PHINode *Phi, VPValue &Start)
       : VPHeaderPHIRecipe(VPDef::VPFirstOrderRecurrencePHISC, Phi, &Start) {}
 
@@ -2318,7 +2319,7 @@ struct VPFirstOrderRecurrencePHIRecipe : public VPHeaderPHIRecipe {
 /// A recipe for handling reduction phis. The start value is the first operand
 /// of the recipe and the incoming value from the backedge is the second
 /// operand.
-class VPReductionPHIRecipe : public VPHeaderPHIRecipe,
+class LLVM_ABI VPReductionPHIRecipe : public VPHeaderPHIRecipe,
                              public VPUnrollPartAccessor<2> {
   /// Descriptor for the reduction.
   const RecurrenceDescriptor &RdxDesc;
@@ -2378,7 +2379,7 @@ public:
 
 /// A recipe for vectorizing a phi-node as a sequence of mask-based select
 /// instructions.
-class VPBlendRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPBlendRecipe : public VPSingleDefRecipe {
 public:
   /// The blend operation is a User of the incoming values and of their
   /// respective masks, ordered [I0, M0, I1, M1, I2, M2, ...]. Note that M0 can
@@ -2445,7 +2446,7 @@ public:
 /// or stores into one wide load/store and shuffles. The first operand of a
 /// VPInterleave recipe is the address, followed by the stored values, followed
 /// by an optional mask.
-class VPInterleaveRecipe : public VPRecipeBase {
+class LLVM_ABI VPInterleaveRecipe : public VPRecipeBase {
   const InterleaveGroup<Instruction> *IG;
 
   /// Indicates if the interleave group is in a conditional block and requires a
@@ -2540,7 +2541,7 @@ public:
 /// A recipe to represent inloop reduction operations, performing a reduction on
 /// a vector operand into a scalar value, and adding the result to a chain.
 /// The Operands are {ChainOp, VecOp, [Condition]}.
-class VPReductionRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPReductionRecipe : public VPSingleDefRecipe {
   /// The recurrence decriptor for the reduction in question.
   const RecurrenceDescriptor &RdxDesc;
   bool IsOrdered;
@@ -2618,7 +2619,7 @@ public:
 /// intrinsics, performing a reduction on a vector operand with the explicit
 /// vector length (EVL) into a scalar value, and adding the result to a chain.
 /// The Operands are {ChainOp, VecOp, EVL, [Condition]}.
-class VPReductionEVLRecipe : public VPReductionRecipe {
+class LLVM_ABI VPReductionEVLRecipe : public VPReductionRecipe {
 public:
   VPReductionEVLRecipe(VPReductionRecipe &R, VPValue &EVL, VPValue *CondOp)
       : VPReductionRecipe(
@@ -2659,7 +2660,7 @@ public:
 /// copies of the original scalar type, one per lane, instead of producing a
 /// single copy of widened type for all lanes. If the instruction is known to be
 /// uniform only one copy, per lane zero, will be generated.
-class VPReplicateRecipe : public VPRecipeWithIRFlags {
+class LLVM_ABI VPReplicateRecipe : public VPRecipeWithIRFlags {
   /// Indicator if only a single replica per lane is needed.
   bool IsUniform;
 
@@ -2736,7 +2737,7 @@ public:
 };
 
 /// A recipe for generating conditional branches on the bits of a mask.
-class VPBranchOnMaskRecipe : public VPRecipeBase {
+class LLVM_ABI VPBranchOnMaskRecipe : public VPRecipeBase {
 public:
   VPBranchOnMaskRecipe(VPValue *BlockInMask)
       : VPRecipeBase(VPDef::VPBranchOnMaskSC, {}) {
@@ -2791,7 +2792,7 @@ public:
 /// order to merge values that are set under such a branch and feed their uses.
 /// The phi nodes can be scalar or vector depending on the users of the value.
 /// This recipe works in concert with VPBranchOnMaskRecipe.
-class VPPredInstPHIRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPPredInstPHIRecipe : public VPSingleDefRecipe {
 public:
   /// Construct a VPPredInstPHIRecipe given \p PredInst whose value needs a phi
   /// nodes after merging back from a Branch-on-Mask.
@@ -2832,7 +2833,7 @@ public:
 
 /// A common base class for widening memory operations. An optional mask can be
 /// provided as the last operand.
-class VPWidenMemoryRecipe : public VPRecipeBase {
+class LLVM_ABI VPWidenMemoryRecipe : public VPRecipeBase {
 protected:
   Instruction &Ingredient;
 
@@ -2912,7 +2913,7 @@ public:
 
 /// A recipe for widening load operations, using the address to load from and an
 /// optional mask.
-struct VPWidenLoadRecipe final : public VPWidenMemoryRecipe, public VPValue {
+struct LLVM_ABI VPWidenLoadRecipe final : public VPWidenMemoryRecipe, public VPValue {
   VPWidenLoadRecipe(LoadInst &Load, VPValue *Addr, VPValue *Mask,
                     bool Consecutive, bool Reverse, DebugLoc DL)
       : VPWidenMemoryRecipe(VPDef::VPWidenLoadSC, Load, {Addr}, Consecutive,
@@ -2951,7 +2952,7 @@ struct VPWidenLoadRecipe final : public VPWidenMemoryRecipe, public VPValue {
 /// A recipe for widening load operations with vector-predication intrinsics,
 /// using the address to load from, the explicit vector length and an optional
 /// mask.
-struct VPWidenLoadEVLRecipe final : public VPWidenMemoryRecipe, public VPValue {
+struct LLVM_ABI VPWidenLoadEVLRecipe final : public VPWidenMemoryRecipe, public VPValue {
   VPWidenLoadEVLRecipe(VPWidenLoadRecipe &L, VPValue &EVL, VPValue *Mask)
       : VPWidenMemoryRecipe(VPDef::VPWidenLoadEVLSC, L.getIngredient(),
                             {L.getAddr(), &EVL}, L.isConsecutive(),
@@ -2990,7 +2991,7 @@ struct VPWidenLoadEVLRecipe final : public VPWidenMemoryRecipe, public VPValue {
 
 /// A recipe for widening store operations, using the stored value, the address
 /// to store to and an optional mask.
-struct VPWidenStoreRecipe final : public VPWidenMemoryRecipe {
+struct LLVM_ABI VPWidenStoreRecipe final : public VPWidenMemoryRecipe {
   VPWidenStoreRecipe(StoreInst &Store, VPValue *Addr, VPValue *StoredVal,
                      VPValue *Mask, bool Consecutive, bool Reverse, DebugLoc DL)
       : VPWidenMemoryRecipe(VPDef::VPWidenStoreSC, Store, {Addr, StoredVal},
@@ -3031,7 +3032,7 @@ struct VPWidenStoreRecipe final : public VPWidenMemoryRecipe {
 /// A recipe for widening store operations with vector-predication intrinsics,
 /// using the value to store, the address to store to, the explicit vector
 /// length and an optional mask.
-struct VPWidenStoreEVLRecipe final : public VPWidenMemoryRecipe {
+struct LLVM_ABI VPWidenStoreEVLRecipe final : public VPWidenMemoryRecipe {
   VPWidenStoreEVLRecipe(VPWidenStoreRecipe &S, VPValue &EVL, VPValue *Mask)
       : VPWidenMemoryRecipe(VPDef::VPWidenStoreEVLSC, S.getIngredient(),
                             {S.getAddr(), S.getStoredValue(), &EVL},
@@ -3076,7 +3077,7 @@ struct VPWidenStoreEVLRecipe final : public VPWidenMemoryRecipe {
 };
 
 /// Recipe to expand a SCEV expression.
-class VPExpandSCEVRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPExpandSCEVRecipe : public VPSingleDefRecipe {
   const SCEV *Expr;
   ScalarEvolution &SE;
 
@@ -3115,7 +3116,7 @@ public:
 /// start value (either 0 or the resume value when vectorizing the epilogue
 /// loop). VPWidenCanonicalIVRecipe represents the vector version of the
 /// canonical induction variable.
-class VPCanonicalIVPHIRecipe : public VPHeaderPHIRecipe {
+class LLVM_ABI VPCanonicalIVPHIRecipe : public VPHeaderPHIRecipe {
 public:
   VPCanonicalIVPHIRecipe(VPValue *StartV, DebugLoc DL)
       : VPHeaderPHIRecipe(VPDef::VPCanonicalIVPHISC, nullptr, StartV, DL) {}
@@ -3179,7 +3180,7 @@ public:
 /// used to predicate the vector operations.
 /// TODO: It would be good to use the existing VPWidenPHIRecipe instead and
 /// remove VPActiveLaneMaskPHIRecipe.
-class VPActiveLaneMaskPHIRecipe : public VPHeaderPHIRecipe {
+class LLVM_ABI VPActiveLaneMaskPHIRecipe : public VPHeaderPHIRecipe {
 public:
   VPActiveLaneMaskPHIRecipe(VPValue *StartMask, DebugLoc DL)
       : VPHeaderPHIRecipe(VPDef::VPActiveLaneMaskPHISC, nullptr, StartMask,
@@ -3214,7 +3215,7 @@ public:
 /// adjusted in accordance with EVL value. It starts at the start value of the
 /// canonical induction and gets incremented by EVL in each iteration of the
 /// vector loop.
-class VPEVLBasedIVPHIRecipe : public VPHeaderPHIRecipe {
+class LLVM_ABI VPEVLBasedIVPHIRecipe : public VPHeaderPHIRecipe {
 public:
   VPEVLBasedIVPHIRecipe(VPValue *StartIV, DebugLoc DL)
       : VPHeaderPHIRecipe(VPDef::VPEVLBasedIVPHISC, nullptr, StartIV, DL) {}
@@ -3257,7 +3258,7 @@ public:
 };
 
 /// A Recipe for widening the canonical induction variable of the vector loop.
-class VPWidenCanonicalIVRecipe : public VPSingleDefRecipe,
+class LLVM_ABI VPWidenCanonicalIVRecipe : public VPSingleDefRecipe,
                                  public VPUnrollPartAccessor<1> {
 public:
   VPWidenCanonicalIVRecipe(VPCanonicalIVPHIRecipe *CanonicalIV)
@@ -3294,7 +3295,7 @@ public:
 /// A recipe for converting the input value \p IV value to the corresponding
 /// value of an IV with different start and step values, using Start + IV *
 /// Step.
-class VPDerivedIVRecipe : public VPSingleDefRecipe {
+class LLVM_ABI VPDerivedIVRecipe : public VPSingleDefRecipe {
   /// Kind of the induction.
   const InductionDescriptor::InductionKind Kind;
   /// If not nullptr, the floating point induction binary operator. Must be set
@@ -3362,7 +3363,7 @@ public:
 
 /// A recipe for handling phi nodes of integer and floating-point inductions,
 /// producing their scalar values.
-class VPScalarIVStepsRecipe : public VPRecipeWithIRFlags,
+class LLVM_ABI VPScalarIVStepsRecipe : public VPRecipeWithIRFlags,
                               public VPUnrollPartAccessor<2> {
   Instruction::BinaryOps InductionOpcode;
 
@@ -3420,7 +3421,7 @@ public:
 /// VPBasicBlock serves as the leaf of the Hierarchical Control-Flow Graph. It
 /// holds a sequence of zero or more VPRecipe's each representing a sequence of
 /// output IR instructions. All PHI-like recipes must come before any non-PHI recipes.
-class VPBasicBlock : public VPBlockBase {
+class LLVM_ABI VPBasicBlock : public VPBlockBase {
 public:
   using RecipeListTy = iplist<VPRecipeBase>;
 
@@ -3566,7 +3567,7 @@ private:
 /// wrapped block.
 /// Note: At the moment, VPIRBasicBlock can only be used to wrap VPlan's
 /// preheader block.
-class VPIRBasicBlock : public VPBasicBlock {
+class LLVM_ABI VPIRBasicBlock : public VPBasicBlock {
   BasicBlock *IRBB;
 
 public:
@@ -3607,7 +3608,7 @@ public:
 /// this replication indicator helps to keep a single model for multiple
 /// candidate VF's. The actual replication takes place only once the desired VF
 /// and UF have been determined.
-class VPRegionBlock : public VPBlockBase {
+class LLVM_ABI VPRegionBlock : public VPBlockBase {
   /// Hold the Single Entry of the SESE region modelled by the VPRegionBlock.
   VPBlockBase *Entry;
 
@@ -3711,7 +3712,7 @@ public:
 /// output IR instructions to generate, and their cost. VPlan holds a
 /// Hierarchical-CFG of VPBasicBlocks and VPRegionBlocks rooted at an Entry
 /// VPBasicBlock.
-class VPlan {
+class LLVM_ABI VPlan {
   friend class VPlanPrinter;
   friend class VPSlotTracker;
 
@@ -3997,7 +3998,7 @@ public:
 #if !defined(NDEBUG) || defined(LLVM_ENABLE_DUMP)
 /// VPlanPrinter prints a given VPlan to a given output stream. The printing is
 /// indented and follows the dot format.
-class VPlanPrinter {
+class LLVM_ABI VPlanPrinter {
   raw_ostream &OS;
   const VPlan &Plan;
   unsigned Depth = 0;
@@ -4044,7 +4045,7 @@ public:
   LLVM_DUMP_METHOD void dump();
 };
 
-struct VPlanIngredient {
+struct LLVM_ABI VPlanIngredient {
   const Value *V;
 
   VPlanIngredient(const Value *V) : V(V) {}
@@ -4209,7 +4210,7 @@ public:
   }
 };
 
-class VPInterleavedAccessInfo {
+class LLVM_ABI VPInterleavedAccessInfo {
   DenseMap<VPInstruction *, InterleaveGroup<VPInstruction> *>
       InterleaveGroupMap;
 
@@ -4250,7 +4251,7 @@ public:
 
 /// Class that maps (parts of) an existing VPlan to trees of combined
 /// VPInstructions.
-class VPlanSlp {
+class LLVM_ABI VPlanSlp {
   enum class OpMode { Failed, Load, Opcode };
 
   /// A DenseMapInfo implementation for using SmallVector<VPValue *, 4> as

@@ -22,6 +22,7 @@
 #define LLVM_TRANSFORMS_VECTORIZE_SANDBOXVECTORIZER_SCHEDULER_H
 
 #include "llvm/SandboxIR/Instruction.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/DependencyGraph.h"
 #include <queue>
 
@@ -36,7 +37,7 @@ public:
 };
 
 /// The list holding nodes that are ready to schedule. Used by the scheduler.
-class ReadyListContainer {
+class LLVM_ABI ReadyListContainer {
   PriorityCmp Cmp;
   /// Control/Other dependencies are not modeled by the DAG to save memory.
   /// These have to be modeled in the ready list for correctness.
@@ -62,7 +63,7 @@ public:
 
 /// The nodes that need to be scheduled back-to-back in a single scheduling
 /// cycle form a SchedBundle.
-class SchedBundle {
+class LLVM_ABI SchedBundle {
 public:
   using ContainerTy = SmallVector<DGNode *, 4>;
 
@@ -104,7 +105,7 @@ public:
 };
 
 /// The list scheduler.
-class Scheduler {
+class LLVM_ABI Scheduler {
   ReadyListContainer ReadyList;
   DependencyGraph DAG;
   std::optional<BasicBlock::iterator> ScheduleTopItOpt;

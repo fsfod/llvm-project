@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_PEEPHOLEOPTIMIZER_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class PeepholeOptimizerPass : public PassInfoMixin<PeepholeOptimizerPass> {
+class LLVM_ABI PeepholeOptimizerPass : public PassInfoMixin<PeepholeOptimizerPass> {
 public:
   PreservedAnalyses run(MachineFunction &MF,
                         MachineFunctionAnalysisManager &MFAM);

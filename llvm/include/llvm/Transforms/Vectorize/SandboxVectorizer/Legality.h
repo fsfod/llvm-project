@@ -16,6 +16,7 @@
 #include "llvm/Analysis/ScalarEvolution.h"
 #include "llvm/IR/DataLayout.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Scheduler.h"
 
@@ -84,7 +85,7 @@ struct ToStr {
 /// because in some cases the legality checks are expensive and look for a
 /// particular instruction that can be passed along to the vectorizer to avoid
 /// repeating the same expensive computation.
-class LegalityResult {
+class LLVM_ABI LegalityResult {
 protected:
   LegalityResultID ID;
   /// Only Legality can create LegalityResults.
@@ -149,7 +150,7 @@ public:
 };
 
 /// Performs the legality analysis and returns a LegalityResult object.
-class LegalityAnalysis {
+class LLVM_ABI LegalityAnalysis {
   Scheduler Sched;
   /// Owns the legality result objects created by createLegalityResult().
   SmallVector<std::unique_ptr<LegalityResult>> ResultPool;

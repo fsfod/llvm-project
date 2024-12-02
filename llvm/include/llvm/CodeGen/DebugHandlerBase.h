@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/LexicalScopes.h"
 #include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/IR/DebugLoc.h"
+#include "llvm/Support/Compiler.h"
 #include <optional>
 
 namespace llvm {
@@ -28,7 +29,7 @@ class MachineInstr;
 class MachineModuleInfo;
 
 /// Represents the location at which a variable is stored.
-struct DbgVariableLocation {
+struct LLVM_ABI DbgVariableLocation {
   /// Base register.
   unsigned Register;
 
@@ -50,7 +51,7 @@ struct DbgVariableLocation {
 
 /// Base class for debug information backends. Common functionality related to
 /// tracking which variables and scopes are alive at a given PC live here.
-class DebugHandlerBase {
+class LLVM_ABI DebugHandlerBase {
 protected:
   DebugHandlerBase(AsmPrinter *A);
 

@@ -9,6 +9,7 @@
 #ifndef LLVM_DEBUGINFO_MSF_MSFERROR_H
 #define LLVM_DEBUGINFO_MSF_MSFERROR_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -36,14 +37,14 @@ struct is_error_code_enum<llvm::msf::msf_error_code> : std::true_type {};
 
 namespace llvm {
 namespace msf {
-const std::error_category &MSFErrCategory();
+LLVM_ABI const std::error_category &MSFErrCategory();
 
 inline std::error_code make_error_code(msf_error_code E) {
   return std::error_code(static_cast<int>(E), MSFErrCategory());
 }
 
 /// Base class for errors originating when parsing raw PDB files
-class MSFError : public ErrorInfo<MSFError, StringError> {
+class LLVM_ABI MSFError : public ErrorInfo<MSFError, StringError> {
 public:
   using ErrorInfo<MSFError, StringError>::ErrorInfo; // inherit constructors
   MSFError(const Twine &S) : ErrorInfo(S, msf_error_code::unspecified) {}

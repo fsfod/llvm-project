@@ -17,12 +17,13 @@
 #include "llvm/SandboxIR/Constant.h"
 #include "llvm/SandboxIR/Pass.h"
 #include "llvm/SandboxIR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Legality.h"
 
 namespace llvm::sandboxir {
 
-class BottomUpVec final : public FunctionPass {
+class LLVM_ABI BottomUpVec final : public FunctionPass {
   bool Change = false;
   std::unique_ptr<LegalityAnalysis> Legality;
   SmallVector<Instruction *> DeadInstrCandidates;

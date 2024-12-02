@@ -10,6 +10,7 @@
 #define LLVM_TRANSFORMS_UTILS_LOOP_CONSTRAINER_H
 
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
 #include <optional>
 
@@ -31,7 +32,7 @@ class Value;
 // changing and potentially invalid IR.  This structure also formalizes the
 // kinds of loops we can deal with -- ones that have a single latch that is also
 // an exiting block *and* have a canonical induction variable.
-struct LoopStructure {
+struct LLVM_ABI LoopStructure {
   const char *Tag = "";
 
   BasicBlock *Header = nullptr;
@@ -92,7 +93,7 @@ struct LoopStructure {
 /// loops to run any remaining iterations.  The pre loop runs any iterations in
 /// which the induction variable is < Begin, and the post loop runs any
 /// iterations in which the induction variable is >= End.
-class LoopConstrainer {
+class LLVM_ABI LoopConstrainer {
 public:
   // Calculated subranges we restrict the iteration space of the main loop to.
   // See the implementation of `calculateSubRanges' for more details on how

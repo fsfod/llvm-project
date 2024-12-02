@@ -47,6 +47,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include <algorithm>
@@ -1771,5 +1772,5 @@ PreservedAnalyses MachineLICMBasePass<DerivedT, PreRegAlloc>::run(
   return PA;
 }
 
-template class llvm::MachineLICMBasePass<EarlyMachineLICMPass, true>;
-template class llvm::MachineLICMBasePass<MachineLICMPass, false>;
+template class LLVM_EXPORT_TEMPLATE llvm::MachineLICMBasePass<EarlyMachineLICMPass, true>;
+template class LLVM_EXPORT_TEMPLATE llvm::MachineLICMBasePass<MachineLICMPass, false>;

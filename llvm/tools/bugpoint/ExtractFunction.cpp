@@ -21,6 +21,7 @@
 #include "llvm/IR/Verifier.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/FileUtilities.h"
 #include "llvm/Support/Path.h"
@@ -37,7 +38,7 @@ using namespace llvm;
 
 namespace llvm {
 bool DisableSimplifyCFG = false;
-extern cl::opt<std::string> OutputPrefix;
+LLVM_ABI extern cl::opt<std::string> OutputPrefix;
 } // End llvm namespace
 
 namespace {

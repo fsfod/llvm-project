@@ -15,13 +15,14 @@
 #define LLVM_CODEGEN_PREPARE_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 class TargetMachine;
 
-class CodeGenPreparePass : public PassInfoMixin<CodeGenPreparePass> {
+class LLVM_ABI CodeGenPreparePass : public PassInfoMixin<CodeGenPreparePass> {
 private:
   const TargetMachine *TM;
 

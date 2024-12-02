@@ -11,6 +11,7 @@
 
 #include "llvm/DebugInfo/CodeView/CodeView.h"
 #include "llvm/DebugInfo/CodeView/DebugSubsectionRecord.h"
+#include "llvm/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -20,7 +21,7 @@ class DebugChecksumsSubsectionRef;
 class DebugStringTableSubsection;
 class DebugStringTableSubsectionRef;
 
-class StringsAndChecksumsRef {
+class LLVM_ABI StringsAndChecksumsRef {
 public:
   // If no subsections are known about initially, we find as much as we can.
   StringsAndChecksumsRef();

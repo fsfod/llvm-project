@@ -34,6 +34,7 @@
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/DebugLoc.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GenericLoopInfo.h"
 
 namespace llvm {
@@ -41,9 +42,9 @@ namespace llvm {
 class MachineDominatorTree;
 // Implementation in LoopInfoImpl.h
 class MachineLoop;
-extern template class LoopBase<MachineBasicBlock, MachineLoop>;
+extern template class LLVM_TEMPLATE_ABI LoopBase<MachineBasicBlock, MachineLoop>;
 
-class MachineLoop : public LoopBase<MachineBasicBlock, MachineLoop> {
+class LLVM_ABI MachineLoop : public LoopBase<MachineBasicBlock, MachineLoop> {
 public:
   /// Return the "top" block in the loop, which is the first block in the linear
   /// layout, ignoring any parts of the loop not contiguous with the part that
@@ -100,9 +101,9 @@ private:
 };
 
 // Implementation in LoopInfoImpl.h
-extern template class LoopInfoBase<MachineBasicBlock, MachineLoop>;
+extern template class LLVM_TEMPLATE_ABI LoopInfoBase<MachineBasicBlock, MachineLoop>;
 
-class MachineLoopInfo : public LoopInfoBase<MachineBasicBlock, MachineLoop> {
+class LLVM_ABI MachineLoopInfo : public LoopInfoBase<MachineBasicBlock, MachineLoop> {
   friend class LoopBase<MachineBasicBlock, MachineLoop>;
   friend class MachineLoopInfoWrapperPass;
 
@@ -133,7 +134,7 @@ public:
 };
 
 /// Analysis pass that exposes the \c MachineLoopInfo for a machine function.
-class MachineLoopAnalysis : public AnalysisInfoMixin<MachineLoopAnalysis> {
+class LLVM_ABI MachineLoopAnalysis : public AnalysisInfoMixin<MachineLoopAnalysis> {
   friend AnalysisInfoMixin<MachineLoopAnalysis>;
   static AnalysisKey Key;
 
@@ -143,7 +144,7 @@ public:
 };
 
 /// Printer pass for the \c LoopAnalysis results.
-class MachineLoopPrinterPass : public PassInfoMixin<MachineLoopPrinterPass> {
+class LLVM_ABI MachineLoopPrinterPass : public PassInfoMixin<MachineLoopPrinterPass> {
   raw_ostream &OS;
 
 public:
@@ -153,7 +154,7 @@ public:
   static bool isRequired() { return true; }
 };
 
-class MachineLoopInfoWrapperPass : public MachineFunctionPass {
+class LLVM_ABI MachineLoopInfoWrapperPass : public MachineFunctionPass {
   MachineLoopInfo LI;
 
 public:

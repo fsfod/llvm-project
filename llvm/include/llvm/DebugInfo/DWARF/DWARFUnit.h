@@ -21,6 +21,7 @@
 #include "llvm/DebugInfo/DWARF/DWARFDie.h"
 #include "llvm/DebugInfo/DWARF/DWARFLocationExpression.h"
 #include "llvm/DebugInfo/DWARF/DWARFUnitIndex.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/DataExtractor.h"
 #include <cassert>
 #include <cstddef>
@@ -52,7 +53,7 @@ class CompileUnit;
 /// Base class describing the header of any kind of "unit."  Some information
 /// is specific to certain unit types.  We separate this class out so we can
 /// parse the header before deciding what specific kind of unit to construct.
-class DWARFUnitHeader {
+class LLVM_ABI DWARFUnitHeader {
   // Offset within section.
   uint64_t Offset = 0;
   // Version, address size, and DWARF format.
@@ -118,7 +119,7 @@ public:
   }
 };
 
-const DWARFUnitIndex &getDWARFUnitIndex(DWARFContext &Context,
+LLVM_ABI const DWARFUnitIndex &getDWARFUnitIndex(DWARFContext &Context,
                                         DWARFSectionKind Kind);
 
 bool isCompileUnit(const std::unique_ptr<DWARFUnit> &U);
@@ -205,7 +206,7 @@ private:
 
 /// Represents base address of the CU.
 /// Represents a unit's contribution to the string offsets table.
-struct StrOffsetsContributionDescriptor {
+struct LLVM_ABI StrOffsetsContributionDescriptor {
   uint64_t Base = 0;
   /// The contribution size not including the header.
   uint64_t Size = 0;
@@ -229,7 +230,7 @@ struct StrOffsetsContributionDescriptor {
   validateContributionSize(DWARFDataExtractor &DA);
 };
 
-class DWARFUnit {
+class LLVM_ABI DWARFUnit {
   DWARFContext &Context;
   /// Section containing this DWARFUnit.
   const DWARFSection &InfoSection;

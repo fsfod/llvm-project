@@ -9,13 +9,14 @@
 #ifndef LLVM_DEBUGINFO_CODEVIEW_TYPESYMBOLEMITTER_H
 #define LLVM_DEBUGINFO_CODEVIEW_TYPESYMBOLEMITTER_H
 
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 class StringRef;
 
 namespace codeview {
 class TypeIndex;
 
-class TypeSymbolEmitter {
+class LLVM_ABI TypeSymbolEmitter {
 private:
   TypeSymbolEmitter(const TypeSymbolEmitter &) = delete;
   TypeSymbolEmitter &operator=(const TypeSymbolEmitter &) = delete;

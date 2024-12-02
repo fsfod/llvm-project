@@ -10,6 +10,7 @@
 #define LLVM_ANALYSIS_STRUCTURALHASH_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -20,7 +21,7 @@ enum class StructuralHashOptions {
 };
 
 /// Printer pass for  StructuralHashes
-class StructuralHashPrinterPass
+class LLVM_ABI StructuralHashPrinterPass
     : public PassInfoMixin<StructuralHashPrinterPass> {
   raw_ostream &OS;
   const StructuralHashOptions Options;

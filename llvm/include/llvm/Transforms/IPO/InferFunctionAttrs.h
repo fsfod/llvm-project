@@ -16,13 +16,14 @@
 #define LLVM_TRANSFORMS_IPO_INFERFUNCTIONATTRS_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class Module;
 
 /// A pass which infers function attributes from the names and signatures of
 /// function declarations in a module.
-struct InferFunctionAttrsPass : PassInfoMixin<InferFunctionAttrsPass> {
+struct LLVM_ABI InferFunctionAttrsPass : PassInfoMixin<InferFunctionAttrsPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };
 

@@ -44,6 +44,7 @@
 #include "llvm/LTO/Config.h"
 #include "llvm/LTO/LTO.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/ToolOutputFile.h"
 #include "llvm/Target/TargetMachine.h"
@@ -64,12 +65,12 @@ template <typename T> class ArrayRef;
   class raw_pwrite_stream;
 
 /// Enable global value internalization in LTO.
-extern cl::opt<bool> EnableLTOInternalization;
+LLVM_ABI extern cl::opt<bool> EnableLTOInternalization;
 
 //===----------------------------------------------------------------------===//
 /// C++ class which implements the opaque lto_code_gen_t type.
 ///
-struct LTOCodeGenerator {
+struct LLVM_ABI LTOCodeGenerator {
   static const char *getVersionString();
 
   LTOCodeGenerator(LLVMContext &Context);
@@ -252,6 +253,6 @@ private:
 
 /// A convenience function that calls cl::ParseCommandLineOptions on the given
 /// set of options.
-void parseCommandLineOptions(std::vector<std::string> &Options);
+LLVM_ABI void parseCommandLineOptions(std::vector<std::string> &Options);
 }
 #endif

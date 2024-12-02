@@ -12,6 +12,7 @@
 #include "llvm/ADT/BitmaskEnum.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/StringSet.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <vector>
 
@@ -27,7 +28,7 @@ namespace gsym {
 class FileWriter;
 class GsymCreator;
 struct FunctionInfo;
-struct CallSiteInfo {
+struct LLVM_ABI CallSiteInfo {
   enum Flags : uint8_t {
     None = 0,
     // This flag specifies that the call site can only call a function within
@@ -64,7 +65,7 @@ struct CallSiteInfo {
   llvm::Error encode(FileWriter &O) const;
 };
 
-struct CallSiteInfoCollection {
+struct LLVM_ABI CallSiteInfoCollection {
   std::vector<CallSiteInfo> CallSites;
 
   /// Decode a CallSiteInfoCollection object from a binary data stream.
@@ -80,7 +81,7 @@ struct CallSiteInfoCollection {
   llvm::Error encode(FileWriter &O) const;
 };
 
-class CallSiteInfoLoader {
+class LLVM_ABI CallSiteInfoLoader {
 public:
   /// Constructor that initializes the CallSiteInfoLoader with necessary data
   /// structures.
@@ -127,8 +128,8 @@ private:
   std::vector<FunctionInfo> &Funcs;
 };
 
-raw_ostream &operator<<(raw_ostream &OS, const CallSiteInfo &CSI);
-raw_ostream &operator<<(raw_ostream &OS, const CallSiteInfoCollection &CSIC);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const CallSiteInfo &CSI);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const CallSiteInfoCollection &CSIC);
 
 } // namespace gsym
 } // namespace llvm

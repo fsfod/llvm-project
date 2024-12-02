@@ -20,6 +20,7 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/DebugLoc.h"
+#include "llvm/Support/Compiler.h"
 #include <utility>
 
 
@@ -31,7 +32,7 @@ namespace llvm {
   class TargetInstrInfo;
   class TargetLowering;
 
-class SwiftErrorValueTracking {
+class LLVM_ABI SwiftErrorValueTracking {
   // Some useful objects to reduce the number of function arguments needed.
   MachineFunction *MF;
   const Function *Fn;

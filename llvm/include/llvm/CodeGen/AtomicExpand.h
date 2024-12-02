@@ -10,13 +10,14 @@
 #define LLVM_CODEGEN_ATOMICEXPAND_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 class TargetMachine;
 
-class AtomicExpandPass : public PassInfoMixin<AtomicExpandPass> {
+class LLVM_ABI AtomicExpandPass : public PassInfoMixin<AtomicExpandPass> {
 private:
   const TargetMachine *TM;
 

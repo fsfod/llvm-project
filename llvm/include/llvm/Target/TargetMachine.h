@@ -19,6 +19,7 @@
 #include "llvm/MC/MCStreamer.h"
 #include "llvm/Support/Allocator.h"
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/PGOOptions.h"
 #include "llvm/Target/CGPassBuilderOption.h"
@@ -74,7 +75,7 @@ struct MachineFunctionInfo;
 /// machine.  All target-specific information should be accessible through this
 /// interface.
 ///
-class TargetMachine {
+class LLVM_ABI TargetMachine {
 protected: // Can only create subclasses.
   TargetMachine(const Target &T, StringRef DataLayoutString,
                 const Triple &TargetTriple, StringRef CPU, StringRef FS,

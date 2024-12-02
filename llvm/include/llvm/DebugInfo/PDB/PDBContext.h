@@ -11,6 +11,7 @@
 
 #include "llvm/DebugInfo/DIContext.h"
 #include "llvm/DebugInfo/PDB/IPDBSession.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -29,7 +30,7 @@ namespace pdb {
   /// need for a transparent interface to different debug information formats
   /// (e.g. PDB and DWARF).  More control and power over the debug information
   /// access can be had by using the PDB interfaces directly.
-  class PDBContext : public DIContext {
+  class LLVM_ABI PDBContext : public DIContext {
   public:
     PDBContext(const object::COFFObjectFile &Object,
                std::unique_ptr<IPDBSession> PDBSession);

@@ -67,6 +67,7 @@
 #include "llvm/Support/BranchProbability.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/KnownBits.h"
@@ -93,7 +94,7 @@ using namespace PatternMatch;
 
 #define DEBUG_TYPE "simplifycfg"
 
-cl::opt<bool> llvm::RequireAndPreserveDomTree(
+LLVM_ABI cl::opt<bool> llvm::RequireAndPreserveDomTree(
     "simplifycfg-require-and-preserve-domtree", cl::Hidden,
 
     cl::desc("Temorary development switch used to gradually uplift SimplifyCFG "

@@ -16,6 +16,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/BinaryFormat/GOFF.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <vector>
 
@@ -36,7 +37,7 @@ struct FileHeader {
   std::optional<uint8_t> TargetSoftwareEnvironment;
 };
 
-struct Object {
+struct LLVM_ABI Object {
   FileHeader Header;
   Object();
 };

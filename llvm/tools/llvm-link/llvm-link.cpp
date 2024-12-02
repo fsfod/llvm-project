@@ -26,6 +26,7 @@
 #include "llvm/Linker/Linker.h"
 #include "llvm/Object/Archive.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/InitLLVM.h"
 #include "llvm/Support/Path.h"
@@ -134,12 +135,12 @@ static cl::opt<bool> TryUseNewDbgInfoFormat(
     cl::desc("Enable debuginfo iterator positions, if they're built in"),
     cl::init(false));
 
-extern cl::opt<bool> UseNewDbgInfoFormat;
-extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
-extern cl::opt<bool> WriteNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> PreserveInputDbgFormat;
+LLVM_ABI extern cl::opt<bool> WriteNewDbgInfoFormat;
 LLVM_ABI extern bool WriteNewDbgInfoFormatToBitcode;
 
-extern cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<cl::boolOrDefault> LoadBitcodeIntoNewDbgInfoFormat;
 
 static ExitOnError ExitOnErr;
 

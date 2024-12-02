@@ -15,6 +15,7 @@
 #include "llvm/Analysis/LazyCallGraph.h"
 #include "llvm/Analysis/Utils/ImportedFunctionsInliningStatistics.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -32,7 +33,7 @@ namespace llvm {
 /// every attempt to be simpler. DCE of functions requires complex reasoning
 /// about comdat groups, etc. Instead, it is expected that other more focused
 /// passes be composed to achieve the same end result.
-class InlinerPass : public PassInfoMixin<InlinerPass> {
+class LLVM_ABI InlinerPass : public PassInfoMixin<InlinerPass> {
 public:
   InlinerPass(bool OnlyMandatory = false,
               ThinOrFullLTOPhase LTOPhase = ThinOrFullLTOPhase::None)
@@ -58,7 +59,7 @@ private:
 /// module-wide state, that need to keep track of inter-inliner pass runs, for
 /// a given module. An InlineAdvisor is configured and kept alive for the
 /// duration of the ModuleInlinerWrapperPass::run.
-class ModuleInlinerWrapperPass
+class LLVM_ABI ModuleInlinerWrapperPass
     : public PassInfoMixin<ModuleInlinerWrapperPass> {
 public:
   ModuleInlinerWrapperPass(

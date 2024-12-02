@@ -24,6 +24,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
 #include "llvm/PassRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 #include <vector>
 
@@ -32,7 +33,7 @@ namespace llvm {
 class Function;
 class TargetMachine;
 
-class PhysicalRegisterUsageInfo {
+class LLVM_ABI PhysicalRegisterUsageInfo {
 public:
   /// Set TargetMachine which is used to print analysis.
   void setTargetMachine(const TargetMachine &TM);
@@ -63,7 +64,7 @@ private:
   const TargetMachine *TM = nullptr;
 };
 
-class PhysicalRegisterUsageInfoWrapperLegacy : public ImmutablePass {
+class LLVM_ABI PhysicalRegisterUsageInfoWrapperLegacy : public ImmutablePass {
   std::unique_ptr<PhysicalRegisterUsageInfo> PRUI;
 
 public:
@@ -88,7 +89,7 @@ public:
   }
 };
 
-class PhysicalRegisterUsageAnalysis
+class LLVM_ABI PhysicalRegisterUsageAnalysis
     : public AnalysisInfoMixin<PhysicalRegisterUsageAnalysis> {
   friend AnalysisInfoMixin<PhysicalRegisterUsageAnalysis>;
   static AnalysisKey Key;
@@ -99,7 +100,7 @@ public:
   PhysicalRegisterUsageInfo run(Module &M, ModuleAnalysisManager &);
 };
 
-class PhysicalRegisterUsageInfoPrinterPass
+class LLVM_ABI PhysicalRegisterUsageInfoPrinterPass
     : public PassInfoMixin<PhysicalRegisterUsageInfoPrinterPass> {
   raw_ostream &OS;
 

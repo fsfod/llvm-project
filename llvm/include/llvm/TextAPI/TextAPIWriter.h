@@ -10,6 +10,7 @@
 #define LLVM_TEXTAPI_TEXTAPIWRITER_H
 
 #include "llvm/ADT/StringSwitch.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TextAPI/InterfaceFile.h"
 
 namespace llvm {
@@ -19,7 +20,7 @@ class raw_ostream;
 
 namespace MachO {
 
-class TextAPIWriter {
+class LLVM_ABI TextAPIWriter {
 public:
   TextAPIWriter() = delete;
 

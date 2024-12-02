@@ -10,10 +10,11 @@
 #define LLVM_TRANSFORMS_SCALAR_SEPARATECONSTOFFSETFROMGEP_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class SeparateConstOffsetFromGEPPass
+class LLVM_ABI SeparateConstOffsetFromGEPPass
     : public PassInfoMixin<SeparateConstOffsetFromGEPPass> {
   bool LowerGEP;
 

@@ -43,6 +43,7 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ModRef.h"
 #include <cstdint>
 #include <functional>
@@ -142,10 +143,10 @@ static_assert(sizeof(AliasResult) == 4,
               "AliasResult size is intended to be 4 bytes!");
 
 /// << operator for AliasResult.
-raw_ostream &operator<<(raw_ostream &OS, AliasResult AR);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, AliasResult AR);
 
 /// Virtual base class for providers of capture analysis.
-struct CaptureAnalysis {
+struct LLVM_ABI CaptureAnalysis {
   virtual ~CaptureAnalysis() = 0;
 
   /// Check whether Object is not captured before instruction I. If OrAt is
@@ -159,7 +160,7 @@ struct CaptureAnalysis {
 /// Context-free CaptureAnalysis provider, which computes and caches whether an
 /// object is captured in the function at all, but does not distinguish whether
 /// it was captured before or after the context instruction.
-class SimpleCaptureAnalysis final : public CaptureAnalysis {
+class LLVM_ABI SimpleCaptureAnalysis final : public CaptureAnalysis {
   SmallDenseMap<const Value *, bool, 8> IsCapturedCache;
 
 public:
@@ -170,7 +171,7 @@ public:
 /// Context-sensitive CaptureAnalysis provider, which computes and caches the
 /// earliest common dominator closure of all captures. It provides a good
 /// approximation to a precise "captures before" analysis.
-class EarliestEscapeAnalysis final : public CaptureAnalysis {
+class LLVM_ABI EarliestEscapeAnalysis final : public CaptureAnalysis {
   DominatorTree &DT;
   const LoopInfo *LI;
 
@@ -311,7 +312,7 @@ public:
 
 class BatchAAResults;
 
-class AAResults {
+class LLVM_ABI AAResults {
 public:
   // Make these results default constructable and movable. We have to spell
   // these out because MSVC won't synthesize them.
@@ -696,7 +697,7 @@ using AliasAnalysis = AAResults;
 /// All of these methods model methods by the same name in the \c
 /// AAResults class. Only differences and specifics to how the
 /// implementations are called are documented here.
-class AAResults::Concept {
+class LLVM_ABI AAResults::Concept {
 public:
   virtual ~Concept() = 0;
 
@@ -857,7 +858,7 @@ public:
 };
 
 /// Return true if this pointer is returned by a noalias function.
-bool isNoAliasCall(const Value *V);
+LLVM_ABI bool isNoAliasCall(const Value *V);
 
 /// Return true if this pointer refers to a distinct and identifiable object.
 /// This returns true for:
@@ -866,25 +867,25 @@ bool isNoAliasCall(const Value *V);
 ///    ByVal and NoAlias Arguments
 ///    NoAlias returns (e.g. calls to malloc)
 ///
-bool isIdentifiedObject(const Value *V);
+LLVM_ABI bool isIdentifiedObject(const Value *V);
 
 /// Return true if V is umabigously identified at the function-level.
 /// Different IdentifiedFunctionLocals can't alias.
 /// Further, an IdentifiedFunctionLocal can not alias with any function
 /// arguments other than itself, which is not necessarily true for
 /// IdentifiedObjects.
-bool isIdentifiedFunctionLocal(const Value *V);
+LLVM_ABI bool isIdentifiedFunctionLocal(const Value *V);
 
 /// Returns true if the pointer is one which would have been considered an
 /// escape by isNonEscapingLocalObject.
-bool isEscapeSource(const Value *V);
+LLVM_ABI bool isEscapeSource(const Value *V);
 
 /// Return true if Object memory is not visible after an unwind, in the sense
 /// that program semantics cannot depend on Object containing any particular
 /// value on unwind. If the RequiresNoCaptureBeforeUnwind out parameter is set
 /// to true, then the memory is only not visible if the object has not been
 /// captured prior to the unwind. Otherwise it is not visible even if captured.
-bool isNotVisibleOnUnwind(const Value *Object,
+LLVM_ABI bool isNotVisibleOnUnwind(const Value *Object,
                           bool &RequiresNoCaptureBeforeUnwind);
 
 /// Return true if the Object is writable, in the sense that any location based
@@ -898,7 +899,7 @@ bool isNotVisibleOnUnwind(const Value *Object,
 /// using the dereferenceable(N) attribute. It does not necessarily hold for
 /// parts that are only known to be dereferenceable due to the presence of
 /// loads.
-bool isWritableObject(const Value *Object, bool &ExplicitlyDereferenceableOnly);
+LLVM_ABI bool isWritableObject(const Value *Object, bool &ExplicitlyDereferenceableOnly);
 
 /// A manager for alias analyses.
 ///
@@ -917,7 +918,7 @@ bool isWritableObject(const Value *Object, bool &ExplicitlyDereferenceableOnly);
 /// aggregated AA results end up being invalidated. This removes the need to
 /// explicitly preserve the results of `AAManager`. Note that analyses should no
 /// longer be registered once the `AAManager` is run.
-class AAManager : public AnalysisInfoMixin<AAManager> {
+class LLVM_ABI AAManager : public AnalysisInfoMixin<AAManager> {
 public:
   using Result = AAResults;
 
@@ -965,7 +966,7 @@ private:
 
 /// A wrapper pass to provide the legacy pass manager access to a suitably
 /// prepared AAResults object.
-class AAResultsWrapperPass : public FunctionPass {
+class LLVM_ABI AAResultsWrapperPass : public FunctionPass {
   std::unique_ptr<AAResults> AAR;
 
 public:
@@ -983,7 +984,7 @@ public:
 
 /// A wrapper pass for external alias analyses. This just squirrels away the
 /// callback used to run any analyses and register their results.
-struct ExternalAAWrapperPass : ImmutablePass {
+struct LLVM_ABI ExternalAAWrapperPass : ImmutablePass {
   using CallbackT = std::function<void(Pass &, Function &, AAResults &)>;
 
   CallbackT CB;
@@ -1006,7 +1007,7 @@ struct ExternalAAWrapperPass : ImmutablePass {
 /// object, and will receive a reference to the function wrapper pass, the
 /// function, and the AAResults object to populate. This should be used when
 /// setting up a custom pass pipeline to inject a hook into the AA results.
-ImmutablePass *createExternalAAWrapperPass(
+LLVM_ABI ImmutablePass *createExternalAAWrapperPass(
     std::function<void(Pass &, Function &, AAResults &)> Callback);
 
 } // end namespace llvm

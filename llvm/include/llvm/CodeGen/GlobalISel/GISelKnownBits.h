@@ -19,6 +19,7 @@
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/Register.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/KnownBits.h"
 
 namespace llvm {
@@ -26,7 +27,7 @@ namespace llvm {
 class TargetLowering;
 class DataLayout;
 
-class GISelKnownBits : public GISelChangeObserver {
+class LLVM_ABI GISelKnownBits : public GISelChangeObserver {
   MachineFunction &MF;
   MachineRegisterInfo &MRI;
   const TargetLowering &TL;
@@ -110,7 +111,7 @@ protected:
 /// Eventually add other features such as caching/ser/deserializing
 /// to MIR etc. Those implementations can derive from GISelKnownBits
 /// and override computeKnownBitsImpl.
-class GISelKnownBitsAnalysis : public MachineFunctionPass {
+class LLVM_ABI GISelKnownBitsAnalysis : public MachineFunctionPass {
   std::unique_ptr<GISelKnownBits> Info;
 
 public:

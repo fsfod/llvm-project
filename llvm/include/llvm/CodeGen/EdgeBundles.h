@@ -19,12 +19,13 @@
 #include "llvm/ADT/IntEqClasses.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class EdgeBundlesWrapperLegacy;
 class EdgeBundlesAnalysis;
 
-class EdgeBundles {
+class LLVM_ABI EdgeBundles {
   friend class EdgeBundlesWrapperLegacy;
   friend class EdgeBundlesAnalysis;
 
@@ -63,7 +64,7 @@ public:
                   MachineFunctionAnalysisManager::Invalidator &Inv);
 };
 
-class EdgeBundlesWrapperLegacy : public MachineFunctionPass {
+class LLVM_ABI EdgeBundlesWrapperLegacy : public MachineFunctionPass {
 public:
   static char ID;
   EdgeBundlesWrapperLegacy() : MachineFunctionPass(ID) {}
@@ -77,7 +78,7 @@ private:
   void getAnalysisUsage(AnalysisUsage&) const override;
 };
 
-class EdgeBundlesAnalysis : public AnalysisInfoMixin<EdgeBundlesAnalysis> {
+class LLVM_ABI EdgeBundlesAnalysis : public AnalysisInfoMixin<EdgeBundlesAnalysis> {
   friend AnalysisInfoMixin<EdgeBundlesAnalysis>;
   static AnalysisKey Key;
 

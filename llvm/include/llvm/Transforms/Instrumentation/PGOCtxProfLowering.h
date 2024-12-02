@@ -13,10 +13,11 @@
 #define LLVM_TRANSFORMS_INSTRUMENTATION_PGOCTXPROFLOWERING_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 namespace llvm {
 class Type;
 
-class PGOCtxProfLoweringPass : public PassInfoMixin<PGOCtxProfLoweringPass> {
+class LLVM_ABI PGOCtxProfLoweringPass : public PassInfoMixin<PGOCtxProfLoweringPass> {
 public:
   explicit PGOCtxProfLoweringPass() = default;
   // True if contextual instrumentation is enabled.

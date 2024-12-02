@@ -15,13 +15,14 @@
 #define LLVM_CODEGEN_TYPEPROMOTION_H
 
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Function;
 class TargetMachine;
 
-class TypePromotionPass : public PassInfoMixin<TypePromotionPass> {
+class LLVM_ABI TypePromotionPass : public PassInfoMixin<TypePromotionPass> {
 private:
   const TargetMachine *TM;
 

@@ -18,6 +18,7 @@
 #include "llvm/Bitstream/BitstreamReader.h"
 #include "llvm/IR/GlobalValue.h"
 #include "llvm/ProfileData/PGOCtxProfWriter.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <map>
 
@@ -81,7 +82,7 @@ class IndexNode {
 /// there is a small number of indirect targets (usually, 1 for direct calls);
 /// but potentially a large number of callsites, and, as inlining progresses,
 /// the callsite count of a caller will grow.
-class PGOCtxProfContext final : public internal::IndexNode {
+class LLVM_ABI PGOCtxProfContext final : public internal::IndexNode {
 public:
   using CallTargetMapTy = std::map<GlobalValue::GUID, PGOCtxProfContext>;
   using CallsiteMapTy = std::map<uint32_t, CallTargetMapTy>;
@@ -164,7 +165,7 @@ public:
   }
 };
 
-class PGOCtxProfileReader final {
+class LLVM_ABI PGOCtxProfileReader final {
   StringRef Magic;
   BitstreamCursor Cursor;
   Expected<BitstreamEntry> advance();

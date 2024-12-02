@@ -16,6 +16,7 @@
 #include "llvm/BinaryFormat/XCOFF.h"
 #include "llvm/MC/MCSection.h"
 #include "llvm/MC/MCSymbolXCOFF.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -29,7 +30,7 @@ namespace llvm {
 // 3) An external reference providing a symbol table entry for a symbol
 //    contained in another XCOFF object file. External reference csects are not
 //    implemented yet.
-class MCSectionXCOFF final : public MCSection {
+class LLVM_ABI MCSectionXCOFF final : public MCSection {
   friend class MCContext;
 
   std::optional<XCOFF::CsectProperties> CsectProp;

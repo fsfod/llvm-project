@@ -11,6 +11,7 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBSession.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include <system_error>
@@ -19,7 +20,7 @@ namespace llvm {
 class StringRef;
 
 namespace pdb {
-class DIASession : public IPDBSession {
+class LLVM_ABI DIASession : public IPDBSession {
 public:
   explicit DIASession(CComPtr<IDiaSession> DiaSession);
 

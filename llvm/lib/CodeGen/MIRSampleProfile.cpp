@@ -27,6 +27,7 @@
 #include "llvm/IR/PseudoProbe.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/VirtualFileSystem.h"
 #include "llvm/Support/raw_ostream.h"
@@ -62,7 +63,7 @@ static cl::opt<bool> ViewBFIAfter("fs-viewbfi-after", cl::Hidden,
                                   cl::desc("View BFI after MIR loader"));
 
 namespace llvm {
-extern cl::opt<bool> ImprovedFSDiscriminator;
+LLVM_ABI extern cl::opt<bool> ImprovedFSDiscriminator;
 }
 char MIRProfileLoaderPass::ID = 0;
 
@@ -91,11 +92,11 @@ namespace llvm {
 // Internal option used to control BFI display only after MBP pass.
 // Defined in CodeGen/MachineBlockFrequencyInfo.cpp:
 // -view-block-layout-with-bfi={none | fraction | integer | count}
-extern cl::opt<GVDAGType> ViewBlockLayoutWithBFI;
+LLVM_ABI extern cl::opt<GVDAGType> ViewBlockLayoutWithBFI;
 
 // Command line option to specify the name of the function for CFG dump
 // Defined in Analysis/BlockFrequencyInfo.cpp:  -view-bfi-func-name=
-extern cl::opt<std::string> ViewBlockFreqFuncName;
+LLVM_ABI extern cl::opt<std::string> ViewBlockFreqFuncName;
 
 std::optional<PseudoProbe> extractProbe(const MachineInstr &MI) {
   if (MI.isPseudoProbe()) {

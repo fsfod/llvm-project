@@ -16,6 +16,7 @@
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/MC/MCInstrDesc.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include <cassert>
 #include <optional>
@@ -253,7 +254,7 @@ struct MCExtraProcessorInfo {
 /// the latency between pairs of instructions. However, they can still be used
 /// to detect potential bottlenecks across a sequence of instructions and bias
 /// the scheduling heuristics appropriately.
-struct MCSchedModel {
+struct LLVM_ABI MCSchedModel {
   // IssueWidth is the maximum number of instructions that may be scheduled in
   // the same per-cycle group. This is meant to be a hard in-order constraint
   // (a.k.a. "hazard"). In the GenericScheduler strategy, no more than

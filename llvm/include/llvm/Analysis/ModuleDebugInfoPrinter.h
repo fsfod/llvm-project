@@ -11,11 +11,12 @@
 
 #include "llvm/IR/DebugInfo.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 class raw_ostream;
 
-class ModuleDebugInfoPrinterPass
+class LLVM_ABI ModuleDebugInfoPrinterPass
     : public PassInfoMixin<ModuleDebugInfoPrinterPass> {
   DebugInfoFinder Finder;
   raw_ostream &OS;

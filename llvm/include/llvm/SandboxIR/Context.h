@@ -15,6 +15,7 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/SandboxIR/Tracker.h"
 #include "llvm/SandboxIR/Type.h"
+#include "llvm/Support/Compiler.h"
 
 #include <cstdint>
 
@@ -26,7 +27,7 @@ class Constant;
 class Module;
 class Value;
 
-class Context {
+class LLVM_ABI Context {
 public:
   // A EraseInstrCallback receives the instruction about to be erased.
   using EraseInstrCallback = std::function<void(Instruction *)>;

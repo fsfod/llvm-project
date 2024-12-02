@@ -12,7 +12,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/DebugInfo/DWARF/DWARFContext.h"
 #include "llvm/DebugInfo/GSYM/ExtractRanges.h"
-#include "llvm/DebugInfo/DWARF/DWARFContext.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
@@ -32,7 +32,7 @@ class OutputAggregator;
 /// gsym::FunctionInfo objects that includes line table information and inline
 /// function information. Creating a separate class to transform this data
 /// allows this class to be unit tested.
-class DwarfTransformer {
+class LLVM_ABI DwarfTransformer {
 public:
 
   /// Create a DWARF transformer.

@@ -11,10 +11,11 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBLineNumber.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
-class DIALineNumber : public IPDBLineNumber {
+class LLVM_ABI DIALineNumber : public IPDBLineNumber {
 public:
   explicit DIALineNumber(CComPtr<IDiaLineNumber> DiaLineNumber);
 

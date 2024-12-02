@@ -14,6 +14,7 @@
 
 #include "llvm/ExecutionEngine/Orc/Core.h"
 #include "llvm/ExecutionEngine/Orc/Layer.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm::orc {
 
@@ -21,7 +22,7 @@ class ObjectLinkingLayer;
 class LazyCallThroughManager;
 class RedirectableSymbolManager;
 
-class LazyObjectLinkingLayer : public ObjectLayer {
+class LLVM_ABI LazyObjectLinkingLayer : public ObjectLayer {
 public:
   LazyObjectLinkingLayer(ObjectLinkingLayer &BaseLayer,
                          LazyCallThroughManager &LCTMgr,

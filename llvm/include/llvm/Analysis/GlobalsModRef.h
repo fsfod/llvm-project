@@ -17,6 +17,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/ValueHandle.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include <list>
 
 namespace llvm {
@@ -27,7 +28,7 @@ class Function;
 ///
 /// This focuses on handling aliasing properties of globals and interprocedural
 /// function call mod/ref information.
-class GlobalsAAResult : public AAResultBase {
+class LLVM_ABI GlobalsAAResult : public AAResultBase {
   class FunctionInfo;
 
   const DataLayout &DL;
@@ -56,7 +57,7 @@ class GlobalsAAResult : public AAResultBase {
   DenseMap<const Function *, unsigned> FunctionToSCCMap;
 
   /// Handle to clear this analysis on deletion of values.
-  struct DeletionCallbackHandle final : CallbackVH {
+  struct LLVM_ABI DeletionCallbackHandle final : CallbackVH {
     GlobalsAAResult *GAR;
     std::list<DeletionCallbackHandle>::iterator I;
 
@@ -124,7 +125,7 @@ private:
 };
 
 /// Analysis pass providing a never-invalidated alias analysis result.
-class GlobalsAA : public AnalysisInfoMixin<GlobalsAA> {
+class LLVM_ABI GlobalsAA : public AnalysisInfoMixin<GlobalsAA> {
   friend AnalysisInfoMixin<GlobalsAA>;
   static AnalysisKey Key;
 
@@ -134,12 +135,12 @@ public:
   GlobalsAAResult run(Module &M, ModuleAnalysisManager &AM);
 };
 
-struct RecomputeGlobalsAAPass : PassInfoMixin<RecomputeGlobalsAAPass> {
+struct LLVM_ABI RecomputeGlobalsAAPass : PassInfoMixin<RecomputeGlobalsAAPass> {
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &AM);
 };
 
 /// Legacy wrapper pass to provide the GlobalsAAResult object.
-class GlobalsAAWrapperPass : public ModulePass {
+class LLVM_ABI GlobalsAAWrapperPass : public ModulePass {
   std::unique_ptr<GlobalsAAResult> Result;
 
 public:
@@ -160,7 +161,7 @@ public:
 // createGlobalsAAWrapperPass - This pass provides alias and mod/ref info for
 // global values that do not have their addresses taken.
 //
-ModulePass *createGlobalsAAWrapperPass();
+LLVM_ABI ModulePass *createGlobalsAAWrapperPass();
 }
 
 #endif

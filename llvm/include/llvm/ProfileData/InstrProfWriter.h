@@ -21,6 +21,7 @@
 #include "llvm/Object/BuildID.h"
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/ProfileData/MemProf.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 #include <memory>
@@ -34,7 +35,7 @@ class ProfOStream;
 class MemoryBuffer;
 class raw_fd_ostream;
 
-class InstrProfWriter {
+class LLVM_ABI InstrProfWriter {
 public:
   using ProfilingData = SmallDenseMap<uint64_t, InstrProfRecord>;
 

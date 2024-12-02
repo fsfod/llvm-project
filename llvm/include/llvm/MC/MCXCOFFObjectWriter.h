@@ -10,12 +10,13 @@
 #define LLVM_MC_MCXCOFFOBJECTWRITER_H
 
 #include "llvm/MC/MCObjectWriter.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class raw_pwrite_stream;
 
-class MCXCOFFObjectTargetWriter : public MCObjectTargetWriter {
+class LLVM_ABI MCXCOFFObjectTargetWriter : public MCObjectTargetWriter {
 protected:
   MCXCOFFObjectTargetWriter(bool Is64Bit);
 
@@ -39,7 +40,7 @@ private:
   bool Is64Bit;
 };
 
-class XCOFFObjectWriter : public MCObjectWriter {
+class LLVM_ABI XCOFFObjectWriter : public MCObjectWriter {
 public:
   virtual void addExceptionEntry(const MCSymbol *Symbol, const MCSymbol *Trap,
                                  unsigned LanguageCode, unsigned ReasonCode,
@@ -47,7 +48,7 @@ public:
   virtual void addCInfoSymEntry(StringRef Name, StringRef Metadata) = 0;
 };
 
-std::unique_ptr<MCObjectWriter>
+LLVM_ABI std::unique_ptr<MCObjectWriter>
 createXCOFFObjectWriter(std::unique_ptr<MCXCOFFObjectTargetWriter> MOTW,
                         raw_pwrite_stream &OS);
 

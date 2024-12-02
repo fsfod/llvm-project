@@ -18,6 +18,7 @@
 #include "llvm/MC/MCExpr.h"
 #include "llvm/MC/MCFragment.h"
 #include "llvm/MC/MCSymbolTableEntry.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/MathExtras.h"
 #include <cassert>
@@ -38,7 +39,7 @@ class raw_ostream;
 /// If the symbol is defined/emitted into the current translation unit, the
 /// Section member is set to indicate what section it lives in.  Otherwise, if
 /// it is a reference to an external entity, it has a null section.
-class MCSymbol {
+class LLVM_ABI MCSymbol {
 protected:
   /// The kind of the symbol.  If it is any value other than unset then this
   /// class is actually one of the appropriate subclasses of MCSymbol.

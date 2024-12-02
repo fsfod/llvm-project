@@ -15,6 +15,7 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 #include "llvm/MC/LaneBitmask.h"
 #include "llvm/MC/MCRegister.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <map>
@@ -138,7 +139,7 @@ struct RegisterRef {
   bool operator!=(RegisterRef) const = delete;
 };
 
-struct PhysicalRegisterInfo {
+struct LLVM_ABI PhysicalRegisterInfo {
   PhysicalRegisterInfo(const TargetRegisterInfo &tri,
                        const MachineFunction &mf);
 
@@ -201,7 +202,7 @@ private:
   std::vector<AliasInfo> AliasInfos;
 };
 
-struct RegisterAggr {
+struct LLVM_ABI RegisterAggr {
   RegisterAggr(const PhysicalRegisterInfo &pri)
       : Units(pri.getTRI().getNumRegUnits()), PRI(pri) {}
   RegisterAggr(const RegisterAggr &RG) = default;
@@ -235,7 +236,7 @@ struct RegisterAggr {
 
   size_t hash() const { return DenseMapInfo<BitVector>::getHashValue(Units); }
 
-  struct ref_iterator {
+  struct LLVM_ABI ref_iterator {
     using MapType = std::map<RegisterId, LaneBitmask>;
 
   private:
@@ -310,14 +311,14 @@ public:
   using value_type = typename decltype(Map)::value_type;
 };
 
-raw_ostream &operator<<(raw_ostream &OS, const RegisterAggr &A);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const RegisterAggr &A);
 
 // Print the lane mask in a short form (or not at all if all bits are set).
 struct PrintLaneMaskShort {
   PrintLaneMaskShort(LaneBitmask M) : Mask(M) {}
   LaneBitmask Mask;
 };
-raw_ostream &operator<<(raw_ostream &OS, const PrintLaneMaskShort &P);
+LLVM_ABI raw_ostream &operator<<(raw_ostream &OS, const PrintLaneMaskShort &P);
 
 } // end namespace rdf
 } // end namespace llvm

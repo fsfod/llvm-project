@@ -15,6 +15,7 @@
 #define LLVM_IR_TYPEDPOINTERTYPE_H
 
 #include "llvm/IR/Type.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -22,7 +23,7 @@ namespace llvm {
 /// pointer type abstraction is used for tracking the types of these pointers.
 /// It is not legal to use this type, or derived types containing this type, in
 /// LLVM IR.
-class TypedPointerType : public Type {
+class LLVM_ABI TypedPointerType : public Type {
   explicit TypedPointerType(Type *ElType, unsigned AddrSpace);
 
   Type *PointeeTy;

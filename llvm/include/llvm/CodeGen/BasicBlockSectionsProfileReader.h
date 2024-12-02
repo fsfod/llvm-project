@@ -24,6 +24,7 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/LineIterator.h"
 #include "llvm/Support/MemoryBuffer.h"
@@ -73,7 +74,7 @@ template <> struct DenseMapInfo<UniqueBBID> {
   }
 };
 
-class BasicBlockSectionsProfileReader {
+class LLVM_ABI BasicBlockSectionsProfileReader {
 public:
   friend class BasicBlockSectionsProfileReaderWrapperPass;
   BasicBlockSectionsProfileReader(const MemoryBuffer *Buf)
@@ -154,14 +155,14 @@ private:
 // Creates a BasicBlockSectionsProfileReader pass to parse the basic block
 // sections profile. \p Buf is a memory buffer that contains the list of
 // functions and basic block ids to selectively enable basic block sections.
-ImmutablePass *
+LLVM_ABI ImmutablePass *
 createBasicBlockSectionsProfileReaderWrapperPass(const MemoryBuffer *Buf);
 
 /// Analysis pass providing the \c BasicBlockSectionsProfileReader.
 ///
 /// Note that this pass's result cannot be invalidated, it is immutable for the
 /// life of the module.
-class BasicBlockSectionsProfileReaderAnalysis
+class LLVM_ABI BasicBlockSectionsProfileReaderAnalysis
     : public AnalysisInfoMixin<BasicBlockSectionsProfileReaderAnalysis> {
 
 public:
@@ -175,7 +176,7 @@ private:
   const TargetMachine *TM;
 };
 
-class BasicBlockSectionsProfileReaderWrapperPass : public ImmutablePass {
+class LLVM_ABI BasicBlockSectionsProfileReaderWrapperPass : public ImmutablePass {
 public:
   static char ID;
   BasicBlockSectionsProfileReader BBSPR;

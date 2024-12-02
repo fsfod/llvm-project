@@ -21,6 +21,7 @@
 #include "llvm/Support/Alignment.h"
 #include "llvm/Support/CBindingWrapping.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <iterator>
 #include <memory>
@@ -71,7 +72,7 @@ using ValueName = StringMapEntry<Value *>;
 /// using this Value.  A Value can also have an arbitrary number of ValueHandle
 /// objects that watch it and listen to RAUW and Destroy events.  See
 /// llvm/IR/ValueHandle.h for details.
-class Value {
+class LLVM_ABI Value {
   const unsigned char SubclassID;   // Subclass identifier (for isa/dyn_cast)
   unsigned char HasValueHandle : 1; // Has a ValueHandle pointing to this?
 

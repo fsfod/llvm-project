@@ -15,12 +15,13 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/SandboxIR/Context.h"
 #include "llvm/SandboxIR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class TargetTransformInfo;
 
-class SandboxVectorizerPass : public PassInfoMixin<SandboxVectorizerPass> {
+class LLVM_ABI SandboxVectorizerPass : public PassInfoMixin<SandboxVectorizerPass> {
   TargetTransformInfo *TTI = nullptr;
   AAResults *AA = nullptr;
   ScalarEvolution *SE = nullptr;

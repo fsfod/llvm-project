@@ -21,6 +21,7 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/TargetParser/Triple.h"
 
 namespace llvm {
@@ -31,7 +32,7 @@ class Module;
 class TargetLoweringBase;
 class TargetMachine;
 
-class SSPLayoutInfo {
+class LLVM_ABI SSPLayoutInfo {
   friend class StackProtectorPass;
   friend class SSPLayoutAnalysis;
   friend class StackProtector;
@@ -65,7 +66,7 @@ public:
   void copyToMachineFrameInfo(MachineFrameInfo &MFI) const;
 };
 
-class SSPLayoutAnalysis : public AnalysisInfoMixin<SSPLayoutAnalysis> {
+class LLVM_ABI SSPLayoutAnalysis : public AnalysisInfoMixin<SSPLayoutAnalysis> {
   friend AnalysisInfoMixin<SSPLayoutAnalysis>;
   using SSPLayoutMap = SSPLayoutInfo::SSPLayoutMap;
 
@@ -82,7 +83,7 @@ public:
                                      SSPLayoutMap *Layout = nullptr);
 };
 
-class StackProtectorPass : public PassInfoMixin<StackProtectorPass> {
+class LLVM_ABI StackProtectorPass : public PassInfoMixin<StackProtectorPass> {
   const TargetMachine *TM;
 
 public:
@@ -90,7 +91,7 @@ public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM);
 };
 
-class StackProtector : public FunctionPass {
+class LLVM_ABI StackProtector : public FunctionPass {
 private:
   /// A mapping of AllocaInsts to their required SSP layout.
   using SSPLayoutMap = SSPLayoutInfo::SSPLayoutMap;

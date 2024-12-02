@@ -13,6 +13,7 @@
 #include "llvm/DebugInfo/CodeView/DebugSubsection.h"
 #include "llvm/Support/BinaryStreamArray.h"
 #include "llvm/Support/BinaryStreamRef.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include <cstdint>
 #include <map>
@@ -22,7 +23,7 @@ class BinaryStreamReader;
 class BinaryStreamWriter;
 namespace codeview {
 
-class DebugCrossModuleExportsSubsectionRef final : public DebugSubsectionRef {
+class LLVM_ABI DebugCrossModuleExportsSubsectionRef final : public DebugSubsectionRef {
   using ReferenceArray = FixedStreamArray<CrossModuleExport>;
   using Iterator = ReferenceArray::Iterator;
 
@@ -44,7 +45,7 @@ private:
   FixedStreamArray<CrossModuleExport> References;
 };
 
-class DebugCrossModuleExportsSubsection final : public DebugSubsection {
+class LLVM_ABI DebugCrossModuleExportsSubsection final : public DebugSubsection {
 public:
   DebugCrossModuleExportsSubsection()
       : DebugSubsection(DebugSubsectionKind::CrossScopeExports) {}

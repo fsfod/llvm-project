@@ -29,6 +29,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 
 enum class HashFunctionMode {
   Local,
@@ -47,7 +48,7 @@ using ParamLocsVecTy = SmallVector<ParamLocs, 8>;
 /// GlobalMergeFunc is a ModulePass that implements a function merging mechanism
 /// using stable function hashes. It identifies and merges functions with
 /// matching hashes across modules to optimize binary size.
-class GlobalMergeFunc {
+class LLVM_ABI GlobalMergeFunc {
   HashFunctionMode MergerMode = HashFunctionMode::Local;
 
   std::unique_ptr<StableFunctionMap> LocalFunctionMap;
@@ -77,7 +78,7 @@ public:
 };
 
 /// Global function merging pass for new pass manager.
-struct GlobalMergeFuncPass : public PassInfoMixin<GlobalMergeFuncPass> {
+struct LLVM_ABI GlobalMergeFuncPass : public PassInfoMixin<GlobalMergeFuncPass> {
   const ModuleSummaryIndex *ImportSummary = nullptr;
   GlobalMergeFuncPass() = default;
   GlobalMergeFuncPass(const ModuleSummaryIndex *ImportSummary)

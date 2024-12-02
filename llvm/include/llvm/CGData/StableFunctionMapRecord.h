@@ -18,11 +18,12 @@
 
 #include "llvm/CGData/StableFunctionMap.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace llvm {
 
-struct StableFunctionMapRecord {
+struct LLVM_ABI StableFunctionMapRecord {
   std::unique_ptr<StableFunctionMap> FunctionMap;
 
   StableFunctionMapRecord() {

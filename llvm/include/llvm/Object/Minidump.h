@@ -15,13 +15,14 @@
 #include "llvm/ADT/iterator.h"
 #include "llvm/BinaryFormat/Minidump.h"
 #include "llvm/Object/Binary.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 namespace llvm {
 namespace object {
 
 /// A class providing access to the contents of a minidump file.
-class MinidumpFile : public Binary {
+class LLVM_ABI MinidumpFile : public Binary {
 public:
   /// Construct a new MinidumpFile object from the given memory buffer. Returns
   /// an error if this file cannot be identified as a minidump file, or if its

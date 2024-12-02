@@ -16,6 +16,7 @@
 #include "llvm/ADT/SmallPtrSet.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Type.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
@@ -40,7 +41,7 @@ class FPMathOperator;
 
 /// Just like llvm::Type these are immutable, unique, never get freed and
 /// can only be created via static factory methods.
-class Type {
+class LLVM_ABI Type {
 protected:
   llvm::Type *LLVMTy;
   friend class ArrayType;          // For LLVMTy.
@@ -291,7 +292,7 @@ public:
 #endif // NDEBUG
 };
 
-class PointerType : public Type {
+class LLVM_ABI PointerType : public Type {
 public:
   // TODO: add missing functions
   static PointerType *get(Type *ElementType, unsigned AddressSpace);
@@ -302,7 +303,7 @@ public:
   }
 };
 
-class ArrayType : public Type {
+class LLVM_ABI ArrayType : public Type {
 public:
   static ArrayType *get(Type *ElementType, uint64_t NumElements);
   // TODO: add missing functions
@@ -311,7 +312,7 @@ public:
   }
 };
 
-class StructType : public Type {
+class LLVM_ABI StructType : public Type {
 public:
   /// This static method is the primary way to create a literal StructType.
   static StructType *get(Context &Ctx, ArrayRef<Type *> Elements,
@@ -325,7 +326,7 @@ public:
   }
 };
 
-class VectorType : public Type {
+class LLVM_ABI VectorType : public Type {
 public:
   static VectorType *get(Type *ElementType, ElementCount EC);
   static VectorType *get(Type *ElementType, unsigned NumElements,
@@ -355,7 +356,7 @@ public:
   }
 };
 
-class FixedVectorType : public VectorType {
+class LLVM_ABI FixedVectorType : public VectorType {
 public:
   static FixedVectorType *get(Type *ElementType, unsigned NumElts);
 
@@ -399,7 +400,7 @@ public:
   }
 };
 
-class ScalableVectorType : public VectorType {
+class LLVM_ABI ScalableVectorType : public VectorType {
 public:
   static ScalableVectorType *get(Type *ElementType, unsigned MinNumElts);
 
@@ -462,7 +463,7 @@ public:
 /// represent the built-in integer types: Int1Ty, Int8Ty, Int16Ty, Int32Ty and
 /// Int64Ty.
 /// Integer representation type
-class IntegerType : public Type {
+class LLVM_ABI IntegerType : public Type {
 public:
   static IntegerType *get(Context &C, unsigned NumBits);
   // TODO: add missing functions

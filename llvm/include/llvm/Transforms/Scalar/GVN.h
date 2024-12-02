@@ -114,7 +114,7 @@ struct GVNOptions {
 ///
 /// FIXME: We should have a good summary of the GVN algorithm implemented by
 /// this particular pass here.
-class GVNPass : public PassInfoMixin<GVNPass> {
+class LLVM_ABI GVNPass : public PassInfoMixin<GVNPass> {
   GVNOptions Options;
 
 public:
@@ -148,7 +148,7 @@ public:
   /// This class holds the mapping between values and value numbers.  It is used
   /// as an efficient mechanism to determine the expression-wise equivalence of
   /// two values.
-  class ValueTable {
+  class LLVM_ABI ValueTable {
     DenseMap<Value *, uint32_t> valueNumbering;
     DenseMap<Expression, uint32_t> expressionNumbering;
 
@@ -232,7 +232,7 @@ private:
 
   /// A mapping from value numbers to lists of Value*'s that
   /// have that value number.  Use findLeader to query it.
-  class LeaderMap {
+  class LLVM_ABI LeaderMap {
   public:
     struct LeaderTableEntry {
       Value *Val;
@@ -385,18 +385,18 @@ private:
 
 /// Create a legacy GVN pass. This also allows parameterizing whether or not
 /// MemDep is enabled.
-FunctionPass *createGVNPass(bool NoMemDepAnalysis = false);
+LLVM_ABI FunctionPass *createGVNPass(bool NoMemDepAnalysis = false);
 
 /// A simple and fast domtree-based GVN pass to hoist common expressions
 /// from sibling branches.
-struct GVNHoistPass : PassInfoMixin<GVNHoistPass> {
+struct LLVM_ABI GVNHoistPass : PassInfoMixin<GVNHoistPass> {
   /// Run the pass over the function.
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };
 
 /// Uses an "inverted" value numbering to decide the similarity of
 /// expressions and sinks similar expressions into successors.
-struct GVNSinkPass : PassInfoMixin<GVNSinkPass> {
+struct LLVM_ABI GVNSinkPass : PassInfoMixin<GVNSinkPass> {
   /// Run the pass over the function.
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM);
 };

@@ -19,6 +19,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/IR/StructuralHash.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -48,7 +49,7 @@ struct StableFunction {
   StableFunction() = default;
 };
 
-struct StableFunctionMap {
+struct LLVM_ABI StableFunctionMap {
   /// An efficient form of StableFunction for fast look-up
   struct StableFunctionEntry {
     /// The combined stable hash of the function.

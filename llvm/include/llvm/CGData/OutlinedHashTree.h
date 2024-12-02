@@ -18,6 +18,7 @@
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/StableHashing.h"
 #include "llvm/ObjectYAML/YAML.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/raw_ostream.h"
 
 #include <unordered_map>
@@ -39,7 +40,7 @@ struct HashNode {
   std::unordered_map<stable_hash, std::unique_ptr<HashNode>> Successors;
 };
 
-class OutlinedHashTree {
+class LLVM_ABI OutlinedHashTree {
 
   using EdgeCallbackFn =
       std::function<void(const HashNode *, const HashNode *)>;

@@ -23,6 +23,7 @@
 #include "llvm/IR/DebugLoc.h"
 #include "llvm/MC/LaneBitmask.h"
 #include "llvm/Support/BranchProbability.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 #include <cstdint>
 #include <iterator>
@@ -51,7 +52,7 @@ using MachineFunctionAnalysisManager = AnalysisManager<MachineFunction>;
 //  {Type: Default, Number: (unsigned)} (These are regular section IDs)
 //  {Type: Exception, Number: 0}  (ExceptionSectionID)
 //  {Type: Cold, Number: 0}  (ColdSectionID)
-struct MBBSectionID {
+struct LLVM_ABI MBBSectionID {
   enum SectionType {
     Default = 0, // Regular section (these sections are distinguished by the
                  // Number field).
@@ -103,7 +104,7 @@ struct UniqueBBID {
   unsigned CloneID;
 };
 
-template <> struct ilist_traits<MachineInstr> {
+template <> struct LLVM_ABI ilist_traits<MachineInstr> {
 private:
   friend class MachineBasicBlock; // Set by the owning MachineBasicBlock.
 
@@ -120,7 +121,7 @@ public:
   void deleteNode(MachineInstr *MI);
 };
 
-class MachineBasicBlock
+class LLVM_ABI MachineBasicBlock
     : public ilist_node_with_parent<MachineBasicBlock, MachineFunction> {
 public:
   /// Pair of physical register and lane mask.
@@ -1264,7 +1265,7 @@ private:
   void removePredecessor(MachineBasicBlock *Pred);
 };
 
-raw_ostream& operator<<(raw_ostream &OS, const MachineBasicBlock &MBB);
+LLVM_ABI raw_ostream& operator<<(raw_ostream &OS, const MachineBasicBlock &MBB);
 
 /// Prints a machine basic block reference.
 ///
@@ -1272,7 +1273,7 @@ raw_ostream& operator<<(raw_ostream &OS, const MachineBasicBlock &MBB);
 ///   %bb.5           - a machine basic block with MBB.getNumber() == 5.
 ///
 /// Usage: OS << printMBBReference(MBB) << '\n';
-Printable printMBBReference(const MachineBasicBlock &MBB);
+LLVM_ABI Printable printMBBReference(const MachineBasicBlock &MBB);
 
 // This is useful when building IndexedMaps keyed on basic block pointers.
 struct MBB2NumberFunctor {

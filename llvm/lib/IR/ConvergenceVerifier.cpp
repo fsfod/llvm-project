@@ -11,6 +11,7 @@
 #include "llvm/IR/GenericConvergenceVerifierImpl.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/SSAContext.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
@@ -89,4 +90,4 @@ bool GenericConvergenceVerifier<SSAContext>::isConvergent(
   return false;
 }
 
-template class llvm::GenericConvergenceVerifier<SSAContext>;
+template class LLVM_EXPORT_TEMPLATE llvm::GenericConvergenceVerifier<SSAContext>;

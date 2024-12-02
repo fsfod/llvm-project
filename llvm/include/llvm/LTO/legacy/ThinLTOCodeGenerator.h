@@ -21,6 +21,7 @@
 #include "llvm/LTO/LTO.h"
 #include "llvm/Support/CachePruning.h"
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Target/TargetOptions.h"
 #include "llvm/TargetParser/Triple.h"
@@ -39,7 +40,7 @@ struct TargetMachineBuilder;
 }
 
 /// Helper to gather options relevant to the target machine creation
-struct ThinLTOCodeGeneratorImpl::TargetMachineBuilder {
+struct LLVM_ABI ThinLTOCodeGeneratorImpl::TargetMachineBuilder {
   Triple TheTriple;
   std::string MCpu;
   std::string MAttr;
@@ -56,7 +57,7 @@ struct ThinLTOCodeGeneratorImpl::TargetMachineBuilder {
 /// compilation: the model is that the client adds modules to the generator and
 /// ask to perform the ThinLTO optimizations / codegen, and finally destroys the
 /// codegenerator.
-class ThinLTOCodeGenerator {
+class LLVM_ABI ThinLTOCodeGenerator {
 public:
   ThinLTOCodeGenerator() = default;
   ThinLTOCodeGenerator(ThinLTOCodeGenerator &&) = default;

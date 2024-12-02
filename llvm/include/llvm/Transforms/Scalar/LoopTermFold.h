@@ -13,13 +13,14 @@
 
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
 class Loop;
 class LPMUpdater;
 
-class LoopTermFoldPass : public PassInfoMixin<LoopTermFoldPass> {
+class LLVM_ABI LoopTermFoldPass : public PassInfoMixin<LoopTermFoldPass> {
 public:
   PreservedAnalyses run(Loop &L, LoopAnalysisManager &AM,
                         LoopStandardAnalysisResults &AR, LPMUpdater &U);

@@ -12,11 +12,12 @@
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBEnumChildren.h"
 #include "llvm/DebugInfo/PDB/IPDBInjectedSource.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
 
-class DIAEnumInjectedSources : public IPDBEnumChildren<IPDBInjectedSource> {
+class LLVM_ABI DIAEnumInjectedSources : public IPDBEnumChildren<IPDBInjectedSource> {
 public:
   explicit DIAEnumInjectedSources(
       CComPtr<IDiaEnumInjectedSources> DiaEnumerator);

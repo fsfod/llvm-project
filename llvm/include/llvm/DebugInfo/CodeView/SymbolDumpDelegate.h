@@ -12,12 +12,13 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/DebugInfo/CodeView/SymbolVisitorDelegate.h"
+#include "llvm/Support/Compiler.h"
 #include <cstdint>
 
 namespace llvm {
 namespace codeview {
 
-class SymbolDumpDelegate : public SymbolVisitorDelegate {
+class LLVM_ABI SymbolDumpDelegate : public SymbolVisitorDelegate {
 public:
   ~SymbolDumpDelegate() override = default;
 

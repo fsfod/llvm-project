@@ -9,6 +9,7 @@
 #ifndef LLVM_DEBUGINFO_PDB_NATIVE_INFOSTREAMBUILDER_H
 #define LLVM_DEBUGINFO_PDB_NATIVE_INFOSTREAMBUILDER_H
 
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 
 #include "llvm/DebugInfo/CodeView/GUID.h"
@@ -24,7 +25,7 @@ struct MSFLayout;
 namespace pdb {
 class NamedStreamMap;
 
-class InfoStreamBuilder {
+class LLVM_ABI InfoStreamBuilder {
 public:
   InfoStreamBuilder(msf::MSFBuilder &Msf, NamedStreamMap &NamedStreams);
   InfoStreamBuilder(const InfoStreamBuilder &) = delete;

@@ -21,6 +21,7 @@
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Instruction.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Coroutines/CoroInstr.h"
 
 namespace llvm {
@@ -64,7 +65,7 @@ public:
 //   KillLoop: There is a path from 'i' to 'i' not otherwise repeating 'i' that
 //             crosses a suspend point.
 //
-class SuspendCrossingInfo {
+class LLVM_ABI SuspendCrossingInfo {
   BlockToIndexMapping Mapping;
 
   struct BlockData {

@@ -30,6 +30,7 @@
 #include "llvm/CodeGen/MachineInstrBundle.h"
 #include "llvm/CodeGen/MachinePassManager.h"
 #include "llvm/Support/Allocator.h"
+#include "llvm/Support/Compiler.h"
 #include <algorithm>
 #include <cassert>
 #include <iterator>
@@ -62,7 +63,7 @@ class raw_ostream;
   };
 
   /// SlotIndex - An opaque wrapper around machine indexes.
-  class SlotIndex {
+  class LLVM_ABI SlotIndex {
     friend class SlotIndexes;
 
     enum Slot {
@@ -294,7 +295,7 @@ class raw_ostream;
   /// SlotIndexes pass.
   ///
   /// This pass assigns indexes to each instruction.
-  class SlotIndexes {
+  class LLVM_ABI SlotIndexes {
     friend class SlotIndexesWrapperPass;
 
   private:
@@ -641,7 +642,7 @@ class raw_ostream;
   struct IntervalMapInfo<SlotIndex> : IntervalMapHalfOpenInfo<SlotIndex> {
   };
 
-  class SlotIndexesAnalysis : public AnalysisInfoMixin<SlotIndexesAnalysis> {
+  class LLVM_ABI SlotIndexesAnalysis : public AnalysisInfoMixin<SlotIndexesAnalysis> {
     friend AnalysisInfoMixin<SlotIndexesAnalysis>;
     static AnalysisKey Key;
 
@@ -650,7 +651,7 @@ class raw_ostream;
     Result run(MachineFunction &MF, MachineFunctionAnalysisManager &);
   };
 
-  class SlotIndexesPrinterPass : public PassInfoMixin<SlotIndexesPrinterPass> {
+  class LLVM_ABI SlotIndexesPrinterPass : public PassInfoMixin<SlotIndexesPrinterPass> {
     raw_ostream &OS;
 
   public:
@@ -660,7 +661,7 @@ class raw_ostream;
     static bool isRequired() { return true; }
   };
 
-  class SlotIndexesWrapperPass : public MachineFunctionPass {
+  class LLVM_ABI SlotIndexesWrapperPass : public MachineFunctionPass {
     SlotIndexes SI;
 
   public:

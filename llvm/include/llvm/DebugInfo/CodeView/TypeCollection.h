@@ -12,10 +12,11 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/DebugInfo/CodeView/CVRecord.h"
 #include "llvm/DebugInfo/CodeView/TypeIndex.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace codeview {
-class TypeCollection {
+class LLVM_ABI TypeCollection {
 public:
   virtual ~TypeCollection() = default;
 

@@ -12,6 +12,7 @@
 #include "llvm/CodeGen/MBFIWrapper.h"
 #include "llvm/CodeGen/MachineFunction.h"
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
@@ -39,9 +40,9 @@ class TailDuplicatePass
 
 } // namespace llvm
 
-extern template class llvm::TailDuplicatePassBase<llvm::EarlyTailDuplicatePass,
+extern template class LLVM_TEMPLATE_ABI llvm::TailDuplicatePassBase<llvm::EarlyTailDuplicatePass,
                                                   true>;
-extern template class llvm::TailDuplicatePassBase<llvm::TailDuplicatePass,
+extern template class LLVM_TEMPLATE_ABI llvm::TailDuplicatePassBase<llvm::TailDuplicatePass,
                                                   false>;
 
 #endif // LLVM_CODEGEN_TAILDUPLICATIONPASS_H

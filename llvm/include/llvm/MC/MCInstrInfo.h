@@ -15,6 +15,7 @@
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/MC/MCInstrDesc.h"
+#include "llvm/Support/Compiler.h"
 #include <cassert>
 
 namespace llvm {
@@ -23,7 +24,7 @@ class MCSubtargetInfo;
 
 //---------------------------------------------------------------------------
 /// Interface to description of machine instruction set.
-class MCInstrInfo {
+class LLVM_ABI MCInstrInfo {
 public:
   using ComplexDeprecationPredicate = bool (*)(MCInst &,
                                                const MCSubtargetInfo &,

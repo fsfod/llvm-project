@@ -32,6 +32,7 @@
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/IR/PassManager.h"
+#include "llvm/Support/Compiler.h"
 #include <functional>
 
 namespace llvm {
@@ -43,7 +44,7 @@ namespace llvm {
 /// identify the pass, which is usually a pointer to a static member. If a pass
 /// has parameters, they should be stored in a struct \p OptionT with a method
 /// bool isCompatibleWith(const OptionT& LastOpt) const to check compatibility.
-class LastRunTrackingInfo {
+class LLVM_ABI LastRunTrackingInfo {
 public:
   using PassID = const void *;
   using OptionPtr = const void *;
@@ -87,7 +88,7 @@ private:
 };
 
 /// A function/module analysis which provides an empty \c LastRunTrackingInfo.
-class LastRunTrackingAnalysis final
+class LLVM_ABI LastRunTrackingAnalysis final
     : public AnalysisInfoMixin<LastRunTrackingAnalysis> {
   friend AnalysisInfoMixin<LastRunTrackingAnalysis>;
   static AnalysisKey Key;

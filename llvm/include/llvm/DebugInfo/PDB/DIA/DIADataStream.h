@@ -11,10 +11,11 @@
 
 #include "DIASupport.h"
 #include "llvm/DebugInfo/PDB/IPDBDataStream.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace pdb {
-class DIADataStream : public IPDBDataStream {
+class LLVM_ABI DIADataStream : public IPDBDataStream {
 public:
   explicit DIADataStream(CComPtr<IDiaEnumDebugStreamData> DiaStreamData);
 

@@ -17,6 +17,7 @@
 #include "llvm/ADT/iterator_range.h"
 #include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCSymbol.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SMLoc.h"
 #include <algorithm>
 #include <cassert>
@@ -50,7 +51,7 @@ class MCObjectWriter;
 class MCSection;
 class MCValue;
 
-class MCAssembler {
+class LLVM_ABI MCAssembler {
 public:
   friend class MCObjectWriter;
   using SectionListType = SmallVector<MCSection *, 0>;

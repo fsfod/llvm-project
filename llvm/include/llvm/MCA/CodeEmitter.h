@@ -23,6 +23,7 @@
 #include "llvm/MC/MCCodeEmitter.h"
 #include "llvm/MC/MCInst.h"
 #include "llvm/MC/MCSubtargetInfo.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 namespace mca {
@@ -31,7 +32,7 @@ namespace mca {
 ///
 /// It provides a simple API to compute and return instruction encodings as
 /// strings. Encodings are cached internally for later usage.
-class CodeEmitter {
+class LLVM_ABI CodeEmitter {
   const MCSubtargetInfo &STI;
   const MCAsmBackend &MAB;
   const MCCodeEmitter &MCE;

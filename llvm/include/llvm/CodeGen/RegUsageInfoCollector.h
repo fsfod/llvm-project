@@ -10,10 +10,11 @@
 #define LLVM_CODEGEN_REGUSAGEINFOCOLLECTOR_H
 
 #include "llvm/CodeGen/MachinePassManager.h"
+#include "llvm/Support/Compiler.h"
 
 namespace llvm {
 
-class RegUsageInfoCollectorPass
+class LLVM_ABI RegUsageInfoCollectorPass
     : public AnalysisInfoMixin<RegUsageInfoCollectorPass> {
 public:
   PreservedAnalyses run(MachineFunction &MF,
