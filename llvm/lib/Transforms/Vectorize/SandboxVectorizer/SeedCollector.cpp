@@ -117,8 +117,8 @@ template <typename LoadOrStoreT> void SeedContainer::insert(LoadOrStoreT *LSI) {
 }
 
 // Explicit instantiations
-template void SeedContainer::insert<LoadInst>(LoadInst *);
-template void SeedContainer::insert<StoreInst>(StoreInst *);
+template LLVM_EXPORT_TEMPLATE void SeedContainer::insert<LoadInst>(LoadInst *);
+template LLVM_EXPORT_TEMPLATE void SeedContainer::insert<StoreInst>(StoreInst *);
 
 #ifndef NDEBUG
 void SeedContainer::print(raw_ostream &OS) const {
@@ -155,8 +155,8 @@ template <typename LoadOrStoreT> static bool isValidMemSeed(LoadOrStoreT *LSI) {
   return VectorType::isValidElementType(Ty);
 }
 
-template bool isValidMemSeed<LoadInst>(LoadInst *LSI);
-template bool isValidMemSeed<StoreInst>(StoreInst *LSI);
+template LLVM_EXPORT_TEMPLATE bool isValidMemSeed<LoadInst>(LoadInst *LSI);
+template LLVM_EXPORT_TEMPLATE bool isValidMemSeed<StoreInst>(StoreInst *LSI);
 
 SeedCollector::SeedCollector(BasicBlock *BB, ScalarEvolution &SE)
     : StoreSeeds(SE), LoadSeeds(SE), Ctx(BB->getContext()) {
