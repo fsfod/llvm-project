@@ -292,16 +292,6 @@ GlobalT &GlobalWithNodeAPI<GlobalT, LLVMGlobalT, ParentT, LLVMParentT>::
   return cast<GlobalT>(*Ctx.getValue(&LLVMGV));
 }
 
-// Explicit instantiations.
-template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
-                                 llvm::GlobalObject>;
-template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<Function, llvm::Function, GlobalObject,
-                                 llvm::GlobalObject>;
-template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalVariable, llvm::GlobalVariable,
-                                 GlobalObject, llvm::GlobalObject>;
-template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
-                                 llvm::GlobalValue>;
-
 #ifdef _MSC_VER
 // These are needed for SandboxIRTest when building with LLVM_BUILD_LLVM_DYLIB
 template LLVM_EXPORT_TEMPLATE GlobalIFunc &
@@ -322,6 +312,16 @@ GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
                   llvm::GlobalValue>::LLVMGVToGV::operator()(llvm::GlobalAlias
                                                                  &LLVMGV) const;
 #endif
+
+// Explicit instantiations.
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
+                                 llvm::GlobalObject>;
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<Function, llvm::Function, GlobalObject,
+                                 llvm::GlobalObject>;
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalVariable, llvm::GlobalVariable,
+                                 GlobalObject, llvm::GlobalObject>;
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
+                                 llvm::GlobalValue>;
 
 void GlobalIFunc::setResolver(Constant *Resolver) {
   Ctx.getTracker()
