@@ -15,7 +15,7 @@ if(NOT CLANG_BUILT_STANDALONE)
   set(tablegen_deps intrinsics_gen SYCLLinkerOpts)
 endif()
 
-add_clang_tool(clang-sycl-linker
+add_clang_tool(clang-sycl-linker DISABLE_CLANG_LINK_DYLIB
   ClangSYCLLinker.cpp
 
   DEPENDS
