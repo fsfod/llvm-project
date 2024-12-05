@@ -16,6 +16,7 @@
 #include "PrimType.h"
 #include "clang/AST/Decl.h"
 #include "clang/AST/Expr.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 namespace interp {
@@ -197,7 +198,7 @@ public:
   void makeDummy() { IsDummy = true; }
 
   QualType getType() const;
-  QualType getElemQualType() const;
+  CLANG_ABI QualType getElemQualType() const;
   SourceLocation getLocation() const;
   SourceInfo getLoc() const;
 
