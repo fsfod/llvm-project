@@ -23,6 +23,7 @@
 #include "clang/AST/RawCommentList.h"
 #include "clang/Basic/SourceLocation.h"
 #include "clang/ExtractAPI/DeclarationFragments.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Support/Allocator.h"
 #include "llvm/Support/Casting.h"
@@ -154,7 +155,7 @@ struct APIRecord;
 
 // This represents a reference to another symbol that might come from external
 /// sources.
-struct SymbolReference {
+struct CLANG_ABI SymbolReference {
   StringRef Name;
   StringRef USR;
 
@@ -182,7 +183,7 @@ class RecordContext;
 // are compatible with `APISet::createRecord`.
 // When adding a new kind of record don't forget to update APIRecords.inc!
 /// The base representation of an API record. Holds common symbol information.
-struct APIRecord {
+struct CLANG_ABI APIRecord {
   /// Discriminator for LLVM-style RTTI (dyn_cast<> et al.)
   enum RecordKind {
     RK_Unknown,
@@ -303,7 +304,7 @@ public:
 
 /// Base class used for specific record types that have children records this is
 /// analogous to the DeclContext for the AST
-class RecordContext {
+class CLANG_ABI RecordContext {
 public:
   static bool classof(const APIRecord *Record) {
     return classofKind(Record->getKind());
@@ -397,7 +398,7 @@ struct NamespaceRecord : APIRecord, RecordContext {
 };
 
 /// This holds information associated with global functions.
-struct GlobalFunctionRecord : APIRecord {
+struct CLANG_ABI GlobalFunctionRecord : APIRecord {
   FunctionSignature Signature;
 
   GlobalFunctionRecord(StringRef USR, StringRef Name, SymbolReference Parent,
@@ -478,7 +479,7 @@ struct GlobalFunctionTemplateSpecializationRecord : GlobalFunctionRecord {
 };
 
 /// This holds information associated with global functions.
-struct GlobalVariableRecord : APIRecord, RecordContext {
+struct CLANG_ABI GlobalVariableRecord : APIRecord, RecordContext {
   GlobalVariableRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                        PresumedLoc Loc, AvailabilityInfo Availability,
                        LinkageInfo Linkage, const DocComment &Comment,
@@ -580,7 +581,7 @@ struct GlobalVariableTemplatePartialSpecializationRecord
 };
 
 /// This holds information associated with enum constants.
-struct EnumConstantRecord : APIRecord {
+struct CLANG_ABI EnumConstantRecord : APIRecord {
   EnumConstantRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                      PresumedLoc Loc, AvailabilityInfo Availability,
                      const DocComment &Comment,
@@ -599,7 +600,7 @@ private:
   virtual void anchor();
 };
 
-struct TagRecord : APIRecord, RecordContext {
+struct CLANG_ABI TagRecord : APIRecord, RecordContext {
   TagRecord(RecordKind Kind, StringRef USR, StringRef Name,
             SymbolReference Parent, PresumedLoc Loc,
             AvailabilityInfo Availability, const DocComment &Comment,
@@ -642,7 +643,7 @@ struct TagRecord : APIRecord, RecordContext {
 };
 
 /// This holds information associated with enums.
-struct EnumRecord : TagRecord {
+struct CLANG_ABI EnumRecord : TagRecord {
   EnumRecord(StringRef USR, StringRef Name, SymbolReference Parent,
              PresumedLoc Loc, AvailabilityInfo Availability,
              const DocComment &Comment, DeclarationFragments Declaration,
@@ -664,7 +665,7 @@ private:
 };
 
 /// This holds information associated with struct or union fields fields.
-struct RecordFieldRecord : APIRecord, RecordContext {
+struct CLANG_ABI RecordFieldRecord : APIRecord, RecordContext {
   RecordFieldRecord(RecordKind Kind, StringRef USR, StringRef Name,
                     SymbolReference Parent, PresumedLoc Loc,
                     AvailabilityInfo Availability, const DocComment &Comment,
@@ -686,7 +687,7 @@ struct RecordFieldRecord : APIRecord, RecordContext {
 };
 
 /// This holds information associated with structs and unions.
-struct RecordRecord : TagRecord {
+struct CLANG_ABI RecordRecord : TagRecord {
   RecordRecord(RecordKind Kind, StringRef USR, StringRef Name,
                SymbolReference Parent, PresumedLoc Loc,
                AvailabilityInfo Availability, const DocComment &Comment,
@@ -725,7 +726,7 @@ struct RecordRecord : TagRecord {
   virtual ~RecordRecord() = 0;
 };
 
-struct StructFieldRecord : RecordFieldRecord {
+struct CLANG_ABI StructFieldRecord : RecordFieldRecord {
   StructFieldRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                     PresumedLoc Loc, AvailabilityInfo Availability,
                     const DocComment &Comment, DeclarationFragments Declaration,
@@ -743,7 +744,7 @@ private:
   virtual void anchor();
 };
 
-struct StructRecord : RecordRecord {
+struct CLANG_ABI StructRecord : RecordRecord {
   StructRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                PresumedLoc Loc, AvailabilityInfo Availability,
                const DocComment &Comment, DeclarationFragments Declaration,
@@ -762,7 +763,7 @@ private:
   virtual void anchor();
 };
 
-struct UnionFieldRecord : RecordFieldRecord {
+struct CLANG_ABI UnionFieldRecord : RecordFieldRecord {
   UnionFieldRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                    PresumedLoc Loc, AvailabilityInfo Availability,
                    const DocComment &Comment, DeclarationFragments Declaration,
@@ -780,7 +781,7 @@ private:
   virtual void anchor();
 };
 
-struct UnionRecord : RecordRecord {
+struct CLANG_ABI UnionRecord : RecordRecord {
   UnionRecord(StringRef USR, StringRef Name, SymbolReference Parent,
               PresumedLoc Loc, AvailabilityInfo Availability,
               const DocComment &Comment, DeclarationFragments Declaration,
@@ -799,7 +800,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXFieldRecord : APIRecord, RecordContext {
+struct CLANG_ABI CXXFieldRecord : APIRecord, RecordContext {
   CXXFieldRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                  PresumedLoc Loc, AvailabilityInfo Availability,
                  const DocComment &Comment, DeclarationFragments Declaration,
@@ -852,7 +853,7 @@ struct CXXFieldTemplateRecord : CXXFieldRecord {
   static bool classofKind(RecordKind K) { return K == RK_CXXFieldTemplate; }
 };
 
-struct CXXMethodRecord : APIRecord {
+struct CLANG_ABI CXXMethodRecord : APIRecord {
   FunctionSignature Signature;
 
   CXXMethodRecord() = delete;
@@ -871,7 +872,7 @@ struct CXXMethodRecord : APIRecord {
   virtual ~CXXMethodRecord() = 0;
 };
 
-struct CXXConstructorRecord : CXXMethodRecord {
+struct CLANG_ABI CXXConstructorRecord : CXXMethodRecord {
   CXXConstructorRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                        PresumedLoc Loc, AvailabilityInfo Availability,
                        const DocComment &Comment,
@@ -892,7 +893,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXDestructorRecord : CXXMethodRecord {
+struct CLANG_ABI CXXDestructorRecord : CXXMethodRecord {
   CXXDestructorRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                       PresumedLoc Loc, AvailabilityInfo Availability,
                       const DocComment &Comment,
@@ -913,7 +914,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXStaticMethodRecord : CXXMethodRecord {
+struct CLANG_ABI CXXStaticMethodRecord : CXXMethodRecord {
   CXXStaticMethodRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                         PresumedLoc Loc, AvailabilityInfo Availability,
                         const DocComment &Comment,
@@ -934,7 +935,7 @@ private:
   virtual void anchor();
 };
 
-struct CXXInstanceMethodRecord : CXXMethodRecord {
+struct CLANG_ABI CXXInstanceMethodRecord : CXXMethodRecord {
   CXXInstanceMethodRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                           PresumedLoc Loc, AvailabilityInfo Availability,
                           const DocComment &Comment,
@@ -999,7 +1000,7 @@ struct CXXMethodTemplateSpecializationRecord : CXXMethodRecord {
 };
 
 /// This holds information associated with Objective-C properties.
-struct ObjCPropertyRecord : APIRecord {
+struct CLANG_ABI ObjCPropertyRecord : APIRecord {
   /// The attributes associated with an Objective-C property.
   enum AttributeKind : unsigned {
     NoAttr = 0,
@@ -1031,7 +1032,7 @@ struct ObjCPropertyRecord : APIRecord {
   virtual ~ObjCPropertyRecord() = 0;
 };
 
-struct ObjCInstancePropertyRecord : ObjCPropertyRecord {
+struct CLANG_ABI ObjCInstancePropertyRecord : ObjCPropertyRecord {
   ObjCInstancePropertyRecord(
       StringRef USR, StringRef Name, SymbolReference Parent, PresumedLoc Loc,
       AvailabilityInfo Availability, const DocComment &Comment,
@@ -1052,7 +1053,7 @@ private:
   virtual void anchor();
 };
 
-struct ObjCClassPropertyRecord : ObjCPropertyRecord {
+struct CLANG_ABI ObjCClassPropertyRecord : ObjCPropertyRecord {
   ObjCClassPropertyRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                           PresumedLoc Loc, AvailabilityInfo Availability,
                           const DocComment &Comment,
@@ -1076,7 +1077,7 @@ private:
 };
 
 /// This holds information associated with Objective-C instance variables.
-struct ObjCInstanceVariableRecord : APIRecord {
+struct CLANG_ABI ObjCInstanceVariableRecord : APIRecord {
   ObjCInstanceVariableRecord(StringRef USR, StringRef Name,
                              SymbolReference Parent, PresumedLoc Loc,
                              AvailabilityInfo Availability,
@@ -1098,7 +1099,7 @@ private:
 };
 
 /// This holds information associated with Objective-C methods.
-struct ObjCMethodRecord : APIRecord {
+struct CLANG_ABI ObjCMethodRecord : APIRecord {
   FunctionSignature Signature;
 
   ObjCMethodRecord() = delete;
@@ -1117,7 +1118,7 @@ struct ObjCMethodRecord : APIRecord {
   virtual ~ObjCMethodRecord() = 0;
 };
 
-struct ObjCInstanceMethodRecord : ObjCMethodRecord {
+struct CLANG_ABI ObjCInstanceMethodRecord : ObjCMethodRecord {
   ObjCInstanceMethodRecord(StringRef USR, StringRef Name,
                            SymbolReference Parent, PresumedLoc Loc,
                            AvailabilityInfo Availability,
@@ -1137,7 +1138,7 @@ private:
   virtual void anchor();
 };
 
-struct ObjCClassMethodRecord : ObjCMethodRecord {
+struct CLANG_ABI ObjCClassMethodRecord : ObjCMethodRecord {
   ObjCClassMethodRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                         PresumedLoc Loc, AvailabilityInfo Availability,
                         const DocComment &Comment,
@@ -1176,7 +1177,7 @@ struct StaticFieldRecord : CXXFieldRecord {
 
 /// The base representation of an Objective-C container record. Holds common
 /// information associated with Objective-C containers.
-struct ObjCContainerRecord : APIRecord, RecordContext {
+struct CLANG_ABI ObjCContainerRecord : APIRecord, RecordContext {
   SmallVector<SymbolReference> Protocols;
 
   ObjCContainerRecord() = delete;
@@ -1195,7 +1196,7 @@ struct ObjCContainerRecord : APIRecord, RecordContext {
   virtual ~ObjCContainerRecord() = 0;
 };
 
-struct CXXClassRecord : RecordRecord {
+struct CLANG_ABI CXXClassRecord : RecordRecord {
   SmallVector<SymbolReference> Bases;
 
   CXXClassRecord(StringRef USR, StringRef Name, SymbolReference Parent,
@@ -1300,7 +1301,7 @@ struct ConceptRecord : APIRecord {
 };
 
 /// This holds information associated with Objective-C categories.
-struct ObjCCategoryRecord : ObjCContainerRecord {
+struct CLANG_ABI ObjCCategoryRecord : ObjCContainerRecord {
   SymbolReference Interface;
 
   ObjCCategoryRecord(StringRef USR, StringRef Name, SymbolReference Parent,
@@ -1333,7 +1334,7 @@ private:
 };
 
 /// This holds information associated with Objective-C interfaces/classes.
-struct ObjCInterfaceRecord : ObjCContainerRecord {
+struct CLANG_ABI ObjCInterfaceRecord : ObjCContainerRecord {
   SymbolReference SuperClass;
 
   ObjCInterfaceRecord(StringRef USR, StringRef Name, SymbolReference Parent,
@@ -1357,7 +1358,7 @@ private:
 };
 
 /// This holds information associated with Objective-C protocols.
-struct ObjCProtocolRecord : ObjCContainerRecord {
+struct CLANG_ABI ObjCProtocolRecord : ObjCContainerRecord {
   ObjCProtocolRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                      PresumedLoc Loc, AvailabilityInfo Availability,
                      const DocComment &Comment,
@@ -1378,7 +1379,7 @@ private:
 };
 
 /// This holds information associated with macro definitions.
-struct MacroDefinitionRecord : APIRecord {
+struct CLANG_ABI MacroDefinitionRecord : APIRecord {
   MacroDefinitionRecord(StringRef USR, StringRef Name, SymbolReference Parent,
                         PresumedLoc Loc, DeclarationFragments Declaration,
                         DeclarationFragments SubHeading,
@@ -1401,7 +1402,7 @@ private:
 /// Note: Typedefs for anonymous enums and structs typically don't get emitted
 /// by the serializers but still get a TypedefRecord. Instead we use the
 /// typedef name as a name for the underlying anonymous struct or enum.
-struct TypedefRecord : APIRecord {
+struct CLANG_ABI TypedefRecord : APIRecord {
   SymbolReference UnderlyingType;
 
   TypedefRecord(StringRef USR, StringRef Name, SymbolReference Parent,
@@ -1424,7 +1425,7 @@ private:
 };
 
 /// APISet holds the set of API records collected from given inputs.
-class APISet {
+class CLANG_ABI APISet {
 public:
   /// Get the target triple for the ExtractAPI invocation.
   const llvm::Triple &getTarget() const { return Target; }

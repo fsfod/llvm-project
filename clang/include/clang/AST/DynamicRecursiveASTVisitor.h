@@ -19,6 +19,7 @@
 #include "clang/AST/Attr.h"
 #include "clang/AST/ExprConcepts.h"
 #include "clang/AST/TypeLoc.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 class ASTContext;
@@ -52,7 +53,7 @@ class ASTContext;
 /// WalkUpFromX or post-order traversal).
 ///
 /// \see RecursiveASTVisitor.
-class DynamicRecursiveASTVisitor {
+class CLANG_ABI DynamicRecursiveASTVisitor {
 public:
   /// Whether this visitor should recurse into template instantiations.
   bool ShouldVisitTemplateInstantiations = false;

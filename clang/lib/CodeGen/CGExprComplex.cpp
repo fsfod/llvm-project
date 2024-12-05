@@ -15,6 +15,7 @@
 #include "CodeGenModule.h"
 #include "ConstantEmitter.h"
 #include "clang/AST/StmtVisitor.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/MDBuilder.h"
@@ -27,7 +28,7 @@ using namespace CodeGen;
 //===----------------------------------------------------------------------===//
 
 namespace llvm {
-extern cl::opt<bool> EnableSingleByteCoverage;
+CLANG_ABI extern cl::opt<bool> EnableSingleByteCoverage;
 } // namespace llvm
 
 typedef CodeGenFunction::ComplexPairTy ComplexPairTy;

@@ -21,6 +21,7 @@
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/Ownership.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Support/Compiler.h"
 #include <cassert>
@@ -32,7 +33,7 @@ namespace clang {
 class IdentifierInfo;
 class OpenACCClause;
 
-class SemaOpenACC : public SemaBase {
+class CLANG_ABI SemaOpenACC : public SemaBase {
 private:
   struct ComputeConstructInfo {
     /// Which type of compute construct we are inside of, which we can use to
@@ -114,7 +115,7 @@ private:
   llvm::SmallVector<OpenACCReductionClause *> ActiveReductionClauses;
 
   // Type to check the info about the 'for stmt'.
-  struct ForStmtBeginChecker {
+  struct CLANG_ABI ForStmtBeginChecker {
     SemaOpenACC &SemaRef;
     SourceLocation ForLoc;
     bool IsRangeFor = false;
@@ -759,7 +760,7 @@ public:
   /// Helper type for the registration/assignment of constructs that need to
   /// 'know' about their parent constructs and hold a reference to them, such as
   /// Loop needing its parent construct.
-  class AssociatedStmtRAII {
+  class CLANG_ABI AssociatedStmtRAII {
     SemaOpenACC &SemaRef;
     ComputeConstructInfo OldActiveComputeConstructInfo;
     OpenACCDirectiveKind DirKind;

@@ -16,9 +16,10 @@
 #define LLVM_CLANG_BASIC_STACK_EXHAUSTION_HANDLER_H
 
 #include "clang/Basic/Diagnostic.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
-class StackExhaustionHandler {
+class CLANG_ABI StackExhaustionHandler {
 public:
   StackExhaustionHandler(DiagnosticsEngine &diags) : DiagsRef(diags) {}
 
