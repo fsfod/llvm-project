@@ -1430,7 +1430,7 @@ LLVM_C_ABI void LLVMInstructionSetDebugLoc(LLVMValueRef Inst, LLVMMetadataRef Lo
  *
  * @see llvm::DIBuilder::createLabel()
  */
-LLVMMetadataRef LLVMDIBuilderCreateLabel(
+LLVM_C_ABI LLVMMetadataRef LLVMDIBuilderCreateLabel(
     LLVMDIBuilderRef Builder,
     LLVMMetadataRef Context, const char *Name, size_t NameLen,
     LLVMMetadataRef File, unsigned LineNo, LLVMBool AlwaysPreserve);
@@ -1445,7 +1445,7 @@ LLVMMetadataRef LLVMDIBuilderCreateLabel(
  *
  * @see llvm::DIBuilder::insertLabel()
  */
-LLVMDbgRecordRef LLVMDIBuilderInsertLabelBefore(
+LLVM_C_ABI LLVMDbgRecordRef LLVMDIBuilderInsertLabelBefore(
     LLVMDIBuilderRef Builder, LLVMMetadataRef LabelInfo,
     LLVMMetadataRef Location, LLVMValueRef InsertBefore);
 
@@ -1459,7 +1459,7 @@ LLVMDbgRecordRef LLVMDIBuilderInsertLabelBefore(
  *
  * @see llvm::DIBuilder::insertLabel()
  */
-LLVMDbgRecordRef LLVMDIBuilderInsertLabelAtEnd(
+LLVM_C_ABI LLVMDbgRecordRef LLVMDIBuilderInsertLabelAtEnd(
     LLVMDIBuilderRef Builder, LLVMMetadataRef LabelInfo,
     LLVMMetadataRef Location, LLVMBasicBlockRef InsertAtEnd);
 
