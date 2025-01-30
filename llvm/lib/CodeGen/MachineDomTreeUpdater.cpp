@@ -24,6 +24,12 @@ namespace llvm {
 template void LLVM_EXPORT_TEMPLATE
 GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
                       MachinePostDominatorTree>::flush();
+template void LLVM_EXPORT_TEMPLATE
+GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
+  MachinePostDominatorTree>::applyUpdatesImpl<true>();
+template void LLVM_EXPORT_TEMPLATE
+GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
+  MachinePostDominatorTree>::applyUpdatesImpl<false>();
 template LLVM_EXPORT_TEMPLATE GenericDomTreeUpdater<MachineDomTreeUpdater, MachineDominatorTree,
   MachinePostDominatorTree>::~GenericDomTreeUpdater();
 #endif
