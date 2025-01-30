@@ -530,10 +530,10 @@ computeFrameHistogram(llvm::MapVector<CallStackId, llvm::SmallVector<FrameIdTy>>
 }
 
 // Explicitly instantiate function with the utilized FrameIdTy.
-template llvm::DenseMap<FrameId, FrameStat> computeFrameHistogram<FrameId>(
+template LLVM_EXPORT_TEMPLATE llvm::DenseMap<FrameId, FrameStat> computeFrameHistogram<FrameId>(
     llvm::MapVector<CallStackId, llvm::SmallVector<FrameId>>
         &MemProfCallStackData);
-template llvm::DenseMap<LinearFrameId, FrameStat>
+template LLVM_EXPORT_TEMPLATE llvm::DenseMap<LinearFrameId, FrameStat>
 computeFrameHistogram<LinearFrameId>(
     llvm::MapVector<CallStackId, llvm::SmallVector<LinearFrameId>>
         &MemProfCallStackData);
