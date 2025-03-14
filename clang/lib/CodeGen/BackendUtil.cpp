@@ -16,6 +16,7 @@
 #include "clang/Frontend/FrontendDiagnostic.h"
 #include "clang/Frontend/Utils.h"
 #include "clang/Lex/HeaderSearchOptions.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ScopeExit.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/ADT/StringSwitch.h"
@@ -121,7 +122,7 @@ static cl::opt<PGOOptions::ColdFuncOpt> ClPGOColdFuncAttr(
 extern LLVM_ABI cl::opt<InstrProfCorrelator::ProfCorrelatorKind> ProfileCorrelate;
 } // namespace llvm
 namespace clang {
-extern llvm::cl::opt<bool> ClSanitizeGuardChecks;
+CLANG_ABI extern llvm::cl::opt<bool> ClSanitizeGuardChecks;
 }
 
 // Default filename used for profile generation.

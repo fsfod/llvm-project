@@ -7,12 +7,13 @@
 //===----------------------------------------------------------------------===//
 
 #include "clang/Basic/CharInfo.h"
+#include "clang/Support/Compiler.h"
 
 using namespace clang::charinfo;
 
 // Statically initialize CharInfo table based on ASCII character set
 // Reference: FreeBSD 7.2 /usr/share/misc/ascii
-const uint16_t clang::charinfo::InfoTable[256] = {
+CLANG_ABI const uint16_t clang::charinfo::InfoTable[256] = {
   // 0 NUL         1 SOH         2 STX         3 ETX
   // 4 EOT         5 ENQ         6 ACK         7 BEL
   0           , 0           , 0           , 0           ,

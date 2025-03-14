@@ -16,6 +16,7 @@
 #include "PrimType.h"
 #include "Program.h"
 #include "clang/AST/Attr.h"
+#include "clang/Support/Compiler.h"
 
 using namespace clang;
 using namespace clang::interp;
@@ -6896,8 +6897,8 @@ bool Compiler<Emitter>::emitBuiltinBitCast(const CastExpr *E) {
 namespace clang {
 namespace interp {
 
-template class Compiler<ByteCodeEmitter>;
-template class Compiler<EvalEmitter>;
+template class CLANG_EXPORT_TEMPLATE Compiler<ByteCodeEmitter>;
+template class CLANG_EXPORT_TEMPLATE Compiler<EvalEmitter>;
 
 } // namespace interp
 } // namespace clang

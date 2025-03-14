@@ -15,6 +15,7 @@
 #include "clang/AST/StmtVisitor.h"
 #include "clang/Basic/Diagnostic.h"
 #include "clang/Lex/Lexer.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/SmallSet.h"
 #include "llvm/ADT/StringExtras.h"
@@ -30,7 +31,7 @@
 #define COVMAP_V3
 
 namespace llvm {
-cl::opt<bool>
+CLANG_ABI cl::opt<bool>
     EnableSingleByteCoverage("enable-single-byte-coverage",
                              llvm::cl::ZeroOrMore,
                              llvm::cl::desc("Enable single byte coverage"),
@@ -44,7 +45,7 @@ static llvm::cl::opt<bool> EmptyLineCommentCoverage(
     llvm::cl::init(true), llvm::cl::Hidden);
 
 namespace llvm::coverage {
-cl::opt<bool> SystemHeadersCoverage(
+CLANG_ABI cl::opt<bool> SystemHeadersCoverage(
     "system-headers-coverage",
     cl::desc("Enable collecting coverage from system headers"), cl::init(false),
     cl::Hidden);
