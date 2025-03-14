@@ -144,12 +144,12 @@ static cl::opt<unsigned> ConstpoolPromotionMaxTotal(
     cl::desc("Maximum size of ALL constants to promote into a constant pool"),
     cl::init(128));
 
-cl::opt<unsigned>
+LLVM_ABI cl::opt<unsigned>
 MVEMaxSupportedInterleaveFactor("mve-max-interleave-factor", cl::Hidden,
   cl::desc("Maximum interleave factor for MVE VLDn to generate."),
   cl::init(2));
 
-cl::opt<unsigned> ArmMaxBaseUpdatesToCheck(
+LLVM_ABI cl::opt<unsigned> ArmMaxBaseUpdatesToCheck(
     "arm-max-base-updates-to-check", cl::Hidden,
     cl::desc("Maximum number of base-updates to check generating postindex."),
     cl::init(64));

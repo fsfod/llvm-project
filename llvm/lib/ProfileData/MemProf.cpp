@@ -4,6 +4,7 @@
 #include "llvm/ProfileData/InstrProf.h"
 #include "llvm/ProfileData/SampleProf.h"
 #include "llvm/Support/BLAKE3.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Endian.h"
 #include "llvm/Support/EndianStream.h"
 #include "llvm/Support/HashBuilder.h"
@@ -509,8 +510,8 @@ void CallStackRadixTreeBuilder<FrameIdTy>::build(
 }
 
 // Explicitly instantiate class with the utilized FrameIdTy.
-template class CallStackRadixTreeBuilder<FrameId>;
-template class CallStackRadixTreeBuilder<LinearFrameId>;
+template class LLVM_EXPORT_TEMPLATE CallStackRadixTreeBuilder<FrameId>;
+template class LLVM_EXPORT_TEMPLATE CallStackRadixTreeBuilder<LinearFrameId>;
 
 template <typename FrameIdTy>
 llvm::DenseMap<FrameIdTy, FrameStat>

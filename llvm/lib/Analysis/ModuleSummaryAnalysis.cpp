@@ -51,6 +51,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include <cassert>
 #include <cstdint>
@@ -85,11 +86,11 @@ static cl::opt<bool> EnableMemProfIndirectCallSupport(
     cl::desc(
         "Enable MemProf support for summarizing and cloning indirect calls"));
 
-extern cl::opt<bool> ScalePartialSampleProfileWorkingSetSize;
+LLVM_ABI extern cl::opt<bool> ScalePartialSampleProfileWorkingSetSize;
 
-extern cl::opt<unsigned> MaxNumVTableAnnotations;
+LLVM_ABI extern cl::opt<unsigned> MaxNumVTableAnnotations;
 
-extern cl::opt<bool> MemProfReportHintedSizes;
+LLVM_ABI extern cl::opt<bool> MemProfReportHintedSizes;
 
 // Walk through the operands of a given User via worklist iteration and populate
 // the set of GlobalValue references encountered. Invoked either on an

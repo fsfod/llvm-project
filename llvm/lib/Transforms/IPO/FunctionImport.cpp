@@ -32,6 +32,7 @@
 #include "llvm/ProfileData/PGOCtxProfReader.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Errc.h"
 #include "llvm/Support/Error.h"
@@ -173,10 +174,10 @@ static cl::opt<std::string> WorkloadDefinitions(
              "}"),
     cl::Hidden);
 
-extern cl::opt<std::string> UseCtxProfile;
+LLVM_ABI extern cl::opt<std::string> UseCtxProfile;
 
 namespace llvm {
-extern cl::opt<bool> EnableMemProfContextDisambiguation;
+LLVM_ABI extern cl::opt<bool> EnableMemProfContextDisambiguation;
 }
 
 // Load lazily a module from \p FileName in \p Context.

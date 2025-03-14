@@ -42,6 +42,7 @@
 
 #include "llvm/Transforms/Utils/CodeLayout.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 
 #include <cmath>
@@ -53,12 +54,12 @@ using namespace llvm::codelayout;
 #define DEBUG_TYPE "code-layout"
 
 namespace llvm {
-cl::opt<bool> EnableExtTspBlockPlacement(
+LLVM_ABI cl::opt<bool> EnableExtTspBlockPlacement(
     "enable-ext-tsp-block-placement", cl::Hidden, cl::init(false),
     cl::desc("Enable machine block placement based on the ext-tsp model, "
              "optimizing I-cache utilization."));
 
-cl::opt<bool> ApplyExtTspWithoutProfile(
+LLVM_ABI cl::opt<bool> ApplyExtTspWithoutProfile(
     "ext-tsp-apply-without-profile",
     cl::desc("Whether to apply ext-tsp placement for instances w/o profile"),
     cl::init(true), cl::Hidden);

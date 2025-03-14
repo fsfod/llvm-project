@@ -54,6 +54,7 @@
 #include "llvm/MC/MCSymbolELF.h"
 #include "llvm/MC/TargetRegistry.h"
 #include "llvm/Support/Casting.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Target/TargetLoweringObjectFile.h"
@@ -70,7 +71,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "mips-asm-printer"
 
-extern cl::opt<bool> EmitJalrReloc;
+LLVM_ABI extern cl::opt<bool> EmitJalrReloc;
 
 MipsTargetStreamer &MipsAsmPrinter::getTargetStreamer() const {
   return static_cast<MipsTargetStreamer &>(*OutStreamer->getTargetStreamer());

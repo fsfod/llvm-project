@@ -37,6 +37,7 @@
 #include "llvm/ProfileData/InstrProfReader.h"
 #include "llvm/Support/BLAKE3.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/HashBuilder.h"
 #include "llvm/Support/VirtualFileSystem.h"
@@ -53,9 +54,9 @@ using namespace llvm::memprof;
 #define DEBUG_TYPE "memprof"
 
 namespace llvm {
-extern cl::opt<bool> PGOWarnMissing;
-extern cl::opt<bool> NoPGOWarnMismatch;
-extern cl::opt<bool> NoPGOWarnMismatchComdatWeak;
+LLVM_ABI extern cl::opt<bool> PGOWarnMissing;
+LLVM_ABI extern cl::opt<bool> NoPGOWarnMismatch;
+LLVM_ABI extern cl::opt<bool> NoPGOWarnMismatchComdatWeak;
 } // namespace llvm
 
 constexpr int LLVM_MEM_PROFILER_VERSION = 1;
@@ -176,11 +177,11 @@ static cl::opt<bool>
                         cl::desc("Salvage stale MemProf profile"),
                         cl::init(false), cl::Hidden);
 
-cl::opt<unsigned> MinClonedColdBytePercent(
+LLVM_ABI cl::opt<unsigned> MinClonedColdBytePercent(
     "memprof-cloning-cold-threshold", cl::init(100), cl::Hidden,
     cl::desc("Min percent of cold bytes to hint alloc cold during cloning"));
 
-extern cl::opt<bool> MemProfReportHintedSizes;
+LLVM_ABI extern cl::opt<bool> MemProfReportHintedSizes;
 
 static cl::opt<unsigned> MinMatchedColdBytePercent(
     "memprof-matching-cold-threshold", cl::init(100), cl::Hidden,

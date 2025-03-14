@@ -30,6 +30,7 @@
 #include "llvm/Passes/OptimizationLevel.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/PGOOptions.h"
 #include "llvm/Support/VirtualFileSystem.h"
@@ -300,11 +301,11 @@ static cl::opt<std::string> InstrumentColdFuncOnlyPath(
              "with --pgo-instrument-cold-function-only)"),
     cl::Hidden);
 
-extern cl::opt<std::string> UseCtxProfile;
-extern cl::opt<bool> PGOInstrumentColdFunctionOnly;
+LLVM_ABI extern cl::opt<std::string> UseCtxProfile;
+LLVM_ABI extern cl::opt<bool> PGOInstrumentColdFunctionOnly;
 
 namespace llvm {
-extern cl::opt<bool> EnableMemProfContextDisambiguation;
+LLVM_ABI extern cl::opt<bool> EnableMemProfContextDisambiguation;
 } // namespace llvm
 
 PipelineTuningOptions::PipelineTuningOptions() {
@@ -324,7 +325,7 @@ PipelineTuningOptions::PipelineTuningOptions() {
 }
 
 namespace llvm {
-extern cl::opt<unsigned> MaxDevirtIterations;
+LLVM_ABI extern cl::opt<unsigned> MaxDevirtIterations;
 } // namespace llvm
 
 void PassBuilder::invokePeepholeEPCallbacks(FunctionPassManager &FPM,

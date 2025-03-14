@@ -38,6 +38,7 @@
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/IPO.h"
@@ -170,13 +171,13 @@ static cl::opt<bool> AllowRecursiveContexts(
     cl::desc("Allow cloning of contexts having recursive cycles"));
 
 namespace llvm {
-cl::opt<bool> EnableMemProfContextDisambiguation(
+LLVM_ABI cl::opt<bool> EnableMemProfContextDisambiguation(
     "enable-memprof-context-disambiguation", cl::init(false), cl::Hidden,
     cl::ZeroOrMore, cl::desc("Enable MemProf context disambiguation"));
 
 // Indicate we are linking with an allocator that supports hot/cold operator
 // new interfaces.
-cl::opt<bool> SupportsHotColdNew(
+LLVM_ABI cl::opt<bool> SupportsHotColdNew(
     "supports-hot-cold-new", cl::init(false), cl::Hidden,
     cl::desc("Linking with hot/cold operator new interfaces"));
 
@@ -186,8 +187,8 @@ static cl::opt<bool> MemProfRequireDefinitionForPromotion(
         "Require target function definition when promoting indirect calls"));
 } // namespace llvm
 
-extern cl::opt<bool> MemProfReportHintedSizes;
-extern cl::opt<unsigned> MinClonedColdBytePercent;
+LLVM_ABI extern cl::opt<bool> MemProfReportHintedSizes;
+LLVM_ABI extern cl::opt<unsigned> MinClonedColdBytePercent;
 
 namespace {
 /// CRTP base for graphs built from either IR or ThinLTO summary index.

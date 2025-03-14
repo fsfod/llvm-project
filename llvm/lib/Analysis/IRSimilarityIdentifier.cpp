@@ -19,19 +19,20 @@
 #include "llvm/IR/Operator.h"
 #include "llvm/IR/User.h"
 #include "llvm/InitializePasses.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SuffixTree.h"
 
 using namespace llvm;
 using namespace IRSimilarity;
 
 namespace llvm {
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     DisableBranches("no-ir-sim-branch-matching", cl::init(false),
                     cl::ReallyHidden,
                     cl::desc("disable similarity matching, and outlining, "
                              "across branches for debugging purposes."));
 
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     DisableIndirectCalls("no-ir-sim-indirect-calls", cl::init(false),
                          cl::ReallyHidden,
                          cl::desc("disable outlining indirect calls."));
@@ -41,7 +42,7 @@ static cl::opt<bool>
                      cl::desc("only allow matching call instructions if the "
                               "name and type signature match."));
 
-cl::opt<bool>
+LLVM_ABI cl::opt<bool>
     DisableIntrinsics("no-ir-sim-intrinsics", cl::init(false), cl::ReallyHidden,
                       cl::desc("Don't match or outline intrinsics"));
 } // namespace llvm

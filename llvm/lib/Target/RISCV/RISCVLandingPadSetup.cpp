@@ -16,13 +16,14 @@
 #include "RISCVSubtarget.h"
 #include "llvm/CodeGen/MachineFunctionPass.h"
 #include "llvm/CodeGen/MachineInstrBuilder.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 #define DEBUG_TYPE "riscv-lpad-setup"
 #define PASS_NAME "RISC-V Landing Pad Setup"
 
-extern cl::opt<uint32_t> PreferredLandingPadLabel;
+LLVM_ABI extern cl::opt<uint32_t> PreferredLandingPadLabel;
 
 namespace {
 

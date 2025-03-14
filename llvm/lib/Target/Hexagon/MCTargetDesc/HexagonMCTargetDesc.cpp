@@ -34,6 +34,7 @@
 #include "llvm/MC/MCStreamer.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/HexagonAttributes.h"
 #include "llvm/Support/raw_ostream.h"
@@ -56,11 +57,11 @@ using namespace llvm;
 #define GET_REGINFO_MC_DESC
 #include "HexagonGenRegisterInfo.inc"
 
-cl::opt<bool> llvm::HexagonDisableCompound
+LLVM_ABI cl::opt<bool> llvm::HexagonDisableCompound
   ("mno-compound",
    cl::desc("Disable looking for compound instructions for Hexagon"));
 
-cl::opt<bool> llvm::HexagonDisableDuplex
+LLVM_ABI cl::opt<bool> llvm::HexagonDisableDuplex
   ("mno-pairing",
    cl::desc("Disable looking for duplex instructions for Hexagon"));
 

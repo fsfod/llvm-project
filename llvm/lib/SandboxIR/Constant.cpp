@@ -314,13 +314,13 @@ GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
 #endif
 
 // Explicit instantiations.
-template class GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalIFunc, llvm::GlobalIFunc, GlobalObject,
                                  llvm::GlobalObject>;
-template class GlobalWithNodeAPI<Function, llvm::Function, GlobalObject,
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<Function, llvm::Function, GlobalObject,
                                  llvm::GlobalObject>;
-template class GlobalWithNodeAPI<GlobalVariable, llvm::GlobalVariable,
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalVariable, llvm::GlobalVariable,
                                  GlobalObject, llvm::GlobalObject>;
-template class GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
+template class LLVM_EXPORT_TEMPLATE GlobalWithNodeAPI<GlobalAlias, llvm::GlobalAlias, GlobalValue,
                                  llvm::GlobalValue>;
 
 void GlobalIFunc::setResolver(Constant *Resolver) {

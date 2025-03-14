@@ -24,12 +24,13 @@
 #include "llvm/MC/MCInstBuilder.h"
 #include "llvm/MC/MCSectionELF.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
 #define DEBUG_TYPE "loongarch-asm-printer"
 
-cl::opt<bool> LArchAnnotateTableJump(
+LLVM_ABI cl::opt<bool> LArchAnnotateTableJump(
     "loongarch-annotate-tablejump", cl::Hidden,
     cl::desc(
         "Annotate table jump instruction to correlate it with the jump table."),

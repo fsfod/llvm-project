@@ -14,6 +14,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/ModuleSummaryIndex.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/SourceMgr.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
@@ -23,10 +24,10 @@
 using namespace llvm;
 using namespace llvm::memprof;
 
-extern cl::opt<float> MemProfLifetimeAccessDensityColdThreshold;
-extern cl::opt<unsigned> MemProfAveLifetimeColdThreshold;
-extern cl::opt<unsigned> MemProfMinAveLifetimeAccessDensityHotThreshold;
-extern cl::opt<bool> MemProfUseHotHints;
+LLVM_ABI extern cl::opt<float> MemProfLifetimeAccessDensityColdThreshold;
+LLVM_ABI extern cl::opt<unsigned> MemProfAveLifetimeColdThreshold;
+LLVM_ABI extern cl::opt<unsigned> MemProfMinAveLifetimeAccessDensityHotThreshold;
+LLVM_ABI extern cl::opt<bool> MemProfUseHotHints;
 
 namespace {
 

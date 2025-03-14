@@ -18,6 +18,7 @@
 #include "llvm/Object/ObjectFile.h"
 #include "llvm/Support/Caching.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/Path.h"
 #include "llvm/Support/WithColor.h"
@@ -33,7 +34,7 @@ static cl::opt<bool>
 static cl::opt<std::string>
     CodeGenDataUsePath("codegen-data-use-path", cl::init(""), cl::Hidden,
                        cl::desc("File path to where .cgdata file is read"));
-cl::opt<bool> CodeGenDataThinLTOTwoRounds(
+LLVM_ABI cl::opt<bool> CodeGenDataThinLTOTwoRounds(
     "codegen-data-thinlto-two-rounds", cl::init(false), cl::Hidden,
     cl::desc("Enable two-round ThinLTO code generation. The first round "
              "emits codegen data, while the second round uses the emitted "

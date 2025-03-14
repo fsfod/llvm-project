@@ -78,7 +78,7 @@ STATISTIC(NumClustered, "Number of load/store pairs clustered");
 
 namespace llvm {
 
-cl::opt<MISched::Direction> PreRADirection(
+LLVM_ABI cl::opt<MISched::Direction> PreRADirection(
     "misched-prera-direction", cl::Hidden,
     cl::desc("Pre reg-alloc list scheduling direction"),
     cl::init(MISched::Unspecified),
@@ -106,7 +106,7 @@ static cl::opt<bool>
     DumpCriticalPathLength("misched-dcpl", cl::Hidden,
                            cl::desc("Print critical path length to stdout"));
 
-cl::opt<bool> VerifyScheduling(
+LLVM_ABI cl::opt<bool> VerifyScheduling(
     "verify-misched", cl::Hidden,
     cl::desc("Verify machine instrs before and after machine scheduling"));
 

@@ -26,11 +26,12 @@
 #include "llvm/IR/Function.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Target/TargetMachine.h"
 
 namespace llvm {
-extern cl::opt<bool> ReuseFrameIndexVals;
+LLVM_ABI extern cl::opt<bool> ReuseFrameIndexVals;
 }
 
 using namespace llvm;

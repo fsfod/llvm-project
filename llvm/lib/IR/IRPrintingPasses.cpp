@@ -18,12 +18,13 @@
 #include "llvm/IR/PrintPasses.h"
 #include "llvm/InitializePasses.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 
 using namespace llvm;
 
-cl::opt<bool> WriteNewDbgInfoFormat(
+LLVM_ABI cl::opt<bool> WriteNewDbgInfoFormat(
     "write-experimental-debuginfo",
     cl::desc("Write debug info in the new non-intrinsic format. Has no effect "
              "if --preserve-input-debuginfo-format=true."),

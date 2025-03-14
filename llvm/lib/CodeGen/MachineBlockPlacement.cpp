@@ -224,19 +224,19 @@ static cl::opt<bool>
                        cl::desc("Use ext-tsp for size-aware block placement."));
 
 namespace llvm {
-extern cl::opt<bool> EnableExtTspBlockPlacement;
-extern cl::opt<bool> ApplyExtTspWithoutProfile;
-extern cl::opt<unsigned> StaticLikelyProb;
-extern cl::opt<unsigned> ProfileLikelyProb;
+LLVM_ABI extern cl::opt<bool> EnableExtTspBlockPlacement;
+LLVM_ABI extern cl::opt<bool> ApplyExtTspWithoutProfile;
+LLVM_ABI extern cl::opt<unsigned> StaticLikelyProb;
+LLVM_ABI extern cl::opt<unsigned> ProfileLikelyProb;
 
 // Internal option used to control BFI display only after MBP pass.
 // Defined in CodeGen/MachineBlockFrequencyInfo.cpp:
 // -view-block-layout-with-bfi=
-extern cl::opt<GVDAGType> ViewBlockLayoutWithBFI;
+LLVM_ABI extern cl::opt<GVDAGType> ViewBlockLayoutWithBFI;
 
 // Command line option to specify the name of the function for CFG dump
 // Defined in Analysis/BlockFrequencyInfo.cpp:  -view-bfi-func-name=
-extern cl::opt<std::string> ViewBlockFreqFuncName;
+LLVM_ABI extern cl::opt<std::string> ViewBlockFreqFuncName;
 } // namespace llvm
 
 namespace {

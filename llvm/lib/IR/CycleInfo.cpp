@@ -9,8 +9,9 @@
 #include "llvm/IR/CycleInfo.h"
 #include "llvm/ADT/GenericCycleImpl.h"
 #include "llvm/IR/CFG.h"
+#include "llvm/Support/Compiler.h"
 
 using namespace llvm;
 
-template class llvm::GenericCycleInfo<SSAContext>;
-template class llvm::GenericCycle<SSAContext>;
+template class LLVM_EXPORT_TEMPLATE llvm::GenericCycleInfo<SSAContext>;
+template class LLVM_EXPORT_TEMPLATE llvm::GenericCycle<SSAContext>;

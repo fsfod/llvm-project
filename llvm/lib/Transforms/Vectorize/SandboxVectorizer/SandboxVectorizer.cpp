@@ -11,6 +11,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/SandboxIR/Constant.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/Debug.h"
 #include "llvm/Transforms/Vectorize/SandboxVectorizer/SandboxVectorizerPassBuilder.h"
 #include <regex>
@@ -39,7 +40,7 @@ static cl::opt<std::string> UserDefinedPassPipeline(
 //
 // Please note that we are using [^/]* and not .* to make sure that we are
 // matching the actual filename and not some other directory in the path.
-cl::opt<std::string> AllowFiles(
+LLVM_ABI cl::opt<std::string> AllowFiles(
     "sbvec-allow-files", cl::init(".*"), cl::Hidden,
     cl::desc("Run the vectorizer only on file paths that match any in the "
              "list of comma-separated regex's."));

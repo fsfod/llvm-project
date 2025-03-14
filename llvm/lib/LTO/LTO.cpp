@@ -39,6 +39,7 @@
 #include "llvm/Object/IRObjectFile.h"
 #include "llvm/Support/Caching.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/MemoryBuffer.h"
@@ -67,17 +68,17 @@ using namespace object;
 
 #define DEBUG_TYPE "lto"
 
-extern cl::opt<bool> UseNewDbgInfoFormat;
+LLVM_ABI extern cl::opt<bool> UseNewDbgInfoFormat;
 
 static cl::opt<bool>
     DumpThinCGSCCs("dump-thin-cg-sccs", cl::init(false), cl::Hidden,
                    cl::desc("Dump the SCCs in the ThinLTO index's callgraph"));
 
-extern cl::opt<bool> CodeGenDataThinLTOTwoRounds;
+LLVM_ABI extern cl::opt<bool> CodeGenDataThinLTOTwoRounds;
 
 namespace llvm {
 /// Enable global value internalization in LTO.
-cl::opt<bool> EnableLTOInternalization(
+LLVM_ABI cl::opt<bool> EnableLTOInternalization(
     "enable-lto-internalization", cl::init(true), cl::Hidden,
     cl::desc("Enable global value internalization in LTO"));
 
@@ -87,10 +88,10 @@ static cl::opt<bool>
 
 /// Indicate we are linking with an allocator that supports hot/cold operator
 /// new interfaces.
-extern cl::opt<bool> SupportsHotColdNew;
+LLVM_ABI extern cl::opt<bool> SupportsHotColdNew;
 
 /// Enable MemProf context disambiguation for thin link.
-extern cl::opt<bool> EnableMemProfContextDisambiguation;
+LLVM_ABI extern cl::opt<bool> EnableMemProfContextDisambiguation;
 } // namespace llvm
 
 // Computes a unique hash for the Module considering the current list of

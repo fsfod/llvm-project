@@ -19,12 +19,12 @@
 #include "VPlan.h"
 #include "LoopVectorizationPlanner.h"
 #include "VPlanCFG.h"
+#include "VPlanDominatorTree.h "
 #include "VPlanDominatorTree.h"
 #include "VPlanHelpers.h"
 #include "VPlanPatternMatch.h"
 #include "VPlanTransforms.h"
 #include "VPlanUtils.h"
-#include "VPlanDominatorTree.h "
 #include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/SmallVector.h"
@@ -41,12 +41,13 @@
 #include "llvm/IR/Value.h"
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
+#include "llvm/Support/GenericDomTreeConstruction.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/LoopVersioning.h"
-#include "llvm/Support/GenericDomTreeConstruction.h"
 #include <cassert>
 #include <string>
 
@@ -54,14 +55,14 @@ using namespace llvm;
 using namespace llvm::VPlanPatternMatch;
 
 namespace llvm {
-extern cl::opt<bool> EnableVPlanNativePath;
+LLVM_ABI extern cl::opt<bool> EnableVPlanNativePath;
 
  template void LLVM_EXPORT_TEMPLATE
 DomTreeBuilder::Calculate<DomTreeBase<VPBlockBase>>(
   DomTreeBase<VPBlockBase> &DT);
 }
 
-extern cl::opt<unsigned> ForceTargetInstructionCost;
+LLVM_ABI extern cl::opt<unsigned> ForceTargetInstructionCost;
 
 static cl::opt<bool> PrintVPlansInDotFormat(
     "vplan-print-in-dot-format", cl::Hidden,

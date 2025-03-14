@@ -16,6 +16,7 @@
 #include "llvm/MC/TargetRegistry.h"
 #include "llvm/Object/COFF.h"
 #include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/Format.h"
 #include "llvm/Support/TargetSelect.h"
@@ -60,8 +61,8 @@ static cl::opt<bool>
     KernelBinary("kernel",
                  cl::desc("Generate the profile for Linux kernel binary."));
 
-extern cl::opt<bool> ShowDetailedWarning;
-extern cl::opt<bool> InferMissingFrames;
+LLVM_ABI extern cl::opt<bool> ShowDetailedWarning;
+LLVM_ABI extern cl::opt<bool> InferMissingFrames;
 
 namespace llvm {
 namespace sampleprof {

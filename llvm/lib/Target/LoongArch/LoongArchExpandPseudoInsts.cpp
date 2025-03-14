@@ -23,11 +23,12 @@
 #include "llvm/CodeGen/Register.h"
 #include "llvm/MC/MCContext.h"
 #include "llvm/Support/CodeGen.h"
+#include "llvm/Support/Compiler.h"
 #include "llvm/Support/ErrorHandling.h"
 
 using namespace llvm;
 
-extern cl::opt<bool> LArchAnnotateTableJump;
+LLVM_ABI extern cl::opt<bool> LArchAnnotateTableJump;
 
 #define LOONGARCH_PRERA_EXPAND_PSEUDO_NAME                                     \
   "LoongArch Pre-RA pseudo instruction expansion pass"
