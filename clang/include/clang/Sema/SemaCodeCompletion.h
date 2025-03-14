@@ -26,6 +26,7 @@
 #include "clang/Sema/HeuristicResolver.h"
 #include "clang/Sema/Ownership.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 #include <optional>
 
@@ -35,7 +36,7 @@ class MacroInfo;
 class Scope;
 class TemplateName;
 
-class SemaCodeCompletion : public SemaBase {
+class CLANG_ABI SemaCodeCompletion : public SemaBase {
 public:
   SemaCodeCompletion(Sema &S, CodeCompleteConsumer *CompletionConsumer);
 

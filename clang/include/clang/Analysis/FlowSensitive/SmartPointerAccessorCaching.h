@@ -33,6 +33,7 @@
 #include "clang/Analysis/FlowSensitive/MatchSwitch.h"
 #include "clang/Analysis/FlowSensitive/StorageLocation.h"
 #include "clang/Analysis/FlowSensitive/Value.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/STLFunctionalExtras.h"
 
 namespace clang::dataflow {
@@ -58,10 +59,10 @@ namespace clang::dataflow {
 /// for `std::optional`, we assume the (Matcher, TransferFunction) case
 /// with custom handling is ordered early so that these generic cases
 /// do not trigger.
-ast_matchers::StatementMatcher isSmartPointerLikeOperatorStar();
-ast_matchers::StatementMatcher isSmartPointerLikeOperatorArrow();
-ast_matchers::StatementMatcher isSmartPointerLikeValueMethodCall();
-ast_matchers::StatementMatcher isSmartPointerLikeGetMethodCall();
+CLANG_ABI ast_matchers::StatementMatcher isSmartPointerLikeOperatorStar();
+CLANG_ABI ast_matchers::StatementMatcher isSmartPointerLikeOperatorArrow();
+CLANG_ABI ast_matchers::StatementMatcher isSmartPointerLikeValueMethodCall();
+CLANG_ABI ast_matchers::StatementMatcher isSmartPointerLikeGetMethodCall();
 
 // Common transfer functions.
 
@@ -73,7 +74,7 @@ ast_matchers::StatementMatcher isSmartPointerLikeGetMethodCall();
 ///
 /// Note: there may be multiple `operator*` (one const, one non-const).
 /// We pick the const one, which the above provided matchers require to exist.
-const FunctionDecl *
+CLANG_ABI const FunctionDecl *
 getCanonicalSmartPointerLikeOperatorCallee(const CallExpr *CE);
 
 /// A transfer function for `operator*` (and `value`) calls that can be

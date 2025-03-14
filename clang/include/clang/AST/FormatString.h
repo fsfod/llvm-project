@@ -19,6 +19,7 @@
 #define LLVM_CLANG_AST_FORMATSTRING_H
 
 #include "clang/AST/CanonicalType.h"
+#include "clang/Support/Compiler.h"
 #include <optional>
 
 namespace clang {
@@ -62,7 +63,7 @@ private:
 };
 
 /// Represents the length modifier in a format string in scanf/printf.
-class LengthModifier {
+class CLANG_ABI LengthModifier {
 public:
   enum Kind {
     None,
@@ -119,7 +120,7 @@ private:
   Kind kind;
 };
 
-class ConversionSpecifier {
+class CLANG_ABI ConversionSpecifier {
 public:
   enum Kind {
     InvalidSpecifier = 0,
@@ -262,7 +263,7 @@ protected:
   Kind kind;
 };
 
-class ArgType {
+class CLANG_ABI ArgType {
 public:
   enum Kind { UnknownTy, InvalidTy, SpecificTy, ObjCPointerTy, CPointerTy,
               AnyCharTy, CStrTy, WCStrTy, WIntTy };
@@ -347,7 +348,7 @@ public:
   std::string getRepresentativeTypeName(ASTContext &C) const;
 };
 
-class OptionalAmount {
+class CLANG_ABI OptionalAmount {
 public:
   enum HowSpecified { NotSpecified, Constant, Arg, Invalid };
 
@@ -419,7 +420,7 @@ private:
 };
 
 
-class FormatSpecifier {
+class CLANG_ABI FormatSpecifier {
 protected:
   LengthModifier LM;
   OptionalAmount FieldWidth;
@@ -522,7 +523,7 @@ using analyze_format_string::LengthModifier;
 using analyze_format_string::OptionalAmount;
 using analyze_format_string::OptionalFlag;
 
-class PrintfSpecifier : public analyze_format_string::FormatSpecifier {
+class CLANG_ABI PrintfSpecifier : public analyze_format_string::FormatSpecifier {
   OptionalFlag HasThousandsGrouping; // ''', POSIX extension.
   OptionalFlag IsLeftJustified; // '-'
   OptionalFlag HasPlusPrefix; // '+'
@@ -668,7 +669,7 @@ using analyze_format_string::LengthModifier;
 using analyze_format_string::OptionalAmount;
 using analyze_format_string::OptionalFlag;
 
-class ScanfSpecifier : public analyze_format_string::FormatSpecifier {
+class CLANG_ABI ScanfSpecifier : public analyze_format_string::FormatSpecifier {
   OptionalFlag SuppressAssignment; // '*'
 public:
   ScanfSpecifier() :
@@ -714,7 +715,7 @@ namespace analyze_format_string {
 
 enum PositionContext { FieldWidthPos = 0, PrecisionPos = 1 };
 
-class FormatStringHandler {
+class CLANG_ABI FormatStringHandler {
 public:
   FormatStringHandler() {}
   virtual ~FormatStringHandler();
@@ -777,19 +778,19 @@ public:
   virtual void HandleIncompleteScanList(const char *start, const char *end) {}
 };
 
-bool ParsePrintfString(FormatStringHandler &H,
+CLANG_ABI bool ParsePrintfString(FormatStringHandler &H,
                        const char *beg, const char *end, const LangOptions &LO,
                        const TargetInfo &Target, bool isFreeBSDKPrintf);
 
-bool ParseFormatStringHasSArg(const char *beg, const char *end,
+CLANG_ABI bool ParseFormatStringHasSArg(const char *beg, const char *end,
                               const LangOptions &LO, const TargetInfo &Target);
 
-bool ParseScanfString(FormatStringHandler &H,
+CLANG_ABI bool ParseScanfString(FormatStringHandler &H,
                       const char *beg, const char *end, const LangOptions &LO,
                       const TargetInfo &Target);
 
 /// Return true if the given string has at least one formatting specifier.
-bool parseFormatStringHasFormattingSpecifiers(const char *Begin,
+CLANG_ABI bool parseFormatStringHasFormattingSpecifiers(const char *Begin,
                                               const char *End,
                                               const LangOptions &LO,
                                               const TargetInfo &Target);

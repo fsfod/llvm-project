@@ -15,6 +15,7 @@
 
 #include "clang/Basic/SourceLocation.h"
 
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/StringSwitch.h"
@@ -43,7 +44,7 @@ struct RootSignatureToken {
 };
 using TokenKind = enum RootSignatureToken::Kind;
 
-class RootSignatureLexer {
+class CLANG_ABI RootSignatureLexer {
 public:
   RootSignatureLexer(StringRef Signature, clang::SourceLocation SourceLoc)
       : Buffer(Signature), SourceLoc(SourceLoc) {}

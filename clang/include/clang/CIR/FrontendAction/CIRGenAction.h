@@ -10,6 +10,7 @@
 #define LLVM_CLANG_CIR_CIRGENACTION_H
 
 #include "clang/Frontend/FrontendAction.h"
+#include "clang/Support/Compiler.h"
 
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/OwningOpRef.h"
@@ -22,7 +23,7 @@ class ModuleOp;
 namespace cir {
 class CIRGenConsumer;
 
-class CIRGenAction : public clang::ASTFrontendAction {
+class CLANG_ABI CIRGenAction : public clang::ASTFrontendAction {
 public:
   enum class OutputType {
     EmitAssembly,
@@ -52,35 +53,35 @@ public:
   OutputType Action;
 };
 
-class EmitCIRAction : public CIRGenAction {
+class CLANG_ABI EmitCIRAction : public CIRGenAction {
   virtual void anchor();
 
 public:
   EmitCIRAction(mlir::MLIRContext *MLIRCtx = nullptr);
 };
 
-class EmitLLVMAction : public CIRGenAction {
+class CLANG_ABI EmitLLVMAction : public CIRGenAction {
   virtual void anchor();
 
 public:
   EmitLLVMAction(mlir::MLIRContext *MLIRCtx = nullptr);
 };
 
-class EmitBCAction : public CIRGenAction {
+class CLANG_ABI EmitBCAction : public CIRGenAction {
   virtual void anchor();
 
 public:
   EmitBCAction(mlir::MLIRContext *MLIRCtx = nullptr);
 };
 
-class EmitAssemblyAction : public CIRGenAction {
+class CLANG_ABI EmitAssemblyAction : public CIRGenAction {
   virtual void anchor();
 
 public:
   EmitAssemblyAction(mlir::MLIRContext *MLIRCtx = nullptr);
 };
 
-class EmitObjAction : public CIRGenAction {
+class CLANG_ABI EmitObjAction : public CIRGenAction {
   virtual void anchor();
 
 public:

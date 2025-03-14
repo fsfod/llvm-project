@@ -15,9 +15,10 @@
 
 #include "clang/AST/ASTFwd.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
-class SemaSPIRV : public SemaBase {
+class CLANG_ABI SemaSPIRV : public SemaBase {
 public:
   SemaSPIRV(Sema &S);
 

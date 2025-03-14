@@ -18,6 +18,7 @@
 #include "clang/Basic/DirectoryEntry.h"
 #include "clang/Basic/FileEntry.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/PointerIntPair.h"
@@ -136,7 +137,7 @@ class ModuleConstructorTag {
 /// Describes a module or submodule.
 ///
 /// Aligned to 8 bytes to allow for llvm::PointerIntPair<Module *, 3>.
-class alignas(8) Module {
+class CLANG_ABI alignas(8) Module {
 public:
   /// The name of this module.
   std::string Name;
@@ -858,7 +859,7 @@ private:
 };
 
 /// A set of visible modules.
-class VisibleModuleSet {
+class CLANG_ABI VisibleModuleSet {
 public:
   VisibleModuleSet() = default;
   VisibleModuleSet(VisibleModuleSet &&O)

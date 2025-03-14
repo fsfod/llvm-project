@@ -26,7 +26,7 @@ namespace tooling {
 /// static CompilationDatabasePluginRegistry::Add<MyDatabasePlugin>
 /// X("my-compilation-database", "Reads my own compilation database");
 /// \endcode
-class CompilationDatabasePlugin {
+class CLANG_ABI CompilationDatabasePlugin {
 public:
   virtual ~CompilationDatabasePlugin();
 

@@ -40,7 +40,7 @@ class FunctionDecl;
 class OMPTraitInfo;
 
 /// Attr - This represents one attribute.
-class Attr : public AttributeCommonInfo {
+class CLANG_ABI Attr : public AttributeCommonInfo {
 private:
   LLVM_PREFERRED_TYPE(attr::Kind)
   unsigned AttrKind : 16;

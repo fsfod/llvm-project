@@ -18,6 +18,7 @@
 #include "clang/AST/Decl.h"
 #include "clang/AST/OpenACCClause.h"
 #include "clang/Basic/OpenACCKinds.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 
@@ -61,7 +62,7 @@ public:
   ArrayRef<const OpenACCClause *> clauses() const { return Clauses; }
 };
 
-class OpenACCDeclareDecl final
+class CLANG_ABI OpenACCDeclareDecl final
     : public OpenACCConstructDecl,
       private llvm::TrailingObjects<OpenACCDeclareDecl, const OpenACCClause *> {
   friend TrailingObjects;
@@ -102,7 +103,7 @@ public:
   static bool classofKind(Kind K) { return K == OpenACCDeclare; }
 };
 
-class OpenACCRoutineDecl final
+class CLANG_ABI OpenACCRoutineDecl final
     : public OpenACCConstructDecl,
       private llvm::TrailingObjects<OpenACCRoutineDecl, const OpenACCClause *> {
   friend TrailingObjects;

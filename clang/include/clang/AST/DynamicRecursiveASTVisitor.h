@@ -19,6 +19,7 @@
 #include "clang/AST/Attr.h"
 #include "clang/AST/ExprConcepts.h"
 #include "clang/AST/TypeLoc.h"
+#include "clang/Support/Compiler.h"
 
 namespace clang {
 class ASTContext;
@@ -292,8 +293,8 @@ public:
 #include "clang/AST/TypeLocNodes.def"
 };
 
-extern template class DynamicRecursiveASTVisitorBase<false>;
-extern template class DynamicRecursiveASTVisitorBase<true>;
+extern template class CLANG_TEMPLATE_ABI DynamicRecursiveASTVisitorBase<false>;
+extern template class CLANG_TEMPLATE_ABI DynamicRecursiveASTVisitorBase<true>;
 
 using DynamicRecursiveASTVisitor =
     DynamicRecursiveASTVisitorBase</*Const=*/false>;

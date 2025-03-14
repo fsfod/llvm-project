@@ -10,6 +10,7 @@
 #define LLVM_CLANG_SEMA_HEURISTICRESOLVER_H
 
 #include "clang/AST/Decl.h"
+#include "clang/Support/Compiler.h"
 #include <vector>
 
 namespace clang {
@@ -42,7 +43,7 @@ class UnresolvedUsingValueDecl;
 // At this time, the heuristic used is a simple but effective one: assume that
 // template instantiations are based on the primary template definition and not
 // not a specialization. More advanced heuristics may be added in the future.
-class HeuristicResolver {
+class CLANG_ABI HeuristicResolver {
 public:
   HeuristicResolver(ASTContext &Ctx) : Ctx(Ctx) {}
 

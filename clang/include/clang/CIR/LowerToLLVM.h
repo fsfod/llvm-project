@@ -12,6 +12,7 @@
 #ifndef CLANG_CIR_LOWERTOLLVM_H
 #define CLANG_CIR_LOWERTOLLVM_H
 
+#include "clang/Support/Compiler.h"
 #include <memory>
 
 namespace llvm {
@@ -26,7 +27,7 @@ class ModuleOp;
 namespace cir {
 
 namespace direct {
-std::unique_ptr<llvm::Module>
+CLANG_ABI std::unique_ptr<llvm::Module>
 lowerDirectlyFromCIRToLLVMIR(mlir::ModuleOp mlirModule,
                              llvm::LLVMContext &llvmCtx);
 } // namespace direct

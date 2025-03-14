@@ -22,6 +22,7 @@
 #include "clang/StaticAnalyzer/Core/PathSensitive/MemRegion.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/StoreRef.h"
 #include "clang/StaticAnalyzer/Core/PathSensitive/SymExpr.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/DenseSet.h"
 #include "llvm/ADT/FoldingSet.h"
@@ -41,7 +42,7 @@ class BasicValueFactory;
 class StoreManager;
 
 ///A symbol representing the value stored at a MemRegion.
-class SymbolRegionValue : public SymbolData {
+class CLANG_ABI SymbolRegionValue : public SymbolData {
   const TypedValueRegion *R;
 
   friend class SymExprAllocator;
@@ -79,7 +80,7 @@ public:
 
 /// A symbol representing the result of an expression in the case when we do
 /// not know anything about what the expression is.
-class SymbolConjured : public SymbolData {
+class CLANG_ABI SymbolConjured : public SymbolData {
   const Stmt *S;
   QualType T;
   unsigned Count;
@@ -136,7 +137,7 @@ public:
 
 /// A symbol representing the value of a MemRegion whose parent region has
 /// symbolic value.
-class SymbolDerived : public SymbolData {
+class CLANG_ABI SymbolDerived : public SymbolData {
   SymbolRef parentSymbol;
   const TypedValueRegion *R;
 
@@ -181,7 +182,7 @@ public:
 /// SymbolExtent - Represents the extent (size in bytes) of a bounded region.
 ///  Clients should not ask the SymbolManager for a region's extent. Always use
 ///  SubRegion::getExtent instead -- the value returned may not be a symbol.
-class SymbolExtent : public SymbolData {
+class CLANG_ABI SymbolExtent : public SymbolData {
   const SubRegion *R;
 
   friend class SymExprAllocator;
@@ -219,7 +220,7 @@ public:
 ///  Metadata symbols remain live as long as they are marked as in use before
 ///  dead-symbol sweeping AND their associated regions are still alive.
 ///  Intended for use by checkers.
-class SymbolMetadata : public SymbolData {
+class CLANG_ABI SymbolMetadata : public SymbolData {
   const MemRegion* R;
   const Stmt *S;
   QualType T;
@@ -285,7 +286,7 @@ class SymbolMetadata : public SymbolData {
 };
 
 /// Represents a cast expression.
-class SymbolCast : public SymExpr {
+class CLANG_ABI SymbolCast : public SymExpr {
   const SymExpr *Operand;
 
   /// Type of the operand.
@@ -336,7 +337,7 @@ public:
 };
 
 /// Represents a symbolic expression involving a unary operator.
-class UnarySymExpr : public SymExpr {
+class CLANG_ABI UnarySymExpr : public SymExpr {
   const SymExpr *Operand;
   UnaryOperator::Opcode Op;
   QualType T;
@@ -387,7 +388,7 @@ public:
 };
 
 /// Represents a symbolic expression involving a binary operator
-class BinarySymExpr : public SymExpr {
+class CLANG_ABI BinarySymExpr : public SymExpr {
   BinaryOperator::Opcode Op;
   QualType T;
 
@@ -505,7 +506,7 @@ private:
   SymbolID nextID() { return NextSymbolID++; }
 };
 
-class SymbolManager {
+class CLANG_ABI SymbolManager {
   using DataSetTy = llvm::FoldingSet<SymExpr>;
   using SymbolDependTy =
       llvm::DenseMap<SymbolRef, std::unique_ptr<SymbolRefSmallVectorTy>>;
@@ -563,7 +564,7 @@ public:
 };
 
 /// A class responsible for cleaning up unused symbols.
-class SymbolReaper {
+class CLANG_ABI SymbolReaper {
   enum SymbolStatus {
     NotProcessed,
     HaveMarkedDependents
@@ -656,7 +657,7 @@ private:
   void markDependentsLive(SymbolRef sym);
 };
 
-class SymbolVisitor {
+class CLANG_ABI SymbolVisitor {
 protected:
   ~SymbolVisitor() = default;
 

@@ -20,6 +20,7 @@
 #include "clang/AST/Decl.h"
 #include "clang/AST/DeclObjC.h"
 #include "clang/AST/DynamicRecursiveASTVisitor.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/GraphTraits.h"
 #include "llvm/ADT/STLExtras.h"
@@ -40,7 +41,7 @@ class Stmt;
 /// The call graph extends itself with the given declarations by implementing
 /// the recursive AST visitor, which constructs the graph by visiting the given
 /// declarations.
-class CallGraph : public DynamicRecursiveASTVisitor {
+class CLANG_ABI CallGraph : public DynamicRecursiveASTVisitor {
   friend class CallGraphNode;
 
   using FunctionMapTy =
@@ -141,7 +142,7 @@ private:
   void addNodeForDecl(Decl *D, bool IsGlobal);
 };
 
-class CallGraphNode {
+class CLANG_ABI CallGraphNode {
 public:
   struct CallRecord {
     CallGraphNode *Callee;

@@ -15,6 +15,7 @@
 
 #include "clang/AST/Type.h"
 #include "clang/Basic/LLVM.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/FoldingSet.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/ADT/iterator_range.h"
@@ -29,7 +30,7 @@ using SymbolID = unsigned;
 
 /// Symbolic value. These values used to capture symbolic execution of
 /// the program.
-class SymExpr : public llvm::FoldingSetNode {
+class CLANG_ABI SymExpr : public llvm::FoldingSetNode {
   virtual void anchor();
 
 public:
@@ -88,7 +89,7 @@ public:
   /// For SymbolData, it's the symbol itself; for expressions, it's the
   /// expression symbol and all the operands in it. Note, SymbolDerived is
   /// treated as SymbolData - the iterator will NOT visit the parent region.
-  class symbol_iterator {
+  class CLANG_ABI symbol_iterator {
     SmallVector<const SymExpr *, 5> itr;
 
     void expand();
@@ -135,7 +136,7 @@ using SymbolRefSmallVectorTy = SmallVector<SymbolRef, 2>;
 
 /// A symbol representing data which can be stored in a memory location
 /// (region).
-class SymbolData : public SymExpr {
+class CLANG_ABI SymbolData : public SymExpr {
   void anchor() override;
 
 protected:

@@ -14,6 +14,7 @@
 //   intended to not depend on anything about the clang::Module class.
 #include "clang/Basic/Module.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/StringRef.h"
 
 #include <optional>
@@ -132,7 +133,7 @@ using TopLevelDecl = std::variant<ModuleDecl, ExternModuleDecl>;
 ///
 /// This holds many reference types (StringRef, SourceLocation, etc.) whose
 /// lifetimes are bound by the SourceManager and FileManager used.
-struct ModuleMapFile {
+struct CLANG_ABI ModuleMapFile {
   /// Beginning of the file, used for moduleMapFileRead callback.
   SourceLocation Start;
   std::vector<TopLevelDecl> Decls;
@@ -152,7 +153,7 @@ struct ModuleMapFile {
 ///               of the module map on return.
 ///
 /// \returns The parsed ModuleMapFile if successful, std::nullopt otherwise.
-std::optional<ModuleMapFile>
+CLANG_ABI std::optional<ModuleMapFile>
 parseModuleMap(FileID ID, clang::DirectoryEntryRef Dir, SourceManager &SM,
                DiagnosticsEngine &Diags, bool IsSystem, unsigned *Offset);
 

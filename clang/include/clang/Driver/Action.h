@@ -12,6 +12,7 @@
 #include "clang/Basic/LLVM.h"
 #include "clang/Driver/Types.h"
 #include "clang/Driver/Util.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/ADT/SmallVector.h"
@@ -44,7 +45,7 @@ class ToolChain;
 ///
 /// Actions are usually owned by a Compilation, which creates new
 /// actions via MakeAction().
-class Action {
+class CLANG_ABI Action {
 public:
   using size_type = ActionList::size_type;
   using input_iterator = ActionList::iterator;
@@ -227,7 +228,7 @@ public:
   }
 };
 
-class InputAction : public Action {
+class CLANG_ABI InputAction : public Action {
   const llvm::opt::Arg &Input;
   std::string Id;
   virtual void anchor();
@@ -246,7 +247,7 @@ public:
   }
 };
 
-class BindArchAction : public Action {
+class CLANG_ABI BindArchAction : public Action {
   virtual void anchor();
 
   /// The architecture to bind, or 0 if the default architecture
@@ -266,13 +267,13 @@ public:
 /// An offload action combines host or/and device actions according to the
 /// programming model implementation needs and propagates the offloading kind to
 /// its dependences.
-class OffloadAction final : public Action {
+class CLANG_ABI OffloadAction final : public Action {
   virtual void anchor();
 
 public:
   /// Type used to communicate device actions. It associates bound architecture,
   /// toolchain, and offload kind to each action.
-  class DeviceDependences final {
+  class CLANG_ABI DeviceDependences final {
   public:
     using ToolChainList = SmallVector<const ToolChain *, 3>;
     using BoundArchList = SmallVector<const char *, 3>;
@@ -318,7 +319,7 @@ public:
 
   /// Type used to communicate host actions. It associates bound architecture,
   /// toolchain, and offload kinds to the host action.
-  class HostDependence final {
+  class CLANG_ABI HostDependence final {
     /// The dependence action.
     Action &HostAction;
 
@@ -397,7 +398,7 @@ public:
   static bool classof(const Action *A) { return A->getKind() == OffloadClass; }
 };
 
-class JobAction : public Action {
+class CLANG_ABI JobAction : public Action {
   virtual void anchor();
 
 protected:
@@ -411,7 +412,7 @@ public:
   }
 };
 
-class PreprocessJobAction : public JobAction {
+class CLANG_ABI PreprocessJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -422,7 +423,7 @@ public:
   }
 };
 
-class PrecompileJobAction : public JobAction {
+class CLANG_ABI PrecompileJobAction : public JobAction {
   void anchor() override;
 
 protected:
@@ -436,7 +437,7 @@ public:
   }
 };
 
-class ExtractAPIJobAction : public JobAction {
+class CLANG_ABI ExtractAPIJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -449,7 +450,7 @@ public:
   void addHeaderInput(Action *Input) { getInputs().push_back(Input); }
 };
 
-class AnalyzeJobAction : public JobAction {
+class CLANG_ABI AnalyzeJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -460,7 +461,7 @@ public:
   }
 };
 
-class CompileJobAction : public JobAction {
+class CLANG_ABI CompileJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -471,7 +472,7 @@ public:
   }
 };
 
-class BackendJobAction : public JobAction {
+class CLANG_ABI BackendJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -482,7 +483,7 @@ public:
   }
 };
 
-class AssembleJobAction : public JobAction {
+class CLANG_ABI AssembleJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -493,7 +494,7 @@ public:
   }
 };
 
-class IfsMergeJobAction : public JobAction {
+class CLANG_ABI IfsMergeJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -504,7 +505,7 @@ public:
   }
 };
 
-class LinkJobAction : public JobAction {
+class CLANG_ABI LinkJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -515,7 +516,7 @@ public:
   }
 };
 
-class LipoJobAction : public JobAction {
+class CLANG_ABI LipoJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -526,7 +527,7 @@ public:
   }
 };
 
-class DsymutilJobAction : public JobAction {
+class CLANG_ABI DsymutilJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -537,7 +538,7 @@ public:
   }
 };
 
-class VerifyJobAction : public JobAction {
+class CLANG_ABI VerifyJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -549,7 +550,7 @@ public:
   }
 };
 
-class VerifyDebugInfoJobAction : public VerifyJobAction {
+class CLANG_ABI VerifyDebugInfoJobAction : public VerifyJobAction {
   void anchor() override;
 
 public:
@@ -560,7 +561,7 @@ public:
   }
 };
 
-class VerifyPCHJobAction : public VerifyJobAction {
+class CLANG_ABI VerifyPCHJobAction : public VerifyJobAction {
   void anchor() override;
 
 public:
@@ -571,7 +572,7 @@ public:
   }
 };
 
-class OffloadBundlingJobAction : public JobAction {
+class CLANG_ABI OffloadBundlingJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -583,7 +584,7 @@ public:
   }
 };
 
-class OffloadUnbundlingJobAction final : public JobAction {
+class CLANG_ABI OffloadUnbundlingJobAction final : public JobAction {
   void anchor() override;
 
 public:
@@ -632,7 +633,7 @@ public:
   }
 };
 
-class OffloadPackagerJobAction : public JobAction {
+class CLANG_ABI OffloadPackagerJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -643,7 +644,7 @@ public:
   }
 };
 
-class LinkerWrapperJobAction : public JobAction {
+class CLANG_ABI LinkerWrapperJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -654,7 +655,7 @@ public:
   }
 };
 
-class StaticLibJobAction : public JobAction {
+class CLANG_ABI StaticLibJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -665,7 +666,7 @@ public:
   }
 };
 
-class BinaryAnalyzeJobAction : public JobAction {
+class CLANG_ABI BinaryAnalyzeJobAction : public JobAction {
   void anchor() override;
 
 public:
@@ -676,7 +677,7 @@ public:
   }
 };
 
-class BinaryTranslatorJobAction : public JobAction {
+class CLANG_ABI BinaryTranslatorJobAction : public JobAction {
   void anchor() override;
 
 public:

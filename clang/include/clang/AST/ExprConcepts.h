@@ -24,6 +24,7 @@
 #include "clang/AST/TemplateBase.h"
 #include "clang/AST/Type.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/STLFunctionalExtras.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Support/TrailingObjects.h"
@@ -39,7 +40,7 @@ class ASTStmtWriter;
 ///
 /// According to C++2a [expr.prim.id]p3 an id-expression that denotes the
 /// specialization of a concept results in a prvalue of type bool.
-class ConceptSpecializationExpr final : public Expr {
+class CLANG_ABI ConceptSpecializationExpr final : public Expr {
   friend class ASTReader;
   friend class ASTStmtReader;
 
@@ -222,7 +223,7 @@ public:
 
 /// \brief A requires-expression requirement which queries the existence of a
 /// type name or type template specialization ('type' requirements).
-class TypeRequirement : public Requirement {
+class CLANG_ABI TypeRequirement : public Requirement {
 public:
   enum SatisfactionStatus {
       SS_Dependent,
@@ -277,7 +278,7 @@ public:
 
 /// \brief A requires-expression requirement which queries the validity and
 /// properties of an expression ('simple' and 'compound' requirements).
-class ExprRequirement : public Requirement {
+class CLANG_ABI ExprRequirement : public Requirement {
 public:
   enum SatisfactionStatus {
       SS_Dependent,
@@ -287,7 +288,7 @@ public:
       SS_ConstraintsNotSatisfied,
       SS_Satisfied
   };
-  class ReturnTypeRequirement {
+  class CLANG_ABI ReturnTypeRequirement {
       llvm::PointerIntPair<
           llvm::PointerUnion<TemplateParameterList *, SubstitutionDiagnostic *>,
           1, bool>
@@ -497,7 +498,7 @@ public:
 ///     lookup (6.4) or by checking properties of types and expressions.
 ///     [...]
 ///     A requires-expression is a prvalue of type bool [...]
-class RequiresExpr final : public Expr,
+class CLANG_ABI RequiresExpr final : public Expr,
     llvm::TrailingObjects<RequiresExpr, ParmVarDecl *,
                           concepts::Requirement *> {
   friend TrailingObjects;

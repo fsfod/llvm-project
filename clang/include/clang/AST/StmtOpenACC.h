@@ -17,6 +17,7 @@
 #include "clang/AST/Stmt.h"
 #include "clang/Basic/OpenACCKinds.h"
 #include "clang/Basic/SourceLocation.h"
+#include "clang/Support/Compiler.h"
 #include <memory>
 
 namespace clang {
@@ -125,7 +126,7 @@ public:
 /// those three, as they are semantically identical, and have only minor
 /// differences in the permitted list of clauses, which can be differentiated by
 /// the 'Kind'.
-class OpenACCComputeConstruct final
+class CLANG_ABI OpenACCComputeConstruct final
     : public OpenACCAssociatedStmtConstruct,
       private llvm::TrailingObjects<OpenACCComputeConstruct,
                                     const OpenACCClause *> {
@@ -188,7 +189,7 @@ public:
 /// This class represents a 'loop' construct.  The 'loop' construct applies to a
 /// 'for' loop (or range-for loop), and is optionally associated with a Compute
 /// Construct.
-class OpenACCLoopConstruct final
+class CLANG_ABI OpenACCLoopConstruct final
     : public OpenACCAssociatedStmtConstruct,
       private llvm::TrailingObjects<OpenACCLoopConstruct,
                                    const OpenACCClause *> {
@@ -245,7 +246,7 @@ public:
 
 // This class represents a 'combined' construct, which has a bunch of rules
 // shared with both loop and compute constructs.
-class OpenACCCombinedConstruct final
+class CLANG_ABI OpenACCCombinedConstruct final
     : public OpenACCAssociatedStmtConstruct,
       private llvm::TrailingObjects<OpenACCCombinedConstruct,
                                    const OpenACCClause *> {
@@ -298,7 +299,7 @@ public:
 
 // This class represents a 'data' construct, which has an associated statement
 // and clauses, but is otherwise pretty simple.
-class OpenACCDataConstruct final
+class CLANG_ABI OpenACCDataConstruct final
     : public OpenACCAssociatedStmtConstruct,
       private llvm::TrailingObjects<OpenACCDataConstruct,
                                    const OpenACCClause *> {
@@ -347,7 +348,7 @@ public:
   }
 };
 // This class represents a 'enter data' construct, which JUST has clauses.
-class OpenACCEnterDataConstruct final
+class CLANG_ABI OpenACCEnterDataConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCEnterDataConstruct,
                                    const OpenACCClause *> {
@@ -385,7 +386,7 @@ public:
          SourceLocation End, ArrayRef<const OpenACCClause *> Clauses);
 };
 // This class represents a 'exit data' construct, which JUST has clauses.
-class OpenACCExitDataConstruct final
+class CLANG_ABI OpenACCExitDataConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCExitDataConstruct,
                                    const OpenACCClause *> {
@@ -424,7 +425,7 @@ public:
 };
 // This class represents a 'host_data' construct, which has an associated
 // statement and clauses, but is otherwise pretty simple.
-class OpenACCHostDataConstruct final
+class CLANG_ABI OpenACCHostDataConstruct final
     : public OpenACCAssociatedStmtConstruct,
       private llvm::TrailingObjects<OpenACCHostDataConstruct,
                                    const OpenACCClause *> {
@@ -472,7 +473,7 @@ public:
 
 // This class represents a 'wait' construct, which has some expressions plus a
 // clause list.
-class OpenACCWaitConstruct final
+class CLANG_ABI OpenACCWaitConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCWaitConstruct, Expr *,
                                     OpenACCClause *> {
@@ -593,7 +594,7 @@ public:
   }
 };
 
-class OpenACCCacheConstruct final
+class CLANG_ABI OpenACCCacheConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCCacheConstruct, Expr *> {
   friend TrailingObjects;
@@ -669,7 +670,7 @@ public:
 };
 
 // This class represents an 'init' construct, which has just a clause list.
-class OpenACCInitConstruct final
+class CLANG_ABI OpenACCInitConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCInitConstruct,
                                     const OpenACCClause *> {
@@ -709,7 +710,7 @@ public:
 };
 
 // This class represents a 'shutdown' construct, which has just a clause list.
-class OpenACCShutdownConstruct final
+class CLANG_ABI OpenACCShutdownConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCShutdownConstruct,
                                     const OpenACCClause *> {
@@ -748,7 +749,7 @@ public:
 };
 
 // This class represents a 'set' construct, which has just a clause list.
-class OpenACCSetConstruct final
+class CLANG_ABI OpenACCSetConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCSetConstruct,
                                     const OpenACCClause *> {
@@ -788,7 +789,7 @@ public:
                                      ArrayRef<const OpenACCClause *> Clauses);
 };
 // This class represents an 'update' construct, which has just a clause list.
-class OpenACCUpdateConstruct final
+class CLANG_ABI OpenACCUpdateConstruct final
     : public OpenACCConstructStmt,
       private llvm::TrailingObjects<OpenACCUpdateConstruct,
                                     const OpenACCClause *> {
@@ -829,7 +830,7 @@ public:
 
 // This class represents the 'atomic' construct, which has an associated
 // statement, but no clauses.
-class OpenACCAtomicConstruct final : public OpenACCAssociatedStmtConstruct {
+class CLANG_ABI OpenACCAtomicConstruct final : public OpenACCAssociatedStmtConstruct {
 
   friend class ASTStmtReader;
   OpenACCAtomicKind AtomicKind = OpenACCAtomicKind::None;

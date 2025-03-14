@@ -27,6 +27,7 @@
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Basic/Specifiers.h"
 #include "clang/Basic/TypeTraits.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/BitmaskEnum.h"
@@ -81,7 +82,7 @@ enum class StringLiteralKind;
 
 /// Stmt - This represents one statement.
 ///
-class alignas(void *) Stmt {
+class CLANG_ABI alignas(void *) Stmt {
 public:
   enum StmtClass {
     NoStmtClass = 0,
@@ -1638,7 +1639,7 @@ public:
 };
 
 /// CompoundStmt - This represents a group of statements like { stmt stmt }.
-class CompoundStmt final
+class CLANG_ABI CompoundStmt final
     : public Stmt,
       private llvm::TrailingObjects<CompoundStmt, Stmt *, FPOptionsOverride> {
   friend class ASTStmtReader;
@@ -1838,7 +1839,7 @@ public:
 
 /// CaseStmt - Represent a case statement. It can optionally be a GNU case
 /// statement of the form LHS ... RHS representing a range of cases.
-class CaseStmt final
+class CLANG_ABI CaseStmt final
     : public SwitchCase,
       private llvm::TrailingObjects<CaseStmt, Stmt *, SourceLocation> {
   friend TrailingObjects;
@@ -2051,7 +2052,7 @@ Stmt *SwitchCase::getSubStmt() {
 /// Value statements have a special meaning when they are the last non-null
 /// statement in a GNU statement expression, where they determine the value
 /// of the statement expression.
-class ValueStmt : public Stmt {
+class CLANG_ABI ValueStmt : public Stmt {
 protected:
   using Stmt::Stmt;
 
@@ -2070,7 +2071,7 @@ public:
 
 /// LabelStmt - Represents a label, which has a substatement.  For example:
 ///    foo: return;
-class LabelStmt : public ValueStmt {
+class CLANG_ABI LabelStmt : public ValueStmt {
   LabelDecl *TheDecl;
   Stmt *SubStmt;
   bool SideEntry = false;
@@ -2117,7 +2118,7 @@ public:
 ///
 /// Represents an attribute applied to a statement. For example:
 ///   [[omp::for(...)]] for (...) { ... }
-class AttributedStmt final
+class CLANG_ABI AttributedStmt final
     : public ValueStmt,
       private llvm::TrailingObjects<AttributedStmt, const Attr *> {
   friend class ASTStmtReader;
@@ -2175,7 +2176,7 @@ public:
 };
 
 /// IfStmt - This represents an if/then/else.
-class IfStmt final
+class CLANG_ABI IfStmt final
     : public Stmt,
       private llvm::TrailingObjects<IfStmt, Stmt *, SourceLocation> {
   friend TrailingObjects;
@@ -2426,7 +2427,7 @@ public:
 };
 
 /// SwitchStmt - This represents a 'switch' stmt.
-class SwitchStmt final : public Stmt,
+class CLANG_ABI SwitchStmt final : public Stmt,
                          private llvm::TrailingObjects<SwitchStmt, Stmt *> {
   friend TrailingObjects;
 
@@ -2622,7 +2623,7 @@ public:
 };
 
 /// WhileStmt - This represents a 'while' stmt.
-class WhileStmt final : public Stmt,
+class CLANG_ABI WhileStmt final : public Stmt,
                         private llvm::TrailingObjects<WhileStmt, Stmt *> {
   friend TrailingObjects;
 
@@ -2820,7 +2821,7 @@ public:
 /// ForStmt - This represents a 'for (init;cond;inc)' stmt.  Note that any of
 /// the init/cond/inc parts of the ForStmt will be null if they were not
 /// specified in the source.
-class ForStmt : public Stmt {
+class CLANG_ABI ForStmt : public Stmt {
   friend class ASTStmtReader;
 
   enum { INIT, CONDVAR, COND, INC, BODY, END_EXPR };
@@ -2940,7 +2941,7 @@ public:
 };
 
 /// IndirectGotoStmt - This represents an indirect goto.
-class IndirectGotoStmt : public Stmt {
+class CLANG_ABI IndirectGotoStmt : public Stmt {
   SourceLocation StarLoc;
   Stmt *Target;
 
@@ -3056,7 +3057,7 @@ public:
 /// return a value, and it allows returning a value in functions declared to
 /// return void.  We explicitly model this in the AST, which means you can't
 /// depend on the return type of the function and the presence of an argument.
-class ReturnStmt final
+class CLANG_ABI ReturnStmt final
     : public Stmt,
       private llvm::TrailingObjects<ReturnStmt, const VarDecl *> {
   friend TrailingObjects;
@@ -3139,7 +3140,7 @@ public:
 };
 
 /// AsmStmt is the base class for GCCAsmStmt and MSAsmStmt.
-class AsmStmt : public Stmt {
+class CLANG_ABI AsmStmt : public Stmt {
 protected:
   friend class ASTStmtReader;
 
@@ -3298,7 +3299,7 @@ public:
 };
 
 /// This represents a GCC inline-assembly statement extension.
-class GCCAsmStmt : public AsmStmt {
+class CLANG_ABI GCCAsmStmt : public AsmStmt {
   friend class ASTStmtReader;
 
   SourceLocation RParenLoc;
@@ -3333,7 +3334,7 @@ public:
   /// AsmStringPiece - this is part of a decomposed asm string specification
   /// (for use with the AnalyzeAsmString function below).  An asm string is
   /// considered to be a concatenation of these parts.
-  class AsmStringPiece {
+  class CLANG_ABI AsmStringPiece {
   public:
     enum Kind {
       String,  // String in .ll asm string form, "$" -> "$$" and "%%" -> "%".
@@ -3521,7 +3522,7 @@ public:
 };
 
 /// This represents a Microsoft inline-assembly statement extension.
-class MSAsmStmt : public AsmStmt {
+class CLANG_ABI MSAsmStmt : public AsmStmt {
   friend class ASTStmtReader;
 
   SourceLocation LBraceLoc, EndLoc;
@@ -3625,7 +3626,7 @@ public:
   }
 };
 
-class SEHExceptStmt : public Stmt {
+class CLANG_ABI SEHExceptStmt : public Stmt {
   friend class ASTReader;
   friend class ASTStmtReader;
 
@@ -3669,7 +3670,7 @@ public:
   }
 };
 
-class SEHFinallyStmt : public Stmt {
+class CLANG_ABI SEHFinallyStmt : public Stmt {
   friend class ASTReader;
   friend class ASTStmtReader;
 
@@ -3704,7 +3705,7 @@ public:
   }
 };
 
-class SEHTryStmt : public Stmt {
+class CLANG_ABI SEHTryStmt : public Stmt {
   friend class ASTReader;
   friend class ASTStmtReader;
 
@@ -3796,7 +3797,7 @@ public:
 ///   compute();
 /// }
 /// @endcode
-class CapturedStmt : public Stmt {
+class CLANG_ABI CapturedStmt : public Stmt {
 public:
   /// The different capture forms: by 'this', by reference, capture for
   /// variable-length array type etc.
@@ -3809,7 +3810,7 @@ public:
 
   /// Describes the capture of either a variable, or 'this', or
   /// variable-length array type.
-  class Capture {
+  class CLANG_ABI Capture {
     llvm::PointerIntPair<VarDecl *, 2, VariableCaptureKind> VarAndKind;
     SourceLocation Loc;
 

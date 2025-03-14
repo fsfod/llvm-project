@@ -19,6 +19,7 @@
 #include "clang/AST/TypeLoc.h"
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Sema/SemaBase.h"
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/TargetParser/Triple.h"
 #include <initializer_list>
@@ -36,7 +37,7 @@ using llvm::dxil::ResourceClass;
 
 // FIXME: This can be hidden (as static function in SemaHLSL.cpp) once we no
 // longer need to create builtin buffer types in HLSLExternalSemaSource.
-bool CreateHLSLAttributedResourceType(
+CLANG_ABI bool CreateHLSLAttributedResourceType(
     Sema &S, QualType Wrapped, ArrayRef<const Attr *> AttrList,
     QualType &ResType, HLSLAttributedResourceLocInfo *LocInfo = nullptr);
 
@@ -66,7 +67,7 @@ struct DeclBindingInfo {
 // ResourceBindings class stores information about all resource bindings
 // in a shader. It is used for binding diagnostics and implicit binding
 // assigments.
-class ResourceBindings {
+class CLANG_ABI ResourceBindings {
 public:
   DeclBindingInfo *addDeclBindingInfo(const VarDecl *VD,
                                       ResourceClass ResClass);
@@ -84,7 +85,7 @@ private:
   llvm::DenseMap<const VarDecl *, unsigned> DeclToBindingListIndex;
 };
 
-class SemaHLSL : public SemaBase {
+class CLANG_ABI SemaHLSL : public SemaBase {
 public:
   SemaHLSL(Sema &S);
 

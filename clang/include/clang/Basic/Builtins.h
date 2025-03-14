@@ -15,6 +15,7 @@
 #ifndef LLVM_CLANG_BASIC_BUILTINS_H
 #define LLVM_CLANG_BASIC_BUILTINS_H
 
+#include "clang/Support/Compiler.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
@@ -49,7 +50,7 @@ enum LanguageID : uint16_t {
   ALL_MS_LANGUAGES = ALL_LANGUAGES | MS_LANG     // builtin requires MS mode.
 };
 
-struct HeaderDesc {
+struct CLANG_ABI HeaderDesc {
   enum HeaderID : uint16_t {
 #define HEADER(ID, NAME) ID,
 #include "clang/Basic/BuiltinHeaders.def"
@@ -74,7 +75,7 @@ enum ID {
 struct InfosShard;
 
 /// The info used to represent each builtin.
-struct Info {
+struct CLANG_ABI Info {
   // Rather than store pointers to the string literals describing these four
   // aspects of builtins, we store offsets into a common string table.
   struct StrOffsets {
@@ -224,7 +225,7 @@ struct InfosShard {
 /// Builtins from an optional auxiliary target are stored in
 /// AuxTSRecords. Their IDs are shifted up by TSRecords.size() and need to
 /// be translated back with getAuxBuiltinID() before use.
-class Context {
+class CLANG_ABI Context {
   llvm::SmallVector<InfosShard> BuiltinShards;
 
   llvm::SmallVector<InfosShard> TargetShards;
@@ -451,7 +452,7 @@ private:
 /// enabled.
 /// \p TargetFeatureMap maps a target feature to true if it is enabled and
 ///    false if it is disabled.
-bool evaluateRequiredTargetFeatures(
+CLANG_ABI bool evaluateRequiredTargetFeatures(
     llvm::StringRef RequiredFatures,
     const llvm::StringMap<bool> &TargetFetureMap);
 
